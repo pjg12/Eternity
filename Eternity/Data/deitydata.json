@@ -1,0 +1,55 @@
+[ {
+  "id" : 1,
+  "name" : "Creation",
+  "description" : "1",
+  "virtues" : [ "Temperance:Prudence:Growth" ],
+  "domains" : [ "Time:Spirit:Space:Life" ]
+}, {
+  "id" : 2,
+  "name" : "Honor",
+  "description" : "2",
+  "virtues" : [ "Honor:Integrity:Duty" ],
+  "domains" : [ "Fire:Enhancement:Honor" ]
+}, {
+  "id" : 3,
+  "name" : "Justice",
+  "description" : "3",
+  "virtues" : [ "Justice:Law:Equality" ],
+  "domains" : [ "Energy:Light:Law" ]
+}, {
+  "id" : 4,
+  "name" : "Courage",
+  "description" : "4",
+  "virtues" : [ "Courage:Solidarity:Charity" ],
+  "domains" : [ "Earth:Sound:Valor" ]
+}, {
+  "id" : 5,
+  "name" : "Progress",
+  "description" : "5",
+  "virtues" : [ "Wisdom:Technology:Imagination" ],
+  "domains" : [ "Darkness:Poison:Wisdom" ]
+}, {
+  "id" : 6,
+  "name" : "Providence",
+  "description" : "6",
+  "virtues" : [ "Empathy:Diplomacy:Honesty" ],
+  "domains" : [ "Water:Force:Empathy" ]
+}, {
+  "id" : 7,
+  "name" : "Grace",
+  "description" : "7",
+  "virtues" : [ "Gratitude:Peace:Patience" ],
+  "domains" : [ "Metal:Electricity:Peace" ]
+}, {
+  "id" : 8,
+  "name" : "Hope",
+  "description" : "8",
+  "virtues" : [ "Hope:Redemption:Fortitude" ],
+  "domains" : [ "Air:Nature:Fortitude" ]
+}, {
+  "id" : 9,
+  "name" : "Mercy",
+  "description" : "9",
+  "virtues" : [ "Humility:Legacy:Acceptance" ],
+  "domains" : [ "Psionic:Body:Death" ]
+} ]

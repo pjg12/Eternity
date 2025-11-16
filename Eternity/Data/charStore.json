@@ -1,0 +1,74 @@
+[
+    {
+        "index": 7,
+        "name": "sam",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1754504182048
+    },
+    {
+        "index": 6,
+        "name": "jack",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1754501986906
+    },
+    {
+        "index": 5,
+        "name": "Bo",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1754020641664
+    },
+    {
+        "index": 4,
+        "name": "Ed",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1754020400942
+    },
+    {
+        "index": 3,
+        "name": "Joe",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1753988507386
+    },
+    {
+        "index": 2,
+        "name": "bob",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1753563775471
+    },
+    {
+        "index": 1,
+        "name": "mac",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1753563615836
+    },
+    {
+        "index": 0,
+        "name": "Stu",
+        "campaign": "",
+        "race": "Aquata",
+        "charClass": "Warrior",
+        "level": 1,
+        "updated": 1753489991770
+    }
+]

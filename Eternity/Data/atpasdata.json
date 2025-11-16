@@ -1,0 +1,2192 @@
+[
+    {
+        "id": 1,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Strength Training",
+                "affinity": "None",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dexterity Training",
+                "affinity": "None",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Constitution Training",
+                "affinity": "None",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Focus Training",
+                "affinity": "None",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Control Training",
+                "affinity": "None",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Capacity Training",
+                "affinity": "None",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Knowledge Training",
+                "affinity": "None",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Mechanical Training",
+                "affinity": "None",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Perception Training",
+                "affinity": "None",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Intuition Training",
+                "affinity": "None",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Charisma Training",
+                "affinity": "None",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Subtlety Training",
+                "affinity": "None",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Enhancement)",
+                "affinity": "Enhancement",
+                "description": "+2 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Body)",
+                "affinity": "Body",
+                "description": "+2 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Nature)",
+                "affinity": "Nature",
+                "description": "+2 RESISTPIERCE per level",
+                "attribute": "RESISTPIERCE",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Metal)",
+                "affinity": "Metal",
+                "description": "+2 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 35,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Earth)",
+                "affinity": "Earth",
+                "description": "+2 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Water)",
+                "affinity": "Water",
+                "description": "+2 RESISTFROST per level",
+                "attribute": "RESISTFROST",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Air)",
+                "affinity": "Air",
+                "description": "+2 RESISTSLASH per level",
+                "attribute": "RESISTSLASH",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Fire)",
+                "affinity": "Fire",
+                "description": "+2 RESISTFIRE per level",
+                "attribute": "RESISTFIRE",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Electricity)",
+                "affinity": "Electricity",
+                "description": "+2 RESISTELEC per level",
+                "attribute": "RESISTELEC",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 40,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Force)",
+                "affinity": "Force",
+                "description": "+2 RESISTBLUNT per level",
+                "attribute": "RESISTBLUNT",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 41,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Sound)",
+                "affinity": "Sound",
+                "description": "+2 RESISTSONIC per level",
+                "attribute": "RESISTSONIC",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Light)",
+                "affinity": "Light",
+                "description": "+2 RESISTLIGHT per level",
+                "attribute": "RESISTLIGHT",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 43,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Darkness)",
+                "affinity": "Darkness",
+                "description": "+2 RESISTDARK per level",
+                "attribute": "RESISTDARK",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 44,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Poison)",
+                "affinity": "Poison",
+                "description": "+2 RESISTTOXIC per level",
+                "attribute": "RESISTTOXIC",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Psionic)",
+                "affinity": "Psionic",
+                "description": "+2 RESISTPSI per level",
+                "attribute": "RESISTPSI",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 46,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Energy)",
+                "affinity": "Energy",
+                "description": "+2 RESISTENERGY per level",
+                "attribute": "RESISTENERGY",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Spirit)",
+                "affinity": "Spirit",
+                "description": "+2 RESISTSPIRIT per level",
+                "attribute": "RESISTSPIRIT",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Aura Affinity (Time)",
+                "affinity": "Time",
+                "description": "+2 RESISTTIME per level",
+                "attribute": "RESISTTIME",
+                "severity": 2.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Benefaction",
+                "affinity": "",
+                "description": "-",
+                "attribute": "BEN",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            },
+            {
+                "name": "Benefaction",
+                "affinity": "",
+                "description": "-",
+                "attribute": "BHEAL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 52,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Emission",
+                "affinity": "",
+                "description": "-",
+                "attribute": "RANGE",
+                "severity": 5.0,
+                "durationType": "Permanent",
+                "duration": -1
+            },
+            {
+                "name": "Emission",
+                "affinity": "",
+                "description": "-",
+                "attribute": "DB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 53,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Manifestation",
+                "affinity": "",
+                "description": "-",
+                "attribute": "HPMULTI",
+                "severity": 0.02,
+                "durationType": "Permanent",
+                "duration": -1
+            },
+            {
+                "name": "Manifestation",
+                "affinity": "",
+                "description": "-",
+                "attribute": "AURAMULTI",
+                "severity": 0.02,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Potency",
+                "affinity": "",
+                "description": "-",
+                "attribute": "BDMG",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            },
+            {
+                "name": "Potency",
+                "affinity": "",
+                "description": "-",
+                "attribute": "SUP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 55,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Transmutation",
+                "affinity": "",
+                "description": "-",
+                "attribute": "ARMOR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            },
+            {
+                "name": "Transmutation",
+                "affinity": "",
+                "description": "-",
+                "attribute": "DC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Strength",
+                "affinity": "Body",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Dexterity",
+                "affinity": "Body",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Constitution",
+                "affinity": "Body",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Perception",
+                "affinity": "Body",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Charisma",
+                "affinity": "Body",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 6026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Body Resist",
+                "affinity": "Body",
+                "description": "+3 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Strength",
+                "affinity": "Nature",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Dexterity",
+                "affinity": "Nature",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Capacity",
+                "affinity": "Nature",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Knowledge",
+                "affinity": "Nature",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Intuition",
+                "affinity": "Nature",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 9026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Nature Resist",
+                "affinity": "Nature",
+                "description": "+3 RESISTPIERCE per level",
+                "attribute": "RESISTPIERCE",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Strength",
+                "affinity": "Metal",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Constitution",
+                "affinity": "Metal",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Focus",
+                "affinity": "Focus",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Mechanics",
+                "affinity": "Metal",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Charisma",
+                "affinity": "Metal",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 12026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Metal Resist",
+                "affinity": "Metal",
+                "description": "+3 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Strength",
+                "affinity": "Earth",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Constitution",
+                "affinity": "Earth",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Control",
+                "affinity": "Earth",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Knowledge",
+                "affinity": "Earth",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Perception",
+                "affinity": "Earth",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 15026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Earth Resist",
+                "affinity": "Earth",
+                "description": "+3 RESISTPHY per level",
+                "attribute": "RESISTPHY",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Dexterity",
+                "affinity": "Water",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Constitution",
+                "affinity": "Water",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Focus",
+                "affinity": "Water",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Knowledge",
+                "affinity": "Water",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Charisma",
+                "affinity": "Water",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 18026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Water Resist",
+                "affinity": "Water",
+                "description": "+3 RESISTFROST per level",
+                "attribute": "RESISTFROST",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Dexterity",
+                "affinity": "Air",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Control",
+                "affinity": "Air",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Capacity",
+                "affinity": "Air",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Knowledge",
+                "affinity": "Air",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Subtlety",
+                "affinity": "Air",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 21026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Air Resist",
+                "affinity": "Air",
+                "description": "+3 RESISTSLASH per level",
+                "attribute": "RESISTSLASH",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Strength",
+                "affinity": "Fire",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Control",
+                "affinity": "Fire",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Capacity",
+                "affinity": "Fire",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Intuition",
+                "affinity": "Fire",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Charisma",
+                "affinity": "Fire",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 24026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Fire Resist",
+                "affinity": "Fire",
+                "description": "+3 RESISTFIRE per level",
+                "attribute": "RESISTFIRE",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Dexterity",
+                "affinity": "Electricity",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Focus",
+                "affinity": "Electricity",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Capacity",
+                "affinity": "Electricity",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Mechanics",
+                "affinity": "Electricity",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Intuition",
+                "affinity": "Electricity",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 27026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Electric Resist",
+                "affinity": "Electricity",
+                "description": "+3 RESISTELEC per level",
+                "attribute": "RESISTELEC",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Dexterity",
+                "affinity": "Force",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Constitution",
+                "affinity": "Force",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Control",
+                "affinity": "Force",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Perception",
+                "affinity": "Force",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Intuition",
+                "affinity": "Force",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 30026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Force Resist",
+                "affinity": "Force",
+                "description": "+3 RESISTBLUNT per level",
+                "attribute": "RESISTBLUNT",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Strength",
+                "affinity": "Sound",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Focus",
+                "affinity": "Sound",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Capacity",
+                "affinity": "Sound",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Perception",
+                "affinity": "Sound",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Subtlety",
+                "affinity": "Sound",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 33026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Sound Resist",
+                "affinity": "Sound",
+                "description": "+3 RESISTSONIC per level",
+                "attribute": "RESISTSONIC",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Constitution",
+                "affinity": "Light",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Focus",
+                "affinity": "Light",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Capacity",
+                "affinity": "Light",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Mechanics",
+                "affinity": "Light",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Perception",
+                "affinity": "Light",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 36026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Light Resist",
+                "affinity": "Light",
+                "description": "+3 RESISTLIGHT per level",
+                "attribute": "RESISTLIGHT",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Strength",
+                "affinity": "Darkness",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Dexterity",
+                "affinity": "Darkness",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Control",
+                "affinity": "Darkness",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Intuition",
+                "affinity": "Darkness",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Subtlety",
+                "affinity": "Darkness",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 39026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Dark Resist",
+                "affinity": "Darkness",
+                "description": "+3 RESISTDARK per level",
+                "attribute": "RESISTDARK",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Constitution",
+                "affinity": "Poison",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Focus",
+                "affinity": "Poison",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Control",
+                "affinity": "Poison",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Mechanics",
+                "affinity": "Poison",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Subtlety",
+                "affinity": "Poison",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 42026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Poison Resist",
+                "affinity": "Poison",
+                "description": "+3 RESISTTOXIC per level",
+                "attribute": "RESISTTOXIC",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Focus",
+                "affinity": "Psionic",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Control",
+                "affinity": "Psionic",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Capacity",
+                "affinity": "Psionic",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Charisma",
+                "affinity": "Psionic",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Subtlety",
+                "affinity": "Psionic",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 45026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Psionic Resist",
+                "affinity": "Psionic",
+                "description": "+3 RESISTPSI per level",
+                "attribute": "RESISTPSI",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Constitution",
+                "affinity": "Energy",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Control",
+                "affinity": "Energy",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Capacity",
+                "affinity": "Energy",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Knowledge",
+                "affinity": "Energy",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Mechanics",
+                "affinity": "Energy",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 48026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Energy Resist",
+                "affinity": "Energy",
+                "description": "+3 RESISTENERGY per level",
+                "attribute": "RESISTENERGY",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Strength",
+                "affinity": "Spirit",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Dexterity",
+                "affinity": "Spirit",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Focus",
+                "affinity": "Spirit",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Control",
+                "affinity": "Spirit",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Capacity",
+                "affinity": "Spirit",
+                "description": "+1 CAP per level",
+                "attribute": "CAP",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Perception",
+                "affinity": "Spirit",
+                "description": "+1 PERC per level",
+                "attribute": "PERC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51031,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Charisma",
+                "affinity": "Spirit",
+                "description": "+1 CHA per level",
+                "attribute": "CHA",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51036,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Subtlety",
+                "affinity": "Spirit",
+                "description": "+1 SUB per level",
+                "attribute": "SUB",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 51041,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Spirit Resist",
+                "affinity": "Spirit",
+                "description": "+3 RESISTSPIRIT per level",
+                "attribute": "RESISTSPIRIT",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54001,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Strength",
+                "affinity": "Time",
+                "description": "+1 STR per level",
+                "attribute": "STR",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54006,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Dexterity",
+                "affinity": "Time",
+                "description": "+1 DEX per level",
+                "attribute": "DEX",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54011,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Constitution",
+                "affinity": "Time",
+                "description": "+1 CON per level",
+                "attribute": "CON",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54016,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Focus",
+                "affinity": "Time",
+                "description": "+1 FOC per level",
+                "attribute": "FOC",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54021,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Control",
+                "affinity": "Time",
+                "description": "+1 CTL per level",
+                "attribute": "CTL",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54026,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Knowledge",
+                "affinity": "Time",
+                "description": "+1 KNOW per level",
+                "attribute": "KNOW",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54031,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Mechanics",
+                "affinity": "Time",
+                "description": "+1 MECH per level",
+                "attribute": "MECH",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54036,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Intuition",
+                "affinity": "Time",
+                "description": "+1 INT per level",
+                "attribute": "INT",
+                "severity": 1.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    },
+    {
+        "id": 54041,
+        "rank": 1,
+        "effects": [
+            {
+                "name": "Time Resist",
+                "affinity": "Time",
+                "description": "+3 RESISTTIME per level",
+                "attribute": "RESISTTIME",
+                "severity": 3.0,
+                "durationType": "Permanent",
+                "duration": -1
+            }
+        ]
+    }
+]
