@@ -3,7 +3,6 @@ package eternity;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class FrameNewClass extends JFrame {
 
@@ -26,12 +25,20 @@ public class FrameNewClass extends JFrame {
 
     // Right-side info panel
     private JLabel className;
-    private JTextArea classDesc;
     private JLabel primaryAtt;
     private JLabel role;
     private JLabel armor;
     private JLabel hpScale;
     private JLabel auraScale;
+    private JLabel subclass1;
+    private JLabel subclass2;
+    private JLabel secondaryAtt1;
+    private JLabel secondaryAtt2;
+    private JLabel proficiency;
+    private JLabel fort;
+    private JLabel ref;
+    private JLabel will;
+    private JLabel atk;
 
     private JButton confirmButton;
     private JButton cancelButton;
@@ -144,29 +151,58 @@ public class FrameNewClass extends JFrame {
         right.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         className = bigLabel("-");
-        classDesc = new JTextArea(4, 30);
-        classDesc.setLineWrap(true);
-        classDesc.setWrapStyleWord(true);
-        classDesc.setEditable(false);
-        classDesc.setBackground(new Color(245, 245, 245));
-        classDesc.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
 
         primaryAtt = normalLabel("-");
         role       = normalLabel("-");
+        
+        subclass1 = normalLabel("-");
+        subclass2 = normalLabel("-");
+
         armor      = normalLabel("-");
         hpScale    = normalLabel("-");
         auraScale  = normalLabel("-");
+        
+        secondaryAtt1 = normalLabel("-");
+        secondaryAtt2 = normalLabel("-");
+        proficiency = normalLabel("-");
+
+        fort = normalLabel("-");
+        ref  = normalLabel("-");
+        will = normalLabel("-");
+        atk  = normalLabel("-");
 
         right.add(className);
         right.add(Box.createVerticalStrut(10));
-        right.add(new JScrollPane(classDesc));
-        right.add(Box.createVerticalStrut(10));
 
-        right.add(infoRow("Primary Attribute:", primaryAtt));
-        right.add(infoRow("Role:", role));
-        right.add(infoRow("Armor Type:", armor));
-        right.add(infoRow("HP Scaling:", hpScale));
-        right.add(infoRow("Aura Scaling:", auraScale));
+        // Info grid: two columns
+        JPanel infoGrid = new JPanel(new GridLayout(0, 2, 12, 6));
+        infoGrid.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        infoGrid.add(infoRow("Primary Attribute:", primaryAtt));
+        infoGrid.add(infoRow("Role:", role));
+
+        infoGrid.add(infoRow("Subclass 1:", subclass1));
+        infoGrid.add(infoRow("Subclass 2:", subclass2));
+
+
+        infoGrid.add(infoRow("Armor Type:", armor));
+        infoGrid.add(infoRow("HP Scaling:", hpScale));
+
+        infoGrid.add(infoRow("Aura Scaling:", auraScale));
+        infoGrid.add(infoRow("Proficiency:", proficiency));
+
+        
+
+        infoGrid.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
+        infoGrid.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
+
+        infoGrid.add(infoRow("FORT:", fort));
+        infoGrid.add(infoRow("REF:", ref));
+
+        infoGrid.add(infoRow("WILL:", will));
+        infoGrid.add(infoRow("ATK:", atk));
+
+        right.add(infoGrid);
 
         return right;
     }
@@ -184,9 +220,15 @@ public class FrameNewClass extends JFrame {
     }
 
     private JPanel infoRow(String title, JLabel value) {
-        JPanel p = new JPanel(new BorderLayout());
-        p.add(new JLabel(title), BorderLayout.WEST);
-        p.add(value, BorderLayout.CENTER);
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        JLabel t = new JLabel(title, SwingConstants.CENTER);
+        t.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (value instanceof JLabel) ((JLabel) value).setHorizontalAlignment(SwingConstants.CENTER);
+        value.setAlignmentX(Component.CENTER_ALIGNMENT);
+        p.add(t);
+        p.add(Box.createVerticalStrut(4));
+        p.add(value);
         p.setBorder(new EmptyBorder(4, 0, 4, 0));
         return p;
     }
@@ -227,12 +269,40 @@ public class FrameNewClass extends JFrame {
         DataColor color = dataQuery.getColorByTitle(CLASSOPTIONS[index]);
 
         className.setText(selectedClass.getName());
-        classDesc.setText(selectedClass.getDescription());
+        className.setToolTipText(selectedClass.getDescription());
         primaryAtt.setText(selectedClass.getPrimaryAtt());
         role.setText(selectedClass.getRole());
+
+        // Subclasses (DataStore uses sequential IDs for subclasses)
+        int id = selectedClass.getID();
+        DataClass sub1 = dataQuery.getClassById(id + 1);
+        DataClass sub2 = dataQuery.getClassById(id + 2);
+        subclass1.setText(sub1 != null ? sub1.getName() : "-");
+        subclass2.setText(sub2 != null ? sub2.getName() : "-");
+
         armor.setText(selectedClass.getArmor());
         hpScale.setText((int)(selectedClass.getHpScaling() * 100) + "%");
         auraScale.setText((int)(selectedClass.getAuraScaling() * 100) + "%");
+
+        
+
+        // Secondary attributes: primary secondaryAtt provided in DataClass
+        secondaryAtt1.setText(selectedClass.getSecondaryAtt());
+        secondaryAtt2.setText("-");
+
+        // Proficiency label
+        proficiency.setText(selectedClass.getProfLabel());
+
+        // Stat scaling: [FORT, REF, WILL, ATK]
+        int[] scaling = selectedClass.getStatScaling();
+        if (scaling != null && scaling.length >= 4) {
+            fort.setText(Integer.toString(scaling[0]));
+            ref.setText(Integer.toString(scaling[1]));
+            will.setText(Integer.toString(scaling[2]));
+            atk.setText(Integer.toString(scaling[3]));
+        } else {
+            fort.setText("-"); ref.setText("-"); will.setText("-"); atk.setText("-");
+        }
 
         //color background
         getContentPane().setBackground(color.getBackColor());
