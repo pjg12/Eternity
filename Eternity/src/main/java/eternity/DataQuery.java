@@ -30,6 +30,13 @@ public class DataQuery {
     // COLOR SEARCH
     // ---------------------------------------------------------
 
+    public DataColor getColorByTitle(String name) {
+        return store.getColorData().stream()
+            .filter(c -> eq(c.getTitle(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
     public List<DataColor> searchColorsByTitle(String namePart) {
         return store.getColorData().stream()
             .filter(c -> contains(c.getTitle(), namePart))
@@ -75,6 +82,13 @@ public class DataQuery {
             .orElse(null);
     }
 
+    public DataClass getClassByName(String name) {
+        return store.getClassData().stream()
+            .filter(c -> eq(c.getName(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
     public List<DataClass> searchClassByName(String namePart) {
         return store.getClassData().stream()
             .filter(c -> contains(c.getName(), namePart))
@@ -88,6 +102,13 @@ public class DataQuery {
     public DataDeity getDeityById(int id) {
         return store.getDeityData().stream()
             .filter(d -> d.getID() == id)
+            .findFirst()
+            .orElse(null);
+    }
+
+    public DataDeity getDeityByName(String name) {
+        return store.getDeityData().stream()
+            .filter(d -> eq(d.getName(), name))
             .findFirst()
             .orElse(null);
     }
@@ -124,6 +145,16 @@ public class DataQuery {
             .filter(s -> s.getId() == id)
             .findFirst()
             .orElse(null);
+    }
+
+    public List<DataSpecialty> getAllSpecialty() {
+        return store.getSpecialtyData();
+    }
+
+    public List<DataSpecialty> getSpecialtiesByType(String type) {
+        return store.getSpecialtyData().stream()
+            .filter(s -> eq(s.getType(), type))
+            .collect(Collectors.toList());
     }
 
     public List<DataSpecialty> searchSpecialties(String namePart) {

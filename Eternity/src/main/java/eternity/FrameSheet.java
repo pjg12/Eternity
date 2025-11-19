@@ -14,6 +14,7 @@ public class FrameSheet extends JFrame {
     private final DataQuery dataQuery;
     private final ArrayList<CharStore> charStore;
 
+    private CharData character;
     private FrameNew newFrame;
 
     public FrameSheet(ArrayList<CharStore> charStore) {
@@ -37,8 +38,10 @@ public class FrameSheet extends JFrame {
 
     public void onNewPressed() {
         if (newFrame == null) {
-            newFrame = new FrameNew(this, dataQuery, charStore);
+            character = new CharData();
+            newFrame = new FrameNew(this, dataQuery, character);
             newFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            
         }
         newFrame.setVisible(true);
     }

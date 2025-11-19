@@ -7,21 +7,15 @@ import java.util.ArrayList;
 
 /**
  * Character Creation Wizard
- * Modern layout version (no FrameHelper)
  */
 public class FrameNew extends JFrame {
-
-    private static final long serialVersionUID = 1L;
-
     private final DataQuery dataQuery;
     private final FrameSheet sheetFrame;
-    private final CharData[] character;
+    private final CharData character;
 
     private static final int ICON_SIZE = 100;
     private static final int STEP_COUNT = 6;
-    private static final String[] STEPS = {
-        "Class", "Race", "Attributes", "Skills", "Specialties", "Affinity"
-    };
+    private static final String[] STEPS = { "Class", "Race", "Attributes", "Skills", "Specialties", "Affinity" };
 
     // Icons
     private ImageIcon[] iconNormal;
@@ -41,12 +35,11 @@ public class FrameNew extends JFrame {
     // --------------------------------------------------------------------------
     // Constructor
     // --------------------------------------------------------------------------
-    public FrameNew(FrameSheet sheetFrame, DataQuery dataQuery, ArrayList<CharStore> charStore) {
+    public FrameNew(FrameSheet sheetFrame, DataQuery dataQuery, CharData character) {
         super("Character Builder");
-
         this.sheetFrame = sheetFrame;
         this.dataQuery = dataQuery;
-        this.character = new CharData[1];
+        this.character = character;
         this.stepDone = new boolean[STEP_COUNT];
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);      
@@ -199,10 +192,44 @@ public class FrameNew extends JFrame {
     }
 
     private void onStepSelected(int index) {
-        JOptionPane.showMessageDialog(this,
-            "Step selected: " + STEPS[index] +
-            "\n(Insert opening of sub-frame here.)");
+    switch (index) {
+        case 0 -> {
+            // --- CLASS SELECTION WINDOW ---
+            FrameNewClass classFrame =
+                    new FrameNewClass(
+                        sheetFrame,
+                        dataQuery,   // DataStore access
+                        character,               // active character
+                        this                        // parent FrameNew
+                    );
+
+            classFrame.setVisible(true);
+        }
+
+        // --------------------------------------------------------------------
+        // Other steps still use placeholder dialogs for now
+        // --------------------------------------------------------------------
+        case 1 -> JOptionPane.showMessageDialog(
+                this, "Open Race selection frame here."
+        );
+
+        case 2 -> JOptionPane.showMessageDialog(
+                this, "Open Attribute selection frame here."
+        );
+
+        case 3 -> JOptionPane.showMessageDialog(
+                this, "Open Skills selection frame here."
+        );
+
+        case 4 -> JOptionPane.showMessageDialog(
+                this, "Open Specialties selection frame here."
+        );
+
+        case 5 -> JOptionPane.showMessageDialog(
+                this, "Open Affinity selection frame here."
+        );
     }
+}
 
     // --------------------------------------------------------------------------
     // Update Step Progress (unchanged from your logic)
