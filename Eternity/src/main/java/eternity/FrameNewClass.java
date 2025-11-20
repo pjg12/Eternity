@@ -26,7 +26,8 @@ public class FrameNewClass extends JFrame {
 
     // Right-side info panel
     private JPanel right, nameGrid;
-    private ArrayList<JPanel> infoBoxes;
+    private ArrayList<JPanel> infoTitleBox;
+    private ArrayList<JLabel> infoTitle;
     private JLabel className;
     private JLabel primaryAtt;
     private JLabel role;
@@ -58,7 +59,8 @@ public class FrameNewClass extends JFrame {
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
-        infoBoxes = new ArrayList<>();
+        infoTitleBox = new ArrayList<JPanel>();
+        infoTitle = new ArrayList<JLabel>();
 
         loadIcons();
         buildWindow();
@@ -150,73 +152,63 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     private JComponent buildRightPanel() {
 
-        right = new JPanel();
-        right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-        right.setBorder(new EmptyBorder(20, 20, 20, 20));
+        right = new JPanel(new GridBagLayout());
+        right.setBorder(new EmptyBorder(10, 10, 10, 10));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(2, 6, 2, 6);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         className = bigLabel("-");
-
+        className.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.CENTER;
         nameGrid = new JPanel();
         nameGrid.add(className);
-        right.add(nameGrid);
-        right.add(Box.createVerticalStrut(15));
+        right.add(nameGrid, gbc);
 
-        primaryAtt = normalLabel("-");
-        role       = normalLabel("-");
+        // Row 1
+        gbc.gridwidth = 2;
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        right.add(infoRow("Primary Attribute:", primaryAtt = normalLabel("-")), gbc);
+        gbc.gridx = 2;
+        right.add(infoRow("Role:", role = normalLabel("-")), gbc);
+
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        right.add(infoRow("Subclass 1:", subclass1 = normalLabel("-")), gbc);
+        gbc.gridx = 2;
+        right.add(infoRow("Subclass 2:", subclass2 = normalLabel("-")), gbc);
+
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        right.add(infoRow("Secondary Attribute 1:", secondaryAtt1 = normalLabel("-")), gbc);
+        gbc.gridx = 2;
+        right.add(infoRow("Secondary Attribute 2:", secondaryAtt2 = normalLabel("-")), gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        right.add(infoRow("HP Scaling:", hpScale = normalLabel("-")), gbc);
+        gbc.gridx = 1;
+        right.add(infoRow("Aura Scaling:", auraScale = normalLabel("-")), gbc);
+        gbc.gridx = 2;
+        right.add(infoRow("Armor Type:", armor = normalLabel("-")), gbc);
+        gbc.gridx = 3;
+        right.add(infoRow("Proficiency:", proficiency = normalLabel("-")), gbc);
         
-        subclass1 = normalLabel("-");
-        subclass2 = normalLabel("-");
-
-        armor      = normalLabel("-");
-        hpScale    = normalLabel("-");
-        auraScale  = normalLabel("-");
-        
-        secondaryAtt1 = normalLabel("-");
-        secondaryAtt2 = normalLabel("-");
-        proficiency = normalLabel("-");
-
-        fort = normalLabel("-");
-        ref  = normalLabel("-");
-        will = normalLabel("-");
-        atk  = normalLabel("-");
-
-        // Info grid: two columns (main properties). Proficiency and stats moved to a 4-column sub-grid below.
-        JPanel infoGrid = new JPanel(new GridLayout(3, 2, 12, 6));
-        infoGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        infoBoxes.add(infoRow("Primary Attribute:", primaryAtt));
-        infoBoxes.add(infoRow("Role:", role));
-        infoBoxes.add(infoRow("Subclass 1:", subclass1));
-        infoBoxes.add(infoRow("Subclass 2:", subclass2));
-        infoBoxes.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
-        infoBoxes.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
-
-        for (int i = 0; i < 6; i++) {
-            if (i % 2 == 1) infoGrid.add(Box.createHorizontalStrut(10));
-            infoGrid.add(infoBoxes.get(i));
-        }
-
-        right.add(infoGrid);
-
-        // Sub-grid: split remaining fields into 4 columns (Proficiency + FORT/REF/WILL/ATK)
-        JPanel subGrid = new JPanel(new GridLayout(0, 4, 12, 6));
-        subGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        infoBoxes.add(infoRow("HP Scaling:", hpScale));
-        infoBoxes.add(infoRow("Aura Scaling:", auraScale));
-        infoBoxes.add(infoRow("Armor Type:", armor));
-        infoBoxes.add(infoRow("Proficiency:", proficiency));
-
-        infoBoxes.add(infoRow("FORT:", fort));
-        infoBoxes.add(infoRow("REF:", ref));
-        infoBoxes.add(infoRow("WILL:", will));
-        infoBoxes.add(infoRow("ATK:", atk));
-
-        for (int i = 6; i < 14; i++) subGrid.add(infoBoxes.get(i));
-
-        right.add(Box.createVerticalStrut(10));
-        right.add(subGrid);
-
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        right.add(infoRow("FORT:", fort = normalLabel("-")), gbc);
+        gbc.gridx = 1;
+        right.add(infoRow("REF:", ref = normalLabel("-")), gbc);
+        gbc.gridx = 2;
+        right.add(infoRow("WILL:", will = normalLabel("-")), gbc);
+        gbc.gridx = 3;
+        right.add(infoRow("ATK:", atk = normalLabel("-")), gbc);
+     
         return right;
     }
 
@@ -235,16 +227,27 @@ public class FrameNewClass extends JFrame {
     private JPanel infoRow(String title, JLabel value) {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        JLabel t = new JLabel(title, SwingConstants.CENTER);
-        t.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel t = new JPanel();
+        p.add(t);
+        infoTitleBox.add(t);
+
+        JLabel tLabel = new JLabel(title, SwingConstants.CENTER);
+        tLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        t.add(tLabel);
+        t.add(Box.createVerticalStrut(4));
+        infoTitle.add(tLabel);
+
+        JPanel v = new JPanel();
+        p.add(v);
+
         if (value instanceof JLabel) {
             ((JLabel) value).setHorizontalAlignment(SwingConstants.CENTER);
             value.setAlignmentX(Component.CENTER_ALIGNMENT);
+            v.add(value);
         }
-        p.add(t);
-        p.add(Box.createVerticalStrut(4));
-        p.add(value);
-        p.setBorder(new EmptyBorder(4, 0, 4, 0));
+
+        p.setBorder(new EmptyBorder(0, 0, 0, 0));
         return p;
     }
 
@@ -311,22 +314,25 @@ public class FrameNewClass extends JFrame {
 
         // Stat scaling: [FORT, REF, WILL, ATK]
         int[] scaling = selectedClass.getStatScaling();
-        if (scaling != null && scaling.length >= 4) {
-            fort.setText(Integer.toString(scaling[0]));
-            ref.setText(Integer.toString(scaling[1]));
-            will.setText(Integer.toString(scaling[2]));
-            atk.setText(Integer.toString(scaling[3]));
-        } else {
-            fort.setText("-"); ref.setText("-"); will.setText("-"); atk.setText("-");
+        String[] scalText = {"Bad", "Bad", "Bad", "Bad"};
+        for (int i = 0; i < 4; i++) {
+            if (scaling != null && i < scaling.length) {
+                if (scaling[i] == 1) scalText[i] = "Good";
+                 else if (scaling[i] == 2) scalText[i] = "Average";
+            }
         }
+        fort.setText(scalText[0]);
+        ref.setText(scalText[1]);
+        will.setText(scalText[2]);
+        atk.setText(scalText[3]);
 
         //color background
         right.setBackground(color.getBackColor());
         right.setForeground(color.getForeColor());
-        nameGrid.setBackground(color.getForeColor());
-        nameGrid.setForeground(color.getBackColor());
-        className.setBackground(color.getForeColor());
-        className.setForeground(color.getBackColor());
+        for (int i = 0; i < 14; i++) {
+            infoTitleBox.get(i).setBackground(color.getBackColor());
+            infoTitle.get(i).setForeground(color.getForeColor());
+        }
 
         confirmButton.setEnabled(true);
     }
