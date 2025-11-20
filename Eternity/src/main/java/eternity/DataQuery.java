@@ -65,6 +65,13 @@ public class DataQuery {
             .orElse(null);
     }
 
+    public DataRace getRaceByName(String name) {
+        return store.getRaceData().stream()
+            .filter(r -> eq(r.getName(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
     public List<DataRace> searchRaceByName(String namePart) {
         return store.getRaceData().stream()
             .filter(r -> contains(r.getName(), namePart))

@@ -302,12 +302,12 @@ public class FrameNewClassPicker extends JFrame {
             if (idx >= 0) profs.add(DEITY_WEAPONS.get(idx));
         }
 
-        //character.setClassPick(classChoices);
+        character.getIdentity().setCharClassPick(classChoices);
 
         List<String> finalProfs = new ArrayList<>(selectedClass.getProfAuto());
         finalProfs.addAll(profs);
 
-        //character.setCharWeaponProficiency(finalProfs);
+        character.getInventory().setWeaponProficiencies(finalProfs);
 
         parent.classChoicesConfirmed();
         dispose();

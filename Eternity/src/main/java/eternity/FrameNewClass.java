@@ -339,7 +339,7 @@ public class FrameNewClass extends JFrame {
 
     public void classChoicesConfirmed() {
         character.getIdentity().setCharClass(selectedClass.getName());
-        //parent.classConfirmed();                     // notify FrameNew
+        parent.classConfirmed();                     // notify FrameNew
         dispose();
     }
 }

@@ -30,7 +30,7 @@ public class FrameNew extends JFrame {
     private JButton finalizeButton;
 
     // Step completion state
-    private boolean[] stepDone;
+    private final boolean[] stepDone;
 
     // --------------------------------------------------------------------------
     // Constructor
@@ -51,6 +51,7 @@ public class FrameNew extends JFrame {
         buildFooter();
 
         setVisible(true);
+        updateFrame();
     }
 
     // --------------------------------------------------------------------------
@@ -209,9 +210,18 @@ public class FrameNew extends JFrame {
         // --------------------------------------------------------------------
         // Other steps still use placeholder dialogs for now
         // --------------------------------------------------------------------
-        case 1 -> JOptionPane.showMessageDialog(
-                this, "Open Race selection frame here."
-        );
+        case 1 -> {
+            // --- RACE SELECTION WINDOW ---
+            FrameNewRace raceFrame =
+                    new FrameNewRace(
+                        sheetFrame,
+                        dataQuery,   // DataStore access
+                        character,               // active character
+                        this                        // parent FrameNew
+                    );
+
+            raceFrame.setVisible(true);
+        }
 
         case 2 -> JOptionPane.showMessageDialog(
                 this, "Open Attribute selection frame here."
@@ -234,12 +244,10 @@ public class FrameNew extends JFrame {
     // --------------------------------------------------------------------------
     // Update Step Progress (unchanged from your logic)
     // --------------------------------------------------------------------------
-    public void updateFrame() {
-
+    private void updateFrame() {
         boolean unlocked = stepDone[0];
 
         for (int i = 1; i < STEP_COUNT; i++) {
-
             if (unlocked) {
                 stepButtons[i - 1].setIcon(iconDone[i - 1]);
                 stepButtons[i].setVisible(true);
@@ -259,5 +267,11 @@ public class FrameNew extends JFrame {
         if (unlocked) {
             stepButtons[STEP_COUNT - 1].setIcon(iconDone[STEP_COUNT - 1]);
         }
+    }
+
+    public void classConfirmed()
+    {
+        stepDone[0] = true;
+        updateFrame();
     }
 }

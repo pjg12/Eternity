@@ -10,7 +10,7 @@ public class CharInventory {
 
     @JsonProperty private double credits;
     @JsonProperty private String armor;            // current equipped armor name
-    @JsonProperty private final List<String> weaponProf;
+    @JsonProperty private List<String> weaponProf;
     @JsonProperty private final List<DataItem> equipment;     // weapons, armor, accessories
     @JsonProperty private final List<DataItem> consumables;   // potions, repair kits
     @JsonProperty private final List<DataItem> goods;         // crafting materials, trade goods
@@ -57,6 +57,7 @@ public class CharInventory {
     // ---------------------------------------------------------
 
     public List<String> getWeaponProficiencies() { return Collections.unmodifiableList(weaponProf); }
+    public void setWeaponProficiencies(List<String> weaponProf) { this.weaponProf = weaponProf; }
     public void addWeaponProficiency(String prof) { if (prof != null && !prof.isEmpty() && !weaponProf.contains(prof)) weaponProf.add(prof); }
     public void removeWeaponProficiency(String prof) { weaponProf.remove(prof); }
     public boolean hasWeaponProficiency(String prof) { return weaponProf.contains(prof); }
