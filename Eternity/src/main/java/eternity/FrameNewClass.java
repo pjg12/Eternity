@@ -2,7 +2,9 @@ package eternity;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class FrameNewClass extends JFrame {
 
@@ -10,13 +12,12 @@ public class FrameNewClass extends JFrame {
     private final CharData character;
     private final FrameNew parent;
     private FrameNewClassPicker picker;
+    private Color bg;
+    private Color fg;
 
     private static final int ICON_SIZE = 80;
 
-    private final String[] CLASSOPTIONS = {
-            "Warrior", "Paladin", "Rogue", "Monk", "Archer",
-            "Leader", "Cleric", "Caster", "Shifter", "Pilot"
-    };
+    private final String[] CLASSOPTIONS = { "Warrior", "Paladin", "Rogue", "Monk", "Archer", "Leader", "Cleric", "Caster", "Shifter", "Pilot" };
 
     private JButton[] classButtons;
     private ImageIcon[] iconsNormal;
@@ -24,6 +25,8 @@ public class FrameNewClass extends JFrame {
     private int selectedIndex = -1;
 
     // Right-side info panel
+    private JPanel right, nameGrid;
+    private ArrayList<JPanel> infoBoxes;
     private JLabel className;
     private JLabel primaryAtt;
     private JLabel role;
@@ -55,11 +58,12 @@ public class FrameNewClass extends JFrame {
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
+        infoBoxes = new ArrayList<>();
 
         loadIcons();
         buildWindow();
 
-        setSize(650, 450);
+        setSize(550, 450);
         setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -146,11 +150,16 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     private JComponent buildRightPanel() {
 
-        JPanel right = new JPanel();
+        right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
         right.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         className = bigLabel("-");
+
+        nameGrid = new JPanel();
+        nameGrid.add(className);
+        right.add(nameGrid);
+        right.add(Box.createVerticalStrut(15));
 
         primaryAtt = normalLabel("-");
         role       = normalLabel("-");
@@ -171,38 +180,41 @@ public class FrameNewClass extends JFrame {
         will = normalLabel("-");
         atk  = normalLabel("-");
 
-        right.add(className);
-        right.add(Box.createVerticalStrut(10));
-
-        // Info grid: two columns
-        JPanel infoGrid = new JPanel(new GridLayout(0, 2, 12, 6));
-        infoGrid.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        infoGrid.add(infoRow("Primary Attribute:", primaryAtt));
-        infoGrid.add(infoRow("Role:", role));
-
-        infoGrid.add(infoRow("Subclass 1:", subclass1));
-        infoGrid.add(infoRow("Subclass 2:", subclass2));
-
-
-        infoGrid.add(infoRow("Armor Type:", armor));
-        infoGrid.add(infoRow("HP Scaling:", hpScale));
-
-        infoGrid.add(infoRow("Aura Scaling:", auraScale));
-        infoGrid.add(infoRow("Proficiency:", proficiency));
-
         
 
-        infoGrid.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
-        infoGrid.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
+            // Info grid: two columns (main properties). Proficiency and stats moved to a 4-column sub-grid below.
+            JPanel infoGrid = new JPanel(new GridLayout(3, 2, 12, 6));
+            infoGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        infoGrid.add(infoRow("FORT:", fort));
-        infoGrid.add(infoRow("REF:", ref));
+            infoGrid.add(infoRow("Primary Attribute:", primaryAtt));
+            infoGrid.add(infoRow("Role:", role));
 
-        infoGrid.add(infoRow("WILL:", will));
-        infoGrid.add(infoRow("ATK:", atk));
+            infoGrid.add(infoRow("Subclass 1:", subclass1));
+            infoGrid.add(infoRow("Subclass 2:", subclass2));
 
-        right.add(infoGrid);
+            infoGrid.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
+            infoGrid.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
+
+            
+
+            right.add(infoGrid);
+
+            // Sub-grid: split remaining fields into 4 columns (Proficiency + FORT/REF/WILL/ATK)
+            JPanel subGrid = new JPanel(new GridLayout(0, 4, 12, 6));
+            subGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            subGrid.add(infoRow("HP Scaling:", hpScale));
+            subGrid.add(infoRow("Aura Scaling:", auraScale));
+            subGrid.add(infoRow("Armor Type:", armor));
+            subGrid.add(infoRow("Proficiency:", proficiency));
+
+            subGrid.add(infoRow("FORT:", fort));
+            subGrid.add(infoRow("REF:", ref));
+            subGrid.add(infoRow("WILL:", will));
+            subGrid.add(infoRow("ATK:", atk));
+
+            right.add(Box.createVerticalStrut(10));
+            right.add(subGrid);
 
         return right;
     }
@@ -224,8 +236,10 @@ public class FrameNewClass extends JFrame {
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
         JLabel t = new JLabel(title, SwingConstants.CENTER);
         t.setAlignmentX(Component.CENTER_ALIGNMENT);
-        if (value instanceof JLabel) ((JLabel) value).setHorizontalAlignment(SwingConstants.CENTER);
-        value.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (value instanceof JLabel) {
+            ((JLabel) value).setHorizontalAlignment(SwingConstants.CENTER);
+            value.setAlignmentX(Component.CENTER_ALIGNMENT);
+        }
         p.add(t);
         p.add(Box.createVerticalStrut(4));
         p.add(value);
@@ -267,10 +281,15 @@ public class FrameNewClass extends JFrame {
 
         selectedClass = dataQuery.getClassByName(CLASSOPTIONS[index]);
         DataColor color = dataQuery.getColorByTitle(CLASSOPTIONS[index]);
+        bg = color.getBackColor();
+        fg = color.getForeColor();
 
         className.setText(selectedClass.getName());
         className.setToolTipText(selectedClass.getDescription());
+
         primaryAtt.setText(selectedClass.getPrimaryAtt());
+
+
         role.setText(selectedClass.getRole());
 
         // Subclasses (DataStore uses sequential IDs for subclasses)
@@ -280,17 +299,13 @@ public class FrameNewClass extends JFrame {
         subclass1.setText(sub1 != null ? sub1.getName() : "-");
         subclass2.setText(sub2 != null ? sub2.getName() : "-");
 
-        armor.setText(selectedClass.getArmor());
+        secondaryAtt1.setText(sub1 != null ? sub1.getSecondaryAtt() : "-");
+        secondaryAtt2.setText(sub2 != null ? sub2.getSecondaryAtt() : "-");
+
         hpScale.setText((int)(selectedClass.getHpScaling() * 100) + "%");
         auraScale.setText((int)(selectedClass.getAuraScaling() * 100) + "%");
-
         
-
-        // Secondary attributes: primary secondaryAtt provided in DataClass
-        secondaryAtt1.setText(selectedClass.getSecondaryAtt());
-        secondaryAtt2.setText("-");
-
-        // Proficiency label
+        armor.setText(selectedClass.getArmor());
         proficiency.setText(selectedClass.getProfLabel());
 
         // Stat scaling: [FORT, REF, WILL, ATK]
@@ -305,7 +320,12 @@ public class FrameNewClass extends JFrame {
         }
 
         //color background
-        getContentPane().setBackground(color.getBackColor());
+        right.setBackground(color.getBackColor());
+        right.setForeground(color.getForeColor());
+        nameGrid.setBackground(color.getForeColor());
+        nameGrid.setForeground(color.getBackColor());
+        className.setBackground(color.getForeColor());
+        className.setForeground(color.getBackColor());
 
         confirmButton.setEnabled(true);
     }
