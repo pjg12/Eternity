@@ -180,41 +180,42 @@ public class FrameNewClass extends JFrame {
         will = normalLabel("-");
         atk  = normalLabel("-");
 
-        
+        // Info grid: two columns (main properties). Proficiency and stats moved to a 4-column sub-grid below.
+        JPanel infoGrid = new JPanel(new GridLayout(3, 2, 12, 6));
+        infoGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            // Info grid: two columns (main properties). Proficiency and stats moved to a 4-column sub-grid below.
-            JPanel infoGrid = new JPanel(new GridLayout(3, 2, 12, 6));
-            infoGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
+        infoBoxes.add(infoRow("Primary Attribute:", primaryAtt));
+        infoBoxes.add(infoRow("Role:", role));
+        infoBoxes.add(infoRow("Subclass 1:", subclass1));
+        infoBoxes.add(infoRow("Subclass 2:", subclass2));
+        infoBoxes.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
+        infoBoxes.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
 
-            infoGrid.add(infoRow("Primary Attribute:", primaryAtt));
-            infoGrid.add(infoRow("Role:", role));
+        for (int i = 0; i < 6; i++) {
+            if (i % 2 == 1) infoGrid.add(Box.createHorizontalStrut(10));
+            infoGrid.add(infoBoxes.get(i));
+        }
 
-            infoGrid.add(infoRow("Subclass 1:", subclass1));
-            infoGrid.add(infoRow("Subclass 2:", subclass2));
+        right.add(infoGrid);
 
-            infoGrid.add(infoRow("Secondary Attribute 1:", secondaryAtt1));
-            infoGrid.add(infoRow("Secondary Attribute 2:", secondaryAtt2));
+        // Sub-grid: split remaining fields into 4 columns (Proficiency + FORT/REF/WILL/ATK)
+        JPanel subGrid = new JPanel(new GridLayout(0, 4, 12, 6));
+        subGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            
+        infoBoxes.add(infoRow("HP Scaling:", hpScale));
+        infoBoxes.add(infoRow("Aura Scaling:", auraScale));
+        infoBoxes.add(infoRow("Armor Type:", armor));
+        infoBoxes.add(infoRow("Proficiency:", proficiency));
 
-            right.add(infoGrid);
+        infoBoxes.add(infoRow("FORT:", fort));
+        infoBoxes.add(infoRow("REF:", ref));
+        infoBoxes.add(infoRow("WILL:", will));
+        infoBoxes.add(infoRow("ATK:", atk));
 
-            // Sub-grid: split remaining fields into 4 columns (Proficiency + FORT/REF/WILL/ATK)
-            JPanel subGrid = new JPanel(new GridLayout(0, 4, 12, 6));
-            subGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
+        for (int i = 6; i < 14; i++) subGrid.add(infoBoxes.get(i));
 
-            subGrid.add(infoRow("HP Scaling:", hpScale));
-            subGrid.add(infoRow("Aura Scaling:", auraScale));
-            subGrid.add(infoRow("Armor Type:", armor));
-            subGrid.add(infoRow("Proficiency:", proficiency));
-
-            subGrid.add(infoRow("FORT:", fort));
-            subGrid.add(infoRow("REF:", ref));
-            subGrid.add(infoRow("WILL:", will));
-            subGrid.add(infoRow("ATK:", atk));
-
-            right.add(Box.createVerticalStrut(10));
-            right.add(subGrid);
+        right.add(Box.createVerticalStrut(10));
+        right.add(subGrid);
 
         return right;
     }
