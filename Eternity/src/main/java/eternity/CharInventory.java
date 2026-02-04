@@ -1,17 +1,23 @@
 package eternity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Manages a character's inventory, currency, equipment, and proficiencies.
  */
 public class CharInventory {
+    @JsonIgnore
+    private CharData owner;
 
     @JsonProperty private double credits;
     @JsonProperty private String armor;            // current equipped armor name
     @JsonProperty private List<String> weaponProf;
-    @JsonProperty private final List<DataItem> equipment;     // weapons, armor, accessories
+    @JsonProperty private final List<DataItemEquipment> equipment;     // weapons, armor, accessories
     @JsonProperty private final List<DataItem> consumables;   // potions, repair kits
     @JsonProperty private final List<DataItem> goods;         // crafting materials, trade goods
     @JsonProperty private final List<DataItem> items;         // misc quest items
@@ -56,7 +62,21 @@ public class CharInventory {
     //  Weapon Proficiencies
     // ---------------------------------------------------------
 
-    public List<String> getWeaponProficiencies() { return Collections.unmodifiableList(weaponProf); }
+    public List<String> getWeaponProficiencies() {
+        List<String> flattened = new ArrayList<>();
+        java.util.Set<String> seen = new java.util.LinkedHashSet<>();
+        for (String entry : weaponProf) {
+            if (entry == null) continue;
+            String[] parts = entry.split(":");
+            for (String p : parts) {
+                String trimmed = p.trim();
+                if (!trimmed.isEmpty() && seen.add(trimmed)) {
+                    flattened.add(trimmed);
+                }
+            }
+        }
+        return Collections.unmodifiableList(flattened);
+    }
     public void setWeaponProficiencies(List<String> weaponProf) { this.weaponProf = weaponProf; }
     public void addWeaponProficiency(String prof) { if (prof != null && !prof.isEmpty() && !weaponProf.contains(prof)) weaponProf.add(prof); }
     public void removeWeaponProficiency(String prof) { weaponProf.remove(prof); }
@@ -66,9 +86,9 @@ public class CharInventory {
     //  Equipment Handling
     // ---------------------------------------------------------
 
-    public List<DataItem> getEquipment() { return Collections.unmodifiableList(equipment); }
-    public void addEquipment(DataItem item) { if (item != null) equipment.add(item); }
-    public void removeEquipment(DataItem item) { equipment.remove(item); }
+    public List<DataItemEquipment> getEquipment() { return Collections.unmodifiableList(equipment); }
+    public void addEquipment(DataItemEquipment item) { if (item != null) equipment.add(item); }
+    public void removeEquipment(DataItemEquipment item) { equipment.remove(item); }
 
     public DataItem findEquipmentByName(String name) {
         for (DataItem item : equipment) {
@@ -156,4 +176,8 @@ public class CharInventory {
                goods.size() +
                items.size();
     }
+
+    @JsonIgnore
+    public CharData getOwner() { return owner; }
+    public void setOwner(CharData owner) { this.owner = owner; }
 }

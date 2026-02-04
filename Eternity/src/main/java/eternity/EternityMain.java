@@ -2,29 +2,29 @@ package eternity;
 
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 /**
  * Main Eternity TTRPG Function
  */
 public class EternityMain {
     public static void main(String[] args) {
-    	// Load Saved Characters
+        // Start GUI on Event Dispatch Thread
+        SwingUtilities.invokeLater(EternityMain::startApp);
+    }
+
+    private static void startApp() {
+        // Load Saved Characters (fallback to empty on failure)
         ArrayList<CharStore> store = CharacterDataManager.loadCharStore();
-        
+        if (store == null) {
+            store = new ArrayList<>();
+        }
+
         // Generate Character Sheet
         FrameSheet sheetFrame = new FrameSheet(store);
-        
-        // Get Last Modified Character
-        //CharStore last = CharacterDataManager.getLastLoaded(store);
-        CharStore last = null;
 
-        if (last != null) {
-            // Auto-load the most recently used character
-            System.out.println("Auto-loading last character: " + last.getName());
-            //sheetFrame.loadConfirmed(last.getIndex());
-        } else {
-            // Show first-choice frame
-            FrameFirst first = new FrameFirst(sheetFrame);
-            first.setVisible(true);
-        }
+        // Show the welcome screen (user chooses New or Load)
+        FrameFirst first = new FrameFirst(sheetFrame);
+        first.setVisible(true);
     }
 }

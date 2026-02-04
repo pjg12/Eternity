@@ -1,0 +1,961 @@
+package eternity;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.NumberFormatter;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
+/*
+ * 		INVENTORY PANEL
+ */
+public class PanelCharInventory extends PanelCharBase {
+	private static final long serialVersionUID = 1L;
+
+	private JLabel currencyL, weapProfL, armorProfL;
+	private JTextArea charCurrency, charWeapProf;
+	private JTextPane charArmorProf;
+	private JScrollPane currencyPane, weapProfPane, armorProfPane;
+
+	private BufferedImage dollPic;
+	private JLabel dollLabel; 
+	private ArrayList<JLabel> equipL;  //headL, shoulderL, chestL, waistL, legsL, feetL, handsL, backL, fingerRL, fingerLL, neckL, trinkL, w1L, w2L, w3L, w4L;
+	private ArrayList<JComboBox<DataItemEquipment>> equipped; // equipHead, equipShoulder, equipChest, equipWaist, equipLegs, equipFeet, equipHands, equipBack, equipFingerR, equipFingerL, equipNeck, equipTrinket, equipW1, equipW2, equipW3, equipW4;
+	
+	private JLabel equipmentL;
+	private ArrayList<JLabel> equipmentNameL, equipmentTierL, equipmentCatL, equipmentEquippedL, equipmentEnchL, equipmentGemL, equipmentStorL, equipmentOilL, equipmentModL, equipmentAugL;
+	private ArrayList<ArrayList<JTextField>> equipmentName, equipmentCat;
+	private ArrayList<ArrayList<JCheckBox>> equipmentEquipped;
+	private ArrayList<ArrayList<JCheckBox>> equipmentEnch, equipmentGem, equipmentStor, equipmentOil, equipmentMod, equipmentAug;
+	private ArrayList<ArrayList<JFormattedTextField>> equipmentTier;
+	
+	private JLabel consumableL;
+	private JLabel consumableNameL, consumableQtyL, consumableNoteL;
+	private ArrayList<JTextField> consumableName, consumableNote;
+	private ArrayList<JFormattedTextField> consumableQty;
+	
+	private JLabel goodsL;
+	private JLabel goodsNameL, goodsQtyL, goodsNoteL;
+	private ArrayList<JTextField> goodsName, goodsNote;
+	private ArrayList<JFormattedTextField> goodsQty;
+	
+	private JLabel itemsL;
+	private JLabel itemsNameL, itemsQtyL, itemsNoteL;
+	private ArrayList<JTextField> itemsName, itemsNote;
+	private ArrayList<JFormattedTextField> itemsQty;
+	
+	private JLabel inventoryL, inventoryNameL, inventoryQuanL, inventoryGemL, inventoryEnchantL, inventoryStoreL, inventoryCatL;
+	private ArrayList<JTextField> invenName, invenNote, invenStore, invenCat, invenGem, invenEnchant, natAffinity;
+	private ArrayList<JFormattedTextField> invenQuan;
+	private ArrayList<JLabel> invenNoteL;
+	private JButton changeEquipButton, changeInvenButton;
+
+	private JLabel currencyLabel;
+	private JLabel currencyValue;
+	private JLabel weaponProfLabel;
+	private JLabel weaponProfValue;
+	private JLabel armorProfLabel;
+	private JLabel armorProfValue;
+	private JButton saveButton;
+	
+	private final String[] SLOTS = {"Head", "Neck", "Shoulders", "Back", "Chest", "Trinket", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4"};
+
+	/*
+	 * 		DEFAULT CONSTRUCTOR
+	 */
+	PanelCharInventory (DataQuery dataQuery, FrameSheet sheetFrame){
+		super (dataQuery, sheetFrame);
+
+		/*	
+		 * 	Currency
+		 */
+		currencyL = buildLabel("Currency");
+		charCurrency = buildTextArea("-");
+		charCurrency.setEditable(true);
+		currencyPane = buildScrollPane(charCurrency);
+
+		armorProfL = buildLabel("Armor Proficiency");
+		charArmorProf = new JTextPane();
+		charArmorProf.setText("-");
+		charArmorProf.setEditable(false);
+		StyledDocument armorDoc = charArmorProf.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		armorDoc.setParagraphAttributes(0, armorDoc.getLength(), center, false);
+		armorProfPane = buildScrollPane(charArmorProf);
+		armorProfPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+		weapProfL = buildLabel("Weapon Proficiency");
+		charWeapProf = buildTextArea("-");
+		charWeapProf.setEditable(false);
+		weapProfPane = buildScrollPane(charWeapProf);
+
+		/*
+		 * 	Doll Equipment
+		 */
+		equipL = new ArrayList<JLabel>(); 
+		JLabel tempLabel;
+		for (int i = 0; i < 16; i++) {
+			tempLabel = buildLabel(SLOTS[i]);
+			equipL.add(tempLabel);
+		}
+
+		equipped = new ArrayList<JComboBox<DataItemEquipment>>();
+		JComboBox<DataItemEquipment> tempBox;
+		for (int i = 0; i < 16; i++) {
+			tempBox = buildEquipBox();
+			equipped.add(tempBox);
+		}
+
+		dollLabel = new JLabel("<html><center>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display.</center></html>", SwingConstants.CENTER);
+    	add(dollLabel);
+    	dollLabel.setHorizontalAlignment(JLabel.CENTER);
+
+    	// Summary row at top
+    	currencyLabel = buildLabel("Currency");
+    	currencyValue = buildLabel("-");
+    	weaponProfLabel = buildLabel("Weapon Proficiencies");
+    	weaponProfValue = buildLabel("-");
+    	armorProfLabel = buildLabel("Armor Proficiency");
+    	armorProfValue = buildLabel("-");
+    	saveButton = buildButton("Save Currency");
+    	add(currencyLabel);
+    	add(currencyValue);
+    	add(weaponProfLabel);
+    	add(weaponProfValue);
+    	add(armorProfLabel);
+    	add(armorProfValue);
+    	add(saveButton);
+
+    	saveButton.addActionListener(e -> {
+    		if (character != null) {
+    			CharacterDataManager.saveCharacter(character);
+    		}
+    	});
+	    
+    	equipmentL = buildLabel("Equipment");
+    	
+    	equipmentNameL = new ArrayList<JLabel>();
+    	equipmentTierL = new ArrayList<JLabel>();
+    	equipmentCatL = new ArrayList<JLabel>();
+    	equipmentEquippedL = new ArrayList<JLabel>();
+    	equipmentEnchL = new ArrayList<JLabel>();
+    	equipmentGemL = new ArrayList<JLabel>();
+    	equipmentStorL = new ArrayList<JLabel>();
+    	equipmentOilL = new ArrayList<JLabel>();
+    	equipmentModL = new ArrayList<JLabel>();
+    	equipmentAugL = new ArrayList<JLabel>();
+    	
+    	equipmentNameL.add(buildLabel("Weapon"));
+    	equipmentNameL.add(buildLabel("Armor"));
+    	equipmentNameL.add(buildLabel("Accessory"));
+    	
+    	for (int i = 0; i < 3; i++) {
+	    	equipmentTierL.add(buildLabel("Tier"));
+	    	equipmentCatL.add(buildLabel("Category"));
+	    	equipmentEquippedL.add(buildLabel("Equip"));
+	    	equipmentEnchL.add(buildLabel("Ench"));
+	    	equipmentGemL.add(buildLabel("Gem"));
+	    	equipmentStorL.add(buildLabel("Stor"));
+	    	equipmentOilL.add(buildLabel("Oil"));
+	    	equipmentModL.add(buildLabel("Mod"));
+	    	equipmentAugL.add(buildLabel("Aug"));
+    	}
+
+    	equipmentName = new ArrayList<ArrayList<JTextField>>();
+    	equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
+    	equipmentCat = new ArrayList<ArrayList<JTextField>>();
+    	equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
+    	
+    	for (int i = 0; i < 3; i++) {
+	    	equipmentName.add(new ArrayList<JTextField>());
+	    	equipmentTier.add(new ArrayList<JFormattedTextField>());
+	    	equipmentCat.add(new ArrayList<JTextField>());
+	    	equipmentEquipped.add(new ArrayList<JCheckBox>());
+	    	equipmentEnch.add(new ArrayList<JCheckBox>());
+	    	equipmentGem.add(new ArrayList<JCheckBox>());
+	    	equipmentStor.add(new ArrayList<JCheckBox>());
+	    	equipmentOil.add(new ArrayList<JCheckBox>());
+	    	equipmentMod.add(new ArrayList<JCheckBox>());
+	    	equipmentAug.add(new ArrayList<JCheckBox>());
+    	}
+    	
+    	consumableL = buildLabel("Consumables");
+    	consumableNameL = buildLabel("Name");
+    	consumableQtyL = buildLabel("Qty");
+    	consumableNoteL = buildLabel("Note");
+    	consumableName = new ArrayList<>();
+    	consumableQty = new ArrayList<>();
+    	consumableNote = new ArrayList<>();
+    	
+    	goodsL = buildLabel("Goods");
+    	goodsNameL = buildLabel("Name");
+    	goodsQtyL = buildLabel("Qty");
+    	goodsNoteL = buildLabel("Note");
+    	goodsName = new ArrayList<>();
+    	goodsQty = new ArrayList<>();
+    	goodsNote = new ArrayList<>();
+    	
+    	itemsL = buildLabel("Items");
+    	itemsNameL = buildLabel("Name");
+    	itemsQtyL = buildLabel("Qty");
+    	itemsNoteL = buildLabel("Note");
+    	itemsName = new ArrayList<>();
+    	itemsQty = new ArrayList<>();
+    	itemsNote = new ArrayList<>();
+    	
+		/*
+		 * 	Inventory
+		 */	
+    	inventoryL = buildLabel("Inventory");
+
+		inventoryNameL = buildLabel("Name");
+		inventoryGemL = buildLabel("Gem");
+		inventoryQuanL = buildLabel("Quantity");
+		inventoryEnchantL = buildLabel("Enchant");
+		inventoryStoreL = buildLabel("Storage");
+		inventoryCatL = buildLabel("Category");
+		
+		invenName = new ArrayList<JTextField>();
+		invenNote = new ArrayList<JTextField>();
+		invenStore = new ArrayList<JTextField>();
+		invenCat = new ArrayList<JTextField>();
+		invenQuan = new ArrayList<JFormattedTextField>();
+		invenGem = new ArrayList<JTextField>();
+		invenEnchant = new ArrayList<JTextField>();
+		invenNoteL = new ArrayList<JLabel>();
+		
+		changeEquipButton = buildButton("Save Equipment");
+		changeEquipButton.addActionListener(e -> {
+			sheetFrame.equipCharacter();
+			updateAll();
+		});
+		changeInvenButton = buildButton("Add Inventory");
+		changeInvenButton.addActionListener (e -> sheetFrame.inventoryCharacter());
+		
+		/*
+		 * 	Updates
+		 */	
+	  //  updateData();
+	 //   resizeSheet();
+	}  /*--------------
+		END DEFAULTCONSTRUCTOR
+		--------------*/
+	
+	/*
+	 * 		RESIZE SHEET
+	 */
+	public void resizeSheet() {
+		pageHeight = 120;
+
+		currencyL.setBounds(5,pageHeight,225,19);
+		armorProfL.setBounds(235,pageHeight,158,19);
+		weapProfL.setBounds(400,pageHeight,160,19);
+		
+		pageHeight += 20;
+		currencyPane.setBounds(5,pageHeight,225, 80);
+		armorProfPane.setBounds(235,pageHeight,158, 25);
+		weapProfPane.setBounds(400,pageHeight,160, 80);
+		pageHeight += 48;
+
+		saveButton.setBounds(235, pageHeight, 158, 30);
+		pageHeight += 27;
+		
+		dollLabel.setBounds(20, pageHeight + 10, 525, 500);
+		pageHeight += 20;
+		
+		for (int i = 0; i < 6; i++) {
+			int x = 0;
+			if (i == 1 || i == 4) {
+				x = -15;
+			}
+			else if (i == 2 || i == 3) {
+				x = -30;
+			}
+			equipL.get(2*i).setBounds(60+x, pageHeight, 175, 20);
+			equipL.get(2*i + 1).setBounds(330-x, pageHeight, 175, 20);
+			pageHeight += 20;
+			equipped.get(2*i).setBounds(60+x, pageHeight, 175, 20);
+			equipped.get(2*i + 1).setBounds(330-x, pageHeight, 175, 20);
+			pageHeight += 45;
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			equipL.get(2*i + 12).setBounds(60, pageHeight, 175, 20);
+			equipL.get(2*i + 13).setBounds(330, pageHeight, 175, 20);
+			pageHeight += 20;	
+			equipped.get(2*i + 12).setBounds(60, pageHeight, 175, 20);
+			equipped.get(2*i + 13).setBounds(330, pageHeight, 175, 20);
+			pageHeight += 30;
+		}
+		pageHeight += 5;	
+
+			//move buttons
+			pageHeight += 5;
+			//currencyL.setBounds(5,pageHeight,210,19);
+			changeEquipButton.setBounds(240,pageHeight,140,29);
+			changeInvenButton.setBounds(400,pageHeight,140,29);
+			pageHeight += 35;
+		
+		equipmentL.setBounds(5, pageHeight, 555, 20);	///////////////////////////////////////////////////////////////
+		pageHeight += 20;
+		
+		for (int i = 0; i < 3; i++) {
+	    	equipmentNameL.get(i).setBounds(5, pageHeight, 120, 20);
+	    	equipmentCatL.get(i).setBounds(130, pageHeight, 135, 20);
+	    	equipmentTierL.get(i).setBounds(270, pageHeight, 30, 20);
+	    	equipmentEquippedL.get(i).setBounds(305, pageHeight, 40, 20);
+	    	equipmentEnchL.get(i).setBounds(350, pageHeight, 30, 20);
+	    	equipmentGemL.get(i).setBounds(385, pageHeight, 30, 20);
+	    	equipmentStorL.get(i).setBounds(420, pageHeight, 30, 20);
+	    	equipmentOilL.get(i).setBounds(455, pageHeight, 30, 20);
+	    	equipmentModL.get(i).setBounds(490, pageHeight, 30, 20);
+	    	equipmentAugL.get(i).setBounds(525, pageHeight, 30, 20);
+			pageHeight += 20;
+			
+			for (int j = 0; j < equipmentName.get(i).size(); j++) {
+				equipmentName.get(i).get(j).setBounds(5, pageHeight, 120, 20);
+		    	equipmentCat.get(i).get(j).setBounds(130, pageHeight, 135, 20);
+		    	equipmentTier.get(i).get(j).setBounds(270, pageHeight, 30, 20);
+		    	equipmentEquipped.get(i).get(j).setBounds(305, pageHeight, 40, 20);
+		    	equipmentEnch.get(i).get(j).setBounds(350, pageHeight, 30, 20);
+		    	equipmentGem.get(i).get(j).setBounds(385, pageHeight, 30, 20);
+		    	equipmentStor.get(i).get(j).setBounds(420, pageHeight, 30, 20);
+		    	equipmentOil.get(i).get(j).setBounds(455, pageHeight, 30, 20);
+		    	equipmentMod.get(i).get(j).setBounds(490, pageHeight, 30, 20);
+		    	equipmentAug.get(i).get(j).setBounds(525, pageHeight, 30, 20);
+				pageHeight += 20;
+			}
+		}
+		
+		
+		// Consumables section
+		pageHeight += 10;
+		consumableL.setBounds(5, pageHeight, 555, 20);
+		pageHeight += 20;
+		consumableNameL.setBounds(5, pageHeight, 200, 20);
+		consumableQtyL.setBounds(210, pageHeight, 60, 20);
+		consumableNoteL.setBounds(275, pageHeight, 285, 20);
+		pageHeight += 20;
+		for (int i = 0; i < consumableName.size(); i++) {
+			consumableName.get(i).setBounds(5, pageHeight, 200, 20);
+			consumableQty.get(i).setBounds(210, pageHeight, 60, 20);
+			consumableNote.get(i).setBounds(275, pageHeight, 285, 20);
+			pageHeight += 20;
+		}
+		
+		// Goods section
+		pageHeight += 10;
+		goodsL.setBounds(5, pageHeight, 555, 20);
+		pageHeight += 20;
+		goodsNameL.setBounds(5, pageHeight, 200, 20);
+		goodsQtyL.setBounds(210, pageHeight, 60, 20);
+		goodsNoteL.setBounds(275, pageHeight, 285, 20);
+		pageHeight += 20;
+		for (int i = 0; i < goodsName.size(); i++) {
+			goodsName.get(i).setBounds(5, pageHeight, 200, 20);
+			goodsQty.get(i).setBounds(210, pageHeight, 60, 20);
+			goodsNote.get(i).setBounds(275, pageHeight, 285, 20);
+			pageHeight += 20;
+		}
+		
+		// Items section
+		pageHeight += 10;
+		itemsL.setBounds(5, pageHeight, 555, 20);
+		pageHeight += 20;
+		itemsNameL.setBounds(5, pageHeight, 200, 20);
+		itemsQtyL.setBounds(210, pageHeight, 60, 20);
+		itemsNoteL.setBounds(275, pageHeight, 285, 20);
+		pageHeight += 20;
+		for (int i = 0; i < itemsName.size(); i++) {
+			itemsName.get(i).setBounds(5, pageHeight, 200, 20);
+			itemsQty.get(i).setBounds(210, pageHeight, 60, 20);
+			itemsNote.get(i).setBounds(275, pageHeight, 285, 20);
+			pageHeight += 20;
+		}
+		
+			
+		pageHeight += 10;
+		
+			/**************
+			* ***********		Add Exp, Edit Character
+			*/// ***********	
+			
+	
+		/*
+		 * Set Window Size
+		 */	
+		pageHeight += 10;
+		this.setPreferredSize(new Dimension(580, pageHeight));
+	}  /*--------------
+		END RESIZESHEET
+		--------------*/
+	
+	/*
+	 * 		BUILD EQUIPBOX
+	 */
+	public JComboBox<DataItemEquipment> buildEquipBox () {
+		JComboBox<DataItemEquipment> tempBox = new JComboBox<DataItemEquipment>();
+		DataItemEquipment tempEquip = new DataItemEquipment();
+		tempEquip.setDname("*** Empty ***");
+		tempBox.addItem(tempEquip);
+		
+		// Color and alignment: all options blue/center except placeholder
+		tempBox.setRenderer(new javax.swing.plaf.basic.BasicComboBoxRenderer() {
+			private final java.awt.Color BLUE = new java.awt.Color(0, 102, 204);
+		
+
+			@Override
+			public java.awt.Component getListCellRendererComponent(javax.swing.JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				java.awt.Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (c instanceof javax.swing.JLabel && value instanceof DataItemEquipment) {
+					javax.swing.JLabel lbl = (javax.swing.JLabel) c;
+					DataItemEquipment eq = (DataItemEquipment) value;
+					boolean isEmpty = eq.getDname() != null && eq.getDname().equals("*** Empty ***");
+					lbl.setHorizontalAlignment(isEmpty ? javax.swing.SwingConstants.LEFT : javax.swing.SwingConstants.CENTER);
+					
+					// Closed (index == -1) or non-empty entries should appear blue even when combo isn't focused
+					if (isEmpty) {
+						lbl.setForeground(java.awt.Color.BLACK);
+					} else {
+						lbl.setForeground(BLUE);
+					}
+				}
+				return c;
+			}
+		});
+
+		add(tempBox);
+		
+		return tempBox;
+	}  /*--------------
+		END BUILDEQUIPBOX
+		--------------*/
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	* 
+	* 		UPDATER
+	* 
+	*/
+	/*
+	 * 		UPDATE ALL
+	 */
+	public void updateAll() {
+		updateSummary();
+		updateDollLists();
+		updateDoll();
+		updateEquipment();
+		updateConsumables();
+		updateGoods();
+		updateItems();
+		resizeSheet();
+	}  /*--------------
+		END UPDATEALL
+		--------------*/
+
+	@Override
+	public void updateCharacter(CharData character) {
+		if (character != null) {
+			character.updateAll(); // ensure attributes/resources are current before rendering
+		}
+		super.updateCharacter(character);
+	}
+
+	private void updateSummary() {
+		CharInventory inv = character != null ? character.getInventory() : null;
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+
+		if (inv == null) {
+			currencyValue.setText("-");
+			weaponProfValue.setText("-");
+			armorProfValue.setText("-");
+			return;
+		}
+
+		currencyValue.setText(nf.format(inv.getCredits()));
+
+		List<String> wp = inv.getWeaponProficiencies();
+		weaponProfValue.setText((wp == null || wp.isEmpty()) ? "-" : String.join(", ", wp));
+		// Also show in the detailed text area
+		if (charWeapProf != null) {
+			if (wp == null || wp.isEmpty()) {
+				charWeapProf.setText("-");
+			} else {
+				charWeapProf.setText(String.join("\n", wp));
+			}
+		}
+
+		String armor = inv.getArmor();
+		if ((armor == null || armor.isBlank()) && character != null && character.getIdentity() != null) {
+			String cls = character.getIdentity().getCharClass();
+			if (cls != null && !cls.isBlank() && dataQuery != null) {
+				DataClass dataClass = dataQuery.getClassByName(cls);
+				if (dataClass != null && dataClass.getArmor() != null && !dataClass.getArmor().isBlank()) {
+					armor = dataClass.getArmor();
+				}
+			}
+		}
+		String armorText = (armor == null || armor.isBlank()) ? "-" : armor;
+		armorProfValue.setText(armorText);
+
+		// Also mirror into armorProficiency pane (centered)
+		charArmorProf.setText(armorText);
+		StyledDocument doc = charArmorProf.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+	}
+	
+	/*
+	 * 		UPDATE DOLL LISTS
+	 */
+	public void updateDollLists() {
+		/*		java.awt.Color BLUE = new java.awt.Color(0, 102, 204);
+		if (!((DataItemEquipment) tempBox.getSelectedItem()).getDname().equals("*** Empty ***")) {
+			tempBox.setForeground(BLUE);
+		}*/
+		
+		// TODO
+	}  /*--------------
+		END UPDATEDOLLLISTS
+		--------------*/
+	
+	/*
+	 * 		UPDATE DOLL
+	 */	
+	public void updateDoll() {
+		CharIdentity id = character.getIdentity();
+		String dollName = (id != null && id.getGender() != null && !id.getGender().isBlank())
+				? id.getGender()
+				: "default";
+
+		remove(dollLabel);
+		try {
+			dollPic = ImageIO.read(new File("images/" + dollName + ".jpg"));
+			dollLabel = new JLabel(new ImageIcon(dollPic));
+		} catch (Exception e) {
+			dollLabel = new JLabel("<html><center><br><br><br><br>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display<br>without a jpg file<br>in the Images folder<br>with the same name<br>as your chosen gender.</center></html>", SwingConstants.CENTER);
+		}
+		add(dollLabel);
+	}  /*--------------
+		END UPDATEDOLL
+		--------------*/
+	
+	/*
+	 * 		UPDATE EQUIPMENT
+	 */	
+	public void updateEquipment() {
+		for (int i = 2; i >= 0; i--) {
+			for (int j = (equipmentName.get(i).size()-1); j >= 0; j--) {
+				remove(equipmentName.get(i).get(j));
+				remove(equipmentTier.get(i).get(j));
+				remove(equipmentCat.get(i).get(j));
+				remove(equipmentEquipped.get(i).get(j));
+				remove(equipmentEnch.get(i).get(j));
+				remove(equipmentGem.get(i).get(j));
+				remove(equipmentStor.get(i).get(j));
+				remove(equipmentOil.get(i).get(j));
+				remove(equipmentMod.get(i).get(j));
+				remove(equipmentAug.get(i).get(j));
+			}
+		}
+		
+		equipmentName = new ArrayList<ArrayList<JTextField>>();
+    	equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
+    	equipmentCat = new ArrayList<ArrayList<JTextField>>();
+    	equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
+    	
+    	for (int i = 0; i < 3; i++) {
+	    	equipmentName.add(new ArrayList<JTextField>());
+	    	equipmentTier.add(new ArrayList<JFormattedTextField>());
+	    	equipmentCat.add(new ArrayList<JTextField>());
+	    	equipmentEquipped.add(new ArrayList<JCheckBox>());
+	    	equipmentEnch.add(new ArrayList<JCheckBox>());
+	    	equipmentGem.add(new ArrayList<JCheckBox>());
+	    	equipmentStor.add(new ArrayList<JCheckBox>());
+	    	equipmentOil.add(new ArrayList<JCheckBox>());
+	    	equipmentMod.add(new ArrayList<JCheckBox>());
+	    	equipmentAug.add(new ArrayList<JCheckBox>());
+    	}
+    	
+    	ArrayList<DataItemEquipment> tempList = new ArrayList<>();
+    	DataItemEquipment tempEquip;
+    	JTextField tempText;
+    	JFormattedTextField tempNum;
+
+    	// Pull equipment from CharInventory: weapons, armor, accessories
+    	CharInventory inv = character.getInventory();
+    	ArrayList<DataItemEquipment> weapons = new ArrayList<>();
+    	ArrayList<DataItemEquipment> armor = new ArrayList<>();
+    	ArrayList<DataItemEquipment> accessories = new ArrayList<>();
+        if (inv != null) {
+            for (DataItem item : inv.getEquipment()) {
+                if (item instanceof DataItemEquipment) {
+                    DataItemEquipment equip = (DataItemEquipment) item;
+                    String cat = equip.getCategory() != null ? equip.getCategory() : "";
+                    if (cat.compareTo("Armor") == 0) {
+                        armor.add(equip);
+                    } else if (cat.compareTo("Accessory") == 0) {
+						accessories.add(equip);
+                    } else {
+                        weapons.add(equip);
+                    }
+                }
+            }
+        }
+
+    	for (int i = 0; i < 3; i++) {
+    		if (i == 0) {
+    			tempList = weapons;
+    		}
+    		else if (i == 1) {
+    			tempList = armor;
+    		}
+    		else if (i == 2) {
+    			tempList = accessories;
+    		}
+    		
+    		if (tempList.isEmpty()) {
+    			// Show a single blank row so the table has visible space even with no items
+    			equipmentName.get(i).add(buildTextField("-"));
+    			equipmentTier.get(i).add(buildNumTextField(0));
+    			equipmentCat.get(i).add(buildTextField("-"));
+    			equipmentEquipped.get(i).add(buildFlagCheck(false));
+    			equipmentEnch.get(i).add(buildFlagCheck(false));
+    			equipmentGem.get(i).add(buildFlagCheck(false));
+    			equipmentStor.get(i).add(buildFlagCheck(false));
+    			equipmentOil.get(i).add(buildFlagCheck(false));
+    			equipmentMod.get(i).add(buildFlagCheck(false));
+    			equipmentAug.get(i).add(buildFlagCheck(false));
+    			continue;
+    		}
+    		
+    		for (int j = 0; j < tempList.size(); j++) {
+    			tempEquip = tempList.get(j);
+    			
+    			tempText = buildTextField(tempEquip.getDname());
+    			equipmentName.get(i).add(tempText);
+    			
+        		tempNum = buildNumTextField(tempEquip.getTier());
+        		equipmentTier.get(i).add(tempNum);
+        		
+        		tempText = buildTextField(tempEquip.getSlot() + " " + tempEquip.getCategory());
+        		equipmentCat.get(i).add(tempText);
+        		
+        		equipmentEquipped.get(i).add(buildFlagCheck(tempEquip.isEquipped()));
+        		
+        		equipmentEnch.get(i).add(buildFlagCheck(tempEquip.getEnch() != 0));
+        		equipmentGem.get(i).add(buildFlagCheck(tempEquip.getGem() != 0));
+        		equipmentStor.get(i).add(buildFlagCheck(tempEquip.getStore() != 0));
+        		equipmentOil.get(i).add(buildFlagCheck(tempEquip.getOil() != 0));
+        		equipmentMod.get(i).add(buildFlagCheck(tempEquip.getMod() != 0));
+        		equipmentAug.get(i).add(buildFlagCheck(tempEquip.getAug() != 0));
+        	}
+    	}  		
+    		
+    	updateEquipLists();
+	}  /*--------------
+		END UPDATEEQUIPMENT
+		--------------*/
+
+	private JCheckBox buildFlagCheck(boolean checked) {
+		JCheckBox box = new JCheckBox();
+		box.setSelected(checked);
+		box.setEnabled(false);
+		box.setHorizontalAlignment(SwingConstants.CENTER);
+		box.setOpaque(true);
+		box.setBackground(alternate ? Color.WHITE : Color.LIGHT_GRAY);
+		add(box);
+		return box;
+	}
+	
+	/*
+	 * 		UPDATE CONSUMABLES
+	 */
+	public void updateConsumables() {
+		// Clear old UI rows
+		for (int i = consumableName.size() - 1; i >= 0; i--) {
+			remove(consumableName.get(i));
+			remove(consumableQty.get(i));
+			remove(consumableNote.get(i));
+		}
+		consumableName = new ArrayList<>();
+		consumableQty = new ArrayList<>();
+		consumableNote = new ArrayList<>();
+		
+		CharInventory inv = character != null ? character.getInventory() : null;
+		List<DataItem> list = inv != null ? inv.getConsumables() : new ArrayList<>();
+		
+		if (list.isEmpty()) {
+			consumableName.add(buildTextField("-"));
+			consumableQty.add(buildNumTextField(0));
+			consumableNote.add(buildTextField("-"));
+			return;
+		}
+		
+		for (DataItem item : list) {
+			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
+			consumableName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
+			consumableQty.add(buildNumTextField(item.getQuantity()));
+			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
+			consumableNote.add(buildTextField(note == null ? "" : note));
+		}
+	}
+	
+	/*
+	 * 		UPDATE GOODS
+	 */
+	public void updateGoods() {
+		for (int i = goodsName.size() - 1; i >= 0; i--) {
+			remove(goodsName.get(i));
+			remove(goodsQty.get(i));
+			remove(goodsNote.get(i));
+		}
+		goodsName = new ArrayList<>();
+		goodsQty = new ArrayList<>();
+		goodsNote = new ArrayList<>();
+		
+		CharInventory inv = character != null ? character.getInventory() : null;
+		List<DataItem> list = inv != null ? inv.getGoods() : new ArrayList<>();
+		
+		if (list.isEmpty()) {
+			goodsName.add(buildTextField("-"));
+			goodsQty.add(buildNumTextField(0));
+			goodsNote.add(buildTextField("-"));
+			return;
+		}
+		
+		for (DataItem item : list) {
+			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
+			goodsName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
+			goodsQty.add(buildNumTextField(item.getQuantity()));
+			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
+			goodsNote.add(buildTextField(note == null ? "" : note));
+		}
+	}
+	
+	/*
+	 * 		UPDATE ITEMS
+	 */
+	public void updateItems() {
+		for (int i = itemsName.size() - 1; i >= 0; i--) {
+			remove(itemsName.get(i));
+			remove(itemsQty.get(i));
+			remove(itemsNote.get(i));
+		}
+		itemsName = new ArrayList<>();
+		itemsQty = new ArrayList<>();
+		itemsNote = new ArrayList<>();
+		
+		CharInventory inv = character != null ? character.getInventory() : null;
+		List<DataItem> list = inv != null ? inv.getItems() : new ArrayList<>();
+		
+		if (list.isEmpty()) {
+			itemsName.add(buildTextField("-"));
+			itemsQty.add(buildNumTextField(0));
+			itemsNote.add(buildTextField("-"));
+			return;
+		}
+		
+		for (DataItem item : list) {
+			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
+			itemsName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
+			itemsQty.add(buildNumTextField(item.getQuantity()));
+			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
+			itemsNote.add(buildTextField(note == null ? "" : note));
+		}
+	}
+	
+	
+	public void updateEquipLists () {
+		ArrayList<DataItemEquipment> tempList = new ArrayList<DataItemEquipment>();
+		ArrayList<DataItemEquipment> tempWeapons = new ArrayList<>();
+		ArrayList<DataItemEquipment> tempArmor = new ArrayList<>();
+		ArrayList<DataItemEquipment> tempAccessories = new ArrayList<>();
+
+		CharInventory inv = character.getInventory();
+        if (inv != null) {
+            for (DataItem item : inv.getEquipment()) {
+                if (item instanceof DataItemEquipment) {
+                    DataItemEquipment equip = (DataItemEquipment) item;
+                    String cat = equip.getCategory();
+                    if (cat != null && cat.startsWith("Armor")) {
+                        tempArmor.add(equip);
+                    } else if (cat != null && cat.startsWith("Accessory")) {
+                        tempAccessories.add(equip);
+                    } else {
+                        tempWeapons.add(equip);
+                    }
+                }
+            }
+        }
+		
+		for (int i = 0; i < 16; i++) {
+			tempList.add((DataItemEquipment)equipped.get(i).getSelectedItem());
+			equipped.get(i).removeAllItems();
+			
+			DataItemEquipment tempEquip = new DataItemEquipment();
+			tempEquip.setDname("*** Empty ***");
+			equipped.get(i).addItem(tempEquip);
+		}
+		
+		for (int i = 0; i < tempWeapons.size(); i++) {
+			for (int j = 12; j < 16; j++) {
+				equipped.get(j).addItem(tempWeapons.get(i));
+			}
+		}
+		// Select equipped weapons into the first available weapon slots
+		int weaponSlot = 12;
+		for (DataItemEquipment w : tempWeapons) {
+			if (w.isEquipped() && weaponSlot < 16) {
+				equipped.get(weaponSlot).setSelectedItem(w);
+				weaponSlot++;
+			}
+		}
+		
+		for (int i = 0; i < tempArmor.size(); i++) {
+			String tempSlot = tempArmor.get(i).getSlot();
+			if (tempSlot.compareTo("Head") == 0) {
+				equipped.get(0).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(0).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Shoulders") == 0) {
+				equipped.get(2).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(2).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Chest") == 0) {
+				equipped.get(4).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(4).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Hands") == 0) {
+				equipped.get(6).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(6).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Waist") == 0) {
+				equipped.get(7).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(7).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Legs") == 0) {
+				equipped.get(10).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(10).setSelectedItem(tempArmor.get(i));
+			}
+			else if (tempSlot.compareTo("Feet") == 0) {
+				equipped.get(11).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(11).setSelectedItem(tempArmor.get(i));
+			}
+		}
+		
+		for (int i = 0; i < tempAccessories.size(); i++) {
+			String tempSlot = tempAccessories.get(i).getSlot();
+			if (tempSlot.compareTo("Neck") == 0) {
+				equipped.get(1).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(1).setSelectedItem(tempAccessories.get(i));
+			}
+			else if (tempSlot.compareTo("Back") == 0) {
+				equipped.get(3).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(3).setSelectedItem(tempAccessories.get(i));
+			}
+			else if (tempSlot.compareTo("Trinket") == 0) {
+				equipped.get(5).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(5).setSelectedItem(tempAccessories.get(i));
+			}
+			else if (tempSlot.compareTo("Right Finger") == 0) {
+				equipped.get(8).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(8).setSelectedItem(tempAccessories.get(i));
+			}
+			else if (tempSlot.compareTo("Left Finger") == 0) {
+				equipped.get(9).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(9).setSelectedItem(tempAccessories.get(i));
+			}
+		}
+	}
+	
+	/**
+	 * Applies the current equip dropdown selections back to the character's inventory
+	 * by toggling each DataItemEquipment's equipped flag. Intended to be called from
+	 * FrameSheet before saving.
+	 */
+	public void applyEquipSelections() {
+		if (character == null) return;
+		CharInventory inv = character.getInventory();
+		if (inv == null) return;
+		
+		// First, clear all equipped flags
+		for (DataItem item : inv.getEquipment()) {
+			if (item instanceof DataItemEquipment) {
+				((DataItemEquipment) item).setEquipped(false);
+			}
+		}
+		
+		// Mark selected items as equipped
+		for (JComboBox<DataItemEquipment> box : equipped) {
+			if (box == null) continue;
+			Object sel = box.getSelectedItem();
+			if (sel instanceof DataItemEquipment) {
+				DataItemEquipment eq = (DataItemEquipment) sel;
+				// Skip placeholder
+				if (eq.getDname() != null && eq.getDname().equalsIgnoreCase("*** Empty ***")) continue;
+				eq.setEquipped(true);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+}

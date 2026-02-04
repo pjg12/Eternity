@@ -29,19 +29,20 @@ public class DataRace {
     @JsonProperty private String racialDesctt;
     @JsonProperty private int racialID;
     @JsonProperty private String description;
+    @JsonProperty private String size;
     @JsonProperty private boolean racePick;
     @JsonProperty private String raceReminder;
 
     // --- Constructors ---
     
-    public DataRace() { this(-1, "", "", "", "", "", "", "", "", "", "", "", "", new int[] {-1, -1, -1}, "", "", -1, "", "", -1, "", false, ""); }
+    public DataRace() { this(-1, "", "", "", "", "", "", "", "", "", "", "", "", new int[] {-1, -1, -1}, "", "", -1, "", "", -1, "", "", false, ""); }
     public DataRace(DataRace src) { this(src.ID, src.name, src.namett, src.homeworld, src.homeworldtt, src.affiliation, src.affiliationtt, src.physical, src.physicaltt, src.personality, src.personalitytt, 
     		src.baseStatusDesc, src.baseStatusDesctt, src.baseStatus, src.scalingStatusDesc, src.scalingStatusDesctt, src.scalingStatus, src.racialDesc, src.racialDesctt, src.racialID, 
-    		src.description, src.racePick, src.raceReminder); }
+    		src.description, src.size, src.racePick, src.raceReminder); }
     
     public DataRace(int ID, String name, String namett, String homeworld, String homeworldtt, String affiliation, String affiliationtt, String physical, String physicaltt, String personality, String personalitytt, 
     	String baseStatusDesc, String baseStatusDesctt, int[] baseStatus, String scalingStatusDesc, String scalingStatusDesctt, double scalingStatus, String racialDesc, String racialDesctt, int racialID, 
-    	String description, boolean racePick, String raceReminder) {
+    	String description, String size, boolean racePick, String raceReminder) {
     	this.ID = ID;
         this.name = name;
         this.namett = namett;
@@ -63,6 +64,7 @@ public class DataRace {
         this.racialDesctt = racialDesctt;
         this.racialID = racialID;
         this.description = description;
+        this.size = safe(size);
         this.racePick = racePick;
         this.raceReminder = raceReminder;
     }
@@ -115,6 +117,29 @@ public class DataRace {
         else
             this.baseStatus = baseStatus.clone();
     }
+    public DataStatus[] getBaseDataStatus() {
+        String[] labels = {"STR", "DEX", "CON", "INT", "WIS", "CHA"};
+        int i = 0;
+        while (i < baseStatus.length)
+            if (baseStatus[i] != -1) i++; 
+            else break;
+        DataStatus[] statuses = new DataStatus[i];
+        for (int j = 0; j < i; j++) {
+            if (j > 0 && labels[j].compareTo(labels[j-1]) == 0) {
+                statuses[j].setSeverity(statuses[j].getSeverity() + 1);
+                continue;
+            }
+            statuses[j] = new DataStatus();
+            statuses[j].setName("Base Racial");
+            statuses[j].setAttribute(labels[j]);
+            if (j == 2)
+                statuses[j].setSeverity(-1);
+            else
+                statuses[j].setSeverity(statuses[j].getSeverity() + 1);
+        }
+
+        return statuses;
+    }
 
     public String getScalingStatusDesc() { return scalingStatusDesc; }
     public void setScalingStatusDesc(String scalingStatusDesc) { this.scalingStatusDesc = safe(scalingStatusDesc); }
@@ -137,6 +162,9 @@ public class DataRace {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = safe(description); }
 
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = safe(size); }
+
     public boolean getRacePick() { return racePick; }
     public void setRacePick(boolean racePick) { this.racePick = racePick; }
 
@@ -150,6 +178,6 @@ public class DataRace {
     @Override
     public String toString() {
         return "DataRace{" + "ID=" + ID + ", name='" + name + '\'' + ", homeworld='" + homeworld + '\'' + ", affiliation='" + affiliation + '\'' +
-            ", baseStatus=" + Arrays.toString(baseStatus) + ", scalingStatus=" + scalingStatus + ", racialID=" + racialID + '}';
+            ", baseStatus=" + Arrays.toString(baseStatus) + ", scalingStatus=" + scalingStatus + ", size='" + size + '\'' + ", racialID=" + racialID + '}';
     }
 }

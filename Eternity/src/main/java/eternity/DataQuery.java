@@ -137,9 +137,23 @@ public class DataQuery {
             .orElse(null);
     }
 
+    public DataSkill getSkillByName(String name) {
+        return store.getSkillData().stream()
+            .filter(s -> eq(s.getName(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
     public List<DataSkill> searchSkills(String namePart) {
         return store.getSkillData().stream()
             .filter(s -> contains(s.getName(), namePart))
+            .collect(Collectors.toList());
+    }
+
+    public List<DataSkill> getSkillsByAttribute(String attribute) {
+        if (attribute == null || attribute.equals("***")) return List.of();
+        return store.getSkillData().stream()
+            .filter(s -> s.getAvailAttributes().stream().anyMatch(att -> eq(att, attribute)))
             .collect(Collectors.toList());
     }
 
@@ -159,6 +173,7 @@ public class DataQuery {
     }
 
     public List<DataSpecialty> getSpecialtiesByType(String type) {
+        if (type == null || type.equals("***")) return store.getSpecialtyData();
         return store.getSpecialtyData().stream()
             .filter(s -> eq(s.getType(), type))
             .collect(Collectors.toList());
@@ -170,13 +185,20 @@ public class DataQuery {
             .collect(Collectors.toList());
     }
 
+    public DataSpecialty getSpecialtyByName(String name) {
+        return store.getSpecialtyData().stream()
+            .filter(s -> eq(s.getName(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
     // ---------------------------------------------------------
     // EQUIPMENT SEARCH
     // ---------------------------------------------------------
 
-    public DataItemEquipment getItemByIid(int iid) {
+    public DataItemEquipment getItemByDid(int did) {
         return store.getItemEquipmentData().stream()
-            .filter(i -> i.getIid() == iid)
+            .filter(i -> i.getDid() == did)
             .findFirst()
             .orElse(null);
     }
@@ -188,6 +210,14 @@ public class DataQuery {
                 contains(i.getIname(), namePart)
             )
             .collect(Collectors.toList());
+    }
+
+    public DataItemEquipment getItemByName(String name) {
+        if (name == null) return null;
+        return store.getItemEquipmentData().stream()
+            .filter(i -> eq(i.getIname(), name) || eq(i.getDname(), name))
+            .findFirst()
+            .orElse(null);
     }
 
     // ---------------------------------------------------------

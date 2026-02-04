@@ -1,0 +1,80 @@
+			if (character.getAllTrainingTechs().get(i).size() > 0) {
+				if (i == 2 || i > 5) {
+					atAffinityL.get(i).setVisible(true);
+					atAffinityL.get(i).setBounds(5, pageHeight, 120, 20);
+				}
+				
+				atNameL.get(i).setVisible(true);
+				atNameL.get(i).setBounds(130, pageHeight, 210, 20);
+				
+				atMaxRankL.get(i).setVisible(true);
+				atMaxRankL.get(i).setBounds(345, pageHeight, 50, 20);
+				
+				atCurRankL.get(i).setVisible(true);
+				atCurRankL.get(i).setBounds(400, pageHeight, 50, 20);
+				
+				atExpL.get(i).setVisible(true);
+				atExpL.get(i).setBounds(455, pageHeight, 50, 20);
+				
+				atNextAtL.get(i).setVisible(true);
+				atNextAtL.get(i).setBounds(510, pageHeight, 50, 20);
+				
+				pageHeight += 20;
+				
+				
+				
+				
+
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		
+				for (int j = 0; j < atName.get(i).size(); j++) {
+					if (i == 2 || i > 5) {
+						atAffinity.get(i).get(j).setVisible(true);
+						atAffinity.get(i).get(j).setBounds(5, pageHeight, 120, 20);
+					}
+					
+					atName.get(i).get(j).setVisible(true);
+					atName.get(i).get(j).setBounds(130, pageHeight, 210, 20);
+				
+					atMaxRank.get(i).get(j).setVisible(true);
+					atMaxRank.get(i).get(j).setBounds(345, pageHeight, 50, 20);
+				
+					atCurRank.get(i).get(j).setVisible(true);
+					atCurRank.get(i).get(j).setBounds(400, pageHeight, 50, 20);
+				
+					atExp.get(i).get(j).setVisible(true);
+					atExp.get(i).get(j).setBounds(455, pageHeight, 50, 20);
+				
+					atNextAt.get(i).get(j).setVisible(true);
+					atNextAt.get(i).get(j).setBounds(510, pageHeight, 50, 20);
+					pageHeight += 20;
+				}
+		
+		
+			}
+		}
+		
+		
+		
+		/*
+		 * Set Window Size
+		 */	
+		pageHeight += 10;
+		this.setPreferredSize(new Dimension(580, pageHeight));
+	}
+	
+	/*
+	 * 
+	 * UPDATERS
+	 * 
+	 */
+	

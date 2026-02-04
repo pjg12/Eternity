@@ -19,7 +19,17 @@ public class DataStore {
 	private final DataBuilder builder;
 	
 	public DataStore() {
-		Path path = Paths.get("c:\\Eternity\\Eternity\\data\\");
+        // Prefer local "data" directory; fall back to capitalized "Data"; finally default to working dir/data
+        Path path = Paths.get("data");
+        if (!path.toFile().exists()) {
+            Path alt = Paths.get("Data");
+            if (alt.toFile().exists()) {
+                path = alt;
+            } else {
+                path = Paths.get(System.getProperty("user.dir")).resolve("data");
+            }
+        }
+
         this.builder = new DataBuilder(path);
         
         // Load all JSON data files
@@ -30,7 +40,7 @@ public class DataStore {
         deityData          = safeLoad("deitydata.json",        DataDeity[].class);
         skillData          = safeLoad("skilldata.json",        DataSkill[].class);
         specialtyData      = safeLoad("specialtydata.json",    DataSpecialty[].class);
-        itemEquipmentData  = safeLoad("itemequipment.json",    DataItemEquipment[].class);
+        itemEquipmentData  = safeLoad("itemequipdata.json",    DataItemEquipment[].class);
         trainingData       = safeLoad("trainingdata.json",     DataTraining[].class);
     }
 	

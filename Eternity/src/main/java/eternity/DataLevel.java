@@ -22,7 +22,7 @@ public class DataLevel {
 	
     // --- Constructors ---
 
-	public DataLevel() { this(1, 0, 0, 0, new int[]{0, 0, 0}, 0, 0, 0, 0, 0, 0); }
+	public DataLevel() { this(0, 0, 0, 0, new int[]{0, 0, 0}, 0, 0, 0, 0, 0, 0); }
 	public DataLevel(DataLevel src) { this(src.level, src.baseHP, src.baseAura, src.baseTechs, src.scalers != null ? src.scalers.clone() : new int[]{0,0,0}, src.dieNum, src.dieSides, src.skills, src.specialties, src.classGeneral, src.classSpec); }
 	
 	public DataLevel(int level, int baseHP, int baseAura, int baseTechs, int[] scalers, int dieNum, int dieSides, int skills, int specialties, int classGeneral, int classSpec) {
@@ -45,7 +45,7 @@ public class DataLevel {
 	// --- Getters & Setters ---
 	
 	public int getLevel() { return level; }
-    public void setLevel(int level) { this.level = Math.max(1, level); }
+    public void setLevel(int level) { this.level = level; }
 
     public int getBaseHP() { return baseHP; }
     public void setBaseHP(int baseHP) { this.baseHP = Math.max(0, baseHP); }

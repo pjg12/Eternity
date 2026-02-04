@@ -1,7 +1,5 @@
 package eternity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -10,6 +8,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Basic identity and progression data for a character.
@@ -17,10 +19,13 @@ import java.util.List;
 public class CharIdentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
+    private CharData owner;
 
     // --- Fields ---
     @JsonProperty private int index;
     @JsonProperty private String name;
+    @JsonProperty private String nickname;
     @JsonProperty private String campaign;
     @JsonProperty private LocalDateTime campaignStartDate; 
     @JsonProperty private Duration campaignElapsedTime;
@@ -40,37 +45,41 @@ public class CharIdentity implements Serializable {
     @JsonProperty private String hair;
     @JsonProperty private String physical;
     @JsonProperty private String personality;
+    @JsonProperty private String notes;
     @JsonProperty private Timestamp updated;
 
     // --- Constructors ---
     public CharIdentity() {
         this.index = 0;
         this.name = "";
+        this.nickname = "";
         this.campaign = "";
-        this.campaignStartDate = null;
+        this.campaignStartDate = LocalDateTime.of(65, 1, 1, 8, 0);
         this.campaignElapsedTime = Duration.ZERO;
-        this.birthday = null;
-        this.race = "";
+        this.birthday = this.campaignStartDate.toLocalDate().minusYears(18); // default age 18
+        this.race = "?";
         this.charRacePick = new ArrayList<>();
-        this.charClass = "";
-        this.charSubclass = "";
+        this.charClass = "?";
+        this.charSubclass = "?";
         this.charClassPick = new ArrayList<>();
         this.level = 1;
         this.exp = 0f;
         this.gender = "";
-        this.size = "";
+        this.size = "?";
         this.height = "";
         this.weight = "";
         this.eyes = "";
         this.hair = "";
         this.physical = "";
         this.personality = "";
+        this.notes = "";
         this.updated = new Timestamp(System.currentTimeMillis());
     }
 
     public CharIdentity(CharIdentity other) {
         this.index = other.index;
         this.name = other.name;
+        this.nickname = other.nickname;
         this.campaign = other.campaign;
         this.campaignStartDate = other.campaignStartDate;
         this.campaignElapsedTime = other.campaignElapsedTime;
@@ -90,6 +99,7 @@ public class CharIdentity implements Serializable {
         this.hair = other.hair;
         this.physical = other.physical;
         this.personality = other.personality;
+        this.notes = other.notes;
         this.updated = other.updated;
     }
 
@@ -99,6 +109,9 @@ public class CharIdentity implements Serializable {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = safeString(name); }
+
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = safeString(nickname); }
 
     public String getCampaign() { return campaign; }
     public void setCampaign(String campaign) { this.campaign = safeString(campaign); }
@@ -111,6 +124,10 @@ public class CharIdentity implements Serializable {
     
     public LocalDate getBirthday() { return birthday; }
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
+    public void randomBirthday(int age) {
+        int birthYear = getYearByAge(age);
+        this.birthday = CharIdentity.randomDayOfYear(birthYear);
+    }
 
     public String getRace() { return race; }
     public void setRace(String race) { this.race = safeString(race); }
@@ -135,6 +152,9 @@ public class CharIdentity implements Serializable {
     public float getExp() { return exp; }
     public void setExp(float exp) { this.exp = Math.max(0f, exp); }
 
+    @JsonIgnore
+    public int getNextAt() { return (this.level * 1000); }
+
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = safeString(gender); }
 
@@ -158,13 +178,34 @@ public class CharIdentity implements Serializable {
 
     public String getPersonality() { return personality; }
     public void setPersonality(String personality) { this.personality = safeString(personality); }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = safeString(notes); }
     
     public Timestamp getUpdated() { return updated; }
     public void setUpdated(Timestamp updated) { this.updated = updated; }
+    
+    @JsonIgnore
+    public CharData getOwner() { return owner; }
+    public void setOwner(CharData owner) { this.owner = owner; }
 
     // --- Helpers ---
     private String safeString(String value) { return (value == null) ? "" : value.trim(); }
     private List<String> safeList(List<String> list) { return (list == null) ? new ArrayList<>() : new ArrayList<>(list); }
+
+    /**
+     * Returns a random date within the specified year.
+     * Uses current year when none is provided.
+     */
+    public static LocalDate randomDayOfYear() {
+        return randomDayOfYear(LocalDate.now().getYear());
+    }
+
+    public static LocalDate randomDayOfYear(int year) {
+        int lengthOfYear = LocalDate.ofYearDay(year, 1).lengthOfYear();
+        int dayOfYear = ThreadLocalRandom.current().nextInt(lengthOfYear) + 1; // 1..length
+        return LocalDate.ofYearDay(year, dayOfYear);
+    }
 
     // --- Derived Utility ---
 
@@ -172,6 +213,7 @@ public class CharIdentity implements Serializable {
      * Returns the current in-campaign date and time.
      * campaignStartDate + campaignElapsedTime
      */
+    @JsonIgnore // derived value; exclude from serialization
     public LocalDateTime getCurrentCampaignDateTime() {
         if (campaignStartDate == null) return null;
         return campaignStartDate.plus(campaignElapsedTime);
@@ -194,6 +236,7 @@ public class CharIdentity implements Serializable {
      *
      * Returns -1 if birthday or campaign time is not set.
      */
+    @JsonIgnore // derived value; exclude from serialization
     public int getAge() {
         if (birthday == null) return -1;
         LocalDateTime currentCampaignDateTime = getCurrentCampaignDateTime();
@@ -201,6 +244,21 @@ public class CharIdentity implements Serializable {
 
         LocalDate currentDate = currentCampaignDateTime.toLocalDate();
         return java.time.Period.between(birthday, currentDate).getYears();
+    }
+
+    /**
+     * Given an age in years, returns the in-campaign calendar year that is
+     * {@code age} years before the current campaign year.
+     *
+     * Returns -1 when the campaign clock is not set.
+     */
+    public int getYearByAge(int age) {
+        LocalDateTime currentCampaignDateTime = getCurrentCampaignDateTime();
+        if (currentCampaignDateTime == null) {
+            return -1;
+        }
+        int currentYear = currentCampaignDateTime.getYear();
+        return currentYear - Math.max(0, age);
     }
     
     // --- Debug / Logging ---

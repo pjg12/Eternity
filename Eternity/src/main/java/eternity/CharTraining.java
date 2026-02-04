@@ -1,6 +1,13 @@
 package eternity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -8,9 +15,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class CharTraining {
 
-    // ---------------------------------------------------------
-    // Core Character Training Data
-    // ---------------------------------------------------------
+    /** The parent character data object. */
+    @JsonIgnore
+    private CharData parent;
 
     /** Natural elemental / cosmic affinities the character is born with. */
     @JsonProperty
@@ -24,13 +31,9 @@ public class CharTraining {
     @JsonProperty
     private boolean isDeviant;
 
-    /** How many aura-techs the character can normally know. */
+    /** Rank used for class-based training progression (may differ from character level). */
     @JsonProperty
-    private int baseMaxTechs;
-
-    /** Scaling multiplier applied to max tech count. */
-    @JsonProperty
-    private double maxTechMultiplier;
+    private int classTrainingRank = 1;
 
     /**
      * Training techniques organized by category.
@@ -38,7 +41,7 @@ public class CharTraining {
      * Key: category string (e.g., "Attribute", "Affinity", "Spirit", "Metal", etc.)
      * Val: List of aura techniques trained under that category.
      */
-    @JsonProperty("techByCategory")
+    @JsonProperty
     private final Map<String, List<DataTraining>> trainingByCategory;
 
 
@@ -52,8 +55,7 @@ public class CharTraining {
         this.trainingByCategory = new HashMap<>();
 
         this.isDeviant = false;
-        this.baseMaxTechs = 0;
-        this.maxTechMultiplier = 1.0;
+        this.classTrainingRank = 1;
     }
 
 
@@ -111,31 +113,40 @@ public class CharTraining {
         this.isDeviant = deviant;
     }
 
+    // ---------------------------------------------------------
+    // Class training rank
+    // ---------------------------------------------------------
+
+    /**
+     * Returns the current class training rank. Falls back to the parent's level if unset.
+     */
+    public int getClassTrainingRank() {
+        if (classTrainingRank <= 0 && parent != null) {
+            return Math.max(1, parent.getLevel());
+        }
+        return Math.max(1, classTrainingRank);
+    }
+
+    public void setClassTrainingRank(int classTrainingRank) {
+        this.classTrainingRank = Math.max(1, classTrainingRank);
+    }
+
 
     // ---------------------------------------------------------
     // Max Tech Counts
     // ---------------------------------------------------------
 
+    /**
+     * Computes base max techs for a given level using DataLevel.getBaseTechs.
+     * Returns 0 if level data is unavailable.
+     */
+    @JsonIgnore
     public int getBaseMaxTechs() {
-        return baseMaxTechs;
+        DataLevel dl = null;
+        if (parent != null) dl = new DataQuery().getLevel(parent.getLevel());
+        if (dl != null) return Math.max(0, dl.getBaseTechs());
+        return 0;
     }
-
-    public void setBaseMaxTechs(int baseMaxTechs) {
-        this.baseMaxTechs = Math.max(0, baseMaxTechs);
-    }
-
-    public double getMaxTechMultiplier() {
-        return maxTechMultiplier;
-    }
-
-    public void setMaxTechMultiplier(double multiplier) {
-        this.maxTechMultiplier = multiplier <= 0 ? 1.0 : multiplier;
-    }
-
-    public int getFinalMaxTechs() {
-        return (int) Math.floor(baseMaxTechs * maxTechMultiplier);
-    }
-
 
     // ---------------------------------------------------------
     // Training Categories
@@ -145,6 +156,7 @@ public class CharTraining {
         return trainingByCategory.computeIfAbsent(category, k -> new ArrayList<>());
     }
 
+    @JsonIgnore
     public Set<String> getTrainingCategories() {
         return Collections.unmodifiableSet(trainingByCategory.keySet());
     }
@@ -160,9 +172,9 @@ public class CharTraining {
                 : Collections.emptyList();
     }
 
-    public void addTraining(String category, DataTraining tech) {
-        if (category != null && tech != null) {
-            List<DataTraining> list = getOrCreateCategory(category);
+    public void addTraining(DataTraining tech) {
+        if (tech != null) {
+            List<DataTraining> list = getOrCreateCategory(tech.getAffinity());
             if (!list.contains(tech)) {
                 list.add(tech);
             }
@@ -200,10 +212,34 @@ public class CharTraining {
         return null;
     }
 
-    /** All aura techniques combined. */
+    /** All aura techniques combined across every category. */
+    @JsonIgnore
     public List<DataTraining> getAllTraining() {
         ArrayList<DataTraining> all = new ArrayList<>();
         for (var list : trainingByCategory.values()) all.addAll(list);
         return all;
     }
+
+    /**
+     * Returns total ranks for all training categories, excluding any whose key matches
+     * the provided skip list (case-insensitive).
+     */
+    @JsonIgnore
+    public int getTotalRanksExcluding(List<String> skipCategories) {
+        int total = 0;
+        for (var entry : trainingByCategory.entrySet()) {
+            String cat = entry.getKey();
+            if (skipCategories != null && skipCategories.stream().anyMatch(s -> s.equalsIgnoreCase(cat))) {
+                continue;
+            }
+            for (DataTraining t : entry.getValue()) total += t.getRank();
+        }
+        return total;
+    }
+
+    
+
+    @JsonIgnore
+    public CharData getParent() { return parent; }
+    public void setParent(CharData parent) { this.parent = parent; }
 }

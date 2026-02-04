@@ -1,12 +1,18 @@
 package eternity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Tracks HP, Aura, Reactions, and Class Resources
  * using the modern StatBlock architecture.
  */
 public class CharResources {
+    @JsonIgnore
+    private CharData owner;
 
     @JsonProperty("maxHP") private StatBlock[] maxHP;
     @JsonProperty("maxAura") private StatBlock[] maxAura;
@@ -17,7 +23,8 @@ public class CharResources {
 
     @JsonProperty private double lostHP;         // missing HP
     @JsonProperty private double spentAura;      // spent aura capacity
-    @JsonProperty private double occupiedAura;   // aura reserved by abilities
+    @JsonProperty private double mainOccupiedAura;    // aura reserved by abilities (main)
+    @JsonProperty private double grantOccupiedAura;   // aura reserved by granted abilities
     @JsonProperty private double shield;         // temporary shielding
     @JsonProperty private double stagger;        // stagger meter
     @JsonProperty private double spentR1;
@@ -26,16 +33,17 @@ public class CharResources {
     @JsonProperty private double spentReactions;
 
     public CharResources() {
-        this.maxHP       = initSingle();
-        this.maxAura     = initSingle();
-        this.maxResource1 = initSingle();
-        this.maxResource2 = initSingle();
-        this.maxResource3 = initSingle();
-        this.reactions    = initSingle();
+        this.maxHP       = initSingle("HP");
+        this.maxAura     = initSingle("AURA");
+        this.maxResource1 = initSingle("RESOURCE1");
+        this.maxResource2 = initSingle("RESOURCE2");
+        this.maxResource3 = initSingle("RESOURCE3");
+        this.reactions    = initSingle("REACTION");
 
         this.lostHP = 0;
         this.spentAura = 0;
-        this.occupiedAura = 0;
+        this.mainOccupiedAura = 0;
+        this.grantOccupiedAura = 0;
         this.shield = 0;
         this.stagger = 0;
         this.spentR1 = 0;
@@ -44,45 +52,103 @@ public class CharResources {
         this.spentReactions = 0;
     }
 
-    private StatBlock[] initSingle() {
+    private StatBlock[] initSingle(String attributeKey) {
         StatBlock[] arr = new StatBlock[1];
         StatBlock block = new StatBlock();
         arr[0] = block;
 
         DataStatus base = new DataStatus();
         base.setName("Base");
-        base.setAttribute("RESOURCE");
+        base.setAttribute(attributeKey);
         base.setDurationType("Permanent");
+        // Multipliers default to 1; others default to 0
+        base.setSeverity(10);
         block.addStatus(base);
 
-        DataStatus attr = new DataStatus();
-        attr.setName("Attribute");
-        attr.setAttribute("RESOURCE");
-        attr.setDurationType("Permanent");
-        block.addStatus(attr);
+        base = new DataStatus();
+        base.setName("Base");
+        base.setAttribute(attributeKey);
+        base.setDurationType("Permanent");
+        // Multipliers default to 1; others default to 0
+        base.setSeverity(0); // multiplier severity 0 keeps overall multiplier at 1.0
+        block.addMulti(base);
 
         return arr;
+    }
+
+    // ---------------------------------------------------------
+    //   DESERIALIZATION SAFETY (accept legacy numeric values)
+    // ---------------------------------------------------------
+    @JsonSetter("maxHP") private void setMaxHP(JsonNode node) { this.maxHP = coerceStatBlocks(node, "HP"); }
+    @JsonSetter("maxAura") private void setMaxAura(JsonNode node) { this.maxAura = coerceStatBlocks(node, "AURA"); }
+    @JsonSetter("maxResource1") private void setMaxResource1(JsonNode node) { this.maxResource1 = coerceStatBlocks(node, "RESOURCE1"); }
+    @JsonSetter("maxResource2") private void setMaxResource2(JsonNode node) { this.maxResource2 = coerceStatBlocks(node, "RESOURCE2"); }
+    @JsonSetter("maxResource3") private void setMaxResource3(JsonNode node) { this.maxResource3 = coerceStatBlocks(node, "RESOURCE3"); }
+    @JsonSetter("reactions") private void setReactions(JsonNode node) { this.reactions = coerceStatBlocks(node, "REACTION"); }
+
+    private StatBlock[] coerceStatBlocks(JsonNode node, String attributeKey) {
+        if (node == null || node.isNull()) return initSingle(attributeKey);
+
+        // Legacy format: numeric value instead of StatBlock array
+        if (node.isNumber()) {
+            StatBlock[] arr = initSingle(attributeKey);
+            arr[0].getStatus().stream()
+                    .filter(s -> "Base".equalsIgnoreCase(s.getName()))
+                    .findFirst()
+                    .ifPresent(s -> s.setSeverity(node.doubleValue()));
+            return arr;
+        }
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            StatBlock[] parsed = mapper.convertValue(node, StatBlock[].class);
+            return (parsed != null && parsed.length > 0) ? parsed : initSingle(attributeKey);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Failed to parse StatBlock array, using defaults: " + e.getMessage());
+            return initSingle(attributeKey);
+        }
+    }
+
+    // Sum only the status severities of a block (ignores its multipliers)
+    private double sumStatus(StatBlock block) {
+        if (block == null) return 0;
+        return block.getStatus().stream().mapToDouble(DataStatus::getSeverity).sum();
     }
 
     // ---------------------------------------------------------
     //   COMPUTED VALUES
     // ---------------------------------------------------------
 
-    public int getMaxHP() { return maxHP[0].computeValue(); }
-    public int getMaxAura() { return maxAura[0].computeValue(); }
+    @JsonIgnore // derived value; exclude from serialization
+    public int getMaxHP() {
+        double base = maxHP[0].computeValue();
+        return (int)Math.max(0, base);
+    }
+    @JsonIgnore // derived value; exclude from serialization
+    public int getMaxAura() {
+        double base = maxAura[0].computeValue();
+        return (int)Math.max(0, base);
+    }
 
+    @JsonIgnore // derived value; exclude from serialization
     public int getMaxResource1() { return maxResource1[0].computeValue(); }
+    @JsonIgnore // derived value; exclude from serialization
     public int getMaxResource2() { return maxResource2[0].computeValue(); }
+    @JsonIgnore // derived value; exclude from serialization
     public int getMaxResource3() { return maxResource3[0].computeValue(); }
 
+    @JsonIgnore // derived value; exclude from serialization
     public int getMaxReactions() { return reactions[0].computeValue(); }
 
     // ---------------------------------------------------------
     //   CURRENT VALUES
     // ---------------------------------------------------------
 
+    @JsonIgnore // derived value; exclude from serialization
     public int getCurrentHP() { return (int)(getMaxHP() - lostHP); }
-    public int getCurrentAura() { return (int)(getMaxAura() - spentAura - occupiedAura); }
+    @JsonIgnore // derived value; exclude from serialization
+    public int getCurrentAura() { return (int)(getMaxAura() - spentAura - getOccupiedAura()); }
+    @JsonIgnore // derived value; exclude from serialization
     public int getCurrentReactions() { return (int)(getMaxReactions() - spentReactions); }
 
     // ---------------------------------------------------------
@@ -94,8 +160,11 @@ public class CharResources {
     
     public void spendAura(double amount) { spentAura = Math.min(getMaxAura(), spentAura + amount); }
     public void restoreAura(double amount) { spentAura = Math.max(0, spentAura - amount); }
-    public void occupyAura(double amount) { occupiedAura += amount; }
-    public void freeAura(double amount) { occupiedAura = Math.max(0, occupiedAura - amount); }
+    public void occupyAura(double amount) { mainOccupiedAura += amount; }
+    public void freeAura(double amount) { mainOccupiedAura = Math.max(0, mainOccupiedAura - amount); }
+
+    public void occupyAuraGrant(double amount) { grantOccupiedAura += amount; }
+    public void freeAuraGrant(double amount) { grantOccupiedAura = Math.max(0, grantOccupiedAura - amount); }
 
     public void addShield(double amount) { shield += amount; }
     public void removeShield(double amount) { shield = Math.max(0, shield - amount); }
@@ -113,8 +182,11 @@ public class CharResources {
     public double getSpentAura() { return spentAura; }
     public void setSpentAura(double spentAura) { this.spentAura = spentAura; }
 
-    public double getOccupiedAura() { return occupiedAura; }
-    public void setOccupiedAura(double occupiedAura) { this.occupiedAura = occupiedAura; }
+    public double getOccupiedAura() { return mainOccupiedAura + grantOccupiedAura; }
+    public void setOccupiedAura(double occupiedAura) { this.mainOccupiedAura = Math.max(0, occupiedAura); }
+    public double getMainOccupiedAura() { return mainOccupiedAura; }
+    public double getGrantOccupiedAura() { return grantOccupiedAura; }
+    public void setGrantOccupiedAura(double v) { this.grantOccupiedAura = Math.max(0, v); }
 
     public double getShield() { return shield; }
     public void setShield(double shield) { this.shield = shield; }
@@ -133,10 +205,59 @@ public class CharResources {
     public double getSpentReactions() { return spentReactions; }
     public void setSpentReactions(double spentReactions) { this.spentReactions = spentReactions; }
 
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getMaxHPBlocks() { return maxHP; }
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getMaxAuraBlocks() { return maxAura; }
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getMaxResource1Blocks() { return maxResource1; }
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getMaxResource2Blocks() { return maxResource2; }
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getMaxResource3Blocks() { return maxResource3; }
+    @JsonIgnore // derived value; exclude from serialization
     public StatBlock[] getReactionBlocks() { return reactions; }
+
+    @JsonIgnore
+    public CharData getOwner() { return owner; }
+    public void setOwner(CharData owner) { this.owner = owner; }
+
+    // ---------------------------------------------------------
+    //   BASE VALUE HELPERS
+    // ---------------------------------------------------------
+
+    /**
+     * Updates the "Base" status entry for Max HP with the supplied value.
+     * If the status does not exist (e.g., older saved characters), it will be created.
+     */
+    public void setBaseMaxHP(double value) {
+        setBaseStatusValue(maxHP, value);
+    }
+
+    /**
+     * Updates the "Base" status entry for Max Aura with the supplied value.
+     */
+    public void setBaseMaxAura(double value) {
+        setBaseStatusValue(maxAura, value);
+    }
+
+    /**
+     * Shared helper to upsert the Base status severity on the first StatBlock.
+     */
+    private void setBaseStatusValue(StatBlock[] blocks, double value) {
+        if (blocks == null || blocks.length == 0) return;
+        StatBlock block = blocks[0];
+        var baseStatus = block.getStatus().stream()
+                .filter(s -> "Base".equalsIgnoreCase(s.getName()))
+                .findFirst()
+                .orElseGet(() -> {
+                    DataStatus s = new DataStatus();
+                    s.setName("Base");
+                    s.setAttribute(blocks == maxHP ? "HP" : (blocks == maxAura ? "AURA" : "RESOURCE"));
+                    s.setDurationType("Permanent");
+                    block.addStatus(s);
+                    return s;
+                });
+        baseStatus.setSeverity(Math.max(0, value));
+    }
 }

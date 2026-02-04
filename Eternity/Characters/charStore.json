@@ -1,0 +1,145 @@
+[ {
+  "index" : 18,
+  "name" : "Uce",
+  "campaign" : "",
+  "race" : "Alteri",
+  "charClass" : "Rogue",
+  "level" : 1,
+  "updated" : "2026-02-03T20:48:56.241+0000"
+}, {
+  "index" : 17,
+  "name" : "Tim",
+  "campaign" : "",
+  "race" : "Aquata",
+  "charClass" : "Rogue",
+  "level" : 1,
+  "updated" : "2026-01-30T18:05:21.548+0000"
+}, {
+  "index" : 16,
+  "name" : "Pete",
+  "campaign" : "",
+  "race" : "Aquata",
+  "charClass" : "Rogue",
+  "level" : 1,
+  "updated" : "2026-01-30T18:03:53.839+0000"
+}, {
+  "index" : 15,
+  "name" : "Torto",
+  "campaign" : "",
+  "race" : "Aquata",
+  "charClass" : "Paladin",
+  "level" : 1,
+  "updated" : "2026-01-30T18:00:32.293+0000"
+}, {
+  "index" : 14,
+  "name" : "Indi",
+  "campaign" : "",
+  "race" : "Ardian",
+  "charClass" : "Leader",
+  "level" : 1,
+  "updated" : "2026-01-30T17:52:20.471+0000"
+}, {
+  "index" : 13,
+  "name" : "Looper",
+  "campaign" : "",
+  "race" : "Cetryu",
+  "charClass" : "Rogue",
+  "level" : 1,
+  "updated" : "2026-01-30T17:50:51.720+0000"
+}, {
+  "index" : 12,
+  "name" : "Timmy",
+  "campaign" : "",
+  "race" : "Aquata",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-30T17:47:45.054+0000"
+}, {
+  "index" : 11,
+  "name" : "Potato",
+  "campaign" : "",
+  "race" : "Ardian",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-30T17:44:38.116+0000"
+}, {
+  "index" : 10,
+  "name" : "Otto",
+  "campaign" : "",
+  "race" : "Ardian",
+  "charClass" : "Paladin",
+  "level" : 1,
+  "updated" : "2026-01-30T17:29:16.241+0000"
+}, {
+  "index" : 9,
+  "name" : "Canto",
+  "campaign" : "",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-30T17:21:41.318+0000"
+}, {
+  "index" : 8,
+  "name" : "Bo",
+  "campaign" : "",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-30T17:12:02.854+0000"
+}, {
+  "index" : 7,
+  "name" : "james",
+  "campaign" : "",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-30T02:09:43.997+0000"
+}, {
+  "index" : 6,
+  "name" : "Benjamin Oscar Cadwall",
+  "campaign" : "Divine Sin",
+  "race" : "Kenti",
+  "charClass" : "Monk",
+  "level" : 1,
+  "updated" : "2026-01-29T22:13:52.157+0000"
+}, {
+  "index" : 5,
+  "name" : "Luke",
+  "campaign" : "?",
+  "race" : "Aquata",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-29T18:23:04.684+0000"
+}, {
+  "index" : 4,
+  "name" : "Lorde",
+  "campaign" : "?",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-29T01:28:40.355+0000"
+}, {
+  "index" : 3,
+  "name" : "Jimbo",
+  "campaign" : "?",
+  "race" : "Ardian",
+  "charClass" : "Rogue",
+  "level" : 1,
+  "updated" : "2026-01-29T00:54:54.177+0000"
+}, {
+  "index" : 2,
+  "name" : "Bert",
+  "campaign" : "?",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-29T00:35:07.823+0000"
+}, {
+  "index" : 1,
+  "name" : "Norman",
+  "campaign" : "?",
+  "race" : "Alteri",
+  "charClass" : "Warrior",
+  "level" : 1,
+  "updated" : "2026-01-29T00:25:26.607+0000"
+} ]

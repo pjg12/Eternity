@@ -1,5 +1,6 @@
 package eternity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
     "matchedClass", "charRacial", "classSpecials"
 })
 public class CharAttributes {
+    @JsonIgnore
+    private CharData owner;
 
     private static final String[] ATTRIBUTES = { "STR","DEX","CON","FOC","CTL","CAP","KNOW","MECH","PERC","INT","CHA","SUB" };
     private static final String[] DEFENSE = { "ARMOR", "DODGE", "DEF", "FORT", "REF", "WILL" };
     private static final String[] DMGTYPE = { "ALL", "PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME" };
-    private static final String[] COMBAT = { "ATK", "MATK", "RATK", "DC", "MOVE", "FLY", "RANGE", "INIT" };
+    private static final String[] COMBAT = { "ATK", "MATK", "RATK", "APP", "MOVE", "FLY", "RANGE", "INIT" };
     private static final String[] SECONDARY = { "SUP", "IMP", "BEN", "EXCL", "MAXATK" };
     private static final String[] DAMAGE = { "BDMG", "BMDMG", "BRDMG", "TDMG", "TMDMG", "TRDMG", "BHEAL", "THEAL" };
 
@@ -54,13 +57,6 @@ public class CharAttributes {
             base.setAttribute(categoryKeys[i]);
             base.setDurationType("Permanent");
             block.addStatus(base);
-
-            // ATTRIBUTE (if applicable)
-            DataStatus attr = new DataStatus();
-            attr.setName("Attribute");
-            attr.setAttribute(categoryKeys[i]);
-            attr.setDurationType("Permanent");
-            block.addStatus(attr);
         }
 
         return arr;
@@ -71,7 +67,8 @@ public class CharAttributes {
     // ---------------------------------------------------------
 
     private int idx(String[] group, String key) {
-        for (int i = 0; i < group.length; i++) if (group[i].equals(key)) return i; 
+        if (key == null) return -1;
+        for (int i = 0; i < group.length; i++) if (group[i].equalsIgnoreCase(key)) return i; 
         return -1;
     }
 
@@ -99,6 +96,36 @@ public class CharAttributes {
         if (block != null) block.removeMulti(name);
     }
 
+    /**
+     * Sets the severity of an existing status entry (by name) on the given category/key.
+     * Does nothing if the block or status is missing.
+     */
+    public void setStatusSeverity(String category, String key, String name, double severity) {
+        StatBlock block = getBlock(category, key);
+        if (block == null || name == null) return;
+        for (DataStatus status : block.getStatus()) {
+            if (name.equals(status.getName())) {
+                status.setSeverity(severity);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Sets the severity of an existing multi entry (by name) on the given category/key.
+     * Does nothing if the block or multi-status is missing.
+     */
+    public void setMultiSeverity(String category, String key, String name, double severity) {
+        StatBlock block = getBlock(category, key);
+        if (block == null || name == null) return;
+        for (DataStatus status : block.getMulti()) {
+            if (name.equals(status.getName())) {
+                status.setSeverity(severity);
+                return;
+            }
+        }
+    }
+
     // ---------------------------------------------------------
     //  PUBLIC API: VALUE RETRIEVAL
     // ---------------------------------------------------------
@@ -113,13 +140,14 @@ public class CharAttributes {
     // ---------------------------------------------------------
 
     private StatBlock getBlock(String category, String key) {
+        int i;
         switch (category.toLowerCase()) {
-            case "attribute": return attributes[idx(ATTRIBUTES, key)];
-            case "defense":   return defense[idx(DEFENSE, key)];
-            case "resist":    return resist[idx(DMGTYPE, key)];
-            case "combat":    return combat[idx(COMBAT, key)];
-            case "secondary": return secondary[idx(SECONDARY, key)];
-            case "damage":    return damage[idx(DAMAGE, key)];
+            case "attribute": i = idx(ATTRIBUTES, key); return i >= 0 ? attributes[i] : null;
+            case "defense":   i = idx(DEFENSE, key);    return i >= 0 ? defense[i] : null;
+            case "resist":    i = idx(DMGTYPE, key);    return i >= 0 ? resist[i] : null;
+            case "combat":    i = idx(COMBAT, key);     return i >= 0 ? combat[i] : null;
+            case "secondary": i = idx(SECONDARY, key);  return i >= 0 ? secondary[i] : null;
+            case "damage":    i = idx(DAMAGE, key);     return i >= 0 ? damage[i] : null;
             default: return null;
         }
     }
@@ -145,4 +173,8 @@ public class CharAttributes {
     @JsonProperty("combat") public StatBlock[] getCombat() { return combat; }
     @JsonProperty("secondary") public StatBlock[] getSecondary() { return secondary; }
     @JsonProperty("damage") public StatBlock[] getDamage() { return damage; }
+
+    @JsonIgnore
+    public CharData getOwner() { return owner; }
+    public void setOwner(CharData owner) { this.owner = owner; }
 }

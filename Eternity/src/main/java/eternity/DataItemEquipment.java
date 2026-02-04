@@ -103,10 +103,7 @@ public class DataItemEquipment extends DataItem {
     
     @Override
     public String toString() {
-        return "DataItemEquipment {\n" + "  dname: \"" + getDname() + "\",\n" + "  iname: \"" + getIname() + "\",\n" + "  slot: \"" + slot + "\",\n" +
-            "  category: \"" + category + "\",\n" + "  type: \"" + type + "\",\n" + "  tier: " + tier + ",\n" + "  bonusAtt: \"" + bonusAtt + "\",\n" +
-            "  bonusAmount: " + bonusAmount + ",\n" + "  levelReq: " + levelReq + ",\n" + "  value: " + value + ",\n" + "  equipped: " + equipped + ",\n" +
-            "  ench: " + ench + ",\n" + "  gem: " + gem + ",\n" + "  store: " + store + ",\n" + "  oil: " + oil + ",\n" + "  mod: " + mod + ",\n" +
-            "  aug: " + aug + "\n" + "}";
+        String display = !getDname().isBlank() ? getDname() : getIname();
+        return display.isBlank() ? "(unnamed item)" : display;
     }
 }

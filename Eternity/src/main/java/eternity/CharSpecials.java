@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 /**
  * Tracks all character skills, racial specialties,
  * class specialties, and trained specialties.
@@ -14,9 +18,12 @@ public class CharSpecials {
     // Fields
     // ---------------------------------------------------------
 
-    private final List<DataSkill> charSkills;            // All skills the character has
-    private DataSpecialty charRacial;                    // The single racial specialty
-    private final List<DataSpecialty> charClassSpecials; // Specialties granted by class
+    @JsonProperty("skills")
+    private final List<DataSkill> charSkills;              // All skills the character has
+    private DataSpecialty charRacial;                      // The single racial specialty
+    @JsonProperty("classSpecialties")
+    private final List<DataSpecialty> charClassSpecials;   // Specialties granted by class
+    @JsonProperty("trainedSpecialties")
     private final List<DataSpecialty> charTrainedSpecials; // Specialties gained from training/resources
 
     // ---------------------------------------------------------
@@ -34,8 +41,12 @@ public class CharSpecials {
     // Skills
     // ---------------------------------------------------------
 
-    public List<DataSkill> getSkills() {
-        return Collections.unmodifiableList(charSkills);
+    public List<DataSkill> getSkills() { return Collections.unmodifiableList(charSkills); }
+
+    @JsonSetter("skills")
+    public void setSkills(List<DataSkill> skills) {
+        charSkills.clear();
+        if (skills != null) charSkills.addAll(skills);
     }
 
     public void addSkill(DataSkill skill) {
@@ -75,8 +86,12 @@ public class CharSpecials {
     // Class Specialties
     // ---------------------------------------------------------
 
-    public List<DataSpecialty> getClassSpecialties() {
-        return Collections.unmodifiableList(charClassSpecials);
+    public List<DataSpecialty> getClassSpecialties() { return Collections.unmodifiableList(charClassSpecials); }
+
+    @JsonSetter("classSpecialties")
+    public void setClassSpecialties(List<DataSpecialty> specs) {
+        charClassSpecials.clear();
+        if (specs != null) charClassSpecials.addAll(specs);
     }
 
     public void addClassSpecialty(DataSpecialty spec) {
@@ -100,8 +115,12 @@ public class CharSpecials {
     // Trained Specialties
     // ---------------------------------------------------------
 
-    public List<DataSpecialty> getTrainedSpecialties() {
-        return Collections.unmodifiableList(charTrainedSpecials);
+    public List<DataSpecialty> getTrainedSpecialties() { return Collections.unmodifiableList(charTrainedSpecials); }
+
+    @JsonSetter("trainedSpecialties")
+    public void setTrainedSpecialties(List<DataSpecialty> specs) {
+        charTrainedSpecials.clear();
+        if (specs != null) charTrainedSpecials.addAll(specs);
     }
 
     public void addTrainedSpecialty(DataSpecialty spec) {
@@ -126,6 +145,7 @@ public class CharSpecials {
     // ---------------------------------------------------------
 
     /** All specialties the character has, regardless of origin. */
+    @JsonIgnore
     public List<DataSpecialty> getAllSpecialties() {
         ArrayList<DataSpecialty> all = new ArrayList<>();
         if (charRacial != null) all.add(charRacial);
@@ -149,4 +169,11 @@ public class CharSpecials {
 
         return null;
     }
+
+    @JsonIgnore
+    private CharData owner;
+
+    @JsonIgnore
+    public CharData getOwner() { return owner; }
+    public void setOwner(CharData owner) { this.owner = owner; }
 }

@@ -2,15 +2,14 @@ package eternity;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 public class FrameNewClass extends JFrame {
-
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+
     private FrameNewClassPicker picker;
     private Color bg;
     private Color fg;
@@ -53,14 +52,13 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     // Constructor
     // ---------------------------------------------------
-    public FrameNewClass(FrameSheet sheetFrame, DataQuery dataQuery,
-                         CharData character, FrameNew parent) {
+    public FrameNewClass(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
         super("Select Class");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
-        infoTitleBox = new ArrayList<JPanel>();
-        infoTitle = new ArrayList<JLabel>();
+        infoTitleBox = new ArrayList<>();
+        infoTitle = new ArrayList<>();
 
         loadIcons();
         buildWindow();
@@ -79,11 +77,11 @@ public class FrameNewClass extends JFrame {
 
         for (int i = 0; i < CLASSOPTIONS.length; i++) {
             iconsNormal[i] = scaleIcon(
-                    new ImageIcon("eternity/images/" + CLASSOPTIONS[i] + "1.png"),
+                    new ImageIcon("images/" + CLASSOPTIONS[i] + "1.png"),
                     ICON_SIZE, ICON_SIZE
             );
             iconsHover[i] = scaleIcon(
-                    new ImageIcon("eternity/images/" + CLASSOPTIONS[i] + "2.png"),
+                    new ImageIcon("images/" + CLASSOPTIONS[i] + "2.png"),
                     ICON_SIZE, ICON_SIZE
             );
         }

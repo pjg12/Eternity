@@ -1,0 +1,497 @@
+[ {
+  "title" : "Enhancement",
+  "backRed" : 130,
+  "backGreen" : 0,
+  "backBlue" : 0,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Body",
+  "backRed" : 240,
+  "backGreen" : 50,
+  "backBlue" : 80,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Nature",
+  "backRed" : 0,
+  "backGreen" : 140,
+  "backBlue" : 0,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Metal",
+  "backRed" : 100,
+  "backGreen" : 100,
+  "backBlue" : 100,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Earth",
+  "backRed" : 160,
+  "backGreen" : 80,
+  "backBlue" : 45,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Water",
+  "backRed" : 40,
+  "backGreen" : 50,
+  "backBlue" : 180,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Air",
+  "backRed" : 170,
+  "backGreen" : 210,
+  "backBlue" : 230,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Fire",
+  "backRed" : 255,
+  "backGreen" : 140,
+  "backBlue" : 0,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Electricity",
+  "backRed" : 255,
+  "backGreen" : 255,
+  "backBlue" : 0,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Energy",
+  "backRed" : 100,
+  "backGreen" : 0,
+  "backBlue" : 180,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Force",
+  "backRed" : 130,
+  "backGreen" : 255,
+  "backBlue" : 210,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Light",
+  "backRed" : 255,
+  "backGreen" : 255,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Darkness",
+  "backRed" : 55,
+  "backGreen" : 55,
+  "backBlue" : 55,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Poison",
+  "backRed" : 80,
+  "backGreen" : 255,
+  "backBlue" : 80,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Sound",
+  "backRed" : 190,
+  "backGreen" : 190,
+  "backBlue" : 190,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Psionic",
+  "backRed" : 255,
+  "backGreen" : 130,
+  "backBlue" : 130,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Spirit",
+  "backRed" : 220,
+  "backGreen" : 180,
+  "backBlue" : 255,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Time",
+  "backRed" : 200,
+  "backGreen" : 180,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Deviant",
+  "backRed" : 120,
+  "backGreen" : 100,
+  "backBlue" : 255,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Warrior",
+  "backRed" : 130,
+  "backGreen" : 0,
+  "backBlue" : 0,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Paladin",
+  "backRed" : 255,
+  "backGreen" : 255,
+  "backBlue" : 0,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Rogue",
+  "backRed" : 190,
+  "backGreen" : 190,
+  "backBlue" : 190,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Monk",
+  "backRed" : 220,
+  "backGreen" : 180,
+  "backBlue" : 255,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Archer",
+  "backRed" : 0,
+  "backGreen" : 140,
+  "backBlue" : 0,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Leader",
+  "backRed" : 80,
+  "backGreen" : 255,
+  "backBlue" : 80,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Cleric",
+  "backRed" : 200,
+  "backGreen" : 180,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Caster",
+  "backRed" : 255,
+  "backGreen" : 140,
+  "backBlue" : 0,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Shifter",
+  "backRed" : 40,
+  "backGreen" : 50,
+  "backBlue" : 180,
+  "foreRed" : 255,
+  "foreGreen" : 255,
+  "foreBlue" : 255
+}, {
+  "title" : "Pilot",
+  "backRed" : 120,
+  "backGreen" : 100,
+  "backBlue" : 255,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Alteri",
+  "backRed" : 225,
+  "backGreen" : 225,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Aquata",
+  "backRed" : 225,
+  "backGreen" : 225,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Ardian",
+  "backRed" : 225,
+  "backGreen" : 225,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Azuri",
+  "backRed" : 225,
+  "backGreen" : 150,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Boxlor",
+  "backRed" : 225,
+  "backGreen" : 150,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Cetryu",
+  "backRed" : 225,
+  "backGreen" : 150,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Construct",
+  "backRed" : 225,
+  "backGreen" : 75,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Deckan",
+  "backRed" : 225,
+  "backGreen" : 75,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "En",
+  "backRed" : 225,
+  "backGreen" : 75,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Evan",
+  "backRed" : 150,
+  "backGreen" : 225,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Felsh",
+  "backRed" : 150,
+  "backGreen" : 225,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Felsh Cat",
+  "backRed" : 150,
+  "backGreen" : 225,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Forven",
+  "backRed" : 150,
+  "backGreen" : 150,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Gaian",
+  "backRed" : 150,
+  "backGreen" : 150,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Irdon",
+  "backRed" : 150,
+  "backGreen" : 150,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Kenti",
+  "backRed" : 150,
+  "backGreen" : 75,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Kitsune",
+  "backRed" : 150,
+  "backGreen" : 75,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Loben",
+  "backRed" : 150,
+  "backGreen" : 75,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Loritho",
+  "backRed" : 75,
+  "backGreen" : 225,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Meridian",
+  "backRed" : 75,
+  "backGreen" : 225,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Nohmen",
+  "backRed" : 75,
+  "backGreen" : 225,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Nosfer",
+  "backRed" : 75,
+  "backGreen" : 150,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Oon",
+  "backRed" : 75,
+  "backGreen" : 150,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Poruuk",
+  "backRed" : 75,
+  "backGreen" : 150,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Quez",
+  "backRed" : 75,
+  "backGreen" : 75,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Raigon",
+  "backRed" : 75,
+  "backGreen" : 75,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Reven",
+  "backRed" : 75,
+  "backGreen" : 75,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Skren",
+  "backRed" : 0,
+  "backGreen" : 225,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Theran",
+  "backRed" : 0,
+  "backGreen" : 225,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Vindis",
+  "backRed" : 0,
+  "backGreen" : 225,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Vyrek",
+  "backRed" : 0,
+  "backGreen" : 150,
+  "backBlue" : 225,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Xid",
+  "backRed" : 0,
+  "backGreen" : 150,
+  "backBlue" : 150,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+}, {
+  "title" : "Zyan",
+  "backRed" : 0,
+  "backGreen" : 150,
+  "backBlue" : 75,
+  "foreRed" : 0,
+  "foreGreen" : 0,
+  "foreBlue" : 0
+} ]

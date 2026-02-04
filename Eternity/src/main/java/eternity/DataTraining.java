@@ -76,60 +76,56 @@ public class DataTraining {
     
     // --- Helpers ---
     
-    /** Computes the maximum achievable rank based on character level, affinity, and prerequisites. */
-    /*public int getMaxRank(CharData character) {
-        // Base computation: (level - mod) * coef
-        double max = (character.getCharLevel() - levelMod) * levelCoef;
+    /// Computes the maximum achievable rank based on character level, affinity, and prerequisites.
+    public int getMaxRank(CharData character) {
+        if (character == null || character.getIdentity() == null || character.getTraining() == null) return 0;
+
+        int level = character.getIdentity().getLevel();
+        double max = (level - levelMod) * levelCoef;
         if (max < 0) max = 0;
         
         // Natural affinity bonus (+1 rank)
-        if (character.getCharNaturalAffinities().contains(affinity)) {
+        if (character.getTraining().getNaturalAffinities().contains(affinity)) {
             max++;
         }
         
         // Prereq cap
         if (prereq != -1) {
-            DataTraining req = character.getTrainingTechById(prereq);
+            DataTraining req = character.getTraining().getTrainingById(prereq);
             if (req != null) max = Math.min(max, req.getRank()); 
         }
         return (int) max;
-    }*/
+    }
     
     //Returns a human-readable string explaining *what* is now the limiting factor: - "Level", - Prereq Skill name
-    /*public String getPrereqCap(CharData character) {
-        String cap = "Level";
-        // Compute level-based cap
-        double floor = (levelMod > 1 ? Math.floor(levelMod) : 0.0);
-        double fraction = (levelMod > 1 ? levelMod - floor : levelMod);
-        if (fraction == 0.0 && levelMod > 1) {
-            floor--;
-            fraction = 1.0;
-        }
-        double lvlRank = character.getCharLevel() * fraction;
-        if (character.getCharNaturalAffinities().contains(affinity)) lvlRank++;
-        lvlRank -= floor;
+    public String getPrereqCap(CharData character) {
+        if (character == null || character.getTraining() == null) return "Level";
 
-        // Check prereq cap
-        DataTraining prereqTech = character.getTrainingTechById(prereq);
-        if (prereqTech != null) {
-            double prereqRank = prereqTech.getRank();
-            if (prereqRank < lvlRank) return prereqTech.getName();
-            else return character.getDataStore().getTrainingData(prereq).getName();
+        double cap = getMaxRank(character);
+
+        if (prereq != -1) {
+            DataTraining prereqTech = character.getTraining().getTrainingById(prereq);
+            if (prereqTech != null && prereqTech.getRank() < cap) {
+                return prereqTech.getName();
+            }
         }
-        return cap;
-    }*/
+        return "Level";
+    }
     
     /** Computes XP required for next rank. */
-    /*public int getNextAt(CharData character) {
+    public int getNextAt(CharData character) {
         int value = getRank() * 4 + 10;
 
         // Spirit / Time penalty
-        if ("Spirit".equals(affinity) || "Time".equals(affinity)) value = (int)(value * 1.5); 
+        if ("Spirit".equalsIgnoreCase(affinity) || "Time".equalsIgnoreCase(affinity)) value = (int)(value * 1.5); 
 
         // Natural affinity bonus (half cost)
-        if (character.getCharNaturalAffinities().contains(affinity)) value /= 2;
+        if (character != null && character.getTraining() != null &&
+                character.getTraining().getNaturalAffinities().contains(affinity)) {
+            value /= 2;
+        }
         return value;
-    }*/
+    }
     
     private static String safe(String s) { return s == null ? "" : s; }
 

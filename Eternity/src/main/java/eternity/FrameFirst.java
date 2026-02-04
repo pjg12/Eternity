@@ -1,7 +1,17 @@
 package eternity;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * Welcome screen for the Eternity TTRPG Helper.
@@ -15,13 +25,13 @@ public class FrameFirst extends JFrame {
     private JLabel headerL;
     private JLabel subHeaderL;
     private JButton newBtn;
-    private JButton exitBtn;
+    private JButton loadBtn;
 
     public FrameFirst(FrameSheet sheetFrame) {
         this.sheetFrame = sheetFrame;
 
         setTitle("Eternity TTRPG Helper");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(550, 200);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -45,7 +55,7 @@ public class FrameFirst extends JFrame {
         headerL.setFont(headerL.getFont().deriveFont(Font.BOLD, 20f));
         headerL.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        subHeaderL = new JLabel("No Characters Found. Create a New Character?");
+        subHeaderL = new JLabel("Create a New Character or Load an Existing Character?");
         subHeaderL.setFont(subHeaderL.getFont().deriveFont(15f));
         subHeaderL.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -59,11 +69,11 @@ public class FrameFirst extends JFrame {
         // Buttons
         // ------------------------
         newBtn = new JButton("New");
-        exitBtn = new JButton("Exit");
+        loadBtn = new JButton("Load");
 
         Dimension btnSize = new Dimension(150, 30);
         newBtn.setPreferredSize(btnSize);
-        exitBtn.setPreferredSize(btnSize);
+        loadBtn.setPreferredSize(btnSize);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
@@ -72,7 +82,7 @@ public class FrameFirst extends JFrame {
         buttonPanel.add(Box.createHorizontalGlue());
         buttonPanel.add(newBtn);
         buttonPanel.add(Box.createHorizontalStrut(20));
-        buttonPanel.add(exitBtn);
+        buttonPanel.add(loadBtn);
         buttonPanel.add(Box.createHorizontalGlue());
 
         root.add(buttonPanel);
@@ -83,7 +93,7 @@ public class FrameFirst extends JFrame {
 
         // Listeners
         newBtn.addActionListener(e -> onNewPressed());
-        exitBtn.addActionListener(e -> onExitPressed());
+        loadBtn.addActionListener(e -> onLoadPressed());
     }
 
     // -------------------------------
@@ -96,9 +106,9 @@ public class FrameFirst extends JFrame {
         });
     }
 
-    private void onExitPressed() {
+    private void onLoadPressed() {
         SwingUtilities.invokeLater(() -> {
-            sheetFrame.dispose();
+            sheetFrame.onLoadPressed();
             dispose();
         });
     }
