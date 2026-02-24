@@ -6,7 +6,7 @@
   "charClass" : "Warrior",
   "level" : 1,
   "updated" : "2026-02-21T06:58:51.701+0000",
-  "reference" : "Characters\\1.json"
+  "reference" : "Characters\\Backup\\1Backup2.json"
 }, {
   "index" : 31,
   "name" : "Katti Naunka",
@@ -15,5 +15,5 @@
   "charClass" : "Shifter",
   "level" : 4,
   "updated" : "2026-02-15T05:17:42.619+0000",
-  "reference" : "Characters\\31.json"
+  "reference" : "Characters\\Backup\\31Backup2.json"
 } ]
