@@ -1,6 +1,7 @@
 package eternity;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -14,11 +15,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import java.awt.Font;
 import javax.swing.text.NumberFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 /*
  * 		BASE FOR ALL CHARACTER PANELS
@@ -33,17 +37,22 @@ public class PanelCharBase extends JPanel {
 	
 	//HP, Aura
 	private JLabel hpL, auraL, charCurrHPL, charMaxHPL, charAvailAuraL, charOccAuraL, charSpentAuraL, charMaxAuraL;
-	private JFormattedTextField charCurrHP, charMaxHP, charAvailAura, charOccAura, charSpentAura, charMaxAura;
+	private JProgressBar charCurrHP;
+	private JProgressBar charAvailAura;
+	private JProgressBar charOccAura;
+	private JFormattedTextField charMaxHP, charSpentAura, charMaxAura;
 	
 	//Reminder Bars
 	JPanel racePanel;
 	JLabel raceRemind;
+	private JLabel tabTitleL;
+	private static final int REMINDER_TOP_MARGIN = 10;
 	
 	final String[] ATTRIBUTES = {"Strength", "Dexterity", "Constitution", "Focus", "Control", "Capacity", "Knowledge", "Mechanical", "Perception", "Intuition", "Charisma", "Subtlety"};
 	final String[] ATTSHORT = {"STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"};
-	final String[] AFFINITIES = {"None", "Reinforcement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Dark", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
-	final String[] TRAININGTITLE = {"Attribute Training", "Misc Training", "Affinitiy Training", "Fundamental Princples Training", "Standard Technique Training", "Crafting Training", "Reinforcement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Dark", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
-	final String[] TRAINING = {"Attribute", "Misc", "Affinitiy", "Fundamental", "Standard", "Crafting", "Reinforcement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Dark", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
+	final String[] AFFINITIES = {"None", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Darkness", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
+	final String[] TRAININGTITLE = {"Attribute Training", "Misc Training", "Affinity Training", "Fundamental Principles Training", "Standard Technique Training", "Crafting Training", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Darkness", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
+	final String[] TRAINING = {"Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Darkness", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
 	
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
@@ -60,6 +69,8 @@ public class PanelCharBase extends JPanel {
 			// Labels
 		hpL = buildLabel("HP");
 		auraL = buildLabel("Aura");
+		hpL.setForeground(new Color(180, 0, 0));
+		auraL.setForeground(new Color(0, 70, 180));
 		charCurrHPL = buildLabel("Current HP");
 			charCurrHPL.setToolTipText(""); 
 		charMaxHPL = buildLabel("Max HP");
@@ -74,18 +85,43 @@ public class PanelCharBase extends JPanel {
 			charMaxAuraL.setToolTipText("");
 			
 			// Fields
-		charCurrHP = buildNumTextField(0);
-			charCurrHP.setToolTipText(""); 
+		charCurrHP = new JProgressBar();
+			charCurrHP.setMinimum(0);
+			charCurrHP.setMaximum(1);
+			charCurrHP.setValue(0);
+			charCurrHP.setStringPainted(true);
+			charCurrHP.setString("0/0");
+			charCurrHP.setForeground(new Color(185, 0, 0));
+			charCurrHP.setBackground(new Color(255, 225, 225));
+			charCurrHP.setToolTipText("");
+			add(charCurrHP);
 		charMaxHP = buildNumTextField(0);
 			charMaxHP.setToolTipText(""); 
 		charMaxAura = buildNumTextField(0);
 			charMaxAura.setToolTipText(""); 
-		charOccAura = buildNumTextField(0);
+		charOccAura = new JProgressBar();
+			charOccAura.setMinimum(0);
+			charOccAura.setMaximum(1);
+			charOccAura.setValue(0);
+			charOccAura.setStringPainted(true);
+			charOccAura.setString("0");
+			charOccAura.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+			charOccAura.setForeground(new Color(140, 50, 190));
+			charOccAura.setBackground(new Color(239, 226, 255));
 			charOccAura.setToolTipText(""); 
+			add(charOccAura);
 		charSpentAura = buildNumTextField(0);
 			charSpentAura.setToolTipText(""); 
-		charAvailAura = buildNumTextField(0);
+		charAvailAura = new JProgressBar();
+			charAvailAura.setMinimum(0);
+			charAvailAura.setMaximum(1);
+			charAvailAura.setValue(0);
+			charAvailAura.setStringPainted(true);
+			charAvailAura.setString("0");
+			charAvailAura.setForeground(new Color(0, 90, 190));
+			charAvailAura.setBackground(new Color(225, 238, 255));
 			charAvailAura.setToolTipText(""); 
+			add(charAvailAura);
 		
 		/*
 		 * Reminders
@@ -98,15 +134,25 @@ public class PanelCharBase extends JPanel {
 		raceRemind.setVisible(true);
 		add(racePanel);
 		racePanel.setVisible(true);
+		tabTitleL = buildLabel("");
+		tabTitleL.setFont(new Font("Arial", Font.BOLD, 16));
+		tabTitleL.setForeground(Color.BLACK);
+		tabTitleL.setVisible(true);
 		
+		resizeHeader();
+	}  /*--------------
+		END DEFAULTCONSTRUCTOR
+		--------------*/
+
+	public int resizeHeader() {
 		/*
 		 * Place HP & Aura
 		 */
-		pageHeight = 5;
+		pageHeight = 0;
 		// Top Labels
 		hpL.setBounds(5, pageHeight, 175, 20);
 		auraL.setBounds(205, pageHeight, 340, 20);
-		pageHeight += 20;
+		pageHeight += 15;
 
 			// Labels
 		charCurrHPL.setBounds(5, pageHeight, 85, 20);
@@ -124,7 +170,7 @@ public class PanelCharBase extends JPanel {
 		charOccAura.setBounds(295, pageHeight, 85, 20);
 		charSpentAura.setBounds(385, pageHeight, 85, 20);
 		charMaxAura.setBounds(475, pageHeight, 85, 20);
-		pageHeight += 25;	
+		pageHeight += 20;	
 		
 		/*
 		 * Place Reminder
@@ -132,9 +178,19 @@ public class PanelCharBase extends JPanel {
 		pageHeight += 5;
 		racePanel.setBounds(5,pageHeight,555,40);
 		pageHeight += 45;
-	}  /*--------------
-		END DEFAULTCONSTRUCTOR
-		--------------*/
+		tabTitleL.setBounds(5, pageHeight, 555, 20);
+		pageHeight += 25;
+
+		return pageHeight;
+	}
+
+	public void setTabTitle(String title) {
+		if (title == null) {
+			tabTitleL.setText("");
+		} else {
+			tabTitleL.setText(title);
+		}
+	}
 	
 	/*
 	 * 		CHECK PRESSED
@@ -176,7 +232,7 @@ public class PanelCharBase extends JPanel {
 		tempString += charName + " --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|" + colorString2 + " --#leftSub|";
 		tempString += checkName + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em  --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		tempString += " --=SkillCheck|1d20+" + mod + " --+| [$SkillCheck] = [$SkillCheck.Base] + " + (int)mod;
+		tempString += " --=SkillCheck|1d20+" + fmt(mod) + " --+| [$SkillCheck] = [$SkillCheck.Base] + " + (int)mod;
 		if (att.compareTo("INIT") != 0) tempString += "}}";
 		else tempString += " --=InitTotal| [$SkillCheck] + @{tracker|" + charName + "} &{noerror} --+|Total: --+| [$InitTotal] = [$SkillCheck] +  @{tracker|" + charName + "} &{noerror} --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
 		
@@ -228,7 +284,7 @@ public class PanelCharBase extends JPanel {
 			// Tooltips
 		CharResources res = character.getResources();
 
-		tempString = "<html>You have lost " + (int)res.getLostHP() + " HP.<br>You are ";
+		tempString = "<html>You have " + (int)res.getCurrentHP() + " HP.<br>You have lost " + (int)res.getLostHP() + " HP.<br>You are ";
 		tempDouble = res.getCurrentHP() / (double)res.getMaxHP();
 		if (tempDouble >= 1) {
 			tempString += "not wounded.";
@@ -261,7 +317,7 @@ public class PanelCharBase extends JPanel {
 			List<DataStatus> statuses = sb.getAllStatuses();
 			if (statuses != null && !statuses.isEmpty()) {
 				for (DataStatus status : statuses) {
-					tempString += "+ " + status.getName() + ": " + status.getSeverity() + "<br>";
+					tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
 				}
 			}
 			tempString += "--------(Multi)-------<br>";
@@ -269,7 +325,7 @@ public class PanelCharBase extends JPanel {
 			if (statuses != null && !statuses.isEmpty()) {
 				for (DataStatus status : statuses) {
 					if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-					else tempString += "+ " + status.getName() + ": " + status.getSeverity() + "<br>";
+					else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
 				}
 			}
 		}
@@ -283,7 +339,7 @@ public class PanelCharBase extends JPanel {
 			List<DataStatus> statuses = sb.getAllStatuses();
 			if (statuses != null && !statuses.isEmpty()) {
 				for (DataStatus status : statuses) {
-					tempString += "+ " + status.getName() + ": " + status.getSeverity() + "<br>";
+					tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
 				}
 			}
 			tempString += "--------(Multi)-------<br>";
@@ -291,7 +347,7 @@ public class PanelCharBase extends JPanel {
 			if (statuses != null && !statuses.isEmpty()) {
 				for (DataStatus status : statuses) {
 					if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-					else tempString += "+ " + status.getName() + ": " + status.getSeverity() + "<br>";
+					else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
 				}
 			}
 		}
@@ -357,12 +413,24 @@ public class PanelCharBase extends JPanel {
 		charAvailAuraL.setToolTipText(tempString);
 		
 			// Text fields
-		charCurrHP.setValue(res.getCurrentHP());
+		int maxHp = Math.max(0, res.getMaxHP());
+		int currHp = Math.max(0, res.getCurrentHP());
+		charCurrHP.setMaximum(Math.max(1, maxHp));
+		charCurrHP.setValue(Math.min(currHp, Math.max(1, maxHp)));
+		charCurrHP.setString(Integer.toString(currHp));
 		charMaxHP.setValue(res.getMaxHP());
 		charMaxAura.setValue(res.getMaxAura());
-		charOccAura.setValue(res.getOccupiedAura());
+		int maxAura = Math.max(0, res.getMaxAura());
+		double occAura = Math.max(0.0, res.getOccupiedAura());
+		int occAuraInt = (int)Math.round(occAura);
+		charOccAura.setMaximum(Math.max(1, maxAura));
+		charOccAura.setValue(Math.max(0, Math.min(occAuraInt, Math.max(1, maxAura))));
+		charOccAura.setString(Integer.toString(occAuraInt));
 		charSpentAura.setValue(res.getSpentAura());
-		charAvailAura.setValue(res.getCurrentAura());
+		int currAura = res.getCurrentAura();
+		charAvailAura.setMaximum(Math.max(1, maxAura));
+		charAvailAura.setValue(Math.max(0, Math.min(currAura, Math.max(1, maxAura))));
+		charAvailAura.setString(Integer.toString(currAura));
 	}  /*--------------
 		END UPDATEHPAURA
 		--------------*/
@@ -371,13 +439,143 @@ public class PanelCharBase extends JPanel {
 	 * 		UPDATE REMINDER
 	 */
 	public void updateReminder() {
-		// Placeholder: no race reminder logic available in current model
-		raceRemind.setText("This is where your reminder will go.");
+		String reminder = (character != null) ? character.getPanelReminder() : null;
+		racePanel.removeAll();
+		racePanel.setLayout(null);
+		if (reminder == null || reminder.isBlank()) {
+			raceRemind.setText("This is where your reminder will go.");
+			raceRemind.setBounds(0, REMINDER_TOP_MARGIN, 555, 40);
+			racePanel.add(raceRemind);
+		} else {
+			String normalized = reminder.replace("\r\n", "\n").replace("\r", "\n");
+			String[] lines = normalized.split("\n");
+			int row = 0;
+			for (String rawLine : lines) {
+				if (rawLine == null) continue;
+				String line = rawLine.trim();
+				if (line.isBlank()) continue;
+				if (row >= 2) break; // fits existing 50px reminder panel footprint with top margin
+
+				String[] parts = line.split("::", 2);
+				if (parts.length == 2) {
+					String entryText = parts[0].trim();
+					String optionsRaw = parts[1].trim();
+					String[] optParts = optionsRaw.contains("|") ? optionsRaw.split("\\|") : optionsRaw.split(",");
+					ArrayList<String> options = new ArrayList<>();
+					for (String op : optParts) {
+						if (op != null) {
+							String t = op.trim();
+							if (!t.isBlank()) options.add(t);
+						}
+					}
+					boolean isShapeshift = entryText.toLowerCase().contains("shapeshift");
+					if (isShapeshift) {
+						ArrayList<String> shapeshiftOptions = getShapeshiftOptionsFromLists();
+						if (!shapeshiftOptions.isEmpty()) {
+							options = shapeshiftOptions;
+						}
+					}
+					if (!options.isEmpty()) {
+						JLabel lineLabel = new JLabel(entryText);
+						lineLabel.setHorizontalAlignment(JTextField.RIGHT);
+						lineLabel.setBounds(5, REMINDER_TOP_MARGIN + (row * 20), 255, 20);
+						lineLabel.setForeground(Color.WHITE);
+						lineLabel.setVisible(true);
+						racePanel.add(lineLabel);
+
+						JComboBox<String> drop = new JComboBox<>(options.toArray(new String[0]));
+						int dropWidth = 142;
+						int dropX = 275;
+						drop.setBounds(dropX, REMINDER_TOP_MARGIN + (row * 20), dropWidth, 20);
+						boolean isFelshify = entryText.toLowerCase().contains("felshify");
+						if (isFelshify) {
+							drop.setSelectedItem("Cat");
+						}
+						if (character != null) {
+							String savedValue = character.getReminderSelection(entryText);
+							if (savedValue != null && !savedValue.isBlank()) {
+								drop.setSelectedItem(savedValue);
+							}
+							if (isFelshify) {
+								Object selected = drop.getSelectedItem();
+								applyFelshifySize(selected == null ? "" : selected.toString());
+							}
+							drop.addActionListener(e -> {
+								Object selected = drop.getSelectedItem();
+								character.setReminderSelection(entryText, selected == null ? "" : selected.toString());
+								if (isFelshify) {
+									boolean sizeChanged = applyFelshifySize(selected == null ? "" : selected.toString());
+									if (sizeChanged && sheetFrame != null) {
+										sheetFrame.refreshMainPanel();
+									}
+								}
+							});
+						}
+						drop.setVisible(true);
+						racePanel.add(drop);
+						racePanel.setComponentZOrder(drop, 0);
+						row++;
+						continue;
+					}
+				}
+
+				JLabel lineLabel = new JLabel(line);
+				lineLabel.setHorizontalAlignment(JTextField.CENTER);
+				lineLabel.setBounds(0, REMINDER_TOP_MARGIN + (row * 20), 555, 20);
+				lineLabel.setForeground(Color.WHITE);
+				lineLabel.setVisible(true);
+				racePanel.add(lineLabel);
+				row++;
+			}
+		}
 		racePanel.setBackground(Color.DARK_GRAY);
 		raceRemind.setForeground(Color.WHITE);
+		racePanel.revalidate();
+		racePanel.repaint();
 	}  /*--------------
 		END UPDATEREMINDER
 		--------------*/
+
+	private boolean applyFelshifySize(String selection) {
+		if (character == null || character.getIdentity() == null) return false;
+		String current = character.getIdentity().getSize();
+		if ("Cat".equalsIgnoreCase(selection)) {
+			if (!"Tiny".equalsIgnoreCase(current)) {
+				character.getIdentity().setSize("Tiny");
+				return true;
+			}
+			return false;
+		} else if ("Human".equalsIgnoreCase(selection)) {
+			if (!"Medium".equalsIgnoreCase(current)) {
+				character.getIdentity().setSize("Medium");
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	private ArrayList<String> getShapeshiftOptionsFromLists() {
+		ArrayList<String> options = new ArrayList<>();
+		options.add("** None **");
+		if (character == null || character.getLists() == null) return options;
+
+		for (List<DataList> listGroup : character.getLists()) {
+			if (listGroup == null) continue;
+			for (DataList entry : listGroup) {
+				if (entry == null || entry.getList() == null) continue;
+				if (!"Shapeshift".equalsIgnoreCase(entry.getList().trim())) continue;
+
+				String name = entry.getName();
+				if (name == null) continue;
+				String trimmed = name.trim();
+				if (trimmed.isBlank()) continue;
+				boolean exists = options.stream().anyMatch(o -> o.equalsIgnoreCase(trimmed));
+				if (!exists) options.add(trimmed);
+			}
+		}
+		return options;
+	}
 	
 	/*
 	 * 		UPDATE ALL (Placeholder for Override)
@@ -426,13 +624,17 @@ public class PanelCharBase extends JPanel {
 	 */
 	public JFormattedTextField buildNumTextField (double tempDouble) {
 		NumberFormat format = NumberFormat.getInstance();
+		format.setGroupingUsed(false);
+		format.setMaximumFractionDigits(2);
+		format.setMinimumFractionDigits(0);
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Double.class);
-	    formatter.setMinimum(0);
-	    formatter.setMaximum(Integer.MAX_VALUE);
+	    formatter.setMinimum(0.0);
+	    formatter.setMaximum(Double.MAX_VALUE);
 	    formatter.setAllowsInvalid(false);	
 	    
-		JFormattedTextField tempField = new JFormattedTextField(tempDouble);
+		JFormattedTextField tempField = new JFormattedTextField(new DefaultFormatterFactory(formatter));
+		tempField.setValue(round2(tempDouble));
 		tempField.setHorizontalAlignment(JTextField.CENTER);
 		tempField.setEditable(false);
 		if (alternate) 
@@ -450,7 +652,8 @@ public class PanelCharBase extends JPanel {
 	    formatter.setMaximum(Integer.MAX_VALUE);
 	    formatter.setAllowsInvalid(false);		
 		
-		JFormattedTextField tempField = new JFormattedTextField(tempInt);
+		JFormattedTextField tempField = new JFormattedTextField(new DefaultFormatterFactory(formatter));
+		tempField.setValue(tempInt);
 		tempField.setHorizontalAlignment(JTextField.CENTER);
 		tempField.setEditable(false);
 		if (alternate) 
@@ -535,5 +738,15 @@ public class PanelCharBase extends JPanel {
 	}  /*--------------
 		END BUILDCHECKBUTTON
 		--------------*/
+
+	/** Formats doubles to two decimal places for UI/tooltips. */
+	protected String fmt(double val) {
+		return String.format("%.2f", val);
+	}
+
+	/** Rounds a double to two decimal places for numeric fields. */
+	protected double round2(double val) {
+		return Math.round(val * 100.0) / 100.0;
+	}
 	
 } ///////////////////////////////////////////////END OF CLASS////////////////////////////////////////////////////////////////////////

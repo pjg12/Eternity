@@ -92,41 +92,40 @@ public class FrameStdAction extends JFrame {
 		headerL.setText(action.getName());
 		headerL.setVisible(true);
 		
-		labels[2].setBounds(110, 100, 80, 20);
+		labels[2].setBounds(145, 80, 100, 20);
 		labels[2].setText("Attack");
 		labels[2].setVisible(true);
-		textFields[2].setBounds(110, 125, 80, 20);
+		textFields[2].setBounds(145, 103, 100, 22);
 		attackBonus = getAttack() + getPrimaryAttributeMod(); 
 		textFields[2].setText("1d20 + " + (int)attackBonus);
 		textFields[2].setVisible(true);
 		textFields[2].setEditable(false);
 
-		labels[1].setBounds(25, 100, 100, 20);
+		labels[1].setBounds(25, 80, 100, 20);
 		labels[1].setText("Affinity");
 		labels[1].setVisible(true);
-		textFields[1].setBounds(25, 125, 100, 20);
+		textFields[1].setBounds(25, 103, 100, 22);
 		textFields[1].setText(action.getAffinity());
 		textFields[1].setVisible(true);
 		textFields[1].setEditable(false);
 
-		labels[4].setBounds(200, 100, 80, 20);
+		labels[4].setBounds(265, 80, 120, 20);
 		labels[4].setText("Damage");
 		labels[4].setVisible(true);
-		textFields[3].setBounds(200, 125, 80, 20);
+		textFields[3].setBounds(265, 103, 240, 22);
 		textFields[3].setText("(" + getCharLevelDieCount() + "d" + getCharLevelDieSides() + " + " + getBaseDamage() + ") * " + getCharDmgMulti() + " + " + getTotalDamage());
 		textFields[3].setVisible(true);
 		textFields[3].setEditable(false);
 
-		labels[5].setBounds(300, 100, 80, 20);
+		labels[5].setBounds(25, 150, 100, 20);
 		labels[5].setText("Range");
 		labels[5].setVisible(true);
-		textFields[4].setBounds(300, 125, 80, 20);
+		textFields[4].setBounds(25, 173, 100, 22);
 		textFields[4].setText(getRange() <= 0 ? "Melee" : (getRange() + " ft"));
 		textFields[4].setVisible(true);
 		textFields[4].setEditable(false);
 
-		// Damage type selector to the right of range
-		labels[6].setBounds(400, 100, 100, 20);
+		labels[6].setBounds(145, 150, 120, 20);
 		labels[6].setText("Damage Type");
 		labels[6].setVisible(true);
 		if (damageType == null) {
@@ -135,7 +134,7 @@ public class FrameStdAction extends JFrame {
 		if (damageType.getParent() == null) {
 			add(damageType);
 		}
-		damageType.setBounds(400, 125, 100, 22);
+		damageType.setBounds(145, 173, 130, 22);
 		damageType.setVisible(true);
 		// Default to action affinity when it matches a known damage type
 		String affinity = action.getAffinity();
@@ -176,39 +175,39 @@ public class FrameStdAction extends JFrame {
 		headerL.setText("Standard Action Helper:  " + action.getName());
 		headerL.setVisible(true);
 		
-		labels[0].setBounds(25, 100, 70, 20);
+		labels[0].setBounds(25, 80, 100, 20);
 		labels[0].setText("Dice");
 		labels[0].setVisible(true);
-		textFields[0].setBounds(25, 125, 70, 20);
+		textFields[0].setBounds(25, 103, 100, 22);
 		textFields[0].setText(dieNum() + "d" + dieSides());
 		textFields[0].setVisible(true);
 		textFields[0].setEditable(false);
 		
-		labels[1].setBounds(110, 100, 100, 20);
+		labels[1].setBounds(145, 80, 120, 20);
 		labels[1].setText("Base Bonus");
 		labels[1].setVisible(true);
-		textFields[1].setBounds(110, 125, 100, 20);
+		textFields[1].setBounds(145, 103, 120, 22);
 		textFields[1].setText("+" + (getBaseDamage() + getPrimaryAttributeMod()));
 		textFields[1].setVisible(true);
 		textFields[1].setEditable(false);
 		
-		labels[2].setBounds(220, 100, 100, 20);
+		labels[2].setBounds(285, 80, 100, 20);
 		labels[2].setText("Multiplier");
 		labels[2].setVisible(true);
-		textFields[2].setBounds(220, 125, 100, 20);
+		textFields[2].setBounds(285, 103, 100, 22);
 		textFields[2].setText("*1");
 		textFields[2].setVisible(true);
 		textFields[2].setEditable(false);
 		
-		labels[3].setBounds(340, 100, 100, 20);
+		labels[3].setBounds(405, 80, 100, 20);
 		labels[3].setText("Total Bonus");
 		labels[3].setVisible(true);
-		textFields[3].setBounds(340, 125, 100, 20);
+		textFields[3].setBounds(405, 103, 100, 22);
 		textFields[3].setText("+" + getTotalDamage());
 		textFields[3].setVisible(true);
 		textFields[3].setEditable(false);
 
-		labels[4].setBounds(25, 160, 100, 20);
+		labels[4].setBounds(25, 150, 120, 20);
 		labels[4].setText("Damage Type");
 		labels[4].setVisible(true);
 		if (damageType == null) {
@@ -217,7 +216,7 @@ public class FrameStdAction extends JFrame {
 		if (damageType.getParent() == null) {
 			add(damageType);
 		}
-		damageType.setBounds(25, 185, 100, 22);
+		damageType.setBounds(25, 173, 130, 22);
 		// Try to default to the action affinity if it matches a known type
 		String affinity = action.getAffinity();
 		if (affinity != null) {
@@ -435,17 +434,23 @@ public class FrameStdAction extends JFrame {
 
 	private int getAttack() {
 		CharAttributes a = attrs();
-		return a == null ? 0 : a.getCombat("ATK");
+		int charAtk = a == null ? 0 : a.getCombat("ATK");
+		int actionAtk = action == null ? 0 : action.getAtk();
+		return charAtk + actionAtk;
 	}
 
 	private int getBaseDamage() {
 		CharAttributes a = attrs();
-		return a == null ? 0 : a.getDamage("BDMG");
+		int charBdmg = a == null ? 0 : a.getDamage("BDMG");
+		int actionBdmg = action == null ? 0 : action.getBdmg();
+		return charBdmg + actionBdmg;
 	}
 
 	private int getTotalDamage() {
 		CharAttributes a = attrs();
-		return a == null ? 0 : a.getDamage("TDMG");
+		int charTdmg = a == null ? 0 : a.getDamage("TDMG");
+		int actionTdmg = action == null ? 0 : action.getTdmg();
+		return charTdmg + actionTdmg;
 	}
 
 	private int getCharLevelDieCount() {
@@ -457,7 +462,9 @@ public class FrameStdAction extends JFrame {
 	}
 
 	private double getCharDmgMulti() {
-		return 1.0; // placeholder until a damage multiplier is defined elsewhere
+		double charMulti = 1.0; // placeholder until a character damage multiplier source is defined
+		double actionMulti = action == null ? 0.0 : action.getDmgMulti();
+		return charMulti + actionMulti;
 	}
 
 	private int getPrimaryAttributeMod() {

@@ -175,7 +175,7 @@ public class DataQuery {
     public List<DataSpecialty> getSpecialtiesByType(String type) {
         if (type == null || type.equals("***")) return store.getSpecialtyData();
         return store.getSpecialtyData().stream()
-            .filter(s -> eq(s.getType(), type))
+            .filter(s -> eq(s.getCategory(), type))
             .collect(Collectors.toList());
     }
 
@@ -188,6 +188,21 @@ public class DataQuery {
     public DataSpecialty getSpecialtyByName(String name) {
         return store.getSpecialtyData().stream()
             .filter(s -> eq(s.getName(), name))
+            .findFirst()
+            .orElse(null);
+    }
+
+    // ---------------------------------------------------------
+    // TECH PERMISSION SEARCH
+    // ---------------------------------------------------------
+
+    public List<DataTechPerm> getTechPermData() {
+        return store.getTechPermData();
+    }
+
+    public DataTechPerm getTechPermById(int id) {
+        return store.getTechPermData().stream()
+            .filter(p -> p.getId() == id)
             .findFirst()
             .orElse(null);
     }

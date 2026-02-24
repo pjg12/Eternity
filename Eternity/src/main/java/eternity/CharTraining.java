@@ -2,6 +2,7 @@ package eternity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,8 +122,13 @@ public class CharTraining {
      * Returns the current class training rank. Falls back to the parent's level if unset.
      */
     public int getClassTrainingRank() {
+        DataTraining classTech = getTrainingById(23); // Class Training
+        if (classTech != null && classTech.getRank() > 0) {
+            classTrainingRank = classTech.getRank();
+            return classTrainingRank;
+        }
         if (classTrainingRank <= 0 && parent != null) {
-            return Math.max(1, parent.getLevel());
+            classTrainingRank = Math.max(1, parent.getLevel());
         }
         return Math.max(1, classTrainingRank);
     }
@@ -177,6 +183,7 @@ public class CharTraining {
             List<DataTraining> list = getOrCreateCategory(tech.getAffinity());
             if (!list.contains(tech)) {
                 list.add(tech);
+                sortTrainingById();
             }
         }
     }
@@ -235,6 +242,16 @@ public class CharTraining {
             for (DataTraining t : entry.getValue()) total += t.getRank();
         }
         return total;
+    }
+
+    /** Keeps each category list ordered by technique id for stable display/update behavior. */
+    public void sortTrainingById() {
+        Comparator<DataTraining> byId = Comparator
+                .comparingInt((DataTraining t) -> t == null ? Integer.MAX_VALUE : t.getId())
+                .thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER);
+        for (List<DataTraining> list : trainingByCategory.values()) {
+            list.sort(byId);
+        }
     }
 
     

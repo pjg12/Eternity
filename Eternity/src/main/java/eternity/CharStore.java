@@ -14,14 +14,19 @@ public class CharStore {
     @JsonProperty private String charClass;
     @JsonProperty private int level;
     @JsonProperty private Timestamp updated;
+    @JsonProperty private String reference;
 
     // --- Constructors ---
 
-    public CharStore() { this(0, "", "", "", "", 1, new Timestamp(System.currentTimeMillis())); }
+    public CharStore() { this(0, "", "", "", "", 1, new Timestamp(System.currentTimeMillis()), ""); }
     //public CharStore(CharData character) { this( character.getIdentity().getIndex(), character.getIdentity().getName(), character.getIdentity().getCampaign(),
     //    character.getIdentity().getRace(), character.getIdentity().getClass, character.getIdentity().getLevel, character.getIdentity().getUpdated()); }
 
     public CharStore(int index, String name, String campaign, String race, String charClass, int level, Timestamp updated) {
+        this(index, name, campaign, race, charClass, level, updated, "");
+    }
+
+    public CharStore(int index, String name, String campaign, String race, String charClass, int level, Timestamp updated, String reference) {
     	this.index = index;
         this.name = name;
         this.campaign = campaign;
@@ -29,6 +34,7 @@ public class CharStore {
         this.charClass = charClass;
         this.level = level;
         this.updated = updated;
+        this.reference = reference == null ? "" : reference;
     }
 
     // --- Getters / Setters ---
@@ -49,11 +55,14 @@ public class CharStore {
     
     public Timestamp getUpdated() { return updated; }
     public void update() { this.updated = new Timestamp(System.currentTimeMillis()); }
+
+    public String getReference() { return reference; }
+    public void setReference(String reference) { this.reference = reference == null ? "" : reference; }
     
     @Override
     public String toString() {
         return "CharStore {\n" + "  index: " + index + ",\n" + "  name: \"" + name + "\",\n" + "  campaign: \"" + campaign + "\",\n" +
             "  race: \"" + race + "\",\n" + "  charClass: \"" + charClass + "\",\n" + "  level: " + level + ",\n" + "  updated: " +
-            (updated != null ? updated.toString() : "null") + "\n" + "}";
+            (updated != null ? updated.toString() : "null") + ",\n" + "  reference: \"" + reference + "\"\n" + "}";
     }
 }

@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import eternity.DataStatus;
+
 public class DataStore {
 	private List<DataColor> colorData;
 	private List<DataLevel> levelData;
@@ -15,6 +17,7 @@ public class DataStore {
 	private List<DataSpecialty> specialtyData;
 	private List<DataItemEquipment> itemEquipmentData;
 	private List<DataTraining> trainingData;
+	private List<DataTechPerm> techPermData;
 	
 	private final DataBuilder builder;
 	
@@ -41,7 +44,9 @@ public class DataStore {
         skillData          = safeLoad("skilldata.json",        DataSkill[].class);
         specialtyData      = safeLoad("specialtydata.json",    DataSpecialty[].class);
         itemEquipmentData  = safeLoad("itemequipdata.json",    DataItemEquipment[].class);
+        techPermData       = safeLoad("techpermdata.json",     DataTechPerm[].class);
         trainingData       = safeLoad("trainingdata.json",     DataTraining[].class);
+        applyTechPermsToTraining();
     }
 	
 	private <T> List<T> safeLoad(String filename, Class<T[]> type) {
@@ -83,4 +88,33 @@ public class DataStore {
 
     public List<DataTraining> getTrainingData() { return trainingData; }
     public void setTrainingData(List<DataTraining> trainingData) { this.trainingData = trainingData; }
+
+    public List<DataTechPerm> getTechPermData() { return techPermData; }
+    public void setTechPermData(List<DataTechPerm> techPermData) { this.techPermData = techPermData; }
+
+    /**
+     * Injects permanent statuses into training entries based on their grant ids and techPermData.
+     */
+    private void applyTechPermsToTraining() {
+        if (trainingData == null || techPermData == null) return;
+        for (DataTraining t : trainingData) {
+            if (t == null || t.getGrant() == null) continue;
+            for (Integer gid : t.getGrant()) {
+                if (gid == null) continue;
+                DataTechPerm perm = techPermData.stream()
+                        .filter(p -> p != null && p.getId() == gid)
+                        .findFirst()
+                        .orElse(null);
+                if (perm == null) continue;
+                DataStatus ds = new DataStatus();
+                ds.setName("TechPerm " + gid);
+                ds.setAttribute(perm.getAttribute());
+                ds.setDurationType("Permanent");
+                ds.setSeverity(perm.getRatio());
+                ds.setAffinity("None");
+                ds.setDescription("Tech permission grant");
+                t.addPermStatus(ds);
+            }
+        }
+    }
 }

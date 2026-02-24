@@ -9,6 +9,7 @@ public class FrameNewClass extends JFrame {
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private FrameNewClassPicker picker;
     private Color bg;
@@ -52,11 +53,12 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     // Constructor
     // ---------------------------------------------------
-    public FrameNewClass(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
+    public FrameNewClass(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Select Class");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
+        this.gmMode = gmMode;
         infoTitleBox = new ArrayList<>();
         infoTitle = new ArrayList<>();
 
@@ -333,6 +335,10 @@ public class FrameNewClass extends JFrame {
         }
 
         confirmButton.setEnabled(true);
+
+        if (gmMode) {
+            classChoicesConfirmed();
+        }
     }
 
     public void classChoicesConfirmed() {

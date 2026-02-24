@@ -20,17 +20,19 @@ public class FrameNewSpecials extends JFrame {
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private static final String[] SPECTYPES = {"***", "Proficiency", "Martial", "Class"};
 
     private final ArrayList<JComboBox<String>> specialType = new ArrayList<>();
     private final ArrayList<JComboBox<String>> specialPick = new ArrayList<>();
 
-    public FrameNewSpecials(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
+    public FrameNewSpecials(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Specialty Select");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
+        this.gmMode = gmMode;
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
@@ -117,6 +119,15 @@ public class FrameNewSpecials extends JFrame {
     }
 
     private void specialsConfirm() {
+        if (gmMode) {
+            specialType.get(0).setSelectedItem("Martial");
+            specialType.get(1).setSelectedItem("Martial");
+            updateSpecialPick(0);
+            updateSpecialPick(1);
+            specialPick.get(0).setSelectedItem("Specialization (Blade)");
+            specialPick.get(1).setSelectedItem("Specialization (Sword)");
+        }
+
         for (int i = 0; i < 2; i++) {
             String type = (String) specialType.get(i).getSelectedItem();
             String spec = (String) specialPick.get(i).getSelectedItem();

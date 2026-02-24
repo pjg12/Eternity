@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class StatBlock {
 
@@ -70,10 +71,22 @@ public class StatBlock {
         return (int)(sum * mul);
     }
 
+    /**
+     * Computes value without the implicit base +1 multiplier.
+     * Use when the base multiplier should be explicitly provided via statuses.
+     */
+    public int computeValueNoBase() {
+        double sum = status.stream().mapToDouble(DataStatus::getSeverity).sum();
+        double mul = multi.stream().mapToDouble(DataStatus::getSeverity).sum();
+        return (int)(sum * mul);
+    }
+
+    @JsonIgnore
     public List<DataStatus> getAllStatuses() {
         List<DataStatus> all = new ArrayList<>(status);
         return all;
     }
+    @JsonIgnore
     public List<DataStatus> getAllMultipliers() {
         List<DataStatus> all = new ArrayList<>(multi);
         return all;

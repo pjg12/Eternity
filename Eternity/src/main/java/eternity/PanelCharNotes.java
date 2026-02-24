@@ -69,7 +69,7 @@ private javax.swing.JScrollPane notesScroll;
 	}
 	
 	public void resizeSheet() {
-		pageHeight = 120;
+		pageHeight = resizeHeader();
 
 		// place save button below inherited header space
 		saveButton.setBounds(5, pageHeight, 120, 22);

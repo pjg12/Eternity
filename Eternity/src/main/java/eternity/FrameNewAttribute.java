@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ public class FrameNewAttribute extends JFrame {
 
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private static final Integer[] ATTVALUES = {8, 9, 10, 11, 12, 13, 14, 15};
     private static final String[] ATTRIBUTES = {"STR", "DEX", "CON", "FOC", "CAP", "CTL", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"};
@@ -42,10 +44,11 @@ public class FrameNewAttribute extends JFrame {
     private boolean warn;
     private boolean corePhase = true;
 
-    public FrameNewAttribute(FrameSheet sheetFrame, CharData character, FrameNew parent) {
+    public FrameNewAttribute(FrameSheet sheetFrame, CharData character, FrameNew parent, boolean gmMode) {
         super("Attributes");
         this.character = character;
         this.parent = parent;
+        this.gmMode = gmMode;
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
         initDefaults();
@@ -223,6 +226,20 @@ public class FrameNewAttribute extends JFrame {
     }
 
     private void coreAttConfirm() {
+        if (gmMode) {
+            ThreadLocalRandom rng = ThreadLocalRandom.current();
+            for (int i = 0; i < 6; i++) {
+                coreAtts[i] = rng.nextInt(10, 16);
+            }
+            for (int i = 0; i < 6; i++) {
+                charAtts[i] = rng.nextInt(10, 16);
+            }
+            applyAttributesToCharacter();
+            parent.attConfirmed();
+            dispose();
+            return;
+        }
+
         if (!validateSpend()) return;
 
         for (int i = 0; i < 6; i++) {
@@ -270,13 +287,13 @@ public class FrameNewAttribute extends JFrame {
         for (int i = 0; i < ATTRIBUTES.length; i++) {
             String key = ATTRIBUTES[i];
             int value = (i < 6) ? coreAtts[i] : charAtts[i - 6];
-            character.getAttributes().setStatusSeverity("attribute", key, "Base", value);
+            character.getAttributes().setStatusSeverity("attribute", key, "Passive", value);
         }
-        character.getAttributes().setStatusSeverity("combat", "APP", "Base", 10);
-        character.getAttributes().setStatusSeverity("combat", "MOVE", "Base", 25);
-        character.getAttributes().setStatusSeverity("combat", "RANGE", "Base", 15);
-        character.getAttributes().setStatusSeverity("combat", "INIT", "Base", 10);
-        character.getAttributes().setStatusSeverity("secondary", "MAXATK", "Base", 1);
+        character.getAttributes().setStatusSeverity("combat", "APP", "Passive", 10);
+        character.getAttributes().setStatusSeverity("combat", "MOVE", "Passive", 25);
+        character.getAttributes().setStatusSeverity("combat", "RANGE", "Passive", 15);
+        character.getAttributes().setStatusSeverity("combat", "INIT", "Passive", 10);
+        character.getAttributes().setStatusSeverity("secondary", "MAXATK", "Passive", 1);
     }
 
     private void closeFrame() {

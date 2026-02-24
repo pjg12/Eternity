@@ -22,17 +22,19 @@ public class FrameNewSkills extends JFrame {
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private static final String[] ATTRIBUTES = {"***", "STR", "DEX", "FOC", "CTL", "KNOW", "MECH", "PERC", "CHA", "SUB"};
 
     private final ArrayList<JComboBox<String>> skillAttributes = new ArrayList<>();
     private final ArrayList<JComboBox<String>> skillPick = new ArrayList<>();
 
-    public FrameNewSkills(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
+    public FrameNewSkills(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Skill Select");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
+        this.gmMode = gmMode;
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
@@ -124,6 +126,20 @@ public class FrameNewSkills extends JFrame {
     }
 
     private void skillConfirm() {
+        if (gmMode) {
+            // Pre-fill three picks and proceed.
+            skillAttributes.get(0).setSelectedItem("STR");
+            skillAttributes.get(1).setSelectedItem("DEX");
+            skillAttributes.get(2).setSelectedItem("CTL");
+            // refresh dependent options after setting attributes
+            updateSkillPick(0);
+            updateSkillPick(1);
+            updateSkillPick(2);
+            skillPick.get(0).setSelectedItem("Climb");
+            skillPick.get(1).setSelectedItem("Acrobatics");
+            skillPick.get(2).setSelectedItem("Charge Device");
+        }
+
         for (int i = 0; i < 3; i++) {
             String att = (String) skillAttributes.get(i).getSelectedItem();
             String skillName = (String) skillPick.get(i).getSelectedItem();

@@ -2,6 +2,7 @@ package eternity;
 
 import java.awt.Color;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -11,6 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
@@ -30,6 +32,7 @@ public class FrameTraining extends JFrame {
 	public boolean warn, isNew;
 	public JRadioButton self, source, teacher;
 	public ButtonGroup sourceGroup;
+	public JCheckBox useTimeCheck;
 
 	protected final JLabel headerL = new JLabel("", SwingConstants.CENTER);
 	protected final JLabel[] labels = new JLabel[14];
@@ -56,10 +59,10 @@ public class FrameTraining extends JFrame {
 		}
 
 		NumberFormatter nf = new NumberFormatter(NumberFormat.getNumberInstance());
-		nf.setAllowsInvalid(false);
-		nf.setMinimum(0.0);
+		nf = createNullableDoubleFormatter();
 		for (int i = 0; i < numFields.length; i++) {
 			numFields[i] = new JFormattedTextField(nf);
+			numFields[i].setFocusLostBehavior(JFormattedTextField.PERSIST);
 			numFields[i].setHorizontalAlignment(JFormattedTextField.CENTER);
 			add(numFields[i]);
 		}
@@ -75,6 +78,8 @@ public class FrameTraining extends JFrame {
 		add(auraType);
 		auraTech = new JComboBox<>();
 		add(auraTech);
+		useTimeCheck = new JCheckBox("Time", true);
+		add(useTimeCheck);
 
 		setupBaseLayout();
 	}
@@ -180,6 +185,11 @@ public class FrameTraining extends JFrame {
 		self.addActionListener(e -> updateTrainXp());
 		source.addActionListener(e -> updateTrainXp());
 		teacher.addActionListener(e -> updateTrainXp());
+
+		useTimeCheck.setBounds(25, 255, 80, 20);
+		useTimeCheck.setVisible(true);
+		useTimeCheck.addActionListener(e -> refreshTimeModeUI());
+		refreshTimeModeUI();
 	}
 
 	/*
@@ -224,6 +234,9 @@ public class FrameTraining extends JFrame {
 	 * UPDATE TRAINING EXPERIENCE
 	 */
 	public void updateTrainXp() {
+		if (useTimeCheck != null && !useTimeCheck.isSelected()) {
+			return; // manual EXP entry mode
+		}
 		warn = false;
 		double tempDub = 0;
 		Object valObj = numFields[4].getValue();
@@ -249,6 +262,20 @@ public class FrameTraining extends JFrame {
 		numFields[5].setValue(tempDub);
 	}
 
+	protected boolean shouldAdvanceTime() {
+		return useTimeCheck != null && useTimeCheck.isSelected();
+	}
+
+	private void refreshTimeModeUI() {
+		boolean useTime = shouldAdvanceTime();
+		labels[10].setVisible(useTime);
+		numFields[4].setVisible(useTime);
+		numFields[5].setEditable(!useTime);
+		if (useTime) {
+			updateTrainXp();
+		}
+	}
+
 	/**
 	 * Confirms with the user when the added XP will not reach the next rank.
 	 * Returns true if the user wants to proceed, false to cancel.
@@ -272,7 +299,7 @@ public class FrameTraining extends JFrame {
 	 * Confirms with the user when the added XP will level the technique.
 	 * Returns true if the user wants to proceed, false to cancel.
 	 */
-	protected boolean confirmLevelUpProgress(double hours, double expGain, double currentExp, double nextAt, int currentRank, int maxRank) {
+	protected boolean confirmLevelUpProgress(DataTraining tech, double hours, double expGain, double currentExp, double nextAt, int currentRank, int maxRank) {
 		if (expGain <= 0) return false;
 		double overflow = Math.max(0, currentExp + expGain);
 		int newRank = currentRank;
@@ -286,7 +313,7 @@ public class FrameTraining extends JFrame {
 		// Check for multiple level-ups
 		//double tempExp = overflow;
 		while (overflow > 0) {
-			DataTraining preview = new DataTraining();
+			DataTraining preview = tech == null ? new DataTraining() : new DataTraining(tech);
 			preview.setRank(newRank);
 			preview.setExp(0.0);
 			double nextThreshold = preview.getNextAt(character);
@@ -348,6 +375,7 @@ public class FrameTraining extends JFrame {
 		if (self != null) self.setVisible(visible);
 		if (source != null) source.setVisible(visible);
 		if (teacher != null) teacher.setVisible(visible);
+		if (useTimeCheck != null) useTimeCheck.setVisible(visible);
 		// Accept/Cancel buttons stay visible; swap button remains as-is
 		if (buttons[0] != null) buttons[0].setVisible(true);
 		if (buttons[1] != null) buttons[1].setVisible(true);
@@ -357,6 +385,9 @@ public class FrameTraining extends JFrame {
 			labels[12].setVisible(false);
 			labels[13].setVisible(false);
 		}
+		if (visible) {
+			refreshTimeModeUI();
+		}
 	}
 
 	public void advanceCampaignTime(double hours) {
@@ -365,5 +396,52 @@ public class FrameTraining extends JFrame {
 		long minutes = Math.round(hours * 60.0);
 		if (minutes <= 0) return;
 		character.getIdentity().addCampaignTime(java.time.Duration.ofMinutes(minutes));
+	}
+
+	/**
+	 * When Skill Training gains a rank, prompt the user to add a new skill.
+	 */
+	protected void maybeGrantSkillFromTraining(DataTraining tech, int oldRank, int newRank) {
+		if (tech == null || character == null || character.getSpecials() == null || dataQuery == null) return;
+		if (newRank <= oldRank) return;
+		String name = tech.getName() != null ? tech.getName().toLowerCase() : "";
+		boolean isSkillTraining = name.contains("skill training") || "Skill".equalsIgnoreCase(tech.getAffinity());
+		if (!isSkillTraining) return;
+		FrameSkill.promptForTrainingSkill(this, dataQuery, character);
+	}
+
+	/**
+	 * When Specialty/Feature Training gains a rank, prompt the user to add a new specialty.
+	 */
+	protected void maybeGrantSpecialtyFromTraining(DataTraining tech, int oldRank, int newRank) {
+		if (tech == null || character == null || character.getSpecials() == null || dataQuery == null) return;
+		if (newRank <= oldRank) return;
+		String name = tech.getName() != null ? tech.getName().toLowerCase() : "";
+		boolean isSpecialtyTraining = name.contains("specialty training")
+				|| name.contains("feature training")
+				|| "Specialty".equalsIgnoreCase(tech.getAffinity())
+				|| "Feature".equalsIgnoreCase(tech.getAffinity());
+		if (!isSpecialtyTraining) return;
+		FrameSpecial.promptForTrainingSpecialty(this, dataQuery, character);
+	}
+
+	private NumberFormatter createNullableDoubleFormatter() {
+		NumberFormatter nf = new NumberFormatter(NumberFormat.getNumberInstance()) {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Object stringToValue(String text) throws ParseException {
+				if (text == null || text.trim().isEmpty()) return null;
+				return super.stringToValue(text);
+			}
+			@Override
+			public String valueToString(Object value) throws ParseException {
+				if (value == null) return "";
+				return super.valueToString(value);
+			}
+		};
+		nf.setAllowsInvalid(true);
+		nf.setCommitsOnValidEdit(true);
+		nf.setMinimum(0.0);
+		return nf;
 	}
 }

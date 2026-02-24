@@ -2,6 +2,7 @@ package eternity;
 
 import java.util.ArrayList;
 import java.sql.Timestamp;
+import javax.swing.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,6 +10,7 @@ import javax.swing.JOptionPane;
 public class FrameSheet extends JFrame {
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 1000;
+    private static final int AUTO_SAVE_INTERVAL_MS = 5 * 60 * 1000;
 
     private final DataQuery dataQuery;
     private final ArrayList<CharStore> charStore;
@@ -18,17 +20,24 @@ public class FrameSheet extends JFrame {
     private FrameExp levelFrame;
     private FrameTrainingNew trainingNewFrame;
     private FrameTrainingExisting trainingExistingFrame;
+    private FrameInventoryAdd addInventoryFrame;
+    private FrameInventoryRemove removeInventoryFrame;
 
     // === UI Components ===
     private PanelImage characterImage;
     private PanelChar charPanel;
+    private final Timer autoSaveTimer;
 
     public FrameSheet(ArrayList<CharStore> charStore) {
         dataQuery = new DataQuery();
     	this.charStore = charStore;
+        autoSaveTimer = new Timer(AUTO_SAVE_INTERVAL_MS, e -> runAutoSave());
+        autoSaveTimer.setRepeats(true);
 
         setupFrame();
         initPanels();
+        setInteractive(false);
+        autoSaveTimer.start();
     }
 
     private void setupFrame() {
@@ -64,6 +73,7 @@ public class FrameSheet extends JFrame {
         characterImage.updateCharacter(character);
         if (charPanel != null) {
             charPanel.updateCharacter(character);
+            charPanel.setInteractive(true);
         }
 
         revalidate();
@@ -81,6 +91,13 @@ public class FrameSheet extends JFrame {
     public void refreshMainPanel() {
         if (charPanel != null && character != null) {
             charPanel.updateCharacter(character);
+        }
+    }
+
+    /** Enables or disables all interactive panels. */
+    public void setInteractive(boolean enabled) {
+        if (charPanel != null) {
+            charPanel.setInteractive(enabled);
         }
     }
 
@@ -117,7 +134,7 @@ public class FrameSheet extends JFrame {
         }
 
         character.updateAll();
-        boolean ok = CharacterDataManager.saveCharacter(character);
+        boolean ok = CharacterDataManager.saveCharacterManual(character);
 
         if (ok) {
             updateCharStoreEntry();
@@ -143,7 +160,7 @@ public class FrameSheet extends JFrame {
     }
     public void editPressed() {
         if (character == null) return;
-        FrameDetail detail = new FrameDetail(this);
+        FrameDetail detail = new FrameDetail(this, dataQuery);
         detail.updateDetails(character);
         detail.setVisible(true);
     }
@@ -161,11 +178,17 @@ public class FrameSheet extends JFrame {
         trainingNewFrame.setVisible(true);
     }
     public void trainExistingPressed() {
+        trainExistingPressed(null, null);
+    }
+    public void trainExistingPressed(String category, String techniqueName) {
         if (character == null) return;
         if (trainingExistingFrame == null) {
             trainingExistingFrame = new FrameTrainingExisting(this, dataQuery);
         }
         trainingExistingFrame.updateCharacter(character);
+        if (category != null && techniqueName != null) {
+            trainingExistingFrame.selectTechnique(category, techniqueName);
+        }
         trainingExistingFrame.setVisible(true);
     }
 
@@ -189,7 +212,29 @@ public class FrameSheet extends JFrame {
     }
 
     public void inventoryCharacter() {
-        JOptionPane.showMessageDialog(this, "Inventory editing not implemented yet.", "Coming Soon", JOptionPane.INFORMATION_MESSAGE);
+        if (character == null) {
+            JOptionPane.showMessageDialog(this, "No character loaded.", "Add Inventory", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (addInventoryFrame == null) {
+            addInventoryFrame = new FrameInventoryAdd(this, dataQuery);
+            addInventoryFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        }
+        addInventoryFrame.updateCharacter(character);
+        addInventoryFrame.setVisible(true);
+    }
+
+    public void removeInventoryCharacter() {
+        if (character == null) {
+            JOptionPane.showMessageDialog(this, "No character loaded.", "Remove Inventory", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (removeInventoryFrame == null) {
+            removeInventoryFrame = new FrameInventoryRemove(this, dataQuery);
+            removeInventoryFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        }
+        removeInventoryFrame.updateCharacter(character);
+        removeInventoryFrame.setVisible(true);
     }
 
     /**
@@ -224,5 +269,13 @@ public class FrameSheet extends JFrame {
         }
 
         CharacterDataManager.saveCharStore(charStore);
+    }
+
+    private void runAutoSave() {
+        if (character == null) return;
+        CharData snapshot = character;
+        Thread saver = new Thread(() -> CharacterDataManager.saveCharacterAuto(snapshot), "character-auto-save");
+        saver.setDaemon(true);
+        saver.start();
     }
 }

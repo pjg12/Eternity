@@ -1,0 +1,3197 @@
+{
+  "identity" : {
+    "index" : 1,
+    "name" : "mark",
+    "nickname" : "",
+    "campaign" : "",
+    "campaignStartDate" : "0065-01-01T00:00:00",
+    "campaignElapsedTime" : "PT0S",
+    "birthday" : "0046-04-25",
+    "birthdayManual" : true,
+    "race" : "Alteri",
+    "charRacePick" : [ ],
+    "charClass" : "Warrior",
+    "charSubclass" : "?",
+    "charClassPick" : [ ],
+    "level" : 1,
+    "exp" : 0.0,
+    "gender" : "",
+    "size" : "?",
+    "height" : "",
+    "weight" : "",
+    "eyes" : "",
+    "hair" : "",
+    "physical" : "",
+    "personality" : "",
+    "notes" : "",
+    "updated" : "2026-02-21T06:58:51.701+0000",
+    "createdAt" : "2026-02-21T06:58:33.041+0000",
+    "lastLevelUp" : "2026-02-21T06:58:33.041+0000",
+    "timeSinceLastLevel" : "PT0S"
+  },
+  "attributes" : {
+    "attributes" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "STR",
+        "severity" : 14.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "STR",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "STR",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEX",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEX",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEX",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CON",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CON",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CON",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FOC",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FOC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FOC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CTL",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CTL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CTL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CAP",
+        "severity" : 14.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CAP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CAP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "KNOW",
+        "severity" : 11.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "KNOW",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "KNOW",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MECH",
+        "severity" : 15.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MECH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MECH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PERC",
+        "severity" : 12.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PERC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PERC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INT",
+        "severity" : 14.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CHA",
+        "severity" : 12.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CHA",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CHA",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUB",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUB",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUB",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "defense" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ARMOR",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ARMOR",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ARMOR",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DODGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DODGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DODGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEF",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FORT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FORT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FORT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "WILL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "WILL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "WILL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AVOID",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AVOID",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AVOID",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "resist" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ALL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ALL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ALL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PHY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PHY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PHY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BLUNT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BLUNT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BLUNT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PIERCE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PIERCE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PIERCE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SLASH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SLASH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SLASH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FIRE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FIRE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FIRE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FROST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FROST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FROST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ELEC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ELEC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ELEC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ENERGY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ENERGY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ENERGY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SONIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SONIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SONIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "LIGHT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "LIGHT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "LIGHT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TOXIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TOXIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TOXIC",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DARK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DARK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DARK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PSI",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PSI",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "PSI",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SPIRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SPIRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SPIRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TIME",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TIME",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TIME",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "combat" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "ATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RATK",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "APP",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "APP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "APP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MOVE",
+        "severity" : 25.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MOVE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MOVE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FLY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FLY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "FLY",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RANGE",
+        "severity" : 15.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RANGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RANGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INIT",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "INIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "secondary" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "SUP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "IMP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "IMP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "IMP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BEN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BEN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BEN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "EXCL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "EXCL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "EXCL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "GRANT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "GRANT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "GRANT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRUSH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRUSH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRUSH",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AREA",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AREA",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AREA",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAST",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CMAN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CMAN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CMAN",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAXATK",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAXATK",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "MAXATK",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "damage" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TMDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "TRDMG",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BHEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BHEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BHEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "THEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "THEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "THEAL",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRIT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    }, {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRITDMG",
+        "severity" : 2.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRITDMG",
+        "severity" : 2.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CRITDMG",
+        "severity" : 2.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ]
+  },
+  "resources" : {
+    "lostHP" : 0.0,
+    "spentAura" : 0.0,
+    "mainOccupiedAura" : 0.0,
+    "grantOccupiedAura" : 0.0,
+    "shield" : 0.0,
+    "stagger" : 0.0,
+    "spentR1" : 0.0,
+    "spentR2" : 0.0,
+    "spentR3" : 0.0,
+    "spentReactions" : 0.0,
+    "occupiedAura" : 0.0,
+    "maxHP" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "HP",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "HP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "HP",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "maxAura" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AURA",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AURA",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AURA",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "maxResource1" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE1",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE1",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE1",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "maxResource2" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE2",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE2",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE2",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "maxResource3" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE3",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE3",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "RESOURCE3",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ],
+    "reactions" : [ {
+      "status" : [ {
+        "name" : "Passive",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REACTION",
+        "severity" : 10.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Maintained",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REACTION",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Temporary",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "REACTION",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ],
+      "multi" : [ ]
+    } ]
+  },
+  "specials" : {
+    "racialSpecialty" : null,
+    "skills" : [ {
+      "id" : 309,
+      "name" : "Climb",
+      "type" : "Gen",
+      "description" : "Allows the user to ascend surfaces.",
+      "availAttributes" : [ "STR" ],
+      "chosenAttributes" : [ "-", "STR" ]
+    }, {
+      "id" : 301,
+      "name" : "Acrobatics",
+      "type" : "Gen",
+      "description" : "Allows the user to perform feats of agility.",
+      "availAttributes" : [ "DEX" ],
+      "chosenAttributes" : [ "-", "DEX" ]
+    }, {
+      "id" : 308,
+      "name" : "Charge Device",
+      "type" : "Gen",
+      "description" : "Allows the user to power an array or item without being the creator, nor having skill with the required affinity.",
+      "availAttributes" : [ "CTL" ],
+      "chosenAttributes" : [ "-", "CTL" ]
+    } ],
+    "classSpecialties" : [ ],
+    "trainedSpecialties" : [ {
+      "id" : 201,
+      "name" : "Specialization (Blade)",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
+      "type" : "F",
+      "pick" : false
+    }, {
+      "id" : 205,
+      "name" : "Specialization (Sword)",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
+      "type" : "F",
+      "pick" : false
+    } ]
+  },
+  "inventory" : {
+    "credits" : 0.0,
+    "armor" : "",
+    "weaponProf" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield" ],
+    "equipment" : [ {
+      "did" : 7005,
+      "iid" : -1,
+      "dname" : "Axe",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Standard Weapon",
+      "tier" : 0,
+      "category" : "Melee",
+      "type" : "Axe",
+      "bonusAtt" : "TDMG",
+      "bonusAmount" : 3.0,
+      "levelReq" : 1,
+      "value" : 0,
+      "equipped" : false,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 7005,
+      "iid" : -1,
+      "dname" : "Axe",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Standard Weapon",
+      "tier" : 0,
+      "category" : "Melee",
+      "type" : "Axe",
+      "bonusAtt" : "TDMG",
+      "bonusAmount" : 3.0,
+      "levelReq" : 1,
+      "value" : 0,
+      "equipped" : false,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 3001,
+      "iid" : -1,
+      "dname" : "Breastplate",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Chest",
+      "tier" : 0,
+      "category" : "Armor",
+      "type" : "Heavy",
+      "bonusAtt" : "ARMOR",
+      "bonusAmount" : 3.0,
+      "levelReq" : 1,
+      "value" : 600,
+      "equipped" : false,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 3002,
+      "iid" : -1,
+      "dname" : "Greaves",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Legs",
+      "tier" : 0,
+      "category" : "Armor",
+      "type" : "Heavy",
+      "bonusAtt" : "ARMOR",
+      "bonusAmount" : 3.0,
+      "levelReq" : 1,
+      "value" : 600,
+      "equipped" : false,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    } ],
+    "consumables" : [ ],
+    "goods" : [ ],
+    "items" : [ ],
+    "weaponProficiencies" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield" ]
+  },
+  "training" : {
+    "naturalAffinities" : [ "Force" ],
+    "domains" : [ ],
+    "isDeviant" : false,
+    "classTrainingRank" : 1,
+    "trainingByCategory" : {
+      "Water" : [ {
+        "id" : 36,
+        "name" : "Aura Affinity (Water)",
+        "type" : "Passive",
+        "affinity" : "Water",
+        "description" : "+2 RESISTFROST per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 261 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 261",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESFROST",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Nature" : [ {
+        "id" : 33,
+        "name" : "Aura Affinity (Nature)",
+        "type" : "Passive",
+        "affinity" : "Nature",
+        "description" : "+2 RESISTPIERCE per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 251 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 251",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPIERCE",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Darkness" : [ {
+        "id" : 43,
+        "name" : "Aura Affinity (Darkness)",
+        "type" : "Passive",
+        "affinity" : "Darkness",
+        "description" : "+2 RESISTDARK per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 331 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 331",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESDARK",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Deviant" : [ {
+        "id" : 49,
+        "name" : "Aura Affinity (Deviant)",
+        "type" : "Passive",
+        "affinity" : "Deviant",
+        "description" : "?",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      } ],
+      "Force" : [ {
+        "id" : 40,
+        "name" : "Aura Affinity (Force)",
+        "type" : "Passive",
+        "affinity" : "Force",
+        "description" : "+2 RESISTBLUNT per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 301 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 301",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESBLUNT",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Attribute" : [ {
+        "id" : 1,
+        "name" : "Strength Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 STR per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 10 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 10",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "STR",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 2,
+        "name" : "Dexterity Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 DEX per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 20 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 20",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "DEX",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 3,
+        "name" : "Constitution Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 CON per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 30 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 30",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CON",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 4,
+        "name" : "Focus Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 FOC per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 40 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 40",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "FOC",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 5,
+        "name" : "Control Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 CTL per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 50 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 50",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CTL",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 6,
+        "name" : "Capacity Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 CAP per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 60 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 60",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CAP",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 7,
+        "name" : "Knowledge Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 KNOW per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 70 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 70",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "KNOW",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 8,
+        "name" : "Mechanical Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 MECH per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 80 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 80",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "MECH",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 9,
+        "name" : "Perception Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 PERC per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 90 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 90",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "PERC",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 10,
+        "name" : "Intuition Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 INT per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 100 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 100",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "INT",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 11,
+        "name" : "Charisma Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 CHA per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 110 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 110",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CHA",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 12,
+        "name" : "Subtlety Training",
+        "type" : "Passive",
+        "affinity" : "Attribute",
+        "description" : "+1 SUB per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ 120 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 120",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "SUB",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Misc" : [ {
+        "id" : 21,
+        "name" : "Skill Training",
+        "type" : "Passive",
+        "affinity" : "Misc",
+        "description" : "+1 Skill per level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      }, {
+        "id" : 22,
+        "name" : "Specialty Training",
+        "type" : "Passive",
+        "affinity" : "Misc",
+        "description" : "+1 Specialty per level",
+        "levelCoef" : 0.5,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      }, {
+        "id" : 23,
+        "name" : "Class Training",
+        "type" : "Passive",
+        "affinity" : "Misc",
+        "description" : "Gain Class Abilities",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      }, {
+        "id" : 24,
+        "name" : "Race Training",
+        "type" : "Passive",
+        "affinity" : "Misc",
+        "description" : "+1 Racial Bonus Level",
+        "levelCoef" : 0.5,
+        "levelMod" : -1.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      } ],
+      "Standard" : [ {
+        "id" : 61,
+        "name" : "Boost",
+        "type" : "Maintained",
+        "affinity" : "Standard",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 11, 21, 41, 51 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 11",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "STR",
+          "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 21",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "DEX",
+          "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 41",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "FOC",
+          "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 51",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CTL",
+          "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 62,
+        "name" : "Harden",
+        "type" : "Maintained",
+        "affinity" : "Standard",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 231 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 231",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESALL",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 63,
+        "name" : "Prism",
+        "type" : "Maintained",
+        "affinity" : "Standard",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 90 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 90",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "PERC",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 64,
+        "name" : "Shape",
+        "type" : "Maintained",
+        "affinity" : "Standard",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 110, 120 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 110",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "CHA",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 120",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "SUB",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 65,
+        "name" : "Zone",
+        "type" : "Maintained",
+        "affinity" : "Standard",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 200, 210, 220 ],
+        "rank" : 1,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 200",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "FORT",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 210",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "REF",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 220",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "WILL",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Time" : [ {
+        "id" : 48,
+        "name" : "Aura Affinity (Time)",
+        "type" : "Passive",
+        "affinity" : "Time",
+        "description" : "+2 RESISTTIME per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 381 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 381",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESTIME",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Sound" : [ {
+        "id" : 41,
+        "name" : "Aura Affinity (Sound)",
+        "type" : "Passive",
+        "affinity" : "Sound",
+        "description" : "+2 RESISTSONIC per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 311 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 311",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESSONIC",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Air" : [ {
+        "id" : 37,
+        "name" : "Aura Affinity (Air)",
+        "type" : "Passive",
+        "affinity" : "Air",
+        "description" : "+2 RESISTSLASH per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 271 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 271",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESSLASH",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Metal" : [ {
+        "id" : 34,
+        "name" : "Aura Affinity (Metal)",
+        "type" : "Passive",
+        "affinity" : "Metal",
+        "description" : "+2 RESISTPHY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 241 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 241",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPHY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Crafting" : [ {
+        "id" : 101,
+        "name" : "Aura Runology",
+        "type" : "Active",
+        "affinity" : "Crafting",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      }, {
+        "id" : 141,
+        "name" : "Aura Ritual",
+        "type" : "Active",
+        "affinity" : "Crafting",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      }, {
+        "id" : 181,
+        "name" : "Aura Engineering",
+        "type" : "Active",
+        "affinity" : "Crafting",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ -1 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
+      } ],
+      "Spirit" : [ {
+        "id" : 47,
+        "name" : "Aura Affinity (Spirit)",
+        "type" : "Passive",
+        "affinity" : "Spirit",
+        "description" : "+2 RESISTSPIRIT per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 371 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 371",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESSPIRIT",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Earth" : [ {
+        "id" : 35,
+        "name" : "Aura Affinity (Earth)",
+        "type" : "Passive",
+        "affinity" : "Earth",
+        "description" : "+2 RESISTPHY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 241 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 241",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPHY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Fundamental" : [ {
+        "id" : 51,
+        "name" : "Benefaction",
+        "type" : "Passive",
+        "affinity" : "Fundamental",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 510, 600 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 510",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "GRANT",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 600",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "BHEAL",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 52,
+        "name" : "Emission",
+        "type" : "Passive",
+        "affinity" : "Fundamental",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 451, 520 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 451",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RANGE",
+          "severity" : 2.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 520",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "IMPAIR",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 53,
+        "name" : "Manifestation",
+        "type" : "Passive",
+        "affinity" : "Fundamental",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 141, 161 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 141",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "HPMULTI",
+          "severity" : 0.02,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 161",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "AURAMULTI",
+          "severity" : 0.02,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 54,
+        "name" : "Potency",
+        "type" : "Passive",
+        "affinity" : "Fundamental",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 570, 500 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 570",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "BDMG",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 500",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "SUP",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 55,
+        "name" : "Transmutation",
+        "type" : "Passive",
+        "affinity" : "Fundamental",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 530, 171 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 530",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "MAST",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 171",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "ARMOR",
+          "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Energy" : [ {
+        "id" : 46,
+        "name" : "Aura Affinity (Energy)",
+        "type" : "Passive",
+        "affinity" : "Energy",
+        "description" : "+2 RESISTENERGY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 361 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 361",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESENERGY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Psionic" : [ {
+        "id" : 45,
+        "name" : "Aura Affinity (Psionic)",
+        "type" : "Passive",
+        "affinity" : "Psionic",
+        "description" : "+2 RESISTPSI per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 351 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 351",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPSI",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Electricity" : [ {
+        "id" : 39,
+        "name" : "Aura Affinity (Electricity)",
+        "type" : "Passive",
+        "affinity" : "Electricity",
+        "description" : "+2 RESISTELEC per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 291 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 291",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESELEC",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Light" : [ {
+        "id" : 42,
+        "name" : "Aura Affinity (Light)",
+        "type" : "Passive",
+        "affinity" : "Light",
+        "description" : "+2 RESISTLIGHT per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 321 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 321",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESLIGHT",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Fire" : [ {
+        "id" : 38,
+        "name" : "Aura Affinity (Fire)",
+        "type" : "Passive",
+        "affinity" : "Fire",
+        "description" : "+2 RESISTFIRE per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 281 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 281",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESFIRE",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Poison" : [ {
+        "id" : 44,
+        "name" : "Aura Affinity (Poison)",
+        "type" : "Passive",
+        "affinity" : "Poison",
+        "description" : "+2 RESISTTOXIC per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 341 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 341",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESTOXIC",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Body" : [ {
+        "id" : 32,
+        "name" : "Aura Affinity (Body)",
+        "type" : "Passive",
+        "affinity" : "Body",
+        "description" : "+2 RESISTPHY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 241 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 241",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPHY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "Enhancement" : [ {
+        "id" : 31,
+        "name" : "Aura Affinity (Enhancement)",
+        "type" : "Passive",
+        "affinity" : "Enhancement",
+        "description" : "+2 RESISTPHY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 241 ],
+        "rank" : 0,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 241",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPHY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ]
+    },
+    "deviant" : false
+  },
+  "combat" : {
+    "inCombat" : false,
+    "round" : 0,
+    "initiative" : 0,
+    "showInitiativePopup" : true,
+    "critDamage" : 2.0,
+    "invade" : false,
+    "reach" : 0,
+    "combatStatus" : [ ]
+  },
+  "reminderSelections" : { },
+  "panelReminder" : "",
+  "lists" : [ [ {
+    "list" : "Shapeshift",
+    "name" : "",
+    "description" : ""
+  } ] ]
+}

@@ -295,11 +295,14 @@ public class FrameCombat extends JFrame {
 		updateTurnHeader(false);
 		updateRoundHeader();
 		
-		freeButton.setVisible(true);
+		freeButton.setVisible(false);
 		intButton.setVisible(true);
 		optionPane.setVisible(true);
 		endRoundButton.setVisible(true);
 		damageButton.setVisible(true);
+		buttonGroup.clearSelection();
+		intButton.setSelected(true);
+		intOptions();
 		
 		buttons[0].setVisible(true);
 		
@@ -339,6 +342,9 @@ public class FrameCombat extends JFrame {
 		intButton.setVisible(true);
 		stdDemoButton.setVisible(true);
 		moveDemoButton.setVisible(true);
+		buttonGroup.clearSelection();
+		stdButton.setSelected(true);
+		stdOptions();
 		
 		buttons[0].setVisible(true);
 		
@@ -589,6 +595,18 @@ public class FrameCombat extends JFrame {
 				filtered.add(0, fullAttack);
 			}
 		}
+
+		// Always pin Standard Attack to the top of the standard-action list.
+		for (int i = 0; i < filtered.size(); i++) {
+			DataAction action = filtered.get(i);
+			if (action != null && "Standard Attack".equalsIgnoreCase(action.getName())) {
+				if (i != 0) {
+					filtered.remove(i);
+					filtered.add(0, action);
+				}
+				break;
+			}
+		}
 		
 		for (int i = 0; i < filtered.size(); i++) {
 			JButton tempButton = buildButton();
@@ -692,12 +710,36 @@ public class FrameCombat extends JFrame {
 			}
 			actionButtons.get(i).setVisible(false);
 			actionButtons.remove(i);
-			actionList.remove(i);
+			if (i < actionList.size()) {
+				actionList.remove(i);
+			}
 		} //End of Buttons Loop
 		
-		if (character == null) return;
+		if (character == null || character.getCombat() == null) {
+			JButton tempButton = buildButton();
+			tempButton.setText("No actions available");
+			tempButton.setEnabled(false);
+			optionPanel.add(tempButton);
+			tempButton.setBounds(0, 20, 500, 50);
+			actionButtons.add(tempButton);
+			actionList.add(null);
+			tempButton.setVisible(true);
+			return;
+		}
+
 		List<DataAction> tempActions = character.getCombat().getInterruptActions();
-		
+		if (tempActions == null || tempActions.isEmpty()) {
+			JButton tempButton = buildButton();
+			tempButton.setText("No actions available");
+			tempButton.setEnabled(false);
+			optionPanel.add(tempButton);
+			tempButton.setBounds(0, 20, 500, 50);
+			actionButtons.add(tempButton);
+			actionList.add(null);
+			tempButton.setVisible(true);
+			return;
+		}
+
 		for (int i = 0; i < tempActions.size(); i++) {
 			JButton tempButton = buildButton();
 			tempButton.setText(tempActions.get(i).getName());

@@ -1,5 +1,6 @@
 package eternity;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ public class PanelCharList extends PanelCharBase {
 	 */
 	PanelCharList (DataQuery dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
+		setBackground(new Color(169, 169, 169));
 		
 		titles = new ArrayList<JLabel>();
 		lists = new ArrayList<ArrayList<JTextField>>();
-		lists.add(new ArrayList<JTextField>());
 	} //END OF PARAMETERIZED CONSTRUCTOR
 	
 	/*
@@ -37,30 +38,9 @@ public class PanelCharList extends PanelCharBase {
 		resizeSheet();
 	}
 	public void updateList() {
-		List<List<String>> tempLists = new ArrayList<>();
-
-		if (character != null) {
-			// Natural affinities
-			if (character.getTraining() != null && !character.getTraining().getNaturalAffinities().isEmpty()) {
-				List<String> affinities = new ArrayList<>();
-				affinities.add("Natural Affinities");
-				affinities.addAll(character.getTraining().getNaturalAffinities());
-				tempLists.add(affinities);
-			}
-			// Domains
-			if (character.getTraining() != null && !character.getTraining().getDomains().isEmpty()) {
-				List<String> domains = new ArrayList<>();
-				domains.add("Domains");
-				domains.addAll(character.getTraining().getDomains());
-				tempLists.add(domains);
-			}
-			// Weapon proficiencies
-			if (character.getInventory() != null && !character.getInventory().getWeaponProficiencies().isEmpty()) {
-				List<String> prof = new ArrayList<>();
-				prof.add("Weapon Proficiencies");
-				prof.addAll(character.getInventory().getWeaponProficiencies());
-				tempLists.add(prof);
-			}
+		List<List<DataList>> tempLists = new ArrayList<>();
+		if (character != null && character.getLists() != null) {
+			tempLists.addAll(character.getLists());
 		}
 
 		for (int i = titles.size() -1; i >= 0; i--) {			// remove all
@@ -78,21 +58,36 @@ public class PanelCharList extends PanelCharBase {
 		lists = new ArrayList<ArrayList<JTextField>>();
 		
 		for (int i = 0; i < tempLists.size(); i++) {			// add all
-			if (tempLists.get(i).isEmpty()) continue;
-			JLabel tempLabel = buildLabel(tempLists.get(i).get(0));		//create title
+			List<DataList> currList = tempLists.get(i);
+			if (currList == null || currList.isEmpty()) continue;
+
+			String title = "List";
+			for (DataList data : currList) {
+				if (data != null && data.getList() != null && !data.getList().isBlank()) {
+					title = data.getList();
+					break;
+				}
+			}
+
+			JLabel tempLabel = buildLabel(title);		//create title
 			titles.add(tempLabel);
 			
 			lists.add(new ArrayList<JTextField>());
-			for (int j = 1; j < tempLists.get(i).size(); j++) {
-				JTextField tempField = buildTextField(tempLists.get(i).get(j));
+			for (DataList data : currList) {
+				if (data == null) continue;
+				String name = data.getName() == null ? "" : data.getName();
+				JTextField tempField = buildTextField(name);
 				tempField.setEditable(false);
+				if (data.getDescription() != null && !data.getDescription().isBlank()) {
+					tempField.setToolTipText(data.getDescription());
+				}
 				lists.get(i).add(tempField);
 			}
 		}	
 	}
 	
 	public void resizeSheet() {
-		pageHeight = 120;
+		pageHeight = resizeHeader();
 
 		
 		for (int i = 0; i < titles.size(); i++ ) {
@@ -134,3 +129,4 @@ public class PanelCharList extends PanelCharBase {
 
 	
 }
+

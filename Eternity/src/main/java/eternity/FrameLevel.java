@@ -1,9 +1,9 @@
 package eternity;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.text.ParseException;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,12 +20,8 @@ private CharData character;
 private boolean skipLevelIncrement = false;
 private Integer levelContext = null; // optional override for display/logic
 
-private boolean skillLevel, specLevel;
-
-	private final JComboBox<String> skillList;
-	private final JComboBox<String> skillAttributes;
-	private final JComboBox<String> specialsList;
-	private final JComboBox<String> specialsType;
+	private final FrameSkill frameSkill;
+	private final FrameSpecial frameSpecial;
 
 	private final JLabel headerL;
 	private final JLabel subHeaderL;
@@ -33,9 +29,6 @@ private boolean skillLevel, specLevel;
 	private final JLabel[] labels;
 	private final JFormattedTextField[] numFields;
 	private final JButton[] buttons;
-
-	private final String[] ATTRIBUTES = {"STR","DEX","CON","FOC","CAP","CTL","KNOW","MECH","PERC","INT","CHA","SUB"};
-	private final String[] SPECTYPES = {"Proficiency","Martial","Class"};
 
 	FrameLevel (FrameSheet sheetFrame, DataQuery dataQuery) {
 		super("Exp Up");
@@ -66,13 +59,13 @@ private boolean skillLevel, specLevel;
 		}
 
 		numFields = new JFormattedTextField[2];
-		NumberFormatter nf = new NumberFormatter(java.text.NumberFormat.getIntegerInstance());
-		nf.setAllowsInvalid(false);
-		nf.setMinimum(0);
+		NumberFormatter nf = createNullableIntegerFormatter();
 		numFields[0] = new JFormattedTextField(nf);
+		numFields[0].setFocusLostBehavior(JFormattedTextField.PERSIST);
 		numFields[0].setHorizontalAlignment(JTextField.CENTER);
 		add(numFields[0]);
 		numFields[1] = new JFormattedTextField(nf); // unused placeholder
+		numFields[1].setFocusLostBehavior(JFormattedTextField.PERSIST);
 		add(numFields[1]);
 
 		buttons = new JButton[2];
@@ -81,15 +74,10 @@ private boolean skillLevel, specLevel;
 			add(buttons[i]);
 		}
 
-		skillList = new JComboBox<>();
-		add(skillList);
-		skillAttributes = new JComboBox<>(ATTRIBUTES);
-		add(skillAttributes);
-		
-		specialsList = new JComboBox<>();
-		add(specialsList);
-		specialsType = new JComboBox<>(SPECTYPES);
-		add(specialsType);
+		frameSkill = new FrameSkill(dataQuery);
+		frameSkill.attachToFrame(this);
+		frameSpecial = new FrameSpecial(dataQuery);
+		frameSpecial.attachToFrame(this);
 
 		clearLevel();
 	}
@@ -155,10 +143,6 @@ private boolean skillLevel, specLevel;
 	 */
 	public void clearLevel() {
 		// reset state flags for a fresh session
-		skillLevel = false;
-		specLevel = false;
-		skipLevelIncrement = false;
-		levelContext = null;
 		// remove lingering listeners to avoid stacking actions
 		for (JButton b : buttons) {
 			for (var al : b.getActionListeners()) b.removeActionListener(al);
@@ -180,10 +164,8 @@ private boolean skillLevel, specLevel;
 			f.setVisible(false);
 		}
 
-		skillList.setVisible(false);
-		skillAttributes.setVisible(false);
-		specialsList.setVisible(false);
-		specialsType.setVisible(false);
+		frameSkill.clear();
+		frameSpecial.clear();
 	}
 	
 	
@@ -220,39 +202,30 @@ private boolean skillLevel, specLevel;
 		*/
 		int currentLevel = levelContext != null ? levelContext :
 				(character != null && character.getIdentity() != null ? character.getIdentity().getLevel() : 0);
+
+		// Warn about subclass lock-in at level 5
+		if (currentLevel == 5 && character != null && character.getIdentity() != null) {
+			String subclass = character.getIdentity().getCharSubclass();
+			String cls = character.getIdentity().getCharClass();
+			String msg = "Upon reaching level 5 you will not be able to change subclass.\n"
+					+ "Current class: " + (cls == null ? "?" : cls) + "\n"
+					+ "Current subclass: " + (subclass == null ? "?" : subclass) + "\n\n"
+					+ "Ensure the correct subclass is selected before proceeding.";
+			javax.swing.JOptionPane.showMessageDialog(this, msg, "Subclass Reminder", javax.swing.JOptionPane.WARNING_MESSAGE);
+		}
+
 		headerL.setText("Welcome to level " + currentLevel);
 		headerL.setVisible(true);
 		
 		if (currentLevel % 3 == 0 || currentLevel == 19) {
 			subHeader2L.setText("You have gained a new feature.");
 			subHeader2L.setVisible(true);
-			labels[2].setBounds(60, 240, 120, 20);
-			labels[2].setText("Type");
-			labels[2].setVisible(true);
-			specialsType.setVisible(true);
-			specialsType.setBounds(60, 265, 120, 20);
-			labels[3].setBounds(210, 240, 280, 20);
-			labels[3].setText("Specialty");
-			labels[3].setVisible(true);
-			specialsList.setVisible(true);
-			specialsList.setBounds(210, 265, 280, 20);
-			specLevel = true;
+			frameSpecial.showSpecialtySelection(labels[2], labels[3]);
 		}
 		if (currentLevel % 3 != 0 || currentLevel == 19) {
 			subHeaderL.setText("You have gained a new skill.");
 			subHeaderL.setVisible(true);
-			labels[0].setBounds(60, 115, 120, 20);	
-			labels[0].setText("Attribute");
-			labels[0].setVisible(true);
-			skillAttributes.setVisible(true);
-			skillAttributes.setBounds(60, 140, 120, 20);
-			
-			labels[1].setBounds(210, 115, 280, 20);
-			labels[1].setText("Skill");
-			labels[1].setVisible(true);
-			skillList.setVisible(true);
-			skillList.setBounds(210, 140, 280, 20);
-			skillLevel = true;
+			frameSkill.showSkillSelection(labels[0], labels[1]);
 		}
 		
 		/*
@@ -262,47 +235,23 @@ private boolean skillLevel, specLevel;
 		buttons[1].addActionListener(e -> levelUpCon());
 		buttons[1].setBounds(320, 280, 120, 20);
 		buttons[1].setVisible(true);
-
-		updateData();
-		
-		skillAttributes.addActionListener(e -> updateData());
-		specialsType.addActionListener(e -> updateData());
-	}
-	
-	void updateData() {
-		skillList.removeAllItems();
-		String tempString = (String)skillAttributes.getSelectedItem();
-		ArrayList<DataSkill> tempList = new ArrayList<>(dataQuery.getSkillsByAttribute(tempString));
-		for (DataSkill dataSkill : tempList) {
-			skillList.addItem(dataSkill.getName());
-		}
-		specialsList.removeAllItems();
-		ArrayList<DataSpecialty> tempSpecs = null;
-		tempString = (String)specialsType.getSelectedItem();
-		tempSpecs = new ArrayList<>(dataQuery.getSpecialtiesByType(tempString));
-		for (DataSpecialty spec : tempSpecs) {
-			specialsList.addItem(spec.getName());
-		}		
 	}
 
 	public void levelUpCon() {
-		if (skillLevel) {
-			CharSpecials specials = character.getSpecials();
-			DataSkill picked = dataQuery.getSkillByName((String)skillList.getSelectedItem());
-			if (picked != null) {
-				DataSkill copy = new DataSkill(picked);
-				copy.addChosenAttribute((String)skillAttributes.getSelectedItem());
-				specials.addSkill(copy);
-			}
-		}
-		if (specLevel) {
-			DataSpecialty picked = dataQuery.getSpecialtyByName((String)specialsList.getSelectedItem());
-			if (picked != null) {
-				character.getSpecials().addTrainedSpecialty(new DataSpecialty(picked));
-			}
-		}
-		if (!skipLevelIncrement) {
-			CharIdentity id = character.getIdentity();
+		int contextLevel = levelContext != null ? levelContext :
+				(character != null && character.getIdentity() != null ? character.getIdentity().getLevel() : 0);
+		boolean skipIncrementThisPass = skipLevelIncrement;
+
+		frameSkill.applySelection(character);
+		frameSpecial.applySelection(character);
+		// Record level-up timing
+		CharIdentity id = character.getIdentity();
+		long now = System.currentTimeMillis();
+		id.setLastLevelUp(new Timestamp(now));
+		// Track in-game elapsed at the moment of level up so we can diff later
+		id.setTimeSinceLastLevel(id.getCampaignElapsedTime());
+
+		if (!skipIncrementThisPass) {
 			float newExp = (float)(id.getExp() - nextExpRequirement(id.getLevel()));
 			id.setExp(Math.max(0f, newExp));
 			id.setLevel(id.getLevel() + 1);
@@ -313,6 +262,19 @@ private boolean skillLevel, specLevel;
 			sheetFrame.loadCharacter(character);
 			sheetFrame.refreshMainPanel(); // ensure main stats refresh after level-up
 		}
+
+		int currentLevel = character != null && character.getIdentity() != null ? character.getIdentity().getLevel() : 0;
+		if (contextLevel < currentLevel) {
+			skipLevelIncrement = skipIncrementThisPass;
+			levelContext = contextLevel + 1;
+			levelUp();
+			setVisible(true);
+			return;
+		}
+
+		// always reset skip flag after processing to avoid leaking across sessions
+		skipLevelIncrement = false;
+		levelContext = null;
 		this.dispose();
 	}
 
@@ -320,6 +282,26 @@ private boolean skillLevel, specLevel;
 	private int nextExpRequirement(int level) {
 		if (level <= 0) return Integer.MAX_VALUE;
 		return level * 1000;
+	}
+
+	private NumberFormatter createNullableIntegerFormatter() {
+		NumberFormatter nf = new NumberFormatter(java.text.NumberFormat.getIntegerInstance()) {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Object stringToValue(String text) throws ParseException {
+				if (text == null || text.trim().isEmpty()) return null;
+				return super.stringToValue(text);
+			}
+			@Override
+			public String valueToString(Object value) throws ParseException {
+				if (value == null) return "";
+				return super.valueToString(value);
+			}
+		};
+		nf.setAllowsInvalid(true);
+		nf.setCommitsOnValidEdit(true);
+		nf.setMinimum(0);
+		return nf;
 	}
 	
 	

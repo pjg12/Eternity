@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JCheckBox;
 
 /**
  * Character Creation Wizard
@@ -44,6 +45,7 @@ public class FrameNew extends JFrame {
     private JButton cancelButton;
     private JButton finalizeButton;
     private FrameNewFinal finalFrame;
+    private JCheckBox gmCheck;
 
     // Step completion state
     private final boolean[] stepDone;
@@ -193,7 +195,17 @@ public class FrameNew extends JFrame {
     // Footer (Cancel + Finalize)
     // --------------------------------------------------------------------------
     private void buildFooter() {
-        JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        JPanel footer = new JPanel(new BorderLayout());
+
+        gmCheck = new JCheckBox("GM");
+        gmCheck.setFocusable(false);
+        gmCheck.setOpaque(false);
+
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        leftPanel.setOpaque(false);
+        leftPanel.add(gmCheck);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         cancelButton = new JButton("Cancel / Load");
         cancelButton.addActionListener(e -> onCancelPressed());
@@ -202,8 +214,11 @@ public class FrameNew extends JFrame {
         finalizeButton.setVisible(false);
         finalizeButton.addActionListener(e -> onFinalizePressed());
 
-        footer.add(cancelButton);
-        footer.add(finalizeButton);
+        buttonPanel.add(cancelButton);
+        buttonPanel.add(finalizeButton);
+
+        footer.add(leftPanel, BorderLayout.WEST);
+        footer.add(buttonPanel, BorderLayout.CENTER);
 
         add(footer, BorderLayout.SOUTH);
     }
@@ -236,7 +251,8 @@ public class FrameNew extends JFrame {
                         sheetFrame,
                         dataQuery,   // DataStore access
                         character,               // active character
-                        this                        // parent FrameNew
+                        this,                       // parent FrameNew
+                        gmCheck != null && gmCheck.isSelected()
                     );
 
             classFrame.setVisible(true);
@@ -252,7 +268,8 @@ public class FrameNew extends JFrame {
                         sheetFrame,
                         dataQuery,   // DataStore access
                         character,               // active character
-                        this                        // parent FrameNew
+                        this,                       // parent FrameNew
+                        gmCheck != null && gmCheck.isSelected()
                     );
 
             raceFrame.setVisible(true);
@@ -263,7 +280,8 @@ public class FrameNew extends JFrame {
                     new FrameNewAttribute(
                         sheetFrame,
                         character,
-                        this
+                        this,
+                        gmCheck != null && gmCheck.isSelected()
                     );
             attFrame.setVisible(true);
         }
@@ -274,7 +292,8 @@ public class FrameNew extends JFrame {
                         sheetFrame,
                         dataQuery,
                         character,
-                        this
+                        this,
+                        gmCheck != null && gmCheck.isSelected()
                     );
             skillsFrame.setVisible(true);
         }
@@ -285,7 +304,8 @@ public class FrameNew extends JFrame {
                         sheetFrame,
                         dataQuery,
                         character,
-                        this
+                        this,
+                        gmCheck != null && gmCheck.isSelected()
                     );
             specialsFrame.setVisible(true);
         }
@@ -296,7 +316,8 @@ public class FrameNew extends JFrame {
                         sheetFrame,
                         dataQuery,
                         character,
-                        this
+                        this,
+                        gmCheck != null && gmCheck.isSelected()
                     );
             auraFrame.setVisible(true);
         }
@@ -380,11 +401,14 @@ public class FrameNew extends JFrame {
         try {
             ArrayList<CharStore> stores = CharacterDataManager.loadCharStore();
             CharIdentity id = character.getIdentity();
+            boolean isNewCharacter = false;
 
             int idx = id.getIndex();
             if (idx <= 0) {
+                character.initializeNewCharacter();
                 idx = CharacterDataManager.getNextFreeIndex(stores);
                 id.setIndex(idx);
+                isNewCharacter = true;
             }
 
             // Preload base training techniques (id 1..12 and 21..24) into character
@@ -453,6 +477,14 @@ public class FrameNew extends JFrame {
                 }
             }
 
+            // New-character safeguard: Race Training should always begin at rank 1.
+            if (isNewCharacter && character.getTraining() != null) {
+                DataTraining raceTraining = character.getTraining().getTrainingByName("Race Training");
+                if (raceTraining != null) {
+                    raceTraining.setRank(1);
+                }
+            }
+
             // Ensure DEF base severity (index 0 status) is set to 10 before saving
             CharAttributes attrs = character.getAttributes();
             if (attrs != null) {
@@ -491,8 +523,13 @@ public class FrameNew extends JFrame {
                 stores.add(updated);
             }
 
-            CharacterDataManager.saveCharStore(stores);
-            CharacterDataManager.saveCharacter(character);
+            // Persist character file first so CharStore normalization can resolve snapshot metadata.
+            boolean saved = CharacterDataManager.saveCharacter(character);
+            if (saved) {
+                CharacterDataManager.saveCharStore(stores);
+            } else {
+                System.err.println("Failed to persist character file; skipping CharStore update.");
+            }
         } catch (Exception e) {
             System.err.println("Failed to save character: " + e.getMessage());
         }

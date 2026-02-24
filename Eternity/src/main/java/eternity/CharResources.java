@@ -57,21 +57,7 @@ public class CharResources {
         StatBlock block = new StatBlock();
         arr[0] = block;
 
-        DataStatus base = new DataStatus();
-        base.setName("Base");
-        base.setAttribute(attributeKey);
-        base.setDurationType("Permanent");
-        // Multipliers default to 1; others default to 0
-        base.setSeverity(10);
-        block.addStatus(base);
-
-        base = new DataStatus();
-        base.setName("Base");
-        base.setAttribute(attributeKey);
-        base.setDurationType("Permanent");
-        // Multipliers default to 1; others default to 0
-        base.setSeverity(0); // multiplier severity 0 keeps overall multiplier at 1.0
-        block.addMulti(base);
+        seedBaseStatuses(block, attributeKey);
 
         return arr;
     }
@@ -93,7 +79,7 @@ public class CharResources {
         if (node.isNumber()) {
             StatBlock[] arr = initSingle(attributeKey);
             arr[0].getStatus().stream()
-                    .filter(s -> "Base".equalsIgnoreCase(s.getName()))
+                    .filter(s -> "Passive".equalsIgnoreCase(s.getName()))
                     .findFirst()
                     .ifPresent(s -> s.setSeverity(node.doubleValue()));
             return arr;
@@ -121,12 +107,12 @@ public class CharResources {
 
     @JsonIgnore // derived value; exclude from serialization
     public int getMaxHP() {
-        double base = maxHP[0].computeValue();
+        double base = maxHP[0].computeValueNoBase();
         return (int)Math.max(0, base);
     }
     @JsonIgnore // derived value; exclude from serialization
     public int getMaxAura() {
-        double base = maxAura[0].computeValue();
+        double base = maxAura[0].computeValueNoBase();
         return (int)Math.max(0, base);
     }
 
@@ -227,37 +213,52 @@ public class CharResources {
     // ---------------------------------------------------------
 
     /**
-     * Updates the "Base" status entry for Max HP with the supplied value.
+     * Updates the "Passive" status entry for Max HP with the supplied value.
      * If the status does not exist (e.g., older saved characters), it will be created.
      */
     public void setBaseMaxHP(double value) {
-        setBaseStatusValue(maxHP, value);
+        setBaseStatusValue(maxHP, value, "HP");
     }
 
     /**
-     * Updates the "Base" status entry for Max Aura with the supplied value.
+     * Updates the "Passive" status entry for Max Aura with the supplied value.
      */
     public void setBaseMaxAura(double value) {
-        setBaseStatusValue(maxAura, value);
+        setBaseStatusValue(maxAura, value, "AURA");
     }
 
     /**
-     * Shared helper to upsert the Base status severity on the first StatBlock.
+     * Shared helper to upsert the Passive status severity on the first StatBlock.
      */
-    private void setBaseStatusValue(StatBlock[] blocks, double value) {
+    private void setBaseStatusValue(StatBlock[] blocks, double value, String attrKey) {
         if (blocks == null || blocks.length == 0) return;
         StatBlock block = blocks[0];
         var baseStatus = block.getStatus().stream()
-                .filter(s -> "Base".equalsIgnoreCase(s.getName()))
+                .filter(s -> "Passive".equalsIgnoreCase(s.getName()))
                 .findFirst()
                 .orElseGet(() -> {
                     DataStatus s = new DataStatus();
-                    s.setName("Base");
-                    s.setAttribute(blocks == maxHP ? "HP" : (blocks == maxAura ? "AURA" : "RESOURCE"));
+                    s.setName("Passive");
+                    s.setAttribute(attrKey);
                     s.setDurationType("Permanent");
                     block.addStatus(s);
                     return s;
                 });
         baseStatus.setSeverity(Math.max(0, value));
+    }
+
+    /** Seeds a StatBlock with Passive/Maintained/Temporary base entries. */
+    private void seedBaseStatuses(StatBlock block, String key) {
+        if (block == null) return;
+        String[] labels = { "Passive", "Maintained", "Temporary" };
+        for (String label : labels) {
+            DataStatus base = new DataStatus();
+            base.setName(label);
+            base.setAttribute(key);
+            base.setDurationType("Permanent");
+            // For resources, default Passive to 10 (legacy), others to 0
+            base.setSeverity("Passive".equals(label) ? 10 : 0);
+            block.addStatus(base);
+        }
     }
 }

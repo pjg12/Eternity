@@ -8,8 +8,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -18,12 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
 
 public class FrameNewRace extends JFrame {
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private static final int ICON_SIZE = 80;
     private static final String[] RACEOPTIONS = { "Alteri","Aquata","Ardian","Azuri","Boxlor","Cetryu","Construct","Deckan",
@@ -45,11 +47,12 @@ public class FrameNewRace extends JFrame {
 
     private DataRace selectedRace;
 
-    public FrameNewRace(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
+    public FrameNewRace(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Select Race");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent    = parent;
+        this.gmMode    = gmMode;
 
         loadIcons();
         buildWindow();
@@ -272,19 +275,23 @@ public class FrameNewRace extends JFrame {
 
         raceDescPanel.setVisible(true);
         nextButton.setEnabled(true);
+
+        if (gmMode) {
+            raceChoicesConfirmed(new ArrayList<>());
+        }
     }
 
     void openRacePicker() {
         if (selectedRace == null) return;
-        raceChoicesConfirmed(new ArrayList<>());
 
-        /*if (selectedRace.getRacePick()) {
-            /*FrameNewRacePicker picker =
-                new FrameNewRacePicker(null, dataStore, character, selectedRace, this);
+        if (selectedRace.getRacePick()) {
+            System.out.println("hi");
+            FrameNewRacePicker picker =
+                new FrameNewRacePicker(null, dataQuery, character, selectedRace, this);
             picker.setVisible(true);
         } else {
             raceChoicesConfirmed(new ArrayList<>());
-        }*/
+        }
     }
 
     void raceChoicesConfirmed(ArrayList<String> choices) {

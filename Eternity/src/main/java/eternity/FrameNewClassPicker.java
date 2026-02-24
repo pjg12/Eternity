@@ -242,7 +242,6 @@ public class FrameNewClassPicker extends JFrame {
                     box.addItem(subs.get(0));
                     box.addItem(subs.get(1));
                 }
-                box.addItem("*Undecided");
             }
 
             case WEAPON_PICK_1, WEAPON_PICK_2 -> {

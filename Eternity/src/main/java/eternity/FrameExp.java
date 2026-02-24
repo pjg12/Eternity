@@ -219,18 +219,15 @@ public class FrameExp extends JFrame {
 		}
 
 		if (leveled) {
-			int levelsGained = tempLevel - startLevel;
-			for (int lvl = startLevel + 1; lvl <= tempLevel; lvl++) {
-				if (levelFrame == null) {
-					levelFrame = new FrameLevel(sheetFrame, dataQuery);
-					levelFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-				}
-				levelFrame.updateCharacter(character);
-				levelFrame.setSkipLevelIncrement(true);
-				levelFrame.setLevelContext(lvl);
-				levelFrame.levelUp();
-				levelFrame.setVisible(true);
+			if (levelFrame == null) {
+				levelFrame = new FrameLevel(sheetFrame, dataQuery);
+				levelFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 			}
+			levelFrame.updateCharacter(character);
+			levelFrame.setSkipLevelIncrement(true);
+			levelFrame.setLevelContext(startLevel + 1);
+			levelFrame.levelUp();
+			levelFrame.setVisible(true);
 		}
 
 		this.dispose();

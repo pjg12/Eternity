@@ -30,6 +30,7 @@ public class CharIdentity implements Serializable {
     @JsonProperty private LocalDateTime campaignStartDate; 
     @JsonProperty private Duration campaignElapsedTime;
     @JsonProperty private LocalDate birthday;
+    @JsonProperty private boolean birthdayManual;
     @JsonProperty private String race;
     @JsonProperty private List<String> charRacePick;
     @JsonProperty private String charClass;
@@ -47,6 +48,9 @@ public class CharIdentity implements Serializable {
     @JsonProperty private String personality;
     @JsonProperty private String notes;
     @JsonProperty private Timestamp updated;
+    @JsonProperty private Timestamp createdAt;
+    @JsonProperty private Timestamp lastLevelUp;
+    @JsonProperty private Duration timeSinceLastLevel = Duration.ZERO;
 
     // --- Constructors ---
     public CharIdentity() {
@@ -57,6 +61,7 @@ public class CharIdentity implements Serializable {
         this.campaignStartDate = LocalDateTime.of(65, 1, 1, 8, 0);
         this.campaignElapsedTime = Duration.ZERO;
         this.birthday = this.campaignStartDate.toLocalDate().minusYears(18); // default age 18
+        this.birthdayManual = false;
         this.race = "?";
         this.charRacePick = new ArrayList<>();
         this.charClass = "?";
@@ -73,7 +78,11 @@ public class CharIdentity implements Serializable {
         this.physical = "";
         this.personality = "";
         this.notes = "";
-        this.updated = new Timestamp(System.currentTimeMillis());
+        long now = System.currentTimeMillis();
+        this.updated = new Timestamp(now);
+        this.createdAt = new Timestamp(now);
+        this.lastLevelUp = new Timestamp(now);
+        this.timeSinceLastLevel = Duration.ZERO;
     }
 
     public CharIdentity(CharIdentity other) {
@@ -101,6 +110,10 @@ public class CharIdentity implements Serializable {
         this.personality = other.personality;
         this.notes = other.notes;
         this.updated = other.updated;
+        this.createdAt = other.createdAt;
+        this.lastLevelUp = other.lastLevelUp;
+        this.timeSinceLastLevel = other.timeSinceLastLevel;
+        this.birthdayManual = other.birthdayManual;
     }
 
     // --- Getters / Setters ---
@@ -123,10 +136,16 @@ public class CharIdentity implements Serializable {
     public void setCampaignElapsedTime(Duration campaignElapsedTime) { this.campaignElapsedTime = (campaignElapsedTime == null) ? Duration.ZERO : campaignElapsedTime; }
     
     public LocalDate getBirthday() { return birthday; }
-    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+        this.birthdayManual = true;
+    }
+    @JsonIgnore
+    public boolean isBirthdayManual() { return birthdayManual; }
     public void randomBirthday(int age) {
         int birthYear = getYearByAge(age);
         this.birthday = CharIdentity.randomDayOfYear(birthYear);
+        this.birthdayManual = true;
     }
 
     public String getRace() { return race; }
@@ -184,6 +203,15 @@ public class CharIdentity implements Serializable {
     
     public Timestamp getUpdated() { return updated; }
     public void setUpdated(Timestamp updated) { this.updated = updated; }
+
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    public Timestamp getLastLevelUp() { return lastLevelUp; }
+    public void setLastLevelUp(Timestamp lastLevelUp) { this.lastLevelUp = lastLevelUp; }
+
+    public Duration getTimeSinceLastLevel() { return timeSinceLastLevel == null ? Duration.ZERO : timeSinceLastLevel; }
+    public void setTimeSinceLastLevel(Duration timeSinceLastLevel) { this.timeSinceLastLevel = timeSinceLastLevel == null ? Duration.ZERO : timeSinceLastLevel; }
     
     @JsonIgnore
     public CharData getOwner() { return owner; }

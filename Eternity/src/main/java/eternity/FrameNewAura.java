@@ -9,7 +9,10 @@ import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Affinity and starter weapon selection.
@@ -20,6 +23,7 @@ public class FrameNewAura extends JFrame {
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
+    private final boolean gmMode;
 
     private static final String[] AURATYPE = {
             "***", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity",
@@ -29,11 +33,12 @@ public class FrameNewAura extends JFrame {
     private JComboBox<String> auraPick;
     private final ArrayList<JComboBox<String>> weaponPick = new ArrayList<>();
 
-    public FrameNewAura(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent) {
+    public FrameNewAura(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Affinity & Starter Weapons");
         this.dataQuery = dataQuery;
         this.character = character;
         this.parent = parent;
+        this.gmMode = gmMode;
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
@@ -71,12 +76,23 @@ public class FrameNewAura extends JFrame {
         add(auraPick);
 
         List<String> profs = character.getInventory().getWeaponProficiencies();
-        boolean hasProfs = !profs.isEmpty();
+        if ((profs == null || profs.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
+            String cls = character.getIdentity().getCharClass();
+            if (cls != null && !cls.isBlank()) {
+                DataClass dc = dataQuery.getClassByName(cls);
+                if (dc != null && dc.getProfAuto() != null && !dc.getProfAuto().isEmpty()) {
+                    profs = new ArrayList<>(dc.getProfAuto());
+                    character.getInventory().setWeaponProficiencies(profs); // hydrate inventory so downstream stays consistent
+                }
+            }
+        }
+        List<String> starterWeapons = getStarterWeaponOptions(profs);
+        boolean hasProfs = !starterWeapons.isEmpty();
 
         for (int i = 0; i < 2; i++) {
             JComboBox<String> box = new JComboBox<>();
             box.addItem("***");
-            for (String p : profs) box.addItem(p);
+            for (String weapon : starterWeapons) box.addItem(weapon);
             box.setBounds(225, 100 + 60 * i, 250, 22);
             box.setEnabled(hasProfs);
             weaponPick.add(box);
@@ -97,6 +113,17 @@ public class FrameNewAura extends JFrame {
     }
 
     private void auraConfirm() {
+        if (gmMode) {
+            int idx = (int) (Math.random() * 18); // 0..17 inclusive
+            auraPick.setSelectedItem(AURATYPE[idx]);
+            // auto-pick first non "***" weapon options if available
+            for (JComboBox<String> wp : weaponPick) {
+                if (wp.isEnabled() && wp.getItemCount() > 1) {
+                    wp.setSelectedIndex(1);
+                }
+            }
+        }
+
         String affinity = (String) auraPick.getSelectedItem();
         if (affinity == null || "***".equals(affinity)) {
             JOptionPane.showMessageDialog(this, "Select a Natural Affinity to proceed.");
@@ -129,5 +156,54 @@ public class FrameNewAura extends JFrame {
 
         parent.auraConfirmed();
         dispose();
+    }
+
+    private List<String> getStarterWeaponOptions(List<String> profs) {
+        Set<String> names = new LinkedHashSet<>();
+        if (profs == null || profs.isEmpty() || dataQuery == null) return new ArrayList<>();
+
+        List<DataItemEquipment> all = dataQuery.searchItems("");
+        for (DataItemEquipment item : all) {
+            if (item == null || item.getTier() != 0) continue;
+            String category = item.getCategory() == null ? "" : item.getCategory();
+            if (!category.equalsIgnoreCase("Melee") &&
+                    !category.equalsIgnoreCase("Ranged") &&
+                    !category.equalsIgnoreCase("Aura")) {
+                continue;
+            }
+
+            boolean match = false;
+            for (String prof : profs) {
+                if (matchesProficiency(item, prof)) {
+                    match = true;
+                    break;
+                }
+            }
+            if (match) names.add(item.getDname());
+        }
+
+        ArrayList<String> out = new ArrayList<>(names);
+        out.sort(Comparator.naturalOrder());
+        return out;
+    }
+
+    private boolean matchesProficiency(DataItemEquipment item, String prof) {
+        if (item == null || prof == null) return false;
+        String p = prof.trim();
+        if (p.isBlank()) return false;
+
+        String category = item.getCategory() == null ? "" : item.getCategory();
+        String slot = item.getSlot() == null ? "" : item.getSlot();
+        String type = item.getType() == null ? "" : item.getType();
+        String name = item.getDname() == null ? "" : item.getDname();
+
+        if ("Any".equalsIgnoreCase(p)) return true;
+        if ("Melee".equalsIgnoreCase(p) && "Melee".equalsIgnoreCase(category)) return true;
+        if ("Ranged".equalsIgnoreCase(p) && "Ranged".equalsIgnoreCase(category)) return true;
+        if ("Aura".equalsIgnoreCase(p) && "Aura".equalsIgnoreCase(category)) return true;
+        if ("Light".equalsIgnoreCase(p) && slot.toLowerCase().contains("light")) return true;
+        if ("Heavy".equalsIgnoreCase(p) && slot.toLowerCase().contains("heavy")) return true;
+        if (p.equalsIgnoreCase(type)) return true;
+        return p.equalsIgnoreCase(name);
     }
 }

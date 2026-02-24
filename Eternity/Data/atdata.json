@@ -143,9 +143,9 @@
         "id": 21
     },
     {
-        "name": "Feature Training",
+        "name": "Specialty Training",
         "affinity": "None",
-        "description": "+1 Feature per level",
+        "description": "+1 Specialty per level",
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,

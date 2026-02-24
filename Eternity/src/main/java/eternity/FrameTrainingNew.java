@@ -56,7 +56,9 @@ class FrameTrainingNew extends FrameTraining {
 		List<DataTraining> all = dataQuery.searchTraining(""); // returns all trainings
 		for (DataTraining t : all) {
 			if (t.getAffinity() != null && t.getAffinity().equalsIgnoreCase(cat)) {
-				if (character.getTraining().getTrainingByName(t.getName()) == null && t.getMaxRank(character) > 0) {
+				if (character.getTraining().getTrainingByName(t.getName()) == null
+						&& isPrerequisiteMet(t)
+						&& t.getMaxRank(character) > 0) {
 					auraTech.addItem(t.getName());
 				}
 			}
@@ -68,6 +70,13 @@ class FrameTrainingNew extends FrameTraining {
 		} else {
 			setTrainingFieldsVisible(true);
 		}
+	}
+
+	private boolean isPrerequisiteMet(DataTraining tech) {
+		if (tech == null || character == null || character.getTraining() == null) return false;
+		if (tech.getPrereq() == -1) return true;
+		DataTraining req = character.getTraining().getTrainingById(tech.getPrereq());
+		return req != null && req.getRank() > 0;
 	}
 
 	void updateNewTechInfo(ItemEvent e) {
@@ -122,6 +131,10 @@ class FrameTrainingNew extends FrameTraining {
 		if (template == null) return;
 
 		DataTraining tech = new DataTraining(template);
+		// New techniques must always start at rank 0 with no accumulated EXP.
+		tech.setRank(0);
+		tech.setExp(0.0);
+		tech.setAl(0);
 		double currentExp = tech.getExp();
 		double nextAt = tech.getNextAt(character);
 		int currentRank = tech.getRank();
@@ -129,7 +142,7 @@ class FrameTrainingNew extends FrameTraining {
 
 		boolean willLevel = currentExp + expGain >= nextAt;
 		if (willLevel) {
-			if (!confirmLevelUpProgress(hours, expGain, currentExp, nextAt, currentRank, maxRank)) return;
+			if (!confirmLevelUpProgress(tech, hours, expGain, currentExp, nextAt, currentRank, maxRank)) return;
 		} else {
 			if (!confirmPartialProgress(hours, expGain, currentExp, nextAt)) return;
 		}
@@ -140,14 +153,26 @@ class FrameTrainingNew extends FrameTraining {
 			JOptionPane.showMessageDialog(this, "Technique has leveled up to Rank " + tech.getRank() + ".");
 			if (tech.getMaxRank(character) == tech.getRank()) tech.setExp(0.0);
 		}
+		int newRank = tech.getRank();
 		character.getTraining().addTraining(tech);
-		advanceCampaignTime(hours);
+		if (shouldAdvanceTime()) {
+			advanceCampaignTime(hours);
+		}
 		String keepName = (String) auraTech.getSelectedItem();
 		updateNewTechList();
 		if (keepName != null) {
 			auraTech.setSelectedItem(keepName);
 		}
 		numFields[4].setValue(0.0);
-		if (sheetFrame != null) sheetFrame.loadCharacter(character);
+		if (newRank > currentRank) {
+			maybeGrantSkillFromTraining(tech, currentRank, newRank);
+			maybeGrantSpecialtyFromTraining(tech, currentRank, newRank);
+		}
+		if (character != null) character.updateAll();
+		if (sheetFrame != null) {
+			sheetFrame.loadCharacter(character);
+			setVisible(false);
+			sheetFrame.trainExistingPressed(cat, tech.getName());
+		}
 	}
 }

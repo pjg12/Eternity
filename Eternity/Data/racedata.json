@@ -19,7 +19,8 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 101,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
-  "racePick" : false,
+  "size" : "Medium",
+  "racePick" : true,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 1
 }, {
@@ -43,6 +44,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 102,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 2
@@ -67,6 +69,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 103,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 3
@@ -91,6 +94,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 104,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 4
@@ -115,6 +119,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 105,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Large",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 5
@@ -139,6 +144,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 106,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 6
@@ -163,6 +169,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 107,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 7
@@ -187,6 +194,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 108,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 8
@@ -211,6 +219,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 109,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 9
@@ -235,6 +244,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 110,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 10
@@ -259,6 +269,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 111,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 11
@@ -283,6 +294,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 112,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Tiny",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 12
@@ -307,6 +319,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 113,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 13
@@ -331,6 +344,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 114,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 14
@@ -355,6 +369,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 115,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 15
@@ -379,6 +394,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 116,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 16
@@ -403,6 +419,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 117,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 17
@@ -427,6 +444,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 118,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 18
@@ -451,6 +469,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 119,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 19
@@ -475,6 +494,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 120,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 20
@@ -499,6 +519,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 121,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Small",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 21
@@ -523,6 +544,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 122,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 22
@@ -547,6 +569,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 123,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 23
@@ -571,6 +594,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 124,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 24
@@ -595,6 +619,7 @@
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
   "racialID" : 125,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 25
@@ -617,8 +642,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 126,
+  "racialID" : 128,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 26
@@ -641,8 +667,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 127,
+  "racialID" : 129,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 27
@@ -665,8 +692,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 128,
+  "racialID" : 130,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 28
@@ -689,8 +717,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 129,
+  "racialID" : 131,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 29
@@ -713,8 +742,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 130,
+  "racialID" : 132,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 30
@@ -737,8 +767,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 131,
+  "racialID" : 133,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 31
@@ -761,8 +792,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 132,
+  "racialID" : 134,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Tiny",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 32
@@ -785,8 +817,9 @@
   "scalingStatus" : 1.0,
   "racialDesc" : "Shapeshifting: Mimic an appearance.",
   "racialDesctt" : "<html>Alteri can mimic the general physical characteristics of other races.<br>This is not as specific as imitating a specific creature’s appearance,<br>but they can appear to be a member of that race and alter basic appearance traits such a build, weight, height, and eye, hair, or skin coloration.<br>Once the Alteri has reached racial level 5,<br>they can spend 1 hour in contact with a specific entity in order to mimic that creature's appearance.",
-  "racialID" : 133,
+  "racialID" : 135,
   "description" : "<html>The history of Teris is one of constant civil war as its factions battle for control of the world's arable farmlands.<br>Because they have not been able to establish a stable world government,<br>the Alteri homeworld remains largely disconnected from the galactic region's politics.<br>The technology of Teris has reached the late Modern era,<br>utilitzing weapons and tactics reminiscent of WWII.",
+  "size" : "Medium",
   "racePick" : false,
   "raceReminder" : "Shapeshifted As: ",
   "id" : 33

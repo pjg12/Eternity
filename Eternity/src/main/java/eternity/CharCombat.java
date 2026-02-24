@@ -32,6 +32,12 @@ public class CharCombat {
     private double critDamage = 2.0; // damage multiplier on crits
 
     @JsonProperty
+    private boolean invade;
+
+    @JsonProperty
+    private int reach;
+
+    @JsonProperty
     private final List<DataStatus> combatStatus;
 
     @JsonIgnore
@@ -49,6 +55,8 @@ public class CharCombat {
         this.inCombat = false;
         this.round = 0;
         this.initiative = 0;
+        this.invade = false;
+        this.reach = 0;
         this.combatStatus = new ArrayList<>();
         this.standardActions = new ArrayList<>();
         this.moveActions = new ArrayList<>();
@@ -99,6 +107,10 @@ public class CharCombat {
 
     public double getCritDamage() { return critDamage; }
     public void setCritDamage(double critDamage) { this.critDamage = critDamage; }
+    public boolean isInvade() { return invade; }
+    public void setInvade(boolean invade) { this.invade = invade; }
+    public int getReach() { return reach; }
+    public void setReach(int reach) { this.reach = Math.max(0, reach); }
 
     /* Status handling */
     public List<DataStatus> getCombatStatus() { return combatStatus; }

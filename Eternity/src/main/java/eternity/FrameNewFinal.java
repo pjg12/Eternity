@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import java.awt.Font;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Final character detail entry.
@@ -169,14 +171,49 @@ public class FrameNewFinal extends JFrame {
         id.setPersonality(personalityArea.getText());
 
         // parse campaign start date (optional)
+        LocalDateTime campaignStart = id.getCampaignStartDate();
         try {
             String cs = campaignStartField.getText();
             if (cs != null && !cs.isBlank()) {
-                id.setCampaignStartDate(java.time.LocalDate.parse(cs).atStartOfDay());
+                campaignStart = LocalDate.parse(cs).atStartOfDay();
+                id.setCampaignStartDate(campaignStart);
             }
         } catch (Exception ignored) {}
+        if (campaignStart == null) {
+            campaignStart = LocalDate.now().atStartOfDay();
+            id.setCampaignStartDate(campaignStart);
+        }
 
-        id.setUpdated(new Timestamp(System.currentTimeMillis()));
+        // Set a random birthday (day/month) while preserving intended age/year if not explicitly chosen
+        if (id.getBirthday() == null || !id.isBirthdayManual()) {
+            int year = (id.getBirthday() != null)
+                    ? id.getBirthday().getYear()           // keep existing birth year to preserve age
+                    : campaignStart.toLocalDate().getYear(); // fallback: campaign year
+            LocalDate birthday = CharIdentity.randomDayOfYear(year);
+            id.setBirthday(birthday);
+
+            // Ensure computed age aligns with the intended year difference
+            var currentCampaignDateTime = id.getCurrentCampaignDateTime();
+            if (currentCampaignDateTime != null) {
+                LocalDate currentDate = currentCampaignDateTime.toLocalDate();
+                int targetAge = Math.max(0, currentDate.getYear() - birthday.getYear());
+                int actualAge = java.time.Period.between(birthday, currentDate).getYears();
+                if (actualAge < targetAge) {
+                    // Birthday is later in the year; shift back one year to match intended age
+                    birthday = birthday.minusYears(1);
+                    id.setBirthday(birthday);
+                }
+            }
+        }
+
+        long now = System.currentTimeMillis();
+        if (id.getCreatedAt() == null) {
+            id.setCreatedAt(new Timestamp(now));
+        }
+        if (id.getLastLevelUp() == null) {
+            id.setLastLevelUp(new Timestamp(now));
+        }
+        id.setUpdated(new Timestamp(now));
 
         dispose();
         if (parent != null) parent.finalConfirmed();

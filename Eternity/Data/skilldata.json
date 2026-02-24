@@ -7,10 +7,10 @@
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 302,
-  "name" : "Analyze Aura",
+  "name" : "Analyze",
   "type" : "Gen",
   "description" : "Allows the user to gain more information by Examining Aura.",
-  "availAttributes" : [ "CTL:PERC" ],
+  "availAttributes" : [ "CTL", "PERC" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 303,
@@ -38,7 +38,7 @@
   "name" : "Balance",
   "type" : "Spec",
   "description" : "Allows the user to remain standing when others may have fallen down.",
-  "availAttributes" : [ "DEX:FOC" ],
+  "availAttributes" : [ "DEX", "FOC" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 307,
@@ -62,11 +62,32 @@
   "availAttributes" : [ "STR" ],
   "chosenAttributes" : [ "-" ]
 }, {
+  "id" : 337,
+  "name" : "Concentration",
+  "type" : "Gen",
+  "description" : "Allows the user to remain focused under duress",
+  "availAttributes" : [ "FOC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 336,
+  "name" : "Construction",
+  "type" : "Gen",
+  "description" : "Allows the user to physically build things using a schematic.",
+  "availAttributes" : [ "STR", "MECH" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 331,
+  "name" : "Contortion",
+  "type" : "Gen",
+  "description" : "Allows the user to contort their body to fit through small spaces or escape bindings",
+  "availAttributes" : [ "DEX" ],
+  "chosenAttributes" : [ "-" ]
+}, {
   "id" : 310,
   "name" : "Deception",
   "type" : "Gen",
   "description" : "Allows the user to deceive others through disguise or smooth words.",
-  "availAttributes" : [ "SUB:CHA" ],
+  "availAttributes" : [ "SUB", "CHA" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 311,
@@ -77,7 +98,7 @@
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 312,
-  "name" : "Disable Device",
+  "name" : "Disarm",
   "type" : "Spec",
   "description" : "Allows the user to disable the functionality of a mechanical device.",
   "availAttributes" : [ "MECH" ],
@@ -90,130 +111,11 @@
   "availAttributes" : [ "SUB" ],
   "chosenAttributes" : [ "-" ]
 }, {
-  "id" : 314,
-  "name" : "Imitate Appearance",
+  "id" : 344,
+  "name" : "Electrical",
   "type" : "Gen",
-  "description" : "Allows the user to mimic the appearance of another creature.",
-  "availAttributes" : [ "SUB" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 315,
-  "name" : "Escape Artist",
-  "type" : "Spec",
-  "description" : "Allows the user to escape from bonds.",
-  "availAttributes" : [ "DEX:MECH" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 316,
-  "name" : "Fly",
-  "type" : "Gen",
-  "description" : "Allows the user to perform complex feats of manual flight.",
-  "availAttributes" : [ "DEX:CTL" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 317,
-  "name" : "Forgery",
-  "type" : "Spec",
-  "description" : "Allows the user to produce a forged document.",
-  "availAttributes" : [ "SUB" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 318,
-  "name" : "Expertise",
-  "type" : "Gen",
-  "description" : "Allows the user to pull from a background knowledge.",
-  "availAttributes" : [ "KNOW" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 319,
-  "name" : "Handle Animal",
-  "type" : "Gen",
-  "description" : "Allows the user to improve their relationship with and command animals.",
-  "availAttributes" : [ "CHA" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 320,
-  "name" : "Medical",
-  "type" : "Gen",
-  "description" : "Allows the user to assess a creature's health.",
-  "availAttributes" : [ "KNOW:PERC" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 321,
-  "name" : "Identify",
-  "type" : "Spec",
-  "description" : "Allows the user to judge the properties of an aura infused item.",
-  "availAttributes" : [ "CTL:FOC" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 322,
-  "name" : "Intimidate",
-  "type" : "Gen",
-  "description" : "Allows the user to inspire fear in other creatures.",
-  "availAttributes" : [ "CHA:STR" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 323,
-  "name" : "Investigation",
-  "type" : "Gen",
-  "description" : "Allows the user to obtain clues and piece together prior events.",
-  "availAttributes" : [ "INT:PERC" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 324,
-  "name" : "Profession",
-  "type" : "Gen",
-  "description" : "Allows the user to perform a skillful trade.",
-  "availAttributes" : [ "KNOW:FOC" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 325,
-  "name" : "Jump",
-  "type" : "Gen",
-  "description" : "Allows the user to leap through the air.",
-  "availAttributes" : [ "STR:DEX" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 326,
-  "name" : "Open Lock",
-  "type" : "Spec",
-  "description" : "Allows the user to operate a mechanical lock without a key or combination.",
-  "availAttributes" : [ "MECH" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 327,
-  "name" : "Piloting",
-  "type" : "Gen",
-  "description" : "Allows the user to operate a flying vehicle.",
-  "availAttributes" : [ "MECH:FOC" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 328,
-  "name" : "Repair ",
-  "type" : "Gen",
-  "description" : "Allow the user to repair mundane devices.",
-  "availAttributes" : [ "MECH:CTL" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 329,
-  "name" : "Search",
-  "type" : "Gen",
-  "description" : "Allows the user to locate valuable or useful items;",
-  "availAttributes" : [ "PERC:INT" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 330,
-  "name" : "Sneak",
-  "type" : "Gen",
-  "description" : "Allows the user to remain unnoticed.",
-  "availAttributes" : [ "DEX:SUB" ],
-  "chosenAttributes" : [ "-" ]
-}, {
-  "id" : 331,
-  "name" : "Contortion",
-  "type" : "Gen",
-  "description" : "Allows the user to contort their body to fit through small spaces or escape bindings",
-  "availAttributes" : [ "DEX" ],
+  "description" : "Allows the user to manipulate, repair, install, and remove electric networks and circuits.",
+  "availAttributes" : [ "KNOW", "MECH" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 332,
@@ -227,7 +129,119 @@
   "name" : "Engineering",
   "type" : "Gen",
   "description" : "-",
-  "availAttributes" : [ "MECH:KNOW" ],
+  "availAttributes" : [ "MECH", "KNOW" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 315,
+  "name" : "Escape Artist",
+  "type" : "Spec",
+  "description" : "Allows the user to escape from bonds.",
+  "availAttributes" : [ "DEX", "MECH" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 318,
+  "name" : "Expertise",
+  "type" : "Gen",
+  "description" : "Allows the user to pull from a background knowledge.",
+  "availAttributes" : [ "KNOW" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 316,
+  "name" : "Fly",
+  "type" : "Gen",
+  "description" : "Allows the user to perform complex feats of manual flight.",
+  "availAttributes" : [ "DEX", "CTL" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 317,
+  "name" : "Forgery",
+  "type" : "Spec",
+  "description" : "Allows the user to produce a forged document.",
+  "availAttributes" : [ "SUB", "FOC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 347,
+  "name" : "Hack",
+  "type" : "Gen",
+  "description" : "Allows the user to gain access to networks or deploy unauthorized software.",
+  "availAttributes" : [ "MECH", "SUB" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 319,
+  "name" : "Handle Animal",
+  "type" : "Gen",
+  "description" : "Allows the user to improve their relationship with and command animals.",
+  "availAttributes" : [ "STR", "CHA" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 321,
+  "name" : "Identify",
+  "type" : "Spec",
+  "description" : "Allows the user to judge the properties of an aura infused item.",
+  "availAttributes" : [ "CTL", "FOC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 314,
+  "name" : "Imitate Appearance",
+  "type" : "Gen",
+  "description" : "Allows the user to mimic the appearance of another creature.",
+  "availAttributes" : [ "SUB" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 322,
+  "name" : "Intimidate",
+  "type" : "Gen",
+  "description" : "Allows the user to inspire fear in other creatures.",
+  "availAttributes" : [ "CHA", "STR" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 323,
+  "name" : "Investigation",
+  "type" : "Gen",
+  "description" : "Allows the user to obtain clues and piece together prior events.",
+  "availAttributes" : [ "PERC", "KNOW" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 335,
+  "name" : "Judge",
+  "type" : "Spec",
+  "description" : "Allows the user to gain information about the personality of a humanoid target.",
+  "availAttributes" : [ "FOC", "PERC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 325,
+  "name" : "Jump",
+  "type" : "Gen",
+  "description" : "Allows the user to leap through the air.",
+  "availAttributes" : [ "STR", "DEX" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 320,
+  "name" : "Medical",
+  "type" : "Gen",
+  "description" : "Allows the user to assess a creature's health.",
+  "availAttributes" : [ "KNOW", "PERC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 345,
+  "name" : "Mercantile",
+  "type" : "Gen",
+  "description" : "Allows the user to barter and trade.",
+  "availAttributes" : [ "KNOW", "CHA" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 346,
+  "name" : "Navigation",
+  "type" : "Gen",
+  "description" : "Allows the user to determine their approximate location and a reference for directions.",
+  "availAttributes" : [ "KNOW" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 326,
+  "name" : "Open Lock",
+  "type" : "Spec",
+  "description" : "Allows the user to operate a mechanical lock without a key or combination.",
+  "availAttributes" : [ "MECH" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 334,
@@ -237,17 +251,73 @@
   "availAttributes" : [ "CHA" ],
   "chosenAttributes" : [ "-" ]
 }, {
-  "id" : 335,
-  "name" : "Judge",
-  "type" : "Spec",
-  "description" : "Allows the user to gain information about the personality of a humanoid target.",
-  "availAttributes" : [ "FOC:PERC" ],
+  "id" : 327,
+  "name" : "Piloting",
+  "type" : "Gen",
+  "description" : "Allows the user to operate a flying vehicle.",
+  "availAttributes" : [ "MECH", "FOC" ],
   "chosenAttributes" : [ "-" ]
 }, {
-  "id" : 336,
-  "name" : "Construction",
+  "id" : 338,
+  "name" : "Plumbing",
   "type" : "Gen",
-  "description" : "Allows the user to physically build things using a schematic.",
-  "availAttributes" : [ "STR:MECH" ],
+  "description" : "Allows the user to manipulate, repair, install, and remove water networks and pipes.",
+  "availAttributes" : [ "STR", "MECH" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 324,
+  "name" : "Profession",
+  "type" : "Gen",
+  "description" : "Allows the user to perform a skillful trade.",
+  "availAttributes" : [ "KNOW", "FOC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 328,
+  "name" : "Repair ",
+  "type" : "Gen",
+  "description" : "Allow the user to repair mundane devices.",
+  "availAttributes" : [ "MECH", "CTL" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 340,
+  "name" : "Ritual",
+  "type" : "Gen",
+  "description" : "Allows the user to interact with, understand, and join rituals and imbued items without crafting skills.",
+  "availAttributes" : [ "CTL", "CHA" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 341,
+  "name" : "Runology",
+  "type" : "Gen",
+  "description" : "Allows the user to manipulate and understand existing arrays and runalogic creations without crafting skills.",
+  "availAttributes" : [ "CTL", "KNOW" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 348,
+  "name" : "Scavenge",
+  "type" : "Gen",
+  "description" : "Allows the user to loot for useful and valuable items.",
+  "availAttributes" : [ "MECH", "PERC" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 329,
+  "name" : "Search",
+  "type" : "Gen",
+  "description" : "Allows the user to locate valuable or useful items;",
+  "availAttributes" : [ "PERC", "INT" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 330,
+  "name" : "Sneak",
+  "type" : "Gen",
+  "description" : "Allows the user to remain unnoticed.",
+  "availAttributes" : [ "DEX", "SUB" ],
+  "chosenAttributes" : [ "-" ]
+}, {
+  "id" : 339,
+  "name" : "Throwing",
+  "type" : "Gen",
+  "description" : "Allows the user to hurl objects great distances with accuracy",
+  "availAttributes" : [ "STR", "FOC" ],
   "chosenAttributes" : [ "-" ]
 } ]

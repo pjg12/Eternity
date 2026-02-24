@@ -8,9 +8,9 @@
   "foreBlue" : 255
 }, {
   "title" : "Body",
-  "backRed" : 240,
-  "backGreen" : 50,
-  "backBlue" : 80,
+  "backRed" : 200,
+  "backGreen" : 25,
+  "backBlue" : 25,
   "foreRed" : 255,
   "foreGreen" : 255,
   "foreBlue" : 255

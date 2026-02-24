@@ -50,9 +50,25 @@ public class CharSpecials {
     }
 
     public void addSkill(DataSkill skill) {
-        if (skill != null && !charSkills.contains(skill)) {
-            charSkills.add(skill);
+        if (skill == null || skill.getName() == null || skill.getName().isBlank()) return;
+
+        DataSkill existing = getSkillByName(skill.getName());
+        if (existing != null) {
+            List<String> incomingChosen = skill.getChosenAttributes();
+            if (incomingChosen != null) {
+                for (String att : incomingChosen) {
+                    if (att == null || att.isBlank()) continue;
+                    boolean alreadyChosen = existing.getChosenAttributes().stream()
+                            .anyMatch(a -> a != null && a.equalsIgnoreCase(att));
+                    if (!alreadyChosen) {
+                        existing.addChosenAttribute(att);
+                    }
+                }
+            }
+            return;
         }
+
+        charSkills.add(skill);
     }
 
     public void removeSkill(DataSkill skill) {
@@ -168,6 +184,22 @@ public class CharSpecials {
                 return d;
 
         return null;
+    }
+
+    /** Search combined specialties by name. */
+    public boolean hasSpecialty(String name) {
+        if (charRacial != null && charRacial.getName().equalsIgnoreCase(name))
+            return true;
+
+        for (DataSpecialty d : charClassSpecials)
+            if (d.getName().equalsIgnoreCase(name))
+                return true;
+
+        for (DataSpecialty d : charTrainedSpecials)
+            if (d.getName().equalsIgnoreCase(name))
+                return true;
+
+        return false;
     }
 
     @JsonIgnore

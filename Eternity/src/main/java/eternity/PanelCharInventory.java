@@ -28,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.NumberFormatter;
@@ -50,6 +51,8 @@ public class PanelCharInventory extends PanelCharBase {
 	private JLabel dollLabel; 
 	private ArrayList<JLabel> equipL;  //headL, shoulderL, chestL, waistL, legsL, feetL, handsL, backL, fingerRL, fingerLL, neckL, trinkL, w1L, w2L, w3L, w4L;
 	private ArrayList<JComboBox<DataItemEquipment>> equipped; // equipHead, equipShoulder, equipChest, equipWaist, equipLegs, equipFeet, equipHands, equipBack, equipFingerR, equipFingerL, equipNeck, equipTrinket, equipW1, equipW2, equipW3, equipW4;
+	private boolean enforcingHeavy = false;
+	private boolean suppressEquipAutoSave = false;
 	
 	private JLabel equipmentL;
 	private ArrayList<JLabel> equipmentNameL, equipmentTierL, equipmentCatL, equipmentEquippedL, equipmentEnchL, equipmentGemL, equipmentStorL, equipmentOilL, equipmentModL, equipmentAugL;
@@ -77,7 +80,7 @@ public class PanelCharInventory extends PanelCharBase {
 	private ArrayList<JTextField> invenName, invenNote, invenStore, invenCat, invenGem, invenEnchant, natAffinity;
 	private ArrayList<JFormattedTextField> invenQuan;
 	private ArrayList<JLabel> invenNoteL;
-	private JButton changeEquipButton, changeInvenButton;
+	private JButton changeInvenButton, removeInvenButton;
 
 	private JLabel currencyLabel;
 	private JLabel currencyValue;
@@ -86,6 +89,7 @@ public class PanelCharInventory extends PanelCharBase {
 	private JLabel armorProfLabel;
 	private JLabel armorProfValue;
 	private JButton saveButton;
+	private final Timer equipSaveDebounceTimer;
 	
 	private final String[] SLOTS = {"Head", "Neck", "Shoulders", "Back", "Chest", "Trinket", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4"};
 
@@ -94,6 +98,15 @@ public class PanelCharInventory extends PanelCharBase {
 	 */
 	PanelCharInventory (DataQuery dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
+		setBackground(new Color(255, 255, 204));
+		equipSaveDebounceTimer = new Timer(350, e -> {
+			if (character == null) return;
+			CharData toSave = character;
+			Thread saver = new Thread(() -> CharacterDataManager.saveCharacter(toSave), "equip-auto-save");
+			saver.setDaemon(true);
+			saver.start();
+		});
+		equipSaveDebounceTimer.setRepeats(false);
 
 		/*	
 		 * 	Currency
@@ -133,8 +146,21 @@ public class PanelCharInventory extends PanelCharBase {
 		JComboBox<DataItemEquipment> tempBox;
 		for (int i = 0; i < 16; i++) {
 			tempBox = buildEquipBox();
+			tempBox.addActionListener(e -> {
+				if (suppressEquipAutoSave) return;
+				autoSaveEquipmentSelection();
+			});
 			equipped.add(tempBox);
 		}
+		// Weapon 1 change listener controls visibility of Weapon 4 when using Heavy weapons
+		equipped.get(12).addActionListener(e -> applyWeaponFourRule());
+		// Weapon 2 also participates in Heavy check
+		equipped.get(13).addActionListener(e -> applyWeaponFourRule());
+		// Keep heavy weapons in slots 1/2 when selections change
+		equipped.get(12).addActionListener(e -> enforceHeavyPlacement());
+		equipped.get(13).addActionListener(e -> enforceHeavyPlacement());
+		equipped.get(14).addActionListener(e -> enforceHeavyPlacement());
+		equipped.get(15).addActionListener(e -> enforceHeavyPlacement());
 
 		dollLabel = new JLabel("<html><center>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display.</center></html>", SwingConstants.CENTER);
     	add(dollLabel);
@@ -199,10 +225,10 @@ public class PanelCharInventory extends PanelCharBase {
     	equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
     	equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
     	equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
-    	
-    	for (int i = 0; i < 3; i++) {
+		equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
+		equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
+		
+		for (int i = 0; i < 3; i++) {
 	    	equipmentName.add(new ArrayList<JTextField>());
 	    	equipmentTier.add(new ArrayList<JFormattedTextField>());
 	    	equipmentCat.add(new ArrayList<JTextField>());
@@ -260,13 +286,10 @@ public class PanelCharInventory extends PanelCharBase {
 		invenEnchant = new ArrayList<JTextField>();
 		invenNoteL = new ArrayList<JLabel>();
 		
-		changeEquipButton = buildButton("Save Equipment");
-		changeEquipButton.addActionListener(e -> {
-			sheetFrame.equipCharacter();
-			updateAll();
-		});
-		changeInvenButton = buildButton("Add Inventory");
+		changeInvenButton = buildButton("Add Item");
 		changeInvenButton.addActionListener (e -> sheetFrame.inventoryCharacter());
+		removeInvenButton = buildButton("Remove Item");
+		removeInvenButton.addActionListener (e -> sheetFrame.removeInventoryCharacter());
 		
 		/*
 		 * 	Updates
@@ -281,7 +304,7 @@ public class PanelCharInventory extends PanelCharBase {
 	 * 		RESIZE SHEET
 	 */
 	public void resizeSheet() {
-		pageHeight = 120;
+		pageHeight = resizeHeader();
 
 		currencyL.setBounds(5,pageHeight,225,19);
 		armorProfL.setBounds(235,pageHeight,158,19);
@@ -328,8 +351,8 @@ public class PanelCharInventory extends PanelCharBase {
 			//move buttons
 			pageHeight += 5;
 			//currencyL.setBounds(5,pageHeight,210,19);
-			changeEquipButton.setBounds(240,pageHeight,140,29);
-			changeInvenButton.setBounds(400,pageHeight,140,29);
+			changeInvenButton.setBounds(160,pageHeight,125,29);
+			removeInvenButton.setBounds(295,pageHeight,125,29);
 			pageHeight += 35;
 		
 		equipmentL.setBounds(5, pageHeight, 555, 20);	///////////////////////////////////////////////////////////////
@@ -398,14 +421,14 @@ public class PanelCharInventory extends PanelCharBase {
 		pageHeight += 10;
 		itemsL.setBounds(5, pageHeight, 555, 20);
 		pageHeight += 20;
-		itemsNameL.setBounds(5, pageHeight, 200, 20);
-		itemsQtyL.setBounds(210, pageHeight, 60, 20);
-		itemsNoteL.setBounds(275, pageHeight, 285, 20);
+		itemsNameL.setBounds(5, pageHeight, 260, 20);
+		itemsQtyL.setVisible(false);
+		itemsNoteL.setBounds(270, pageHeight, 290, 20);
 		pageHeight += 20;
 		for (int i = 0; i < itemsName.size(); i++) {
-			itemsName.get(i).setBounds(5, pageHeight, 200, 20);
-			itemsQty.get(i).setBounds(210, pageHeight, 60, 20);
-			itemsNote.get(i).setBounds(275, pageHeight, 285, 20);
+			itemsName.get(i).setBounds(5, pageHeight, 260, 20);
+			itemsQty.get(i).setVisible(false);
+			itemsNote.get(i).setBounds(270, pageHeight, 290, 20);
 			pageHeight += 20;
 		}
 		
@@ -478,23 +501,24 @@ public class PanelCharInventory extends PanelCharBase {
 	 */
 	public void updateAll() {
 		updateSummary();
-		updateDollLists();
 		updateDoll();
 		updateEquipment();
 		updateConsumables();
 		updateGoods();
 		updateItems();
 		resizeSheet();
+		enforceReadOnlyChecks();
+		enforceHeavyPlacement();
+				updateDollLists();
 	}  /*--------------
 		END UPDATEALL
 		--------------*/
 
 	@Override
 	public void updateCharacter(CharData character) {
-		if (character != null) {
-			character.updateAll(); // ensure attributes/resources are current before rendering
-		}
 		super.updateCharacter(character);
+		enforceReadOnlyChecks();
+		enforceHeavyPlacement();
 	}
 
 	private void updateSummary() {
@@ -511,6 +535,17 @@ public class PanelCharInventory extends PanelCharBase {
 		currencyValue.setText(nf.format(inv.getCredits()));
 
 		List<String> wp = inv.getWeaponProficiencies();
+		if ((wp == null || wp.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
+			String cls = character.getIdentity().getCharClass();
+			if (cls != null && !cls.isBlank()) {
+				DataClass dataClass = dataQuery.getClassByName(cls);
+				if (dataClass != null && dataClass.getProfAuto() != null && !dataClass.getProfAuto().isEmpty()) {
+					wp = new ArrayList<>(dataClass.getProfAuto());
+					inv.setWeaponProficiencies(wp); // hydrate inventory with inherited profs
+				}
+			}
+		}
+
 		weaponProfValue.setText((wp == null || wp.isEmpty()) ? "-" : String.join(", ", wp));
 		// Also show in the detailed text area
 		if (charWeapProf != null) {
@@ -546,10 +581,12 @@ public class PanelCharInventory extends PanelCharBase {
 	 * 		UPDATE DOLL LISTS
 	 */
 	public void updateDollLists() {
-		/*		java.awt.Color BLUE = new java.awt.Color(0, 102, 204);
-		if (!((DataItemEquipment) tempBox.getSelectedItem()).getDname().equals("*** Empty ***")) {
-			tempBox.setForeground(BLUE);
-		}*/
+		java.awt.Color BLUE = new java.awt.Color(0, 102, 204);
+		for (JComboBox<DataItemEquipment> tempBox : equipped) {
+			if (!((DataItemEquipment) tempBox.getSelectedItem()).getDname().equals("*** Empty ***")) tempBox.setForeground(BLUE);
+			else tempBox.setForeground(java.awt.Color.BLACK);
+		}
+		
 		
 		// TODO
 	}  /*--------------
@@ -573,6 +610,8 @@ public class PanelCharInventory extends PanelCharBase {
 			dollLabel = new JLabel("<html><center><br><br><br><br>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display<br>without a jpg file<br>in the Images folder<br>with the same name<br>as your chosen gender.</center></html>", SwingConstants.CENTER);
 		}
 		add(dollLabel);
+		updateDollLists();
+		repaint();
 	}  /*--------------
 		END UPDATEDOLL
 		--------------*/
@@ -581,49 +620,51 @@ public class PanelCharInventory extends PanelCharBase {
 	 * 		UPDATE EQUIPMENT
 	 */	
 	public void updateEquipment() {
-		for (int i = 2; i >= 0; i--) {
-			for (int j = (equipmentName.get(i).size()-1); j >= 0; j--) {
-				remove(equipmentName.get(i).get(j));
-				remove(equipmentTier.get(i).get(j));
-				remove(equipmentCat.get(i).get(j));
-				remove(equipmentEquipped.get(i).get(j));
-				remove(equipmentEnch.get(i).get(j));
-				remove(equipmentGem.get(i).get(j));
-				remove(equipmentStor.get(i).get(j));
-				remove(equipmentOil.get(i).get(j));
-				remove(equipmentMod.get(i).get(j));
-				remove(equipmentAug.get(i).get(j));
+		suppressEquipAutoSave = true;
+		try {
+			for (int i = 2; i >= 0; i--) {
+				for (int j = (equipmentName.get(i).size()-1); j >= 0; j--) {
+					remove(equipmentName.get(i).get(j));
+					remove(equipmentTier.get(i).get(j));
+					remove(equipmentCat.get(i).get(j));
+					remove(equipmentEquipped.get(i).get(j));
+					remove(equipmentEnch.get(i).get(j));
+					remove(equipmentGem.get(i).get(j));
+					remove(equipmentStor.get(i).get(j));
+					remove(equipmentOil.get(i).get(j));
+					remove(equipmentMod.get(i).get(j));
+					remove(equipmentAug.get(i).get(j));
+				}
 			}
-		}
 		
-		equipmentName = new ArrayList<ArrayList<JTextField>>();
-    	equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
-    	equipmentCat = new ArrayList<ArrayList<JTextField>>();
-    	equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
-    	equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentName = new ArrayList<ArrayList<JTextField>>();
+			equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
+			equipmentCat = new ArrayList<ArrayList<JTextField>>();
+			equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
+			equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
     	
-    	for (int i = 0; i < 3; i++) {
-	    	equipmentName.add(new ArrayList<JTextField>());
-	    	equipmentTier.add(new ArrayList<JFormattedTextField>());
-	    	equipmentCat.add(new ArrayList<JTextField>());
-	    	equipmentEquipped.add(new ArrayList<JCheckBox>());
-	    	equipmentEnch.add(new ArrayList<JCheckBox>());
-	    	equipmentGem.add(new ArrayList<JCheckBox>());
-	    	equipmentStor.add(new ArrayList<JCheckBox>());
-	    	equipmentOil.add(new ArrayList<JCheckBox>());
-	    	equipmentMod.add(new ArrayList<JCheckBox>());
-	    	equipmentAug.add(new ArrayList<JCheckBox>());
-    	}
+			for (int i = 0; i < 3; i++) {
+				equipmentName.add(new ArrayList<JTextField>());
+				equipmentTier.add(new ArrayList<JFormattedTextField>());
+				equipmentCat.add(new ArrayList<JTextField>());
+				equipmentEquipped.add(new ArrayList<JCheckBox>());
+				equipmentEnch.add(new ArrayList<JCheckBox>());
+				equipmentGem.add(new ArrayList<JCheckBox>());
+				equipmentStor.add(new ArrayList<JCheckBox>());
+				equipmentOil.add(new ArrayList<JCheckBox>());
+				equipmentMod.add(new ArrayList<JCheckBox>());
+				equipmentAug.add(new ArrayList<JCheckBox>());
+			}
     	
-    	ArrayList<DataItemEquipment> tempList = new ArrayList<>();
-    	DataItemEquipment tempEquip;
-    	JTextField tempText;
-    	JFormattedTextField tempNum;
+			ArrayList<DataItemEquipment> tempList = new ArrayList<>();
+			DataItemEquipment tempEquip;
+			JTextField tempText;
+			JFormattedTextField tempNum;
 
     	// Pull equipment from CharInventory: weapons, armor, accessories
     	CharInventory inv = character.getInventory();
@@ -695,7 +736,11 @@ public class PanelCharInventory extends PanelCharBase {
         	}
     	}  		
     		
-    	updateEquipLists();
+			updateEquipLists();
+			applyWeaponFourRule();
+		} finally {
+			suppressEquipAutoSave = false;
+		}
 	}  /*--------------
 		END UPDATEEQUIPMENT
 		--------------*/
@@ -704,11 +749,35 @@ public class PanelCharInventory extends PanelCharBase {
 		JCheckBox box = new JCheckBox();
 		box.setSelected(checked);
 		box.setEnabled(false);
+		box.setFocusable(false);
 		box.setHorizontalAlignment(SwingConstants.CENTER);
 		box.setOpaque(true);
 		box.setBackground(alternate ? Color.WHITE : Color.LIGHT_GRAY);
 		add(box);
 		return box;
+	}
+	
+	/** Ensures all flag checkboxes remain non-interactive for the user. */
+	public void enforceReadOnlyChecks() {
+		disableChecks(equipmentEquipped);
+		disableChecks(equipmentEnch);
+		disableChecks(equipmentGem);
+		disableChecks(equipmentStor);
+		disableChecks(equipmentOil);
+		disableChecks(equipmentMod);
+		disableChecks(equipmentAug);
+	}
+
+	private void disableChecks(ArrayList<ArrayList<JCheckBox>> groups) {
+		if (groups == null) return;
+		for (ArrayList<JCheckBox> row : groups) {
+			if (row == null) continue;
+			for (JCheckBox box : row) {
+				if (box == null) continue;
+				box.setEnabled(false);
+				box.setFocusable(false);
+			}
+		}
 	}
 	
 	/*
@@ -842,6 +911,7 @@ public class PanelCharInventory extends PanelCharBase {
 		}
 		
 		for (int i = 0; i < tempWeapons.size(); i++) {
+			if (!isItemEligibleByLevel(tempWeapons.get(i))) continue;
 			for (int j = 12; j < 16; j++) {
 				equipped.get(j).addItem(tempWeapons.get(i));
 			}
@@ -856,6 +926,7 @@ public class PanelCharInventory extends PanelCharBase {
 		}
 		
 		for (int i = 0; i < tempArmor.size(); i++) {
+			if (!isItemEligibleByLevel(tempArmor.get(i))) continue;
 			String tempSlot = tempArmor.get(i).getSlot();
 			if (tempSlot.compareTo("Head") == 0) {
 				equipped.get(0).addItem(tempArmor.get(i));
@@ -888,6 +959,7 @@ public class PanelCharInventory extends PanelCharBase {
 		}
 		
 		for (int i = 0; i < tempAccessories.size(); i++) {
+			if (!isItemEligibleByLevel(tempAccessories.get(i))) continue;
 			String tempSlot = tempAccessories.get(i).getSlot();
 			if (tempSlot.compareTo("Neck") == 0) {
 				equipped.get(1).addItem(tempAccessories.get(i));
@@ -909,6 +981,116 @@ public class PanelCharInventory extends PanelCharBase {
 				equipped.get(9).addItem(tempAccessories.get(i));
 				if (tempAccessories.get(i).isEquipped()) equipped.get(9).setSelectedItem(tempAccessories.get(i));
 			}
+		}
+	}
+
+	private boolean isItemEligibleByLevel(DataItemEquipment item) {
+		if (item == null) return false;
+		if (character == null || character.getIdentity() == null) return true;
+		return item.getLevelReq() <= character.getIdentity().getLevel();
+	}
+	
+	/** Hides/shows Weapon 3 and 4 based on whether Weapon 1 or 2 is Heavy. */
+	private void applyWeaponFourRule() {
+		if (equipped.size() < 16 || equipL.size() < 16) return;
+		var w1 = equipped.get(12).getSelectedItem();
+		var w2 = equipped.get(13).getSelectedItem();
+		boolean heavy1 = false;
+		boolean heavy2 = false;
+
+		if (w1 instanceof DataItemEquipment equip) {
+			String slot = equip.getSlot();
+			String cat = equip.getCategory();
+			if ((slot != null && slot.toLowerCase().contains("heavy")) ||
+				(cat != null && cat.toLowerCase().contains("heavy"))) {
+				heavy1 = true;
+			}
+		}
+		if (w2 instanceof DataItemEquipment equip2) {
+			String slot2 = equip2.getSlot();
+			String cat2 = equip2.getCategory();
+			if ((slot2 != null && slot2.toLowerCase().contains("heavy")) ||
+				(cat2 != null && cat2.toLowerCase().contains("heavy"))) {
+				heavy2 = true;
+			}
+		}
+
+		boolean anyHeavy = heavy1 || heavy2;
+		boolean bothHeavy = heavy1 && heavy2;
+
+		if (anyHeavy) {
+			if (equipped.get(15).getItemCount() > 0) {
+				equipped.get(15).setSelectedIndex(0); // empty selection
+			}
+			equipL.get(15).setVisible(false);
+			equipped.get(15).setVisible(false);
+		} else {
+			equipL.get(15).setVisible(true);
+			equipped.get(15).setVisible(true);
+		}
+
+		// Weapon 3 hides only when both weapons are heavy
+		if (bothHeavy) {
+			if (equipped.get(14).getItemCount() > 0) {
+				equipped.get(14).setSelectedIndex(0); // empty selection
+			}
+			equipL.get(14).setVisible(false);
+			equipped.get(14).setVisible(false);
+		} else {
+			equipL.get(14).setVisible(true);
+			equipped.get(14).setVisible(true);
+		}
+
+		// Ensure heavy weapons sit in slots 1 and 2 after visibility toggles
+		enforceHeavyPlacement();
+	}
+
+	/** Forces heavy weapons into slots 1/2 and reflows others. */
+	private void enforceHeavyPlacement() {
+		if (enforcingHeavy) return;
+		if (equipped.size() < 16) return;
+		enforcingHeavy = true;
+		try {
+			var slots = new ArrayList<DataItemEquipment>();
+			for (int i = 12; i < 16; i++) {
+				Object o = equipped.get(i).getSelectedItem();
+				if (o instanceof DataItemEquipment di) {
+					// treat the sentinel "*** Empty ***" as null
+					if (di.getDname() != null && di.getDname().equalsIgnoreCase("*** Empty ***")) continue;
+					slots.add(di);
+				}
+			}
+
+			ArrayList<DataItemEquipment> heavy = new ArrayList<>();
+			ArrayList<DataItemEquipment> light = new ArrayList<>();
+			for (DataItemEquipment di : slots) {
+				String slot = di.getSlot();
+				String cat = di.getCategory();
+				boolean isHeavy = (slot != null && slot.toLowerCase().contains("heavy")) ||
+				                  (cat != null && cat.toLowerCase().contains("heavy"));
+				if (isHeavy) heavy.add(di); else light.add(di);
+			}
+
+			// Reset selections to empty first
+			for (int i = 12; i < 16; i++) {
+				if (equipped.get(i).getItemCount() > 0) {
+					equipped.get(i).setSelectedIndex(0);
+				}
+			}
+
+			int idx = 12;
+			for (DataItemEquipment di : heavy) {
+				if (idx > 13) break; // only first two slots reserved for heavy
+				equipped.get(idx).setSelectedItem(di);
+				idx++;
+			}
+			for (DataItemEquipment di : light) {
+				if (idx > 15) break;
+				equipped.get(idx).setSelectedItem(di);
+				idx++;
+			}
+		} finally {
+			enforcingHeavy = false;
 		}
 	}
 	
@@ -940,6 +1122,25 @@ public class PanelCharInventory extends PanelCharBase {
 				eq.setEquipped(true);
 			}
 		}
+		// Rebuild passive equipment statuses so deselected items are removed immediately.
+		character.refreshEquipmentPassiveBonuses();
+	}
+
+	/** Saves equipment immediately after user selection changes in equip dropdowns. */
+	private void autoSaveEquipmentSelection() {
+		if (character == null || character.getInventory() == null) return;
+		applyEquipSelections();
+		// Refresh the full character sheet so PanelCharMain reflects AC/Armor changes immediately.
+		if (sheetFrame != null) {
+			sheetFrame.refreshMainPanel();
+		} else {
+			// Fallback when no parent frame is available.
+			updateEquipment();
+			resizeSheet();
+			revalidate();
+			repaint();
+		}
+		equipSaveDebounceTimer.restart();
 	}
 	
 	
@@ -959,3 +1160,4 @@ public class PanelCharInventory extends PanelCharBase {
 
 	
 }
+
