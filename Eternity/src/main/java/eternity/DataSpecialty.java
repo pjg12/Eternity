@@ -13,24 +13,30 @@ public class DataSpecialty {
     @JsonProperty private String category;
     @JsonProperty private String description;
     @JsonProperty private String type;
+    @JsonProperty private int prereq;
     @JsonProperty private boolean pick;
     
     // --- Constructors ---
     
-    public DataSpecialty() { this(0, "", "", "", "", "", false); }
-    public DataSpecialty(DataSpecialty src) { this(src.id, src.name, src.refName, src.category, src.description, src.type, src.pick); }
+    public DataSpecialty() { this(0, "", "", "", "", "", 0, false); }
+    public DataSpecialty(DataSpecialty src) { this(src.id, src.name, src.refName, src.category, src.description, src.type, src.prereq, src.pick); }
     
     public DataSpecialty(int id, String name, String category, String description, String type, boolean pick) {
-        this(id, name, "", category, description, type, pick);
+        this(id, name, "", category, description, type, 0, pick);
     }
 
     public DataSpecialty(int id, String name, String refName, String category, String description, String type, boolean pick) {
+        this(id, name, refName, category, description, type, 0, pick);
+    }
+
+    public DataSpecialty(int id, String name, String refName, String category, String description, String type, int prereq, boolean pick) {
         this.id = id;
         this.name = safe(name);
         this.refName = safe(refName);
         this.category = safe(category);
         this.description = safe(description);
         this.type = safe(type);
+        this.prereq = prereq;
         this.pick = pick;
     }
 
@@ -51,6 +57,9 @@ public class DataSpecialty {
     public String getType() { return type; }
     public void setType(String type) { this.type = safe(type); }
 
+    public int getPrereq() { return prereq; }
+    public void setPrereq(int prereq) { this.prereq = prereq; }
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = safe(description); }
 
@@ -68,5 +77,5 @@ public class DataSpecialty {
     
     @Override
     public String toString() { return "DataSpecial {\n" + "  id: " + id + ",\n" + "  name: \"" + name + "\",\n" + "  refName: \"" + refName + "\",\n" + "  category: \"" + category + "\",\n" +
-        "  description: \"" + description + "\",\n" + "  type: \"" + type + "\",\n" + "  pick: " + pick + "\n" + "}"; }
+        "  description: \"" + description + "\",\n" + "  type: \"" + type + "\",\n" + "  prereq: " + prereq + ",\n" + "  pick: " + pick + "\n" + "}"; }
 }

@@ -117,6 +117,8 @@ public class CharData {
                     }
                 }
 
+                ensureLevelSpecialties(dq, lvl);
+
                 // Sync class specialty based on class's abilBase plus 10 * training rank
                 DataClass dataClass = dq.getClassByName(identity.getCharClass());
                 int classRank = training != null ? training.getClassTrainingRank() : lvl;
@@ -412,6 +414,21 @@ public class CharData {
         this.training.setParent(this);
         this.combat.setOwner(this);
         logSpecialtyNames();
+    }
+
+    /**
+     * Ensures level specialties are present for all levels up to current level (max 20).
+     * This backfills missed grants when a character levels up.
+     */
+    private void ensureLevelSpecialties(DataQuery dq, int level) {
+        if (dq == null || specials == null) return;
+        int cappedLevel = Math.max(0, Math.min(level, 20));
+        for (int id = 1; id <= cappedLevel; id++) {
+            DataSpecialty base = dq.getSpecialtyById(id);
+            if (base == null || base.getName() == null || base.getName().isBlank()) continue;
+            if (specials.hasSpecialty(base.getName())) continue;
+            specials.addTrainedSpecialty(new DataSpecialty(base));
+        }
     }
 
     /**

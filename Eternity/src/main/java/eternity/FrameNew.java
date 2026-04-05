@@ -485,6 +485,10 @@ public class FrameNew extends JFrame {
                 }
             }
 
+            if (isNewCharacter) {
+                grantInitialSpecialties();
+            }
+
             // Ensure DEF base severity (index 0 status) is set to 10 before saving
             CharAttributes attrs = character.getAttributes();
             if (attrs != null) {
@@ -533,6 +537,41 @@ public class FrameNew extends JFrame {
         } catch (Exception e) {
             System.err.println("Failed to save character: " + e.getMessage());
         }
+    }
+
+    private void grantInitialSpecialties() {
+        if (character == null) return;
+        CharSpecials specials = character.getSpecials();
+        if (specials == null) return;
+
+        DataQuery dq = dataQuery != null ? dataQuery : new DataQuery();
+
+        grantSpecialtyIfMissing(specials, dq.getSpecialtyByName("Level 1"));
+
+        CharInventory inv = character.getInventory();
+        if (inv == null) return;
+        for (String prof : inv.getWeaponProficiencies()) {
+            if (prof == null || prof.isBlank()) continue;
+
+            DataSpecialty spec = null;
+            for (DataSpecialty candidate : dq.getSpecialtiesByType("Proficiency")) {
+                if (candidate == null) continue;
+                String refName = candidate.getRefName();
+                String name = candidate.getName();
+                if ((refName != null && refName.equalsIgnoreCase(prof))
+                        || (name != null && name.equalsIgnoreCase("Proficiency (" + prof + ")"))) {
+                    spec = candidate;
+                    break;
+                }
+            }
+            grantSpecialtyIfMissing(specials, spec);
+        }
+    }
+
+    private void grantSpecialtyIfMissing(CharSpecials specials, DataSpecialty spec) {
+        if (specials == null || spec == null || spec.getName() == null || spec.getName().isBlank()) return;
+        if (specials.hasSpecialty(spec.getName())) return;
+        specials.addTrainedSpecialty(new DataSpecialty(spec));
     }
 
     /**

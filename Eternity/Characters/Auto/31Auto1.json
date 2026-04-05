@@ -16,7 +16,7 @@
     "level" : 4,
     "exp" : 0.0,
     "gender" : "Female",
-    "size" : "Tiny",
+    "size" : "Medium",
     "height" : "5'6\"",
     "weight" : "120",
     "eyes" : "Gray",
@@ -243,7 +243,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "CAP",
-        "severity" : 3.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -286,7 +286,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "KNOW",
-        "severity" : 0.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -356,7 +356,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "PERC",
-        "severity" : 3.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -391,7 +391,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "INT",
-        "severity" : 0.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -461,7 +461,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "SUB",
-        "severity" : 2.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -497,7 +497,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "ARMOR",
-        "severity" : 0.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -517,7 +517,7 @@
         "durationType" : "Permanent",
         "duration" : 0
       }, {
-        "name" : "Equip Passive: Cuirass #1",
+        "name" : "Equip Passive: Cuirass #0",
         "affinity" : "None",
         "description" : "Equipment passive bonus",
         "attribute" : "ARMOR",
@@ -525,7 +525,7 @@
         "durationType" : "Permanent",
         "duration" : 0
       }, {
-        "name" : "Equip Passive: Legguards #2",
+        "name" : "Equip Passive: Legguards #1",
         "affinity" : "None",
         "description" : "Equipment passive bonus",
         "attribute" : "ARMOR",
@@ -548,7 +548,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "DODGE",
-        "severity" : 0.0,
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -572,7 +572,7 @@
         "affinity" : "None",
         "description" : "Size-based Dodge modifier",
         "attribute" : "DODGE",
-        "severity" : 2.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -618,7 +618,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "FORT",
-        "severity" : 2.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -650,7 +650,7 @@
         "affinity" : "None",
         "description" : "Size-based Fortitude modifier",
         "attribute" : "FORT",
-        "severity" : -4.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -669,7 +669,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "REF",
-        "severity" : 2.0,
+        "severity" : 3.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -701,7 +701,7 @@
         "affinity" : "None",
         "description" : "Size-based Reflex modifier",
         "attribute" : "REF",
-        "severity" : 4.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -720,7 +720,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "WILL",
-        "severity" : 2.0,
+        "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -736,7 +736,7 @@
         "affinity" : "None",
         "description" : "Control + Capacity derived Will",
         "attribute" : "WILL",
-        "severity" : 9.75,
+        "severity" : 7.5,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -783,7 +783,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "ALL",
-        "severity" : 8.0,
+        "severity" : 3.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -1461,7 +1461,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "INIT",
-        "severity" : 0.0,
+        "severity" : 0.25,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -1909,11 +1909,11 @@
         "durationType" : "Permanent",
         "duration" : 0
       }, {
-        "name" : "Equip Passive: Hybrid #0 (TDMG)",
+        "name" : "Equip Passive: Hybrid #2 (TDMG)",
         "affinity" : "None",
         "description" : "Equipment passive bonus",
         "attribute" : "TDMG",
-        "severity" : 2.0,
+        "severity" : 6.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -2049,11 +2049,11 @@
         "durationType" : "Permanent",
         "duration" : 0
       }, {
-        "name" : "Equip Passive: Hybrid #0 (THEAL)",
+        "name" : "Equip Passive: Hybrid #2 (THEAL)",
         "affinity" : "None",
         "description" : "Equipment passive bonus",
         "attribute" : "THEAL",
-        "severity" : 2.0,
+        "severity" : 6.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -2117,15 +2117,15 @@
   "resources" : {
     "lostHP" : 100.0,
     "spentAura" : 0.0,
-    "mainOccupiedAura" : 87.0,
-    "grantOccupiedAura" : 0.0,
+    "mainOccupiedAura" : 88.0,
+    "grantOccupiedAura" : 1.0,
     "shield" : 0.0,
     "stagger" : 0.0,
     "spentR1" : 0.0,
     "spentR2" : 0.0,
     "spentR3" : 0.0,
     "spentReactions" : 0.0,
-    "occupiedAura" : 87.0,
+    "occupiedAura" : 89.0,
     "maxHP" : [ {
       "status" : [ {
         "name" : "Passive",
@@ -2217,7 +2217,7 @@
         "affinity" : "None",
         "description" : "Capacity-based Aura multiplier",
         "attribute" : "AURAMULTI",
-        "severity" : 0.4,
+        "severity" : 0.25,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -2486,29 +2486,6 @@
     "armor" : "",
     "weaponProf" : [ "Prismatic", "Radial", "Geometric", "Exponential", "Hybrid", "Iterative", "Recursive", "Symbiotic", "Knuckle", "Thrown", "Whip", "Blade" ],
     "equipment" : [ {
-      "did" : 13007,
-      "iid" : -1,
-      "dname" : "Hybrid",
-      "iname" : "-",
-      "dnote" : "-",
-      "inote" : "-",
-      "quantity" : -1.0,
-      "slot" : "Heavy Weapon",
-      "tier" : 0,
-      "category" : "Matrix",
-      "type" : "Hybridized",
-      "bonusAtt" : "TDMG-THEAL",
-      "bonusAmount" : 2.0,
-      "levelReq" : 1,
-      "value" : 0,
-      "equipped" : true,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
       "did" : 2021,
       "iid" : -1,
       "dname" : "Cuirass",
@@ -2548,6 +2525,52 @@
       "levelReq" : 4,
       "value" : 3200,
       "equipped" : true,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 13027,
+      "iid" : -1,
+      "dname" : "Hybrid",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 1.0,
+      "slot" : "Heavy Weapon",
+      "tier" : 2,
+      "category" : "Matrix",
+      "type" : "Hybridized",
+      "bonusAtt" : "TDMG-THEAL",
+      "bonusAmount" : 6.0,
+      "levelReq" : 4,
+      "value" : 0,
+      "equipped" : true,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 13028,
+      "iid" : -1,
+      "dname" : "Exponent",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 1.0,
+      "slot" : "Heavy Weapon",
+      "tier" : 2,
+      "category" : "Matrix",
+      "type" : "Exponential",
+      "bonusAtt" : "AURAMULTI",
+      "bonusAmount" : 0.06,
+      "levelReq" : 4,
+      "value" : 0,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
@@ -3478,7 +3501,7 @@
         "prereq" : 42,
         "grant" : [ 461 ],
         "rank" : 2,
-        "al" : 0,
+        "al" : 1,
         "exp" : 0.0,
         "permStatus" : [ ]
       }, {
@@ -3579,7 +3602,7 @@
     "initiative" : 0,
     "showInitiativePopup" : true,
     "critDamage" : 2.0,
-    "invade" : true,
+    "invade" : false,
     "reach" : 0,
     "combatStatus" : [ ]
   },
@@ -3609,7 +3632,7 @@
     "granted.al.8023.base" : "0",
     "granted.al.8039.base" : "0",
     "granted.al.8041.base" : "0",
-    "Felshify (Felsh Cat): Form" : "Cat",
+    "Felshify (Felsh Cat): Form" : "Human",
     "training.collapse.Attribute" : "true",
     "training.collapse.Misc" : "true",
     "training.collapse.Fundamental" : "true",
@@ -3626,7 +3649,7 @@
     "training.collapse.Electricity" : "true",
     "training.collapse.Energy" : "true",
     "training.collapse.Force" : "true",
-    "training.collapse.Light" : "true",
+    "training.collapse.Light" : "false",
     "training.collapse.Darkness" : "true",
     "training.collapse.Poison" : "true",
     "training.collapse.Sound" : "true",

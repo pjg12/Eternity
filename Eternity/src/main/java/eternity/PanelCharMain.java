@@ -1673,7 +1673,7 @@ public class PanelCharMain extends PanelCharBase {
 		}
 
 		DataSpecialty racial = specials.getRacialSpecialty();
-		if (racial != null && racial.getName() != null) {
+		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
 			JTextField tf = buildTextField(racial.getName()); // Racial
 			tf.setForeground(new java.awt.Color(128, 0, 128)); // purple
 			tf.setToolTipText(buildSpecialtyTooltip(racial));
@@ -1681,7 +1681,7 @@ public class PanelCharMain extends PanelCharBase {
 		}
 
 		for (DataSpecialty spec : specials.getClassSpecialties()) {
-			if (spec != null && spec.getName() != null) {
+			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
 				JTextField tf = buildTextField(spec.getName());
 				tf.setForeground(new java.awt.Color(0, 128, 0)); // green
 				tf.setToolTipText(buildSpecialtyTooltip(spec));
@@ -1690,7 +1690,7 @@ public class PanelCharMain extends PanelCharBase {
 		}
 
 		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
-			if (spec != null && spec.getName() != null) {
+			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
 				JTextField tf = buildTextField(spec.getName());
 				tf.setForeground(new java.awt.Color(0, 0, 192)); // blue
 				tf.setToolTipText(buildSpecialtyTooltip(spec));
@@ -1703,6 +1703,14 @@ public class PanelCharMain extends PanelCharBase {
 	}  /*--------------
 		END UPDATESPECIALTIES
 		--------------*/
+
+	private boolean isProficiencySpecialty(DataSpecialty spec) {
+		if (spec == null) return false;
+		String category = spec.getCategory();
+		if (category != null && (category.equalsIgnoreCase("Proficiency") || category.equalsIgnoreCase("Level"))) return true;
+		String type = spec.getType();
+		return type != null && (type.equalsIgnoreCase("Proficiency") || type.equalsIgnoreCase("Level"));
+	}
 
 	/*public int[] getAttData(String att) {
 	int[] returnData = {0, 0, 0, 0};
