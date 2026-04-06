@@ -13,6 +13,7 @@ import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -90,6 +91,9 @@ public class PanelCharInventory extends PanelCharBase {
 	private JLabel armorProfValue;
 	private JButton saveButton;
 	private final Timer equipSaveDebounceTimer;
+	private String loadedDollName = "";
+	private static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
+	private String cachedEquipmentSignature = "";
 	
 	private final String[] SLOTS = {"Head", "Neck", "Shoulders", "Back", "Chest", "Trinket", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4"};
 
@@ -102,7 +106,7 @@ public class PanelCharInventory extends PanelCharBase {
 		equipSaveDebounceTimer = new Timer(350, e -> {
 			if (character == null) return;
 			CharData toSave = character;
-			Thread saver = new Thread(() -> CharacterDataManager.saveCharacter(toSave), "equip-auto-save");
+			Thread saver = new Thread(() -> CharDataManager.saveCharacter(toSave), "equip-auto-save");
 			saver.setDaemon(true);
 			saver.start();
 		});
@@ -184,7 +188,7 @@ public class PanelCharInventory extends PanelCharBase {
 
     	saveButton.addActionListener(e -> {
     		if (character != null) {
-    			CharacterDataManager.saveCharacter(character);
+    			CharDataManager.saveCharacter(character);
     		}
     	});
 	    
@@ -523,7 +527,6 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private void updateSummary() {
 		CharInventory inv = character != null ? character.getInventory() : null;
-		NumberFormat nf = NumberFormat.getCurrencyInstance();
 
 		if (inv == null) {
 			currencyValue.setText("-");
@@ -532,7 +535,7 @@ public class PanelCharInventory extends PanelCharBase {
 			return;
 		}
 
-		currencyValue.setText(nf.format(inv.getCredits()));
+		currencyValue.setText(CURRENCY_FORMAT.format(inv.getCredits()));
 
 		List<String> wp = inv.getWeaponProficiencies();
 		if ((wp == null || wp.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
@@ -602,16 +605,19 @@ public class PanelCharInventory extends PanelCharBase {
 				? id.getGender()
 				: "default";
 
-		remove(dollLabel);
-		try {
-			dollPic = ImageIO.read(new File("images/" + dollName + ".jpg"));
-			dollLabel = new JLabel(new ImageIcon(dollPic));
-		} catch (Exception e) {
-			dollLabel = new JLabel("<html><center><br><br><br><br>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display<br>without a jpg file<br>in the Images folder<br>with the same name<br>as your chosen gender.</center></html>", SwingConstants.CENTER);
+		if (!dollName.equalsIgnoreCase(loadedDollName)) {
+			loadedDollName = dollName;
+			try {
+				dollPic = ImageIO.read(new File("images/" + dollName + ".jpg"));
+				dollLabel.setIcon(new ImageIcon(dollPic));
+				dollLabel.setText(null);
+			} catch (Exception e) {
+				dollPic = null;
+				dollLabel.setIcon(null);
+				dollLabel.setText("<html><center><br><br><br><br>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display<br>without a jpg file<br>in the Images folder<br>with the same name<br>as your chosen gender.</center></html>");
+			}
 		}
-		add(dollLabel);
 		updateDollLists();
-		repaint();
 	}  /*--------------
 		END UPDATEDOLL
 		--------------*/
@@ -622,121 +628,28 @@ public class PanelCharInventory extends PanelCharBase {
 	public void updateEquipment() {
 		suppressEquipAutoSave = true;
 		try {
-			for (int i = 2; i >= 0; i--) {
-				for (int j = (equipmentName.get(i).size()-1); j >= 0; j--) {
-					remove(equipmentName.get(i).get(j));
-					remove(equipmentTier.get(i).get(j));
-					remove(equipmentCat.get(i).get(j));
-					remove(equipmentEquipped.get(i).get(j));
-					remove(equipmentEnch.get(i).get(j));
-					remove(equipmentGem.get(i).get(j));
-					remove(equipmentStor.get(i).get(j));
-					remove(equipmentOil.get(i).get(j));
-					remove(equipmentMod.get(i).get(j));
-					remove(equipmentAug.get(i).get(j));
-				}
-			}
-		
-			equipmentName = new ArrayList<ArrayList<JTextField>>();
-			equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
-			equipmentCat = new ArrayList<ArrayList<JTextField>>();
-			equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentOil = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentMod = new ArrayList<ArrayList<JCheckBox>>();
-			equipmentAug = new ArrayList<ArrayList<JCheckBox>>();
-    	
+			ArrayList<ArrayList<DataItemEquipment>> groupedEquipment = buildEquipmentGroups();
 			for (int i = 0; i < 3; i++) {
-				equipmentName.add(new ArrayList<JTextField>());
-				equipmentTier.add(new ArrayList<JFormattedTextField>());
-				equipmentCat.add(new ArrayList<JTextField>());
-				equipmentEquipped.add(new ArrayList<JCheckBox>());
-				equipmentEnch.add(new ArrayList<JCheckBox>());
-				equipmentGem.add(new ArrayList<JCheckBox>());
-				equipmentStor.add(new ArrayList<JCheckBox>());
-				equipmentOil.add(new ArrayList<JCheckBox>());
-				equipmentMod.add(new ArrayList<JCheckBox>());
-				equipmentAug.add(new ArrayList<JCheckBox>());
+				ArrayList<DataItemEquipment> items = groupedEquipment.get(i);
+				int visibleRows = Math.max(1, items.size());
+				ensureEquipmentCategoryCapacity(i, visibleRows);
+				if (items.isEmpty()) {
+					bindEquipmentRow(i, 0, null);
+				} else {
+					for (int j = 0; j < items.size(); j++) {
+						bindEquipmentRow(i, j, items.get(j));
+					}
+				}
+				hideUnusedEquipmentRows(i, visibleRows);
 			}
-    	
-			ArrayList<DataItemEquipment> tempList = new ArrayList<>();
-			DataItemEquipment tempEquip;
-			JTextField tempText;
-			JFormattedTextField tempNum;
 
-    	// Pull equipment from CharInventory: weapons, armor, accessories
-    	CharInventory inv = character.getInventory();
-    	ArrayList<DataItemEquipment> weapons = new ArrayList<>();
-    	ArrayList<DataItemEquipment> armor = new ArrayList<>();
-    	ArrayList<DataItemEquipment> accessories = new ArrayList<>();
-        if (inv != null) {
-            for (DataItem item : inv.getEquipment()) {
-                if (item instanceof DataItemEquipment) {
-                    DataItemEquipment equip = (DataItemEquipment) item;
-                    String cat = equip.getCategory() != null ? equip.getCategory() : "";
-                    if (cat.compareTo("Armor") == 0) {
-                        armor.add(equip);
-                    } else if (cat.compareTo("Accessory") == 0) {
-						accessories.add(equip);
-                    } else {
-                        weapons.add(equip);
-                    }
-                }
-            }
-        }
-
-    	for (int i = 0; i < 3; i++) {
-    		if (i == 0) {
-    			tempList = weapons;
-    		}
-    		else if (i == 1) {
-    			tempList = armor;
-    		}
-    		else if (i == 2) {
-    			tempList = accessories;
-    		}
-    		
-    		if (tempList.isEmpty()) {
-    			// Show a single blank row so the table has visible space even with no items
-    			equipmentName.get(i).add(buildTextField("-"));
-    			equipmentTier.get(i).add(buildNumTextField(0));
-    			equipmentCat.get(i).add(buildTextField("-"));
-    			equipmentEquipped.get(i).add(buildFlagCheck(false));
-    			equipmentEnch.get(i).add(buildFlagCheck(false));
-    			equipmentGem.get(i).add(buildFlagCheck(false));
-    			equipmentStor.get(i).add(buildFlagCheck(false));
-    			equipmentOil.get(i).add(buildFlagCheck(false));
-    			equipmentMod.get(i).add(buildFlagCheck(false));
-    			equipmentAug.get(i).add(buildFlagCheck(false));
-    			continue;
-    		}
-    		
-    		for (int j = 0; j < tempList.size(); j++) {
-    			tempEquip = tempList.get(j);
-    			
-    			tempText = buildTextField(tempEquip.getDname());
-    			equipmentName.get(i).add(tempText);
-    			
-        		tempNum = buildNumTextField(tempEquip.getTier());
-        		equipmentTier.get(i).add(tempNum);
-        		
-        		tempText = buildTextField(tempEquip.getSlot() + " " + tempEquip.getCategory());
-        		equipmentCat.get(i).add(tempText);
-        		
-        		equipmentEquipped.get(i).add(buildFlagCheck(tempEquip.isEquipped()));
-        		
-        		equipmentEnch.get(i).add(buildFlagCheck(tempEquip.getEnch() != 0));
-        		equipmentGem.get(i).add(buildFlagCheck(tempEquip.getGem() != 0));
-        		equipmentStor.get(i).add(buildFlagCheck(tempEquip.getStore() != 0));
-        		equipmentOil.get(i).add(buildFlagCheck(tempEquip.getOil() != 0));
-        		equipmentMod.get(i).add(buildFlagCheck(tempEquip.getMod() != 0));
-        		equipmentAug.get(i).add(buildFlagCheck(tempEquip.getAug() != 0));
-        	}
-    	}  		
-    		
-			updateEquipLists();
+			String newSignature = buildEquipmentSignature(groupedEquipment);
+			if (!newSignature.equals(cachedEquipmentSignature)) {
+				updateEquipLists(groupedEquipment);
+				cachedEquipmentSignature = newSignature;
+			} else {
+				refreshSelectedEquipFlags(groupedEquipment);
+			}
 			applyWeaponFourRule();
 		} finally {
 			suppressEquipAutoSave = false;
@@ -784,122 +697,84 @@ public class PanelCharInventory extends PanelCharBase {
 	 * 		UPDATE CONSUMABLES
 	 */
 	public void updateConsumables() {
-		// Clear old UI rows
-		for (int i = consumableName.size() - 1; i >= 0; i--) {
-			remove(consumableName.get(i));
-			remove(consumableQty.get(i));
-			remove(consumableNote.get(i));
-		}
-		consumableName = new ArrayList<>();
-		consumableQty = new ArrayList<>();
-		consumableNote = new ArrayList<>();
-		
 		CharInventory inv = character != null ? character.getInventory() : null;
-		List<DataItem> list = inv != null ? inv.getConsumables() : new ArrayList<>();
+		List<DataItem> list = inv != null ? inv.getConsumables() : List.of();
 		
 		if (list.isEmpty()) {
-			consumableName.add(buildTextField("-"));
-			consumableQty.add(buildNumTextField(0));
-			consumableNote.add(buildTextField("-"));
+			ensureSimpleRowCapacity(consumableName, consumableQty, consumableNote, 1);
+			bindSimpleItemRow(consumableName, consumableQty, consumableNote, 0, "-", 0, "-");
+			hideUnusedSimpleRows(consumableName, consumableQty, consumableNote, 1);
 			return;
 		}
 		
-		for (DataItem item : list) {
+		ensureSimpleRowCapacity(consumableName, consumableQty, consumableNote, list.size());
+		for (int i = 0; i < list.size(); i++) {
+			DataItem item = list.get(i);
 			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
-			consumableName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
-			consumableQty.add(buildNumTextField(item.getQuantity()));
 			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
-			consumableNote.add(buildTextField(note == null ? "" : note));
+			bindSimpleItemRow(consumableName, consumableQty, consumableNote, i, name == null || name.isBlank() ? "-" : name, item.getQuantity(), note == null ? "" : note);
 		}
+		hideUnusedSimpleRows(consumableName, consumableQty, consumableNote, list.size());
 	}
 	
 	/*
 	 * 		UPDATE GOODS
 	 */
 	public void updateGoods() {
-		for (int i = goodsName.size() - 1; i >= 0; i--) {
-			remove(goodsName.get(i));
-			remove(goodsQty.get(i));
-			remove(goodsNote.get(i));
-		}
-		goodsName = new ArrayList<>();
-		goodsQty = new ArrayList<>();
-		goodsNote = new ArrayList<>();
-		
 		CharInventory inv = character != null ? character.getInventory() : null;
-		List<DataItem> list = inv != null ? inv.getGoods() : new ArrayList<>();
+		List<DataItem> list = inv != null ? inv.getGoods() : List.of();
 		
 		if (list.isEmpty()) {
-			goodsName.add(buildTextField("-"));
-			goodsQty.add(buildNumTextField(0));
-			goodsNote.add(buildTextField("-"));
+			ensureSimpleRowCapacity(goodsName, goodsQty, goodsNote, 1);
+			bindSimpleItemRow(goodsName, goodsQty, goodsNote, 0, "-", 0, "-");
+			hideUnusedSimpleRows(goodsName, goodsQty, goodsNote, 1);
 			return;
 		}
 		
-		for (DataItem item : list) {
+		ensureSimpleRowCapacity(goodsName, goodsQty, goodsNote, list.size());
+		for (int i = 0; i < list.size(); i++) {
+			DataItem item = list.get(i);
 			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
-			goodsName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
-			goodsQty.add(buildNumTextField(item.getQuantity()));
 			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
-			goodsNote.add(buildTextField(note == null ? "" : note));
+			bindSimpleItemRow(goodsName, goodsQty, goodsNote, i, name == null || name.isBlank() ? "-" : name, item.getQuantity(), note == null ? "" : note);
 		}
+		hideUnusedSimpleRows(goodsName, goodsQty, goodsNote, list.size());
 	}
 	
 	/*
 	 * 		UPDATE ITEMS
 	 */
 	public void updateItems() {
-		for (int i = itemsName.size() - 1; i >= 0; i--) {
-			remove(itemsName.get(i));
-			remove(itemsQty.get(i));
-			remove(itemsNote.get(i));
-		}
-		itemsName = new ArrayList<>();
-		itemsQty = new ArrayList<>();
-		itemsNote = new ArrayList<>();
-		
 		CharInventory inv = character != null ? character.getInventory() : null;
-		List<DataItem> list = inv != null ? inv.getItems() : new ArrayList<>();
+		List<DataItem> list = inv != null ? inv.getItems() : List.of();
 		
 		if (list.isEmpty()) {
-			itemsName.add(buildTextField("-"));
-			itemsQty.add(buildNumTextField(0));
-			itemsNote.add(buildTextField("-"));
+			ensureSimpleRowCapacity(itemsName, itemsQty, itemsNote, 1);
+			bindSimpleItemRow(itemsName, itemsQty, itemsNote, 0, "-", 0, "-");
+			hideUnusedSimpleRows(itemsName, itemsQty, itemsNote, 1);
 			return;
 		}
 		
-		for (DataItem item : list) {
+		ensureSimpleRowCapacity(itemsName, itemsQty, itemsNote, list.size());
+		for (int i = 0; i < list.size(); i++) {
+			DataItem item = list.get(i);
 			String name = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
-			itemsName.add(buildTextField(name == null || name.isBlank() ? "-" : name));
-			itemsQty.add(buildNumTextField(item.getQuantity()));
 			String note = (item.getInote() != null && !item.getInote().isBlank()) ? item.getInote() : item.getDnote();
-			itemsNote.add(buildTextField(note == null ? "" : note));
+			bindSimpleItemRow(itemsName, itemsQty, itemsNote, i, name == null || name.isBlank() ? "-" : name, item.getQuantity(), note == null ? "" : note);
 		}
+		hideUnusedSimpleRows(itemsName, itemsQty, itemsNote, list.size());
 	}
 	
 	
 	public void updateEquipLists () {
-		ArrayList<DataItemEquipment> tempList = new ArrayList<DataItemEquipment>();
-		ArrayList<DataItemEquipment> tempWeapons = new ArrayList<>();
-		ArrayList<DataItemEquipment> tempArmor = new ArrayList<>();
-		ArrayList<DataItemEquipment> tempAccessories = new ArrayList<>();
+		updateEquipLists(buildEquipmentGroups());
+	}
 
-		CharInventory inv = character.getInventory();
-        if (inv != null) {
-            for (DataItem item : inv.getEquipment()) {
-                if (item instanceof DataItemEquipment) {
-                    DataItemEquipment equip = (DataItemEquipment) item;
-                    String cat = equip.getCategory();
-                    if (cat != null && cat.startsWith("Armor")) {
-                        tempArmor.add(equip);
-                    } else if (cat != null && cat.startsWith("Accessory")) {
-                        tempAccessories.add(equip);
-                    } else {
-                        tempWeapons.add(equip);
-                    }
-                }
-            }
-        }
+	private void updateEquipLists(ArrayList<ArrayList<DataItemEquipment>> groupedEquipment) {
+		ArrayList<DataItemEquipment> tempList = new ArrayList<DataItemEquipment>();
+		ArrayList<DataItemEquipment> tempWeapons = groupedEquipment.get(0);
+		ArrayList<DataItemEquipment> tempArmor = groupedEquipment.get(1);
+		ArrayList<DataItemEquipment> tempAccessories = groupedEquipment.get(2);
 		
 		for (int i = 0; i < 16; i++) {
 			tempList.add((DataItemEquipment)equipped.get(i).getSelectedItem());
@@ -1130,17 +1005,145 @@ public class PanelCharInventory extends PanelCharBase {
 	private void autoSaveEquipmentSelection() {
 		if (character == null || character.getInventory() == null) return;
 		applyEquipSelections();
+		refreshSelectedEquipFlags(buildEquipmentGroups());
+		updateDollLists();
+		applyWeaponFourRule();
 		// Refresh the full character sheet so PanelCharMain reflects AC/Armor changes immediately.
 		if (sheetFrame != null) {
 			sheetFrame.refreshMainPanel();
 		} else {
-			// Fallback when no parent frame is available.
-			updateEquipment();
-			resizeSheet();
-			revalidate();
+			refreshHPAuraOnly();
 			repaint();
 		}
 		equipSaveDebounceTimer.restart();
+	}
+
+	private void ensureSimpleRowCapacity(ArrayList<JTextField> names, ArrayList<JFormattedTextField> quantities, ArrayList<JTextField> notes, int size) {
+		while (names.size() < size) {
+			names.add(buildTextField("-"));
+			quantities.add(buildNumTextField(0));
+			notes.add(buildTextField("-"));
+		}
+	}
+
+	private void bindSimpleItemRow(ArrayList<JTextField> names, ArrayList<JFormattedTextField> quantities, ArrayList<JTextField> notes, int index, String name, double quantity, String note) {
+		names.get(index).setText(name);
+		names.get(index).setVisible(true);
+		quantities.get(index).setValue(quantity);
+		quantities.get(index).setVisible(true);
+		notes.get(index).setText(note);
+		notes.get(index).setVisible(true);
+	}
+
+	private void hideUnusedSimpleRows(ArrayList<JTextField> names, ArrayList<JFormattedTextField> quantities, ArrayList<JTextField> notes, int usedCount) {
+		for (int i = usedCount; i < names.size(); i++) {
+			names.get(i).setVisible(false);
+			quantities.get(i).setVisible(false);
+			notes.get(i).setVisible(false);
+		}
+	}
+
+	private ArrayList<ArrayList<DataItemEquipment>> buildEquipmentGroups() {
+		ArrayList<ArrayList<DataItemEquipment>> grouped = new ArrayList<>(3);
+		ArrayList<DataItemEquipment> weapons = new ArrayList<>();
+		ArrayList<DataItemEquipment> armor = new ArrayList<>();
+		ArrayList<DataItemEquipment> accessories = new ArrayList<>();
+		grouped.add(weapons);
+		grouped.add(armor);
+		grouped.add(accessories);
+
+		CharInventory inv = character != null ? character.getInventory() : null;
+		if (inv == null) return grouped;
+		for (DataItem item : inv.getEquipment()) {
+			if (!(item instanceof DataItemEquipment equip)) continue;
+			String cat = equip.getCategory() != null ? equip.getCategory() : "";
+			if ("Armor".equals(cat)) {
+				armor.add(equip);
+			} else if ("Accessory".equals(cat)) {
+				accessories.add(equip);
+			} else {
+				weapons.add(equip);
+			}
+		}
+		return grouped;
+	}
+
+	private void ensureEquipmentCategoryCapacity(int category, int size) {
+		while (equipmentName.get(category).size() < size) {
+			equipmentName.get(category).add(buildTextField("-"));
+			equipmentTier.get(category).add(buildNumTextField(0));
+			equipmentCat.get(category).add(buildTextField("-"));
+			equipmentEquipped.get(category).add(buildFlagCheck(false));
+			equipmentEnch.get(category).add(buildFlagCheck(false));
+			equipmentGem.get(category).add(buildFlagCheck(false));
+			equipmentStor.get(category).add(buildFlagCheck(false));
+			equipmentOil.get(category).add(buildFlagCheck(false));
+			equipmentMod.get(category).add(buildFlagCheck(false));
+			equipmentAug.get(category).add(buildFlagCheck(false));
+		}
+	}
+
+	private void bindEquipmentRow(int category, int row, DataItemEquipment item) {
+		boolean blank = item == null;
+		equipmentName.get(category).get(row).setText(blank ? "-" : item.getDname());
+		equipmentTier.get(category).get(row).setValue(blank ? 0 : item.getTier());
+		equipmentCat.get(category).get(row).setText(blank ? "-" : item.getSlot() + " " + item.getCategory());
+		equipmentEquipped.get(category).get(row).setSelected(!blank && item.isEquipped());
+		equipmentEnch.get(category).get(row).setSelected(!blank && item.getEnch() != 0);
+		equipmentGem.get(category).get(row).setSelected(!blank && item.getGem() != 0);
+		equipmentStor.get(category).get(row).setSelected(!blank && item.getStore() != 0);
+		equipmentOil.get(category).get(row).setSelected(!blank && item.getOil() != 0);
+		equipmentMod.get(category).get(row).setSelected(!blank && item.getMod() != 0);
+		equipmentAug.get(category).get(row).setSelected(!blank && item.getAug() != 0);
+		setEquipmentRowVisible(category, row, true);
+	}
+
+	private void hideUnusedEquipmentRows(int category, int usedCount) {
+		for (int i = usedCount; i < equipmentName.get(category).size(); i++) {
+			setEquipmentRowVisible(category, i, false);
+		}
+	}
+
+	private void setEquipmentRowVisible(int category, int row, boolean visible) {
+		equipmentName.get(category).get(row).setVisible(visible);
+		equipmentTier.get(category).get(row).setVisible(visible);
+		equipmentCat.get(category).get(row).setVisible(visible);
+		equipmentEquipped.get(category).get(row).setVisible(visible);
+		equipmentEnch.get(category).get(row).setVisible(visible);
+		equipmentGem.get(category).get(row).setVisible(visible);
+		equipmentStor.get(category).get(row).setVisible(visible);
+		equipmentOil.get(category).get(row).setVisible(visible);
+		equipmentMod.get(category).get(row).setVisible(visible);
+		equipmentAug.get(category).get(row).setVisible(visible);
+	}
+
+	private String buildEquipmentSignature(ArrayList<ArrayList<DataItemEquipment>> groupedEquipment) {
+		StringBuilder signature = new StringBuilder();
+		for (ArrayList<DataItemEquipment> group : groupedEquipment) {
+			for (DataItemEquipment item : group) {
+				if (item == null) continue;
+				signature.append(item.getIid()).append('|')
+						.append(item.getDid()).append('|')
+						.append(item.getLevelReq()).append('|')
+						.append(item.getSlot()).append('|')
+						.append(item.getCategory()).append(';');
+			}
+			signature.append('#');
+		}
+		return signature.toString();
+	}
+
+	private void refreshSelectedEquipFlags(ArrayList<ArrayList<DataItemEquipment>> groupedEquipment) {
+		for (int category = 0; category < groupedEquipment.size(); category++) {
+			ArrayList<DataItemEquipment> items = groupedEquipment.get(category);
+			if (items.isEmpty()) {
+				bindEquipmentRow(category, 0, null);
+				continue;
+			}
+			for (int row = 0; row < items.size() && row < equipmentName.get(category).size(); row++) {
+				bindEquipmentRow(category, row, items.get(row));
+			}
+		}
 	}
 	
 	

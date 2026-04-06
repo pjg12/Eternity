@@ -1,5 +1,9 @@
 package eternity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DataAction {
 	private CharData character;
 	
@@ -14,33 +18,36 @@ public class DataAction {
 	private int ranged;
 	private String actionType;
 	private String weapon;
-	private java.util.List<CostPair> costs = new java.util.ArrayList<>();
+	private List<CostPair> costs = new ArrayList<>();
 	
 	DataAction () {
-		setName("");
-		setType("");
-		setAffinity("");
-		setAtk(0);
-		setBdmg(0);
-		setTdmg(0);
-		setDmgMulti(0.0);
-		setAl(0);
-		setRanged(0);
-		setActionType("Standard");
+		this.name = "";
+		this.type = "";
+		this.affinity = "";
+		this.atk = 0;
+		this.bdmg = 0;
+		this.tdmg = 0;
+		this.dmgMulti = 0.0;
+		this.al = 0;
+		this.ranged = 0;
+		this.actionType = "Standard";
+		this.weapon = "";
+		this.costs = new ArrayList<>();
 	}
 
 	DataAction (DataAction newAction) {
-		setName(newAction.getName());
-		setType(newAction.getType());
-		setAffinity(newAction.getAffinity());
-		setAtk(newAction.getAtk());
-		setBdmg(newAction.getBdmg());
-		setTdmg(newAction.getTdmg());
-		setDmgMulti(newAction.getDmgMulti());
-		setAl(newAction.getAl());
-		setRanged(newAction.getRanged());
-		setActionType(newAction.getActionType());
-		setCharacter(newAction.getCharacter());
+		this.character = newAction.getCharacter();
+		this.name = newAction.getName();
+		this.type = newAction.getType();
+		this.affinity = newAction.getAffinity();
+		this.atk = newAction.getAtk();
+		this.bdmg = newAction.getBdmg();
+		this.tdmg = newAction.getTdmg();
+		this.dmgMulti = newAction.getDmgMulti();
+		this.al = newAction.getAl();
+		this.ranged = newAction.getRanged();
+		this.actionType = newAction.getActionType();
+		this.weapon = newAction.getWeapon();
 		setCosts(newAction.getCosts());
 	}
 
@@ -140,12 +147,20 @@ public class DataAction {
 		this.weapon = weapon;
 	}
 
-	public java.util.List<CostPair> getCosts() {
-		return costs;
+	public List<CostPair> getCosts() {
+		return Collections.unmodifiableList(costs);
 	}
 
-	public void setCosts(java.util.List<CostPair> costs) {
-		this.costs = costs;
+	public void setCosts(List<CostPair> costs) {
+		this.costs = new ArrayList<>();
+		if (costs == null) {
+			return;
+		}
+		for (CostPair cost : costs) {
+			if (cost != null) {
+				this.costs.add(new CostPair(cost));
+			}
+		}
 	}
 
 	public static class CostPair {
@@ -155,6 +170,11 @@ public class DataAction {
 		public CostPair(String type, double value) {
 			this.type = type;
 			this.value = value;
+		}
+
+		public CostPair(CostPair other) {
+			this.type = other == null ? null : other.type;
+			this.value = other == null ? 0 : other.value;
 		}
 
 		public String getType() {

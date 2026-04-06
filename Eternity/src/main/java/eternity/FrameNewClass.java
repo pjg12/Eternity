@@ -10,7 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -26,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class FrameNewClass extends JFrame {
+    private static final long serialVersionUID = 1L;
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
@@ -36,18 +36,21 @@ public class FrameNewClass extends JFrame {
     private Color fg;
 
     private static final int ICON_SIZE = 80;
+    private static final int INFO_TITLE_COUNT = 14;
 
-    private final String[] CLASSOPTIONS = { "Warrior", "Paladin", "Rogue", "Monk", "Archer", "Leader", "Cleric", "Caster", "Shifter", "Pilot" };
+    private static final String[] CLASSOPTIONS = { "Warrior", "Paladin", "Rogue", "Monk", "Archer", "Leader", "Cleric", "Caster", "Shifter", "Pilot" };
+    private final ClassDisplayData[] classDisplayData = new ClassDisplayData[CLASSOPTIONS.length];
 
     private JButton[] classButtons;
-    private ImageIcon[] iconsNormal;
-    private ImageIcon[] iconsHover;
+    private static ImageIcon[] iconsNormal;
+    private static ImageIcon[] iconsHover;
+    private static boolean iconsLoaded = false;
     private int selectedIndex = -1;
 
     // Right-side info panel
     private JPanel right, nameGrid;
-    private ArrayList<JPanel> infoTitleBox;
-    private ArrayList<JLabel> infoTitle;
+    private JPanel[] infoTitleBox;
+    private JLabel[] infoTitle;
     private JLabel className;
     private JLabel primaryAtt;
     private JLabel role;
@@ -79,10 +82,11 @@ public class FrameNewClass extends JFrame {
         this.character = character;
         this.parent = parent;
         this.gmMode = gmMode;
-        infoTitleBox = new ArrayList<>();
-        infoTitle = new ArrayList<>();
+        infoTitleBox = new JPanel[INFO_TITLE_COUNT];
+        infoTitle = new JLabel[INFO_TITLE_COUNT];
 
         loadIcons();
+        preloadClassDisplayData();
         buildWindow();
 
         setSize(550, 450);
@@ -93,7 +97,9 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     // Load Icons
     // ---------------------------------------------------
-    private void loadIcons() {
+    private static synchronized void loadIcons() {
+        if (iconsLoaded) return;
+
         iconsNormal = new ImageIcon[CLASSOPTIONS.length];
         iconsHover  = new ImageIcon[CLASSOPTIONS.length];
 
@@ -107,9 +113,10 @@ public class FrameNewClass extends JFrame {
                     ICON_SIZE, ICON_SIZE
             );
         }
+        iconsLoaded = true;
     }
 
-    private ImageIcon scaleIcon(ImageIcon src, int w, int h) {
+    private static ImageIcon scaleIcon(ImageIcon src, int w, int h) {
         Image img = src.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
         return new ImageIcon(img);
     }
@@ -250,13 +257,14 @@ public class FrameNewClass extends JFrame {
 
         JPanel t = new JPanel();
         p.add(t);
-        infoTitleBox.add(t);
+        infoTitleBox[nextInfoTitleIndex] = t;
 
         JLabel tLabel = new JLabel(title, SwingConstants.CENTER);
         tLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         t.add(tLabel);
         t.add(Box.createVerticalStrut(4));
-        infoTitle.add(tLabel);
+        infoTitle[nextInfoTitleIndex] = tLabel;
+        nextInfoTitleIndex++;
 
         JPanel v = new JPanel();
         p.add(v);
@@ -301,60 +309,41 @@ public class FrameNewClass extends JFrame {
     // CLASS SELECTED
     // ---------------------------------------------------
     private void onClassSelected(int index) {
+        if (selectedIndex == index) return;
         selectedIndex = index;
 
-        selectedClass = dataQuery.getClassByName(CLASSOPTIONS[index]);
-        DataColor color = dataQuery.getColorByTitle(CLASSOPTIONS[index]);
-        bg = color.getBackColor();
-        fg = color.getForeColor();
+        ClassDisplayData display = classDisplayData[index];
+        selectedClass = display.selectedClass;
+        bg = display.background;
+        fg = display.foreground;
 
-        className.setText(selectedClass.getName());
-        className.setToolTipText(selectedClass.getDescription());
+        className.setText(display.className);
+        className.setToolTipText(display.description);
+        primaryAtt.setText(display.primaryAtt);
+        role.setText(display.role);
+        subclass1.setText(display.subclass1);
+        subclass2.setText(display.subclass2);
+        secondaryAtt1.setText(display.secondaryAtt1);
+        secondaryAtt2.setText(display.secondaryAtt2);
+        hpScale.setText(display.hpScale);
+        auraScale.setText(display.auraScale);
+        armor.setText(display.armor);
+        proficiency.setText(display.proficiency);
+        fort.setText(display.fort);
+        ref.setText(display.ref);
+        will.setText(display.will);
+        atk.setText(display.atk);
 
-        primaryAtt.setText(selectedClass.getPrimaryAtt());
-
-
-        role.setText(selectedClass.getRole());
-
-        // Subclasses (DataStore uses sequential IDs for subclasses)
-        int id = selectedClass.getID();
-        DataClass sub1 = dataQuery.getClassById(id + 1);
-        DataClass sub2 = dataQuery.getClassById(id + 2);
-        subclass1.setText(sub1 != null ? sub1.getName() : "-");
-        subclass2.setText(sub2 != null ? sub2.getName() : "-");
-
-        secondaryAtt1.setText(sub1 != null ? sub1.getSecondaryAtt() : "-");
-        secondaryAtt2.setText(sub2 != null ? sub2.getSecondaryAtt() : "-");
-
-        hpScale.setText((int)(selectedClass.getHpScaling() * 100) + "%");
-        auraScale.setText((int)(selectedClass.getAuraScaling() * 100) + "%");
-        
-        armor.setText(selectedClass.getArmor());
-        proficiency.setText(selectedClass.getProfLabel());
-
-        // Stat scaling: [FORT, REF, WILL, ATK]
-        int[] scaling = selectedClass.getStatScaling();
-        String[] scalText = {"Bad", "Bad", "Bad", "Bad"};
-        for (int i = 0; i < 4; i++) {
-            if (scaling != null && i < scaling.length) {
-                if (scaling[i] == 1) scalText[i] = "Good";
-                 else if (scaling[i] == 2) scalText[i] = "Average";
-            }
-        }
-        fort.setText(scalText[0]);
-        ref.setText(scalText[1]);
-        will.setText(scalText[2]);
-        atk.setText(scalText[3]);
-
-        //color background
-        right.setBackground(color.getBackColor());
-        right.setForeground(color.getForeColor());
-        for (int i = 0; i < 14; i++) {
-            infoTitleBox.get(i).setBackground(color.getBackColor());
-            infoTitle.get(i).setForeground(color.getForeColor());
+        right.setBackground(display.background);
+        right.setForeground(display.foreground);
+        for (int i = 0; i < INFO_TITLE_COUNT; i++) {
+            infoTitleBox[i].setBackground(display.background);
+            infoTitle[i].setForeground(display.foreground);
         }
 
-        confirmButton.setEnabled(true);
+        if (!confirmButton.isEnabled()) {
+            confirmButton.setEnabled(true);
+        }
 
         if (gmMode) {
             classChoicesConfirmed();
@@ -366,4 +355,75 @@ public class FrameNewClass extends JFrame {
         parent.classConfirmed();                     // notify FrameNew
         dispose();
     }
+
+    private int nextInfoTitleIndex = 0;
+
+    private void preloadClassDisplayData() {
+        for (int i = 0; i < CLASSOPTIONS.length; i++) {
+            String className = CLASSOPTIONS[i];
+            DataClass dataClass = dataQuery.getClassByName(className);
+            DataColor color = dataQuery.getColorByTitle(className);
+            if (dataClass == null || color == null) continue;
+
+            int id = dataClass.getID();
+            DataClass sub1 = dataQuery.getClassById(id + 1);
+            DataClass sub2 = dataQuery.getClassById(id + 2);
+            String[] scaling = resolveScalingText(dataClass.getStatScaling());
+
+            classDisplayData[i] = new ClassDisplayData(
+                    dataClass,
+                    color.getBackColor(),
+                    color.getForeColor(),
+                    dataClass.getName(),
+                    dataClass.getDescription(),
+                    dataClass.getPrimaryAtt(),
+                    dataClass.getRole(),
+                    sub1 != null ? sub1.getName() : "-",
+                    sub2 != null ? sub2.getName() : "-",
+                    sub1 != null ? sub1.getSecondaryAtt() : "-",
+                    sub2 != null ? sub2.getSecondaryAtt() : "-",
+                    (int) (dataClass.getHpScaling() * 100) + "%",
+                    (int) (dataClass.getAuraScaling() * 100) + "%",
+                    dataClass.getArmor(),
+                    dataClass.getProfLabel(),
+                    scaling[0],
+                    scaling[1],
+                    scaling[2],
+                    scaling[3]
+            );
+        }
+    }
+
+    private static String[] resolveScalingText(int[] scaling) {
+        String[] scalText = {"Bad", "Bad", "Bad", "Bad"};
+        for (int i = 0; i < 4; i++) {
+            if (scaling != null && i < scaling.length) {
+                if (scaling[i] == 1) scalText[i] = "Good";
+                else if (scaling[i] == 2) scalText[i] = "Average";
+            }
+        }
+        return scalText;
+    }
+
+    private record ClassDisplayData(
+            DataClass selectedClass,
+            Color background,
+            Color foreground,
+            String className,
+            String description,
+            String primaryAtt,
+            String role,
+            String subclass1,
+            String subclass2,
+            String secondaryAtt1,
+            String secondaryAtt2,
+            String hpScale,
+            String auraScale,
+            String armor,
+            String proficiency,
+            String fort,
+            String ref,
+            String will,
+            String atk
+    ) {}
 }

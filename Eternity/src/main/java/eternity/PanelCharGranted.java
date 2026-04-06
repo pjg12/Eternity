@@ -22,6 +22,11 @@ public class PanelCharGranted extends PanelCharBase {
 	private ArrayList<String> mtSectionOrder;
 	private ArrayList<JLabel> mtSectionTitles, mtSectionAffinityL, mtSectionNameL, mtSectionMaxL, mtSectionActLevelL, mtSectionCostPerALL, mtSectionCostL;
 	private JButton mtUpdateButton, mtMaxButton, mtOffButton;
+	private ArrayList<GrantedRow> cachedGrantedRows;
+	private String cachedStructureSignature;
+
+	private record GrantedRow(String affinity, String name, int maxRank, int activeLevel, double costPer, double occupiedCost,
+			DataTraining tech, String rowKey) {}
 	
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
@@ -58,6 +63,8 @@ public class PanelCharGranted extends PanelCharBase {
 		mtSectionActLevelL = new ArrayList<JLabel>();
 		mtSectionCostPerALL = new ArrayList<JLabel>();
 		mtSectionCostL = new ArrayList<JLabel>();
+		cachedGrantedRows = new ArrayList<GrantedRow>();
+		cachedStructureSignature = "";
 		mtUpdateButton = buildButton("Update");
 		mtUpdateButton.addActionListener(e -> mtUpdate());
 		mtMaxButton = buildButton("Maximize");
@@ -89,6 +96,7 @@ public class PanelCharGranted extends PanelCharBase {
 		String prevAffinity = null;
 		int sectionIndex = -1;
 		for (int i = 0; i < mtName.size(); i++) {
+			if (mtTechRefs.get(i) == null) continue;
 			String affinity = (mtRowAffinities != null && i < mtRowAffinities.size()) ? mtRowAffinities.get(i) : "";
 			if (prevAffinity == null || !prevAffinity.equalsIgnoreCase(affinity)) {
 				sectionIndex++;
@@ -153,200 +161,25 @@ public class PanelCharGranted extends PanelCharBase {
 	 * updateMain - updates the main panel
 	 */
 	public void updateMaintained() {
-		// clear existing UI components for maintained rows
-		for (int i = mtName.size() - 1; i >= 0; i--) {
-			remove(mtName.get(i));
-			remove(mtAffinity.get(i));
-			remove(mtMax.get(i));
-			remove(mtActLevel.get(i));
-			remove(mtCostPerAL.get(i));
-			remove(mtCost.get(i));
+		ArrayList<GrantedRow> rows = getGrantedRows();
+		resetSectionMetadata();
+		ensureRowCapacity(rows.size());
+		hideUnusedRows(rows.size());
+		for (int i = 0; i < rows.size(); i++) {
+			bindGrantedRow(i, rows.get(i));
 		}
-		mtName = new ArrayList<>();
-		mtAffinity = new ArrayList<>();
-		mtMax = new ArrayList<>();
-		mtActLevel = new ArrayList<>();
-		mtCostPerAL = new ArrayList<>();
-		mtCost = new ArrayList<>();
-		mtTechRefs = new ArrayList<>();
-		mtRowKeys = new ArrayList<>();
-		mtRowAffinities = new ArrayList<>();
-		for (JLabel l : mtSectionTitles) remove(l);
-		for (JLabel l : mtSectionAffinityL) remove(l);
-		for (JLabel l : mtSectionNameL) remove(l);
-		for (JLabel l : mtSectionMaxL) remove(l);
-		for (JLabel l : mtSectionActLevelL) remove(l);
-		for (JLabel l : mtSectionCostPerALL) remove(l);
-		for (JLabel l : mtSectionCostL) remove(l);
-		mtSectionOrder = new ArrayList<>();
-		mtSectionTitles = new ArrayList<>();
-		mtSectionAffinityL = new ArrayList<>();
-		mtSectionNameL = new ArrayList<>();
-		mtSectionMaxL = new ArrayList<>();
-		mtSectionActLevelL = new ArrayList<>();
-		mtSectionCostPerALL = new ArrayList<>();
-		mtSectionCostL = new ArrayList<>();
-
-		if (character != null && character.getTraining() != null) {
-			ArrayList<DataTraining> maintainedTechs = new ArrayList<>();
-			for (DataTraining tech : character.getTraining().getAllTraining()) {
-				if (tech == null) continue;
-				if (!"Maintained".equalsIgnoreCase(tech.getType())) continue;
-				maintainedTechs.add(tech);
-			}
-			maintainedTechs.sort((a, b) -> {
-				int idA = a.getId();
-				int idB = b.getId();
-				if (idA != idB) return Integer.compare(idA, idB);
-				String nameA = a.getName() == null ? "" : a.getName();
-				String nameB = b.getName() == null ? "" : b.getName();
-				return nameA.compareToIgnoreCase(nameB);
-			});
-
-			for (DataTraining tech : maintainedTechs) {
-				if (tech == null) continue;
-				int maxRank = tech.getMaxRank(character);
-				boolean hasProgress = tech.getRank() > 0 || tech.getExp() > 0 || tech.getAl() > 0;
-				if (maxRank <= 0 && !hasProgress) continue;
-				int baseAl = Math.max(0, tech.getAl());
-
-				boolean isStandardAffinity = "Standard".equalsIgnoreCase(tech.getAffinity()) &&
-						tech.getGrant() != null && !tech.getGrant().isEmpty();
-
-				if (isStandardAffinity && dataQuery != null) {
-					boolean addedAny = false;
-					for (Integer gid : tech.getGrant()) {
-						if (gid == null) continue;
-						DataTechPerm perm = dataQuery.getTechPermById(gid);
-						String attr = (perm != null && perm.getAttribute() != null) ? perm.getAttribute() : "None";
-						String rowName;
-						if ("Boost".equalsIgnoreCase(tech.getName())) {
-							if ("STR".equalsIgnoreCase(attr)) rowName = "Boost (STR)";
-							else if ("DEX".equalsIgnoreCase(attr)) rowName = "Boost (DEX)";
-							else if ("FOC".equalsIgnoreCase(attr)) rowName = "Boost (FOC)";
-							else if ("CTL".equalsIgnoreCase(attr)) rowName = "Boost (CTL)";
-							else rowName = "Boost (" + attr + ")";
-						} else {
-							rowName = tech.getName() + " (" + attr + ")";
-						}
-
-						JTextField affField = buildTextField(tech.getAffinity());
-						styleAffinityField(affField, tech.getAffinity());
-						mtAffinity.add(affField);
-
-						JTextField nameField = buildTextField(rowName);
-						mtName.add(nameField);
-
-						JFormattedTextField maxField = buildNumTextField(tech.getRank());
-						styleMaxField(maxField);
-						mtMax.add(maxField);
-
-						String rowKey = buildGrantedAlKey(tech, attr);
-						int activeLevel = loadGrantedAl(rowKey, baseAl);
-						JFormattedTextField actField = buildNumTextField(activeLevel);
-						actField.setEditable(true);
-						mtActLevel.add(actField);
-						mtTechRefs.add(tech);
-						mtRowKeys.add(rowKey);
-						mtRowAffinities.add(tech.getAffinity());
-
-						double costPer = 0.0;
-						if (perm != null) {
-							if (perm.getCost() != 0) costPer = perm.getCost();
-							else if (perm.getRatio() != 0) costPer = perm.getRatio();
-						}
-						JFormattedTextField costPerField = buildNumTextField(costPer);
-						styleCostField(costPerField);
-						mtCostPerAL.add(costPerField);
-
-						double occ = costPer * activeLevel;
-						JFormattedTextField costField = buildNumTextField(occ);
-						styleOccField(costField);
-						mtCost.add(costField);
-						addedAny = true;
-					}
-
-					if (!addedAny) {
-						JTextField affField = buildTextField(tech.getAffinity());
-						styleAffinityField(affField, tech.getAffinity());
-						mtAffinity.add(affField);
-
-						JTextField nameField = buildTextField(tech.getName());
-						mtName.add(nameField);
-
-						JFormattedTextField maxField = buildNumTextField(tech.getRank());
-						styleMaxField(maxField);
-						mtMax.add(maxField);
-
-						String rowKey = buildGrantedAlKey(tech, "None");
-						int activeLevel = loadGrantedAl(rowKey, baseAl);
-						JFormattedTextField actField = buildNumTextField(activeLevel);
-						actField.setEditable(true);
-						mtActLevel.add(actField);
-						mtTechRefs.add(tech);
-						mtRowKeys.add(rowKey);
-						mtRowAffinities.add(tech.getAffinity());
-
-						JFormattedTextField costPerField = buildNumTextField(0);
-						styleCostField(costPerField);
-						mtCostPerAL.add(costPerField);
-						JFormattedTextField costField = buildNumTextField(0);
-						styleOccField(costField);
-						mtCost.add(costField);
-					}
-				} else {
-					JTextField affField = buildTextField(tech.getAffinity());
-					styleAffinityField(affField, tech.getAffinity());
-					mtAffinity.add(affField);
-
-					JTextField nameField = buildTextField(tech.getName());
-					mtName.add(nameField);
-
-					JFormattedTextField maxField = buildNumTextField(tech.getRank());
-					styleMaxField(maxField);
-					mtMax.add(maxField);
-
-					String rowKey = buildGrantedAlKey(tech, null);
-					int activeLevel = loadGrantedAl(rowKey, baseAl);
-					JFormattedTextField actField = buildNumTextField(activeLevel);
-					actField.setEditable(true);
-					mtActLevel.add(actField);
-					mtTechRefs.add(tech);
-					mtRowKeys.add(rowKey);
-					mtRowAffinities.add(tech.getAffinity());
-
-					double costPer = 0.0;
-					if (tech.getGrant() != null && dataQuery != null) {
-						for (Integer gid : tech.getGrant()) {
-							if (gid == null) continue;
-							DataTechPerm perm = dataQuery.getTechPermById(gid);
-							if (perm != null) {
-								if (perm.getCost() != 0) costPer = perm.getCost();
-								else if (perm.getRatio() != 0) costPer = perm.getRatio();
-								break;
-							}
-						}
-					}
-					JFormattedTextField costPerField = buildNumTextField(costPer);
-					styleCostField(costPerField);
-					mtCostPerAL.add(costPerField);
-					JFormattedTextField costField = buildNumTextField(costPer * activeLevel);
-					styleOccField(costField);
-					mtCost.add(costField);
-				}
-			}
-		}
-
 		buildAffinitySections();
+		hideUnusedSections(mtSectionOrder.size());
 		syncGrantOccupiedAuraFromOcc();
-		updateHPAura();
+		refreshHPAuraOnly();
 
 		resizeSheet();
 	}
 
 	@Override
 	public void updateCharacter(CharData character) {
-		super.updateCharacter(character);
+		this.character = character;
+		refreshBaseState();
 		updateMaintained();
 	}
 	
@@ -379,13 +212,8 @@ public class PanelCharGranted extends PanelCharBase {
 					mtCost.get(i).setValue(0);
 				}
 			}
-			character.updateAll();
 			syncGrantOccupiedAuraFromOcc();
-			if (sheetFrame != null) {
-				sheetFrame.loadCharacter(character);
-			} else {
-				updateMaintained();
-			}
+			refreshAfterGrantedChange(false);
 		}
 	    resizeSheet();
 	}
@@ -413,13 +241,8 @@ public class PanelCharGranted extends PanelCharBase {
 			}
 		}
 		if (character != null) {
-			character.updateAll();
 			syncGrantOccupiedAuraFromOcc();
-			if (sheetFrame != null) {
-				sheetFrame.loadCharacter(character);
-			} else {
-				updateMaintained();
-			}
+			refreshAfterGrantedChange(false);
 		}
 		resizeSheet();
 	}
@@ -438,13 +261,8 @@ public class PanelCharGranted extends PanelCharBase {
 			}
 		}
 		if (character != null) {
-			character.updateAll();
 			syncGrantOccupiedAuraFromOcc();
-			if (sheetFrame != null) {
-				sheetFrame.loadCharacter(character);
-			} else {
-				updateMaintained();
-			}
+			refreshAfterGrantedChange(false);
 		}
 		resizeSheet();
 	}
@@ -489,8 +307,10 @@ public class PanelCharGranted extends PanelCharBase {
 	}
 
 	private void styleAffinityField(JTextField field, String affinity) {
-		if (field == null || affinity == null || affinity.isBlank()) return;
-		if ("Standard".equalsIgnoreCase(affinity)) return;
+		if (field == null) return;
+		field.setBackground(Color.WHITE);
+		field.setForeground(Color.BLACK);
+		if (affinity == null || affinity.isBlank() || "Standard".equalsIgnoreCase(affinity)) return;
 		DataColor color = dataQuery != null ? dataQuery.getColorByTitle(affinity) : null;
 		if (color == null) return;
 		field.setBackground(color.getBackColor());
@@ -505,22 +325,22 @@ public class PanelCharGranted extends PanelCharBase {
 			if (prev != null && prev.equalsIgnoreCase(safeAffinity)) continue;
 			prev = safeAffinity;
 			mtSectionOrder.add(safeAffinity);
-			JLabel title = buildLabel(safeAffinity + " Techniques");
-			mtSectionTitles.add(title);
-			mtSectionAffinityL.add(buildLabel("Affinity"));
-			mtSectionNameL.add(buildLabel("Name"));
-			mtSectionMaxL.add(buildLabel("Max"));
-			mtSectionActLevelL.add(buildLabel("AL"));
-			mtSectionCostPerALL.add(buildLabel("Cost"));
-			mtSectionCostL.add(buildLabel("Occ"));
+			int idx = mtSectionOrder.size() - 1;
+			ensureSectionCapacity(idx + 1);
+			mtSectionTitles.get(idx).setText(safeAffinity + " Techniques");
+			mtSectionAffinityL.get(idx).setText("Affinity");
+			mtSectionNameL.get(idx).setText("Name");
+			mtSectionMaxL.get(idx).setText("Max");
+			mtSectionActLevelL.get(idx).setText("AL");
+			mtSectionCostPerALL.get(idx).setText("Cost");
+			mtSectionCostL.get(idx).setText("Occ");
 		}
 	}
 
 	private String buildGrantedAlKey(DataTraining tech, String variant) {
 		if (tech == null) return "granted.al.unknown";
 		String rawVariant = (variant == null || variant.isBlank()) ? "base" : variant.trim().toLowerCase();
-		String safeVariant = rawVariant.replaceAll("[^a-z0-9_\\-]", "_");
-		return "granted.al." + tech.getId() + "." + safeVariant;
+		return "granted.al." + tech.getId() + "." + sanitizeVariantKey(rawVariant);
 	}
 
 	private int loadGrantedAl(String rowKey, int fallback) {
@@ -539,6 +359,252 @@ public class PanelCharGranted extends PanelCharBase {
 		String rowKey = mtRowKeys.get(rowIndex);
 		if (rowKey == null || rowKey.isBlank()) return;
 		character.setReminderSelection(rowKey, Integer.toString(Math.max(0, al)));
+	}
+
+	private ArrayList<GrantedRow> collectGrantedRows() {
+		ArrayList<GrantedRow> rows = new ArrayList<>();
+		if (character == null || character.getTraining() == null) return rows;
+
+		ArrayList<DataTraining> maintainedTechs = new ArrayList<>();
+		for (DataTraining tech : character.getTraining().getAllTraining()) {
+			if (tech == null || !"Maintained".equalsIgnoreCase(tech.getType())) continue;
+			maintainedTechs.add(tech);
+		}
+		maintainedTechs.sort((a, b) -> {
+			int idA = a.getId();
+			int idB = b.getId();
+			if (idA != idB) return Integer.compare(idA, idB);
+			String nameA = a.getName() == null ? "" : a.getName();
+			String nameB = b.getName() == null ? "" : b.getName();
+			return nameA.compareToIgnoreCase(nameB);
+		});
+
+		for (DataTraining tech : maintainedTechs) {
+			int maxRank = tech.getMaxRank(character);
+			boolean hasProgress = tech.getRank() > 0 || tech.getExp() > 0 || tech.getAl() > 0;
+			if (maxRank <= 0 && !hasProgress) continue;
+			int baseAl = Math.max(0, tech.getAl());
+			boolean isStandardAffinity = "Standard".equalsIgnoreCase(tech.getAffinity()) && tech.getGrant() != null && !tech.getGrant().isEmpty();
+
+			if (isStandardAffinity && dataQuery != null) {
+				boolean addedAny = false;
+				for (Integer gid : tech.getGrant()) {
+					if (gid == null) continue;
+					DataTechPerm perm = dataQuery.getTechPermById(gid);
+					String attr = (perm != null && perm.getAttribute() != null) ? perm.getAttribute() : "None";
+					String rowName = "Boost".equalsIgnoreCase(tech.getName()) ? "Boost (" + attr + ")" : tech.getName() + " (" + attr + ")";
+					String rowKey = buildGrantedAlKey(tech, attr);
+					int activeLevel = loadGrantedAl(rowKey, baseAl);
+					double costPer = 0.0;
+					if (perm != null) {
+						if (perm.getCost() != 0) costPer = perm.getCost();
+						else if (perm.getRatio() != 0) costPer = perm.getRatio();
+					}
+					rows.add(new GrantedRow(tech.getAffinity(), rowName, tech.getRank(), activeLevel, costPer, costPer * activeLevel, tech, rowKey));
+					addedAny = true;
+				}
+				if (addedAny) continue;
+			}
+
+			String rowKey = buildGrantedAlKey(tech, isStandardAffinity ? "None" : null);
+			int activeLevel = loadGrantedAl(rowKey, baseAl);
+			double costPer = resolveCostPer(tech);
+			rows.add(new GrantedRow(tech.getAffinity(), tech.getName(), tech.getRank(), activeLevel, costPer, costPer * activeLevel, tech, rowKey));
+		}
+		return rows;
+	}
+
+	private ArrayList<GrantedRow> getGrantedRows() {
+		String structureSignature = buildStructureSignature();
+		if (!structureSignature.equals(cachedStructureSignature)) {
+			cachedGrantedRows = collectGrantedRows();
+			cachedStructureSignature = structureSignature;
+			return cachedGrantedRows;
+		}
+		return refreshCachedGrantedRows();
+	}
+
+	private String buildStructureSignature() {
+		if (character == null || character.getTraining() == null) return "";
+		StringBuilder signature = new StringBuilder();
+		for (DataTraining tech : character.getTraining().getAllTraining()) {
+			if (tech == null || !"Maintained".equalsIgnoreCase(tech.getType())) continue;
+			int maxRank = tech.getMaxRank(character);
+			boolean hasProgress = tech.getRank() > 0 || tech.getExp() > 0 || tech.getAl() > 0;
+			if (maxRank <= 0 && !hasProgress) continue;
+			signature.append(tech.getId()).append('|')
+					.append(tech.getName()).append('|')
+					.append(tech.getAffinity()).append('|')
+					.append(tech.getRank()).append('|');
+			if (tech.getGrant() != null) {
+				for (Integer gid : tech.getGrant()) {
+					signature.append(gid).append(',');
+				}
+			}
+			signature.append(';');
+		}
+		return signature.toString();
+	}
+
+	private ArrayList<GrantedRow> refreshCachedGrantedRows() {
+		ArrayList<GrantedRow> refreshed = new ArrayList<>(cachedGrantedRows.size());
+		for (GrantedRow row : cachedGrantedRows) {
+			if (row == null) continue;
+			DataTraining tech = row.tech();
+			int fallbackAl = tech == null ? 0 : Math.max(0, tech.getAl());
+			int activeLevel = loadGrantedAl(row.rowKey(), fallbackAl);
+			double occupiedCost = row.costPer() * activeLevel;
+			refreshed.add(new GrantedRow(row.affinity(), row.name(), row.maxRank(), activeLevel, row.costPer(), occupiedCost, row.tech(), row.rowKey()));
+		}
+		cachedGrantedRows = refreshed;
+		return refreshed;
+	}
+
+	private double resolveCostPer(DataTraining tech) {
+		if (tech == null || tech.getGrant() == null || dataQuery == null) return 0.0;
+		for (Integer gid : tech.getGrant()) {
+			if (gid == null) continue;
+			DataTechPerm perm = dataQuery.getTechPermById(gid);
+			if (perm == null) continue;
+			if (perm.getCost() != 0) return perm.getCost();
+			if (perm.getRatio() != 0) return perm.getRatio();
+		}
+		return 0.0;
+	}
+
+	private void ensureRowCapacity(int size) {
+		while (mtName.size() < size) {
+			JTextField affField = buildTextField("");
+			JTextField nameField = buildTextField("");
+			JFormattedTextField maxField = buildNumTextField(0);
+			JFormattedTextField actField = buildNumTextField(0);
+			JFormattedTextField costPerField = buildNumTextField(0.0);
+			JFormattedTextField costField = buildNumTextField(0.0);
+
+			styleMaxField(maxField);
+			actField.setEditable(true);
+			styleCostField(costPerField);
+			styleOccField(costField);
+
+			mtAffinity.add(affField);
+			mtName.add(nameField);
+			mtMax.add(maxField);
+			mtActLevel.add(actField);
+			mtCostPerAL.add(costPerField);
+			mtCost.add(costField);
+			mtTechRefs.add(null);
+			mtRowKeys.add("");
+			mtRowAffinities.add("");
+		}
+	}
+
+	private void bindGrantedRow(int index, GrantedRow row) {
+		JTextField affField = mtAffinity.get(index);
+		if (!row.affinity().equals(affField.getText())) {
+			affField.setText(row.affinity());
+			styleAffinityField(affField, row.affinity());
+		}
+		affField.setVisible(!"None".equalsIgnoreCase(row.affinity()));
+
+		if (!row.name().equals(mtName.get(index).getText())) {
+			mtName.get(index).setText(row.name());
+		}
+		mtMax.get(index).setValue(row.maxRank());
+		mtActLevel.get(index).setValue(row.activeLevel());
+		mtCostPerAL.get(index).setValue(row.costPer());
+		mtCost.get(index).setValue(row.occupiedCost());
+		mtTechRefs.set(index, row.tech());
+		mtRowKeys.set(index, row.rowKey());
+		mtRowAffinities.set(index, row.affinity());
+
+		mtName.get(index).setVisible(true);
+		mtMax.get(index).setVisible(true);
+		mtActLevel.get(index).setVisible(true);
+		mtCostPerAL.get(index).setVisible(true);
+		mtCost.get(index).setVisible(true);
+	}
+
+	private void hideUnusedRows(int usedCount) {
+		for (int i = usedCount; i < mtName.size(); i++) {
+			mtAffinity.get(i).setVisible(false);
+			mtName.get(i).setVisible(false);
+			mtMax.get(i).setVisible(false);
+			mtActLevel.get(i).setVisible(false);
+			mtCostPerAL.get(i).setVisible(false);
+			mtCost.get(i).setVisible(false);
+			mtTechRefs.set(i, null);
+			mtRowKeys.set(i, "");
+			mtRowAffinities.set(i, "");
+		}
+	}
+
+	private void resetSectionMetadata() {
+		mtSectionOrder.clear();
+	}
+
+	private void ensureSectionCapacity(int size) {
+		while (mtSectionTitles.size() < size) {
+			mtSectionTitles.add(buildLabel(""));
+			mtSectionAffinityL.add(buildLabel(""));
+			mtSectionNameL.add(buildLabel(""));
+			mtSectionMaxL.add(buildLabel(""));
+			mtSectionActLevelL.add(buildLabel(""));
+			mtSectionCostPerALL.add(buildLabel(""));
+			mtSectionCostL.add(buildLabel(""));
+		}
+	}
+
+	private void hideUnusedSections(int usedCount) {
+		for (int i = usedCount; i < mtSectionTitles.size(); i++) {
+			mtSectionTitles.get(i).setVisible(false);
+			mtSectionAffinityL.get(i).setVisible(false);
+			mtSectionNameL.get(i).setVisible(false);
+			mtSectionMaxL.get(i).setVisible(false);
+			mtSectionActLevelL.get(i).setVisible(false);
+			mtSectionCostPerALL.get(i).setVisible(false);
+			mtSectionCostL.get(i).setVisible(false);
+		}
+	}
+
+	private void refreshAfterGrantedChange(boolean forceRebuild) {
+		if (forceRebuild) {
+			cachedStructureSignature = "";
+		}
+		refreshHPAuraOnly();
+		if (forceRebuild) {
+			updateMaintained();
+		} else {
+			refreshGrantedValuesOnly();
+		}
+		if (sheetFrame != null) {
+			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+		}
+	}
+
+	private void refreshGrantedValuesOnly() {
+		ArrayList<GrantedRow> rows = refreshCachedGrantedRows();
+		int limit = Math.min(rows.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			GrantedRow row = rows.get(i);
+			mtActLevel.get(i).setValue(row.activeLevel());
+			mtCost.get(i).setValue(row.occupiedCost());
+		}
+		syncGrantOccupiedAuraFromOcc();
+		refreshHPAuraOnly();
+	}
+
+	private String sanitizeVariantKey(String rawVariant) {
+		StringBuilder safe = new StringBuilder(rawVariant.length());
+		for (int i = 0; i < rawVariant.length(); i++) {
+			char c = rawVariant.charAt(i);
+			if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || c == '-') {
+				safe.append(c);
+			} else {
+				safe.append('_');
+			}
+		}
+		return safe.toString();
 	}
 	
 

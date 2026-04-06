@@ -8,9 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import java.awt.Font;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,9 +26,12 @@ public class FrameNewSkills extends JFrame {
     private final boolean gmMode;
 
     private static final String[] ATTRIBUTES = {"***", "STR", "DEX", "FOC", "CTL", "KNOW", "MECH", "PERC", "CHA", "SUB"};
+    private static final String EMPTY_OPTION = "***";
 
-    private final ArrayList<JComboBox<String>> skillAttributes = new ArrayList<>();
-    private final ArrayList<JComboBox<String>> skillPick = new ArrayList<>();
+    private final JComboBox<String>[] skillAttributes = new JComboBox[3];
+    private final JComboBox<String>[] skillPick = new JComboBox[3];
+    private final String[] lastSelectedAttribute = new String[3];
+    private final Map<String, String[]> skillOptionsByAttribute = new HashMap<>();
 
     public FrameNewSkills(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Skill Select");
@@ -73,13 +77,13 @@ public class FrameNewSkills extends JFrame {
             JComboBox<String> attBox = new JComboBox<>(ATTRIBUTES);
             attBox.setBounds(25, 100 + 50 * i, 125, 20);
             attBox.addActionListener(e -> updateSkillPick(idx));
-            skillAttributes.add(attBox);
+            skillAttributes[i] = attBox;
             add(attBox);
 
             JComboBox<String> skillBox = new JComboBox<>();
-            skillBox.addItem("***");
+            skillBox.addItem(EMPTY_OPTION);
             skillBox.setBounds(225, 100 + 50 * i, 250, 20);
-            skillPick.add(skillBox);
+            skillPick[i] = skillBox;
             add(skillBox);
         }
     }
@@ -97,62 +101,71 @@ public class FrameNewSkills extends JFrame {
     }
 
     private void updateSkillPick(int k) {
-        JComboBox<String> attBox = skillAttributes.get(k);
-        JComboBox<String> skillBox = skillPick.get(k);
+        JComboBox<String> attBox = skillAttributes[k];
+        JComboBox<String> skillBox = skillPick[k];
 
         String selectedAttr = (String) attBox.getSelectedItem();
-        if (selectedAttr == null) selectedAttr = "***";
+        if (selectedAttr == null) selectedAttr = EMPTY_OPTION;
+        String previousSkill = (String) skillBox.getSelectedItem();
 
         // Gather skills already chosen for this attribute in other rows
         Set<String> disallowed = new HashSet<>();
-        for (int i = 0; i < skillPick.size(); i++) {
+        for (int i = 0; i < skillPick.length; i++) {
             if (i == k) continue;
-            String otherAttr = (String) skillAttributes.get(i).getSelectedItem();
-            String otherSkill = (String) skillPick.get(i).getSelectedItem();
-            if (selectedAttr.equals(otherAttr) && otherSkill != null && !"***".equals(otherSkill)) {
+            String otherAttr = (String) skillAttributes[i].getSelectedItem();
+            String otherSkill = (String) skillPick[i].getSelectedItem();
+            if (selectedAttr.equals(otherAttr) && otherSkill != null && !EMPTY_OPTION.equals(otherSkill)) {
                 disallowed.add(otherSkill);
             }
         }
 
-        skillBox.removeAllItems();
-        skillBox.addItem("***");
+        if (selectedAttr.equals(lastSelectedAttribute[k]) && isSelectionStillAllowed(previousSkill, disallowed)) {
+            return;
+        }
+        lastSelectedAttribute[k] = selectedAttr;
 
-        List<DataSkill> options = dataQuery.getSkillsByAttribute(selectedAttr);
-        for (DataSkill s : options) {
-            if (!disallowed.contains(s.getName())) {
-                skillBox.addItem(s.getName());
+        skillBox.removeAllItems();
+        skillBox.addItem(EMPTY_OPTION);
+
+        for (String option : getSkillOptions(selectedAttr)) {
+            if (!disallowed.contains(option)) {
+                skillBox.addItem(option);
             }
+        }
+
+        if (previousSkill != null && !disallowed.contains(previousSkill)) {
+            skillBox.setSelectedItem(previousSkill);
         }
     }
 
     private void skillConfirm() {
         if (gmMode) {
             // Pre-fill three picks and proceed.
-            skillAttributes.get(0).setSelectedItem("STR");
-            skillAttributes.get(1).setSelectedItem("DEX");
-            skillAttributes.get(2).setSelectedItem("CTL");
+            skillAttributes[0].setSelectedItem("STR");
+            skillAttributes[1].setSelectedItem("DEX");
+            skillAttributes[2].setSelectedItem("CTL");
             // refresh dependent options after setting attributes
             updateSkillPick(0);
             updateSkillPick(1);
             updateSkillPick(2);
-            skillPick.get(0).setSelectedItem("Climb");
-            skillPick.get(1).setSelectedItem("Acrobatics");
-            skillPick.get(2).setSelectedItem("Charge Device");
+            skillPick[0].setSelectedItem("Climb");
+            skillPick[1].setSelectedItem("Acrobatics");
+            skillPick[2].setSelectedItem("Charge Device");
         }
 
         for (int i = 0; i < 3; i++) {
-            String att = (String) skillAttributes.get(i).getSelectedItem();
-            String skillName = (String) skillPick.get(i).getSelectedItem();
+            String att = (String) skillAttributes[i].getSelectedItem();
+            String skillName = (String) skillPick[i].getSelectedItem();
 
-            if (att == null || "***".equals(att) || skillName == null || "***".equals(skillName)) {
+            if (att == null || EMPTY_OPTION.equals(att) || skillName == null || EMPTY_OPTION.equals(skillName)) {
                 JOptionPane.showMessageDialog(this, "Select an attribute and skill for all three choices.");
                 return;
             }
         }
 
         for (int i = 0; i < 3; i++) {
-            String skillName = (String) skillPick.get(i).getSelectedItem();
-            String att = (String) skillAttributes.get(i).getSelectedItem();
+            String skillName = (String) skillPick[i].getSelectedItem();
+            String att = (String) skillAttributes[i].getSelectedItem();
 
             DataSkill base = dataQuery.getSkillByName(skillName);
             if (base == null) continue;
@@ -164,5 +177,25 @@ public class FrameNewSkills extends JFrame {
 
         parent.skillsConfirmed();
         dispose();
+    }
+
+    private String[] getSkillOptions(String attribute) {
+        return skillOptionsByAttribute.computeIfAbsent(attribute, this::buildSkillOptions);
+    }
+
+    private String[] buildSkillOptions(String attribute) {
+        List<DataSkill> options = dataQuery.getSkillsByAttribute(attribute);
+        if (options == null || options.isEmpty()) {
+            return new String[0];
+        }
+        String[] names = new String[options.size()];
+        for (int i = 0; i < options.size(); i++) {
+            names[i] = options.get(i).getName();
+        }
+        return names;
+    }
+
+    private boolean isSelectionStillAllowed(String previousSkill, Set<String> disallowed) {
+        return previousSkill != null && !EMPTY_OPTION.equals(previousSkill) && !disallowed.contains(previousSkill);
     }
 }

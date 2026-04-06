@@ -2,7 +2,10 @@ package eternity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,11 +23,27 @@ public class CharSpecials {
 
     @JsonProperty("skills")
     private final List<DataSkill> charSkills;              // All skills the character has
+    @JsonIgnore
+    private final Map<String, DataSkill> skillsByName;
     private DataSpecialty charRacial;                      // The single racial specialty
     @JsonProperty("classSpecialties")
     private final List<DataSpecialty> charClassSpecials;   // Specialties granted by class
+    @JsonIgnore
+    private final Map<String, DataSpecialty> classSpecialtiesByName;
     @JsonProperty("trainedSpecialties")
     private final List<DataSpecialty> charTrainedSpecials; // Specialties gained from training/resources
+    @JsonIgnore
+    private final Map<String, DataSpecialty> trainedSpecialtiesByName;
+    @JsonIgnore
+    private final List<DataSkill> skillsView;
+    @JsonIgnore
+    private final List<DataSpecialty> classSpecialtiesView;
+    @JsonIgnore
+    private final List<DataSpecialty> trainedSpecialtiesView;
+    @JsonIgnore
+    private List<DataSpecialty> allSpecialtiesCache;
+    @JsonIgnore
+    private boolean allSpecialtiesDirty;
 
     // ---------------------------------------------------------
     // Constructor
@@ -32,8 +51,16 @@ public class CharSpecials {
 
     public CharSpecials() {
         this.charSkills = new ArrayList<>();
+        this.skillsByName = new LinkedHashMap<>();
         this.charClassSpecials = new ArrayList<>();
+        this.classSpecialtiesByName = new LinkedHashMap<>();
         this.charTrainedSpecials = new ArrayList<>();
+        this.trainedSpecialtiesByName = new LinkedHashMap<>();
+        this.skillsView = Collections.unmodifiableList(charSkills);
+        this.classSpecialtiesView = Collections.unmodifiableList(charClassSpecials);
+        this.trainedSpecialtiesView = Collections.unmodifiableList(charTrainedSpecials);
+        this.allSpecialtiesCache = List.of();
+        this.allSpecialtiesDirty = true;
         this.charRacial = null;
     }
 
@@ -41,12 +68,13 @@ public class CharSpecials {
     // Skills
     // ---------------------------------------------------------
 
-    public List<DataSkill> getSkills() { return Collections.unmodifiableList(charSkills); }
+    public List<DataSkill> getSkills() { return skillsView; }
 
     @JsonSetter("skills")
     public void setSkills(List<DataSkill> skills) {
         charSkills.clear();
-        if (skills != null) charSkills.addAll(skills);
+        skillsByName.clear();
+        addSkillsBulk(skills);
     }
 
     public void addSkill(DataSkill skill) {
@@ -58,8 +86,13 @@ public class CharSpecials {
             if (incomingChosen != null) {
                 for (String att : incomingChosen) {
                     if (att == null || att.isBlank()) continue;
-                    boolean alreadyChosen = existing.getChosenAttributes().stream()
-                            .anyMatch(a -> a != null && a.equalsIgnoreCase(att));
+                    boolean alreadyChosen = false;
+                    for (String chosen : existing.getChosenAttributes()) {
+                        if (chosen != null && chosen.equalsIgnoreCase(att)) {
+                            alreadyChosen = true;
+                            break;
+                        }
+                    }
                     if (!alreadyChosen) {
                         existing.addChosenAttribute(att);
                     }
@@ -69,17 +102,19 @@ public class CharSpecials {
         }
 
         charSkills.add(skill);
+        skillsByName.put(normalizeName(skill.getName()), skill);
+        markAllSpecialtiesDirty();
     }
 
     public void removeSkill(DataSkill skill) {
-        charSkills.remove(skill);
+        if (charSkills.remove(skill) && skill != null) {
+            skillsByName.remove(normalizeName(skill.getName()));
+            markAllSpecialtiesDirty();
+        }
     }
 
     public DataSkill getSkillByName(String name) {
-        for (DataSkill s : charSkills) {
-            if (s.getName().equalsIgnoreCase(name)) return s;
-        }
-        return null;
+        return skillsByName.get(normalizeName(name));
     }
 
     // ---------------------------------------------------------
@@ -92,6 +127,7 @@ public class CharSpecials {
 
     public void setRacialSpecialty(DataSpecialty racial) {
         this.charRacial = racial;
+        markAllSpecialtiesDirty();
     }
 
     public boolean hasRacialSpecialty() {
@@ -102,58 +138,70 @@ public class CharSpecials {
     // Class Specialties
     // ---------------------------------------------------------
 
-    public List<DataSpecialty> getClassSpecialties() { return Collections.unmodifiableList(charClassSpecials); }
+    public List<DataSpecialty> getClassSpecialties() { return classSpecialtiesView; }
 
     @JsonSetter("classSpecialties")
     public void setClassSpecialties(List<DataSpecialty> specs) {
         charClassSpecials.clear();
-        if (specs != null) charClassSpecials.addAll(specs);
+        classSpecialtiesByName.clear();
+        addClassSpecialtiesBulk(specs);
+        markAllSpecialtiesDirty();
     }
 
     public void addClassSpecialty(DataSpecialty spec) {
-        if (spec != null && !charClassSpecials.contains(spec)) {
+        if (spec != null) {
+            String normalizedName = normalizeName(spec.getName());
+            if (normalizedName == null || classSpecialtiesByName.containsKey(normalizedName)) return;
             charClassSpecials.add(spec);
+            classSpecialtiesByName.put(normalizedName, spec);
+            markAllSpecialtiesDirty();
         }
     }
 
     public void removeClassSpecialty(DataSpecialty spec) {
-        charClassSpecials.remove(spec);
+        if (charClassSpecials.remove(spec) && spec != null) {
+            classSpecialtiesByName.remove(normalizeName(spec.getName()));
+            markAllSpecialtiesDirty();
+        }
     }
 
     public DataSpecialty getClassSpecialtyByName(String name) {
-        for (DataSpecialty s : charClassSpecials) {
-            if (s.getName().equalsIgnoreCase(name)) return s;
-        }
-        return null;
+        return classSpecialtiesByName.get(normalizeName(name));
     }
 
     // ---------------------------------------------------------
     // Trained Specialties
     // ---------------------------------------------------------
 
-    public List<DataSpecialty> getTrainedSpecialties() { return Collections.unmodifiableList(charTrainedSpecials); }
+    public List<DataSpecialty> getTrainedSpecialties() { return trainedSpecialtiesView; }
 
     @JsonSetter("trainedSpecialties")
     public void setTrainedSpecialties(List<DataSpecialty> specs) {
         charTrainedSpecials.clear();
-        if (specs != null) charTrainedSpecials.addAll(specs);
+        trainedSpecialtiesByName.clear();
+        addTrainedSpecialtiesBulk(specs);
+        markAllSpecialtiesDirty();
     }
 
     public void addTrainedSpecialty(DataSpecialty spec) {
-        if (spec != null && !charTrainedSpecials.contains(spec)) {
+        if (spec != null) {
+            String normalizedName = normalizeName(spec.getName());
+            if (normalizedName == null || trainedSpecialtiesByName.containsKey(normalizedName)) return;
             charTrainedSpecials.add(spec);
+            trainedSpecialtiesByName.put(normalizedName, spec);
+            markAllSpecialtiesDirty();
         }
     }
 
     public void removeTrainedSpecialty(DataSpecialty spec) {
-        charTrainedSpecials.remove(spec);
+        if (charTrainedSpecials.remove(spec) && spec != null) {
+            trainedSpecialtiesByName.remove(normalizeName(spec.getName()));
+            markAllSpecialtiesDirty();
+        }
     }
 
     public DataSpecialty getTrainedSpecialtyByName(String name) {
-        for (DataSpecialty s : charTrainedSpecials) {
-            if (s.getName().equalsIgnoreCase(name)) return s;
-        }
-        return null;
+        return trainedSpecialtiesByName.get(normalizeName(name));
     }
 
     // ---------------------------------------------------------
@@ -163,43 +211,101 @@ public class CharSpecials {
     /** All specialties the character has, regardless of origin. */
     @JsonIgnore
     public List<DataSpecialty> getAllSpecialties() {
-        ArrayList<DataSpecialty> all = new ArrayList<>();
+        if (!allSpecialtiesDirty) {
+            return allSpecialtiesCache;
+        }
+
+        ArrayList<DataSpecialty> all = new ArrayList<>(charClassSpecials.size() + charTrainedSpecials.size() + (charRacial != null ? 1 : 0));
         if (charRacial != null) all.add(charRacial);
         all.addAll(charClassSpecials);
         all.addAll(charTrainedSpecials);
-        return all;
+        allSpecialtiesCache = Collections.unmodifiableList(all);
+        allSpecialtiesDirty = false;
+        return allSpecialtiesCache;
     }
 
     /** Search combined specialties by name. */
     public DataSpecialty findSpecialty(String name) {
-        if (charRacial != null && charRacial.getName().equalsIgnoreCase(name))
+        String normalizedName = normalizeName(name);
+        if (normalizedName == null) return null;
+
+        if (charRacial != null && normalizedName.equals(normalizeName(charRacial.getName())))
             return charRacial;
 
-        for (DataSpecialty d : charClassSpecials)
-            if (d.getName().equalsIgnoreCase(name))
-                return d;
+        DataSpecialty classSpec = classSpecialtiesByName.get(normalizedName);
+        if (classSpec != null) return classSpec;
 
-        for (DataSpecialty d : charTrainedSpecials)
-            if (d.getName().equalsIgnoreCase(name))
-                return d;
+        return trainedSpecialtiesByName.get(normalizedName);
+    }
 
-        return null;
+    private String normalizeName(String name) {
+        if (name == null || name.isBlank()) return null;
+        return name.toLowerCase(Locale.ROOT);
+    }
+
+    private void addSkillsBulk(List<DataSkill> skills) {
+        if (skills == null) return;
+        for (DataSkill skill : skills) {
+            if (skill == null || skill.getName() == null || skill.getName().isBlank()) continue;
+            String normalizedName = normalizeName(skill.getName());
+            DataSkill existing = skillsByName.get(normalizedName);
+            if (existing != null) {
+                mergeChosenAttributes(existing, skill);
+                continue;
+            }
+            charSkills.add(skill);
+            skillsByName.put(normalizedName, skill);
+        }
+    }
+
+    private void mergeChosenAttributes(DataSkill existing, DataSkill incoming) {
+        if (existing == null || incoming == null) return;
+        List<String> incomingChosen = incoming.getChosenAttributes();
+        if (incomingChosen == null) return;
+        for (String att : incomingChosen) {
+            if (att == null || att.isBlank()) continue;
+            boolean alreadyChosen = false;
+            for (String chosen : existing.getChosenAttributes()) {
+                if (chosen != null && chosen.equalsIgnoreCase(att)) {
+                    alreadyChosen = true;
+                    break;
+                }
+            }
+            if (!alreadyChosen) {
+                existing.addChosenAttribute(att);
+            }
+        }
+    }
+
+    private void addClassSpecialtiesBulk(List<DataSpecialty> specs) {
+        if (specs == null) return;
+        for (DataSpecialty spec : specs) {
+            if (spec == null) continue;
+            String normalizedName = normalizeName(spec.getName());
+            if (normalizedName == null || classSpecialtiesByName.containsKey(normalizedName)) continue;
+            charClassSpecials.add(spec);
+            classSpecialtiesByName.put(normalizedName, spec);
+        }
+    }
+
+    private void addTrainedSpecialtiesBulk(List<DataSpecialty> specs) {
+        if (specs == null) return;
+        for (DataSpecialty spec : specs) {
+            if (spec == null) continue;
+            String normalizedName = normalizeName(spec.getName());
+            if (normalizedName == null || trainedSpecialtiesByName.containsKey(normalizedName)) continue;
+            charTrainedSpecials.add(spec);
+            trainedSpecialtiesByName.put(normalizedName, spec);
+        }
+    }
+
+    private void markAllSpecialtiesDirty() {
+        allSpecialtiesDirty = true;
     }
 
     /** Search combined specialties by name. */
     public boolean hasSpecialty(String name) {
-        if (charRacial != null && charRacial.getName().equalsIgnoreCase(name))
-            return true;
-
-        for (DataSpecialty d : charClassSpecials)
-            if (d.getName().equalsIgnoreCase(name))
-                return true;
-
-        for (DataSpecialty d : charTrainedSpecials)
-            if (d.getName().equalsIgnoreCase(name))
-                return true;
-
-        return false;
+        return findSpecialty(name) != null;
     }
 
     @JsonIgnore

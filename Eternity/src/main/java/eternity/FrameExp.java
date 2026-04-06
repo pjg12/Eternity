@@ -1,6 +1,8 @@
 package eternity;
 
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +23,11 @@ public class FrameExp extends JFrame {
 	private FrameLevel levelFrame;
 
 	private boolean skillLevel, specLevel;
+	private boolean levelChoiceListenersAttached;
+	private String lastSkillAttribute;
+	private String lastSpecialtyType;
+	private final Map<String, String[]> skillOptionsByAttribute = new HashMap<>();
+	private final Map<String, String[]> specialtyOptionsByType = new HashMap<>();
 
 	private final JComboBox<String> skillList;
 	private final JComboBox<String> skillAttributes;
@@ -150,6 +157,11 @@ public class FrameExp extends JFrame {
 			for (var al : b.getActionListeners()) b.removeActionListener(al);
 			b.setVisible(false);
 		}
+		clearChoiceListeners();
+		skillLevel = false;
+		specLevel = false;
+		lastSkillAttribute = null;
+		lastSpecialtyType = null;
 		headerL.setText("");
 		subHeaderL.setText("");
 		subHeader2L.setText("");
@@ -179,7 +191,11 @@ public class FrameExp extends JFrame {
 		}
 
 		CharIdentity id = character.getIdentity();
-		double gain = ((Number)numFields[0].getValue()).doubleValue();
+		double gain = parseExpField(numFields[0]);
+		if (gain <= 0) {
+			JOptionPane.showMessageDialog(this, "Enter a positive experience value.");
+			return;
+		}
 		double currentExp = id.getExp();
 		int startLevel = id.getLevel();
 
@@ -214,8 +230,9 @@ public class FrameExp extends JFrame {
 		character.updateAll();
 
 		if (sheetFrame != null) {
-			sheetFrame.loadCharacter(character);
 			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+			sheetFrame.refreshTrainingPanel();
 		}
 
 		if (leveled) {
@@ -308,25 +325,26 @@ public class FrameExp extends JFrame {
 		buttons[1].setVisible(true);
 
 		updateData();
-		
-		skillAttributes.addActionListener(e -> updateData());
-		specialsType.addActionListener(e -> updateData());
+		attachChoiceListeners();
 	}
 	
 	void updateData() {
-		skillList.removeAllItems();
-		String tempString = (String)skillAttributes.getSelectedItem();
-		ArrayList<DataSkill> tempList = new ArrayList<>(dataQuery.getSkillsByAttribute(tempString));
-		for (DataSkill dataSkill : tempList) {
-			skillList.addItem(dataSkill.getName());
+		String selectedAttribute = (String) skillAttributes.getSelectedItem();
+		if (skillLevel && !java.util.Objects.equals(lastSkillAttribute, selectedAttribute)) {
+			lastSkillAttribute = selectedAttribute;
+			skillList.removeAllItems();
+			for (String skillName : getSkillOptions(selectedAttribute)) {
+				skillList.addItem(skillName);
+			}
 		}
-		specialsList.removeAllItems();
-		ArrayList<DataSpecialty> tempSpecs = null;
-		tempString = (String)specialsType.getSelectedItem();
-		tempSpecs = new ArrayList<>(dataQuery.getSpecialtiesByType(tempString));
-		for (DataSpecialty spec : tempSpecs) {
-			specialsList.addItem(spec.getName());
-		}		
+		String selectedType = (String) specialsType.getSelectedItem();
+		if (specLevel && !java.util.Objects.equals(lastSpecialtyType, selectedType)) {
+			lastSpecialtyType = selectedType;
+			specialsList.removeAllItems();
+			for (String specialtyName : getSpecialtyOptions(selectedType)) {
+				specialsList.addItem(specialtyName);
+			}
+		}
 	}
 
 	public void levelUpCon() {
@@ -352,10 +370,67 @@ public class FrameExp extends JFrame {
 		character.updateAll();
 		
 		if (sheetFrame != null) {
-			sheetFrame.loadCharacter(character);
-			sheetFrame.refreshMainPanel(); // ensure main stats refresh after level-up
+			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+			sheetFrame.refreshTrainingPanel();
 		}
 		this.dispose();
+	}
+
+	private void attachChoiceListeners() {
+		if (levelChoiceListenersAttached) return;
+		ActionListener refresh = e -> updateData();
+		skillAttributes.addActionListener(refresh);
+		specialsType.addActionListener(refresh);
+		levelChoiceListenersAttached = true;
+	}
+
+	private void clearChoiceListeners() {
+		for (ActionListener listener : skillAttributes.getActionListeners()) {
+			skillAttributes.removeActionListener(listener);
+		}
+		for (ActionListener listener : specialsType.getActionListeners()) {
+			specialsType.removeActionListener(listener);
+		}
+		levelChoiceListenersAttached = false;
+	}
+
+	private String[] getSkillOptions(String attribute) {
+		return skillOptionsByAttribute.computeIfAbsent(attribute, key -> {
+			java.util.List<DataSkill> skills = dataQuery.getSkillsByAttribute(attribute);
+			String[] names = new String[skills.size()];
+			for (int i = 0; i < skills.size(); i++) {
+				names[i] = skills.get(i).getName();
+			}
+			return names;
+		});
+	}
+
+	private String[] getSpecialtyOptions(String type) {
+		return specialtyOptionsByType.computeIfAbsent(type, key -> {
+			java.util.List<DataSpecialty> specialties = dataQuery.getSpecialtiesByType(type);
+			String[] names = new String[specialties.size()];
+			for (int i = 0; i < specialties.size(); i++) {
+				names[i] = specialties.get(i).getName();
+			}
+			return names;
+		});
+	}
+
+	private double parseExpField(JFormattedTextField field) {
+		Object value = field.getValue();
+		if (value instanceof Number number) {
+			return number.doubleValue();
+		}
+		String text = field.getText();
+		if (text == null || text.isBlank()) {
+			return 0.0;
+		}
+		try {
+			return Double.parseDouble(text.trim());
+		} catch (NumberFormatException ignore) {
+			return 0.0;
+		}
 	}
 
 	/** Simple placeholder: next level requires (level + 1) * 100 XP. */

@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.AbstractButton;
 import javax.swing.text.NumberFormatter;
 
 /**
@@ -66,9 +67,6 @@ public class FrameTraining extends JFrame {
 			numFields[i].setHorizontalAlignment(JFormattedTextField.CENTER);
 			add(numFields[i]);
 		}
-		// Recompute training EXP on value commits as well as text edits
-		numFields[4].addPropertyChangeListener("value", evt -> updateTrainXp());
-
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton("");
 			add(buttons[i]);
@@ -182,9 +180,9 @@ public class FrameTraining extends JFrame {
 		sourceGroup.add(self); sourceGroup.add(source); sourceGroup.add(teacher);
 		self.setSelected(true);
 
-		self.addActionListener(e -> updateTrainXp());
-		source.addActionListener(e -> updateTrainXp());
-		teacher.addActionListener(e -> updateTrainXp());
+		wireTrainXpTrigger(self);
+		wireTrainXpTrigger(source);
+		wireTrainXpTrigger(teacher);
 
 		useTimeCheck.setBounds(25, 255, 80, 20);
 		useTimeCheck.setVisible(true);
@@ -239,21 +237,7 @@ public class FrameTraining extends JFrame {
 		}
 		warn = false;
 		double tempDub = 0;
-		Object valObj = numFields[4].getValue();
-		Double hrs = null;
-		if (valObj != null) {
-			try {
-				hrs = Double.parseDouble(valObj.toString());
-			} catch (NumberFormatException ignore) { }
-		}
-		if (hrs == null) {
-			try {
-				String txt = numFields[4].getText();
-				if (txt != null && !txt.isBlank()) {
-					hrs = Double.parseDouble(txt);
-				}
-			} catch (NumberFormatException ignore) { }
-		}
+		Double hrs = parseTrainingHours();
 		if (hrs != null) {
 			if (self.isSelected()) tempDub = 2 * hrs;
 			else if (source.isSelected()) tempDub = 3 * hrs;
@@ -274,6 +258,10 @@ public class FrameTraining extends JFrame {
 		if (useTime) {
 			updateTrainXp();
 		}
+	}
+
+	private void wireTrainXpTrigger(AbstractButton button) {
+		button.addActionListener(e -> updateTrainXp());
 	}
 
 	/**
@@ -443,5 +431,21 @@ public class FrameTraining extends JFrame {
 		nf.setCommitsOnValidEdit(true);
 		nf.setMinimum(0.0);
 		return nf;
+	}
+
+	protected Double parseTrainingHours() {
+		Object value = numFields[4].getValue();
+		if (value instanceof Number number) {
+			return number.doubleValue();
+		}
+		String text = numFields[4].getText();
+		if (text == null || text.isBlank()) {
+			return null;
+		}
+		try {
+			return Double.parseDouble(text.trim());
+		} catch (NumberFormatException ignore) {
+			return null;
+		}
 	}
 }

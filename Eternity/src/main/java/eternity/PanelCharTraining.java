@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -23,6 +25,9 @@ import eternity.DataTraining;
  */
 public class PanelCharTraining extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
+
+	private record TrainingRow(String affinity, String displayName, int maxRank, int rank, double exp, int nextAt, String typeGroup, boolean auraAffinity) {}
+	private record TrainingRowModel(DataTraining tech, String affinity, String displayName, String typeGroup, boolean auraAffinity) {}
 	
 	private JLabel naturalAffinityL;
 	private ArrayList<JTextField> natAffinity;
@@ -43,6 +48,8 @@ public class PanelCharTraining extends PanelCharBase {
 	private ArrayList<ArrayList<String>> charLists;
 	private ArrayList<String> listTitles;
 	private Color defaultToggleBack, defaultToggleFore;
+	private ArrayList<ArrayList<TrainingRowModel>> cachedTrainingRows;
+	private String cachedTrainingStructureSignature;
 
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
@@ -91,6 +98,8 @@ public class PanelCharTraining extends PanelCharBase {
 		defaultToggleFore = UIManager.getColor("Button.foreground");
 		if (defaultToggleBack == null) defaultToggleBack = new Color(240, 240, 240);
 		if (defaultToggleFore == null) defaultToggleFore = Color.BLACK;
+		cachedTrainingRows = new ArrayList<ArrayList<TrainingRowModel>>();
+		cachedTrainingStructureSignature = "";
 
 		for (int i = 0; i < TRAINING.length; i++) {
 			final int sectionIndex = i;
@@ -121,8 +130,10 @@ public class PanelCharTraining extends PanelCharBase {
 	 * 		UPDATE ALL
 	 */
 	public void updateAll() {
-		updateTraining();
-		resizeSheet();
+		boolean structureChanged = updateTraining();
+		if (structureChanged) {
+			resizeSheet();
+		}
 	}  /*--------------
 		END UPDATEALL
 		--------------*/
@@ -130,12 +141,9 @@ public class PanelCharTraining extends PanelCharBase {
 	/*
 	 * 		UPDATE TRAINING
 	 */
-	public void updateTraining() {
+	public boolean updateTraining() {
 		CharTraining training = character.getTraining();
-		if (training == null) return;
-
-		// ensure underlying character data is up to date (including max techs)
-		character.updateAll();
+		if (training == null) return false;
 
 		// compute max techs from the character's current level
 		int maxTechs = 0;
@@ -150,135 +158,41 @@ public class PanelCharTraining extends PanelCharBase {
 		double current = calculateWeightedCurrentTechs(training);
 		atCurTech.setValue(round2(current));
 		atRemTech.setValue(round2(Math.max(0.0, maxTechs - current)));
-		
-		// remove all
-		for (int i = natAffinity.size() -1; i >= 0; i--) {
-			natAffinity.get(i).setVisible(false);
-			remove(natAffinity.get(i));
-			natAffinity.remove(i);
-		}
-		
-		for (int i = TRAINING.length - 1; i >= 0; i--) {
-			for (int j = atAffinity.get(i).size() -1; j >= 0; j--) {
-				atAffinity.get(i).get(j).setVisible(false);
-				atName.get(i).get(j).setVisible(false);
-				atMaxRank.get(i).get(j).setVisible(false);
-				atCurRank.get(i).get(j).setVisible(false);
-				atExp.get(i).get(j).setVisible(false);
-				atNextAt.get(i).get(j).setVisible(false);
-				
-				remove(atAffinity.get(i).get(j));
-				remove(atName.get(i).get(j));
-				remove(atMaxRank.get(i).get(j));
-				remove(atCurRank.get(i).get(j));
-				remove(atExp.get(i).get(j));
-				remove(atNextAt.get(i).get(j));
-			}
-		}
 
-		atAffinity = new ArrayList<ArrayList<JTextField>>();
-		atName = new ArrayList<ArrayList<JTextField>>();
-		atMaxRank = new ArrayList<ArrayList<JFormattedTextField>>();
-		atCurRank = new ArrayList<ArrayList<JFormattedTextField>>();
-		atExp = new ArrayList<ArrayList<JFormattedTextField>>();
-		atNextAt = new ArrayList<ArrayList<JFormattedTextField>>();
-		atTypeGroup = new ArrayList<ArrayList<String>>();
-		atAuraAffinityRow = new ArrayList<ArrayList<Boolean>>();
-
-		for (int i = 0; i < TRAINING.length; i++) {
-			atName.add(new ArrayList<JTextField>());
-			atAffinity.add(new ArrayList<JTextField>());
-			atMaxRank.add(new ArrayList<JFormattedTextField>());
-			atCurRank.add(new ArrayList<JFormattedTextField>());
-			atExp.add(new ArrayList<JFormattedTextField>());
-			atNextAt.add(new ArrayList<JFormattedTextField>());
-			atTypeGroup.add(new ArrayList<String>());
-			atAuraAffinityRow.add(new ArrayList<Boolean>());
+		String structureSignature = buildTrainingStructureSignature(training);
+		boolean structureChanged = !structureSignature.equals(cachedTrainingStructureSignature);
+		if (structureChanged) {
+			cachedTrainingRows = collectTrainingRows(training);
+			cachedTrainingStructureSignature = structureSignature;
 		}
 		
 		// add all
 		ArrayList<String> tempList = new ArrayList<>(training.getNaturalAffinities());
+		ensureNaturalAffinityCapacity(tempList.size());
 		for (int i = 0; i < tempList.size(); i++) {
-			JTextField tempField = buildTextField(tempList.get(i));
-			natAffinity.add(tempField);
+			JTextField tempField = natAffinity.get(i);
+			tempField.setText(tempList.get(i));
+			tempField.setVisible(true);
+			tempField.setBackground(Color.WHITE);
+			tempField.setForeground(Color.BLACK);
 			DataColor color = dataQuery.getColorByTitle(tempList.get(i));
 			if (color != null) {
 				tempField.setBackground(color.getBackColor());
 				tempField.setForeground(color.getForeColor());
 			}
 		}
+		hideUnusedNaturalAffinityRows(tempList.size());
 		
 		// Build per-category display rows
 		for (int row = 0; row < TRAINING.length; row++) {
-			String cat = TRAINING[row];
-			ArrayList<DataTraining> list = new ArrayList<>(training.getTrainingList(cat));
-			list.sort(Comparator
-					.comparingInt((DataTraining t) -> isAuraAffinityTech(t) ? 0 : 1)
-					.thenComparingInt((DataTraining t) -> getTypeOrder(getTypeGroup(t == null ? null : t.getType())))
-					.thenComparingInt(t -> t == null ? Integer.MAX_VALUE : t.getId())
-					.thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER));
-			for (DataTraining tech : list) {
-				if (tech == null) continue;
-				String typeGroup = getTypeGroup(tech.getType());
-				boolean auraAffinity = isAuraAffinityTech(tech);
-
-				// Affinity column (if available)
-				if (tech.getAffinity() != null && !tech.getAffinity().isBlank()) {
-					JTextField tempField = buildTextField(tech.getAffinity());
-					atAffinity.get(row).add(tempField);
-					DataColor color = dataQuery.getColorByTitle(tech.getAffinity());
-					if (color != null) {
-						tempField.setBackground(color.getBackColor());
-						tempField.setForeground(color.getForeColor());
-					}
-				}
-
-				// Name
-				String displayName = tech.getName();
-				if (displayName != null && displayName.equalsIgnoreCase("Race Training")) {
-					DataSpecialty racial = character.getSpecials() != null ? character.getSpecials().getRacialSpecialty() : null;
-					if (racial != null && racial.getName() != null && !racial.getName().isBlank()) {
-						displayName = racial.getName();
-					}
-				}
-				atName.get(row).add(buildTextField(displayName));
-				atTypeGroup.get(row).add(typeGroup);
-				atAuraAffinityRow.get(row).add(auraAffinity);
-
-				// Ranks / exp
-				int maxRank = tech.getMaxRank(character);
-				JFormattedTextField maxField = buildNumTextField(maxRank);
-				JFormattedTextField curField = buildNumTextField(tech.getRank());
-
-				if (maxRank == tech.getRank()) {
-					maxField.setForeground(Color.RED);
-					curField.setForeground(Color.RED);
-				}
-
-				atMaxRank.get(row).add(maxField);
-				atCurRank.get(row).add(curField);
-				atExp.get(row).add(buildNumTextField(tech.getExp()));
-				int nextAtVal = tech.getNextAt(character);
-				atNextAt.get(row).add(buildNumTextField(nextAtVal));
-
-				// If this is an Attribute training, push a passive status into character attributes
-				if ("Attribute".equalsIgnoreCase(cat) && character.getAttributes() != null) {
-					String attKey = tech.getAffinity() != null ? tech.getAffinity().toUpperCase() : null;
-					if (attKey != null && !attKey.isBlank()) {
-						String statusName = "Attribute Training: " + tech.getName();
-						DataStatus ds = new DataStatus();
-						ds.setName(statusName);
-						ds.setAttribute(attKey);
-						ds.setDurationType("Permanent");
-						ds.setSeverity(tech.getRank());
-						ds.setAffinity("None");
-						ds.setDescription("Attribute training rank bonus");
-						character.getAttributes().removeStatus("attribute", attKey, statusName);
-						character.getAttributes().addStatus("attribute", attKey, ds);
-					}
-				}
+			ArrayList<TrainingRow> rows = materializeTrainingRows(row);
+			ensureTrainingRowCapacity(row, rows.size());
+			for (int i = 0; i < rows.size(); i++) {
+				bindTrainingRow(row, i, rows.get(i));
 			}
+			hideUnusedTrainingRows(row, rows.size());
 		}
+		return structureChanged;
 	}
 	
 	public void resizeSheet() {
@@ -491,19 +405,24 @@ public class PanelCharTraining extends PanelCharBase {
 
 	private double calculateWeightedCurrentTechs(CharTraining training) {
 		if (training == null) return 0.0;
-		List<String> excluded = List.of("Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting");
-		List<String> natural = training.getNaturalAffinities();
+		Set<String> excluded = Set.of("attribute", "misc", "affinity", "fundamental", "standard", "crafting");
+		Set<String> natural = new HashSet<>();
+		for (String affinity : training.getNaturalAffinities()) {
+			if (affinity != null) {
+				natural.add(affinity.toLowerCase());
+			}
+		}
 		double total = 0.0;
 
 		for (String category : training.getTrainingCategories()) {
-			boolean excludedCat = excluded.stream().anyMatch(s -> s.equalsIgnoreCase(category));
-			if (excludedCat) continue;
+			if (category == null) continue;
+			if (excluded.contains(category.toLowerCase())) continue;
 
 			for (DataTraining tech : training.getTrainingList(category)) {
 				if (tech == null) continue;
-				boolean naturalMatch = natural.stream().anyMatch(n ->
-						(n != null && category != null && n.equalsIgnoreCase(category)) ||
-						(n != null && tech.getAffinity() != null && n.equalsIgnoreCase(tech.getAffinity())));
+				String normalizedCategory = category.toLowerCase();
+				String normalizedAffinity = tech.getAffinity() == null ? "" : tech.getAffinity().toLowerCase();
+				boolean naturalMatch = natural.contains(normalizedCategory) || natural.contains(normalizedAffinity);
 				boolean spiritOrTime = ("Spirit".equalsIgnoreCase(category) || "Time".equalsIgnoreCase(category)) ||
 						("Spirit".equalsIgnoreCase(tech.getAffinity()) || "Time".equalsIgnoreCase(tech.getAffinity()));
 				double multiplier = 1.0;
@@ -518,6 +437,163 @@ public class PanelCharTraining extends PanelCharBase {
 	private boolean isAuraAffinityTech(DataTraining tech) {
 		if (tech == null || tech.getName() == null) return false;
 		return tech.getName().trim().toLowerCase().startsWith("aura affinity");
+	}
+
+	private String buildTrainingStructureSignature(CharTraining training) {
+		if (training == null) return "";
+		StringBuilder signature = new StringBuilder();
+		if (character != null && character.getIdentity() != null) {
+			signature.append("lvl=").append(character.getIdentity().getLevel()).append(';');
+		}
+		for (String affinity : training.getNaturalAffinities()) {
+			signature.append("nat=").append(affinity).append(';');
+		}
+		for (String category : TRAINING) {
+			signature.append('[').append(category).append(']');
+			ArrayList<DataTraining> list = new ArrayList<>(training.getTrainingList(category));
+			list.sort(Comparator
+					.comparingInt((DataTraining t) -> isAuraAffinityTech(t) ? 0 : 1)
+					.thenComparingInt((DataTraining t) -> getTypeOrder(getTypeGroup(t == null ? null : t.getType())))
+					.thenComparingInt(t -> t == null ? Integer.MAX_VALUE : t.getId())
+					.thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER));
+			for (DataTraining tech : list) {
+				if (tech == null) continue;
+				signature.append(tech.getId()).append('|')
+						.append(tech.getName()).append('|')
+						.append(tech.getType()).append('|')
+						.append(tech.getAffinity()).append(';');
+			}
+		}
+		return signature.toString();
+	}
+
+	private ArrayList<ArrayList<TrainingRowModel>> collectTrainingRows(CharTraining training) {
+		ArrayList<ArrayList<TrainingRowModel>> rowsByCategory = new ArrayList<>();
+		for (String category : TRAINING) {
+			ArrayList<DataTraining> list = new ArrayList<>(training.getTrainingList(category));
+			list.sort(Comparator
+					.comparingInt((DataTraining t) -> isAuraAffinityTech(t) ? 0 : 1)
+					.thenComparingInt((DataTraining t) -> getTypeOrder(getTypeGroup(t == null ? null : t.getType())))
+					.thenComparingInt(t -> t == null ? Integer.MAX_VALUE : t.getId())
+					.thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER));
+			ArrayList<TrainingRowModel> categoryRows = new ArrayList<>();
+			for (DataTraining tech : list) {
+				if (tech == null) continue;
+				categoryRows.add(new TrainingRowModel(
+						tech,
+						tech.getAffinity(),
+						resolveTrainingDisplayName(tech),
+						getTypeGroup(tech.getType()),
+						isAuraAffinityTech(tech)));
+			}
+			rowsByCategory.add(categoryRows);
+		}
+		return rowsByCategory;
+	}
+
+	private ArrayList<TrainingRow> materializeTrainingRows(int categoryIndex) {
+		ArrayList<TrainingRow> rows = new ArrayList<>();
+		if (categoryIndex < 0 || categoryIndex >= cachedTrainingRows.size()) return rows;
+		for (TrainingRowModel model : cachedTrainingRows.get(categoryIndex)) {
+			DataTraining tech = model.tech();
+			if (tech == null) continue;
+			rows.add(new TrainingRow(
+					model.affinity(),
+					model.displayName(),
+					tech.getMaxRank(character),
+					tech.getRank(),
+					tech.getExp(),
+					tech.getNextAt(character),
+					model.typeGroup(),
+					model.auraAffinity()));
+		}
+		return rows;
+	}
+
+	private String resolveTrainingDisplayName(DataTraining tech) {
+		if (tech == null) return "";
+		String displayName = tech.getName();
+		if (displayName != null && displayName.equalsIgnoreCase("Race Training")) {
+			DataSpecialty racial = character != null && character.getSpecials() != null ? character.getSpecials().getRacialSpecialty() : null;
+			if (racial != null && racial.getName() != null && !racial.getName().isBlank()) {
+				displayName = racial.getName();
+			}
+		}
+		return displayName;
+	}
+
+	private void ensureNaturalAffinityCapacity(int size) {
+		while (natAffinity.size() < size) {
+			natAffinity.add(buildTextField(""));
+		}
+	}
+
+	private void hideUnusedNaturalAffinityRows(int usedCount) {
+		for (int i = usedCount; i < natAffinity.size(); i++) {
+			natAffinity.get(i).setVisible(false);
+		}
+	}
+
+	private void ensureTrainingRowCapacity(int categoryIndex, int size) {
+		while (atName.get(categoryIndex).size() < size) {
+			atAffinity.get(categoryIndex).add(buildTextField(""));
+			atName.get(categoryIndex).add(buildTextField(""));
+			atMaxRank.get(categoryIndex).add(buildNumTextField(0));
+			atCurRank.get(categoryIndex).add(buildNumTextField(0));
+			atExp.get(categoryIndex).add(buildNumTextField(0));
+			atNextAt.get(categoryIndex).add(buildNumTextField(0));
+			atTypeGroup.get(categoryIndex).add("Active");
+			atAuraAffinityRow.get(categoryIndex).add(Boolean.FALSE);
+		}
+	}
+
+	private void bindTrainingRow(int categoryIndex, int rowIndex, TrainingRow row) {
+		JTextField affinityField = atAffinity.get(categoryIndex).get(rowIndex);
+		String affinity = row.affinity();
+		affinityField.setText(affinity == null ? "" : affinity);
+		affinityField.setVisible(affinity != null && !affinity.isBlank());
+		affinityField.setBackground(Color.WHITE);
+		affinityField.setForeground(Color.BLACK);
+		if (affinity != null && !affinity.isBlank()) {
+			DataColor color = dataQuery.getColorByTitle(affinity);
+			if (color != null) {
+				affinityField.setBackground(color.getBackColor());
+				affinityField.setForeground(color.getForeColor());
+			}
+		}
+
+		atName.get(categoryIndex).get(rowIndex).setText(row.displayName());
+		atName.get(categoryIndex).get(rowIndex).setVisible(true);
+
+		JFormattedTextField maxField = atMaxRank.get(categoryIndex).get(rowIndex);
+		JFormattedTextField curField = atCurRank.get(categoryIndex).get(rowIndex);
+		maxField.setValue(row.maxRank());
+		curField.setValue(row.rank());
+		maxField.setForeground(row.maxRank() == row.rank() ? Color.RED : Color.BLACK);
+		curField.setForeground(row.maxRank() == row.rank() ? Color.RED : Color.BLACK);
+		maxField.setVisible(true);
+		curField.setVisible(true);
+
+		atExp.get(categoryIndex).get(rowIndex).setValue(row.exp());
+		atExp.get(categoryIndex).get(rowIndex).setVisible(true);
+		atNextAt.get(categoryIndex).get(rowIndex).setValue(row.nextAt());
+		atNextAt.get(categoryIndex).get(rowIndex).setVisible(true);
+
+		atTypeGroup.get(categoryIndex).set(rowIndex, row.typeGroup());
+		atAuraAffinityRow.get(categoryIndex).set(rowIndex, row.auraAffinity());
+	}
+
+	private void hideUnusedTrainingRows(int categoryIndex, int usedCount) {
+		for (int i = usedCount; i < atName.get(categoryIndex).size(); i++) {
+			atAffinity.get(categoryIndex).get(i).setVisible(false);
+			atName.get(categoryIndex).get(i).setVisible(false);
+			atMaxRank.get(categoryIndex).get(i).setVisible(false);
+			atCurRank.get(categoryIndex).get(i).setVisible(false);
+			atExp.get(categoryIndex).get(i).setVisible(false);
+			atNextAt.get(categoryIndex).get(i).setVisible(false);
+			atTypeGroup.get(categoryIndex).set(i, "Active");
+			atAuraAffinityRow.get(categoryIndex).set(i, Boolean.FALSE);
+		}
 	}
 	
 	/*

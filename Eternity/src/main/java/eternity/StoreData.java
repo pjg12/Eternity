@@ -1,39 +1,33 @@
 package eternity;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import eternity.DataStatus;
 
-public class DataStore {
-	private List<DataColor> colorData;
-	private List<DataLevel> levelData;
-	private List<DataRace> raceData;
-	private List<DataClass> classData;
-	private List<DataDeity> deityData;
-	private List<DataSkill> skillData;
-	private List<DataSpecialty> specialtyData;
-	private List<DataItemEquipment> itemEquipmentData;
-	private List<DataTraining> trainingData;
-	private List<DataTechPerm> techPermData;
+public class StoreData {
+    private static final Path DATA_PATH = resolveDataPath();
+
+	private final List<DataColor> colorData;
+	private final List<DataLevel> levelData;
+	private final List<DataRace> raceData;
+	private final List<DataClass> classData;
+	private final List<DataDeity> deityData;
+	private final List<DataSkill> skillData;
+	private final List<DataSpecialty> specialtyData;
+	private final List<DataItemEquipment> itemEquipmentData;
+	private final List<DataTraining> trainingData;
+	private final List<DataTechPerm> techPermData;
 	
 	private final DataBuilder builder;
 	
-	public DataStore() {
-        // Prefer local "data" directory; fall back to capitalized "Data"; finally default to working dir/data
-        Path path = Paths.get("data");
-        if (!path.toFile().exists()) {
-            Path alt = Paths.get("Data");
-            if (alt.toFile().exists()) {
-                path = alt;
-            } else {
-                path = Paths.get(System.getProperty("user.dir")).resolve("data");
-            }
-        }
-
-        this.builder = new DataBuilder(path);
+	public StoreData() {
+        this.builder = new DataBuilder(DATA_PATH);
         
         // Load all JSON data files
         colorData          = safeLoad("colordata.json",        DataColor[].class);
@@ -52,59 +46,70 @@ public class DataStore {
 	private <T> List<T> safeLoad(String filename, Class<T[]> type) {
         try {
             List<T> list = builder.loadList(filename, type);
-            return (list != null ? list : new ArrayList<>());
+            if (list == null || list.isEmpty()) {
+                return List.of();
+            }
+            return Collections.unmodifiableList(list);
         }
         catch (Exception e) {
             System.err.println("Failed to load " + filename + ": " + e.getMessage());
-            return new ArrayList<>();
+            return List.of();
         }
     }
-	
-	// --- Getters & Setters ---
+
+    private static Path resolveDataPath() {
+        Path path = Paths.get("data");
+        if (Files.exists(path)) {
+            return path;
+        }
+
+        Path alt = Paths.get("Data");
+        if (Files.exists(alt)) {
+            return alt;
+        }
+
+        return Paths.get(System.getProperty("user.dir")).resolve("data");
+    }
+
+	// --- Getters ---
 
     public List<DataColor> getColorData() { return colorData; }
-    public void setColorData(List<DataColor> colorData) { this.colorData = colorData; }
 
     public List<DataLevel> getLevelData() { return levelData; }
-    public void setLevelData(List<DataLevel> levelData) { this.levelData = levelData; }
 
     public List<DataRace> getRaceData() { return raceData; }
-    public void setRaceData(List<DataRace> raceData) { this.raceData = raceData; }
 
     public List<DataClass> getClassData() { return classData; }
-    public void setClassData(List<DataClass> classData) { this.classData = classData; }
 
     public List<DataDeity> getDeityData() { return deityData; }
-    public void setDeityData(List<DataDeity> deityData) { this.deityData = deityData; }
 
     public List<DataSkill> getSkillData() { return skillData; }
-    public void setSkillData(List<DataSkill> skillData) { this.skillData = skillData; }
 
     public List<DataSpecialty> getSpecialtyData() { return specialtyData; }
-    public void setSpecialtyData(List<DataSpecialty> specialtyData) { this.specialtyData = specialtyData; }
 
     public List<DataItemEquipment> getItemEquipmentData() { return itemEquipmentData; }
-    public void setItemEquipmentData(List<DataItemEquipment> itemEquipmentData) { this.itemEquipmentData = itemEquipmentData; }
 
     public List<DataTraining> getTrainingData() { return trainingData; }
-    public void setTrainingData(List<DataTraining> trainingData) { this.trainingData = trainingData; }
 
     public List<DataTechPerm> getTechPermData() { return techPermData; }
-    public void setTechPermData(List<DataTechPerm> techPermData) { this.techPermData = techPermData; }
 
     /**
      * Injects permanent statuses into training entries based on their grant ids and techPermData.
      */
     private void applyTechPermsToTraining() {
         if (trainingData == null || techPermData == null) return;
+        Map<Integer, DataTechPerm> techPermsById = new HashMap<>(Math.max(16, techPermData.size()));
+        for (DataTechPerm perm : techPermData) {
+            if (perm != null) {
+                techPermsById.put(perm.getId(), perm);
+            }
+        }
+
         for (DataTraining t : trainingData) {
             if (t == null || t.getGrant() == null) continue;
             for (Integer gid : t.getGrant()) {
                 if (gid == null) continue;
-                DataTechPerm perm = techPermData.stream()
-                        .filter(p -> p != null && p.getId() == gid)
-                        .findFirst()
-                        .orElse(null);
+                DataTechPerm perm = techPermsById.get(gid);
                 if (perm == null) continue;
                 DataStatus ds = new DataStatus();
                 ds.setName("TechPerm " + gid);

@@ -9,7 +9,6 @@ eternity\FrameLevel$1.class
 eternity\SpecCheck.class
 eternity\DataDeity.class
 eternity\FrameSkill.class
-eternity\CharacterDataManager.class
 eternity\FrameTraining$SimpleDocListener.class
 eternity\PanelCharMaintained.class
 eternity\DataItem.class
@@ -41,7 +40,6 @@ eternity\DataAction.class
 eternity\FrameInventoryAdd.class
 eternity\FrameNewRace.class
 eternity\DataItemConsume.class
-eternity\CharStore.class
 eternity\DataItemMisc.class
 eternity\PanelCharBase.class
 eternity\DataSpecialty.class
@@ -51,7 +49,6 @@ eternity\DataList.class
 eternity\PanelCharTraining.class
 eternity\DataItemGoods.class
 eternity\CharAttributes.class
-eternity\DataStore.class
 eternity\FrameCombat.class
 eternity\CharTraining.class
 eternity\DataSkill.class

@@ -9,6 +9,8 @@ import java.util.List;
  * Fully data-driven class picker with simple String keys instead of ClassChoice objects.
  */
 public class FrameNewClassPicker extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private static final String EMPTY_OPTION = "***";
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNewClass parent;
@@ -16,6 +18,7 @@ public class FrameNewClassPicker extends JFrame {
 
     // Field UI elements (label → combobox)
     private final Map<String, JComboBox<String>> fields = new LinkedHashMap<>();
+    private final Map<String, String[]> deityDomains = new HashMap<>();
 
     // Model: label → choice configuration
     private Map<String, ChoiceConfig> choiceModel;
@@ -159,25 +162,35 @@ public class FrameNewClassPicker extends JFrame {
 
     private ChoiceConfig cfgStatic(String[] vals) {
         ChoiceConfig c = new ChoiceConfig(ChoiceType.STATIC);
-        c.staticOptions = vals;
+        c.options = vals;
         return c;
     }
 
     private ChoiceConfig cfgSpecial(String filter) {
         ChoiceConfig c = new ChoiceConfig(ChoiceType.SPECIAL_LIST);
-        c.specialFilter = filter;
+        c.options = dataQuery.getSpecialtiesByType(filter)
+                .stream()
+                .map(DataSpecialty::getName)
+                .filter(Objects::nonNull)
+                .toArray(String[]::new);
         return c;
     }
 
     private ChoiceConfig cfgWeapon(String[] pool) {
         ChoiceConfig c = new ChoiceConfig(ChoiceType.WEAPON_PICK_1);
-        c.weaponPool = pool;
+        c.options = pool;
         return c;
     }
 
     private ChoiceConfig cfgSubclass(DataClass cls) {
         ChoiceConfig c = new ChoiceConfig(ChoiceType.SUBCLASS);
-        c.subclassSource = cls;
+        int classID = cls.getID();
+        DataClass sub1 = dataQuery.getClassById(classID + 1);
+        DataClass sub2 = dataQuery.getClassById(classID + 2);
+        c.options = new String[] {
+                sub1 != null ? sub1.getName() : EMPTY_OPTION,
+                sub2 != null ? sub2.getName() : EMPTY_OPTION
+        };
         return c;
     }
 
@@ -214,38 +227,19 @@ public class FrameNewClassPicker extends JFrame {
 
     private void initComboBox(String label, ChoiceConfig cfg, JComboBox<String> box) {
 
-        box.addItem("***");
+        box.addItem(EMPTY_OPTION);
 
         switch (cfg.type) {
 
-            case STATIC -> Arrays.stream(cfg.staticOptions).forEach(box::addItem);
+            case STATIC, SPECIAL_LIST, SUBCLASS, WEAPON_PICK_1, WEAPON_PICK_2 -> addOptions(box, cfg.options);
 
-            case DEITY -> DEITY_OPTIONS.forEach(box::addItem);
+            case DEITY -> addOptions(box, DEITY_OPTIONS_WITHOUT_EMPTY);
 
             case DOMAIN_DEPENDENT -> {
                 JComboBox<String> deityBox = fields.get("Deity");
-                if (deityBox != null)
+                if (deityBox != null) {
                     deityBox.addActionListener(e -> updateDomainBox());
-            }
-
-            case SPECIAL_LIST -> {
-                var list = dataQuery.getSpecialtiesByType(cfg.specialFilter);
-                list.forEach(s -> box.addItem(s.getName()));
-            }
-
-            case SUBCLASS -> {
-                List<String> subs = new ArrayList<>();
-                int classID = cfg.subclassSource.getID();
-                subs.add(dataQuery.getClassById(classID+1).getName());
-                subs.add(dataQuery.getClassById(classID+2).getName());
-                if (subs.size() >= 2) {
-                    box.addItem(subs.get(0));
-                    box.addItem(subs.get(1));
                 }
-            }
-
-            case WEAPON_PICK_1, WEAPON_PICK_2 -> {
-                Arrays.stream(cfg.weaponPool).forEach(box::addItem);
             }
         }
     }
@@ -258,11 +252,10 @@ public class FrameNewClassPicker extends JFrame {
         if (domain == null) return;
 
         domain.removeAllItems();
-        domain.addItem("***");
+        domain.addItem(EMPTY_OPTION);
 
-        DataDeity d = dataQuery.getDeityByName((String) deity.getSelectedItem());
-        if (d != null)
-            d.getDomains().forEach(domain::addItem);
+        String deityName = deity != null ? (String) deity.getSelectedItem() : null;
+        addOptions(domain, deityDomains.computeIfAbsent(deityName, this::resolveDomainsForDeity));
     }
 
     // -------------------------------------------------------------------------
@@ -271,8 +264,9 @@ public class FrameNewClassPicker extends JFrame {
 
     private void acceptChoices() {
 
-        List<String> classChoices = new ArrayList<>();
-        List<String> profs = new ArrayList<>();
+        int profCount = (int) choiceModel.values().stream().filter(cfg -> cfg.type.isProficiency()).count();
+        List<String> classChoices = new ArrayList<>(choiceModel.size() - profCount);
+        List<String> profs = new ArrayList<>(profCount + 1);
 
         for (String label : choiceModel.keySet()) {
 
@@ -281,7 +275,7 @@ public class FrameNewClassPicker extends JFrame {
 
             String value = (String) box.getSelectedItem();
 
-            if (value == null || value.equals("***")) {
+            if (value == null || value.equals(EMPTY_OPTION)) {
                 JOptionPane.showMessageDialog(this,
                         "Please complete all fields.");
                 return;
@@ -316,6 +310,26 @@ public class FrameNewClassPicker extends JFrame {
         dispose();
     }
 
+    private void addOptions(JComboBox<String> box, String[] options) {
+        if (options == null) return;
+        for (String option : options) {
+            if (option != null && !EMPTY_OPTION.equals(option)) {
+                box.addItem(option);
+            }
+        }
+    }
+
+    private String[] resolveDomainsForDeity(String deityName) {
+        if (deityName == null || EMPTY_OPTION.equals(deityName)) {
+            return new String[0];
+        }
+        DataDeity deity = dataQuery.getDeityByName(deityName);
+        if (deity == null) {
+            return new String[0];
+        }
+        return deity.getDomains().toArray(new String[0]);
+    }
+
     // -------------------------------------------------------------------------
     //  ChoiceType Enum + Config Struct
     // -------------------------------------------------------------------------
@@ -335,10 +349,7 @@ public class FrameNewClassPicker extends JFrame {
 
     private static class ChoiceConfig {
         ChoiceType type;
-        String[] staticOptions;
-        String specialFilter;
-        String[] weaponPool;
-        DataClass subclassSource;
+        String[] options;
 
         ChoiceConfig(ChoiceType type) {
             this.type = type;
@@ -352,6 +363,9 @@ public class FrameNewClassPicker extends JFrame {
             "***","Creation","Honor","Justice","Courage","Progress",
             "Providence","Grace","Hope","Mercy","*Custom"
     );
+    private static final String[] DEITY_OPTIONS_WITHOUT_EMPTY = DEITY_OPTIONS.stream()
+            .filter(option -> !EMPTY_OPTION.equals(option))
+            .toArray(String[]::new);
 
     private static final List<String> DEITY_WEAPONS = List.of(
             "***","Sword","Whip","Axe","Fist","Polearm",

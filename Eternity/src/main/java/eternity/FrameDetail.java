@@ -1,5 +1,6 @@
 package eternity;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -19,25 +21,30 @@ import javax.swing.JTextField;
  */
 public class FrameDetail extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final int LABEL_COLUMN_WIDTH = 0;
+    private static final int FIELD_COLUMN_WIDTH = 1;
+    private static final int RIGHT_LABEL_COLUMN_WIDTH = 2;
+    private static final int RIGHT_FIELD_COLUMN_WIDTH = 3;
 
     private final FrameSheet sheetFrame;
     private final DataQuery dataQuery;
     private CharData character;
 
-    private final JTextField nameField = new JTextField(20);
-    private final JTextField campaignField = new JTextField(20);
-    private final JTextField nicknameField = new JTextField(20);
-    private final JTextField raceField = new JTextField(15);
-    private final JTextField classField = new JTextField(15);
+    private final JTextField nameField = new JTextField(10);
+    private final JTextField campaignField = new JTextField(10);
+    private final JTextField nicknameField = new JTextField(10);
+    private final JTextField raceField = new JTextField(8);
+    private final JTextField classField = new JTextField(8);
     private final JComboBox<String> subclassBox = new JComboBox<>();
     private JLabel subclassLabel;
-    private final JTextField genderField = new JTextField(10);
-    private final JTextField heightField = new JTextField(10);
-    private final JTextField weightField = new JTextField(10);
-    private final JTextField eyesField = new JTextField(10);
-    private final JTextField hairField = new JTextField(10);
-    private final JTextArea physicalArea = new JTextArea(4, 20);
-    private final JTextArea personalityArea = new JTextArea(4, 20);
+    private final JTextField genderField = new JTextField(8);
+    private final JTextField heightField = new JTextField(8);
+    private final JTextField weightField = new JTextField(8);
+    private final JTextField eyesField = new JTextField(8);
+    private final JTextField hairField = new JTextField(8);
+    private final JTextArea physicalArea = new JTextArea(4, 10);
+    private final JTextArea personalityArea = new JTextArea(4, 10);
+    private String loadedClassName = null;
 
     public FrameDetail(FrameSheet sheetFrame, DataQuery dataQuery) {
         super("Character Details");
@@ -47,66 +54,79 @@ public class FrameDetail extends JFrame {
         setSize(520, 420);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
+        subclassBox.setPrototypeDisplayValue("XXXXXXXX");
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(5, 5, 5, 5);
         gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.weightx = 1;
 
         int row = 0;
 
-        addRow(gc, row++, "Name", nameField);
-        addRow(gc, row++, "Campaign", campaignField);
-        addRow(gc, row++, "Nickname", nicknameField);
-        addRow(gc, row++, "Race", raceField);
-        addRow(gc, row++, "Class", classField);
+        addTwoColumnRow(gc, row++, "Name", nameField, "Campaign", campaignField);
+        addTwoColumnRow(gc, row++, "Nickname", nicknameField, "Race", raceField);
 
-        // Subclass row (needs label reference for visibility toggling)
         subclassLabel = new JLabel("Subclass");
-        gc.gridx = 0; gc.gridy = row; gc.weightx = 0; gc.fill = GridBagConstraints.NONE;
-        add(subclassLabel, gc);
-        gc.gridx = 1; gc.weightx = 1; gc.fill = GridBagConstraints.HORIZONTAL;
-        add(subclassBox, gc);
-        row++;
+        addTwoColumnRow(gc, row++, "Class", classField, subclassLabel, subclassBox);
 
-        addRow(gc, row++, "Gender", genderField);
-        addRow(gc, row++, "Height", heightField);
-        addRow(gc, row++, "Weight", weightField);
-        addRow(gc, row++, "Eyes", eyesField);
-        addRow(gc, row++, "Hair", hairField);
+        addTwoColumnRow(gc, row++, "Gender", genderField, "Height", heightField);
+        addTwoColumnRow(gc, row++, "Weight", weightField, "Eyes", eyesField);
+        addCell(gc, row, LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel("Hair"));
+        addCell(gc, row++, FIELD_COLUMN_WIDTH, 1, 0, GridBagConstraints.HORIZONTAL, hairField);
 
-        gc.gridx = 0; gc.gridy = row; gc.weightx = 0; gc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Physical"), gc);
-        gc.gridx = 1; gc.weightx = 1; gc.fill = GridBagConstraints.BOTH;
-        add(new JScrollPane(physicalArea), gc);
-        row++;
-
-        gc.gridx = 0; gc.gridy = row; gc.weightx = 0; gc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Personality"), gc);
-        gc.gridx = 1; gc.weightx = 1; gc.fill = GridBagConstraints.BOTH;
-        add(new JScrollPane(personalityArea), gc);
-        row++;
+        addTextAreaRow(gc, row++, "Physical", physicalArea, "Personality", personalityArea);
 
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(e -> setVisible(false));
         JButton save = new JButton("Save");
         save.addActionListener(e -> confirmDetails());
 
-        gc.gridx = 0; gc.gridy = row; gc.weightx = 0; gc.fill = GridBagConstraints.NONE;
-        add(cancel, gc);
-        gc.gridx = 1; gc.anchor = GridBagConstraints.EAST;
-        add(save, gc);
+        JPanel footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setOpaque(false);
+        footerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 100, 0, 100));
+        footerPanel.add(cancel, BorderLayout.WEST);
+        footerPanel.add(save, BorderLayout.EAST);
+
+        gc.gridx = 0;
+        gc.gridy = row;
+        gc.gridwidth = RIGHT_FIELD_COLUMN_WIDTH + 1;
+        gc.weightx = 1;
+        gc.weighty = 0;
+        gc.anchor = GridBagConstraints.CENTER;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        add(footerPanel, gc);
     }
 
-    private void addRow(GridBagConstraints gc, int row, String label, JTextField field) {
-        addRow(gc, row, label, (JComponent) field);
+    private void addTwoColumnRow(GridBagConstraints gc, int row, String leftLabel, JComponent leftComp, String rightLabel, JComponent rightComp) {
+        addCell(gc, row, LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel(leftLabel));
+        addCell(gc, row, FIELD_COLUMN_WIDTH, 1, 0, GridBagConstraints.HORIZONTAL, leftComp);
+        if (rightLabel != null && rightComp != null) {
+            addCell(gc, row, RIGHT_LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel(rightLabel));
+            addCell(gc, row, RIGHT_FIELD_COLUMN_WIDTH, 1, 0, GridBagConstraints.HORIZONTAL, rightComp);
+        }
     }
 
-    private void addRow(GridBagConstraints gc, int row, String label, JComponent comp) {
-        gc.gridx = 0; gc.gridy = row; gc.weightx = 0; gc.fill = GridBagConstraints.NONE;
-        add(new JLabel(label), gc);
-        gc.gridx = 1; gc.weightx = 1; gc.fill = GridBagConstraints.HORIZONTAL;
-        add(comp, gc);
+    private void addTwoColumnRow(GridBagConstraints gc, int row, String leftLabel, JComponent leftComp, JLabel rightLabel, JComponent rightComp) {
+        addCell(gc, row, LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel(leftLabel));
+        addCell(gc, row, FIELD_COLUMN_WIDTH, 1, 0, GridBagConstraints.HORIZONTAL, leftComp);
+        addCell(gc, row, RIGHT_LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, rightLabel);
+        addCell(gc, row, RIGHT_FIELD_COLUMN_WIDTH, 1, 0, GridBagConstraints.HORIZONTAL, rightComp);
+    }
+
+    private void addTextAreaRow(GridBagConstraints gc, int row, String leftLabel, JTextArea leftArea, String rightLabel, JTextArea rightArea) {
+        addCell(gc, row, LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel(leftLabel));
+        addCell(gc, row, FIELD_COLUMN_WIDTH, 1, 1, GridBagConstraints.BOTH, new JScrollPane(leftArea));
+        addCell(gc, row, RIGHT_LABEL_COLUMN_WIDTH, 0, 0, GridBagConstraints.NONE, new JLabel(rightLabel));
+        addCell(gc, row, RIGHT_FIELD_COLUMN_WIDTH, 1, 1, GridBagConstraints.BOTH, new JScrollPane(rightArea));
+    }
+
+    private void addCell(GridBagConstraints gc, int row, int column, double weightx, double weighty, int fill, JComponent component) {
+        gc.gridx = column;
+        gc.gridy = row;
+        gc.weightx = weightx;
+        gc.weighty = weighty;
+        gc.fill = fill;
+        gc.anchor = GridBagConstraints.WEST;
+        add(component, gc);
     }
 
     public void updateDetails(CharData character) {
@@ -118,7 +138,14 @@ public class FrameDetail extends JFrame {
         nicknameField.setText(id.getNickname());
         raceField.setText(id.getRace());
         classField.setText(id.getCharClass());
-        refreshSubclassChoices(id.getCharClass(), id.getCharSubclass());
+        if (!java.util.Objects.equals(loadedClassName, id.getCharClass())) {
+            refreshSubclassChoices(id.getCharClass(), id.getCharSubclass());
+            loadedClassName = id.getCharClass();
+        } else if (id.getCharSubclass() != null && !id.getCharSubclass().isBlank()) {
+            subclassBox.setSelectedItem(id.getCharSubclass());
+        } else {
+            subclassBox.setSelectedIndex(0);
+        }
         toggleSubclassVisibility(id.getLevel() < 5);
         genderField.setText(id.getGender());
         heightField.setText(id.getHeight());
@@ -141,7 +168,7 @@ public class FrameDetail extends JFrame {
         id.setRace(raceField.getText());
         id.setCharClass(classField.getText());
         Object subclass = subclassBox.getSelectedItem();
-        if (subclass != null) {
+        if (subclass != null && subclassBox.isVisible()) {
             id.setCharSubclass(subclass.toString());
         }
         id.setGender(genderField.getText());
@@ -153,8 +180,9 @@ public class FrameDetail extends JFrame {
         id.setPersonality(personalityArea.getText());
 
         if (sheetFrame != null) {
-            sheetFrame.loadCharacter(character);
-            CharacterDataManager.saveCharacter(character);
+            CharDataManager.saveCharacter(character);
+            sheetFrame.refreshMainPanel();
+            sheetFrame.refreshImagePanel();
         }
         setVisible(false);
     }

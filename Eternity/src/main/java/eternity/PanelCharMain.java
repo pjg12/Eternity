@@ -21,6 +21,10 @@ import javax.swing.SwingConstants;
  */
 public class PanelCharMain extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
+	private static final Color MULTI_ATTRIBUTE_COLOR = new Color(0, 0, 255);
+	private static final Color RACIAL_SPECIALTY_COLOR = new Color(128, 0, 128);
+	private static final Color CLASS_SPECIALTY_COLOR = new Color(0, 128, 0);
+	private static final Color TRAINED_SPECIALTY_COLOR = new Color(0, 0, 192);
 
 	//Row 1
 	private JLabel charNameL, campNameL, charLevelL, charExpL, charClassL, charRaceL;
@@ -72,6 +76,8 @@ public class PanelCharMain extends PanelCharBase {
 	private JLabel skillsL, specialtiesL, skillsAttL, skillsNameL, skillsRollL, specialtiesNameL;
 	private ArrayList<JTextField> skillsAtt, skillsName, specialtiesName;
 	private ArrayList<JButton> skillsRoll;
+	private String cachedResistTooltipSignature = "";
+	private String cachedResistTooltip = "Resists: unknown";
 	
 	/*
 	 * 		DEFAULT CONSTRUCTOR
@@ -550,11 +556,11 @@ public class PanelCharMain extends PanelCharBase {
 	 */
 	@Override
 	public void updateAll() {
-		updateDetails();
-		updateAttributes();
-		updateStatistics();
-		updateSkills();
-		updateSpecialties();
+		refreshDetailsOnly();
+		refreshAttributesOnly();
+		refreshStatisticsOnly();
+		refreshSkillsOnly();
+		refreshSpecialtiesOnly();
 		resizeSheet();
 		// Ensure name font fits after layout sizing
 		fitTextToField(charName, 8);
@@ -563,6 +569,12 @@ public class PanelCharMain extends PanelCharBase {
 	}  /*--------------
 		END UPDATEALL
 		--------------*/
+
+	public void refreshDetailsOnly() { updateDetails(); }
+	public void refreshAttributesOnly() { updateAttributes(); }
+	public void refreshStatisticsOnly() { updateStatistics(); }
+	public void refreshSkillsOnly() { updateSkills(); }
+	public void refreshSpecialtiesOnly() { updateSpecialties(); }
 	
 	/*
 	 * 		UPDATE DETAILS
@@ -752,10 +764,10 @@ public class PanelCharMain extends PanelCharBase {
 				"</html>";
 	}
 
-	private String buildAttributeTooltip(String name, String key) {
+	private String buildAttributeTooltip(String name, String key, DataClass resolvedClass) {
 		String tempString = "<html>" + name + ": " + character.getAttributes().getAttribute(key);
-		if (isPrimaryAttribute(key)) tempString += " <b>(Primary Attribute)</b>";
-		if (isSecondaryAttribute(key)) tempString += " <b>(Secondary Attribute)</b>";
+		if (isPrimaryAttribute(key, resolvedClass)) tempString += " <b>(Primary Attribute)</b>";
+		if (isSecondaryAttribute(key, resolvedClass)) tempString += " <b>(Secondary Attribute)</b>";
 		tempString += "<br>-------(Base)-------<br>";
 		StatBlock tempBlock = character.getAttributes().getBlock("attribute", key);
 		List<DataStatus> statuses = null;
@@ -782,6 +794,7 @@ public class PanelCharMain extends PanelCharBase {
 	public void updateAttributes() {
 		CharAttributes attrs = character.getAttributes();
 		if (attrs == null) return;
+		DataClass resolvedClass = resolveClass();
 
 		String[] keys = ATTSHORT;
 		JTextField[] attLabels = {strAttL, dexAttL, conAttL, focAttL, ctlAttL, capAttL, knowAttL, mechAttL, percAttL, intAttL, chaAttL, subAttL};
@@ -795,7 +808,7 @@ public class PanelCharMain extends PanelCharBase {
 			valFields[i].setValue(val);
 			modFields[i].setValue(mod);
 
-			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i]);
+			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i], resolvedClass);
 			attLabels[i].setToolTipText(tip);
 			valFields[i].setToolTipText(tip);
 			modFields[i].setToolTipText(tip);
@@ -964,7 +977,7 @@ public class PanelCharMain extends PanelCharBase {
 		}
 		resistStatL.setToolTipText(tempString + "</html>");
 		charResist.setToolTipText(resistStatL.getToolTipText());
-		resistRoll.setToolTipText(buildResistTooltip(attrs));
+		resistRoll.setToolTipText(getCachedResistTooltip(attrs));
 
 		tempString = "<html>Avoid: " + avoid + "<br>-------(Base)-------<br>";
 		tempBlock = character.getAttributes().getBlock("defense", "AVOID");
@@ -1489,34 +1502,42 @@ public class PanelCharMain extends PanelCharBase {
 		return sb.toString();
 	}
 
+	private String getCachedResistTooltip(CharAttributes attrs) {
+		String signature = buildResistTooltipSignature(attrs);
+		if (!signature.equals(cachedResistTooltipSignature)) {
+			cachedResistTooltipSignature = signature;
+			cachedResistTooltip = buildResistTooltip(attrs);
+		}
+		return cachedResistTooltip;
+	}
+
+	private String buildResistTooltipSignature(CharAttributes attrs) {
+		if (attrs == null) return "";
+		StringBuilder signature = new StringBuilder();
+		for (String key : RESIST_KEYS) {
+			signature.append(key).append('=').append(attrs.getResist(key)).append(';');
+		}
+		return signature.toString();
+	}
+
 	/*
 	 * 		UPDATE SKILLS
 	 */
 	public void updateSkills() {
-		for (int i = skillsAtt.size(); i > 0; i--) {
-			remove(skillsAtt.get(i-1));
-			remove(skillsName.get(i-1));
-			remove(skillsRoll.get(i-1));
-		}
-		
-		skillsAtt = new ArrayList<JTextField>();
-		skillsName = new ArrayList<JTextField>();
-		skillsRoll = new ArrayList<JButton>();
-
 		if (character == null) {
-			revalidate();
-			repaint();
+			hideUnusedSkillRows(0);
 			return;
 		}
 		CharSpecials specials = character.getSpecials();
 		if (specials == null) {
-			revalidate();
-			repaint();
+			hideUnusedSkillRows(0);
 			return;
 		}
-				
-		for (int i = 0; i < specials.getSkills().size(); i++) {
-			DataSkill tempSkill = specials.getSkills().get(i);
+
+		List<DataSkill> skillList = specials.getSkills();
+		ensureSkillRowCapacity(skillList.size());
+		for (int i = 0; i < skillList.size(); i++) {
+			DataSkill tempSkill = skillList.get(i);
 			String tempAtt = "-";
 			for (String attChoice : tempSkill.getChosenAttributes()) {
 				if (attChoice != null && !attChoice.trim().isEmpty() && !attChoice.equals("-")) {
@@ -1524,8 +1545,10 @@ public class PanelCharMain extends PanelCharBase {
 					break;
 				}
 			}
-			JTextField attField = buildTextField(tempAtt);
+			JTextField attField = skillsAtt.get(i);
+			attField.setText(tempAtt);
 			attField.setToolTipText(buildSkillAttributeTooltip(tempSkill));
+			attField.setForeground(Color.BLACK);
 			int realChosenCount = 0;
 			List<String> chosenAttrs = tempSkill.getChosenAttributes();
 			if (chosenAttrs != null) {
@@ -1537,24 +1560,25 @@ public class PanelCharMain extends PanelCharBase {
 				}
 			}
 			if (realChosenCount > 1) {
-				attField.setForeground(java.awt.Color.BLUE);
+				attField.setForeground(MULTI_ATTRIBUTE_COLOR);
 			}
-			skillsAtt.add(attField);
+			attField.setVisible(true);
 			
 			String tempName = tempSkill.getName();
-			JTextField nameField = buildTextField(tempName);
+			JTextField nameField = skillsName.get(i);
+			nameField.setText(tempName);
 			nameField.setToolTipText(buildSkillDescriptionTooltip(tempSkill));
-			skillsName.add(nameField);
+			nameField.setVisible(true);
 		
-			JButton rollBtn = buildCheckButton(tempName + " Check", true, tempAtt);
-			rollBtn.setToolTipText(buildSkillRollTooltip(tempSkill, tempAtt));
-			skillsRoll.add(rollBtn);
-			add(skillsAtt.get(i));
-			add(skillsName.get(i));
-			add(skillsRoll.get(i));
+			JButton rollBtn = skillsRoll.get(i);
+			final String selectedAtt = tempAtt;
+			final String checkName = tempName + " Check";
+			replaceButtonAction(rollBtn, () -> checkPressed(checkName, true, selectedAtt, ""));
+			rollBtn.setText("Roll");
+			rollBtn.setToolTipText(buildSkillRollTooltip(tempSkill, selectedAtt));
+			rollBtn.setVisible(true);
 		}
-		revalidate();
-		repaint();
+		hideUnusedSkillRows(skillList.size());
 	}  /*--------------
 		END UPDATESKILLS
 		--------------*/
@@ -1622,17 +1646,15 @@ public class PanelCharMain extends PanelCharBase {
 	}
 
 	/** Checks if the provided attribute key matches the character class' primary attribute. */
-	private boolean isPrimaryAttribute(String key) {
-		if (key == null || character == null || character.getIdentity() == null || dataQuery == null) return false;
-		DataClass cls = resolveClass();
+	private boolean isPrimaryAttribute(String key, DataClass cls) {
+		if (key == null || cls == null) return false;
 		String primary = cls != null ? cls.getPrimaryAtt() : null;
 		return primary != null && primary.equalsIgnoreCase(key);
 	}
 
 	/** Checks if the provided attribute key matches the character class' secondary attribute. */
-	private boolean isSecondaryAttribute(String key) {
-		if (key == null || character == null || character.getIdentity() == null || dataQuery == null) return false;
-		DataClass cls = resolveClass();
+	private boolean isSecondaryAttribute(String key, DataClass cls) {
+		if (key == null || cls == null) return false;
 		String secondary = cls != null ? cls.getSecondaryAtt() : null;
 		return secondary != null && secondary.equalsIgnoreCase(key);
 	}
@@ -1649,60 +1671,96 @@ public class PanelCharMain extends PanelCharBase {
 	 * 		UPDATE SPECIALTIES
 	 */
 	public void updateSpecialties() {
-		// Ensure specialties (including class/racial) are freshly synced before display
-		if (character != null) {
-			character.updateAll();
-		}
-
-		for (int i = specialtiesName.size(); i > 0; i--) {
-			remove(specialtiesName.get(i-1));
-		}
-		
-		specialtiesName = new ArrayList<JTextField>();
-
 		if (character == null) {
-			revalidate();
-			repaint();
+			hideUnusedSpecialtyRows(0);
 			return;
 		}
 		CharSpecials specials = character.getSpecials();
 		if (specials == null) {
-			revalidate();
-			repaint();
+			hideUnusedSpecialtyRows(0);
 			return;
 		}
 
+		ArrayList<DataSpecialty> visibleSpecialties = new ArrayList<>();
 		DataSpecialty racial = specials.getRacialSpecialty();
 		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
-			JTextField tf = buildTextField(racial.getName()); // Racial
-			tf.setForeground(new java.awt.Color(128, 0, 128)); // purple
-			tf.setToolTipText(buildSpecialtyTooltip(racial));
-			specialtiesName.add(tf);
+			visibleSpecialties.add(racial);
 		}
 
 		for (DataSpecialty spec : specials.getClassSpecialties()) {
 			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
-				JTextField tf = buildTextField(spec.getName());
-				tf.setForeground(new java.awt.Color(0, 128, 0)); // green
-				tf.setToolTipText(buildSpecialtyTooltip(spec));
-				specialtiesName.add(tf);
+				visibleSpecialties.add(spec);
 			}
 		}
 
 		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
 			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
-				JTextField tf = buildTextField(spec.getName());
-				tf.setForeground(new java.awt.Color(0, 0, 192)); // blue
-				tf.setToolTipText(buildSpecialtyTooltip(spec));
-				specialtiesName.add(tf);
+				visibleSpecialties.add(spec);
 			}
 		}
-
-		revalidate();
-		repaint();
+		ensureSpecialtyRowCapacity(visibleSpecialties.size());
+		int idx = 0;
+		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
+			bindSpecialtyRow(idx++, racial, RACIAL_SPECIALTY_COLOR);
+		}
+		for (DataSpecialty spec : specials.getClassSpecialties()) {
+			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+				bindSpecialtyRow(idx++, spec, CLASS_SPECIALTY_COLOR);
+			}
+		}
+		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
+			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+				bindSpecialtyRow(idx++, spec, TRAINED_SPECIALTY_COLOR);
+			}
+		}
+		hideUnusedSpecialtyRows(visibleSpecialties.size());
 	}  /*--------------
 		END UPDATESPECIALTIES
 		--------------*/
+
+	private void ensureSkillRowCapacity(int size) {
+		while (skillsAtt.size() < size) {
+			skillsAtt.add(buildTextField(""));
+			skillsName.add(buildTextField(""));
+			skillsRoll.add(buildButton("Roll"));
+		}
+	}
+
+	private void hideUnusedSkillRows(int usedCount) {
+		for (int i = usedCount; i < skillsAtt.size(); i++) {
+			skillsAtt.get(i).setVisible(false);
+			skillsName.get(i).setVisible(false);
+			skillsRoll.get(i).setVisible(false);
+		}
+	}
+
+	private void ensureSpecialtyRowCapacity(int size) {
+		while (specialtiesName.size() < size) {
+			specialtiesName.add(buildTextField(""));
+		}
+	}
+
+	private void bindSpecialtyRow(int index, DataSpecialty spec, Color color) {
+		JTextField field = specialtiesName.get(index);
+		field.setText(spec.getName());
+		field.setForeground(color);
+		field.setToolTipText(buildSpecialtyTooltip(spec));
+		field.setVisible(true);
+	}
+
+	private void hideUnusedSpecialtyRows(int usedCount) {
+		for (int i = usedCount; i < specialtiesName.size(); i++) {
+			specialtiesName.get(i).setVisible(false);
+			specialtiesName.get(i).setToolTipText(null);
+		}
+	}
+
+	private void replaceButtonAction(JButton button, Runnable action) {
+		for (var listener : button.getActionListeners()) {
+			button.removeActionListener(listener);
+		}
+		button.addActionListener(e -> action.run());
+	}
 
 	private boolean isProficiencySpecialty(DataSpecialty spec) {
 		if (spec == null) return false;

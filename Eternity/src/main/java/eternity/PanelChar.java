@@ -17,6 +17,15 @@ public class PanelChar extends JPanel {
     private final FrameSheet sheetFrame;
 
     private final JTabbedPane tabbedPane;
+    private final boolean[] dirtyTabs;
+
+    private static final int TAB_MAIN = 0;
+    private static final int TAB_INVENTORY = 1;
+    private static final int TAB_TRAINING = 2;
+    private static final int TAB_MAINTAINED = 3;
+    private static final int TAB_GRANTED = 4;
+    private static final int TAB_LISTS = 5;
+    private static final int TAB_NOTES = 6;
 
     // Panels
     private final PanelCharMain panelMain;
@@ -44,6 +53,7 @@ public class PanelChar extends JPanel {
         tabbedPane = new JTabbedPane();
         add(tabbedPane);
         tabbedPane.setBounds(0, 0, 585, 965-230);
+        dirtyTabs = new boolean[7];
 
         // ==== Main Tab ====
         panelMain = new PanelCharMain(dataQuery, sheetFrame);
@@ -77,6 +87,8 @@ public class PanelChar extends JPanel {
         panelNotes = new PanelCharNotes(dataQuery, sheetFrame);
         panelNotes.setTabTitle("Notes");
         tabbedPane.addTab("Notes", wrap(panelNotes));
+
+        tabbedPane.addChangeListener(e -> refreshSelectedTabIfNeeded());
 
         
 
@@ -137,19 +149,8 @@ public class PanelChar extends JPanel {
         if (character == null) return;
 
         character.updateAll();
-
-        panelMain.updateCharacter(character);
-        panelInventory.updateCharacter(character);
-        panelTraining.updateCharacter(character);
-        panelMaintained.updateCharacter(character);
-        panelGranted.updateCharacter(character);
-        panelList.updateCharacter(character);
-        panelNotes.updateCharacter(character);
-
-        // Optional:
-        // panelBattle.updateCharacter(character);
-
-
+        markAllTabsDirty();
+        refreshSelectedTabIfNeeded();
     }
 
     public void updateCharacter(CharData character) {
@@ -157,9 +158,56 @@ public class PanelChar extends JPanel {
         updateData();
     }
 
+    public void refreshMainOnly() {
+        if (character == null) return;
+        panelMain.updateCharacter(character);
+        dirtyTabs[TAB_MAIN] = false;
+    }
+
+    public void refreshInventoryOnly() {
+        if (character == null) return;
+        panelInventory.updateCharacter(character);
+        dirtyTabs[TAB_INVENTORY] = false;
+    }
+
+    public void refreshTrainingOnly() {
+        if (character == null) return;
+        panelTraining.updateCharacter(character);
+        dirtyTabs[TAB_TRAINING] = false;
+    }
+
     /** Persist equip dropdown selections back into the character inventory. */
     public void saveEquipmentSelections() {
         panelInventory.applyEquipSelections();
+    }
+
+    private void markAllTabsDirty() {
+        for (int i = 0; i < dirtyTabs.length; i++) {
+            dirtyTabs[i] = true;
+        }
+    }
+
+    private void refreshSelectedTabIfNeeded() {
+        if (character == null) return;
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        if (selectedIndex < 0 || selectedIndex >= dirtyTabs.length || !dirtyTabs[selectedIndex]) {
+            return;
+        }
+        refreshTab(selectedIndex);
+    }
+
+    private void refreshTab(int tabIndex) {
+        switch (tabIndex) {
+            case TAB_MAIN -> panelMain.updateCharacter(character);
+            case TAB_INVENTORY -> panelInventory.updateCharacter(character);
+            case TAB_TRAINING -> panelTraining.updateCharacter(character);
+            case TAB_MAINTAINED -> panelMaintained.updateCharacter(character);
+            case TAB_GRANTED -> panelGranted.updateCharacter(character);
+            case TAB_LISTS -> panelList.updateCharacter(character);
+            case TAB_NOTES -> panelNotes.updateCharacter(character);
+            default -> { return; }
+        }
+        dirtyTabs[tabIndex] = false;
     }
 }
 

@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class FrameNewRace extends JFrame {
+    private static final long serialVersionUID = 1L;
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
@@ -33,9 +34,13 @@ public class FrameNewRace extends JFrame {
         "Poruuk","Quez","Raigon","Reven", "Skren","Theran","Vindis","Vyrek","Xid","Zyan" };
 
     private static final int DESC_COUNT = 9;
+    private static final List<String> EMPTY_CHOICES = List.of();
 
-    private ImageIcon[] raceIcons1, raceIcons2;
+    private static ImageIcon[] raceIcons1, raceIcons2;
+    private static boolean iconsLoaded = false;
+    private final RaceDisplayData[] raceDisplayData = new RaceDisplayData[RACEOPTIONS.length];
     private JButton[] raceButtons;
+    private int selectedIndex = -1;
 
     private JLabel headerL;
     private JButton clearButton;
@@ -55,6 +60,7 @@ public class FrameNewRace extends JFrame {
         this.gmMode    = gmMode;
 
         loadIcons();
+        preloadRaceDisplayData();
         buildWindow();
 
         setSize(550, 450);
@@ -65,7 +71,8 @@ public class FrameNewRace extends JFrame {
     // ---------------------------------------------------
     // Load Icons
     // ---------------------------------------------------
-    private void loadIcons() {
+    private static synchronized void loadIcons() {
+        if (iconsLoaded) return;
         raceIcons1 = new ImageIcon[RACEOPTIONS.length];
         raceIcons2 = new ImageIcon[RACEOPTIONS.length];
 
@@ -79,9 +86,10 @@ public class FrameNewRace extends JFrame {
                     ICON_SIZE, ICON_SIZE
             );
         }
+        iconsLoaded = true;
     }
 
-    private ImageIcon scaleIcon(ImageIcon src, int w, int h) {
+    private static ImageIcon scaleIcon(ImageIcon src, int w, int h) {
         Image img = src.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
         return new ImageIcon(img);
     }
@@ -237,6 +245,8 @@ public class FrameNewRace extends JFrame {
     }
 
     private void onRaceSelected(int index) {
+        if (selectedIndex == index) return;
+        selectedIndex = index;
         updateRaceData(index);
     }
 
@@ -247,37 +257,33 @@ public class FrameNewRace extends JFrame {
     }
 
     void updateRaceData(int index) {
-        selectedRace = dataQuery.getRaceByName(RACEOPTIONS[index]);
-        if (selectedRace == null) return;
+        RaceDisplayData display = raceDisplayData[index];
+        if (display == null) return;
 
-        DataColor color = dataQuery.getColorByTitle(RACEOPTIONS[index]);
+        selectedRace = display.race();
+        raceDescPanel.setBackground(display.background());
 
-        Color bg = color != null ? color.getBackColor() : Color.WHITE;
-        Color fg = color != null ? color.getForeColor() : Color.BLACK;
-
-        raceDescPanel.setBackground(bg);
-
-        setRaceDetail(0, selectedRace.getName(), selectedRace.getNamett());
-        setRaceDetail(1, selectedRace.getHomeworld(), selectedRace.getHomeworldtt());
-        setRaceDetail(2, selectedRace.getAffiliation(), selectedRace.getAffiliationtt());
-        setRaceDetail(3, selectedRace.getPhysical(), selectedRace.getPhysicaltt());
-        setRaceDetail(4, selectedRace.getPersonality(), selectedRace.getPersonalitytt());
-        setRaceDetail(5, selectedRace.getBaseStatusDesc(), selectedRace.getBaseStatusDesctt());
-        setRaceDetail(6, selectedRace.getScalingStatusDesc(), selectedRace.getScalingStatusDesctt());
-        setRaceDetail(7, selectedRace.getRacialDesc(), selectedRace.getRacialDesctt());
-        setRaceDetail(8, "A brief history...", selectedRace.getDescription());
+        setRaceDetail(0, display.name(), display.nameTt());
+        setRaceDetail(1, display.homeworld(), display.homeworldTt());
+        setRaceDetail(2, display.affiliation(), display.affiliationTt());
+        setRaceDetail(3, display.physical(), display.physicalTt());
+        setRaceDetail(4, display.personality(), display.personalityTt());
+        setRaceDetail(5, display.baseStatus(), display.baseStatusTt());
+        setRaceDetail(6, display.scalingStatus(), display.scalingStatusTt());
+        setRaceDetail(7, display.racial(), display.racialTt());
+        setRaceDetail(8, "A brief history...", display.description());
 
         for (int i = 0; i < DESC_COUNT; i++) {
-            raceDetailButtons[i].setBackground(fg);
-            raceDetailButtons[i].setForeground(bg);
-            raceDescLabels[i].setForeground(fg);
+            raceDetailButtons[i].setBackground(display.foreground());
+            raceDetailButtons[i].setForeground(display.background());
+            raceDescLabels[i].setForeground(display.foreground());
         }
 
         raceDescPanel.setVisible(true);
         nextButton.setEnabled(true);
 
         if (gmMode) {
-            raceChoicesConfirmed(new ArrayList<>());
+            raceChoicesConfirmed(EMPTY_CHOICES);
         }
     }
 
@@ -285,20 +291,77 @@ public class FrameNewRace extends JFrame {
         if (selectedRace == null) return;
 
         if (selectedRace.getRacePick()) {
-            System.out.println("hi");
             FrameNewRacePicker picker =
                 new FrameNewRacePicker(null, dataQuery, character, selectedRace, this);
             picker.setVisible(true);
         } else {
-            raceChoicesConfirmed(new ArrayList<>());
+            raceChoicesConfirmed(EMPTY_CHOICES);
         }
     }
 
-    void raceChoicesConfirmed(ArrayList<String> choices) {
+    void raceChoicesConfirmed(List<String> choices) {
         character.getIdentity().setRace(selectedRace.getName());
-        character.getIdentity().setCharRacePick(choices);
+        character.getIdentity().setCharRacePick(new java.util.ArrayList<>(choices));
         parent.raceConfirmed();
         dispose();
     }
+
+    private void preloadRaceDisplayData() {
+        for (int i = 0; i < RACEOPTIONS.length; i++) {
+            String raceName = RACEOPTIONS[i];
+            DataRace race = dataQuery.getRaceByName(raceName);
+            if (race == null) continue;
+
+            DataColor color = dataQuery.getColorByTitle(raceName);
+            Color bg = color != null ? color.getBackColor() : Color.WHITE;
+            Color fg = color != null ? color.getForeColor() : Color.BLACK;
+
+            raceDisplayData[i] = new RaceDisplayData(
+                    race,
+                    bg,
+                    fg,
+                    race.getName(),
+                    race.getNamett(),
+                    race.getHomeworld(),
+                    race.getHomeworldtt(),
+                    race.getAffiliation(),
+                    race.getAffiliationtt(),
+                    race.getPhysical(),
+                    race.getPhysicaltt(),
+                    race.getPersonality(),
+                    race.getPersonalitytt(),
+                    race.getBaseStatusDesc(),
+                    race.getBaseStatusDesctt(),
+                    race.getScalingStatusDesc(),
+                    race.getScalingStatusDesctt(),
+                    race.getRacialDesc(),
+                    race.getRacialDesctt(),
+                    race.getDescription()
+            );
+        }
+    }
+
+    private record RaceDisplayData(
+            DataRace race,
+            Color background,
+            Color foreground,
+            String name,
+            String nameTt,
+            String homeworld,
+            String homeworldTt,
+            String affiliation,
+            String affiliationTt,
+            String physical,
+            String physicalTt,
+            String personality,
+            String personalityTt,
+            String baseStatus,
+            String baseStatusTt,
+            String scalingStatus,
+            String scalingStatusTt,
+            String racial,
+            String racialTt,
+            String description
+    ) {}
 
 }

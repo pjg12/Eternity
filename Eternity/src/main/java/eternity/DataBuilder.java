@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,16 +13,16 @@ import java.util.List;
  * Usage: <T> List<T> list = dataStore.loadList("filename.json", Type[].class);
  */
 public final class DataBuilder {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
     private final Path basePath;
-    private final ObjectMapper mapper;
 
     /**
-     * Constructs DataStore with a base directory (e.g., Paths.get("data")).
+     * Constructs StoreData with a base directory (e.g., Paths.get("data")).
      * If base does not exist, it will be created.
      */
     public DataBuilder(Path basePath) {
         this.basePath = basePath;
-        this.mapper = new ObjectMapper();
         try {
             if (!Files.exists(basePath)) Files.createDirectories(basePath);
         } catch (IOException e) {
@@ -37,9 +38,9 @@ public final class DataBuilder {
         Path p = basePath.resolve(filename);
         if (!Files.exists(p)) return List.of(); // empty list if file missing
         try {
-            T[] arr = mapper.readValue(p.toFile(), arrayType);
+            T[] arr = MAPPER.readValue(p.toFile(), arrayType);
             if (arr == null) return List.of();
-            return Arrays.asList(arr);
+            return Collections.unmodifiableList(Arrays.asList(arr));
         } catch (IOException e) {
             throw new RuntimeException("Error loading " + p.toString(), e);
         }
@@ -52,7 +53,7 @@ public final class DataBuilder {
         Path p = basePath.resolve(filename);
         if (!Files.exists(p)) return null;
         try {
-            return mapper.readValue(p.toFile(), type);
+            return MAPPER.readValue(p.toFile(), type);
         } catch (IOException e) {
             throw new RuntimeException("Error loading " + p.toString(), e);
         }

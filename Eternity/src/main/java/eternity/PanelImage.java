@@ -10,6 +10,9 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,6 +28,12 @@ import javax.swing.border.EmptyBorder;
 public class PanelImage extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final String MISSING_IMAGE_TEXT = "<html><center>Image Not Found<br>To utilize images,<br>place .jpg files in the 'Images' folder<br>named by character index.</center></html>";
+    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
+    private static final Color COMBAT_READY_COLOR = new Color(0, 180, 0);
+    private static final int PORTRAIT_MAX_WIDTH = 600;
+    private static final int PORTRAIT_MAX_HEIGHT = 190;
 
     private final FrameSheet sheetFrame;
     private CharData character;
@@ -41,6 +50,13 @@ public class PanelImage extends JPanel {
     private FrameCombat combatFrame; // reused for the session
 
     private BufferedImage charPic;
+    private final Map<Integer, ImageIcon> portraitCache = new HashMap<>();
+    private int loadedPictureIndex = Integer.MIN_VALUE;
+    private CharData combatFrameCharacter;
+    private String renderedName = null;
+    private LocalDateTime renderedStartDate = null;
+    private Duration renderedElapsed = null;
+    private Boolean renderedCombatState = null;
 
     // ---------------------------------------------------------
     // Constructor
@@ -54,7 +70,7 @@ public class PanelImage extends JPanel {
         setLayout(new BorderLayout());
 
         // === Portrait Area ===
-        picLabel = new JLabel("<html><center>Image Not Found<br>To utilize images,<br>place .jpg files in the 'Images' folder<br>named by character index.</center></html>", SwingConstants.CENTER);
+        picLabel = new JLabel(MISSING_IMAGE_TEXT, SwingConstants.CENTER);
         picLabel.setForeground(Color.WHITE);
         picLabel.setPreferredSize(new Dimension(600, 190));
         JPanel picWrapper = new JPanel(new BorderLayout());
@@ -78,7 +94,7 @@ public class PanelImage extends JPanel {
 
         combatButton = new JButton("Combat");
         combatButton.addActionListener(e -> combatPressed());
-        combatButton.setBackground(new Color(0, 180, 0));
+        combatButton.setBackground(COMBAT_READY_COLOR);
 
         // Name + Date labels
         nameLine1 = createInfoLabel();
@@ -114,32 +130,26 @@ public class PanelImage extends JPanel {
     // ---------------------------------------------------------
 
     public void updatePicture(int index) {
-        String path = "Images/" + index + ".jpg";
+        if (index == loadedPictureIndex && picLabel.getIcon() != null) {
+            return;
+        }
 
         try {
-            File file = new File(path);
-            if (!file.exists()) throw new Exception("Missing image");
-
-            charPic = ImageIO.read(file);
-            // Preserve aspect ratio while fitting within the display area
-            final int maxW = 600;
-            final int maxH = 190;
-            int srcW = charPic.getWidth();
-            int srcH = charPic.getHeight();
-            double scale = Math.min((double) maxW / srcW, (double) maxH / srcH);
-            int tgtW = (int) Math.round(srcW * scale);
-            int tgtH = (int) Math.round(srcH * scale);
-
-            Image scaled = charPic.getScaledInstance(tgtW, tgtH, Image.SCALE_SMOOTH);
-            picLabel.setIcon(new ImageIcon(scaled));
+            ImageIcon icon = portraitCache.get(index);
+            if (icon == null) {
+                icon = loadPortrait(index);
+                portraitCache.put(index, icon);
+            }
+            picLabel.setIcon(icon);
             picLabel.setText(null);
+            loadedPictureIndex = index;
 
         } catch (Exception e) {
             picLabel.setIcon(null);
-            picLabel.setText("<html><center>Image Not Found<br>To utilize images,<br>place .jpg files in the 'Images' folder<br>named by character index.</center></html>");
+            picLabel.setText(MISSING_IMAGE_TEXT);
+            loadedPictureIndex = Integer.MIN_VALUE;
         }
 
-        revalidate();
         repaint();
     }
 
@@ -151,12 +161,25 @@ public class PanelImage extends JPanel {
         if (character == null) return;
         this.character = character;
 
-        ensureCombatFrame();
+        if (combatFrame != null && combatFrameCharacter != character) {
+            combatFrame.updateCharacter(character);
+            combatFrameCharacter = character;
+        }
 
         CharIdentity id = character.getIdentity();
         if (id != null) {
-            updateName(id.getName());
-            updateDate(id.getCampaignStartDate(), id.getCampaignElapsedTime());
+            String name = id.getName();
+            LocalDateTime start = id.getCampaignStartDate();
+            Duration elapsed = id.getCampaignElapsedTime();
+            if (!Objects.equals(name, renderedName)) {
+                updateName(name);
+                renderedName = name;
+            }
+            if (!Objects.equals(start, renderedStartDate) || !Objects.equals(elapsed, renderedElapsed)) {
+                updateDate(start, elapsed);
+                renderedStartDate = start;
+                renderedElapsed = elapsed;
+            }
             updatePicture(id.getIndex());
         }
 
@@ -201,12 +224,8 @@ public class PanelImage extends JPanel {
 
         Duration safeElapsed = (elapsed == null) ? Duration.ZERO : elapsed;
         LocalDateTime current = start.plus(safeElapsed);
-
-        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-        DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
-
-        dateLine1.setText(dateFmt.format(current));
-        dateLine2.setText(timeFmt.format(current) + "  (Day " + (safeElapsed.toDays() + 1) + ")");
+        dateLine1.setText(DATE_FMT.format(current));
+        dateLine2.setText(TIME_FMT.format(current) + "  (Day " + (safeElapsed.toDays() + 1) + ")");
     }
 
     // ---------------------------------------------------------
@@ -217,7 +236,7 @@ public class PanelImage extends JPanel {
         if (sheetFrame != null) {
             sheetFrame.onSavePressed();
         } else if (character != null) {
-            CharacterDataManager.saveCharacter(character);
+            CharDataManager.saveCharacter(character);
         }
     }
 
@@ -254,7 +273,11 @@ public class PanelImage extends JPanel {
         if (character != null && character.getCombat() != null) {
             inCombat = character.getCombat().isInCombat();
         }
-        combatButton.setBackground(inCombat ? Color.RED : new Color(0, 180, 0));
+        if (renderedCombatState != null && renderedCombatState == inCombat) {
+            return;
+        }
+        combatButton.setBackground(inCombat ? Color.RED : COMBAT_READY_COLOR);
+        renderedCombatState = inCombat;
     }
 
     /** Lazily create or refresh the shared combat window for this session. */
@@ -262,8 +285,27 @@ public class PanelImage extends JPanel {
         if (sheetFrame == null || character == null) return;
         if (combatFrame == null) {
             combatFrame = new FrameCombat(sheetFrame, character);
+            combatFrameCharacter = character;
         } else {
             combatFrame.updateCharacter(character);
+            combatFrameCharacter = character;
         }
+    }
+
+    private ImageIcon loadPortrait(int index) throws Exception {
+        File file = new File("Images/" + index + ".jpg");
+        if (!file.exists()) {
+            throw new Exception("Missing image");
+        }
+
+        charPic = ImageIO.read(file);
+        int srcW = charPic.getWidth();
+        int srcH = charPic.getHeight();
+        double scale = Math.min((double) PORTRAIT_MAX_WIDTH / srcW, (double) PORTRAIT_MAX_HEIGHT / srcH);
+        int tgtW = (int) Math.round(srcW * scale);
+        int tgtH = (int) Math.round(srcH * scale);
+
+        Image scaled = charPic.getScaledInstance(tgtW, tgtH, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
     }
 }

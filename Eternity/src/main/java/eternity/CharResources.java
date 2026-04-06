@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * using the modern StatBlock architecture.
  */
 public class CharResources {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String PASSIVE_STATUS = "Passive";
+
     @JsonIgnore
     private CharData owner;
 
@@ -78,27 +81,20 @@ public class CharResources {
         // Legacy format: numeric value instead of StatBlock array
         if (node.isNumber()) {
             StatBlock[] arr = initSingle(attributeKey);
-            arr[0].getStatus().stream()
-                    .filter(s -> "Passive".equalsIgnoreCase(s.getName()))
-                    .findFirst()
-                    .ifPresent(s -> s.setSeverity(node.doubleValue()));
+            DataStatus passive = findPassiveStatus(arr[0]);
+            if (passive != null) {
+                passive.setSeverity(node.doubleValue());
+            }
             return arr;
         }
 
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            StatBlock[] parsed = mapper.convertValue(node, StatBlock[].class);
+            StatBlock[] parsed = MAPPER.convertValue(node, StatBlock[].class);
             return (parsed != null && parsed.length > 0) ? parsed : initSingle(attributeKey);
         } catch (IllegalArgumentException e) {
             System.err.println("Failed to parse StatBlock array, using defaults: " + e.getMessage());
             return initSingle(attributeKey);
         }
-    }
-
-    // Sum only the status severities of a block (ignores its multipliers)
-    private double sumStatus(StatBlock block) {
-        if (block == null) return 0;
-        return block.getStatus().stream().mapToDouble(DataStatus::getSeverity).sum();
     }
 
     // ---------------------------------------------------------
@@ -233,18 +229,32 @@ public class CharResources {
     private void setBaseStatusValue(StatBlock[] blocks, double value, String attrKey) {
         if (blocks == null || blocks.length == 0) return;
         StatBlock block = blocks[0];
-        var baseStatus = block.getStatus().stream()
-                .filter(s -> "Passive".equalsIgnoreCase(s.getName()))
-                .findFirst()
-                .orElseGet(() -> {
-                    DataStatus s = new DataStatus();
-                    s.setName("Passive");
-                    s.setAttribute(attrKey);
-                    s.setDurationType("Permanent");
-                    block.addStatus(s);
-                    return s;
-                });
+        DataStatus baseStatus = findOrCreatePassiveStatus(block, attrKey);
         baseStatus.setSeverity(Math.max(0, value));
+    }
+
+    private DataStatus findPassiveStatus(StatBlock block) {
+        if (block == null) return null;
+        for (DataStatus status : block.getStatus()) {
+            if (status != null && PASSIVE_STATUS.equalsIgnoreCase(status.getName())) {
+                return status;
+            }
+        }
+        return null;
+    }
+
+    private DataStatus findOrCreatePassiveStatus(StatBlock block, String attrKey) {
+        DataStatus baseStatus = findPassiveStatus(block);
+        if (baseStatus != null) {
+            return baseStatus;
+        }
+
+        DataStatus created = new DataStatus();
+        created.setName(PASSIVE_STATUS);
+        created.setAttribute(attrKey);
+        created.setDurationType("Permanent");
+        block.addStatus(created);
+        return created;
     }
 
     /** Seeds a StatBlock with Passive/Maintained/Temporary base entries. */

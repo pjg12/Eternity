@@ -1,6 +1,7 @@
 package eternity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,6 +51,10 @@ public class CharCombat {
     private final List<DataAction> freeActions;
     @JsonIgnore
     private final List<DataAction> interruptActions;
+    @JsonIgnore
+    private final DataAction standardAttackAction;
+    @JsonIgnore
+    private final DataAction grappleAction;
 
     public CharCombat() {
         this.inCombat = false;
@@ -71,7 +76,8 @@ public class CharCombat {
         baseAttack.setAffinity("None");
         baseAttack.setRanged(0);
         baseAttack.setActionType("Standard");
-        this.standardActions.add(baseAttack);
+        this.standardAttackAction = baseAttack;
+        this.standardActions.add(standardAttackAction);
 
         // Baseline combat maneuver: Grapple
         DataAction grapple = new DataAction();
@@ -80,7 +86,8 @@ public class CharCombat {
         grapple.setAffinity("None");
         grapple.setRanged(0); // melee
         grapple.setActionType("Standard");
-        this.standardActions.add(grapple);
+        this.grappleAction = grapple;
+        this.standardActions.add(grappleAction);
     }
 
     /* Owner plumbing */
@@ -115,11 +122,11 @@ public class CharCombat {
     /* Status handling */
     public List<DataStatus> getCombatStatus() { return combatStatus; }
 
-    public List<DataAction> getStandardActions() { return generateActions(standardActions); }
-    public List<DataAction> getMoveActions() { return generateActions(moveActions); }
-    public List<DataAction> getAuraActions() { return generateActions(auraActions); }
-    public List<DataAction> getFreeActions() { return generateActions(freeActions); }
-    public List<DataAction> getInterruptActions() { return generateActions(interruptActions); }
+    public List<DataAction> getStandardActions() { return getActionView(standardActions); }
+    public List<DataAction> getMoveActions() { return getActionView(moveActions); }
+    public List<DataAction> getAuraActions() { return getActionView(auraActions); }
+    public List<DataAction> getFreeActions() { return getActionView(freeActions); }
+    public List<DataAction> getInterruptActions() { return getActionView(interruptActions); }
 
     public void addStandardAction(DataAction action) { addAction(action, standardActions); }
     public void addMoveAction(DataAction action) { addAction(action, moveActions); }
@@ -133,6 +140,8 @@ public class CharCombat {
         auraActions.clear();
         freeActions.clear();
         interruptActions.clear();
+        standardActions.add(standardAttackAction);
+        standardActions.add(grappleAction);
     }
 
     public void addStatus(DataStatus status) {
@@ -184,20 +193,12 @@ public class CharCombat {
 
     /** Updates the baseline Standard Attack range (used by UI weapon selection). */
     public void updateStandardAttackRange(int range) {
-        for (DataAction action : standardActions) {
-            if (action != null && "Standard Attack".equalsIgnoreCase(action.getName())) {
-                action.setRanged(range);
-            }
-        }
+        standardAttackAction.setRanged(range);
     }
 
-    /** Returns freshly generated action instances for the given bucket. */
-    private List<DataAction> generateActions(List<DataAction> bucket) {
-        List<DataAction> generated = new ArrayList<>();
-        if (bucket == null) return generated;
-        for (DataAction action : bucket) {
-            generated.add(new DataAction(action));
-        }
-        return generated;
+    /** Returns a read-only view of the current action bucket. */
+    private List<DataAction> getActionView(List<DataAction> bucket) {
+        if (bucket == null) return List.of();
+        return Collections.unmodifiableList(bucket);
     }
 }

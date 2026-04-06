@@ -6,9 +6,14 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,6 +34,15 @@ import javax.swing.text.DefaultFormatterFactory;
  */
 public class PanelCharBase extends JPanel {
 	private static final long serialVersionUID = 1L;
+	private static final Set<String> ATTRIBUTE_SHORT_KEYS = Set.of("STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB");
+	private static final int REMINDER_MAX_ROWS = 2;
+	private static final DataColor DEFAULT_DISPLAY_COLOR = new DataColor("Default", 0, 0, 0, 255, 255, 255);
+	private static final ThreadLocal<DecimalFormat> UI_DECIMAL_FORMAT = ThreadLocal.withInitial(() -> {
+		DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(Locale.ROOT);
+		DecimalFormat format = new DecimalFormat("0.00", symbols);
+		format.setGroupingUsed(false);
+		return format;
+	});
 	DataQuery dataQuery;
 	CharData character;
 	FrameSheet sheetFrame;
@@ -47,6 +61,9 @@ public class PanelCharBase extends JPanel {
 	JLabel raceRemind;
 	private JLabel tabTitleL;
 	private static final int REMINDER_TOP_MARGIN = 10;
+	private final JLabel[] reminderLabels = new JLabel[REMINDER_MAX_ROWS];
+	@SuppressWarnings("unchecked")
+	private final JComboBox<String>[] reminderCombos = new JComboBox[REMINDER_MAX_ROWS];
 	
 	final String[] ATTRIBUTES = {"Strength", "Dexterity", "Constitution", "Focus", "Control", "Capacity", "Knowledge", "Mechanical", "Perception", "Intuition", "Charisma", "Subtlety"};
 	final String[] ATTSHORT = {"STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"};
@@ -132,6 +149,7 @@ public class PanelCharBase extends JPanel {
 		raceRemind.setBounds(0,0,555,40);
 		racePanel.add(raceRemind);
 		raceRemind.setVisible(true);
+		initializeReminderRows();
 		add(racePanel);
 		racePanel.setVisible(true);
 		tabTitleL = buildLabel("");
@@ -184,6 +202,22 @@ public class PanelCharBase extends JPanel {
 		return pageHeight;
 	}
 
+	private void initializeReminderRows() {
+		for (int i = 0; i < REMINDER_MAX_ROWS; i++) {
+			JLabel lineLabel = new JLabel();
+			lineLabel.setVisible(false);
+			lineLabel.setForeground(Color.WHITE);
+			racePanel.add(lineLabel);
+			reminderLabels[i] = lineLabel;
+
+			JComboBox<String> drop = new JComboBox<>();
+			drop.setVisible(false);
+			racePanel.add(drop);
+			racePanel.setComponentZOrder(drop, 0);
+			reminderCombos[i] = drop;
+		}
+	}
+
 	public void setTabTitle(String title) {
 		if (title == null) {
 			tabTitleL.setText("");
@@ -199,10 +233,8 @@ public class PanelCharBase extends JPanel {
 		if (character == null || character.getAttributes() == null) return;
 
 		double mod = safeAttribute(character.getAttributes(), att);
-		for (String e: ATTSHORT) {
-			if (e.equalsIgnoreCase(att)) {
-				mod -= 10;
-			}
+		if (skill && att != null && ATTRIBUTE_SHORT_KEYS.contains(att.toUpperCase())) {
+			mod -= 10;
 		}
 
 		if (skill) {
@@ -220,10 +252,10 @@ public class PanelCharBase extends JPanel {
 			raceColor = dataQuery.getColorByTitle(character.getIdentity().getRace());
 		}
 		if (raceColor == null) {
-			raceColor = new DataColor("Default", 0, 0, 0, 255, 255, 255);
+			raceColor = DEFAULT_DISPLAY_COLOR;
 		}
-		String colorString1 = String.format("#%02x%02x%02x", raceColor.getBackRed(), raceColor.getBackGreen(), raceColor.getBackBlue());
-		String colorString2 = String.format("#%02x%02x%02x", raceColor.getForeRed(), raceColor.getForeGreen(), raceColor.getForeBlue());
+		String colorString1 = toHexColor(raceColor.getBackRed(), raceColor.getBackGreen(), raceColor.getBackBlue());
+		String colorString2 = toHexColor(raceColor.getForeRed(), raceColor.getForeGreen(), raceColor.getForeBlue());
 		String tempString = "!scriptcard {{ --#titleCardBackground|" + colorString1 + " --#titleFontFace|Arial --#titleFontSize|2em --#titleFontColor|" + colorString1;
 		tempString += " --#titleCardBottomBorder|4px solid #000000; --#title|";
 		String charName = (character.getIdentity() != null && character.getIdentity().getName() != null)
@@ -232,7 +264,7 @@ public class PanelCharBase extends JPanel {
 		tempString += charName + " --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|" + colorString2 + " --#leftSub|";
 		tempString += checkName + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em  --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		tempString += " --=SkillCheck|1d20+" + fmt(mod) + " --+| [$SkillCheck] = [$SkillCheck.Base] + " + (int)mod;
+		tempString += " --=RawPercentRoll|1d21 + 9 * 5 --=PercentRoll|1d21 + 9 * 5 / 100 --=SkillCheck|[$PercentRoll] * " + fmt(mod) + " {FLOOR} --+| [$SkillCheck] = [$PercentRoll] x " + (int)mod;
 		if (att.compareTo("INIT") != 0) tempString += "}}";
 		else tempString += " --=InitTotal| [$SkillCheck] + @{tracker|" + charName + "} &{noerror} --+|Total: --+| [$InitTotal] = [$SkillCheck] +  @{tracker|" + charName + "} &{noerror} --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
 		
@@ -245,12 +277,24 @@ public class PanelCharBase extends JPanel {
 	private int safeAttribute(CharAttributes attrs, String key) {
 		if (attrs == null || key == null) return 0;
 		String upper = key.toUpperCase();
-		for (String k : ATTSHORT) {
-			if (k.equals(upper)) {
-				return attrs.getAttribute(upper);
-			}
+		if (ATTRIBUTE_SHORT_KEYS.contains(upper)) {
+			return attrs.getAttribute(upper);
 		}
-		return 0;
+		switch (upper) {
+			case "FORT":
+			case "REF":
+			case "WILL":
+			case "DEF":
+			case "DODGE":
+			case "AVOID":
+				return attrs.getDefense(upper);
+			case "INIT":
+			case "ATK":
+			case "APP":
+				return attrs.getCombat(upper);
+			default:
+				return 0;
+		}
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -264,12 +308,24 @@ public class PanelCharBase extends JPanel {
 	 */
 	public void updateCharacter(CharData character) {
 		this.character = character;
-		updateHPAura();
-		updateReminder();
+		refreshBaseState();
 		updateAll();
 	}  /*--------------
 		END UPDATE CHARACTER
 		--------------*/
+
+	protected void refreshBaseState() {
+		refreshHPAuraOnly();
+		refreshReminderOnly();
+	}
+
+	protected void refreshHPAuraOnly() {
+		updateHPAura();
+	}
+
+	protected void refreshReminderOnly() {
+		updateReminder();
+	}
 	
 	/*
 	 * 		UPDATE HP & AURA
@@ -440,12 +496,11 @@ public class PanelCharBase extends JPanel {
 	 */
 	public void updateReminder() {
 		String reminder = (character != null) ? character.getPanelReminder() : null;
-		racePanel.removeAll();
-		racePanel.setLayout(null);
+		resetReminderRows();
 		if (reminder == null || reminder.isBlank()) {
 			raceRemind.setText("This is where your reminder will go.");
 			raceRemind.setBounds(0, REMINDER_TOP_MARGIN, 555, 40);
-			racePanel.add(raceRemind);
+			raceRemind.setVisible(true);
 		} else {
 			String normalized = reminder.replace("\r\n", "\n").replace("\r", "\n");
 			String[] lines = normalized.split("\n");
@@ -454,7 +509,7 @@ public class PanelCharBase extends JPanel {
 				if (rawLine == null) continue;
 				String line = rawLine.trim();
 				if (line.isBlank()) continue;
-				if (row >= 2) break; // fits existing 50px reminder panel footprint with top margin
+				if (row >= REMINDER_MAX_ROWS) break; // fits existing 50px reminder panel footprint with top margin
 
 				String[] parts = line.split("::", 2);
 				if (parts.length == 2) {
@@ -476,17 +531,18 @@ public class PanelCharBase extends JPanel {
 						}
 					}
 					if (!options.isEmpty()) {
-						JLabel lineLabel = new JLabel(entryText);
+						JLabel lineLabel = reminderLabels[row];
+						lineLabel.setText(entryText);
 						lineLabel.setHorizontalAlignment(JTextField.RIGHT);
 						lineLabel.setBounds(5, REMINDER_TOP_MARGIN + (row * 20), 255, 20);
-						lineLabel.setForeground(Color.WHITE);
 						lineLabel.setVisible(true);
-						racePanel.add(lineLabel);
 
-						JComboBox<String> drop = new JComboBox<>(options.toArray(new String[0]));
-						int dropWidth = 142;
-						int dropX = 275;
-						drop.setBounds(dropX, REMINDER_TOP_MARGIN + (row * 20), dropWidth, 20);
+						JComboBox<String> drop = reminderCombos[row];
+						drop.removeAllItems();
+						for (String option : options) {
+							drop.addItem(option);
+						}
+						drop.setBounds(275, REMINDER_TOP_MARGIN + (row * 20), 142, 20);
 						boolean isFelshify = entryText.toLowerCase().contains("felshify");
 						if (isFelshify) {
 							drop.setSelectedItem("Cat");
@@ -512,19 +568,16 @@ public class PanelCharBase extends JPanel {
 							});
 						}
 						drop.setVisible(true);
-						racePanel.add(drop);
-						racePanel.setComponentZOrder(drop, 0);
 						row++;
 						continue;
 					}
 				}
 
-				JLabel lineLabel = new JLabel(line);
+				JLabel lineLabel = reminderLabels[row];
+				lineLabel.setText(line);
 				lineLabel.setHorizontalAlignment(JTextField.CENTER);
 				lineLabel.setBounds(0, REMINDER_TOP_MARGIN + (row * 20), 555, 20);
-				lineLabel.setForeground(Color.WHITE);
 				lineLabel.setVisible(true);
-				racePanel.add(lineLabel);
 				row++;
 			}
 		}
@@ -555,10 +608,24 @@ public class PanelCharBase extends JPanel {
 		return false;
 	}
 
+	private void resetReminderRows() {
+		raceRemind.setVisible(false);
+		for (int i = 0; i < REMINDER_MAX_ROWS; i++) {
+			reminderLabels[i].setText("");
+			reminderLabels[i].setVisible(false);
+			JComboBox<String> combo = reminderCombos[i];
+			combo.setVisible(false);
+			combo.removeAllItems();
+			for (var listener : combo.getActionListeners()) {
+				combo.removeActionListener(listener);
+			}
+		}
+	}
+
 	private ArrayList<String> getShapeshiftOptionsFromLists() {
-		ArrayList<String> options = new ArrayList<>();
-		options.add("** None **");
-		if (character == null || character.getLists() == null) return options;
+		LinkedHashSet<String> optionSet = new LinkedHashSet<>();
+		optionSet.add("** None **");
+		if (character == null || character.getLists() == null) return new ArrayList<>(optionSet);
 
 		for (List<DataList> listGroup : character.getLists()) {
 			if (listGroup == null) continue;
@@ -570,11 +637,10 @@ public class PanelCharBase extends JPanel {
 				if (name == null) continue;
 				String trimmed = name.trim();
 				if (trimmed.isBlank()) continue;
-				boolean exists = options.stream().anyMatch(o -> o.equalsIgnoreCase(trimmed));
-				if (!exists) options.add(trimmed);
+				optionSet.add(trimmed);
 			}
 		}
-		return options;
+		return new ArrayList<>(optionSet);
 	}
 	
 	/*
@@ -741,12 +807,27 @@ public class PanelCharBase extends JPanel {
 
 	/** Formats doubles to two decimal places for UI/tooltips. */
 	protected String fmt(double val) {
-		return String.format("%.2f", val);
+		return UI_DECIMAL_FORMAT.get().format(val);
 	}
 
 	/** Rounds a double to two decimal places for numeric fields. */
 	protected double round2(double val) {
 		return Math.round(val * 100.0) / 100.0;
+	}
+
+	private static String toHexColor(int red, int green, int blue) {
+		char[] hex = new char[7];
+		hex[0] = '#';
+		writeHexByte(hex, 1, red);
+		writeHexByte(hex, 3, green);
+		writeHexByte(hex, 5, blue);
+		return new String(hex);
+	}
+
+	private static void writeHexByte(char[] chars, int offset, int value) {
+		int clamped = Math.max(0, Math.min(255, value));
+		chars[offset] = Character.toLowerCase(Character.forDigit((clamped >>> 4) & 0xF, 16));
+		chars[offset + 1] = Character.toLowerCase(Character.forDigit(clamped & 0xF, 16));
 	}
 	
 } ///////////////////////////////////////////////END OF CLASS////////////////////////////////////////////////////////////////////////

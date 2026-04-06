@@ -19,6 +19,7 @@ private final DataQuery dataQuery;
 private CharData character;
 private boolean skipLevelIncrement = false;
 private Integer levelContext = null; // optional override for display/logic
+private Integer subclassReminderLevel = null;
 
 	private final FrameSkill frameSkill;
 	private final FrameSpecial frameSpecial;
@@ -204,7 +205,8 @@ private Integer levelContext = null; // optional override for display/logic
 				(character != null && character.getIdentity() != null ? character.getIdentity().getLevel() : 0);
 
 		// Warn about subclass lock-in at level 5
-		if (currentLevel == 5 && character != null && character.getIdentity() != null) {
+		if (currentLevel == 5 && !java.util.Objects.equals(subclassReminderLevel, currentLevel)
+				&& character != null && character.getIdentity() != null) {
 			String subclass = character.getIdentity().getCharSubclass();
 			String cls = character.getIdentity().getCharClass();
 			String msg = "Upon reaching level 5 you will not be able to change subclass.\n"
@@ -212,6 +214,7 @@ private Integer levelContext = null; // optional override for display/logic
 					+ "Current subclass: " + (subclass == null ? "?" : subclass) + "\n\n"
 					+ "Ensure the correct subclass is selected before proceeding.";
 			javax.swing.JOptionPane.showMessageDialog(this, msg, "Subclass Reminder", javax.swing.JOptionPane.WARNING_MESSAGE);
+			subclassReminderLevel = currentLevel;
 		}
 
 		headerL.setText("Welcome to level " + currentLevel);
@@ -259,8 +262,9 @@ private Integer levelContext = null; // optional override for display/logic
 		character.updateAll();
 		
 		if (sheetFrame != null) {
-			sheetFrame.loadCharacter(character);
-			sheetFrame.refreshMainPanel(); // ensure main stats refresh after level-up
+			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+			sheetFrame.refreshTrainingPanel();
 		}
 
 		int currentLevel = character != null && character.getIdentity() != null ? character.getIdentity().getLevel() : 0;
@@ -275,6 +279,7 @@ private Integer levelContext = null; // optional override for display/logic
 		// always reset skip flag after processing to avoid leaking across sessions
 		skipLevelIncrement = false;
 		levelContext = null;
+		subclassReminderLevel = null;
 		this.dispose();
 	}
 

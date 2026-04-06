@@ -1,9 +1,10 @@
 package eternity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Basic attribute data for a character.
@@ -22,6 +23,12 @@ public class CharAttributes {
     private static final String[] COMBAT = { "ATK", "MATK", "RATK", "APP", "MOVE", "FLY", "RANGE", "INIT" };
     private static final String[] SECONDARY = { "SUP", "IMP", "BEN", "EXCL", "GRANT", "CRUSH", "AREA", "MAST", "CMAN", "MAXATK" };
     private static final String[] DAMAGE = { "BDMG", "BMDMG", "BRDMG", "TDMG", "TMDMG", "TRDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
+    private static final Map<String, Integer> ATTRIBUTE_INDEX = buildIndexMap(ATTRIBUTES);
+    private static final Map<String, Integer> DEFENSE_INDEX = buildIndexMap(DEFENSE);
+    private static final Map<String, Integer> RESIST_INDEX = buildIndexMap(DMGTYPE);
+    private static final Map<String, Integer> COMBAT_INDEX = buildIndexMap(COMBAT);
+    private static final Map<String, Integer> SECONDARY_INDEX = buildIndexMap(SECONDARY);
+    private static final Map<String, Integer> DAMAGE_INDEX = buildIndexMap(DAMAGE);
 
     //  GENERIC STAT ARRAYS
 
@@ -31,6 +38,9 @@ public class CharAttributes {
     @JsonProperty("combat") private StatBlock[] combat;
     @JsonProperty("secondary") private StatBlock[] secondary;
     @JsonProperty("damage") private StatBlock[] damage;
+    @JsonIgnore private transient boolean defenseSized;
+    @JsonIgnore private transient boolean secondarySized;
+    @JsonIgnore private transient boolean damageSized;
 
     public CharAttributes() {
     	this.attributes = initCategory(ATTRIBUTES);
@@ -39,6 +49,9 @@ public class CharAttributes {
     	this.combat     = initCategory(COMBAT);
     	this.secondary  = initCategory(SECONDARY);
         this.damage     = initCategory(DAMAGE);
+        this.defenseSized = true;
+        this.secondarySized = true;
+        this.damageSized = true;
     }
 
     // ---------------------------------------------------------
@@ -95,10 +108,33 @@ public class CharAttributes {
     //  UTILITY: INDEX MAPPING
     // ---------------------------------------------------------
 
-    private int idx(String[] group, String key) {
+    private static Map<String, Integer> buildIndexMap(String[] keys) {
+        Map<String, Integer> indexMap = new HashMap<>(keys.length);
+        for (int i = 0; i < keys.length; i++) {
+            indexMap.put(keys[i].toLowerCase(), i);
+        }
+        return indexMap;
+    }
+
+    private int idx(Map<String, Integer> indexMap, String key) {
         if (key == null) return -1;
-        for (int i = 0; i < group.length; i++) if (group[i].equalsIgnoreCase(key)) return i; 
-        return -1;
+        Integer index = indexMap.get(key.toLowerCase());
+        return index == null ? -1 : index;
+    }
+
+    private void ensureLegacyCategorySizing() {
+        if (!defenseSized) {
+            defense = ensureCategorySize(defense, DEFENSE);
+            defenseSized = true;
+        }
+        if (!secondarySized) {
+            secondary = ensureCategorySize(secondary, SECONDARY);
+            secondarySized = true;
+        }
+        if (!damageSized) {
+            damage = ensureCategorySize(damage, DAMAGE);
+            damageSized = true;
+        }
     }
 
     // ---------------------------------------------------------
@@ -169,23 +205,16 @@ public class CharAttributes {
     // ---------------------------------------------------------
 
     public StatBlock getBlock(String category, String key) {
+        if (category == null) return null;
+        ensureLegacyCategorySizing();
         int i;
         switch (category.toLowerCase()) {
-            case "attribute": i = idx(ATTRIBUTES, key); return i >= 0 ? attributes[i] : null;
-            case "defense":
-                defense = ensureCategorySize(defense, DEFENSE);
-                i = idx(DEFENSE, key);
-                return i >= 0 && i < defense.length ? defense[i] : null;
-            case "resist":    i = idx(DMGTYPE, key);    return i >= 0 ? resist[i] : null;
-            case "combat":    i = idx(COMBAT, key);     return i >= 0 ? combat[i] : null;
-            case "secondary":
-                secondary = ensureCategorySize(secondary, SECONDARY);
-                i = idx(SECONDARY, key);
-                return i >= 0 && i < secondary.length ? secondary[i] : null;
-            case "damage":
-                damage = ensureCategorySize(damage, DAMAGE);
-                i = idx(DAMAGE, key);
-                return i >= 0 && i < damage.length ? damage[i] : null;
+            case "attribute": i = idx(ATTRIBUTE_INDEX, key); return i >= 0 ? attributes[i] : null;
+            case "defense":   i = idx(DEFENSE_INDEX, key);   return i >= 0 && i < defense.length ? defense[i] : null;
+            case "resist":    i = idx(RESIST_INDEX, key);    return i >= 0 ? resist[i] : null;
+            case "combat":    i = idx(COMBAT_INDEX, key);    return i >= 0 ? combat[i] : null;
+            case "secondary": i = idx(SECONDARY_INDEX, key); return i >= 0 && i < secondary.length ? secondary[i] : null;
+            case "damage":    i = idx(DAMAGE_INDEX, key);    return i >= 0 && i < damage.length ? damage[i] : null;
             default: return null;
         }
     }
@@ -199,7 +228,7 @@ public class CharAttributes {
             base.setName(label);
             base.setAttribute(key);
             base.setDurationType("Permanent");
-            boolean isAttributeKey = Arrays.stream(ATTRIBUTES).anyMatch(a -> a.equalsIgnoreCase(key));
+            boolean isAttributeKey = ATTRIBUTE_INDEX.containsKey(key.toLowerCase());
             if (isAttributeKey) {
                 base.setSeverity("Passive".equals(label) ? 10 : 0); // attribute bases start at 10
             } else if ("MAXATK".equalsIgnoreCase(key)) {

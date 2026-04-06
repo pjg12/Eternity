@@ -3,6 +3,7 @@ package eternity;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 /**
  * Main Eternity TTRPG Function
@@ -14,17 +15,29 @@ public class EternityMain {
     }
 
     private static void startApp() {
-        // Load Saved Characters (fallback to empty on failure)
-        ArrayList<CharStore> store = CharacterDataManager.loadCharStore();
-        if (store == null) {
-            store = new ArrayList<>();
-        }
-
-        // Generate Character Sheet
-        FrameSheet sheetFrame = new FrameSheet(store);
-
-        // Show the welcome screen (user chooses New or Load)
-        FrameFirst first = new FrameFirst(sheetFrame);
+        FrameFirst first = new FrameFirst();
         first.setVisible(true);
+
+        new SwingWorker<ArrayList<StoreChar>, Void>() {
+            @Override
+            protected ArrayList<StoreChar> doInBackground() {
+                ArrayList<StoreChar> store = CharDataManager.loadCharStore();
+                if (store == null) {
+                    store = new ArrayList<>();
+                }
+                return store;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    ArrayList<StoreChar> store = get();
+                    first.attachStartupStore(store);
+                } catch (Exception e) {
+                    first.showLoadError("Failed to initialize application: " + e.getMessage());
+                }
+            }
+        }.execute();
     }
+
 }

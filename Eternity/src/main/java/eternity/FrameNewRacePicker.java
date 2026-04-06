@@ -2,11 +2,9 @@ package eternity;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +17,9 @@ import javax.swing.SwingConstants;
  * Data-driven race picker with String keys, modeled after FrameNewClassPicker.
  */
 public class FrameNewRacePicker extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private static final String EMPTY_OPTION = "***";
+    private static volatile String[] sortedRaceNamesCache;
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNewRace parent;
@@ -96,24 +97,20 @@ public class FrameNewRacePicker extends JFrame {
 
     private ChoiceConfig cfgStatic(String[] vals) {
         ChoiceConfig c = new ChoiceConfig(ChoiceType.STATIC);
-        c.staticOptions = vals;
+        c.options = vals;
         return c;
     }
 
     private String[] getShapeshiftRaceOptions(String currentRaceName) {
-        List<DataRace> allRaces = dataQuery.searchRaceByName("");
-        if (allRaces == null || allRaces.isEmpty()) {
-            return SHAPESHIFT_OPTIONS;
+        String[] allNames = getSortedRaceNames();
+        if (allNames.length == 0) return SHAPESHIFT_OPTIONS;
+
+        ArrayList<String> names = new ArrayList<>(allNames.length);
+        for (String name : allNames) {
+            if (!name.equalsIgnoreCase(currentRaceName)) {
+                names.add(name);
+            }
         }
-
-        List<String> names = allRaces.stream()
-                .map(DataRace::getName)
-                .filter(name -> name != null && !name.isBlank())
-                .filter(name -> !name.equalsIgnoreCase(currentRaceName))
-                .distinct()
-                .sorted(String.CASE_INSENSITIVE_ORDER)
-                .collect(Collectors.toList());
-
         return names.toArray(new String[0]);
     }
 
@@ -139,21 +136,23 @@ public class FrameNewRacePicker extends JFrame {
     }
 
     private void initComboBox(ChoiceConfig cfg, JComboBox<String> box) {
-        box.addItem("***");
+        box.addItem(EMPTY_OPTION);
 
-        if (cfg.type == ChoiceType.STATIC && cfg.staticOptions != null) {
-            Arrays.stream(cfg.staticOptions).forEach(box::addItem);
+        if (cfg.type == ChoiceType.STATIC && cfg.options != null) {
+            for (String option : cfg.options) {
+                box.addItem(option);
+            }
         }
     }
 
     private void acceptChoices() {
-        List<String> raceChoices = new ArrayList<>();
+        ArrayList<String> raceChoices = new ArrayList<>(choiceModel.size());
 
         for (String label : choiceModel.keySet()) {
             JComboBox<String> box = fields.get(label);
             String value = box != null ? (String) box.getSelectedItem() : null;
 
-            if (value == null || value.equals("***")) {
+            if (value == null || value.equals(EMPTY_OPTION)) {
                 JOptionPane.showMessageDialog(this, "Please complete all fields.");
                 return;
             }
@@ -161,8 +160,8 @@ public class FrameNewRacePicker extends JFrame {
             raceChoices.add(value);
         }
 
-        character.getIdentity().setCharRacePick(new ArrayList<>(raceChoices));
-        parent.raceChoicesConfirmed(new ArrayList<>(raceChoices));
+        character.getIdentity().setCharRacePick(raceChoices);
+        parent.raceChoicesConfirmed(raceChoices);
         dispose();
     }
 
@@ -176,11 +175,37 @@ public class FrameNewRacePicker extends JFrame {
 
     private static class ChoiceConfig {
         ChoiceType type;
-        String[] staticOptions;
+        String[] options;
 
         ChoiceConfig(ChoiceType type) {
             this.type = type;
         }
+    }
+
+    private String[] getSortedRaceNames() {
+        String[] cached = sortedRaceNamesCache;
+        if (cached != null) {
+            return cached;
+        }
+
+        List<DataRace> allRaces = dataQuery.searchRaceByName("");
+        if (allRaces == null || allRaces.isEmpty()) {
+            sortedRaceNamesCache = SHAPESHIFT_OPTIONS;
+            return SHAPESHIFT_OPTIONS;
+        }
+
+        java.util.TreeSet<String> names = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        for (DataRace race : allRaces) {
+            if (race == null) continue;
+            String name = race.getName();
+            if (name != null && !name.isBlank()) {
+                names.add(name);
+            }
+        }
+
+        String[] built = names.toArray(new String[0]);
+        sortedRaceNamesCache = built;
+        return built;
     }
 
     private static final String[] SHAPESHIFT_OPTIONS = {};

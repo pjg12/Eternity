@@ -9,10 +9,14 @@ import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Affinity and starter weapon selection.
@@ -29,9 +33,11 @@ public class FrameNewAura extends JFrame {
             "***", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity",
             "Force", "Sound", "Light", "Darkness", "Poison", "Psionic", "Energy", "Spirit", "Time"
     };
+    private static final String EMPTY_OPTION = "***";
 
     private JComboBox<String> auraPick;
-    private final ArrayList<JComboBox<String>> weaponPick = new ArrayList<>();
+    private final JComboBox<String>[] weaponPick = new JComboBox[2];
+    private final Map<String, List<String>> starterWeaponsByProfile = new HashMap<>();
 
     public FrameNewAura(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Affinity & Starter Weapons");
@@ -91,11 +97,11 @@ public class FrameNewAura extends JFrame {
 
         for (int i = 0; i < 2; i++) {
             JComboBox<String> box = new JComboBox<>();
-            box.addItem("***");
+            box.addItem(EMPTY_OPTION);
             for (String weapon : starterWeapons) box.addItem(weapon);
             box.setBounds(225, 100 + 60 * i, 250, 22);
             box.setEnabled(hasProfs);
-            weaponPick.add(box);
+            weaponPick[i] = box;
             add(box);
         }
     }
@@ -114,7 +120,7 @@ public class FrameNewAura extends JFrame {
 
     private void auraConfirm() {
         if (gmMode) {
-            int idx = (int) (Math.random() * 18); // 0..17 inclusive
+            int idx = ThreadLocalRandom.current().nextInt(1, AURATYPE.length);
             auraPick.setSelectedItem(AURATYPE[idx]);
             // auto-pick first non "***" weapon options if available
             for (JComboBox<String> wp : weaponPick) {
@@ -125,17 +131,23 @@ public class FrameNewAura extends JFrame {
         }
 
         String affinity = (String) auraPick.getSelectedItem();
-        if (affinity == null || "***".equals(affinity)) {
+        if (affinity == null || EMPTY_OPTION.equals(affinity)) {
             JOptionPane.showMessageDialog(this, "Select a Natural Affinity to proceed.");
             return;
         }
 
         // Validate weapon picks only if profs exist
-        boolean requireWeapons = weaponPick.stream().anyMatch(JComboBox::isEnabled);
+        boolean requireWeapons = false;
+        for (JComboBox<String> wp : weaponPick) {
+            if (wp.isEnabled()) {
+                requireWeapons = true;
+                break;
+            }
+        }
         if (requireWeapons) {
             for (JComboBox<String> wp : weaponPick) {
                 String val = (String) wp.getSelectedItem();
-                if (val == null || "***".equals(val)) {
+                if (val == null || EMPTY_OPTION.equals(val)) {
                     JOptionPane.showMessageDialog(this, "Select 2 starter weapons to proceed.");
                     return;
                 }
@@ -159,8 +171,14 @@ public class FrameNewAura extends JFrame {
     }
 
     private List<String> getStarterWeaponOptions(List<String> profs) {
-        Set<String> names = new LinkedHashSet<>();
         if (profs == null || profs.isEmpty() || dataQuery == null) return new ArrayList<>();
+        String cacheKey = buildProfileKey(profs);
+        List<String> cached = starterWeaponsByProfile.get(cacheKey);
+        if (cached != null) {
+            return cached;
+        }
+
+        Set<String> names = new LinkedHashSet<>();
 
         List<DataItemEquipment> all = dataQuery.searchItems("");
         for (DataItemEquipment item : all) {
@@ -184,6 +202,7 @@ public class FrameNewAura extends JFrame {
 
         ArrayList<String> out = new ArrayList<>(names);
         out.sort(Comparator.naturalOrder());
+        starterWeaponsByProfile.put(cacheKey, out);
         return out;
     }
 
@@ -205,5 +224,17 @@ public class FrameNewAura extends JFrame {
         if ("Heavy".equalsIgnoreCase(p) && slot.toLowerCase().contains("heavy")) return true;
         if (p.equalsIgnoreCase(type)) return true;
         return p.equalsIgnoreCase(name);
+    }
+
+    private String buildProfileKey(List<String> profs) {
+        ArrayList<String> normalized = new ArrayList<>(profs.size());
+        for (String prof : profs) {
+            if (prof != null && !prof.isBlank()) {
+                normalized.add(prof.trim().toLowerCase());
+            }
+        }
+        String[] parts = normalized.toArray(new String[0]);
+        Arrays.sort(parts);
+        return String.join("|", parts);
     }
 }

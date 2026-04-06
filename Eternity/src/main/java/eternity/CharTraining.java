@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,11 +25,11 @@ public class CharTraining {
 
     /** Natural elemental / cosmic affinities the character is born with. */
     @JsonProperty
-    private final List<String> naturalAffinities;
+    private final Set<String> naturalAffinities;
 
     /** Deity / cosmic domain associations (if used by your setting). */
     @JsonProperty
-    private final List<String> domains;
+    private final Set<String> domains;
 
     /** Whether the character is Deviant (special case mutation). */
     @JsonProperty
@@ -44,6 +47,22 @@ public class CharTraining {
      */
     @JsonProperty
     private final Map<String, List<DataTraining>> trainingByCategory;
+    @JsonIgnore
+    private final Map<String, Set<Integer>> trainingIdsByCategory;
+    @JsonIgnore
+    private final Map<Integer, DataTraining> trainingById;
+    @JsonIgnore
+    private final Map<String, DataTraining> trainingByName;
+    @JsonIgnore
+    private final Map<String, List<DataTraining>> trainingViewsByCategory;
+    @JsonIgnore
+    private List<DataTraining> allTrainingCache;
+    @JsonIgnore
+    private boolean allTrainingDirty;
+    @JsonIgnore
+    private final Set<String> dirtyCategories;
+    @JsonIgnore
+    private final Set<String> sortedCategories;
 
 
     // ---------------------------------------------------------
@@ -51,9 +70,17 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     public CharTraining() {
-        this.naturalAffinities = new ArrayList<>();
-        this.domains = new ArrayList<>();
+        this.naturalAffinities = new LinkedHashSet<>();
+        this.domains = new LinkedHashSet<>();
         this.trainingByCategory = new HashMap<>();
+        this.trainingIdsByCategory = new HashMap<>();
+        this.trainingById = new HashMap<>();
+        this.trainingByName = new HashMap<>();
+        this.trainingViewsByCategory = new HashMap<>();
+        this.allTrainingCache = List.of();
+        this.allTrainingDirty = true;
+        this.dirtyCategories = new HashSet<>();
+        this.sortedCategories = new HashSet<>();
 
         this.isDeviant = false;
         this.classTrainingRank = 1;
@@ -65,21 +92,24 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     public List<String> getNaturalAffinities() {
-        return Collections.unmodifiableList(naturalAffinities);
+        return List.copyOf(naturalAffinities);
     }
 
     public void addNaturalAffinity(String affinity) {
-        if (affinity != null && !naturalAffinities.contains(affinity)) {
-            naturalAffinities.add(affinity);
-        }
+        addUniqueIgnoreCase(naturalAffinities, affinity);
     }
 
     public void removeNaturalAffinity(String affinity) {
-        naturalAffinities.remove(affinity);
+        if (affinity == null) return;
+        naturalAffinities.removeIf(existing -> existing != null && existing.equalsIgnoreCase(affinity));
     }
 
     public boolean hasAffinity(String affinity) {
-        return naturalAffinities.contains(affinity);
+        if (affinity == null) return false;
+        for (String existing : naturalAffinities) {
+            if (existing != null && existing.equalsIgnoreCase(affinity)) return true;
+        }
+        return false;
     }
 
 
@@ -88,17 +118,16 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     public List<String> getDomains() {
-        return Collections.unmodifiableList(domains);
+        return List.copyOf(domains);
     }
 
     public void addDomain(String domain) {
-        if (domain != null && !domains.contains(domain)) {
-            domains.add(domain);
-        }
+        addUniqueIgnoreCase(domains, domain);
     }
 
     public void removeDomain(String domain) {
-        domains.remove(domain);
+        if (domain == null) return;
+        domains.removeIf(existing -> existing != null && existing.equalsIgnoreCase(domain));
     }
 
 
@@ -149,7 +178,7 @@ public class CharTraining {
     @JsonIgnore
     public int getBaseMaxTechs() {
         DataLevel dl = null;
-        if (parent != null) dl = new DataQuery().getLevel(parent.getLevel());
+        if (parent != null) dl = CharDataManager.getDataQuery().getLevel(parent.getLevel());
         if (dl != null) return Math.max(0, dl.getBaseTechs());
         return 0;
     }
@@ -159,7 +188,14 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     private List<DataTraining> getOrCreateCategory(String category) {
-        return trainingByCategory.computeIfAbsent(category, k -> new ArrayList<>());
+        String normalizedCategory = normalizeCategory(category);
+        List<DataTraining> list = trainingByCategory.get(normalizedCategory);
+        if (list != null) return list;
+        List<DataTraining> created = new ArrayList<>();
+        trainingByCategory.put(normalizedCategory, created);
+        trainingViewsByCategory.put(normalizedCategory, Collections.unmodifiableList(created));
+        trainingIdsByCategory.put(normalizedCategory, new HashSet<>());
+        return created;
     }
 
     @JsonIgnore
@@ -173,24 +209,36 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     public List<DataTraining> getTrainingList(String category) {
-        return trainingByCategory.containsKey(category)
-                ? Collections.unmodifiableList(trainingByCategory.get(category))
-                : Collections.emptyList();
+        String normalizedCategory = normalizeCategory(category);
+        if (normalizedCategory == null) return Collections.emptyList();
+        List<DataTraining> list = trainingByCategory.get(normalizedCategory);
+        if (list == null) return Collections.emptyList();
+        ensureCategorySorted(normalizedCategory, list);
+        return trainingViewsByCategory.computeIfAbsent(normalizedCategory, ignored -> Collections.unmodifiableList(list));
     }
 
     public void addTraining(DataTraining tech) {
         if (tech != null) {
-            List<DataTraining> list = getOrCreateCategory(tech.getAffinity());
-            if (!list.contains(tech)) {
+            String category = normalizeCategory(tech.getAffinity());
+            List<DataTraining> list = getOrCreateCategory(category);
+            Set<Integer> categoryIds = trainingIdsByCategory.computeIfAbsent(category, ignored -> new HashSet<>());
+            if (categoryIds.add(tech.getId())) {
                 list.add(tech);
-                sortTrainingById();
+                indexTraining(tech);
+                markCategoryDirty(category);
             }
         }
     }
 
     public void removeTraining(String category, DataTraining tech) {
-        if (category != null && tech != null && trainingByCategory.containsKey(category)) {
-            trainingByCategory.get(category).remove(tech);
+        String normalizedCategory = normalizeCategory(category);
+        if (normalizedCategory != null && tech != null && trainingByCategory.containsKey(normalizedCategory)) {
+            if (trainingByCategory.get(normalizedCategory).remove(tech)) {
+                Set<Integer> categoryIds = trainingIdsByCategory.get(normalizedCategory);
+                if (categoryIds != null) categoryIds.remove(tech.getId());
+                removeTrainingIndexes(tech);
+                markCategoryDirty(normalizedCategory);
+            }
         }
     }
 
@@ -201,30 +249,28 @@ public class CharTraining {
 
     /** Search all categories for a training technique by its ID. */
     public DataTraining getTrainingById(int id) {
-        for (var list : trainingByCategory.values()) {
-            for (var t : list) {
-                if (t.getId() == id) return t;
-            }
-        }
-        return null;
+        return trainingById.get(id);
     }
 
     /** Search all categories for a training technique by name. */
     public DataTraining getTrainingByName(String name) {
-        for (var list : trainingByCategory.values()) {
-            for (var t : list) {
-                if (t.getName().equalsIgnoreCase(name)) return t;
-            }
-        }
-        return null;
+        return trainingByName.get(normalizeName(name));
     }
 
     /** All aura techniques combined across every category. */
     @JsonIgnore
     public List<DataTraining> getAllTraining() {
+        if (!allTrainingDirty) {
+            return allTrainingCache;
+        }
         ArrayList<DataTraining> all = new ArrayList<>();
-        for (var list : trainingByCategory.values()) all.addAll(list);
-        return all;
+        for (var entry : trainingByCategory.entrySet()) {
+            ensureCategorySorted(entry.getKey(), entry.getValue());
+            all.addAll(entry.getValue());
+        }
+        allTrainingCache = Collections.unmodifiableList(all);
+        allTrainingDirty = false;
+        return allTrainingCache;
     }
 
     /**
@@ -234,9 +280,15 @@ public class CharTraining {
     @JsonIgnore
     public int getTotalRanksExcluding(List<String> skipCategories) {
         int total = 0;
+        Set<String> normalizedSkips = new HashSet<>();
+        if (skipCategories != null) {
+            for (String category : skipCategories) {
+                String normalized = normalizeName(category);
+                if (normalized != null) normalizedSkips.add(normalized);
+            }
+        }
         for (var entry : trainingByCategory.entrySet()) {
-            String cat = entry.getKey();
-            if (skipCategories != null && skipCategories.stream().anyMatch(s -> s.equalsIgnoreCase(cat))) {
+            if (normalizedSkips.contains(normalizeName(entry.getKey()))) {
                 continue;
             }
             for (DataTraining t : entry.getValue()) total += t.getRank();
@@ -246,12 +298,69 @@ public class CharTraining {
 
     /** Keeps each category list ordered by technique id for stable display/update behavior. */
     public void sortTrainingById() {
+        dirtyCategories.addAll(trainingByCategory.keySet());
+        for (var entry : trainingByCategory.entrySet()) {
+            ensureCategorySorted(entry.getKey(), entry.getValue());
+        }
+    }
+
+    private void ensureCategorySorted(String category, List<DataTraining> list) {
+        if (category == null || list == null) return;
+        if (!dirtyCategories.contains(category) && sortedCategories.contains(category)) return;
         Comparator<DataTraining> byId = Comparator
                 .comparingInt((DataTraining t) -> t == null ? Integer.MAX_VALUE : t.getId())
                 .thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER);
-        for (List<DataTraining> list : trainingByCategory.values()) {
-            list.sort(byId);
+        list.sort(byId);
+        dirtyCategories.remove(category);
+        sortedCategories.add(category);
+    }
+
+    private void indexTraining(DataTraining tech) {
+        if (tech == null) return;
+        trainingById.put(tech.getId(), tech);
+        String normalizedName = normalizeName(tech.getName());
+        if (normalizedName != null) {
+            trainingByName.put(normalizedName, tech);
         }
+        allTrainingDirty = true;
+    }
+
+    private void removeTrainingIndexes(DataTraining tech) {
+        if (tech == null) return;
+        trainingById.remove(tech.getId());
+        String normalizedName = normalizeName(tech.getName());
+        if (normalizedName != null) {
+            trainingByName.remove(normalizedName);
+        }
+        allTrainingDirty = true;
+    }
+
+    private void markCategoryDirty(String category) {
+        if (category != null) {
+            dirtyCategories.add(category);
+            sortedCategories.remove(category);
+        }
+        allTrainingDirty = true;
+    }
+
+    private String normalizeCategory(String category) {
+        return normalizeName(category);
+    }
+
+    private void addUniqueIgnoreCase(Set<String> values, String value) {
+        String normalized = normalizeName(value);
+        if (normalized == null || values == null) return;
+        for (String existing : values) {
+            if (existing != null && existing.equalsIgnoreCase(value)) {
+                return;
+            }
+        }
+        values.add(value);
+    }
+
+    private String normalizeName(String name) {
+        if (name == null || name.isBlank()) return null;
+        return name.toLowerCase(Locale.ROOT);
     }
 
     

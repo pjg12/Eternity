@@ -1,12 +1,11 @@
-C:\Eternity\Eternity\src\main\java\eternity\CharacterDataManager.java
 C:\Eternity\Eternity\src\main\java\eternity\CharAttributes.java
 C:\Eternity\Eternity\src\main\java\eternity\CharCombat.java
 C:\Eternity\Eternity\src\main\java\eternity\CharData.java
+C:\Eternity\Eternity\src\main\java\eternity\CharDataManager.java
 C:\Eternity\Eternity\src\main\java\eternity\CharIdentity.java
 C:\Eternity\Eternity\src\main\java\eternity\CharInventory.java
 C:\Eternity\Eternity\src\main\java\eternity\CharResources.java
 C:\Eternity\Eternity\src\main\java\eternity\CharSpecials.java
-C:\Eternity\Eternity\src\main\java\eternity\CharStore.java
 C:\Eternity\Eternity\src\main\java\eternity\CharTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\DataAction.java
 C:\Eternity\Eternity\src\main\java\eternity\DataBuilder.java
@@ -25,7 +24,6 @@ C:\Eternity\Eternity\src\main\java\eternity\DataRace.java
 C:\Eternity\Eternity\src\main\java\eternity\DataSkill.java
 C:\Eternity\Eternity\src\main\java\eternity\DataSpecialty.java
 C:\Eternity\Eternity\src\main\java\eternity\DataStatus.java
-C:\Eternity\Eternity\src\main\java\eternity\DataStore.java
 C:\Eternity\Eternity\src\main\java\eternity\DataTechPerm.java
 C:\Eternity\Eternity\src\main\java\eternity\DataTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\EternityMain.java
@@ -68,3 +66,5 @@ C:\Eternity\Eternity\src\main\java\eternity\PanelCharTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\PanelImage.java
 C:\Eternity\Eternity\src\main\java\eternity\SpecCheck.java
 C:\Eternity\Eternity\src\main\java\eternity\StatBlock.java
+C:\Eternity\Eternity\src\main\java\eternity\StoreChar.java
+C:\Eternity\Eternity\src\main\java\eternity\StoreData.java

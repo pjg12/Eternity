@@ -1,9 +1,7 @@
 package eternity;
 
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,7 +29,7 @@ public class FrameNewAttribute extends JFrame {
     private static final Integer[] ATTVALUES = {8, 9, 10, 11, 12, 13, 14, 15};
     private static final String[] ATTRIBUTES = {"STR", "DEX", "CON", "FOC", "CAP", "CTL", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"};
 
-    private final ArrayList<JComboBox<Integer>> attributeAnswers = new ArrayList<>();
+    private final JComboBox<Integer>[] attributeAnswers = new JComboBox[6];
     private final int[] coreAtts = new int[6];
     private final int[] charAtts = new int[6];
 
@@ -95,17 +93,19 @@ public class FrameNewAttribute extends JFrame {
             JComboBox<Integer> box = new JComboBox<>(ATTVALUES);
             box.setBounds(160, 80 + 35 * i, 80, 20);
             box.addActionListener(e -> updateRemainder());
-            attributeAnswers.add(box);
+            attributeAnswers[i] = box;
             add(box);
         }
 
         // Buttons
         buttons[0] = new JButton("Back");
         buttons[0].setBounds(140, 280, 100, 28);
+        buttons[0].addActionListener(e -> onBackPressed());
         add(buttons[0]);
 
         buttons[1] = new JButton("Next >>>");
         buttons[1].setBounds(320, 280, 120, 28);
+        buttons[1].addActionListener(e -> onNextPressed());
         add(buttons[1]);
 
         // Static label headers
@@ -150,16 +150,9 @@ public class FrameNewAttribute extends JFrame {
                 "Capacity increases Maximum Aura."
         ));
 
-        for (int i = 0; i < 6; i++) {
-            attributeAnswers.get(i).setSelectedItem(coreAtts[i]);
-            attributeAnswers.get(i).setVisible(true);
-            numFields[i].setVisible(true);
-        }
+        loadPhaseValues(coreAtts);
 
         buttons[0].setText("Back");
-        resetButtonListeners();
-        buttons[0].addActionListener(e -> closeFrame());
-        buttons[1].addActionListener(e -> coreAttConfirm());
 
         updateRemainder();
     }
@@ -170,16 +163,9 @@ public class FrameNewAttribute extends JFrame {
         setLabels(new String[]{"Knowledge", "Mechanical", "Perception", "Intuition", "Charisma", "Subtlety"});
         setTooltips(List.of("", "", "", "", "", ""));
 
-        for (int i = 0; i < 6; i++) {
-            attributeAnswers.get(i).setSelectedItem(charAtts[i]);
-            attributeAnswers.get(i).setVisible(true);
-            numFields[i].setVisible(true);
-        }
+        loadPhaseValues(charAtts);
 
         buttons[0].setText("Back");
-        resetButtonListeners();
-        buttons[0].addActionListener(e -> characterCharAttBack());
-        buttons[1].addActionListener(e -> charAttConfirm());
 
         updateRemainder();
     }
@@ -197,18 +183,13 @@ public class FrameNewAttribute extends JFrame {
         }
     }
 
-    private void resetButtonListeners() {
-        for (ActionListener l : buttons[0].getActionListeners()) buttons[0].removeActionListener(l);
-        for (ActionListener l : buttons[1].getActionListeners()) buttons[1].removeActionListener(l);
-    }
-
     // ---------------------------------------------------------
     // Logic
     // ---------------------------------------------------------
     private void updateRemainder() {
         remainder = 0;
         for (int i = 0; i < 6; i++) {
-            Object sel = attributeAnswers.get(i).getSelectedItem();
+            Object sel = attributeAnswers[i].getSelectedItem();
             if (!(sel instanceof Integer)) continue;
 
             int tempInt = (Integer) sel;
@@ -243,7 +224,7 @@ public class FrameNewAttribute extends JFrame {
         if (!validateSpend()) return;
 
         for (int i = 0; i < 6; i++) {
-            coreAtts[i] = (Integer) attributeAnswers.get(i).getSelectedItem();
+            coreAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
         }
 
         showCharacterPhase();
@@ -251,7 +232,7 @@ public class FrameNewAttribute extends JFrame {
 
     private void characterCharAttBack() {
         for (int i = 0; i < 6; i++) {
-            charAtts[i] = (Integer) attributeAnswers.get(i).getSelectedItem();
+            charAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
         }
         showCorePhase();
     }
@@ -260,7 +241,7 @@ public class FrameNewAttribute extends JFrame {
         if (!validateSpend()) return;
 
         for (int i = 0; i < 6; i++) {
-            charAtts[i] = (Integer) attributeAnswers.get(i).getSelectedItem();
+            charAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
         }
 
         applyAttributesToCharacter();
@@ -298,5 +279,29 @@ public class FrameNewAttribute extends JFrame {
 
     private void closeFrame() {
         dispose();
+    }
+
+    private void loadPhaseValues(int[] values) {
+        for (int i = 0; i < 6; i++) {
+            attributeAnswers[i].setSelectedItem(values[i]);
+            attributeAnswers[i].setVisible(true);
+            numFields[i].setVisible(true);
+        }
+    }
+
+    private void onBackPressed() {
+        if (corePhase) {
+            closeFrame();
+        } else {
+            characterCharAttBack();
+        }
+    }
+
+    private void onNextPressed() {
+        if (corePhase) {
+            coreAttConfirm();
+        } else {
+            charAttConfirm();
+        }
     }
 }
