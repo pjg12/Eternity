@@ -153,10 +153,12 @@ public class PanelCharMain extends PanelCharBase {
 		coreAttL = buildLabel("Core Attribute");
 		coreValueL = buildLabel("Value");
 		coreModL = buildLabel("Modifier");
+		coreModL.setVisible(false);
 		coreRollL = buildLabel("Roll Check");
 		charAttL = buildLabel("Char Attribute");
 		charValueL = buildLabel("Value");
 		charModL = buildLabel("Modifier");
+		charModL.setVisible(false);
 		charRollL = buildLabel("Roll Check");
 
 		strAttL = buildTextField("Strength");
@@ -186,17 +188,29 @@ public class PanelCharMain extends PanelCharBase {
 		charSub = buildNumTextField(0);
 		
 		charStrMod = buildNumTextField(0);
+		charStrMod.setVisible(false);
 		charDexMod = buildNumTextField(0);
+		charDexMod.setVisible(false);
 		charConMod = buildNumTextField(0);
+		charConMod.setVisible(false);
 		charFocMod = buildNumTextField(0);
+		charFocMod.setVisible(false);
 		charCtlMod = buildNumTextField(0);
+		charCtlMod.setVisible(false);
 		charCapMod = buildNumTextField(0);
+		charCapMod.setVisible(false);
 		charKnowMod = buildNumTextField(0);
+		charKnowMod.setVisible(false);
 		charMechMod = buildNumTextField(0);
+		charMechMod.setVisible(false);
 		charPercMod = buildNumTextField(0);
+		charPercMod.setVisible(false);
 		charIntMod = buildNumTextField(0);
+		charIntMod.setVisible(false);
 		charChaMod = buildNumTextField(0);
+		charChaMod.setVisible(false);
 		charSubMod = buildNumTextField(0);
+		charSubMod.setVisible(false);
 		
 		strRoll = buildCheckButton("Strength Check", false, "STR");
 		dexRoll = buildCheckButton("Dexterity Check", false, "DEX");
@@ -360,74 +374,74 @@ public class PanelCharMain extends PanelCharBase {
 		pageHeight += 25;
 		
 
-		coreAttL.setBounds(5, pageHeight, 80, 20);
-		coreValueL.setBounds(90, pageHeight, 50, 20);
+		coreAttL.setBounds(5, pageHeight, 95, 20);
+		coreValueL.setBounds(105, pageHeight, 60, 20);
 		coreModL.setBounds(145, pageHeight, 50, 20);
-		coreRollL.setBounds(200, pageHeight, 80, 20);
-		charAttL.setBounds(285, pageHeight, 80, 20);
-		charValueL.setBounds(370, pageHeight, 50, 20);
+		coreRollL.setBounds(170, pageHeight, 95, 20);
+		charAttL.setBounds(295, pageHeight, 95, 20);
+		charValueL.setBounds(395, pageHeight, 60, 20);
 		charModL.setBounds(425, pageHeight, 50, 20);
-		charRollL.setBounds(480, pageHeight, 80, 20);
+		charRollL.setBounds(460, pageHeight, 95, 20);
 		pageHeight += 20;
 		
-		strAttL.setBounds(5, pageHeight, 80, 20);
-		charStr.setBounds(90, pageHeight, 50, 20);
+		strAttL.setBounds(5, pageHeight, 95, 20);
+		charStr.setBounds(105, pageHeight, 60, 20);
 		charStrMod.setBounds(145, pageHeight, 50, 20);
-		strRoll.setBounds(200, pageHeight, 80, 19);
-		knowAttL.setBounds(285, pageHeight, 80, 20);
-		charKnow.setBounds(370, pageHeight, 50, 20);
+		strRoll.setBounds(170, pageHeight, 95, 19);
+		knowAttL.setBounds(295, pageHeight, 95, 20);
+		charKnow.setBounds(395, pageHeight, 60, 20);
 		charKnowMod.setBounds(425, pageHeight, 50, 19);
-		knowRoll.setBounds(480, pageHeight, 80, 19);
+		knowRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;
 		
-		dexAttL.setBounds(5, pageHeight, 80, 20);
-		charDex.setBounds(90, pageHeight, 50, 20);
+		dexAttL.setBounds(5, pageHeight, 95, 20);
+		charDex.setBounds(105, pageHeight, 60, 20);
 		charDexMod.setBounds(145, pageHeight, 50, 20);
-		dexRoll.setBounds(200, pageHeight, 80, 19);
-		mechAttL.setBounds(285, pageHeight, 80, 20);
-		charMech.setBounds(370, pageHeight, 50, 20);
+		dexRoll.setBounds(170, pageHeight, 95, 19);
+		mechAttL.setBounds(295, pageHeight, 95, 20);
+		charMech.setBounds(395, pageHeight, 60, 20);
 		charMechMod.setBounds(425, pageHeight, 50, 19);
-		mechRoll.setBounds(480, pageHeight, 80, 19);
+		mechRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;
 		
-		conAttL.setBounds(5, pageHeight, 80, 20);
-		charCon.setBounds(90, pageHeight, 50, 20);
+		conAttL.setBounds(5, pageHeight, 95, 20);
+		charCon.setBounds(105, pageHeight, 60, 20);
 		charConMod.setBounds(145, pageHeight, 50, 20);
-		conRoll.setBounds(200, pageHeight, 80, 19);
-		percAttL.setBounds(285, pageHeight, 80, 20);
-		charPerc.setBounds(370, pageHeight, 50, 20);
+		conRoll.setBounds(170, pageHeight, 95, 19);
+		percAttL.setBounds(295, pageHeight, 95, 20);
+		charPerc.setBounds(395, pageHeight, 60, 20);
 		charPercMod.setBounds(425, pageHeight, 50, 19);
-		percRoll.setBounds(480, pageHeight, 80, 19);
+		percRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;
 		
-		focAttL.setBounds(5, pageHeight, 80, 20);
-		charFoc.setBounds(90, pageHeight, 50, 20);
+		focAttL.setBounds(5, pageHeight, 95, 20);
+		charFoc.setBounds(105, pageHeight, 60, 20);
 		charFocMod.setBounds(145, pageHeight, 50, 20);
-		focRoll.setBounds(200, pageHeight, 80, 19);
-		intAttL.setBounds(285, pageHeight, 80, 20);
-		charInt.setBounds(370, pageHeight, 50, 20);
+		focRoll.setBounds(170, pageHeight, 95, 19);
+		intAttL.setBounds(295, pageHeight, 95, 20);
+		charInt.setBounds(395, pageHeight, 60, 20);
 		charIntMod.setBounds(425, pageHeight, 50, 19);
-		intRoll.setBounds(480, pageHeight, 80, 19);
+		intRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;
 		
-		ctlAttL.setBounds(5, pageHeight, 80, 20);
-		charCtl.setBounds(90, pageHeight, 50, 20);	
+		ctlAttL.setBounds(5, pageHeight, 95, 20);
+		charCtl.setBounds(105, pageHeight, 60, 20);	
 		charCtlMod.setBounds(145, pageHeight, 50, 20);
-		ctlRoll.setBounds(200, pageHeight, 80, 19);
-		chaAttL.setBounds(285, pageHeight, 80, 20);
-		charCha.setBounds(370, pageHeight, 50, 20);
+		ctlRoll.setBounds(170, pageHeight, 95, 19);
+		chaAttL.setBounds(295, pageHeight, 95, 20);
+		charCha.setBounds(395, pageHeight, 60, 20);
 		charChaMod.setBounds(425, pageHeight, 50, 19);
-		chaRoll.setBounds(480, pageHeight, 80, 19);
+		chaRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;
 		
-		capAttL.setBounds(5, pageHeight, 80, 20);
-		charCap.setBounds(90, pageHeight, 50, 20);
+		capAttL.setBounds(5, pageHeight, 95, 20);
+		charCap.setBounds(105, pageHeight, 60, 20);
 		charCapMod.setBounds(145, pageHeight, 50, 20);
-		capRoll.setBounds(200, pageHeight, 80, 19);
-		subAttL.setBounds(285, pageHeight, 80, 20);
-		charSub.setBounds(370, pageHeight, 50, 20);
+		capRoll.setBounds(170, pageHeight, 95, 19);
+		subAttL.setBounds(295, pageHeight, 95, 20);
+		charSub.setBounds(395, pageHeight, 60, 20);
 		charSubMod.setBounds(425, pageHeight, 50, 19);
-		subRoll.setBounds(480, pageHeight, 80, 19);
+		subRoll.setBounds(460, pageHeight, 95, 19);
 		pageHeight += 20;		
 		
 
@@ -799,20 +813,16 @@ public class PanelCharMain extends PanelCharBase {
 		String[] keys = ATTSHORT;
 		JTextField[] attLabels = {strAttL, dexAttL, conAttL, focAttL, ctlAttL, capAttL, knowAttL, mechAttL, percAttL, intAttL, chaAttL, subAttL};
 		JFormattedTextField[] valFields = {charStr, charDex, charCon, charFoc, charCtl, charCap, charKnow, charMech, charPerc, charInt, charCha, charSub};
-		JFormattedTextField[] modFields = {charStrMod, charDexMod, charConMod, charFocMod, charCtlMod, charCapMod, charKnowMod, charMechMod, charPercMod, charIntMod, charChaMod, charSubMod};
 		JButton[] rollButtons = {strRoll, dexRoll, conRoll, focRoll, ctlRoll, capRoll, knowRoll, mechRoll, percRoll, intRoll, chaRoll, subRoll};
 
 		for (int i = 0; i < keys.length; i++) {
 			int val = attrs.getAttribute(keys[i]);
-			int mod = val - 10;
 			valFields[i].setValue(val);
-			modFields[i].setValue(mod);
 
 			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i], resolvedClass);
 			attLabels[i].setToolTipText(tip);
 			valFields[i].setToolTipText(tip);
-			modFields[i].setToolTipText(tip);
-			rollButtons[i].setToolTipText("/roll d20 + " + fmt(mod));
+			rollButtons[i].setToolTipText("/roll d20 + " + fmt(val));
 		}
 	}  /*--------------
 		END UPDATEATTRIBUTES
@@ -1594,11 +1604,11 @@ public class PanelCharMain extends PanelCharBase {
 		double cur = 0.0;
 		for (String s : chosen) {
 			if (s.compareTo("-") == 0) continue;
-			cur = (character.getAttributes().getAttribute(s) - 10) * 1.5;
+			cur = character.getAttributes().getAttribute(s) * 1.5;
 			value += cur;
 			tipTemp += "+ " + s + ": " + fmt(cur) + "<br>";
 		}
-		cur = (character.getAttributes().getAttribute("INT") - 10) * 0.5;
+		cur = character.getAttributes().getAttribute("INT") * 0.5;
 		value += cur;
 		tipTemp += "+ " + "INT" + ": " + fmt(cur) + "<br>";
 
@@ -1626,15 +1636,9 @@ public class PanelCharMain extends PanelCharBase {
 		CharAttributes attrs = character.getAttributes();
 		String att = (selectedAtt == null || selectedAtt.isBlank() || "-".equals(selectedAtt)) ? "INT" : selectedAtt.toUpperCase();
 		double mod = attrs.getAttribute(att);
-		for (String k : ATTSHORT) {
-			if (k.equalsIgnoreCase(att)) {
-				mod -= 10;
-				break;
-			}
-		}
 		// Skill formula mirrors checkPressed
 		mod *= 1.5;
-		mod += ((attrs.getAttribute("INT") - 10) * 0.5);
+		mod += (attrs.getAttribute("INT") * 0.5);
 		return "/roll d20 + " + fmt(mod);
 	}
 

@@ -69,6 +69,10 @@ public class DataQuery {
         return index.racesByName.get(normalizeKey(name));
     }
 
+    public List<DataRace> getRaceData() {
+        return store.getRaceData();
+    }
+
     public List<DataRace> searchRaceByName(String namePart) {
         return searchByEntries(index.raceNameSearch, normalizeKey(namePart), index.raceSearchCache);
     }
@@ -172,6 +176,10 @@ public class DataQuery {
         return index.itemsByDid.get(did);
     }
 
+    public List<DataItemEquipment> getItemEquipmentData() {
+        return store.getItemEquipmentData();
+    }
+
     public List<DataItemEquipment> searchItems(String namePart) {
         return searchByEntries(index.itemNameSearch, normalizeKey(namePart), index.itemSearchCache);
     }
@@ -189,8 +197,37 @@ public class DataQuery {
         return index.trainingById.get(id);
     }
 
+    public List<DataTraining> getTrainingData() {
+        return store.getTrainingData();
+    }
+
     public List<DataTraining> searchTraining(String namePart) {
         return searchByEntries(index.trainingNameSearch, normalizeKey(namePart), index.trainingSearchCache);
+    }
+
+    // ---------------------------------------------------------
+    // ACTION SEARCH
+    // ---------------------------------------------------------
+
+    public List<DataAction> getActionData() {
+        return store.getActionData();
+    }
+
+    public DataAction getActionById(int id) {
+        return index.actionsById.get(id);
+    }
+
+    public DataAction getActionByName(String name) {
+        return index.actionsByName.get(normalizeKey(name));
+    }
+
+    public List<DataAction> searchActions(String namePart) {
+        return searchByEntries(index.actionNameSearch, normalizeKey(namePart), index.actionSearchCache);
+    }
+
+    public List<DataAction> getActionsBySource(String source) {
+        if (source == null || source.equals("***")) return store.getActionData();
+        return index.actionsBySource.getOrDefault(normalizeKey(source), List.of());
     }
 
     private static <T> List<T> searchByEntries(List<SearchEntry<T>> entries, String normalizedSearch, Map<String, List<T>> cache) {
@@ -238,6 +275,10 @@ public class DataQuery {
         private final List<SearchEntry<DataItemEquipment>> itemNameSearch;
         private final Map<Integer, DataTraining> trainingById;
         private final List<SearchEntry<DataTraining>> trainingNameSearch;
+        private final Map<Integer, DataAction> actionsById;
+        private final Map<String, DataAction> actionsByName;
+        private final Map<String, List<DataAction>> actionsBySource;
+        private final List<SearchEntry<DataAction>> actionNameSearch;
         private final List<SearchEntry<DataColor>> colorTitleSearch;
         private final Map<String, List<DataColor>> colorSearchCache;
         private final Map<String, List<DataRace>> raceSearchCache;
@@ -247,6 +288,7 @@ public class DataQuery {
         private final Map<String, List<DataSpecialty>> specialtySearchCache;
         private final Map<String, List<DataItemEquipment>> itemSearchCache;
         private final Map<String, List<DataTraining>> trainingSearchCache;
+        private final Map<String, List<DataAction>> actionSearchCache;
 
         private QueryIndex(StoreData store) {
             List<DataColor> colorData = store.getColorData();
@@ -259,6 +301,7 @@ public class DataQuery {
             List<DataTechPerm> techPermData = store.getTechPermData();
             List<DataItemEquipment> itemEquipmentData = store.getItemEquipmentData();
             List<DataTraining> trainingData = store.getTrainingData();
+            List<DataAction> actionData = store.getActionData();
 
             colorsByTitle = new HashMap<>(Math.max(16, colorData.size() * 2));
             colorTitleSearch = new ArrayList<>(colorData.size());
@@ -405,6 +448,26 @@ public class DataQuery {
                     }
                 }
             }
+
+            actionsById = new HashMap<>(Math.max(16, actionData.size() * 2));
+            actionsByName = new HashMap<>(Math.max(16, actionData.size() * 2));
+            actionsBySource = new HashMap<>(Math.max(16, actionData.size() * 2));
+            actionNameSearch = new ArrayList<>(actionData.size());
+            actionSearchCache = new ConcurrentHashMap<>();
+            for (DataAction action : actionData) {
+                if (action == null) continue;
+                actionsById.putIfAbsent(action.getId(), action);
+                if (action.getName() != null) {
+                    String normalizedName = normalizeKey(action.getName());
+                    actionsByName.putIfAbsent(normalizedName, action);
+                    actionNameSearch.add(new SearchEntry<>(normalizedName, action));
+                }
+                if (action.getSource() != null) {
+                    String key = normalizeKey(action.getSource());
+                    actionsBySource.computeIfAbsent(key, ignored -> new ArrayList<>()).add(action);
+                }
+            }
+            actionsBySource.replaceAll((ignored, actions) -> Collections.unmodifiableList(actions));
         }
     }
 }

@@ -1,9 +1,19 @@
 package eternity;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 /**
  * Fully data-driven class picker with simple String keys instead of ClassChoice objects.
@@ -19,6 +29,7 @@ public class FrameNewClassPicker extends JFrame {
     // Field UI elements (label → combobox)
     private final Map<String, JComboBox<String>> fields = new LinkedHashMap<>();
     private final Map<String, String[]> deityDomains = new HashMap<>();
+    private final Map<String, String[]> archerSelections = new HashMap<>();
 
     // Model: label → choice configuration
     private Map<String, ChoiceConfig> choiceModel;
@@ -96,6 +107,7 @@ public class FrameNewClassPicker extends JFrame {
                 map.put("Deity", cfg(ChoiceType.DEITY));
                 map.put("Vow", cfgStatic(VOWOPTIONS));
                 map.put("Domain", cfg(ChoiceType.DOMAIN_DEPENDENT));
+                map.put("Weapon Proficiency", cfgWeapon(WeaponPools.AURA));
                 map.put("Subclass", cfgSubclass(cls));
             }
 
@@ -106,9 +118,9 @@ public class FrameNewClassPicker extends JFrame {
             }
 
             case "Warrior" -> {
-                map.put("Feature", cfgSpecial("Martial"));
+                map.put("Specialty", cfgSpecial("Martial"));
                 map.put("Combat Action", cfgStatic(COMBAT_ACTIONS));
-                map.put("Weapon Proficiency", cfgWeapon(WeaponPools.MELEE));
+                map.put("Weapon Proficiency", cfgWeapon(WeaponPools.RANGED));
                 map.put("Subclass", cfgSubclass(cls));
             }
 
@@ -126,21 +138,27 @@ public class FrameNewClassPicker extends JFrame {
             }
 
             case "Archer" -> {
-                map.put("Favored Condition", cfgStatic(ARCHER_FAVORS));
+                map.put("Favor Type", cfgStatic(FAVOR_TYPES));
+                map.put("Favored Selection", cfg(ChoiceType.FAVOR_DEPENDENT));
                 map.put("Weapon Proficiency", cfgWeapon(WeaponPools.MELEE));
                 map.put("Subclass", cfgSubclass(cls));
             }
 
+            case "Leader" -> {
+                map.put("Weapon Proficiency", cfgWeapon(WeaponPools.AURA));
+                map.put("Subclass", cfgSubclass(cls));
+            }
+
             case "Caster" -> {
-                map.put("Bonus Affinity", cfgStatic(AURA_TYPES));
                 map.put("Weapon Proficiency", cfgWeapon(WeaponPools.MELEE));
                 map.put("Subclass", cfgSubclass(cls));
             }
 
             case "Shifter" -> {
-                map.put("Primary Attribute", cfgStatic(PRIM_ATTS));
-                map.put("Weapon Proficiency 1", cfgWeapon(WeaponPools.MELEE));
-                map.put("Weapon Proficiency 2", cfgWeapon(WeaponPools.RANGED));
+                map.put("Melee Affinity", cfgStatic(SHIFTER_MELEE_ATTS));
+                map.put("Ranged Affinity", cfgStatic(SHIFTER_RANGED_ATTS));
+                map.put("Weapon Mold 1", cfgWeapon(WeaponPools.MELEE));
+                map.put("Weapon Mold 2", cfgWeapon(WeaponPools.SHIFTER_MOLD_2));
                 map.put("Subclass", cfgSubclass(cls));
             }
 
@@ -200,24 +218,41 @@ public class FrameNewClassPicker extends JFrame {
 
     private void renderChoices() {
         int y = 70;
+        boolean paladinLayout = selectedClass != null && "Paladin".equalsIgnoreCase(selectedClass.getName());
+        boolean shifterLayout = selectedClass != null && "Shifter".equalsIgnoreCase(selectedClass.getName());
 
         for (String label : choiceModel.keySet()) {
 
             ChoiceConfig cfg = choiceModel.get(label);
+            int x = 25;
+            int currentY = y;
+            boolean staysOnCurrentRow = false;
+
+            if (paladinLayout && "Subclass".equals(label)) {
+                x = 325;
+                currentY = 70;
+                staysOnCurrentRow = true;
+            } else if (shifterLayout && "Ranged Affinity".equals(label)) {
+                x = 325;
+                currentY = 70;
+                staysOnCurrentRow = true;
+            }
 
             JLabel lbl = new JLabel(label);
-            lbl.setBounds(25, y, 250, 20);
+            lbl.setBounds(x, currentY, 250, 20);
             add(lbl);
 
             JComboBox<String> box = new JComboBox<>();
-            box.setBounds(25, y + 25, 260, 22);
+            box.setBounds(x, currentY + 25, 260, 22);
             add(box);
 
             fields.put(label, box);
 
             initComboBox(label, cfg, box);
 
-            y += 65;
+            if (!staysOnCurrentRow) {
+                y += 65;
+            }
         }
     }
 
@@ -241,6 +276,13 @@ public class FrameNewClassPicker extends JFrame {
                     deityBox.addActionListener(e -> updateDomainBox());
                 }
             }
+
+            case FAVOR_DEPENDENT -> {
+                JComboBox<String> favorTypeBox = fields.get("Favor Type");
+                if (favorTypeBox != null) {
+                    favorTypeBox.addActionListener(e -> updateFavoredSelectionBox());
+                }
+            }
         }
     }
 
@@ -256,6 +298,21 @@ public class FrameNewClassPicker extends JFrame {
 
         String deityName = deity != null ? (String) deity.getSelectedItem() : null;
         addOptions(domain, deityDomains.computeIfAbsent(deityName, this::resolveDomainsForDeity));
+    }
+
+    private void updateFavoredSelectionBox() {
+
+        JComboBox<String> favorType = fields.get("Favor Type");
+        JComboBox<String> favoredSelection = fields.get("Favored Selection");
+
+        if (favoredSelection == null) return;
+
+        favoredSelection.removeAllItems();
+        favoredSelection.addItem(EMPTY_OPTION);
+
+        String favorTypeName = favorType != null ? (String) favorType.getSelectedItem() : null;
+        addOptions(favoredSelection,
+                archerSelections.computeIfAbsent(favorTypeName, this::resolveArcherSelectionsForFavorType));
     }
 
     // -------------------------------------------------------------------------
@@ -327,7 +384,33 @@ public class FrameNewClassPicker extends JFrame {
         if (deity == null) {
             return new String[0];
         }
-        return deity.getDomains().toArray(new String[0]);
+        List<String> resolved = new ArrayList<>();
+        for (String entry : deity.getDomains()) {
+            if (entry == null || entry.isBlank()) continue;
+            String[] split = entry.split(":");
+            for (String domain : split) {
+                if (domain != null) {
+                    String trimmed = domain.trim();
+                    if (!trimmed.isBlank()) {
+                        resolved.add(trimmed);
+                    }
+                }
+            }
+        }
+        return resolved.toArray(new String[0]);
+    }
+
+    private String[] resolveArcherSelectionsForFavorType(String favorTypeName) {
+        if (favorTypeName == null || EMPTY_OPTION.equals(favorTypeName)) {
+            return new String[0];
+        }
+        if ("Enemy".equalsIgnoreCase(favorTypeName)) {
+            return ARCHER_ENEMY;
+        }
+        if ("Terrain".equalsIgnoreCase(favorTypeName)) {
+            return ARCHER_TERRAIN;
+        }
+        return new String[0];
     }
 
     // -------------------------------------------------------------------------
@@ -337,6 +420,7 @@ public class FrameNewClassPicker extends JFrame {
         STATIC,
         DEITY,
         DOMAIN_DEPENDENT,
+        FAVOR_DEPENDENT,
         SPECIAL_LIST,
         SUBCLASS,
         WEAPON_PICK_1,
@@ -384,7 +468,11 @@ public class FrameNewClassPicker extends JFrame {
 
     private static final String[] DISCIPLINES = {"***", "Mobility", "Avoidance", "Martial"};
 
-    private static final String[] ARCHER_FAVORS = {"***","Orcs","Humans","Forest"};
+    private static final String[] FAVOR_TYPES = {"***", "Enemy", "Terrain"};
+
+    private static final String[] ARCHER_ENEMY = {"***","Animals (Land)", "Animalas (Sea)", "Animals (Air)", "Constructs (Mechanical)", "Constructs (Organic)", "Dragons", "Elementals", "Fey", "Outsiders", "Plants", "Undead", "Wardens", "Ardians..."};
+
+    private static final String[] ARCHER_TERRAIN = {"***","Plains","Forest","Mountains","Hills","Swamp","Underground","Urban","Coastal","Arctic"};
 
     private static final String[] AURA_TYPES = {
             "***","Reinforcement","Body","Force","Metal","Fire","Water","Air","Earth",
@@ -393,6 +481,8 @@ public class FrameNewClassPicker extends JFrame {
     };
 
     private static final String[] PRIM_ATTS = {"STR","DEX","FOC","CTL"};
+    private static final String[] SHIFTER_MELEE_ATTS = {"STR","DEX"};
+    private static final String[] SHIFTER_RANGED_ATTS = {"FOC","CTL"};
 
     // Weapons
     private static class WeaponPools {
@@ -415,5 +505,11 @@ public class FrameNewClassPicker extends JFrame {
 
         static final String[] LIGHT_RANGED = {"Thrown","Sling","Handbow","Pistol"};
         static final String[] LIGHT_AURA    = {"Ring","Orb","Wand","Talisman"};
+        static final String[] SHIFTER_MOLD_2 = {
+                "Bow","Crossbow","Rifle","Cannon",
+                "Thrown","Sling","Handbow","Pistol",
+                "Staff","Tome","Relic","Symbol",
+                "Ring","Orb","Wand","Talisman"
+        };
     }
 }

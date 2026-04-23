@@ -1,5 +1,6 @@
 package eternity;
 
+import java.awt.Window;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class FrameSheet extends JFrame {
     private final ArrayList<StoreChar> charStore;
     private final Map<Integer, Integer> charStoreIndexByCharId;
     private final ScheduledFuture<?> autoSaveTask;
+    private boolean shuttingDown;
     private CharData character;
     private FrameNew newFrame;
     private FrameLoad loadFrame;
@@ -349,8 +351,8 @@ public class FrameSheet extends JFrame {
     }
 
     private void handleWindowClosing() {
-        if (!requireCharacter()) {
-            dispose();
+        if (!hasLoadedCharacter()) {
+            exitApplication();
             return;
         }
 
@@ -369,12 +371,31 @@ public class FrameSheet extends JFrame {
             JOptionPane.showMessageDialog(this, SAVE_FAILED_MSG, SAVE_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        dispose();
+        exitApplication();
+    }
+
+    private void exitApplication() {
+        if (shuttingDown) return;
+        shuttingDown = true;
+
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window != null) {
+                window.dispose();
+            }
+        }
+        System.exit(0);
     }
 
     @Override
     public void dispose() {
         autoSaveTask.cancel(false);
         super.dispose();
+    }
+
+    private boolean hasLoadedCharacter() {
+        return character != null
+                && character.getIdentity() != null
+                && character.getIdentity().getIndex() > 0;
     }
 }

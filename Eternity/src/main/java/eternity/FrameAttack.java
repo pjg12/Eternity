@@ -15,13 +15,15 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-public class FrameStdAction extends JFrame {
+public class FrameAttack extends JFrame {
 	private static final long serialVersionUID = 1;
 
 	private final FrameSheet sheetFrame;
+	private final FrameCombat combatFrame;
 	private CharData character;
 	private DataAction action;
 	private JComboBox<String> select1;
+	private JComboBox<Integer> alSelect;
 	private JComboBox<String> damageType;
 	
 	private double attackBonus, result;
@@ -31,14 +33,15 @@ public class FrameStdAction extends JFrame {
 
 	// UI elements (replacing FrameHelper utilities)
 	private final JLabel headerL = new JLabel();
-	private final JLabel[] labels = new JLabel[7];
-	private final JTextField[] textFields = new JTextField[5];
+	private final JLabel[] labels = new JLabel[8];
+	private final JTextField[] textFields = new JTextField[6];
 	private final JSpinner[] numFields = new JSpinner[1];
-	private final JButton[] buttons = new JButton[3];
+	private final JButton[] buttons = new JButton[4];
 	
-	FrameStdAction (FrameSheet sheetFrame, CharData character, DataAction action) {
-		super("Standard Action Helper");
+	FrameAttack (FrameSheet sheetFrame, FrameCombat combatFrame, CharData character, DataAction action) {
+		super("Attack Helper");
 		this.sheetFrame = sheetFrame;
+		this.combatFrame = combatFrame;
 		this.character = character;
 		this.action = action;
 
@@ -86,6 +89,7 @@ public class FrameStdAction extends JFrame {
 	
 	public void attackStage() {
 		clearStdAction();
+		syncActionFromCurrentAl();
 		/*
 		 * Set Headers
 		*/
@@ -97,7 +101,7 @@ public class FrameStdAction extends JFrame {
 		labels[2].setVisible(true);
 		textFields[2].setBounds(145, 103, 100, 22);
 		attackBonus = getAttack() + getPrimaryAttributeMod(); 
-		textFields[2].setText("1d20 + " + (int)attackBonus);
+		textFields[2].setText(formatAttackDisplay((int) attackBonus));
 		textFields[2].setVisible(true);
 		textFields[2].setEditable(false);
 
@@ -113,7 +117,7 @@ public class FrameStdAction extends JFrame {
 		labels[4].setText("Damage");
 		labels[4].setVisible(true);
 		textFields[3].setBounds(265, 103, 240, 22);
-		textFields[3].setText("(" + getCharLevelDieCount() + "d" + getCharLevelDieSides() + " + " + getBaseDamage() + ") * " + getCharDmgMulti() + " + " + getTotalDamage());
+		textFields[3].setText(formatDamageDisplay(getBaseDamage(), getCharDmgMulti(), getTotalDamage()));
 		textFields[3].setVisible(true);
 		textFields[3].setEditable(false);
 
@@ -124,6 +128,26 @@ public class FrameStdAction extends JFrame {
 		textFields[4].setText(getRange() <= 0 ? "Melee" : (getRange() + " ft"));
 		textFields[4].setVisible(true);
 		textFields[4].setEditable(false);
+
+		if (isAuraTechniqueAction()) {
+			labels[7].setBounds(285, 150, 120, 20);
+			labels[7].setText("AL");
+			labels[7].setVisible(true);
+			ensureAlSelect();
+			populateAlSelect();
+			alSelect.setBounds(285, 173, 100, 22);
+			alSelect.setVisible(true);
+		}
+
+		if (isFullAttackAction()) {
+			labels[0].setBounds(285, 150, 120, 20);
+			labels[0].setText("Extra Attacks");
+			labels[0].setVisible(true);
+			textFields[0].setBounds(285, 173, 100, 22);
+			textFields[0].setText(String.valueOf(getExtraAttacks()));
+			textFields[0].setVisible(true);
+			textFields[0].setEditable(false);
+		}
 
 		labels[6].setBounds(145, 150, 120, 20);
 		labels[6].setText("Damage Type");
@@ -162,13 +186,19 @@ public class FrameStdAction extends JFrame {
 		buttons[0].setText("Cancel");
 		buttons[0].setVisible(true);
 		buttons[0].addActionListener(e -> cancelPressed());
-		buttons[1].setBounds(365, 325, 145, 20);
-		buttons[1].setText("Confirm");
-		buttons[1].addActionListener(e -> confirmPressed());
+		buttons[1].setBounds(195, 325, 145, 20);
+		buttons[1].setText("Complete");
+		buttons[1].setVisible(true);
+		buttons[1].addActionListener(e -> completePressed());
+		buttons[3].setBounds(365, 325, 145, 20);
+		buttons[3].setText("Confirm");
+		buttons[3].setVisible(true);
+		buttons[3].addActionListener(e -> confirmPressed());
 	}
 	
 	public void damageStage() {
 		clearStdAction();
+		syncActionFromCurrentAl();
 		/*
 		 * Set Headers
 		*/
@@ -228,6 +258,16 @@ public class FrameStdAction extends JFrame {
 			}
 		}
 		damageType.setVisible(true);
+
+		if (isAuraTechniqueAction()) {
+			labels[6].setBounds(170, 150, 120, 20);
+			labels[6].setText("AL");
+			labels[6].setVisible(true);
+			ensureAlSelect();
+			populateAlSelect();
+			alSelect.setBounds(170, 173, 100, 22);
+			alSelect.setVisible(true);
+		}
 		
 		/*if (character.getTraining() != null && character.getTraining().hasSpec(3011)) {
 			labels[4].setBounds(140, 160, 100, 20);
@@ -258,8 +298,9 @@ public class FrameStdAction extends JFrame {
 		buttons[0].setVisible(true);
 		buttons[0].addActionListener(e -> cancelPressed());
 		buttons[1].setBounds(365, 325, 145, 20);
-		buttons[1].setText("Finish");
-		//buttons[1].addActionListener(e -> finishPressed());
+		buttons[1].setText("Complete");
+		buttons[1].setVisible(true);
+		buttons[1].addActionListener(e -> completePressed());
 	}
 	
 	public void updateSneak() {
@@ -312,6 +353,15 @@ public class FrameStdAction extends JFrame {
 				select1.removeActionListener(al);
 			}
 			select1.setVisible(false);
+		}
+		if (alSelect != null) {
+			for (ActionListener al : alSelect.getActionListeners()) {
+				alSelect.removeActionListener(al);
+			}
+			alSelect.setVisible(false);
+			if (alSelect.getParent() == this) {
+				remove(alSelect);
+			}
 		}
 		if (damageType != null) {
 			damageType.setVisible(false);
@@ -367,10 +417,13 @@ public class FrameStdAction extends JFrame {
 		damageStage();
 	}
 	
-	/*public void finishPressed() {
-		sheetFrame.stdActionFinish(action.getActionType());
+	public void completePressed() {
+		if (combatFrame != null && action != null && action.getActionType() != null) {
+			combatFrame.stdActionFinish(action.getActionType());
+		}
 		this.setVisible(false);
-	}*/
+		this.dispose();
+	}
 
 	private void copyRollToClipboard() {
 		if (character == null) return;
@@ -393,23 +446,20 @@ public class FrameStdAction extends JFrame {
 		tempString += charName + " --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|" + colorString2 + " --#leftSub|";
 		tempString += action.getName() + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		int dieCount = 0;
-		int dieSides = 0;
 		int bdmgMod = 0;
 		int tdmgMod = 0;
 		double dmgMulti = 1.0;
 		if (character.getAttributes() != null) {
-			dieCount = getCharLevelDieCount();
-			dieSides = getCharLevelDieSides();
 			bdmgMod = getBaseDamage();
 			tdmgMod = getTotalDamage();
 			dmgMulti = getCharDmgMulti();
 		}
-		double critDamage = getCritDamage();
 		tempString += " --+|Range: " + (getRange() <= 0 ? "Melee" : (getRange() + " ft"));
-		tempString += " --+|Attack Roll --=AttackRoll|1d20 + " + getAttack() + " --+| [$AttackRoll] = [$AttackRoll.Base] + " + getAttack();
-		tempString += " --+|Damage Roll --=DamageRoll|(" + dieCount + "d" + dieSides + " + " + bdmgMod + ") * " + dmgMulti + " + " + tdmgMod + " --+| [$DamageRoll] = ([$DamageRoll.Base] + " + bdmgMod + ") * " + dmgMulti + " + " + tdmgMod + "[br]&nbsp;&nbsp;&nbsp;&nbsp;" + damageType.getSelectedItem().toString();
-		tempString += " --+|Critical Threat --=CritThreat| [$AttackRoll]/2 {FLOOR} --+| [$CritThreat] = [$AttackRoll] + 0 / 2 --+| Critical Damage (1 crit) --=CritDamage| [$DamageRoll] * " + critDamage + " --+| [$CritDamage] = [$DamageRoll] x " + critDamage + " --+|Crush --=Crush| " + getCrush() + " --+| [$Crush] }}";
+		tempString += " --+|Attack Roll --=PercentRoll|1d21 + 9 * 5 / 100 --=AttackRoll|[$PercentRoll] * " + getAttack() + " {FLOOR} --+| [$AttackRoll] = [$PercentRoll] x " + getAttack();
+		tempString += " --+|Damage Roll --=PercentRoll|1d21 + 9 * 5 / 100 --=DamageRoll|[$PercentRoll] * " + bdmgMod + " * " + dmgMulti + " + " + tdmgMod + " {FLOOR} --+| [$DamageRoll] = ([$PercentRoll] x " + bdmgMod + ") x " +  dmgMulti + " + "+ tdmgMod + "[br]&nbsp;&nbsp;&nbsp;&nbsp;" + damageType.getSelectedItem().toString();;
+		tempString += " --+|Critical Threat --=Critx1|2 --=Critx2|3 --=Critx3|4 --=Critx4|5 --=Crit1|1d6 --=Crit2|1d6 --=Crit3|1d6 --=Crit4|1d6 --=Critd1|1d6 --=Critd2|1d6 --=Critd3|1d6 --=Critd4|1d6";
+		tempString += " --+|Crit Multi: [$Critx1] [$Critx2] [$Critx3] [$Critx4][br]&nbsp;&nbsp; Crit AC #: [$Crit1] [$Crit2] [$Crit3] [$Crit4] [br]&nbsp;&nbsp; Crit DMG [$Critd1] [$Critd2] [$Critd3] [$Critd4]";
+		tempString += " --+|Crush --=Crush| " + getCrush() + " --+| [$Crush] }}";
 
 		StringSelection stringSelection = new StringSelection(tempString);
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -436,7 +486,13 @@ public class FrameStdAction extends JFrame {
 		CharAttributes a = attrs();
 		int charAtk = a == null ? 0 : a.getCombat("ATK");
 		int actionAtk = action == null ? 0 : action.getAtk();
-		return charAtk + actionAtk;
+		return Math.max(0, charAtk + actionAtk);
+	}
+
+	private int getExtraAttacks() {
+		CharAttributes a = attrs();
+		int maxAtk = a == null ? 0 : a.getSecondary("MAXATK");
+		return Math.max(0, maxAtk - 1);
 	}
 
 	private int getBaseDamage() {
@@ -520,6 +576,88 @@ public class FrameStdAction extends JFrame {
 	private String getCharName() {
 		CharIdentity identity = id();
 		return identity != null ? identity.getName() : "Character";
+	}
+
+	private boolean isFullAttackAction() {
+		return action != null && "Full Attack".equalsIgnoreCase(action.getName());
+	}
+
+	private boolean isAuraTechniqueAction() {
+		return action != null
+				&& action.getSource() != null
+				&& "Aura".equalsIgnoreCase(action.getSource());
+	}
+
+	private int getActionAl() {
+		return action == null ? 0 : Math.max(0, action.getAl());
+	}
+
+	private void ensureAlSelect() {
+		if (alSelect == null) {
+			alSelect = new JComboBox<Integer>();
+		}
+		if (alSelect.getParent() == null) {
+			add(alSelect);
+		}
+	}
+
+	private void populateAlSelect() {
+		if (alSelect == null || action == null) return;
+		alSelect.removeAllItems();
+		int maxRank = getTechniqueRank();
+		if (maxRank <= 0) {
+			maxRank = 1;
+		}
+		for (int i = 1; i <= maxRank; i++) {
+			alSelect.addItem(i);
+		}
+		int selectedAl = Math.max(1, Math.min(getActionAl(), maxRank));
+		action.setAl(selectedAl);
+		alSelect.setSelectedItem(selectedAl);
+		for (ActionListener listener : alSelect.getActionListeners()) {
+			alSelect.removeActionListener(listener);
+		}
+		alSelect.addActionListener(e -> alSelectionChanged());
+	}
+
+	private void alSelectionChanged() {
+		if (alSelect == null || action == null) return;
+		Object selected = alSelect.getSelectedItem();
+		if (!(selected instanceof Integer value)) return;
+		action.setAl(value);
+		action.update();
+		if (buttons[3].isVisible()) {
+			attackStage();
+			return;
+		}
+		damageStage();
+	}
+
+	private void syncActionFromCurrentAl() {
+		if (action == null) return;
+		if (isAuraTechniqueAction()) {
+			int maxRank = getTechniqueRank();
+			int selectedAl = Math.max(1, getActionAl());
+			if (maxRank > 0) {
+				selectedAl = Math.min(selectedAl, maxRank);
+			}
+			action.setAl(selectedAl);
+		}
+		action.update();
+	}
+
+	private int getTechniqueRank() {
+		if (character == null || character.getTraining() == null || action == null) return 0;
+		DataTraining training = character.getTraining().getTrainingById(action.getId());
+		return training == null ? 0 : Math.max(0, training.getRank());
+	}
+
+	private String formatAttackDisplay(int value) {
+		return Math.max(0, value) + " +/- 50%";
+	}
+
+	private String formatDamageDisplay(int baseDamage, double damageMultiplier, int totalDamage) {
+		return "(" + baseDamage + " +/- 50%) * " + damageMultiplier + " + " + totalDamage;
 	}
 
 	private DataColor getDisplayColor() {

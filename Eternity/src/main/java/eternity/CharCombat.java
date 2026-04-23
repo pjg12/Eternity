@@ -13,6 +13,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Tracks encounter state and temporary combat statuses (round/turn scoped).
  */
 public class CharCombat {
+    private static final String[] DEFAULT_COMBAT_MANEUVER_NAMES = {
+            "Grapple", "Charge", "Rush", "Disarm", "Overrun", "Sunder", "Trip", "Feint", "Brace", "Protect"
+    };
+
 
     @JsonIgnore
     private CharData owner;
@@ -53,8 +57,9 @@ public class CharCombat {
     private final List<DataAction> interruptActions;
     @JsonIgnore
     private final DataAction standardAttackAction;
+    private final DataAction standardSpellAction;
     @JsonIgnore
-    private final DataAction grappleAction;
+    private final List<DataAction> defaultCombatManeuverActions;
 
     public CharCombat() {
         this.inCombat = false;
@@ -68,26 +73,18 @@ public class CharCombat {
         this.auraActions = new ArrayList<>();
         this.freeActions = new ArrayList<>();
         this.interruptActions = new ArrayList<>();
+        this.defaultCombatManeuverActions = new ArrayList<>();
 
         // Baseline action every character has
-        DataAction baseAttack = new DataAction();
-        baseAttack.setName("Standard Attack");
-        baseAttack.setType("Standard");
-        baseAttack.setAffinity("None");
-        baseAttack.setRanged(0);
-        baseAttack.setActionType("Standard");
-        this.standardAttackAction = baseAttack;
+        this.standardAttackAction = generateStandardAttack(true);
+        this.standardSpellAction = generateStandardAttack(false);
         this.standardActions.add(standardAttackAction);
 
-        // Baseline combat maneuver: Grapple
-        DataAction grapple = new DataAction();
-        grapple.setName("Grapple");
-        grapple.setType("Combat Maneuver"); // matches UI category
-        grapple.setAffinity("None");
-        grapple.setRanged(0); // melee
-        grapple.setActionType("Standard");
-        this.grappleAction = grapple;
-        this.standardActions.add(grappleAction);
+        for (String name : DEFAULT_COMBAT_MANEUVER_NAMES) {
+            DataAction maneuver = generateCombatManeuverAction(name);
+            defaultCombatManeuverActions.add(maneuver);
+            this.standardActions.add(maneuver);
+        }
     }
 
     /* Owner plumbing */
@@ -127,6 +124,8 @@ public class CharCombat {
     public List<DataAction> getAuraActions() { return getActionView(auraActions); }
     public List<DataAction> getFreeActions() { return getActionView(freeActions); }
     public List<DataAction> getInterruptActions() { return getActionView(interruptActions); }
+    public DataAction getStandardAttackAction() { return standardAttackAction; }
+    public DataAction getStandardSpellAction() { return standardSpellAction; }
 
     public void addStandardAction(DataAction action) { addAction(action, standardActions); }
     public void addMoveAction(DataAction action) { addAction(action, moveActions); }
@@ -140,8 +139,45 @@ public class CharCombat {
         auraActions.clear();
         freeActions.clear();
         interruptActions.clear();
-        standardActions.add(standardAttackAction);
-        standardActions.add(grappleAction);
+        ensureStandardAttackExists();
+        ensureDefaultCombatManeuversExist();
+    }
+
+    /**
+     * Rebuilds runtime combat action buckets from the character's current derived state.
+     * These actions are not persisted; they are regenerated whenever the character updates.
+     */
+    public void rebuildActions(CharData character) {
+        if (character != null) {
+            this.owner = character;
+        }
+
+        clearActions();
+        ensureStandardAttackExists();
+        ensureDefaultCombatManeuversExist();
+
+        if (owner == null || owner.getTraining() == null) {
+            return;
+        }
+
+        DataQuery dataQuery = CharDataManager.getDataQuery();
+        ArrayList<DataTraining> trainedTechniques = new ArrayList<>();
+        for (DataTraining tech : owner.getTraining().getAllTraining()) {
+            if (!hasTrainedActionTechnique(tech)) continue;
+            trainedTechniques.add(tech);
+        }
+
+        trainedTechniques.sort((a, b) -> {
+            int idCompare = Integer.compare(a.getId(), b.getId());
+            if (idCompare != 0) return idCompare;
+            String nameA = a.getName() == null ? "" : a.getName();
+            String nameB = b.getName() == null ? "" : b.getName();
+            return nameA.compareToIgnoreCase(nameB);
+        });
+
+        for (DataTraining tech : trainedTechniques) {
+            addTrainingActionFromData(tech, dataQuery);
+        }
     }
 
     public void addStatus(DataStatus status) {
@@ -189,6 +225,112 @@ public class CharCombat {
         if (action == null || bucket == null) return;
         // Defensive copy to avoid shared mutations
         bucket.add(new DataAction(action));
+    }
+
+    private boolean hasTrainedActionTechnique(DataTraining tech) {
+        if (tech == null || tech.getId() <= 0) return false;
+        return tech.getRank() >= 1;
+    }
+
+    private void addTrainingActionFromData(DataTraining tech, DataQuery dataQuery) {
+        if (tech == null || dataQuery == null) return;
+        DataAction actionTemplate = dataQuery.getActionById(tech.getId());
+        if (actionTemplate == null) return;
+
+        DataAction action = new DataAction(actionTemplate);
+        action.setCharacter(owner);
+        routeActionByType(action);
+    }
+
+    private void routeActionByType(DataAction action) {
+        if (action == null) return;
+        String type = action.getActionType();
+        if ("Move".equalsIgnoreCase(type)) {
+            addMoveAction(action);
+            return;
+        }
+        if ("Aura".equalsIgnoreCase(type)) {
+            addAuraAction(action);
+            return;
+        }
+        if ("Free".equalsIgnoreCase(type)) {
+            addFreeAction(action);
+            return;
+        }
+        if ("Interrupt".equalsIgnoreCase(type)) {
+            addInterruptAction(action);
+            return;
+        }
+        addStandardAction(action);
+    }
+
+    /** Builds the baseline Standard Attack action. */
+    public DataAction generateStandardAttack(boolean attack) {
+        DataAction baseAttack = new DataAction();
+        baseAttack.setCharacter(owner);
+        baseAttack.setAffinity("None");
+        baseAttack.setActionType("Standard");
+        if (attack) {
+            baseAttack.setName("Standard Attack");
+            baseAttack.setCategory("Attack");
+            baseAttack.setSource("Standard");
+            baseAttack.setAtkType("AC");
+        } else {
+            baseAttack.setName("Standard Spell");
+            baseAttack.setSource("Spell");
+        }
+        return baseAttack;
+    }
+
+    /** Builds a baseline Combat Maneuver action. */
+    public DataAction generateCombatManeuverAction(String name) {
+        DataAction maneuver = new DataAction();
+        maneuver.setCharacter(owner);
+        maneuver.setName(name == null || name.isBlank() ? "Combat Maneuver" : name);
+        maneuver.setSource("Combat Maneuver");
+        maneuver.setAffinity("None");
+        maneuver.setAtkType("AC");
+        maneuver.setRanged(0);
+        maneuver.setActionType("Standard");
+        return maneuver;
+    }
+
+    /** Ensures the baseline Standard Attack action exists exactly once in the standard-action list. */
+    public void ensureStandardAttackExists() {
+        standardAttackAction.setCharacter(owner);
+        for (DataAction action : standardActions) {
+            if (action == standardAttackAction) {
+                return;
+            }
+            if (action != null && "Standard Attack".equalsIgnoreCase(action.getName())) {
+                return;
+            }
+        }
+        standardActions.add(standardAttackAction);
+    }
+
+    /** Ensures all baseline Combat Maneuver actions exist exactly once in the standard-action list. */
+    public void ensureDefaultCombatManeuversExist() {
+        for (DataAction maneuver : defaultCombatManeuverActions) {
+            if (maneuver == null) continue;
+            maneuver.setCharacter(owner);
+            boolean present = false;
+            for (DataAction action : standardActions) {
+                if (action == maneuver) {
+                    present = true;
+                    break;
+                }
+                if (action != null && action.getName() != null
+                        && action.getName().equalsIgnoreCase(maneuver.getName())
+                        && "Combat Maneuver".equalsIgnoreCase(action.getSource())) {
+                    present = true;
+                    break;
+                }
+            }
+            if (!present) {
+                standardActions.add(maneuver);
+            }
+        }
     }
 
     /** Updates the baseline Standard Attack range (used by UI weapon selection). */

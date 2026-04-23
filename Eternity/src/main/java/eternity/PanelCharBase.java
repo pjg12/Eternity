@@ -233,9 +233,6 @@ public class PanelCharBase extends JPanel {
 		if (character == null || character.getAttributes() == null) return;
 
 		double mod = safeAttribute(character.getAttributes(), att);
-		if (skill && att != null && ATTRIBUTE_SHORT_KEYS.contains(att.toUpperCase())) {
-			mod -= 10;
-		}
 
 		if (skill) {
 			mod *= 1.5;

@@ -95,6 +95,14 @@ public class CharTraining {
         return List.copyOf(naturalAffinities);
     }
 
+    public void setNaturalAffinities(List<String> affinities) {
+        naturalAffinities.clear();
+        if (affinities == null) return;
+        for (String affinity : affinities) {
+            addUniqueIgnoreCase(naturalAffinities, affinity);
+        }
+    }
+
     public void addNaturalAffinity(String affinity) {
         addUniqueIgnoreCase(naturalAffinities, affinity);
     }
@@ -151,6 +159,7 @@ public class CharTraining {
      * Returns the current class training rank. Falls back to the parent's level if unset.
      */
     public int getClassTrainingRank() {
+        ensureTrainingState();
         DataTraining classTech = getTrainingById(23); // Class Training
         if (classTech != null && classTech.getRank() > 0) {
             classTrainingRank = classTech.getRank();
@@ -200,6 +209,7 @@ public class CharTraining {
 
     @JsonIgnore
     public Set<String> getTrainingCategories() {
+        ensureTrainingState();
         return Collections.unmodifiableSet(trainingByCategory.keySet());
     }
 
@@ -209,6 +219,7 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     public List<DataTraining> getTrainingList(String category) {
+        ensureTrainingState();
         String normalizedCategory = normalizeCategory(category);
         if (normalizedCategory == null) return Collections.emptyList();
         List<DataTraining> list = trainingByCategory.get(normalizedCategory);
@@ -218,6 +229,7 @@ public class CharTraining {
     }
 
     public void addTraining(DataTraining tech) {
+        ensureTrainingState();
         if (tech != null) {
             String category = normalizeCategory(tech.getAffinity());
             List<DataTraining> list = getOrCreateCategory(category);
@@ -231,6 +243,7 @@ public class CharTraining {
     }
 
     public void removeTraining(String category, DataTraining tech) {
+        ensureTrainingState();
         String normalizedCategory = normalizeCategory(category);
         if (normalizedCategory != null && tech != null && trainingByCategory.containsKey(normalizedCategory)) {
             if (trainingByCategory.get(normalizedCategory).remove(tech)) {
@@ -249,17 +262,20 @@ public class CharTraining {
 
     /** Search all categories for a training technique by its ID. */
     public DataTraining getTrainingById(int id) {
+        ensureTrainingState();
         return trainingById.get(id);
     }
 
     /** Search all categories for a training technique by name. */
     public DataTraining getTrainingByName(String name) {
+        ensureTrainingState();
         return trainingByName.get(normalizeName(name));
     }
 
     /** All aura techniques combined across every category. */
     @JsonIgnore
     public List<DataTraining> getAllTraining() {
+        ensureTrainingState();
         if (!allTrainingDirty) {
             return allTrainingCache;
         }
@@ -298,10 +314,87 @@ public class CharTraining {
 
     /** Keeps each category list ordered by technique id for stable display/update behavior. */
     public void sortTrainingById() {
+        ensureTrainingState();
         dirtyCategories.addAll(trainingByCategory.keySet());
         for (var entry : trainingByCategory.entrySet()) {
             ensureCategorySorted(entry.getKey(), entry.getValue());
         }
+    }
+
+    private void ensureTrainingState() {
+        if (trainingByCategory.isEmpty()) {
+            trainingViewsByCategory.clear();
+            trainingIdsByCategory.clear();
+            trainingById.clear();
+            trainingByName.clear();
+            allTrainingCache = List.of();
+            allTrainingDirty = false;
+            dirtyCategories.clear();
+            sortedCategories.clear();
+            return;
+        }
+
+        boolean needsRebuild = trainingById.isEmpty()
+                || trainingViewsByCategory.size() != trainingByCategory.size()
+                || trainingIdsByCategory.size() != trainingByCategory.size();
+        if (!needsRebuild) {
+            for (String category : trainingByCategory.keySet()) {
+                String normalized = normalizeCategory(category);
+                if (normalized == null || !normalized.equals(category)) {
+                    needsRebuild = true;
+                    break;
+                }
+            }
+        }
+        if (!needsRebuild) {
+            return;
+        }
+
+        rebuildTrainingState();
+    }
+
+    private void rebuildTrainingState() {
+        Map<String, List<DataTraining>> normalizedTraining = new HashMap<>();
+        Map<String, Set<Integer>> normalizedIds = new HashMap<>();
+
+        for (var entry : trainingByCategory.entrySet()) {
+            String normalizedCategory = normalizeCategory(entry.getKey());
+            if (normalizedCategory == null) continue;
+
+            List<DataTraining> normalizedList = normalizedTraining.computeIfAbsent(normalizedCategory, ignored -> new ArrayList<>());
+            Set<Integer> categoryIds = normalizedIds.computeIfAbsent(normalizedCategory, ignored -> new HashSet<>());
+            List<DataTraining> sourceList = entry.getValue();
+            if (sourceList == null) continue;
+
+            for (DataTraining tech : sourceList) {
+                if (tech == null) continue;
+                if (categoryIds.add(tech.getId())) {
+                    normalizedList.add(tech);
+                }
+            }
+        }
+
+        trainingByCategory.clear();
+        trainingViewsByCategory.clear();
+        trainingIdsByCategory.clear();
+        trainingById.clear();
+        trainingByName.clear();
+        dirtyCategories.clear();
+        sortedCategories.clear();
+
+        for (var entry : normalizedTraining.entrySet()) {
+            String category = entry.getKey();
+            List<DataTraining> list = new ArrayList<>(entry.getValue());
+            trainingByCategory.put(category, list);
+            trainingViewsByCategory.put(category, Collections.unmodifiableList(list));
+            trainingIdsByCategory.put(category, new HashSet<>(normalizedIds.getOrDefault(category, Set.of())));
+            dirtyCategories.add(category);
+            for (DataTraining tech : list) {
+                indexTraining(tech);
+            }
+        }
+
+        allTrainingDirty = true;
     }
 
     private void ensureCategorySorted(String category, List<DataTraining> list) {

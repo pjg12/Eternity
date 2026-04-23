@@ -135,6 +135,7 @@ public class CharAttributes {
             damage = ensureCategorySize(damage, DAMAGE);
             damageSized = true;
         }
+        ensureBaseDamageDefaults();
     }
 
     // ---------------------------------------------------------
@@ -231,6 +232,8 @@ public class CharAttributes {
             boolean isAttributeKey = ATTRIBUTE_INDEX.containsKey(key.toLowerCase());
             if (isAttributeKey) {
                 base.setSeverity("Passive".equals(label) ? 10 : 0); // attribute bases start at 10
+            } else if ("BDMG".equalsIgnoreCase(key)) {
+                base.setSeverity("Passive".equals(label) ? 10 : 0); // base damage starts at 10
             } else if ("MAXATK".equalsIgnoreCase(key)) {
                 base.setSeverity(1); // base Max Attacks starts at 1
             } else if ("CRITDMG".equalsIgnoreCase(key)) {
@@ -254,6 +257,26 @@ public class CharAttributes {
                 s.setSeverity(severity);
                 return;
             }
+        }
+    }
+
+    /** Applies non-attribute base defaults to loaded characters whose stat blocks predate current rules. */
+    private void ensureBaseDamageDefaults() {
+        StatBlock baseDamageBlock = getBlockWithoutSizing("damage", "BDMG");
+        setPassiveSeverity(baseDamageBlock, 10);
+    }
+
+    private StatBlock getBlockWithoutSizing(String category, String key) {
+        if (category == null) return null;
+        int i;
+        switch (category.toLowerCase()) {
+            case "attribute": i = idx(ATTRIBUTE_INDEX, key); return i >= 0 ? attributes[i] : null;
+            case "defense":   i = idx(DEFENSE_INDEX, key);   return i >= 0 && i < defense.length ? defense[i] : null;
+            case "resist":    i = idx(RESIST_INDEX, key);    return i >= 0 ? resist[i] : null;
+            case "combat":    i = idx(COMBAT_INDEX, key);    return i >= 0 ? combat[i] : null;
+            case "secondary": i = idx(SECONDARY_INDEX, key); return i >= 0 && i < secondary.length ? secondary[i] : null;
+            case "damage":    i = idx(DAMAGE_INDEX, key);    return i >= 0 && i < damage.length ? damage[i] : null;
+            default: return null;
         }
     }
 

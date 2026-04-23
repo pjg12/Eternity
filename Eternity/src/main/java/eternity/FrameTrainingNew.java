@@ -189,7 +189,7 @@ class FrameTrainingNew extends FrameTraining {
 	private List<DataTraining> getTrainingsForAffinity(String affinity) {
 		return trainingsByAffinity.computeIfAbsent(normalizeKey(affinity), key -> {
 			List<DataTraining> matches = new ArrayList<>();
-			List<DataTraining> all = dataQuery.searchTraining("");
+			List<DataTraining> all = dataQuery.getTrainingData();
 			for (DataTraining training : all) {
 				if (training == null || training.getAffinity() == null) continue;
 				if (training.getAffinity().equalsIgnoreCase(affinity)) {

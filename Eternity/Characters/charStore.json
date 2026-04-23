@@ -23,6 +23,15 @@
   "race" : "Ardian",
   "charClass" : "Rogue",
   "level" : 1,
-  "updated" : "2026-02-25T21:51:48.048+0000",
-  "reference" : "Characters\\Auto\\2Auto3.json"
+  "updated" : "2026-04-10T02:29:11.062+0000",
+  "reference" : "Characters\\2.json"
+}, {
+  "index" : 3,
+  "name" : "Benjamin",
+  "campaign" : "",
+  "race" : "Kenti",
+  "charClass" : "Monk",
+  "level" : 1,
+  "updated" : "2026-04-14T21:29:50.281+0000",
+  "reference" : "Characters\\3.json"
 } ]

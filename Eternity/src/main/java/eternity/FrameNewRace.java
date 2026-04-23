@@ -176,7 +176,7 @@ public class FrameNewRace extends JFrame {
         clearButton.addActionListener(e -> raceClear());
 
         nextButton = new JButton("Next >>>");
-        nextButton.addActionListener(e -> openRacePicker());
+        nextButton.addActionListener(e -> onNextPressed());
         nextButton.setEnabled(false);
 
         footer.add(clearButton);
@@ -287,19 +287,30 @@ public class FrameNewRace extends JFrame {
         }
     }
 
+    private void onNextPressed() {
+        if (selectedRace == null) return;
+
+        if (!selectedRace.getRacePick()) {
+            commitRaceSelection(EMPTY_CHOICES);
+            return;
+        }
+
+        openRacePicker();
+    }
+
     void openRacePicker() {
         if (selectedRace == null) return;
 
-        if (selectedRace.getRacePick()) {
-            FrameNewRacePicker picker =
-                new FrameNewRacePicker(null, dataQuery, character, selectedRace, this);
-            picker.setVisible(true);
-        } else {
-            raceChoicesConfirmed(EMPTY_CHOICES);
-        }
+        FrameNewRacePicker picker =
+            new FrameNewRacePicker(null, dataQuery, character, selectedRace, this);
+        picker.setVisible(true);
     }
 
     void raceChoicesConfirmed(List<String> choices) {
+        commitRaceSelection(choices);
+    }
+
+    private void commitRaceSelection(List<String> choices) {
         character.getIdentity().setRace(selectedRace.getName());
         character.getIdentity().setCharRacePick(new java.util.ArrayList<>(choices));
         parent.raceConfirmed();

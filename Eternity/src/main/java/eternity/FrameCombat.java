@@ -1,6 +1,7 @@
 package eternity;
 
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -9,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import eternity.DataItemEquipment;
 
 /*
@@ -36,6 +41,11 @@ import eternity.DataItemEquipment;
  */
 public class FrameCombat extends JFrame {
 	private static final long serialVersionUID = 1;
+	private static final int OPTION_HEADER_HEIGHT = 20;
+	private static final int OPTION_ROW_HEIGHT = 50;
+	private static final int OPTION_PANEL_MIN_HEIGHT = 130;
+	private static final int OPTION_PANEL_WIDTH = 580;
+	private static final int OPTION_PANEL_BOTTOM_PADDING = 10;
 	private final FrameSheet sheetFrame;
 	private CharData character;
 	private int stdActCount, moveActCount, auraActCount;
@@ -52,6 +62,9 @@ public class FrameCombat extends JFrame {
 	private ArrayList<JButton> optionButtons;
 	private ArrayList<DataStatus> battleStatus;
 	private JComboBox<String> stdActCat;
+	private JComboBox<String> stdAbilityCat;
+	private JComboBox<String> auraActCat;
+	private JComboBox<String> auraAbilityCat;
 	private JComboBox<String> weaponSelect;
 	private ArrayList<DataItemEquipment> weaponOptions = new ArrayList<>();
 	
@@ -59,7 +72,9 @@ public class FrameCombat extends JFrame {
 	private ArrayList<DataAction> actionList;
 	
 	private final String[] ICONS = {"stdAct", "moveAct", "auraAct", "damage", "round", "freeAct", "intAct", "stdDemo", "moveDemo"};
-	private final String[] STDACTCAT = {"Standard", "Combat Maneuver", "Class", "Aura", "Specialty", "Item"};
+	private final String[] STDACTCAT = {"All", "Standard", "Combat Maneuver", "Class", "Aura", "Specialty", "Item"};
+	private final String[] STDABILITYCAT = {"All", "Attack", "Heal", "Next Attack", "Mitigation", "Rememdy", "Other"};
+	private final String[] AURAACTCAT = {"All", "Aura"};
 	private final String[] DMGTYPE = {"PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME"};
 	
 	private final JLabel noCombatImage;
@@ -209,7 +224,7 @@ public class FrameCombat extends JFrame {
 		add(optionPane);
 		optionButtons = new ArrayList<JButton>();
 		optionPanel.setLayout(null);
-		optionPanel.setPreferredSize(new Dimension(580, 130));
+		optionPanel.setPreferredSize(new Dimension(OPTION_PANEL_WIDTH, OPTION_PANEL_MIN_HEIGHT));
 		optionPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		optionPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		optionPane.setBounds(25, 190, 500, 220);
@@ -224,10 +239,25 @@ public class FrameCombat extends JFrame {
 		battleStatus = new ArrayList<DataStatus>();
 		stdActCat = new JComboBox<String>(STDACTCAT);
 		stdActCat.addActionListener(e -> updateStdAct()); // keep list in sync with category selection
-		stdActCat.setBounds(0, 0, 200, 20);
+		stdActCat.setBounds(0, 0, 160, 20);
 		optionPanel.add(stdActCat);
+		stdAbilityCat = new JComboBox<String>(STDABILITYCAT);
+		stdAbilityCat.addActionListener(e -> updateStdAct());
+		stdAbilityCat.setBounds(170, 0, 160, 20);
+		stdAbilityCat.setVisible(false);
+		optionPanel.add(stdAbilityCat);
+		auraActCat = new JComboBox<String>(AURAACTCAT);
+		auraActCat.addActionListener(e -> updateAuraAct());
+		auraActCat.setBounds(0, 0, 160, 20);
+		auraActCat.setVisible(false);
+		optionPanel.add(auraActCat);
+		auraAbilityCat = new JComboBox<String>(STDABILITYCAT);
+		auraAbilityCat.addActionListener(e -> updateAuraAct());
+		auraAbilityCat.setBounds(170, 0, 160, 20);
+		auraAbilityCat.setVisible(false);
+		optionPanel.add(auraAbilityCat);
 		weaponSelect = new JComboBox<String>();
-		weaponSelect.setBounds(210, 0, 200, 20);
+		weaponSelect.setBounds(340, 0, 160, 20);
 		weaponSelect.setVisible(false); // only shown when Standard actions are active
 		optionPanel.add(weaponSelect);
 		
@@ -235,6 +265,9 @@ public class FrameCombat extends JFrame {
 		actionList = new ArrayList<DataAction>();
 		
 		loadNoCombatImage();
+		if (character != null && character.getCombat() != null) {
+			character.getCombat().rebuildActions(character);
+		}
 		populateWeaponSelect();
 		updateStandardAttackRange();
 
@@ -266,10 +299,16 @@ public class FrameCombat extends JFrame {
 		}
 		
 		stdActCat.setVisible(false);
+		stdAbilityCat.setVisible(false);
+		auraActCat.setVisible(false);
+		auraAbilityCat.setVisible(false);
 	}
 	
 	public void updateCharacter(CharData character) {
 		this.character = character;
+		if (this.character != null && this.character.getCombat() != null) {
+			this.character.getCombat().rebuildActions(this.character);
+		}
 		populateWeaponSelect();
 		updateStandardAttackRange();
 		refreshPopupCheckboxFromCombat();
@@ -396,6 +435,9 @@ public class FrameCombat extends JFrame {
 	
 	public void stdOptions() {
 		stdActCat.setVisible(true);
+		stdAbilityCat.setVisible(true);
+		auraActCat.setVisible(false);
+		auraAbilityCat.setVisible(false);
 		populateWeaponSelect();
 		updateStandardAttackRange();
 		weaponSelect.setVisible(true);
@@ -407,6 +449,9 @@ public class FrameCombat extends JFrame {
 	
 	public void moveOptions() {
 		stdActCat.setVisible(false);
+		stdAbilityCat.setVisible(false);
+		auraActCat.setVisible(false);
+		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
@@ -416,6 +461,9 @@ public class FrameCombat extends JFrame {
 	
 	public void auraOptions() {
 		stdActCat.setVisible(false);
+		stdAbilityCat.setVisible(false);
+		auraActCat.setVisible(true);
+		auraAbilityCat.setVisible(true);
 		weaponSelect.setVisible(false);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
@@ -425,6 +473,9 @@ public class FrameCombat extends JFrame {
 	
 	public void freeOptions() {
 		stdActCat.setVisible(false);
+		stdAbilityCat.setVisible(false);
+		auraActCat.setVisible(false);
+		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
@@ -434,6 +485,9 @@ public class FrameCombat extends JFrame {
 	
 	public void intOptions() {
 		stdActCat.setVisible(false);
+		stdAbilityCat.setVisible(false);
+		auraActCat.setVisible(false);
+		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
@@ -553,24 +607,16 @@ public class FrameCombat extends JFrame {
 	
 	void updateStdAct() {
 		String tempString = (String)stdActCat.getSelectedItem();
-		boolean isStandard = tempString != null && tempString.equalsIgnoreCase("Standard");
-
-		for (int i = actionButtons.size()-1; i >= 0 ; i--) {
-			ActionListener[] listens = actionButtons.get(i).getActionListeners();
-			while (listens.length > 0) {
-				actionButtons.get(i).removeActionListener(listens[0]);
-				listens = actionButtons.get(i).getActionListeners();
-			}
-			actionButtons.get(i).setVisible(false);
-			actionButtons.remove(i);
-			actionList.remove(i);
-		} //End of Buttons Loop
+		String abilityCategory = (String)stdAbilityCat.getSelectedItem();
+		boolean showAllTypes = tempString != null && tempString.equalsIgnoreCase("All");
+		boolean isStandard = showAllTypes || (tempString != null && tempString.equalsIgnoreCase("Standard"));
+		clearDisplayedActions();
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getStandardActions();
 		ArrayList<DataAction> filtered = new ArrayList<>();
 		for (DataAction action : tempActions) {
-			if (action.getType() != null && action.getType().equalsIgnoreCase(tempString)) {
+			if (showAllTypes || (action.getSource() != null && action.getSource().equalsIgnoreCase(tempString))) {
 				filtered.add(action);
 			}
 		}
@@ -586,7 +632,8 @@ public class FrameCombat extends JFrame {
 			if (maxAtk > 1 && !alreadyHasFullAttack) {
 				DataAction fullAttack = new DataAction();
 				fullAttack.setName("Full Attack");
-				fullAttack.setType("Standard");
+				fullAttack.setCategory("Attack");
+				fullAttack.setSource("Standard");
 				fullAttack.setAffinity("None");
 				fullAttack.setActionType("Standard");
 				int range = isSelectedWeaponMelee() ? 0 : character.getAttributes().getCombat("RANGE");
@@ -594,6 +641,9 @@ public class FrameCombat extends JFrame {
 				fullAttack.setCharacter(character);
 				filtered.add(0, fullAttack);
 			}
+		}
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
+			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
 		}
 
 		// Always pin Standard Attack to the top of the standard-action list.
@@ -609,147 +659,156 @@ public class FrameCombat extends JFrame {
 		}
 		
 		for (int i = 0; i < filtered.size(); i++) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(filtered.get(i));
 			tempButton.setText(filtered.get(i).getName());
+			if (tempButton instanceof ActionEntryButton)
+				applyActionButtonColor(tempButton, filtered.get(i));
+
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20 + 50*i, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickStdAction(e));
 			actionList.add(filtered.get(i));
 		}
+		refreshOptionPanelSize();
 	}	
 	
 	void updateMoveAct() {
-		for (int i = actionButtons.size()-1; i >= 0 ; i--) {
-			ActionListener[] listens = actionButtons.get(i).getActionListeners();
-			while (listens.length > 0) {
-				actionButtons.get(i).removeActionListener(listens[0]);
-				listens = actionButtons.get(i).getActionListeners();
-			}
-			actionButtons.get(i).setVisible(false);
-			actionButtons.remove(i);
-			actionList.remove(i);
-		} //End of Buttons Loop
+		clearDisplayedActions();
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getMoveActions();
 		
 		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(tempActions.get(i));
 			tempButton.setText(tempActions.get(i).getName());
+			if (tempButton instanceof ActionEntryButton)
+				applyActionButtonColor(tempButton, tempActions.get(i));
+
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20 + 50*i, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickMoveAction(e));
 			actionList.add(tempActions.get(i));
 		}
+		refreshOptionPanelSize();
 	}
 	
 	void updateAuraAct() {
-		for (int i = actionButtons.size()-1; i >= 0 ; i--) {
-			ActionListener[] listens = actionButtons.get(i).getActionListeners();
-			while (listens.length > 0) {
-				actionButtons.get(i).removeActionListener(listens[0]);
-				listens = actionButtons.get(i).getActionListeners();
-			}
-			actionButtons.get(i).setVisible(false);
-			actionButtons.remove(i);
-			actionList.remove(i);
-		} //End of Buttons Loop
+		clearDisplayedActions();
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getAuraActions();
+		String tempString = (String)auraActCat.getSelectedItem();
+		String abilityCategory = (String)auraAbilityCat.getSelectedItem();
+		boolean showAllTypes = tempString == null || tempString.equalsIgnoreCase("All");
+		ArrayList<DataAction> filtered = new ArrayList<>();
+		for (DataAction action : tempActions) {
+			if (showAllTypes || (action.getSource() != null && action.getSource().equalsIgnoreCase(tempString))) {
+				filtered.add(action);
+			}
+		}
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
+			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
+		}
 		
-		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton();
-			tempButton.setText(tempActions.get(i).getName());
+		if (filtered.isEmpty()) {
+			JButton tempButton = buildButton(null);
+			tempButton.setText("No aura actions available");
+			tempButton.setEnabled(false);
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20 + 50*i, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT, 500, OPTION_ROW_HEIGHT);
+			actionButtons.add(tempButton);
+			actionList.add(null);
+			tempButton.setVisible(true);
+			refreshOptionPanelSize();
+			return;
+		}
+		
+		for (int i = 0; i < filtered.size(); i++) {
+			JButton tempButton = buildButton(filtered.get(i));
+			tempButton.setText(filtered.get(i).getName());
+			if (tempButton instanceof ActionEntryButton)
+				applyActionButtonColor(tempButton, filtered.get(i));
+
+			optionPanel.add(tempButton);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickAuraAction(e));
-			actionList.add(tempActions.get(i));
+			actionList.add(filtered.get(i));
 		}
+		refreshOptionPanelSize();
 	}
 	
 	void updateFreeAct() {
-		for (int i = actionButtons.size()-1; i >= 0 ; i--) {
-			ActionListener[] listens = actionButtons.get(i).getActionListeners();
-			while (listens.length > 0) {
-				actionButtons.get(i).removeActionListener(listens[0]);
-				listens = actionButtons.get(i).getActionListeners();
-			}
-			actionButtons.get(i).setVisible(false);
-			actionButtons.remove(i);
-			actionList.remove(i);
-		} //End of Buttons Loop
+		clearDisplayedActions();
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getFreeActions();
 		
 		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(tempActions.get(i));
 			tempButton.setText(tempActions.get(i).getName());
+			if (tempButton instanceof ActionEntryButton) 
+				applyActionButtonColor(tempButton, tempActions.get(i));
+
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20 + 50*i, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickFreeAction(e));
 			actionList.add(tempActions.get(i));
 		}
+		refreshOptionPanelSize();
 	}
 	
 	void updateIntAct() {
-		for (int i = actionButtons.size()-1; i >= 0 ; i--) {
-			ActionListener[] listens = actionButtons.get(i).getActionListeners();
-			while (listens.length > 0) {
-				actionButtons.get(i).removeActionListener(listens[0]);
-				listens = actionButtons.get(i).getActionListeners();
-			}
-			actionButtons.get(i).setVisible(false);
-			actionButtons.remove(i);
-			if (i < actionList.size()) {
-				actionList.remove(i);
-			}
-		} //End of Buttons Loop
+		clearDisplayedActions();
 		
 		if (character == null || character.getCombat() == null) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(null);
 			tempButton.setText("No actions available");
 			tempButton.setEnabled(false);
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			actionList.add(null);
 			tempButton.setVisible(true);
+			refreshOptionPanelSize();
 			return;
 		}
 
 		List<DataAction> tempActions = character.getCombat().getInterruptActions();
 		if (tempActions == null || tempActions.isEmpty()) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(null);
 			tempButton.setText("No actions available");
 			tempButton.setEnabled(false);
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			actionList.add(null);
 			tempButton.setVisible(true);
+			refreshOptionPanelSize();
 			return;
 		}
 
 		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton();
+			JButton tempButton = buildButton(tempActions.get(i));
 			tempButton.setText(tempActions.get(i).getName());
+			if (tempButton instanceof ActionEntryButton) {
+				applyActionButtonColor(tempButton, tempActions.get(i));
+			}
 			optionPanel.add(tempButton);
-			tempButton.setBounds(0, 20 + 50*i, 500, 50);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickIntAction(e));
 			actionList.add(tempActions.get(i));
 		}
+		refreshOptionPanelSize();
 	}
 	
 	void pickStdAction(ActionEvent e) {
@@ -759,9 +818,9 @@ public class FrameCombat extends JFrame {
 		else {
 			for (int i = 0; i < actionButtons.size(); i ++) {
 				if (e.getSource() == actionButtons.get(i)) {
-					FrameStdAction stdActionFrame = new FrameStdAction(sheetFrame, character, actionList.get(i));
+					FrameAttack attackFrame = new FrameAttack(sheetFrame, this, character, actionList.get(i));
 				
-					stdActionFrame.setVisible(true);
+					attackFrame.setVisible(true);
 				}
 			}
 		}
@@ -781,7 +840,13 @@ public class FrameCombat extends JFrame {
 			JOptionPane.showMessageDialog(this, "You are out of aura Actions.");
 		}
 		else {
-			auraActCount--;
+			for (int i = 0; i < actionButtons.size(); i ++) {
+				if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
+					auraActCount--;
+					myTurn();
+					return;
+				}
+			}
 		}
 	}
 	
@@ -792,9 +857,9 @@ public class FrameCombat extends JFrame {
 	void pickIntAction(ActionEvent e) {
 		for (int i = 0; i < actionButtons.size(); i ++) {
 			if (e.getSource() == actionButtons.get(i)) {
-				FrameStdAction stdActionFrame = new FrameStdAction(sheetFrame, character, actionList.get(i));
+				FrameAttack attackFrame = new FrameAttack(sheetFrame, this, character, actionList.get(i));
 				
-				stdActionFrame.setVisible(true);
+				attackFrame.setVisible(true);
 			}
 		}
 	}
@@ -856,6 +921,9 @@ public class FrameCombat extends JFrame {
 		if (at.compareTo("Standard")==0) {
 			stdActCount--;
 		}
+		else if (at.compareTo("Aura")==0) {
+			auraActCount--;
+		}
 		myTurn();
 	}
 
@@ -870,10 +938,141 @@ public class FrameCombat extends JFrame {
 		return pane;
 	}
 
-	private JButton buildButton() {
+	private JButton buildButton(DataAction action) {
 		JButton btn = new JButton();
+		if (action != null) {
+			String affinity = action.getAffinity();
+			if (!(affinity == null || affinity.isBlank() || "None".equalsIgnoreCase(affinity)))
+				btn = new ActionEntryButton();
+		}
 		btn.setFocusPainted(false);
 		return btn;
+	}
+
+	private void applyActionButtonColor(JButton button, DataAction action) {
+		if (!(button instanceof ActionEntryButton actionButton)) return;
+		actionButton.clearAffinityColors();
+
+		if (action == null) return;
+		String affinity = action.getAffinity();
+		if (affinity == null || affinity.isBlank() || "None".equalsIgnoreCase(affinity)) return;
+
+		DataColor color = CharDataManager.getDataQuery().getColorByTitle(affinity);
+		if (color == null) return;
+
+		actionButton.setAffinityColors(color.getBackColor(), color.getForeColor());
+	}
+
+	private static final class ActionEntryButton extends JButton {
+		private static final long serialVersionUID = 1L;
+		private java.awt.Color affinityBack;
+		private java.awt.Color affinityFore;
+
+		ActionEntryButton() {
+			setContentAreaFilled(false);
+			setOpaque(false);
+		}
+
+		void clearAffinityColors() {
+			affinityBack = null;
+			affinityFore = null;
+			java.awt.Color defaultFore = UIManager.getColor("Button.foreground");
+			setForeground(defaultFore != null ? defaultFore : java.awt.Color.BLACK);
+			repaint();
+		}
+
+		void setAffinityColors(java.awt.Color background, java.awt.Color foreground) {
+			affinityBack = background;
+			affinityFore = foreground;
+			setForeground(foreground != null ? foreground : java.awt.Color.BLACK);
+			repaint();
+		}
+
+		@Override
+		protected void paintComponent(Graphics graphics) {
+			if (affinityBack == null) {
+				super.paintComponent(graphics);
+				return;
+			}
+
+			Graphics2D g2 = (Graphics2D) graphics.create();
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+			java.awt.Color top = blend(affinityBack, java.awt.Color.WHITE, getModel().isPressed() ? 0.18f : 0.35f);
+			java.awt.Color bottom = darken(affinityBack, getModel().isPressed() ? 0.20f : 0.10f);
+			if (!isEnabled()) {
+				top = blend(top, java.awt.Color.LIGHT_GRAY, 0.45f);
+				bottom = blend(bottom, java.awt.Color.GRAY, 0.45f);
+			}
+
+			g2.setPaint(new GradientPaint(0, 0, top, 0, getHeight(), bottom));
+			g2.fillRect(0, 0, getWidth(), getHeight());
+			g2.setColor(blend(top, java.awt.Color.WHITE, 0.55f));
+			g2.drawLine(1, 1, Math.max(1, getWidth() - 2), 1);
+			g2.setColor(darken(affinityBack, 0.30f));
+			g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+			g2.dispose();
+
+			super.paintComponent(graphics);
+		}
+
+		@Override
+		protected void paintBorder(Graphics graphics) {
+			if (affinityBack == null) {
+				super.paintBorder(graphics);
+			}
+		}
+
+		private static java.awt.Color darken(java.awt.Color base, float amount) {
+			int red = Math.max(0, Math.round(base.getRed() * (1.0f - amount)));
+			int green = Math.max(0, Math.round(base.getGreen() * (1.0f - amount)));
+			int blue = Math.max(0, Math.round(base.getBlue() * (1.0f - amount)));
+			return new java.awt.Color(red, green, blue);
+		}
+
+		private static java.awt.Color blend(java.awt.Color left, java.awt.Color right, float ratio) {
+			float bounded = Math.max(0.0f, Math.min(1.0f, ratio));
+			float inverse = 1.0f - bounded;
+			int red = Math.round(left.getRed() * inverse + right.getRed() * bounded);
+			int green = Math.round(left.getGreen() * inverse + right.getGreen() * bounded);
+			int blue = Math.round(left.getBlue() * inverse + right.getBlue() * bounded);
+			return new java.awt.Color(red, green, blue);
+		}
+	}
+
+	private void clearDisplayedActions() {
+		for (int i = actionButtons.size() - 1; i >= 0; i--) {
+			JButton button = actionButtons.get(i);
+			if (button != null) {
+				ActionListener[] listens = button.getActionListeners();
+				while (listens.length > 0) {
+					button.removeActionListener(listens[0]);
+					listens = button.getActionListeners();
+				}
+				button.setVisible(false);
+				optionPanel.remove(button);
+			}
+			actionButtons.remove(i);
+			if (i < actionList.size()) {
+				actionList.remove(i);
+			}
+		}
+		refreshOptionPanelSize();
+	}
+
+	private void refreshOptionPanelSize() {
+		int rowCount = Math.max(1, actionButtons.size());
+		int preferredHeight = Math.max(
+				OPTION_PANEL_MIN_HEIGHT,
+				OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * rowCount + OPTION_PANEL_BOTTOM_PADDING);
+		optionPanel.setPreferredSize(new Dimension(OPTION_PANEL_WIDTH, preferredHeight));
+		optionPanel.revalidate();
+		optionPanel.repaint();
+		if (optionPane != null) {
+			optionPane.revalidate();
+			optionPane.repaint();
+			optionPane.getVerticalScrollBar().setValue(0);
+		}
 	}
 
 	private void clearHelper() {
@@ -1077,6 +1276,13 @@ public class FrameCombat extends JFrame {
 		if (category.contains("melee") || type.contains("melee") || slot.contains("melee")) return true;
 		// Otherwise consider ranged
 		return false;
+	}
+
+	private boolean matchesActionCategory(DataAction action, String selectedCategory) {
+		if (action == null || selectedCategory == null || selectedCategory.isBlank()) return true;
+		String actionCategory = action.getCategory();
+		if (actionCategory == null || actionCategory.isBlank()) return false;
+		return actionCategory.equalsIgnoreCase(selectedCategory);
 	}
 
 }

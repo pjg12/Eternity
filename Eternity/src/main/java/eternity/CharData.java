@@ -91,6 +91,7 @@ public class CharData {
         this.inventory.setOwner(this);
         this.training.setParent(this);
         this.combat.setOwner(this);
+        this.combat.rebuildActions(this);
         if (ENABLE_SPECIALTY_CHECKS) {
             logSpecialtyNames();
         }
@@ -241,10 +242,10 @@ public class CharData {
         int[] levelScalers = currentLevelData.getScalers();
         if (statScale == null || statScale.length < 4 || levelScalers == null || levelScalers.length == 0) return;
 
-        applyLevelScaler(attributes, "defense", "FORT", "ClassLevelFort", statScale[0], levelScalers);
-        applyLevelScaler(attributes, "defense", "REF", "ClassLevelRef", statScale[1], levelScalers);
-        applyLevelScaler(attributes, "defense", "WILL", "ClassLevelWill", statScale[2], levelScalers);
-        applyLevelScaler(attributes, "combat", "ATK", "ClassLevelATK", statScale[3], levelScalers);
+        applyTieredLevelScaler(attributes, "defense", "FORT", "ClassLevelFort", statScale[0], levelScalers);
+        applyTieredLevelScaler(attributes, "defense", "REF", "ClassLevelRef", statScale[1], levelScalers);
+        applyTieredLevelScaler(attributes, "defense", "WILL", "ClassLevelWill", statScale[2], levelScalers);
+        applyTieredLevelScaler(attributes, "combat", "ATK", "ClassLevelATK", statScale[3], levelScalers);
     }
 
     private void applyClassAttributeBonuses(DataClass dataClass) {
@@ -252,27 +253,36 @@ public class CharData {
 
         String primaryAttribute = dataClass.getPrimaryAtt().toUpperCase();
         int primaryMod = attributes.getAttribute(primaryAttribute) - 10;
+        int primaryValue = attributes.getAttribute(primaryAttribute);
         int focusMod = attributes.getAttribute("FOC") - 10;
         int strengthMod = attributes.getAttribute("STR") - 10;
         int constitutionMod = attributes.getAttribute("CON") - 10;
         int dexterityMod = attributes.getAttribute("DEX") - 10;
         int controlMod = attributes.getAttribute("CTL") - 10;
         int capacityMod = attributes.getAttribute("CAP") - 10;
+        int strengthValue = attributes.getAttribute("STR");
+        int constitutionValue = attributes.getAttribute("CON");
+        int dexterityValue = attributes.getAttribute("DEX");
+        int focusValue = attributes.getAttribute("FOC");
+        int controlValue = attributes.getAttribute("CTL");
+        int capacityValue = attributes.getAttribute("CAP");
 
+        double primaryAtkSeverity = 0.5 * primaryValue;
         double primarySeverity = 0.5 * primaryMod;
-        double focusSeverity = 0.5 * focusMod;
+        double focusAtkSeverity = 0.5 * focusValue;
+        double focusAppSeverity = 0.5 * focusMod;
         double strengthDamageSeverity = 0.5 * strengthMod;
-        double fortitudeSeverity = 0.75 * (strengthMod + constitutionMod);
-        double reflexSeverity = 0.75 * (dexterityMod + focusMod);
-        double willSeverity = 0.75 * (controlMod + capacityMod);
-        double dodgeSeverity = 0.5 * dexterityMod;
+        double fortitudeSeverity = 0.5 * (strengthValue + constitutionValue);
+        double reflexSeverity = 0.5 * (dexterityValue + focusValue);
+        double willSeverity = 0.5 * (controlValue + capacityValue);
+        double dodgeSeverity = 0.5 * dexterityValue;
         double hpMultiSeverity = 0.05 * constitutionMod;
         double auraMultiSeverity = 0.05 * capacityMod;
         double controlSeverity = 0.5 * controlMod;
 
-        addPermanentAttributeStatus("combat", "ATK", "ClassPrimaryATK", primarySeverity, "Primary attribute bonus to ATK");
-        addPermanentAttributeStatus("combat", "ATK", "FocusATKBonus", focusSeverity, "Focus-based ATK bonus");
-        addPermanentAttributeStatus("combat", "APP", "FocusAPPBonus", focusSeverity, "Focus-based APP bonus");
+        addPermanentAttributeStatus("combat", "ATK", "ClassPrimaryATK", primaryAtkSeverity, "Primary attribute bonus to ATK");
+        addPermanentAttributeStatus("combat", "ATK", "FocusATKBonus", focusAtkSeverity, "Focus-based ATK bonus");
+        addPermanentAttributeStatus("combat", "APP", "FocusAPPBonus", focusAppSeverity, "Focus-based APP bonus");
         addPermanentAttributeStatus("combat", "APP", "ClassPrimaryAPP", primarySeverity, "Primary attribute bonus to APP");
         addPermanentAttributeStatus("damage", "TDMG", "ClassPrimaryTDMG", primarySeverity, "Primary attribute bonus to Total Damage");
         addPermanentAttributeStatus("damage", "TDMG", "StrTDMGBonus", strengthDamageSeverity, "Strength-based Total Damage bonus");
@@ -772,6 +782,12 @@ public class CharData {
         ds.setDescription("Class level scaling");
         attrs.removeStatus(blockType, key, statusName);
         attrs.addStatus(blockType, key, ds);
+    }
+
+    /** Applies a 1-based class scaling tier to the given block/key. */
+    private void applyTieredLevelScaler(CharAttributes attrs, String blockType, String key, String statusName, int scalerTier, int[] levelScalers) {
+        if (attrs == null || levelScalers == null || scalerTier <= 0 || scalerTier > levelScalers.length) return;
+        applyLevelScaler(attrs, blockType, key, statusName, scalerTier - 1, levelScalers);
     }
 
     /** Applies permanent size-based save modifiers to Reflex and Fortitude. */

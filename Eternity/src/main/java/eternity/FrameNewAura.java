@@ -23,11 +23,14 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class FrameNewAura extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final int FRAME_WIDTH = 540;
+    private static final int FRAME_HEIGHT = 320;
 
     private final DataQuery dataQuery;
     private final CharData character;
     private final FrameNew parent;
     private final boolean gmMode;
+    private final boolean casterSelected;
 
     private static final String[] AURATYPE = {
             "***", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity",
@@ -36,8 +39,10 @@ public class FrameNewAura extends JFrame {
     private static final String EMPTY_OPTION = "***";
 
     private JComboBox<String> auraPick;
+    private JComboBox<String> bonusAuraPick;
     private final JComboBox<String>[] weaponPick = new JComboBox[2];
     private final Map<String, List<String>> starterWeaponsByProfile = new HashMap<>();
+    private boolean updatingAffinityChoices;
 
     public FrameNewAura(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
         super("Affinity & Starter Weapons");
@@ -45,11 +50,12 @@ public class FrameNewAura extends JFrame {
         this.character = character;
         this.parent = parent;
         this.gmMode = gmMode;
+        this.casterSelected = isCasterSelected();
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
         setLayout(null);
-        setSize(540, 280);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -71,6 +77,12 @@ public class FrameNewAura extends JFrame {
         affinityLabel.setBounds(25, 60, 140, 20);
         add(affinityLabel);
 
+        if (casterSelected) {
+            JLabel bonusAffinityLabel = new JLabel("Bonus Affinity");
+            bonusAffinityLabel.setBounds(25, 125, 140, 20);
+            add(bonusAffinityLabel);
+        }
+
         JLabel weaponLabel = new JLabel("Starter Weapons");
         weaponLabel.setBounds(225, 60, 200, 20);
         add(weaponLabel);
@@ -78,8 +90,18 @@ public class FrameNewAura extends JFrame {
 
     private void buildPickers() {
         auraPick = new JComboBox<>(AURATYPE);
-        auraPick.setBounds(25, 100, 160, 22);
+        auraPick.setBounds(25, 90, 160, 22);
         add(auraPick);
+
+        if (casterSelected) {
+            bonusAuraPick = new JComboBox<>(AURATYPE);
+            bonusAuraPick.setBounds(25, 155, 160, 22);
+            add(bonusAuraPick);
+
+            auraPick.addActionListener(e -> refreshAffinityPickers());
+            bonusAuraPick.addActionListener(e -> refreshAffinityPickers());
+            refreshAffinityPickers();
+        }
 
         List<String> profs = character.getInventory().getWeaponProficiencies();
         if ((profs == null || profs.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
@@ -108,20 +130,19 @@ public class FrameNewAura extends JFrame {
 
     private void buildButtons() {
         JButton back = new JButton("Back");
-        back.setBounds(150, 200, 100, 28);
+        back.setBounds(150, 240, 100, 28);
         back.addActionListener(e -> dispose());
         add(back);
 
         JButton confirm = new JButton("Confirm");
-        confirm.setBounds(290, 200, 120, 28);
+        confirm.setBounds(290, 240, 120, 28);
         confirm.addActionListener(e -> auraConfirm());
         add(confirm);
     }
 
     private void auraConfirm() {
         if (gmMode) {
-            int idx = ThreadLocalRandom.current().nextInt(1, AURATYPE.length);
-            auraPick.setSelectedItem(AURATYPE[idx]);
+            randomizeAffinitySelections();
             // auto-pick first non "***" weapon options if available
             for (JComboBox<String> wp : weaponPick) {
                 if (wp.isEnabled() && wp.getItemCount() > 1) {
@@ -134,6 +155,19 @@ public class FrameNewAura extends JFrame {
         if (affinity == null || EMPTY_OPTION.equals(affinity)) {
             JOptionPane.showMessageDialog(this, "Select a Natural Affinity to proceed.");
             return;
+        }
+
+        String bonusAffinity = EMPTY_OPTION;
+        if (casterSelected && bonusAuraPick != null) {
+            bonusAffinity = (String) bonusAuraPick.getSelectedItem();
+            if (bonusAffinity == null || EMPTY_OPTION.equals(bonusAffinity)) {
+                JOptionPane.showMessageDialog(this, "Select a Bonus Affinity to proceed.");
+                return;
+            }
+            if (bonusAffinity.equalsIgnoreCase(affinity)) {
+                JOptionPane.showMessageDialog(this, "Natural Affinity and Bonus Affinity must be different.");
+                return;
+            }
         }
 
         // Validate weapon picks only if profs exist
@@ -154,7 +188,12 @@ public class FrameNewAura extends JFrame {
             }
         }
 
-        character.getTraining().addNaturalAffinity(affinity);
+        ArrayList<String> selectedAffinities = new ArrayList<>();
+        selectedAffinities.add(affinity);
+        if (casterSelected && bonusAuraPick != null && bonusAffinity != null && !EMPTY_OPTION.equals(bonusAffinity)) {
+            selectedAffinities.add(bonusAffinity);
+        }
+        character.getTraining().setNaturalAffinities(selectedAffinities);
 
         if (requireWeapons) {
             for (JComboBox<String> wp : weaponPick) {
@@ -170,6 +209,79 @@ public class FrameNewAura extends JFrame {
         dispose();
     }
 
+    private boolean isCasterSelected() {
+        if (character == null || character.getIdentity() == null) return false;
+        String cls = character.getIdentity().getCharClass();
+        return cls != null && cls.equalsIgnoreCase("Caster");
+    }
+
+    private void randomizeAffinitySelections() {
+        int naturalIndex = ThreadLocalRandom.current().nextInt(1, AURATYPE.length);
+        auraPick.setSelectedItem(AURATYPE[naturalIndex]);
+        if (casterSelected && bonusAuraPick != null) {
+            refreshAffinityPickers();
+            ArrayList<String> options = new ArrayList<>();
+            for (int i = 1; i < bonusAuraPick.getItemCount(); i++) {
+                String item = bonusAuraPick.getItemAt(i);
+                if (item != null && !EMPTY_OPTION.equals(item)) {
+                    options.add(item);
+                }
+            }
+            if (!options.isEmpty()) {
+                String bonus = options.get(ThreadLocalRandom.current().nextInt(options.size()));
+                bonusAuraPick.setSelectedItem(bonus);
+            }
+        }
+    }
+
+    private void refreshAffinityPickers() {
+        if (!casterSelected || bonusAuraPick == null || updatingAffinityChoices) return;
+
+        updatingAffinityChoices = true;
+        try {
+            String naturalSelection = getSelectedOrEmpty(auraPick);
+            String bonusSelection = getSelectedOrEmpty(bonusAuraPick);
+
+            rebuildAffinityPicker(auraPick, naturalSelection, bonusSelection);
+            rebuildAffinityPicker(bonusAuraPick, bonusSelection, naturalSelection);
+        } finally {
+            updatingAffinityChoices = false;
+        }
+    }
+
+    private void rebuildAffinityPicker(JComboBox<String> box, String currentSelection, String blockedSelection) {
+        box.removeAllItems();
+        box.addItem(EMPTY_OPTION);
+
+        for (String affinity : AURATYPE) {
+            if (EMPTY_OPTION.equals(affinity)) continue;
+            if (!EMPTY_OPTION.equals(blockedSelection) && affinity.equalsIgnoreCase(blockedSelection)) continue;
+            box.addItem(affinity);
+        }
+
+        if (currentSelection != null && !currentSelection.isBlank() && containsOption(box, currentSelection)) {
+            box.setSelectedItem(currentSelection);
+        } else {
+            box.setSelectedItem(EMPTY_OPTION);
+        }
+    }
+
+    private String getSelectedOrEmpty(JComboBox<String> box) {
+        if (box == null) return EMPTY_OPTION;
+        String selected = (String) box.getSelectedItem();
+        return selected == null ? EMPTY_OPTION : selected;
+    }
+
+    private boolean containsOption(JComboBox<String> box, String value) {
+        for (int i = 0; i < box.getItemCount(); i++) {
+            String item = box.getItemAt(i);
+            if (item != null && item.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private List<String> getStarterWeaponOptions(List<String> profs) {
         if (profs == null || profs.isEmpty() || dataQuery == null) return new ArrayList<>();
         String cacheKey = buildProfileKey(profs);
@@ -180,7 +292,7 @@ public class FrameNewAura extends JFrame {
 
         Set<String> names = new LinkedHashSet<>();
 
-        List<DataItemEquipment> all = dataQuery.searchItems("");
+        List<DataItemEquipment> all = dataQuery.getItemEquipmentData();
         for (DataItemEquipment item : all) {
             if (item == null || item.getTier() != 0) continue;
             String category = item.getCategory() == null ? "" : item.getCategory();

@@ -188,7 +188,7 @@ public class FrameNewRacePicker extends JFrame {
             return cached;
         }
 
-        List<DataRace> allRaces = dataQuery.searchRaceByName("");
+        List<DataRace> allRaces = dataQuery.getRaceData();
         if (allRaces == null || allRaces.isEmpty()) {
             sortedRaceNamesCache = SHAPESHIFT_OPTIONS;
             return SHAPESHIFT_OPTIONS;

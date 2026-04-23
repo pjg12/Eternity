@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eternity.DataStatus;
-
 public class StoreData {
     private static final Path DATA_PATH = resolveDataPath();
 
@@ -23,6 +21,7 @@ public class StoreData {
 	private final List<DataItemEquipment> itemEquipmentData;
 	private final List<DataTraining> trainingData;
 	private final List<DataTechPerm> techPermData;
+    private final List<DataAction> actionData;
 	
 	private final DataBuilder builder;
 	
@@ -40,6 +39,8 @@ public class StoreData {
         itemEquipmentData  = safeLoad("itemequipdata.json",    DataItemEquipment[].class);
         techPermData       = safeLoad("techpermdata.json",     DataTechPerm[].class);
         trainingData       = safeLoad("trainingdata.json",     DataTraining[].class);
+        actionData         = safeLoad("actiondata.json",       DataAction[].class);
+        
         applyTechPermsToTraining();
     }
 	
@@ -92,6 +93,8 @@ public class StoreData {
     public List<DataTraining> getTrainingData() { return trainingData; }
 
     public List<DataTechPerm> getTechPermData() { return techPermData; }
+
+    public List<DataAction> getActionData() { return actionData; }
 
     /**
      * Injects permanent statuses into training entries based on their grant ids and techPermData.

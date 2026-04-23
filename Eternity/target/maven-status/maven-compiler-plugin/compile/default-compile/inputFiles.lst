@@ -27,6 +27,7 @@ C:\Eternity\Eternity\src\main\java\eternity\DataStatus.java
 C:\Eternity\Eternity\src\main\java\eternity\DataTechPerm.java
 C:\Eternity\Eternity\src\main\java\eternity\DataTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\EternityMain.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameAttack.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameCombat.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameCombatDamage.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameDetail.java
@@ -50,7 +51,6 @@ C:\Eternity\Eternity\src\main\java\eternity\FrameRest.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSheet.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSkill.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSpecial.java
-C:\Eternity\Eternity\src\main\java\eternity\FrameStdAction.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTrainingExisting.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTrainingNew.java
