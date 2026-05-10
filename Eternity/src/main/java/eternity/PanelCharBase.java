@@ -337,8 +337,8 @@ public class PanelCharBase extends JPanel {
 			// Tooltips
 		CharResources res = character.getResources();
 
-		tempString = "<html>You have " + (int)res.getCurrentHP() + " HP.<br>You have lost " + (int)res.getLostHP() + " HP.<br>You are ";
-		tempDouble = res.getCurrentHP() / (double)res.getMaxHP();
+		tempString = "<html>You have " + (int)res.calcCurrentHP() + " HP.<br>You have lost " + (int)res.getLostHP() + " HP.<br>You are ";
+		tempDouble = res.calcCurrentHP() / (double)res.calcMaxHP();
 		if (tempDouble >= 1) {
 			tempString += "not wounded.";
 		}
@@ -363,7 +363,7 @@ public class PanelCharBase extends JPanel {
 		charCurrHPL.setToolTipText(tempString);
 		charCurrHP.setToolTipText(tempString);
 		
-		tempString = "<html>Maximum HP: " + res.getMaxHP() + "<br>-------(Base)-------<br>";
+		tempString = "<html>Maximum HP: " + res.calcMaxHP() + "<br>-------(Base)-------<br>";
 		StatBlock[] tempStatuses = null;
 		tempStatuses = character.getResources().getMaxHPBlocks();
 		if (tempStatuses != null) for (StatBlock sb : tempStatuses) {

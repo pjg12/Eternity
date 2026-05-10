@@ -6,7 +6,8 @@
   "description" : "Level 1",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2,
   "name" : "Level 2",
@@ -15,7 +16,8 @@
   "description" : "Level 2",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3,
   "name" : "Level 3",
@@ -24,7 +26,8 @@
   "description" : "Level 3",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4,
   "name" : "Level 4",
@@ -33,7 +36,8 @@
   "description" : "Level 4",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5,
   "name" : "Level 5",
@@ -42,7 +46,8 @@
   "description" : "Level 5",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6,
   "name" : "Level 6",
@@ -51,7 +56,8 @@
   "description" : "Level 6",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7,
   "name" : "Level 7",
@@ -60,7 +66,8 @@
   "description" : "Level 7",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8,
   "name" : "Level 8",
@@ -69,7 +76,8 @@
   "description" : "Level 8",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9,
   "name" : "Level 9",
@@ -78,7 +86,8 @@
   "description" : "Level 9",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 10,
   "name" : "Level 10",
@@ -87,7 +96,8 @@
   "description" : "Level 10",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 11,
   "name" : "Level 11",
@@ -96,7 +106,8 @@
   "description" : "Level 11",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 12,
   "name" : "Level 12",
@@ -105,7 +116,8 @@
   "description" : "Level 12",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 13,
   "name" : "Level 13",
@@ -114,7 +126,8 @@
   "description" : "Level 13",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 14,
   "name" : "Level 14",
@@ -123,7 +136,8 @@
   "description" : "Level 14",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 15,
   "name" : "Level 15",
@@ -132,7 +146,8 @@
   "description" : "Level 15",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 16,
   "name" : "Level 16",
@@ -141,7 +156,8 @@
   "description" : "Level 16",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 17,
   "name" : "Level 17",
@@ -150,7 +166,8 @@
   "description" : "Level 17",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 18,
   "name" : "Level 18",
@@ -159,7 +176,8 @@
   "description" : "Level 18",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 19,
   "name" : "Level 19",
@@ -168,7 +186,8 @@
   "description" : "Level 19",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 20,
   "name" : "Level 20",
@@ -177,7 +196,8 @@
   "description" : "Level 20",
   "type" : "level",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 41,
   "name" : "Proficiency (Light Armor)",
@@ -186,7 +206,8 @@
   "description" : "Allows the character to equip Light Armor",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 42,
   "name" : "Proficiency (Medium Armor)",
@@ -195,7 +216,8 @@
   "description" : "Allows the character to equip Medium Armor",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 43,
   "name" : "Proficiency (Heavy Armor)",
@@ -204,7 +226,8 @@
   "description" : "Allows the character to equip Heavy Armor",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 44,
   "name" : "Proficiency (Exo Armor)",
@@ -213,7 +236,8 @@
   "description" : "Allows the character to equip Exo Armor",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 51,
   "name" : "Proficiency (Blade)",
@@ -222,7 +246,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a blade.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 52,
   "name" : "Proficiency (Dagger)",
@@ -231,7 +256,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a dagger.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 53,
   "name" : "Proficiency (Fist)",
@@ -240,7 +266,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a fist.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 54,
   "name" : "Proficiency (Whip)",
@@ -249,7 +276,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a whip.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 55,
   "name" : "Proficiency (Sword)",
@@ -258,7 +286,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a sword.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 56,
   "name" : "Proficiency (Axe)",
@@ -267,7 +296,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding an axe.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 57,
   "name" : "Proficiency (Mace)",
@@ -276,7 +306,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a mace.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 58,
   "name" : "Proficiency (Shield)",
@@ -285,7 +316,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a shield.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 59,
   "name" : "Proficiency (Greatsword)",
@@ -294,7 +326,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a greatsword.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 60,
   "name" : "Proficiency (Battleaxe)",
@@ -303,7 +336,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a battleaxe.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 61,
   "name" : "Proficiency (Warhammer)",
@@ -312,7 +346,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a warhammer.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 62,
   "name" : "Proficiency (Polearm)",
@@ -321,7 +356,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a polearm.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 63,
   "name" : "Proficiency (Thrown)",
@@ -330,7 +366,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a thrown weapon.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 64,
   "name" : "Proficiency (Handbow)",
@@ -339,7 +376,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a handbow.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 65,
   "name" : "Proficiency (Pistol)",
@@ -348,7 +386,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a pistol.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 66,
   "name" : "Proficiency (Sling)",
@@ -357,7 +396,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a sling.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 67,
   "name" : "Proficiency (Bow)",
@@ -366,7 +406,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a bow.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 68,
   "name" : "Proficiency (Crossbow)",
@@ -375,7 +416,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a crossbow.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 69,
   "name" : "Proficiency (Rifle)",
@@ -384,7 +426,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a rifle.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 70,
   "name" : "Proficiency (Cannon)",
@@ -393,7 +436,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a cannon.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 71,
   "name" : "Proficiency (Wand)",
@@ -402,7 +446,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a wand.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 72,
   "name" : "Proficiency (Ring)",
@@ -411,7 +456,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a ring.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 73,
   "name" : "Proficiency (Orb)",
@@ -420,7 +466,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding an orb.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 74,
   "name" : "Proficiency (Talisman)",
@@ -429,7 +476,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a talisman.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 75,
   "name" : "Proficiency (Staff)",
@@ -438,7 +486,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a staff.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 76,
   "name" : "Proficiency (Tome)",
@@ -447,7 +496,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a tome.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 77,
   "name" : "Proficiency (Relic)",
@@ -456,7 +506,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a relic.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 78,
   "name" : "Proficiency (Symbol)",
@@ -465,7 +516,8 @@
   "description" : "Allows the character to use their primary Attribute when weilding a holy symbol.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 79,
   "name" : "Proficiency (Matrix)",
@@ -474,7 +526,8 @@
   "description" : "Allows the character to equip a matrix.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 80,
   "name" : "Proficiency (Exo Weapon)",
@@ -483,7 +536,8 @@
   "description" : "Allows the character to equip Exo Weapons.",
   "type" : "proficiency",
   "prereq" : -1,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 101,
   "name" : "Shapeshifting (Alteri)",
@@ -492,7 +546,8 @@
   "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
   "type" : "reminder",
   "prereq" : 0,
-  "pick" : true
+  "pick" : true,
+  "permStatus" : [ ]
 }, {
   "id" : 102,
   "name" : "Waveborne (Aquios)",
@@ -501,7 +556,8 @@
   "description" : "Aquata can survive under water indefinitely. Aquata move twice their move speed when swimming.",
   "type" : "reminder",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 103,
   "name" : "Skittish (Ardian)",
@@ -510,7 +566,8 @@
   "description" : "Ardians can move 5ft at the end of any turn during which they took damage.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 104,
   "name" : "Avarice (Azuri)",
@@ -519,7 +576,8 @@
   "description" : "Azuri choose a Pursuit character attribute at character creation and a minimum of one skill for that attribute. Azuri add their racial level as a bonus to skills matching their pursuit. Additionally, they make take 20 when using these skills in any situation where a character could take 10.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 105,
   "name" : "Green Giant (Boxlor)",
@@ -528,7 +586,8 @@
   "description" : "Boxlor can regenerate a lost limb or from another significant injury by spending a cumulative 24 hours in long rest. A Boxlor is considered to be large size and receives all bonuses and penalties thereof.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 106,
   "name" : "Path to Progress (Cetryu)",
@@ -537,7 +596,8 @@
   "description" : "Cetryu never suffer penalties to KNOW or MECH checks and can take 10 on such checks when under pressure. Cetryu use KNOW in place of INT for any skill where KNOW seems relevant.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 107,
   "name" : "Catalytic Converter (Construct)",
@@ -546,7 +606,8 @@
   "description" : "A construct may install, assimilate, or otherwise use catalysts. Acclimation to a new catalyst will be treated as a 'list' addition and be subject to the same time requirements. Removing a catalyst requires one hour.",
   "type" : "T",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 108,
   "name" : "Honorbound (Deckan)",
@@ -555,25 +616,28 @@
   "description" : "Deckans receive a bonus to Attack and Damage while in 'honorable' standing. If a Deckan is reduced to an honorless state, these bonuses become penalties and the Deckan suffers an additional -10 WILL until their honor is restored.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 109,
   "name" : "Jousting Charge (En)",
   "refName" : "",
   "category" : "Racial",
-  "description" : "Evans have a distinct Hero or Villain alignment. Evans gain a Hero or Villain index equal to their race level. An Evan can spend an index point to grant all allies a bonus to current Init equal to their race level.",
+  "description" : "En",
   "type" : "T",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 110,
   "name" : "Evan",
   "refName" : "",
   "category" : "Racial",
-  "description" : "evans",
+  "description" : "Evans have a distinct Hero or Villain alignment. Evans gain a Hero or Villain index equal to their race level. An Evan can spend an index point to grant all allies a bonus to current Init equal to their race level.",
   "type" : "f",
   "prereq" : 0,
-  "pick" : false
+  "pick" : true,
+  "permStatus" : [ ]
 }, {
   "id" : 111,
   "name" : "Witchcraft (Felsh)",
@@ -582,7 +646,8 @@
   "description" : "Felsh receive Aura Ritual equal to their race level. Felsh also increase their Max Ranks by 0.5% per race level.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 112,
   "name" : "Felshify (Felsh Cat)",
@@ -591,7 +656,8 @@
   "description" : "Felsh Cats can turn into their humanoid forms or revert to their cat forms once per turn as a free action.",
   "type" : "reminder",
   "prereq" : 0,
-  "pick" : true
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 113,
   "name" : "Mastercraft (Forven)",
@@ -600,7 +666,8 @@
   "description" : "Forven add their entire INT mod to Crafting rolls. When crafting, Forven can spend additional time to improve their crafting outcome. Each additional hour increases their result by 2 and they may spend additional time until the result is Masterwork. Forven also generate 50% additional crafting revenue.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : true,
+  "permStatus" : [ ]
 }, {
   "id" : 114,
   "name" : "Versatility (Gaian)",
@@ -609,7 +676,8 @@
   "description" : "Gaians gain an additional skill and an additional feature at level 1.",
   "type" : "T",
   "prereq" : 0,
-  "pick" : false
+  "pick" : true,
+  "permStatus" : [ ]
 }, {
   "id" : 115,
   "name" : "Angelic Host (Irdon)",
@@ -618,7 +686,8 @@
   "description" : "Irdon host an angelic spirit controlled by the narrator. An Irdon's spirit generates a resource referred to as their Angel Index. An Irdon may consume a point from their index to add an additional target to a non-AoE ability. Doing so will double the cost of that ability. The Angel index will be restored following a long rest.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 116,
   "name" : "Balance in All Things (Kenti)",
@@ -627,7 +696,8 @@
   "description" : "Kenti who are in Balance receive a +1 bonus to all attributes aside from their primary attribute. A Kenti is in balance if all of their attributes aside from their primary attribute are within 1.5 of the average of those attributes.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 117,
   "name" : "Tails of the Fox (Kitsune)",
@@ -636,7 +706,8 @@
   "description" : "Kitsune can invoke an ancestral spirit as a free action once per day. The effects of this invocation remain with the Kitsune until they invoke a different spirit. Kitsune can invoke any of the tailed spirits from one up to their racial level.",
   "type" : "T",
   "prereq" : 0,
-  "pick" : false
+  "pick" : true,
+  "permStatus" : [ ]
 }, {
   "id" : 118,
   "name" : "Darklight (Loben)",
@@ -645,7 +716,8 @@
   "description" : "Loben have exceptional senses of sight, hearing, and smell. Loben are also capable of cutting off an overwhelmed sense before they are disoriented. If they are able to utilize even one of these senses, Loben receive no penalties for being blinded, deafened, or odorized.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 119,
   "name" : "Windsense (Loritho)",
@@ -654,7 +726,8 @@
   "description" : "Loritho get bonus range. Loritho get bonuses to navigation when outside. Once per day, a Loritho can shift their fortunes, rerolling a single die.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 120,
   "name" : "Imperial Devotion (Meridian)",
@@ -663,7 +736,8 @@
   "description" : "Meridians increase the durations of their debuff and support techniques by one regardless of duration type.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 121,
   "name" : "Stout Sailor (Nohmen)",
@@ -672,7 +746,8 @@
   "description" : "Nohmen receive the Balance skill at level 1 and automatically succeed at mundane balance checks. Nohmen are considered small creatures, gaining all bonuses and penalties of such.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 122,
   "name" : "Bloodplague (Nosfer)",
@@ -681,7 +756,8 @@
   "description" : "Nosfer receive a +2 bonus per racial level against all disease and poison effects and are immune to mundane disease and poison. Whenever a Nosfer applies a disease effect to an enemy, apply 'Bloodplague' to that enemy as well, increasing the damage they take from all attacks by the Nosfer's Racial level until End of Round.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 123,
   "name" : "Beware of Dog (Oon)",
@@ -690,7 +766,8 @@
   "description" : "Oons receive a bonus to grapple actions equal to their racial level. Oons possess a bite attack that can be used as a free action in any state of grapple.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 124,
   "name" : "Mistwalker (Poruuk)",
@@ -699,7 +776,8 @@
   "description" : "Poruuk can hide in plain sight and increase the DC to track groups they are a part of by an amount equal to their racial level.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 125,
   "name" : "Formicidae (Quez - Ant)",
@@ -708,7 +786,8 @@
   "description" : "Quez of the Formicidae Family receive +0.5 CON per Racial Level. These Quez have double the standard lifting capacity. Formicidae never become exhausted from travel.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 126,
   "name" : "-",
@@ -717,7 +796,8 @@
   "description" : "-",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 127,
   "name" : "-",
@@ -726,7 +806,8 @@
   "description" : "-",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 128,
   "name" : "Draconic Heritage (Raigon)",
@@ -735,7 +816,8 @@
   "description" : "Raigon can activate their dragonshape as an aura action. Raigon can maintain their dragonshape for a number of rounds each day equal to racial level. In dragonshape, Raigon gain fly speed equal to their move speed and Armor equal to racial level. They can use a breath attack once per day, increased to twice at racial level 6.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 129,
   "name" : "March of the Dead (Reven)",
@@ -744,7 +826,8 @@
   "description" : "Reven are not immediately rendered unconscious when reduced below 0 HP. Reven make a FORT save (DC equal to their negative HP) at the start of their turn. If they succeed, they remain conscious. Additionally, any creature damaged by the Reven which dies briefly enters the Reven's service. This creature may not attack, but occupies its tile.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 130,
   "name" : "Reign of Terror (Skren)",
@@ -753,7 +836,8 @@
   "description" : "Skren receive the Intimidate skill at level 1. At the start of a Skren's combat turn, make an Intimidate check and multiply the result by your racial level. Any creature with less HP than this value must make a WILL save (DC your original intimidate check). A creature that fails this save has their morale broken.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 131,
   "name" : "Photosynthesis (Theran)",
@@ -762,7 +846,8 @@
   "description" : "Therans require 1/2 rations and 1/2 sleep time. Increase INIT by 1/2 racial level during daylight. Increase RESISTALL by twice racial level outside daylight.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 132,
   "name" : "Sacred Folklore (Vindis)",
@@ -771,7 +856,8 @@
   "description" : "Vindis have the rank cost and xp requirement for spirit affinity techniques reduced by 25%. Vindis can summon a companion spirit.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 133,
   "name" : "Demonic Host (Vyrek)",
@@ -780,7 +866,8 @@
   "description" : "Vyrek host a demonic spirit controlled by the narrator. A Vyrek's spirit generates a resource referred to as their Demon Index. A Vyrek may consume a point from their index to increase the damage of a non-AoE ability by 50%. Doing so will double the cost of that ability. This effect may be activated after the hit has been confirmed. The Demon index will be restored following a long rest.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 134,
   "name" : "Faekind (Xid)",
@@ -789,7 +876,8 @@
   "description" : "Xid are tiny creatures and are subject to all bonuses and penalties that entails. Xid do not occupy the tile they are in and must enter an enemy's tile to make a melee attack. Xid have the natural ability to fly and have natural flight speed equal to 15ft + 2.5ft per racial level.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 135,
   "name" : "Hybridize (Zyan)",
@@ -798,7 +886,8 @@
   "description" : "Zyans can assume or revert their hybrid form as a free action once per turn. The bonuses of this form depend on the Xyan's culture.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 201,
   "name" : "Specialization (Blade)",
@@ -807,7 +896,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 202,
   "name" : "Specialization (Dagger)",
@@ -816,7 +906,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 203,
   "name" : "Specialization (Fist)",
@@ -825,7 +916,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 204,
   "name" : "Specialization (Whip)",
@@ -834,7 +926,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 205,
   "name" : "Specialization (Sword)",
@@ -843,7 +936,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 206,
   "name" : "Specialization (Axe)",
@@ -852,7 +946,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 207,
   "name" : "Specialization (Mace)",
@@ -861,7 +956,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 208,
   "name" : "Specialization (Shield)",
@@ -870,7 +966,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 209,
   "name" : "Specialization (Greatsword)",
@@ -879,7 +976,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 210,
   "name" : "Specialization (Battleaxe)",
@@ -888,7 +986,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 211,
   "name" : "Specialization (Warhammer)",
@@ -897,7 +996,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 212,
   "name" : "Specialization (Polearm)",
@@ -906,7 +1006,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 213,
   "name" : "Specialization (Thrown)",
@@ -915,7 +1016,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 214,
   "name" : "Specialization (Handbow)",
@@ -924,7 +1026,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 215,
   "name" : "Specialization (Pistol)",
@@ -933,7 +1036,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 216,
   "name" : "Specialization (Sling)",
@@ -942,7 +1046,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 217,
   "name" : "Specialization (Bow)",
@@ -951,7 +1056,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 218,
   "name" : "Specialization (Crossbow)",
@@ -960,7 +1066,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 219,
   "name" : "Specialization (Rifle)",
@@ -969,7 +1076,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 220,
   "name" : "Specialization (Cannon)",
@@ -978,7 +1086,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 221,
   "name" : "Specialization (Wand)",
@@ -987,7 +1096,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 222,
   "name" : "Specialization (Ring)",
@@ -996,7 +1106,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 223,
   "name" : "Specialization (Orb)",
@@ -1005,7 +1116,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 224,
   "name" : "Specialization (Talisman)",
@@ -1014,7 +1126,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 225,
   "name" : "Specialization (Staff)",
@@ -1023,7 +1136,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 226,
   "name" : "Specialization (Tome)",
@@ -1032,7 +1146,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 227,
   "name" : "Specialization (Relic)",
@@ -1041,7 +1156,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 228,
   "name" : "Specialization (Symbol)",
@@ -1050,7 +1166,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 231,
   "name" : "Expertise (Blade)",
@@ -1059,7 +1176,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 232,
   "name" : "Expertise (Dagger)",
@@ -1068,7 +1186,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 233,
   "name" : "Expertise (Fist)",
@@ -1077,7 +1196,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 234,
   "name" : "Expertise (Whip)",
@@ -1086,7 +1206,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 235,
   "name" : "Expertise (Sword)",
@@ -1095,7 +1216,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 236,
   "name" : "Expertise (Axe)",
@@ -1104,7 +1226,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 237,
   "name" : "Expertise (Mace)",
@@ -1113,7 +1236,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 238,
   "name" : "Expertise (Shield)",
@@ -1122,7 +1246,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 239,
   "name" : "Expertise (Greatsword)",
@@ -1131,7 +1256,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 240,
   "name" : "Expertise (Battleaxe)",
@@ -1140,7 +1266,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 241,
   "name" : "Expertise (Warhammer)",
@@ -1149,7 +1276,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 242,
   "name" : "Expertise (Polearm)",
@@ -1158,7 +1286,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 243,
   "name" : "Expertise (Thrown)",
@@ -1167,7 +1296,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 244,
   "name" : "Expertise (Handbow)",
@@ -1176,7 +1306,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 245,
   "name" : "Expertise (Pistol)",
@@ -1185,7 +1316,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 246,
   "name" : "Expertise (Sling)",
@@ -1194,7 +1326,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 247,
   "name" : "Expertise (Bow)",
@@ -1203,7 +1336,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 248,
   "name" : "Expertise (Crossbow)",
@@ -1212,7 +1346,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 249,
   "name" : "Expertise (Rifle)",
@@ -1221,7 +1356,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 250,
   "name" : "Expertise (Cannon)",
@@ -1230,7 +1366,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 251,
   "name" : "Expertise (Wand)",
@@ -1239,7 +1376,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 252,
   "name" : "Expertise (Ring)",
@@ -1248,7 +1386,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 253,
   "name" : "Expertise (Orb)",
@@ -1257,7 +1396,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 254,
   "name" : "Expertise (Talisman)",
@@ -1266,7 +1406,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 255,
   "name" : "Expertise (Staff)",
@@ -1275,7 +1416,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 256,
   "name" : "Expertise (Tome)",
@@ -1284,7 +1426,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 257,
   "name" : "Expertise (Relic)",
@@ -1293,7 +1436,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 258,
   "name" : "Expertise (Symbol)",
@@ -1302,7 +1446,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 261,
   "name" : "Mastery (Blade)",
@@ -1311,7 +1456,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 262,
   "name" : "Mastery (Dagger)",
@@ -1320,7 +1466,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 263,
   "name" : "Mastery (Fist)",
@@ -1329,7 +1476,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 264,
   "name" : "Mastery (Whip)",
@@ -1338,7 +1486,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 265,
   "name" : "Mastery (Sword)",
@@ -1347,7 +1496,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 266,
   "name" : "Mastery (Axe)",
@@ -1356,7 +1506,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 267,
   "name" : "Mastery (Mace)",
@@ -1365,7 +1516,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 268,
   "name" : "Mastery (Shield)",
@@ -1374,7 +1526,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 269,
   "name" : "Mastery (Greatsword)",
@@ -1383,7 +1536,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 270,
   "name" : "Mastery (Battleaxe)",
@@ -1392,7 +1546,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 271,
   "name" : "Mastery (Warhammer)",
@@ -1401,7 +1556,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 272,
   "name" : "Mastery (Polearm)",
@@ -1410,7 +1566,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 273,
   "name" : "Mastery (Thrown)",
@@ -1419,7 +1576,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 274,
   "name" : "Mastery (Handbow)",
@@ -1428,7 +1586,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 275,
   "name" : "Mastery (Pistol)",
@@ -1437,7 +1596,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 276,
   "name" : "Mastery (Sling)",
@@ -1446,7 +1606,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 277,
   "name" : "Mastery (Bow)",
@@ -1455,7 +1616,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 278,
   "name" : "Mastery (Crossbow)",
@@ -1464,7 +1626,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 279,
   "name" : "Mastery (Rifle)",
@@ -1473,7 +1636,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 280,
   "name" : "Mastery (Cannon)",
@@ -1482,7 +1646,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 281,
   "name" : "Mastery (Wand)",
@@ -1491,7 +1656,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 282,
   "name" : "Mastery (Ring)",
@@ -1500,7 +1666,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 283,
   "name" : "Mastery (Orb)",
@@ -1509,7 +1676,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 284,
   "name" : "Mastery (Talisman)",
@@ -1518,7 +1686,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 285,
   "name" : "Mastery (Staff)",
@@ -1527,7 +1696,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 286,
   "name" : "Mastery (Tome)",
@@ -1536,7 +1706,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 287,
   "name" : "Mastery (Relic)",
@@ -1545,7 +1716,8 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 288,
   "name" : "Mastery (Symbol)",
@@ -1554,7 +1726,118 @@
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 301,
+  "name" : "Tough",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Character gains an additional 2 CON worth of max HP.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Tough",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 5.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 302,
+  "name" : "Hardy",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "More HP",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Hardy",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 5.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Hardy",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "HPMULTI",
+    "severity" : 0.02,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 303,
+  "name" : "Durable",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "More HP",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Durable",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 10.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Durable",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "HPMULTI",
+    "severity" : 0.03,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 311,
+  "name" : "Soulful",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "More Aura",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 312,
+  "name" : "Spiritual",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "More Aura",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 313,
+  "name" : "Attuned",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "More Aura",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 321,
+  "name" : "Combat Medic",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Your heals do not provoke an attack of opportunity.",
+  "type" : "reminder",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1011,
   "name" : "Martial Feature",
@@ -1563,7 +1846,8 @@
   "description" : "Gain a Martial type Feature of your choice.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1012,
   "name" : "War Charge",
@@ -1572,7 +1856,8 @@
   "description" : "When performing a charge, increase your move speed by (5 x 1/2 char level)ft. (round up to nearest 5ft)",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1021,
   "name" : "Might",
@@ -1581,7 +1866,8 @@
   "description" : "Gain access to your first Class Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1022,
   "name" : "Crushing Blow",
@@ -1590,7 +1876,8 @@
   "description" : "Gain access to active abilities Crushing Blow (Triumph) and Crushing Blow (Break).",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1031,
   "name" : "Specialized Combatant",
@@ -1599,7 +1886,8 @@
   "description" : "Choose a Special Combat Action. When performing that action, gain a bonus equal to char level.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1032,
   "name" : "Combat Specialist",
@@ -1608,7 +1896,8 @@
   "description" : "When performing a Special Combat Action augmented by your class abilities or features, gain an additional bonus equal to 1/2 STR.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1041,
   "name" : "Weapon Specialization",
@@ -1617,7 +1906,8 @@
   "description" : "Choose a weapon you are proficient with. Gain the Weapon Specialization feature for that weapon. If you already have Weapon Specialization for that weapon, select another martial feature to gain instead.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1042,
   "name" : "Stance",
@@ -1626,7 +1916,8 @@
   "description" : "Choose an available stance. Gain 1 rank in the chosen stance.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1051,
   "name" : "Defender (Defense Subclass)",
@@ -1635,7 +1926,8 @@
   "description" : "Gain a 50% increase to base HP. Gain a bonus to reactions equal to your char level. An adjacent enemy must succeed at a WILL save to attack a target that is not a tank.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1052,
   "name" : "Fighter (Impairment Subclass)",
@@ -1644,7 +1936,8 @@
   "description" : "Gain a bonus to DC equal to 1/2 char level. Gain a 50% increase to Debuff. Your impairment effects gain an increase of +1 to duration.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1054,
   "name" : "Valor",
@@ -1653,7 +1946,8 @@
   "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1055,
   "name" : "Taunt",
@@ -1662,7 +1956,8 @@
   "description" : "Gain access to active abilities Taunt and Taunting Shout.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1057,
   "name" : "Ferocity",
@@ -1671,7 +1966,8 @@
   "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1058,
   "name" : "Rend",
@@ -1680,7 +1976,8 @@
   "description" : "Gain access to active abilities Rend and Rending Cleave.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1061,
   "name" : "Whirlwind",
@@ -1689,7 +1986,8 @@
   "description" : "Gain access to active ability Whirlwind.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1062,
   "name" : "Overpower",
@@ -1698,7 +1996,8 @@
   "description" : "Gain a 50% increase to Critical Damage.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1071,
   "name" : "Slam",
@@ -1707,7 +2006,8 @@
   "description" : "While equipped with a shield, gain an additional attack for 50% damage. While not using a shield, your first attack each turn gains a +25% modifier.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1074,
   "name" : "Ignore Pain",
@@ -1716,7 +2016,8 @@
   "description" : "Gain access to active ability Ignore Pain.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1077,
   "name" : "Hemorrhage",
@@ -1725,7 +2026,8 @@
   "description" : "Gain access to active ability Hemorrhage.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1081,
   "name" : "Rage",
@@ -1734,7 +2036,8 @@
   "description" : "Gain access to your special Class Resource. Maximum value equal to char level. Decays between combat. Gain 1 Rage at end of your turn if you dealt damage. Gain 1 Rage at start of your turn if you received damage that cycle.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1082,
   "name" : "Battle Frenzy",
@@ -1743,7 +2046,8 @@
   "description" : "Gain access to active ability Battle Frenzy.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1083,
   "name" : "Violent Fury",
@@ -1752,7 +2056,8 @@
   "description" : "Gain access to active ability Enrage. (Blood rage?)",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1091,
   "name" : "Weapon Expertise",
@@ -1761,7 +2066,8 @@
   "description" : "Choose a weapon you have specialization for. Gain Weapon Expertise for that weapon. If you already have Weapon Expertise, you may choose another martial feature instead.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1094,
   "name" : "Parry",
@@ -1770,7 +2076,8 @@
   "description" : "Gain a bonus to DEF equal to 1/5 of your attack bonus.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1097,
   "name" : "Hamstring",
@@ -1779,7 +2086,8 @@
   "description" : "When you apply an impairment to an enemy, apply Hamstring for the same duration. Hamstring reduces movement speed by 50%.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1101,
   "name" : "Savage Strike",
@@ -1788,7 +2096,8 @@
   "description" : "Gain access to active ability Savage Strike.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1102,
   "name" : "Enrage",
@@ -1797,7 +2106,8 @@
   "description" : "Each time you are dealt damage or deal damage, gain 1 Enrage. Lose 1/2 your enrage stacks at end of round. Your total damage is increased by +1 per Enrage stack.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1104,
   "name" : "Instigate",
@@ -1806,7 +2116,8 @@
   "description" : "Gain access to active ability Instigate.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1107,
   "name" : "Sunder",
@@ -1815,7 +2126,8 @@
   "description" : "Gain access to active ability Sunder.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1111,
   "name" : "Raging Blow",
@@ -1824,7 +2136,8 @@
   "description" : "Gain access to active ability Raging Blow.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1114,
   "name" : "Intercept",
@@ -1833,7 +2146,8 @@
   "description" : "Gain access to active ability Intercept.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1117,
   "name" : "Impale",
@@ -1842,7 +2156,8 @@
   "description" : "Gain access to active ability Impale.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1121,
   "name" : "Execution",
@@ -1851,7 +2166,8 @@
   "description" : "At the resolution of an attack where you dealt damage, any enemy target with more bleed than HP dies.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1122,
   "name" : "Devastation",
@@ -1860,7 +2176,8 @@
   "description" : "Your wound effects require two heals to cure.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1131,
   "name" : "Dreadnaut",
@@ -1869,7 +2186,8 @@
   "description" : "You may execute a special combat action as a free action at the conclusion of a charge attack.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1134,
   "name" : "Punish",
@@ -1878,7 +2196,8 @@
   "description" : "Gain access to active ability Punish.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1137,
   "name" : "Pummel",
@@ -1887,7 +2206,8 @@
   "description" : "Gain access to active ability Pummel.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1141,
   "name" : "Berserker Rage",
@@ -1896,7 +2216,8 @@
   "description" : "Gain access to active ability Berserker Rage.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1142,
   "name" : "Weapon Mastery",
@@ -1905,7 +2226,8 @@
   "description" : "Choose a weapon you have expertise for. Gain Weapon Mastery for that weapon. If you already have Weapon Mastery, you may choose another martial feature instead.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1151,
   "name" : "War Machine",
@@ -1914,7 +2236,8 @@
   "description" : "Any time you perform a special combat action you may perform two special combat actions.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1154,
   "name" : "Last Stand",
@@ -1923,7 +2246,8 @@
   "description" : "Gain access to active ability Last Stand.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1157,
   "name" : "Shatter",
@@ -1932,7 +2256,8 @@
   "description" : "Gain access to active ability Shatter.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1161,
   "name" : "Bladestorm",
@@ -1941,7 +2266,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1162,
   "name" : "Relentlessness",
@@ -1950,7 +2276,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1171,
   "name" : "Colossal Smash",
@@ -1959,7 +2286,8 @@
   "description" : "Gain access to active ability Colossal Smash.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1174,
   "name" : "Vanguard",
@@ -1968,7 +2296,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1177,
   "name" : "Conqueror",
@@ -1977,7 +2306,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1181,
   "name" : "Titanic",
@@ -1986,7 +2316,8 @@
   "description" : "You may weild a heavy melee weapon in one hand. You may use a standard melee weapon in your off-hand.",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1184,
   "name" : "Unstoppable",
@@ -1995,7 +2326,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1187,
   "name" : "Mortal Strike",
@@ -2004,7 +2336,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1191,
   "name" : "Death Wish",
@@ -2013,7 +2346,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1194,
   "name" : "Vigilance",
@@ -2022,7 +2356,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1197,
   "name" : "Concuss",
@@ -2031,7 +2366,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1201,
   "name" : "Demolish",
@@ -2040,7 +2376,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1202,
   "name" : "Juggernaut",
@@ -2049,7 +2386,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1204,
   "name" : "Immortal Object",
@@ -2058,7 +2396,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 1207,
   "name" : "Tyrant",
@@ -2067,7 +2406,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2011,
   "name" : "Divine Vow",
@@ -2076,7 +2416,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2012,
   "name" : "Holy Domain",
@@ -2085,7 +2426,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2021,
   "name" : "Purpose",
@@ -2094,7 +2436,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2022,
   "name" : "Judgment",
@@ -2103,7 +2446,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2031,
   "name" : "Smite",
@@ -2112,7 +2456,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2032,
   "name" : "Divine Grace",
@@ -2121,7 +2466,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2041,
   "name" : "Reckoning",
@@ -2130,7 +2476,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2042,
   "name" : "Crusader Strike",
@@ -2139,7 +2486,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2054,
   "name" : "Conviction",
@@ -2148,7 +2496,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2055,
   "name" : "Denounce",
@@ -2157,7 +2506,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2057,
   "name" : "Zeal",
@@ -2166,7 +2516,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2058,
   "name" : "Consecrate",
@@ -2175,7 +2526,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2061,
   "name" : "Divine Storm",
@@ -2184,7 +2536,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2062,
   "name" : "Vindicator",
@@ -2193,7 +2546,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2071,
   "name" : "Exorcize",
@@ -2202,7 +2556,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2074,
   "name" : "Shield Wall",
@@ -2211,7 +2566,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2077,
   "name" : "Blessing of Protection",
@@ -2220,7 +2576,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2081,
   "name" : "Wrath",
@@ -2229,7 +2586,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2082,
   "name" : "Sanctify",
@@ -2238,7 +2596,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2083,
   "name" : "Bastion",
@@ -2247,7 +2606,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2091,
   "name" : "Holy Ground",
@@ -2256,7 +2616,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2094,
   "name" : "Block",
@@ -2265,7 +2626,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2097,
   "name" : "Aura of Devotion",
@@ -2274,7 +2636,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2101,
   "name" : "Avenging Wrath",
@@ -2283,7 +2646,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2102,
   "name" : "Hammer of the Righteous",
@@ -2292,7 +2656,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2104,
   "name" : "Rebuke",
@@ -2301,7 +2666,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2107,
   "name" : "Blessing of Freedom",
@@ -2310,7 +2676,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2111,
   "name" : "Blades of Justice",
@@ -2319,7 +2686,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2114,
   "name" : "Hand of Justice",
@@ -2328,7 +2696,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2117,
   "name" : "Blessing of Justice",
@@ -2337,7 +2706,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2121,
   "name" : "Lay on Hands",
@@ -2346,7 +2716,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2122,
   "name" : "Reprentence",
@@ -2355,7 +2726,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2131,
   "name" : "Verdict",
@@ -2364,7 +2736,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2134,
   "name" : "Holy Shield",
@@ -2373,7 +2746,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2137,
   "name" : "Blessing of Sanctuary",
@@ -2382,7 +2756,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2141,
   "name" : "Divine Might",
@@ -2391,7 +2766,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2142,
   "name" : "Unity",
@@ -2400,7 +2776,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2151,
   "name" : "Inquisition",
@@ -2409,7 +2786,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2154,
   "name" : "Angelic Guardian",
@@ -2418,7 +2796,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2157,
   "name" : "Aura of Dominion",
@@ -2427,7 +2806,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2161,
   "name" : "Templar's Strike",
@@ -2436,7 +2816,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2162,
   "name" : "Holy Shock",
@@ -2445,7 +2826,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2171,
   "name" : "Argent Call",
@@ -2454,7 +2836,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2174,
   "name" : "Godborne",
@@ -2463,7 +2846,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2177,
   "name" : "Holy Seal",
@@ -2472,7 +2856,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2181,
   "name" : "Divine Champion",
@@ -2481,7 +2866,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2184,
   "name" : "Divne Beacon",
@@ -2490,7 +2876,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2187,
   "name" : "Divine Decree",
@@ -2499,7 +2886,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2191,
   "name" : "Commandment",
@@ -2508,7 +2896,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2194,
   "name" : "Holy Aegis",
@@ -2517,7 +2906,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2197,
   "name" : "Blessing of Sacrifice",
@@ -2526,7 +2916,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2201,
   "name" : "Armageddon",
@@ -2535,7 +2926,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2202,
   "name" : "Avatar",
@@ -2544,7 +2936,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2204,
   "name" : "Divine Intervention",
@@ -2553,7 +2946,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 2207,
   "name" : "Holy Crusade",
@@ -2562,7 +2956,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3011,
   "name" : "Sneak Attack",
@@ -2571,7 +2966,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3012,
   "name" : "Trapfinding",
@@ -2580,7 +2976,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3021,
   "name" : "Wits",
@@ -2589,7 +2986,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3022,
   "name" : "Shiv",
@@ -2598,7 +2996,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3031,
   "name" : "Dual Wield",
@@ -2607,7 +3006,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3032,
   "name" : "Stealth Strike",
@@ -2616,7 +3016,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3041,
   "name" : "Escape Artisan",
@@ -2625,7 +3026,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3042,
   "name" : "Evasion",
@@ -2634,7 +3036,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3054,
   "name" : "Secrecy",
@@ -2643,7 +3046,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3055,
   "name" : "Vanish",
@@ -2652,7 +3056,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3057,
   "name" : "Infliction",
@@ -2661,7 +3066,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3058,
   "name" : "Envenom",
@@ -2670,7 +3076,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3061,
   "name" : "Lethality",
@@ -2679,7 +3086,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3062,
   "name" : "Hit and Run",
@@ -2688,7 +3096,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3071,
   "name" : "Venoms",
@@ -2697,7 +3106,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3074,
   "name" : "Drowsy Venom",
@@ -2706,7 +3116,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3077,
   "name" : "Weakening Venom",
@@ -2715,7 +3126,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3081,
   "name" : "Tricks",
@@ -2724,7 +3136,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3082,
   "name" : "Backstab",
@@ -2733,7 +3146,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3083,
   "name" : "Sap",
@@ -2742,7 +3156,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3091,
   "name" : "Eviscerate",
@@ -2751,7 +3166,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3094,
   "name" : "Distract",
@@ -2760,7 +3176,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3097,
   "name" : "Garrote",
@@ -2769,7 +3186,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3101,
   "name" : "Instant Venom",
@@ -2778,7 +3196,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3102,
   "name" : "Alacrity",
@@ -2787,7 +3206,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3104,
   "name" : "Daze",
@@ -2796,7 +3216,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3107,
   "name" : "Sepsis",
@@ -2805,7 +3226,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3111,
   "name" : "Fan of Knives",
@@ -2814,7 +3236,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3114,
   "name" : "Impersonate",
@@ -2823,7 +3246,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3117,
   "name" : "Numbing Venom",
@@ -2832,7 +3256,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3121,
   "name" : "Tricks of the Trade",
@@ -2841,7 +3266,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3122,
   "name" : "Blade Flurry",
@@ -2850,7 +3276,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3131,
   "name" : "Slice and Dice",
@@ -2859,7 +3286,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3134,
   "name" : "Atrophic Venom",
@@ -2868,7 +3296,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3137,
   "name" : "Smoke Bomb",
@@ -2877,7 +3306,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3141,
   "name" : "Deadly Venom",
@@ -2886,7 +3316,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3142,
   "name" : "Ambidexterity",
@@ -2895,7 +3326,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3151,
   "name" : "Rupture",
@@ -2904,7 +3336,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3154,
   "name" : "Burgle",
@@ -2913,7 +3346,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3157,
   "name" : "Feint",
@@ -2922,7 +3356,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3161,
   "name" : "Premeditation",
@@ -2931,7 +3366,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3162,
   "name" : "Riposte",
@@ -2940,7 +3376,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3171,
   "name" : "Adrenaline Rush",
@@ -2949,7 +3386,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3174,
   "name" : "Swift Step",
@@ -2958,7 +3396,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3177,
   "name" : "Gouge",
@@ -2967,7 +3406,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3181,
   "name" : "Poison Bomb",
@@ -2976,7 +3416,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3184,
   "name" : "Blind",
@@ -2985,7 +3426,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3187,
   "name" : "Hemotoxin",
@@ -2994,7 +3436,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3191,
   "name" : "Marked for Death",
@@ -3003,7 +3446,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3194,
   "name" : "Ambush",
@@ -3012,7 +3456,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3197,
   "name" : "Mutilate",
@@ -3021,7 +3466,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3201,
   "name" : "Killing Spree",
@@ -3030,7 +3476,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3202,
   "name" : "Dreadblades",
@@ -3039,7 +3486,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3204,
   "name" : "Shadow Dance",
@@ -3048,7 +3496,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 3207,
   "name" : "Cloak of Shadows",
@@ -3057,7 +3506,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4011,
   "name" : "Unarmed Prowess",
@@ -3066,7 +3516,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4012,
   "name" : "Martial Focus",
@@ -3075,7 +3526,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4021,
   "name" : "Preparation",
@@ -3084,7 +3536,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4022,
   "name" : "Resonant Strike",
@@ -3093,7 +3546,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4031,
   "name" : "Slow Fall",
@@ -3102,7 +3556,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4032,
   "name" : "Combat Discipline",
@@ -3111,7 +3566,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4041,
   "name" : "Follow Up",
@@ -3120,7 +3576,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4042,
   "name" : "Still Mind",
@@ -3129,7 +3586,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4054,
   "name" : "Capacity",
@@ -3138,7 +3596,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4055,
   "name" : "Provoke",
@@ -3147,7 +3606,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4057,
   "name" : "Tranquility",
@@ -3156,7 +3616,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4058,
   "name" : "Sneak",
@@ -3165,7 +3626,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4061,
   "name" : "Tiger Palm",
@@ -3174,7 +3636,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4062,
   "name" : "Flying Serpent Kick",
@@ -3183,7 +3646,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4071,
   "name" : "Blackout Kick",
@@ -3192,7 +3656,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4074,
   "name" : "Stagger",
@@ -3201,7 +3666,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4077,
   "name" : "Leg Sweep",
@@ -3210,7 +3676,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4081,
   "name" : "Temperance",
@@ -3219,7 +3686,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4082,
   "name" : "Anger Strike",
@@ -3228,7 +3696,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4083,
   "name" : "Calm Strike",
@@ -3237,7 +3706,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4091,
   "name" : "Mighty Ox Kick",
@@ -3246,7 +3716,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4094,
   "name" : "Counterstrike",
@@ -3255,7 +3726,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4097,
   "name" : "Windwalking",
@@ -3264,7 +3736,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4101,
   "name" : "Combo Breaker",
@@ -3273,7 +3746,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4102,
   "name" : "Spinning Crane Kick",
@@ -3282,7 +3756,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4104,
   "name" : "Dampen Harm",
@@ -3291,7 +3766,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4107,
   "name" : "Disable",
@@ -3300,7 +3776,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4111,
   "name" : "Inner Balance",
@@ -3309,7 +3786,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4114,
   "name" : "Inner Strength",
@@ -3318,7 +3796,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4117,
   "name" : "Inner Peace",
@@ -3327,7 +3806,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4121,
   "name" : "Fists of Fury",
@@ -3336,7 +3816,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4122,
   "name" : "Serenity",
@@ -3345,7 +3826,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4131,
   "name" : "Resonant Fists",
@@ -3354,7 +3836,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4134,
   "name" : "Bob and Weave",
@@ -3363,7 +3846,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4137,
   "name" : "Paralysis",
@@ -3372,7 +3856,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4141,
   "name" : "Crashing Bear Strike",
@@ -3381,7 +3866,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4142,
   "name" : "Astral Torpedo",
@@ -3390,7 +3876,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4151,
   "name" : "Unison Raid",
@@ -3399,7 +3886,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4154,
   "name" : "Expel Harm",
@@ -3408,7 +3896,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4157,
   "name" : "Guided Meditation",
@@ -3417,7 +3906,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4161,
   "name" : "Wolf Fang Fist",
@@ -3426,7 +3916,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4162,
   "name" : "Skyreach",
@@ -3435,7 +3926,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4171,
   "name" : "Whirling Dragon Punch",
@@ -3444,7 +3936,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4174,
   "name" : "Elusive Footwork",
@@ -3453,7 +3946,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4177,
   "name" : "Pressure Points",
@@ -3462,7 +3956,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4181,
   "name" : "Touch of Death",
@@ -3471,7 +3966,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4184,
   "name" : "Touch of Karma",
@@ -3480,7 +3976,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4187,
   "name" : "Mystic Touch",
@@ -3489,7 +3986,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4191,
   "name" : "Ascension",
@@ -3498,7 +3996,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4194,
   "name" : "Clash",
@@ -3507,7 +4006,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4197,
   "name" : "Ring of Peace",
@@ -3516,7 +4016,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4201,
   "name" : "Essence of the Wolf",
@@ -3525,7 +4026,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4202,
   "name" : "Essence of the Bear",
@@ -3534,7 +4036,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4204,
   "name" : "Essence of the Ox",
@@ -3543,7 +4046,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 4207,
   "name" : "Essence of the Tiger",
@@ -3552,7 +4056,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5011,
   "name" : "Favored Enemy or Terrain",
@@ -3561,7 +4066,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5012,
   "name" : "Preferred Environment",
@@ -3570,7 +4076,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5021,
   "name" : "Precision",
@@ -3579,7 +4086,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5022,
   "name" : "Misdirection",
@@ -3588,7 +4096,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5031,
   "name" : "Steady Shot",
@@ -3597,7 +4106,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5032,
   "name" : "Swap Ammo",
@@ -3606,7 +4116,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5041,
   "name" : "Rapid Fire",
@@ -3615,7 +4126,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5042,
   "name" : "Chakrams",
@@ -3624,7 +4136,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5054,
   "name" : "Observation",
@@ -3633,7 +4146,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5055,
   "name" : "Coordinate",
@@ -3642,7 +4156,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5057,
   "name" : "Insight",
@@ -3651,7 +4166,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5058,
   "name" : "Hide",
@@ -3660,7 +4176,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5061,
   "name" : "Aimed Shot",
@@ -3669,7 +4186,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5062,
   "name" : "Pathfinder",
@@ -3678,7 +4196,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5071,
   "name" : "Sniper Training",
@@ -3687,7 +4206,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5074,
   "name" : "Hawk Eye",
@@ -3696,7 +4216,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5077,
   "name" : "Binding Shot",
@@ -3705,7 +4226,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5081,
   "name" : "Concentration",
@@ -3714,7 +4236,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5082,
   "name" : "Marking Shot",
@@ -3723,7 +4246,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5083,
   "name" : "Traps",
@@ -3732,7 +4256,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5091,
   "name" : "Barbed Trap",
@@ -3741,7 +4266,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5094,
   "name" : "Alarm Trap",
@@ -3750,7 +4276,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5097,
   "name" : "Snare Trap",
@@ -3759,7 +4286,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5101,
   "name" : "Multi Shot",
@@ -3768,7 +4296,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5102,
   "name" : "Aspect of the Hawk",
@@ -3777,7 +4306,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5104,
   "name" : "Aspect of the Crow",
@@ -3786,7 +4316,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5107,
   "name" : "Aspect of the Sparrow",
@@ -3795,7 +4326,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5111,
   "name" : "Ricochet",
@@ -3804,7 +4336,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5114,
   "name" : "Trueshot Aura",
@@ -3813,7 +4346,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5117,
   "name" : "Track",
@@ -3822,7 +4356,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5121,
   "name" : "Barbed Shot",
@@ -3831,7 +4366,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5122,
   "name" : "Harpoon",
@@ -3840,7 +4376,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5131,
   "name" : "Volley",
@@ -3849,7 +4386,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5134,
   "name" : "Flare",
@@ -3858,7 +4396,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5137,
   "name" : "Silencing Shot",
@@ -3867,7 +4406,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5141,
   "name" : "Kill Shot",
@@ -3876,7 +4416,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5142,
   "name" : "Deadeye",
@@ -3885,7 +4426,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5151,
   "name" : "Explosive Shot",
@@ -3894,7 +4436,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5154,
   "name" : "Rallying Cry",
@@ -3903,7 +4446,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5157,
   "name" : "Hookshot",
@@ -3912,7 +4456,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5161,
   "name" : "Scatter Shot",
@@ -3921,7 +4466,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5162,
   "name" : "Disengage",
@@ -3930,7 +4476,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5171,
   "name" : "Barrage",
@@ -3939,7 +4486,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5174,
   "name" : "Aspect of the Eagle",
@@ -3948,7 +4496,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5177,
   "name" : "Tangling Trap",
@@ -3957,7 +4506,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5181,
   "name" : "Hydra Shot",
@@ -3966,7 +4516,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5184,
   "name" : "Supply Lines",
@@ -3975,7 +4526,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5187,
   "name" : "Camouflage",
@@ -3984,7 +4536,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5191,
   "name" : "Astral Arrow",
@@ -3993,7 +4546,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5194,
   "name" : "Tactical Awareness",
@@ -4002,7 +4556,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5197,
   "name" : "Tranquilizer Shot",
@@ -4011,7 +4566,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5201,
   "name" : "Bombardment",
@@ -4020,7 +4576,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5202,
   "name" : "Planeswalker",
@@ -4029,7 +4586,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5204,
   "name" : "The Art of War",
@@ -4038,7 +4596,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 5207,
   "name" : "Grand Design",
@@ -4047,7 +4606,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6011,
   "name" : "Summon Minion (Minor + General + Melee)",
@@ -4056,7 +4616,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6012,
   "name" : "Send Summon",
@@ -4065,7 +4626,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6021,
   "name" : "Authority",
@@ -4074,7 +4636,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6022,
   "name" : "Command",
@@ -4083,7 +4646,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6031,
   "name" : "Minion (Damaging + Ranged)",
@@ -4092,7 +4656,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6032,
   "name" : "Doubletap",
@@ -4101,7 +4666,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6041,
   "name" : "Inspire",
@@ -4110,7 +4676,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6042,
   "name" : "Minion (Durable + Astral)",
@@ -4119,7 +4686,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6054,
   "name" : "Respite",
@@ -4128,7 +4696,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6055,
   "name" : "Medicate",
@@ -4137,7 +4706,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6057,
   "name" : "Advantage",
@@ -4146,7 +4716,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6058,
   "name" : "Infiltrate",
@@ -4155,7 +4726,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6061,
   "name" : "Summon Minion (Minor)",
@@ -4164,7 +4736,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6062,
   "name" : "Crossfire",
@@ -4173,7 +4746,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6071,
   "name" : "Life Link",
@@ -4182,7 +4756,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6074,
   "name" : "Minion Form (Heal)",
@@ -4191,7 +4766,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6077,
   "name" : "Minion Form (Control)",
@@ -4200,7 +4776,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6081,
   "name" : "Tactics",
@@ -4209,7 +4786,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6082,
   "name" : "Triage",
@@ -4218,7 +4796,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6083,
   "name" : "Flash Mob",
@@ -4227,7 +4806,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6091,
   "name" : "Summon Minion (Medium)",
@@ -4236,7 +4816,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6094,
   "name" : "Infuse",
@@ -4245,7 +4826,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6097,
   "name" : "Transposition",
@@ -4254,7 +4836,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6101,
   "name" : "Maker's Call",
@@ -4263,7 +4846,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6102,
   "name" : "Burst Fire",
@@ -4272,7 +4856,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6104,
   "name" : "Protect",
@@ -4281,7 +4866,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6107,
   "name" : "Bond Senses",
@@ -4290,7 +4876,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6111,
   "name" : "Summon Minion (Minor)",
@@ -4299,7 +4886,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6114,
   "name" : "Renew",
@@ -4308,7 +4896,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6117,
   "name" : "Redact",
@@ -4317,7 +4906,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6121,
   "name" : "Life Bond",
@@ -4326,7 +4916,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6122,
   "name" : "Detonate",
@@ -4335,7 +4926,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6131,
   "name" : "Minion Type (Specialized)",
@@ -4344,7 +4936,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6134,
   "name" : "Operating Room",
@@ -4353,7 +4946,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6137,
   "name" : "Web",
@@ -4362,7 +4956,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6141,
   "name" : "Summon Minion (Medium)",
@@ -4371,7 +4966,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6142,
   "name" : "Latch On",
@@ -4380,7 +4976,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6151,
   "name" : "Bond",
@@ -4389,7 +4986,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6154,
   "name" : "Therapy",
@@ -4398,7 +4996,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6157,
   "name" : "Occlude",
@@ -4407,7 +5006,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6161,
   "name" : "Summon Minion (Major)",
@@ -4416,7 +5016,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6162,
   "name" : "Cannonade",
@@ -4425,7 +5026,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6171,
   "name" : "Minion Type (Hybrid)",
@@ -4434,7 +5036,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6174,
   "name" : "Fountain",
@@ -4443,7 +5046,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6177,
   "name" : "Apprehend",
@@ -4452,7 +5056,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6181,
   "name" : "Union",
@@ -4461,7 +5066,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6184,
   "name" : "Replenish",
@@ -4470,7 +5076,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6187,
   "name" : "Suppress",
@@ -4479,7 +5086,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6191,
   "name" : "Rapid Summon",
@@ -4488,7 +5096,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6194,
   "name" : "Sacrifice",
@@ -4497,7 +5106,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6197,
   "name" : "Unsummon",
@@ -4506,7 +5116,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6201,
   "name" : "Forge Titan",
@@ -4515,7 +5126,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6202,
   "name" : "Mandate (Kill)",
@@ -4524,7 +5136,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6204,
   "name" : "Mandate (Heal)",
@@ -4533,7 +5146,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 6207,
   "name" : "Mandate (Imprision)",
@@ -4542,7 +5156,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7011,
   "name" : "Divine Attunement",
@@ -4551,7 +5166,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7012,
   "name" : "Holy Domain",
@@ -4560,7 +5176,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7021,
   "name" : "Piety",
@@ -4569,7 +5186,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7022,
   "name" : "Chastise",
@@ -4578,7 +5196,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7031,
   "name" : "Holy Beacon",
@@ -4587,7 +5206,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7032,
   "name" : "Divine Enlightenment",
@@ -4596,7 +5216,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7041,
   "name" : "Atonement",
@@ -4605,7 +5226,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7042,
   "name" : "Holy Fire",
@@ -4614,7 +5236,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7054,
   "name" : "Devotion",
@@ -4623,7 +5246,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7055,
   "name" : "Prayer",
@@ -4632,7 +5256,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7057,
   "name" : "Damnation",
@@ -4641,7 +5266,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7058,
   "name" : "Condemn",
@@ -4650,7 +5276,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7061,
   "name" : "DarkWord: Pain",
@@ -4659,7 +5286,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7062,
   "name" : "Rapture",
@@ -4668,7 +5296,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7071,
   "name" : "Divine Service",
@@ -4677,7 +5306,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7074,
   "name" : "Flash Heal",
@@ -4686,7 +5316,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7077,
   "name" : "Curse of Weakness",
@@ -4695,7 +5326,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7081,
   "name" : "Faith",
@@ -4704,7 +5336,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7082,
   "name" : "Extoll",
@@ -4713,7 +5346,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7083,
   "name" : "Castigate",
@@ -4722,7 +5356,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7091,
   "name" : "Dark Word: Misery",
@@ -4731,7 +5366,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7094,
   "name" : "Circle of Healing",
@@ -4740,7 +5376,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7097,
   "name" : "Curse of Tongues",
@@ -4749,7 +5386,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7101,
   "name" : "Void Lance",
@@ -4758,7 +5396,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7102,
   "name" : "Vampiric Touch",
@@ -4767,7 +5406,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7104,
   "name" : "Heal",
@@ -4776,7 +5416,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7107,
   "name" : "Silence",
@@ -4785,7 +5426,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7111,
   "name" : "Power Word: Wrath",
@@ -4794,7 +5436,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7114,
   "name" : "Power Word: Shield",
@@ -4803,7 +5446,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7117,
   "name" : "Power Word: Radiance",
@@ -4812,7 +5456,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7121,
   "name" : "Holy Nova",
@@ -4821,7 +5466,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7122,
   "name" : "Exaltation",
@@ -4830,7 +5476,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7131,
   "name" : "Void Eruption",
@@ -4839,7 +5486,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7134,
   "name" : "Prayer of Healing",
@@ -4848,7 +5496,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7137,
   "name" : "Curse of the Elements",
@@ -4857,7 +5506,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7141,
   "name" : "Contrition",
@@ -4866,7 +5516,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7142,
   "name" : "Glorious Prayer",
@@ -4875,7 +5526,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7151,
   "name" : "Power Word: Sanctify",
@@ -4884,7 +5536,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7154,
   "name" : "Power Word: Salvation",
@@ -4893,7 +5546,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7157,
   "name" : "Power Word: Censure",
@@ -4902,7 +5556,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7161,
   "name" : "Void Torrent",
@@ -4911,7 +5566,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7162,
   "name" : "Halo",
@@ -4920,7 +5576,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7171,
   "name" : "Dark Word: Death",
@@ -4929,7 +5586,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7174,
   "name" : "Greater Heal",
@@ -4938,7 +5596,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7177,
   "name" : "Curse of Rate",
@@ -4947,7 +5606,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7181,
   "name" : "Deathspeaker",
@@ -4956,7 +5616,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7184,
   "name" : "Prayer of Mending",
@@ -4965,7 +5626,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7187,
   "name" : "Penance",
@@ -4974,7 +5636,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7191,
   "name" : "Last Word",
@@ -4983,7 +5646,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7194,
   "name" : "Divine Font",
@@ -4992,7 +5656,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7197,
   "name" : "Curse of Enfeeblement",
@@ -5001,7 +5666,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7201,
   "name" : "Archangel",
@@ -5010,7 +5676,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7202,
   "name" : "Epiphany",
@@ -5019,7 +5686,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7204,
   "name" : "Miracle",
@@ -5028,7 +5696,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 7207,
   "name" : "Crucify",
@@ -5037,7 +5706,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8011,
   "name" : "Astral Proficiency",
@@ -5046,7 +5716,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8012,
   "name" : "Advanced Affinity",
@@ -5055,7 +5726,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8021,
   "name" : "Control",
@@ -5064,7 +5736,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8022,
   "name" : "Flux",
@@ -5073,7 +5746,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8031,
   "name" : "Runic Enlightenment",
@@ -5082,7 +5756,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8032,
   "name" : "Deepening Pools",
@@ -5091,7 +5766,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8041,
   "name" : "Stream",
@@ -5100,7 +5776,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8042,
   "name" : "Immersive Understanding",
@@ -5109,7 +5786,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8054,
   "name" : "Empowerment",
@@ -5118,7 +5796,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8055,
   "name" : "Evoke",
@@ -5127,7 +5806,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8057,
   "name" : "Affliction",
@@ -5136,7 +5816,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8058,
   "name" : "Impose",
@@ -5145,7 +5826,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8061,
   "name" : "Arcane Missiles",
@@ -5154,7 +5836,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8062,
   "name" : "Critical Mass",
@@ -5163,7 +5846,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8071,
   "name" : "Blink",
@@ -5172,7 +5856,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8074,
   "name" : "Focus Magic",
@@ -5181,7 +5866,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8077,
   "name" : "Shiver",
@@ -5190,7 +5876,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8081,
   "name" : "Entropy",
@@ -5199,7 +5886,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8082,
   "name" : "Order Strike",
@@ -5208,7 +5896,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8083,
   "name" : "Chaos Strike",
@@ -5217,7 +5906,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8091,
   "name" : "Arcane Orb",
@@ -5226,7 +5916,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8094,
   "name" : "Mirror Image",
@@ -5235,7 +5926,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8097,
   "name" : "Spellsteal",
@@ -5244,7 +5936,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8101,
   "name" : "Arcane Blizzard",
@@ -5253,7 +5946,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8102,
   "name" : "Arcane Brilliance",
@@ -5262,7 +5956,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8104,
   "name" : "Arcane Infusion",
@@ -5271,7 +5966,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8107,
   "name" : "Arcane Dissonance",
@@ -5280,7 +5976,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8111,
   "name" : "Shimmer",
@@ -5289,7 +5986,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8114,
   "name" : "Convection",
@@ -5298,7 +5996,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8117,
   "name" : "Slow",
@@ -5307,7 +6006,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8121,
   "name" : "Arcane Touch",
@@ -5316,7 +6016,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8122,
   "name" : "Conjuration",
@@ -5325,7 +6026,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8131,
   "name" : "Astral Circle",
@@ -5334,7 +6036,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8134,
   "name" : "Amplify",
@@ -5343,7 +6046,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8137,
   "name" : "Dampen",
@@ -5352,7 +6056,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8141,
   "name" : "Recall",
@@ -5361,7 +6066,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8142,
   "name" : "Arcane Ray",
@@ -5370,7 +6076,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8151,
   "name" : "Master's Sanctum",
@@ -5379,7 +6086,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8154,
   "name" : "Enlighten",
@@ -5388,7 +6096,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8157,
   "name" : "Deep Impact",
@@ -5397,7 +6106,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8161,
   "name" : "Codex of Chaos",
@@ -5406,7 +6116,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8162,
   "name" : "Tome of Order",
@@ -5415,7 +6126,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8171,
   "name" : "Hydra Bolt",
@@ -5424,7 +6136,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8174,
   "name" : "Astral Barrier",
@@ -5433,7 +6146,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8177,
   "name" : "Astral Ring",
@@ -5442,7 +6156,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8181,
   "name" : "Arcane Gate",
@@ -5451,7 +6166,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8184,
   "name" : "Arcane Surge",
@@ -5460,7 +6176,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8187,
   "name" : "Arcane Echo",
@@ -5469,7 +6186,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8191,
   "name" : "Hydra Blast",
@@ -5478,7 +6196,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8194,
   "name" : "Touch of the Magi",
@@ -5487,7 +6206,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8197,
   "name" : "Quake",
@@ -5496,7 +6216,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8201,
   "name" : "Astral Logia",
@@ -5505,7 +6226,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8202,
   "name" : "Catclysm",
@@ -5514,7 +6236,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8204,
   "name" : "Incarnate",
@@ -5523,7 +6246,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 8207,
   "name" : "Disintegrate",
@@ -5532,7 +6256,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9011,
   "name" : "Weapons Included",
@@ -5541,7 +6266,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9012,
   "name" : "Fighting Form (Heavy + Light)",
@@ -5550,7 +6276,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9021,
   "name" : "Conduction",
@@ -5559,7 +6286,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9022,
   "name" : "Pulse",
@@ -5568,7 +6296,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9031,
   "name" : "Charge",
@@ -5577,7 +6306,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9032,
   "name" : "Skillful",
@@ -5586,7 +6316,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9041,
   "name" : "Bond",
@@ -5595,7 +6326,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9042,
   "name" : "Modular Form",
@@ -5604,7 +6336,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9054,
   "name" : "Synchronicity",
@@ -5613,7 +6346,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9055,
   "name" : "Evoke",
@@ -5622,7 +6356,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9057,
   "name" : "Asynchronicity",
@@ -5631,7 +6366,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9058,
   "name" : "Vivify",
@@ -5640,7 +6376,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9061,
   "name" : "Arcane Missiles",
@@ -5649,7 +6386,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9062,
   "name" : "Critical Mass",
@@ -5658,7 +6396,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9071,
   "name" : "Blink",
@@ -5667,7 +6406,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9074,
   "name" : "Focus Magic",
@@ -5676,7 +6416,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9077,
   "name" : "Shiver",
@@ -5685,7 +6426,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9081,
   "name" : "Entropy",
@@ -5694,7 +6436,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9082,
   "name" : "Order Strike",
@@ -5703,7 +6446,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9083,
   "name" : "Chaos Strike",
@@ -5712,7 +6456,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9091,
   "name" : "Arcane Orb",
@@ -5721,7 +6466,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9094,
   "name" : "Mirror Image",
@@ -5730,7 +6476,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9097,
   "name" : "Spellsteal",
@@ -5739,7 +6486,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9101,
   "name" : "Arcane Blizzard",
@@ -5748,7 +6496,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9102,
   "name" : "Arcane Brilliance",
@@ -5757,7 +6506,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9104,
   "name" : "Arcane Infusion",
@@ -5766,7 +6516,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9107,
   "name" : "Arcane Dissonance",
@@ -5775,7 +6526,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9111,
   "name" : "Shimmer",
@@ -5784,7 +6536,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9114,
   "name" : "Convection",
@@ -5793,7 +6546,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9117,
   "name" : "Slow",
@@ -5802,7 +6556,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9121,
   "name" : "Arcane Touch",
@@ -5811,7 +6566,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9122,
   "name" : "Conjuration",
@@ -5820,7 +6576,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9131,
   "name" : "Astral Circle",
@@ -5829,7 +6586,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9134,
   "name" : "Amplify",
@@ -5838,7 +6596,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9137,
   "name" : "Dampen",
@@ -5847,7 +6606,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9141,
   "name" : "Recall",
@@ -5856,7 +6616,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9142,
   "name" : "Arcane Ray",
@@ -5865,7 +6626,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9151,
   "name" : "Master's Sanctum",
@@ -5874,7 +6636,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9154,
   "name" : "Enlighten",
@@ -5883,7 +6646,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9157,
   "name" : "Deep Impact",
@@ -5892,7 +6656,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9161,
   "name" : "Codex of Chaos",
@@ -5901,7 +6666,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9162,
   "name" : "Tome of Order",
@@ -5910,7 +6676,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9171,
   "name" : "Hydra Bolt",
@@ -5919,7 +6686,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9174,
   "name" : "Astral Barrier",
@@ -5928,7 +6696,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9177,
   "name" : "Astral Ring",
@@ -5937,7 +6706,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9181,
   "name" : "Arcane Gate",
@@ -5946,7 +6716,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9184,
   "name" : "Arcane Surge",
@@ -5955,7 +6726,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9187,
   "name" : "Arcane Echo",
@@ -5964,7 +6736,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9191,
   "name" : "Hydra Blast",
@@ -5973,7 +6746,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9194,
   "name" : "Touch of the Magi",
@@ -5982,7 +6756,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9197,
   "name" : "Quake",
@@ -5991,7 +6766,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9201,
   "name" : "Astral Logia",
@@ -6000,7 +6776,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9202,
   "name" : "Catclysm",
@@ -6009,7 +6786,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9204,
   "name" : "Incarnate",
@@ -6018,7 +6796,8 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 }, {
   "id" : 9207,
   "name" : "Disintegrate",
@@ -6027,5 +6806,6 @@
   "description" : "Stuff",
   "type" : "F",
   "prereq" : 0,
-  "pick" : false
+  "pick" : false,
+  "permStatus" : [ ]
 } ]

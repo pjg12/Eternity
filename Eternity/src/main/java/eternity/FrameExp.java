@@ -82,7 +82,7 @@ public class FrameExp extends JFrame {
 		numFields[1] = new JFormattedTextField(nf); // unused placeholder
 		add(numFields[1]);
 
-		buttons = new JButton[2];
+		buttons = new JButton[3];
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new JButton("");
 			add(buttons[i]);
@@ -127,6 +127,10 @@ public class FrameExp extends JFrame {
 		buttons[0].addActionListener(e -> this.setVisible(false));
 		buttons[0].setBounds(60, 280, 120, 20);
 		buttons[0].setVisible(true);
+		buttons[2].setText("Level Up");
+		buttons[2].addActionListener(e -> levelUpPressed());
+		buttons[2].setBounds(190, 280, 120, 20);
+		buttons[2].setVisible(true);
 		buttons[1].setText("Accept");
 		buttons[1].addActionListener(e -> expPressed());
 		buttons[1].setBounds(320, 280, 120, 20);
@@ -248,6 +252,19 @@ public class FrameExp extends JFrame {
 		}
 
 		this.dispose();
+	}
+
+	private void levelUpPressed() {
+		if (character == null || character.getIdentity() == null) {
+			this.setVisible(false);
+			return;
+		}
+
+		CharIdentity id = character.getIdentity();
+		double expNeeded = Math.max(0.0, nextExpRequirement(id.getLevel()) - id.getExp());
+		int wholeExpNeeded = (int)Math.ceil(expNeeded);
+		numFields[0].setValue(wholeExpNeeded);
+		expPressed();
 	}
 	
 	public void levelUp() {

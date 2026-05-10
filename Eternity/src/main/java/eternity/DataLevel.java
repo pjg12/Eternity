@@ -2,30 +2,26 @@ package eternity;
 
 import java.util.Arrays;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * Stores Level Information
  */
 public class DataLevel {
-	@JsonProperty private int level;
-	@JsonProperty private int baseHP;
-	@JsonProperty private int baseAura;
-	@JsonProperty private int baseTechs;
-	@JsonProperty private int[] scalers;
-	@JsonProperty private int dieNum;
-	@JsonProperty private int dieSides;
-	@JsonProperty private int skills;
-	@JsonProperty private int specialties;
-	@JsonProperty private int classGeneral;
-	@JsonProperty private int classSpec;
 	
-    // --- Constructors ---
-
-	public DataLevel() { this(0, 0, 0, 0, new int[]{0, 0, 0}, 0, 0, 0, 0, 0, 0); }
-	public DataLevel(DataLevel src) { this(src.level, src.baseHP, src.baseAura, src.baseTechs, src.scalers != null ? src.scalers.clone() : new int[]{0,0,0}, src.dieNum, src.dieSides, src.skills, src.specialties, src.classGeneral, src.classSpec); }
+	private int level;
+	private int baseHP;
+	private int baseAura;
+	private int baseTechs;
+	private int[] scalers;
+	private String damage;
+	private int skills;
+	private int specialties;
+	private int classGeneral;
+	private int classSpec;
 	
-	public DataLevel(int level, int baseHP, int baseAura, int baseTechs, int[] scalers, int dieNum, int dieSides, int skills, int specialties, int classGeneral, int classSpec) {
+	public DataLevel() { this(1, 0, 0, 0, new int[]{0, 0, 0}, "1d6", 0, 0, 0, 0); }
+	public DataLevel(DataLevel src) { this(src.level, src.baseHP, src.baseAura, src.baseTechs, src.scalers != null ? src.scalers.clone() : new int[]{0,0,0}, src.damage, src.skills, src.specialties, src.classGeneral, src.classSpec); }
+	
+	public DataLevel(int level, int baseHP, int baseAura, int baseTechs, int[] scalers, String damage, int skills, int specialties, int classGeneral, int classSpec) {
 		this.level = level;
         this.baseHP = baseHP;
         this.baseAura = baseAura;
@@ -34,8 +30,7 @@ public class DataLevel {
             this.scalers = new int[]{0, 0, 0};
         else
             this.scalers = scalers.clone();
-        this.dieNum = dieNum;
-        this.dieSides = dieSides;
+        this.damage = damage;
         this.skills = skills;
         this.specialties = specialties;
         this.classGeneral = classGeneral;
@@ -45,7 +40,7 @@ public class DataLevel {
 	// --- Getters & Setters ---
 	
 	public int getLevel() { return level; }
-    public void setLevel(int level) { this.level = level; }
+    public void setLevel(int level) { this.level = Math.max(0, level); }
 
     public int getBaseHP() { return baseHP; }
     public void setBaseHP(int baseHP) { this.baseHP = Math.max(0, baseHP); }
@@ -64,11 +59,8 @@ public class DataLevel {
             this.scalers = scalers.clone();
     }
 
-    public int getDieNum() { return dieNum; }
-    public void setDieNum(int dieNum) { this.dieNum = Math.max(0, dieNum); }
-
-    public int getDieSides() { return dieSides; }
-    public void setDieSides(int dieSides) { this.dieSides = Math.max(0, dieSides); }
+    public String getDamage() { return damage; }
+    public void setDamage(String damage) { this.damage = damage; }
 
     public int getSkills() { return skills; }
     public void setSkills(int skills) { this.skills = Math.max(0, skills); }
@@ -86,8 +78,17 @@ public class DataLevel {
 
     @Override
     public String toString() {
-        return "DataLevel{" + "level=" + level + ", baseHP=" + baseHP + ", baseAura=" + baseAura + ", baseTechs=" + baseTechs + ", scalers=" + Arrays.toString(scalers) +
-            ", die=" + dieNum + "d" + dieSides + ", skills=" + skills + ", specialties=" + specialties + ", classGeneral=" + classGeneral +
-            ", classSpec=" + classSpec + '}';
+        return "DataLevel{" +
+                "level=" + level +
+                ", baseHP=" + baseHP +
+                ", baseAura=" + baseAura +
+                ", baseTechs=" + baseTechs +
+                ", scalers=" + Arrays.toString(scalers) +
+                ", damage=" + damage +
+                ", skills=" + skills +
+                ", specialties=" + specialties +
+                ", classGeneral=" + classGeneral +
+                ", classSpec=" + classSpec +
+                '}';
     }
 }

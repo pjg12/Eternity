@@ -1422,11 +1422,6 @@
   "costs" : [ {
     "type" : "Aura",
     "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-		"operator" : "+AL",
-		"modifier" : 0.3
   } ]
 }, {
   "id" : 7008,

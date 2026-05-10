@@ -5,17 +5,17 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
-import javax.swing.AbstractButton;
 import javax.swing.text.NumberFormatter;
 
 /**
@@ -39,6 +39,7 @@ public class FrameTraining extends JFrame {
 	protected final JLabel[] labels = new JLabel[14];
 	protected final JFormattedTextField[] numFields = new JFormattedTextField[6];
 	protected final JButton[] buttons = new JButton[5];
+	private final SimpleDocListener trainingHoursDocListener = new SimpleDocListener(this::updateTrainXp);
 
 	public final String[] AURATYPES = {"Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Force", "Sound", "Light", "Darkness", "Poison", "Psionic", "Energy", "Spirit", "Time", "Deviant"};
 
@@ -140,7 +141,7 @@ public class FrameTraining extends JFrame {
 
 		numFields[4].setBounds(25, 285, 120, 20);
 		numFields[4].setVisible(true);
-		numFields[4].getDocument().addDocumentListener(new SimpleDocListener(this::updateTrainXp));
+		numFields[4].getDocument().addDocumentListener(trainingHoursDocListener);
 
 		// buttons[2] unused; hide legacy arrow control
 		buttons[2].setVisible(false);
@@ -263,6 +264,19 @@ public class FrameTraining extends JFrame {
 	private void wireTrainXpTrigger(AbstractButton button) {
 		button.addActionListener(e -> updateTrainXp());
 	}
+
+	/*private void attachTrainingHoursListeners() {
+		if (numFields[4] == null) return;
+		if (trainingHoursDocument != null) {
+			trainingHoursDocument.removeDocumentListener(trainingHoursDocListener);
+		}
+		numFields[4].removePropertyChangeListener("value", trainingHoursValueListener);
+		trainingHoursDocument = numFields[4].getDocument();
+		if (trainingHoursDocument != null) {
+			trainingHoursDocument.addDocumentListener(trainingHoursDocListener);
+		}
+		numFields[4].addPropertyChangeListener("value", trainingHoursValueListener);
+	}*/
 
 	/**
 	 * Confirms with the user when the added XP will not reach the next rank.

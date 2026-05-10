@@ -15,7 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-public class FrameAttack extends JFrame {
+public class FrameMitigation extends JFrame {
 	private static final long serialVersionUID = 1;
 
 	private final FrameSheet sheetFrame;
@@ -38,8 +38,8 @@ public class FrameAttack extends JFrame {
 	private final JSpinner[] numFields = new JSpinner[1];
 	private final JButton[] buttons = new JButton[4];
 	
-	FrameAttack (FrameSheet sheetFrame, FrameCombat combatFrame, CharData character, DataAction action) {
-		super("Attack Helper");
+	FrameMitigation(FrameSheet sheetFrame, FrameCombat combatFrame, CharData character, DataAction action) {
+		super("Mitigation Helper");
 		this.sheetFrame = sheetFrame;
 		this.combatFrame = combatFrame;
 		this.character = character;
@@ -209,7 +209,7 @@ public class FrameAttack extends JFrame {
 		labels[0].setText("Dice");
 		labels[0].setVisible(true);
 		textFields[0].setBounds(25, 103, 100, 22);
-		textFields[0].setText("" + damage());
+		textFields[0].setText(getDamage());
 		textFields[0].setVisible(true);
 		textFields[0].setEditable(false);
 		
@@ -536,11 +536,6 @@ public class FrameAttack extends JFrame {
 		if (a == null) return 0;
 		int val = a.getAttribute(prim.toUpperCase());
 		return val - 10;
-	}
-
-	private int damage() {
-		DataLevel lvl = getDataLevel();
-		return lvl != null ? Integer.parseInt(lvl.getDamage().split("d")[1]) : 6;
 	}
 
 	private String getDamage() {

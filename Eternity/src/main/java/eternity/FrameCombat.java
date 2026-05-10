@@ -63,6 +63,8 @@ public class FrameCombat extends JFrame {
 	private ArrayList<DataStatus> battleStatus;
 	private JComboBox<String> stdActCat;
 	private JComboBox<String> stdAbilityCat;
+	private JComboBox<String> moveActCat;
+	private JComboBox<String> moveAbilityCat;
 	private JComboBox<String> auraActCat;
 	private JComboBox<String> auraAbilityCat;
 	private JComboBox<String> weaponSelect;
@@ -73,7 +75,8 @@ public class FrameCombat extends JFrame {
 	
 	private final String[] ICONS = {"stdAct", "moveAct", "auraAct", "damage", "round", "freeAct", "intAct", "stdDemo", "moveDemo"};
 	private final String[] STDACTCAT = {"All", "Standard", "Combat Maneuver", "Class", "Aura", "Specialty", "Item"};
-	private final String[] STDABILITYCAT = {"All", "Attack", "Heal", "Next Attack", "Mitigation", "Rememdy", "Other"};
+	private final String[] MOVEACTCAT = {"All", "Move"};
+	private final String[] STDABILITYCAT = {"All", "Attack", "Heal", "Next Attack", "Mitigation", "Remedy", "Other"};
 	private final String[] AURAACTCAT = {"All", "Aura"};
 	private final String[] DMGTYPE = {"PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME"};
 	
@@ -246,6 +249,16 @@ public class FrameCombat extends JFrame {
 		stdAbilityCat.setBounds(170, 0, 160, 20);
 		stdAbilityCat.setVisible(false);
 		optionPanel.add(stdAbilityCat);
+		moveActCat = new JComboBox<String>(MOVEACTCAT);
+		moveActCat.addActionListener(e -> updateMoveAct());
+		moveActCat.setBounds(0, 0, 160, 20);
+		moveActCat.setVisible(false);
+		optionPanel.add(moveActCat);
+		moveAbilityCat = new JComboBox<String>(STDABILITYCAT);
+		moveAbilityCat.addActionListener(e -> updateMoveAct());
+		moveAbilityCat.setBounds(170, 0, 160, 20);
+		moveAbilityCat.setVisible(false);
+		optionPanel.add(moveAbilityCat);
 		auraActCat = new JComboBox<String>(AURAACTCAT);
 		auraActCat.addActionListener(e -> updateAuraAct());
 		auraActCat.setBounds(0, 0, 160, 20);
@@ -300,6 +313,8 @@ public class FrameCombat extends JFrame {
 		
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
+		moveActCat.setVisible(false);
+		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
 	}
@@ -436,6 +451,8 @@ public class FrameCombat extends JFrame {
 	public void stdOptions() {
 		stdActCat.setVisible(true);
 		stdAbilityCat.setVisible(true);
+		moveActCat.setVisible(false);
+		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
 		populateWeaponSelect();
@@ -450,6 +467,8 @@ public class FrameCombat extends JFrame {
 	public void moveOptions() {
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
+		moveActCat.setVisible(true);
+		moveAbilityCat.setVisible(true);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
@@ -462,6 +481,8 @@ public class FrameCombat extends JFrame {
 	public void auraOptions() {
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
+		moveActCat.setVisible(false);
+		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(true);
 		auraAbilityCat.setVisible(true);
 		weaponSelect.setVisible(false);
@@ -474,6 +495,8 @@ public class FrameCombat extends JFrame {
 	public void freeOptions() {
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
+		moveActCat.setVisible(false);
+		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
@@ -486,6 +509,8 @@ public class FrameCombat extends JFrame {
 	public void intOptions() {
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
+		moveActCat.setVisible(false);
+		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
 		weaponSelect.setVisible(false);
@@ -679,19 +704,44 @@ public class FrameCombat extends JFrame {
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getMoveActions();
-		
-		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton(tempActions.get(i));
-			tempButton.setText(tempActions.get(i).getName());
+		String tempString = (String)moveActCat.getSelectedItem();
+		String abilityCategory = (String)moveAbilityCat.getSelectedItem();
+		boolean showAllTypes = tempString == null || tempString.equalsIgnoreCase("All");
+		ArrayList<DataAction> filtered = new ArrayList<>();
+		for (DataAction action : tempActions) {
+			if (showAllTypes || (action != null && "Move".equalsIgnoreCase(action.getActionType()))) {
+				filtered.add(action);
+			}
+		}
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
+			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
+		}
+
+		if (filtered.isEmpty()) {
+			JButton tempButton = buildButton(null);
+			tempButton.setText("No move actions available");
+			tempButton.setEnabled(false);
+			optionPanel.add(tempButton);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT, 500, OPTION_ROW_HEIGHT);
+			actionButtons.add(tempButton);
+			actionList.add(null);
+			tempButton.setVisible(true);
+			refreshOptionPanelSize();
+			return;
+		}
+
+		for (int i = 0; i < filtered.size(); i++) {
+			JButton tempButton = buildButton(filtered.get(i));
+			tempButton.setText(filtered.get(i).getName());
 			if (tempButton instanceof ActionEntryButton)
-				applyActionButtonColor(tempButton, tempActions.get(i));
+				applyActionButtonColor(tempButton, filtered.get(i));
 
 			optionPanel.add(tempButton);
 			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickMoveAction(e));
-			actionList.add(tempActions.get(i));
+			actionList.add(filtered.get(i));
 		}
 		refreshOptionPanelSize();
 	}

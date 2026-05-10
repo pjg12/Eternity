@@ -5,18 +5,18 @@
     "nickname" : "",
     "campaign" : "",
     "campaignStartDate" : "0065-01-01T00:00:00",
-    "campaignElapsedTime" : "PT0S",
+    "campaignElapsedTime" : "PT32H",
     "birthday" : "0046-03-27",
     "birthdayManual" : true,
     "race" : "Kenti",
     "charRacePick" : [ ],
     "charClass" : "Monk",
-    "charSubclass" : "?",
+    "charSubclass" : "Brawler",
     "charClassPick" : [ "Mobility", "Brawler" ],
-    "level" : 1,
+    "level" : 8,
     "exp" : 0.0,
     "gender" : "",
-    "size" : "?",
+    "size" : "Medium",
     "height" : "",
     "weight" : "",
     "eyes" : "",
@@ -26,7 +26,7 @@
     "notes" : "",
     "updated" : "2026-04-14T21:29:50.270+0000",
     "createdAt" : "2026-04-14T21:23:06.548+0000",
-    "lastLevelUp" : "2026-04-14T21:23:06.548+0000",
+    "lastLevelUp" : "2026-05-07T00:21:29.109+0000",
     "timeSinceLastLevel" : "PT0S"
   },
   "attributes" : {
@@ -53,6 +53,22 @@
         "description" : "None",
         "attribute" : "STR",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Base Racial",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "STR",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "TechPerm 10 (T1)",
+        "affinity" : "None",
+        "description" : "Tech permission grant",
+        "attribute" : "STR",
+        "severity" : 4.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -82,6 +98,14 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "Base Racial",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "DEX",
+        "severity" : 1.0,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -107,6 +131,14 @@
         "description" : "None",
         "attribute" : "CON",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Base Racial",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "CON",
+        "severity" : -1.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -407,6 +439,22 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "DexDodgeBonus",
+        "affinity" : "None",
+        "description" : "Dexterity-based Dodge bonus",
+        "attribute" : "DODGE",
+        "severity" : 8.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Size Modifier",
+        "affinity" : "None",
+        "description" : "Size-based Dodge modifier",
+        "attribute" : "DODGE",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -461,6 +509,30 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "ClassLevelFort",
+        "affinity" : "None",
+        "description" : "Class level scaling",
+        "attribute" : "FORT",
+        "severity" : 26.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Attribute Bonus",
+        "affinity" : "None",
+        "description" : "Strength + Constitution derived Fortitude",
+        "attribute" : "FORT",
+        "severity" : 13.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Size Modifier",
+        "affinity" : "None",
+        "description" : "Size-based Fortitude modifier",
+        "attribute" : "FORT",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -488,6 +560,30 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "ClassLevelRef",
+        "affinity" : "None",
+        "description" : "Class level scaling",
+        "attribute" : "REF",
+        "severity" : 26.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Attribute Bonus",
+        "affinity" : "None",
+        "description" : "Dexterity + Focus derived Reflex",
+        "attribute" : "REF",
+        "severity" : 13.5,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Size Modifier",
+        "affinity" : "None",
+        "description" : "Size-based Reflex modifier",
+        "attribute" : "REF",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -513,6 +609,22 @@
         "description" : "None",
         "attribute" : "WILL",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "ClassLevelWill",
+        "affinity" : "None",
+        "description" : "Class level scaling",
+        "attribute" : "WILL",
+        "severity" : 26.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Attribute Bonus",
+        "affinity" : "None",
+        "description" : "Control + Capacity derived Will",
+        "attribute" : "WILL",
+        "severity" : 12.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -568,6 +680,14 @@
         "description" : "None",
         "attribute" : "ALL",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Attribute Bonus",
+        "affinity" : "None",
+        "description" : "Strength derived Resist All",
+        "attribute" : "ALL",
+        "severity" : 6.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -1003,6 +1123,30 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "ClassLevelATK",
+        "affinity" : "None",
+        "description" : "Class level scaling",
+        "attribute" : "ATK",
+        "severity" : 26.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "ClassPrimaryATK",
+        "affinity" : "None",
+        "description" : "Primary attribute bonus to ATK",
+        "attribute" : "ATK",
+        "severity" : 8.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "FocusATKBonus",
+        "affinity" : "None",
+        "description" : "Focus-based ATK bonus",
+        "attribute" : "ATK",
+        "severity" : 5.5,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -1082,6 +1226,22 @@
         "description" : "None",
         "attribute" : "APP",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "FocusAPPBonus",
+        "affinity" : "None",
+        "description" : "Focus-based APP bonus",
+        "attribute" : "APP",
+        "severity" : 0.5,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "ClassPrimaryAPP",
+        "affinity" : "None",
+        "description" : "Primary attribute bonus to APP",
+        "attribute" : "APP",
+        "severity" : 3.0,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -1572,6 +1732,30 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "ClassPrimaryTDMG",
+        "affinity" : "None",
+        "description" : "Primary attribute bonus to Total Damage",
+        "attribute" : "TDMG",
+        "severity" : 3.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "StrTDMGBonus",
+        "affinity" : "None",
+        "description" : "Strength-based Total Damage bonus",
+        "attribute" : "TDMG",
+        "severity" : 3.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "CtlTDMGBonus",
+        "affinity" : "None",
+        "description" : "Control-based Total Damage bonus",
+        "attribute" : "TDMG",
+        "severity" : 1.5,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
       "multi" : [ ]
     }, {
@@ -1678,6 +1862,22 @@
         "description" : "None",
         "attribute" : "THEAL",
         "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "ClassPrimaryTHEAL",
+        "affinity" : "None",
+        "description" : "Primary attribute bonus to Total Healing",
+        "attribute" : "THEAL",
+        "severity" : 3.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "CtlTHEALBonus",
+        "affinity" : "None",
+        "description" : "Control-based Total Healing bonus",
+        "attribute" : "THEAL",
+        "severity" : 1.5,
         "durationType" : "Permanent",
         "duration" : 0
       } ],
@@ -1756,7 +1956,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "HP",
-        "severity" : 10.0,
+        "severity" : 230.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -1775,8 +1975,32 @@
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
+      }, {
+        "name" : "Specialty Passive: Tough (S301)",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "HP",
+        "severity" : 5.0,
+        "durationType" : "Permanent",
+        "duration" : 0
       } ],
-      "multi" : [ ]
+      "multi" : [ {
+        "name" : "ClassHpScaling",
+        "affinity" : "None",
+        "description" : "HP multiplier from class scaling",
+        "attribute" : "HPMULTI",
+        "severity" : 3.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "ConHPMulti",
+        "affinity" : "None",
+        "description" : "Constitution-based HP multiplier",
+        "attribute" : "HPMULTI",
+        "severity" : 0.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
     } ],
     "maxAura" : [ {
       "status" : [ {
@@ -1784,7 +2008,7 @@
         "affinity" : "None",
         "description" : "None",
         "attribute" : "AURA",
-        "severity" : 10.0,
+        "severity" : 140.0,
         "durationType" : "Permanent",
         "duration" : 0
       }, {
@@ -1804,7 +2028,23 @@
         "durationType" : "Permanent",
         "duration" : 0
       } ],
-      "multi" : [ ]
+      "multi" : [ {
+        "name" : "ClassAuraScaling",
+        "affinity" : "None",
+        "description" : "Aura multiplier from class scaling",
+        "attribute" : "AURAMULTI",
+        "severity" : 2.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "CapAuraMulti",
+        "affinity" : "None",
+        "description" : "Capacity-based Aura multiplier",
+        "attribute" : "AURAMULTI",
+        "severity" : 0.05,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
     } ],
     "maxResource1" : [ {
       "status" : [ {
@@ -1920,7 +2160,17 @@
     } ]
   },
   "specials" : {
-    "racialSpecialty" : null,
+    "racialSpecialty" : {
+      "id" : 116,
+      "name" : "Balance in All Things (Kenti)",
+      "refName" : "",
+      "category" : "Racial",
+      "description" : "Kenti who are in Balance receive a +1 bonus to all attributes aside from their primary attribute. A Kenti is in balance if all of their attributes aside from their primary attribute are within 1.5 of the average of those attributes.",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    },
     "skills" : [ {
       "id" : 320,
       "name" : "Medical",
@@ -1935,17 +2185,45 @@
       "description" : "Allows the user to perform feats of agility.",
       "availAttributes" : [ "DEX" ],
       "chosenAttributes" : [ "-", "DEX" ]
+    }, {
+      "id" : 330,
+      "name" : "Sneak",
+      "type" : "Gen",
+      "description" : "Allows the user to remain unnoticed.",
+      "availAttributes" : [ "DEX", "SUB" ],
+      "chosenAttributes" : [ "-", "DEX", "SUB" ]
+    }, {
+      "id" : 305,
+      "name" : "Awareness",
+      "type" : "Gen",
+      "description" : "Allows the user to notice motion and sounds in their vacinity.",
+      "availAttributes" : [ "PERC" ],
+      "chosenAttributes" : [ "-", "PERC" ]
+    }, {
+      "id" : 324,
+      "name" : "Profession",
+      "type" : "Gen",
+      "description" : "Allows the user to perform a skillful trade.",
+      "availAttributes" : [ "KNOW", "FOC" ],
+      "chosenAttributes" : [ "-", "KNOW" ]
+    }, {
+      "id" : 334,
+      "name" : "Performance",
+      "type" : "Gen",
+      "description" : "Allows the user to put on a show for the entertainment of others.",
+      "availAttributes" : [ "CHA" ],
+      "chosenAttributes" : [ "-", "CHA" ]
     } ],
-    "classSpecialties" : [ ],
-    "trainedSpecialties" : [ {
-      "id" : 3011,
-      "name" : "Sneak Attack",
+    "classSpecialties" : [ {
+      "id" : 4011,
+      "name" : "Unarmed Prowess",
       "refName" : "",
       "category" : "Class",
       "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 4012,
       "name" : "Martial Focus",
@@ -1954,7 +2232,37 @@
       "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
+    } ],
+    "trainedSpecialties" : [ {
+      "id" : 3011,
+      "name" : "Sneak Attack",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Stuff",
+      "type" : "combatCheck",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 301,
+      "name" : "Tough",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Character gains an additional 2 CON worth of max HP.",
+      "type" : "passive",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Tough",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEHP",
+        "severity" : 5.0,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
     }, {
       "id" : 1,
       "name" : "Level 1",
@@ -1963,7 +2271,8 @@
       "description" : "Level 1",
       "type" : "level",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 51,
       "name" : "Proficiency (Blade)",
@@ -1972,7 +2281,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a blade.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 52,
       "name" : "Proficiency (Dagger)",
@@ -1981,7 +2291,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a dagger.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 54,
       "name" : "Proficiency (Whip)",
@@ -1990,7 +2301,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a whip.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 57,
       "name" : "Proficiency (Mace)",
@@ -1999,7 +2311,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a mace.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 62,
       "name" : "Proficiency (Polearm)",
@@ -2008,7 +2321,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a polearm.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 63,
       "name" : "Proficiency (Thrown)",
@@ -2017,7 +2331,8 @@
       "description" : "Allows the character to use their primary Attribute when weilding a thrown weapon.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
     }, {
       "id" : 75,
       "name" : "Proficiency (Staff)",
@@ -2026,7 +2341,98 @@
       "description" : "Allows the character to use their primary Attribute when weilding a staff.",
       "type" : "proficiency",
       "prereq" : -1,
-      "pick" : false
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 2,
+      "name" : "Level 2",
+      "refName" : "Level 2",
+      "category" : "Level",
+      "description" : "Level 2",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 3,
+      "name" : "Level 3",
+      "refName" : "Level 3",
+      "category" : "Level",
+      "description" : "Level 3",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 3031,
+      "name" : "Dual Wield",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Stuff",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 4,
+      "name" : "Level 4",
+      "refName" : "Level 4",
+      "category" : "Level",
+      "description" : "Level 4",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 5,
+      "name" : "Level 5",
+      "refName" : "Level 5",
+      "category" : "Level",
+      "description" : "Level 5",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 6,
+      "name" : "Level 6",
+      "refName" : "Level 6",
+      "category" : "Level",
+      "description" : "Level 6",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 321,
+      "name" : "Combat Medic",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Your heals do not provoke an attack of opportunity.",
+      "type" : "reminder",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 7,
+      "name" : "Level 7",
+      "refName" : "Level 7",
+      "category" : "Level",
+      "description" : "Level 7",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 8,
+      "name" : "Level 8",
+      "refName" : "Level 8",
+      "category" : "Level",
+      "description" : "Level 8",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
     } ]
   },
   "inventory" : {
@@ -2814,7 +3220,7 @@
         "levelMod" : 0.0,
         "prereq" : -1,
         "grant" : [ 10 ],
-        "rank" : 0,
+        "rank" : 4,
         "al" : 0,
         "exp" : 0.0,
         "permStatus" : [ {

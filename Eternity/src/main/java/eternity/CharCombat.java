@@ -16,6 +16,8 @@ public class CharCombat {
     private static final String[] DEFAULT_COMBAT_MANEUVER_NAMES = {
             "Grapple", "Charge", "Rush", "Disarm", "Overrun", "Sunder", "Trip", "Feint", "Brace", "Protect"
     };
+    private static final String MOVE_ACTION_TYPE = "Move";
+    private static final String STANDARD_ACTION_TYPE = "Standard";
 
 
     @JsonIgnore
@@ -83,7 +85,7 @@ public class CharCombat {
         for (String name : DEFAULT_COMBAT_MANEUVER_NAMES) {
             DataAction maneuver = generateCombatManeuverAction(name);
             defaultCombatManeuverActions.add(maneuver);
-            this.standardActions.add(maneuver);
+            routeActionByType(maneuver);
         }
     }
 
@@ -269,7 +271,7 @@ public class CharCombat {
         DataAction baseAttack = new DataAction();
         baseAttack.setCharacter(owner);
         baseAttack.setAffinity("None");
-        baseAttack.setActionType("Standard");
+        baseAttack.setActionType(STANDARD_ACTION_TYPE);
         if (attack) {
             baseAttack.setName("Standard Attack");
             baseAttack.setCategory("Attack");
@@ -291,7 +293,7 @@ public class CharCombat {
         maneuver.setAffinity("None");
         maneuver.setAtkType("AC");
         maneuver.setRanged(0);
-        maneuver.setActionType("Standard");
+        maneuver.setActionType(isChargeManeuver(name) ? MOVE_ACTION_TYPE : STANDARD_ACTION_TYPE);
         return maneuver;
     }
 
@@ -314,23 +316,37 @@ public class CharCombat {
         for (DataAction maneuver : defaultCombatManeuverActions) {
             if (maneuver == null) continue;
             maneuver.setCharacter(owner);
-            boolean present = false;
-            for (DataAction action : standardActions) {
-                if (action == maneuver) {
-                    present = true;
-                    break;
-                }
-                if (action != null && action.getName() != null
-                        && action.getName().equalsIgnoreCase(maneuver.getName())
-                        && "Combat Maneuver".equalsIgnoreCase(action.getSource())) {
-                    present = true;
-                    break;
-                }
-            }
-            if (!present) {
-                standardActions.add(maneuver);
+            if (!hasCombatManeuverAction(maneuver)) {
+                routeActionByType(maneuver);
             }
         }
+    }
+
+    private boolean hasCombatManeuverAction(DataAction maneuver) {
+        return containsMatchingCombatManeuver(standardActions, maneuver)
+                || containsMatchingCombatManeuver(moveActions, maneuver)
+                || containsMatchingCombatManeuver(auraActions, maneuver)
+                || containsMatchingCombatManeuver(freeActions, maneuver)
+                || containsMatchingCombatManeuver(interruptActions, maneuver);
+    }
+
+    private boolean containsMatchingCombatManeuver(List<DataAction> bucket, DataAction maneuver) {
+        if (bucket == null || maneuver == null) return false;
+        for (DataAction action : bucket) {
+            if (action == maneuver) {
+                return true;
+            }
+            if (action != null && action.getName() != null
+                    && action.getName().equalsIgnoreCase(maneuver.getName())
+                    && "Combat Maneuver".equalsIgnoreCase(action.getSource())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isChargeManeuver(String name) {
+        return name != null && "Charge".equalsIgnoreCase(name.trim());
     }
 
     /** Updates the baseline Standard Attack range (used by UI weapon selection). */

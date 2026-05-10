@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class CharData {
     private static final String EQUIP_PASSIVE_PREFIX = "Equip Passive: ";
+    private static final String SPECIALTY_PASSIVE_PREFIX = "Specialty Passive: ";
     private static final boolean ENABLE_SPECIALTY_CHECKS = false;
     private static final String[] STATUS_CATEGORY_ORDER = { "attribute", "defense", "resist", "combat", "secondary", "damage" };
 
@@ -83,6 +84,7 @@ public class CharData {
 
         refreshTrainingDerivedBonuses();
         applyEquipmentPassiveBonuses();
+        refreshSpecialtyPassiveBonuses();
 
         this.identity.setOwner(this);
         this.attributes.setOwner(this);
@@ -112,10 +114,16 @@ public class CharData {
 
     private void updateResourceCaps(DataLevel dataLevel) {
         if (resources == null || dataLevel == null) return;
-        resources.setBaseMaxHP(dataLevel.getBaseHP());
-        resources.setBaseMaxAura(dataLevel.getBaseAura());
-        resources.setLostHP(Math.min(resources.getLostHP(), resources.getMaxHP()));
-        resources.setSpentAura(Math.min(resources.getSpentAura(), resources.getMaxAura()));
+        
+        DataStatus status = new DataStatus();
+        status.setName("base");
+        status.setAttribute("BASEHP");
+        status.setSeverity(dataLevel.getBaseHP());
+        resources.addStatus(status);
+
+        status.setAttribute("BASEAURA");
+        status.setSeverity(dataLevel.getBaseAura());
+        resources.addStatus(status);
     }
 
     private void updateIdentityDerivedState(DataQuery dq, int level, DataLevel currentLevelData) {
@@ -128,13 +136,13 @@ public class CharData {
         DataClass baseClass = dq.getClassByName(identity.getCharClass());
         if (baseClass == null) return;
 
-        int classRank = training != null ? training.getClassTrainingRank() : level;
-        specials.setClassSpecialties(getCachedClassSpecialties(dq, baseClass, classRank));
-
         DataClass effectiveClass = dq.getClassByName(identity.getCharSubclass());
         if (effectiveClass == null) {
             effectiveClass = baseClass;
         }
+
+        int classRank = training != null ? training.getClassTrainingRank() : level;
+        specials.setClassSpecialties(getCachedClassSpecialties(dq, effectiveClass, classRank));
 
         applyClassResourceScaling(effectiveClass);
         applyClassLevelScalers(baseClass, currentLevelData);
@@ -178,7 +186,7 @@ public class CharData {
                 addClassSpecialty(classSpecs, dq, dataClass.getAbilBase() + (10 * i) + j);
             }
             for (int j = 0; j < specCount; j++) {
-                addClassSpecialty(classSpecs, dq, dataClass.getAbilOffset() + (10 * i) + j + dataClass.getAbilOffset());
+                addClassSpecialty(classSpecs, dq, dataClass.getAbilBase() + (10 * i) + j + dataClass.getAbilOffset());
             }
         }
         return classSpecs;
@@ -353,6 +361,11 @@ public class CharData {
         applyEquipmentPassiveBonuses();
     }
 
+    /** Rebuilds passive specialty statuses from the currently owned specialties. */
+    public void refreshSpecialtyPassiveBonuses() {
+        applySpecialtyPassiveStatuses(CharDataManager.getDataQuery());
+    }
+
     public void setLists(List<List<DataList>> lists) { this.Lists = (lists == null) ? new ArrayList<>() : lists; }
     public Map<String, String> getReminderSelections() { return reminderSelections; }
     public void setReminderSelections(Map<String, String> reminderSelections) {
@@ -428,6 +441,127 @@ public class CharData {
             if (block == null) continue;
             block.getStatus().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));
             block.getMulti().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));
+        }
+    }
+
+    private void applySpecialtyPassiveStatuses(DataQuery dq) {
+        clearSpecialtyPassiveBonuses();
+        if (dq == null || specials == null) return;
+
+        List<DataSpecialty> all = specials.getAllSpecialties();
+        if (all == null || all.isEmpty()) return;
+
+        for (DataSpecialty specialty : all) {
+            if (specialty == null || !"Passive".equalsIgnoreCase(specialty.getType())) continue;
+            List<DataStatus> perms = collectSpecialtyPermStatuses(dq, specialty);
+            if (perms.isEmpty()) continue;
+            for (DataStatus permStatus : perms) {
+                applySpecialtyPermStatus(specialty, permStatus);
+            }
+        }
+    }
+
+    private void clearSpecialtyPassiveBonuses() {
+        if (attributes != null) {
+            clearPrefixedStatuses(attributes.getAttributes(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(attributes.getDefense(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(attributes.getResist(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(attributes.getCombat(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(attributes.getSecondary(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(attributes.getDamage(), SPECIALTY_PASSIVE_PREFIX);
+        }
+        if (resources != null) {
+            clearPrefixedStatuses(resources.getMaxHPBlocks(), SPECIALTY_PASSIVE_PREFIX);
+            clearPrefixedStatuses(resources.getMaxAuraBlocks(), SPECIALTY_PASSIVE_PREFIX);
+        }
+    }
+
+    private List<DataStatus> collectSpecialtyPermStatuses(DataQuery dq, DataSpecialty specialty) {
+        ArrayList<DataStatus> copies = new ArrayList<>();
+        if (specialty == null) return copies;
+
+        if (dq != null && specialty.getId() > 0) {
+            DataSpecialty base = dq.getSpecialtyById(specialty.getId());
+            if (base != null) {
+                for (DataStatus permStatus : base.getPermStatus()) {
+                    if (permStatus != null) copies.add(new DataStatus(permStatus));
+                }
+            }
+        }
+
+        for (DataStatus permStatus : specialty.getPermStatus()) {
+            if (permStatus != null) copies.add(new DataStatus(permStatus));
+        }
+
+        if (copies.isEmpty()) {
+            copies.addAll(buildLegacyPassiveSpecialtyStatuses(specialty));
+        }
+
+        return copies;
+    }
+
+    private List<DataStatus> buildLegacyPassiveSpecialtyStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> legacyStatuses = new ArrayList<>();
+        if (specialty == null || specialty.getName() == null) return legacyStatuses;
+
+        // TODO: add explicit legacy mappings for passive specialties whose effects are still
+        // only documented in description text instead of encoded as permStatus payloads.
+        return legacyStatuses;
+    }
+
+    private void applySpecialtyPermStatus(DataSpecialty specialty, DataStatus permStatus) {
+        if (specialty == null || permStatus == null || permStatus.getAttribute() == null) return;
+
+        String attr = permStatus.getAttribute().toUpperCase();
+        String normalizedAttr = normalizeAttrKey(attr);
+        String baseName = permStatus.getName() != null && !permStatus.getName().isBlank()
+                ? permStatus.getName()
+                : specialty.getName();
+        String uniqueName = SPECIALTY_PASSIVE_PREFIX + baseName + " (S" + specialty.getId() + ")";
+
+        if ("MAXHP".equals(attr) || "BASEHP".equals(attr)) {
+            addSpecialtyResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HP", permStatus.getSeverity(), false, permStatus.getDescription());
+            return;
+        }
+        if ("HPMULTI".equals(attr)) {
+            addSpecialtyResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HPMULTI", permStatus.getSeverity(), true, permStatus.getDescription());
+            return;
+        }
+        if ("MAXAURA".equals(attr) || "BASEAURA".equals(attr)) {
+            addSpecialtyResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURA", permStatus.getSeverity(), false, permStatus.getDescription());
+            return;
+        }
+        if ("AURAMULTI".equals(attr)) {
+            addSpecialtyResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURAMULTI", permStatus.getSeverity(), true, permStatus.getDescription());
+            return;
+        }
+
+        String category = resolveCategory(normalizedAttr);
+        if (category == null) return;
+
+        DataStatus copy = new DataStatus(permStatus);
+        copy.setName(uniqueName);
+        copy.setAttribute(normalizedAttr);
+        copy.setDurationType("Permanent");
+        attributes.removeStatus(category, normalizedAttr, uniqueName);
+        attributes.addStatus(category, normalizedAttr, copy);
+    }
+
+    private void addSpecialtyResourceStatus(StatBlock[] blocks, String uniqueName, String attribute, double severity, boolean multi, String description) {
+        if (blocks == null || blocks.length == 0 || blocks[0] == null) return;
+        DataStatus copy = new DataStatus();
+        copy.setName(uniqueName);
+        copy.setAttribute(attribute);
+        copy.setDurationType("Permanent");
+        copy.setSeverity(severity);
+        copy.setAffinity("None");
+        copy.setDescription(description == null || description.isBlank() ? "Specialty passive bonus" : description);
+        if (multi) {
+            blocks[0].removeMulti(uniqueName);
+            blocks[0].addMulti(copy);
+        } else {
+            blocks[0].removeStatus(uniqueName);
+            blocks[0].addStatus(copy);
         }
     }
 
@@ -875,4 +1009,48 @@ public class CharData {
         specCheck.runChecks();
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////////////////////
+    /// //////////////////////////////////////////////////////////////////////
+    /// 
+    
+    public double calcResourceValue(String key) {
+        if (resources == null || key == null) return -1.0;
+        return switch (key.toUpperCase()) {
+            case "MAXHP" -> resources.calcMaxHP();
+            case "MAXAURA" -> resources.calcMaxAura();
+            case "MAXR1" -> resources.calcMaxResource1();
+            case "MAXR2" -> resources.calcMaxResource2();
+            case "MAXR3" -> resources.calcMaxResource3();
+            case "MAXREACT" -> resources.calcMaxReactions();
+            case "CURHP" -> resources.calcCurrentHP();
+            case "CURAURA" -> resources.calcCurrentAura();
+            case "CURR1" -> resources.calcCurrentResource1();
+            case "CURR2" -> resources.calcCurrentResource2();
+            case "CURR3" -> resources.calcCurrentResource3();
+            case "CURREACT" -> resources.calcCurrentReactions();
+            case "OCCAURA" -> resources.calcOccupiedAura();
+            case "MAINOCC" -> resources.getMainOccupiedAura();
+            case "GRANTOCC" -> resources.getGrantOccupiedAura();
+            default -> -1;
+        };
+    }
+
+        public void setResourceValue(String key, double value) {
+        if (resources == null || key == null) return;
+        switch (key.toUpperCase()) {
+            case "LOSTHP" -> resources.setLostHP(value);
+            case "SPENTAURA" -> resources.setSpentAura(value);
+            case "SPENTR1" -> resources.setSpentR1(value);
+            case "SPENTR2" -> resources.setSpentR2(value);
+            case "SPENTR3" -> resources.setSpentR3(value);
+            case "SPENTREACT" -> resources.setSpentReactions(value);
+            case "MAINOCC" -> resources.setMainOccupiedAura(value);
+            case "GRANTOCC" -> resources.setGrantOccupiedAura(value);
+            case "SHIELD" -> resources.setShield(value);
+            case "STAGGER" -> resources.setStagger(value);
+        };
+    }
 }

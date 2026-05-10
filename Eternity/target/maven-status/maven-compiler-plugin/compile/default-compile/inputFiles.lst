@@ -33,10 +33,12 @@ C:\Eternity\Eternity\src\main\java\eternity\FrameCombatDamage.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameDetail.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameExp.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameFirst.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameHeal.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameInventoryAdd.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameInventoryRemove.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameLevel.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameLoad.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameMitigation.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNew.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewAttribute.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewAura.java
@@ -47,6 +49,7 @@ C:\Eternity\Eternity\src\main\java\eternity\FrameNewRace.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewRacePicker.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewSkills.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewSpecials.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameNextAttack.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameRest.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSheet.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSkill.java

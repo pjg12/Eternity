@@ -214,14 +214,14 @@ public class PanelCharMaintained extends PanelCharBase {
 						try { alVal = ((Number) mtActLevel.get(i).getValue()).doubleValue(); } catch (Exception ignored) {}
 						double sev = ratio * alVal;
 						String normalized = normalizeAttrKey(attrKey);
-						if (!applyMaintainedToResource(normalized, sev)) {
+						/*if (!applyMaintainedToResource(normalized, sev)) {
 							String category = i < cachedMaintainedRows.size() && cachedMaintainedRows.get(i) != null
 									? cachedMaintainedRows.get(i).resolvedCategory()
 									: null;
 							if (category != null) {
 								character.getAttributes().setStatusSeverity(category, normalized, "Maintained", sev);
 							}
-						}
+						}*/
 					}
 				}
 			}
@@ -309,7 +309,7 @@ public class PanelCharMaintained extends PanelCharBase {
 				// Ignore malformed field values.
 			}
 		}
-		character.getResources().setOccupiedAura(Math.max(0.0, totalOcc));
+		character.setResourceValue("MAINOCC", totalOcc);
 	}
 	
 	private String resolveCategory(CharAttributes attrs, String key) {
@@ -333,7 +333,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		return upper;
 	}
 
-	private boolean applyMaintainedToResource(String key, double severity) {
+	/*private boolean applyMaintainedToResource(String key, double severity) {
 		if (character == null || character.getResources() == null || key == null) return false;
 		if ("MAXHP".equals(key)) {
 			upsertStatusSeverity(character.getResources().getMaxHPBlocks(), "Maintained", "HP", severity);
@@ -352,7 +352,7 @@ public class PanelCharMaintained extends PanelCharBase {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	private void upsertStatusSeverity(StatBlock[] blocks, String name, String attr, double severity) {
 		if (blocks == null || blocks.length == 0 || blocks[0] == null) return;

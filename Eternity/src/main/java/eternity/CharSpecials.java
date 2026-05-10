@@ -128,6 +128,7 @@ public class CharSpecials {
     public void setRacialSpecialty(DataSpecialty racial) {
         this.charRacial = racial;
         markAllSpecialtiesDirty();
+        notifyOwnerSpecialtiesChanged();
     }
 
     public boolean hasRacialSpecialty() {
@@ -146,6 +147,7 @@ public class CharSpecials {
         classSpecialtiesByName.clear();
         addClassSpecialtiesBulk(specs);
         markAllSpecialtiesDirty();
+        notifyOwnerSpecialtiesChanged();
     }
 
     public void addClassSpecialty(DataSpecialty spec) {
@@ -155,6 +157,7 @@ public class CharSpecials {
             charClassSpecials.add(spec);
             classSpecialtiesByName.put(normalizedName, spec);
             markAllSpecialtiesDirty();
+            notifyOwnerSpecialtiesChanged();
         }
     }
 
@@ -162,6 +165,7 @@ public class CharSpecials {
         if (charClassSpecials.remove(spec) && spec != null) {
             classSpecialtiesByName.remove(normalizeName(spec.getName()));
             markAllSpecialtiesDirty();
+            notifyOwnerSpecialtiesChanged();
         }
     }
 
@@ -181,6 +185,7 @@ public class CharSpecials {
         trainedSpecialtiesByName.clear();
         addTrainedSpecialtiesBulk(specs);
         markAllSpecialtiesDirty();
+        notifyOwnerSpecialtiesChanged();
     }
 
     public void addTrainedSpecialty(DataSpecialty spec) {
@@ -190,6 +195,7 @@ public class CharSpecials {
             charTrainedSpecials.add(spec);
             trainedSpecialtiesByName.put(normalizedName, spec);
             markAllSpecialtiesDirty();
+            notifyOwnerSpecialtiesChanged();
         }
     }
 
@@ -197,6 +203,7 @@ public class CharSpecials {
         if (charTrainedSpecials.remove(spec) && spec != null) {
             trainedSpecialtiesByName.remove(normalizeName(spec.getName()));
             markAllSpecialtiesDirty();
+            notifyOwnerSpecialtiesChanged();
         }
     }
 
@@ -301,6 +308,12 @@ public class CharSpecials {
 
     private void markAllSpecialtiesDirty() {
         allSpecialtiesDirty = true;
+    }
+
+    private void notifyOwnerSpecialtiesChanged() {
+        if (owner != null) {
+            owner.refreshSpecialtyPassiveBonuses();
+        }
     }
 
     /** Search combined specialties by name. */

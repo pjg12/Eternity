@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class DataAction {
 	private static final String ATKTYPE_OTHER = "OTHER";
+	private static final String RACE_TRAINING_NAME = "Race Training";
+	private static final String JOUSTING_CHARGE_SPECIALTY = "Jousting Charge";
 
 	@JsonIgnore
 	private CharData character;
@@ -255,6 +257,31 @@ public class DataAction {
 				applyModifierKey(entry);
 			}
 		}
+
+		applyRacialCombatManeuverBonuses();
+	}
+
+	private void applyRacialCombatManeuverBonuses() {
+		if (!isChargeCombatManeuver() || !hasRacialSpecialty(JOUSTING_CHARGE_SPECIALTY)) return;
+		atk += getRaceTrainingRank();
+	}
+
+	private boolean isChargeCombatManeuver() {
+		return "Combat Maneuver".equalsIgnoreCase(source)
+				&& "Charge".equalsIgnoreCase(name);
+	}
+
+	private boolean hasRacialSpecialty(String specialtyNamePrefix) {
+		if (character == null || character.getSpecials() == null || specialtyNamePrefix == null) return false;
+		DataSpecialty racial = character.getSpecials().getRacialSpecialty();
+		if (racial == null || racial.getName() == null) return false;
+		return racial.getName().regionMatches(true, 0, specialtyNamePrefix, 0, specialtyNamePrefix.length());
+	}
+
+	private int getRaceTrainingRank() {
+		if (character == null || character.getTraining() == null) return 0;
+		DataTraining raceTraining = character.getTraining().getTrainingByName(RACE_TRAINING_NAME);
+		return raceTraining == null ? 0 : Math.max(0, raceTraining.getRank());
 	}
 
 	private void applyModifierKeyWithAl(ModifierKey entry) {

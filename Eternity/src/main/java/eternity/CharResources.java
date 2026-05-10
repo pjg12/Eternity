@@ -1,146 +1,137 @@
 package eternity;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 /**
  * Tracks HP, Aura, Reactions, and Class Resources
  * using the modern StatBlock architecture.
  */
 public class CharResources {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String PASSIVE_STATUS = "Passive";
+    @JsonIgnore private CharData owner;                                                // Reference to main character data
 
-    @JsonIgnore
-    private CharData owner;
+    @JsonProperty("baseHP") private ArrayList<DataStatus>[] baseHP;                   // List of base HP modifiers
+    @JsonProperty("multiHP") private ArrayList<DataStatus>[] multiHP;                     // List of HP multipliers
+    @JsonProperty("baseAura") private ArrayList<DataStatus>[] baseAura;               // List of base Aura modifiers
+    @JsonProperty("multiAura") private ArrayList<DataStatus>[] multiAura;                 // List of Aura multipliers
+    @JsonProperty("baseResource1") private ArrayList<DataStatus>[] baseResource1;     // List of base Class Resource 1 modifiers
+    @JsonProperty("multiResource1") private ArrayList<DataStatus>[] multiResource1;       // List of Class Resource 1 multipliers
+    @JsonProperty("baseResource2") private ArrayList<DataStatus>[] baseResource2;     // List of base Class Resource 2 modifiers
+    @JsonProperty("multiResource2") private ArrayList<DataStatus>[] multiResource2;       // List of Class Resource 2 multipliers
+    @JsonProperty("baseResource3") private ArrayList<DataStatus>[] baseResource3;     // List of base Class Resource 3 modifiers (subclass resource)
+    @JsonProperty("multiResource3") private ArrayList<DataStatus>[] multiResource3;       // List of Class Resource 3 multipliers (subclass resource)
+    @JsonProperty("baseReactions") private ArrayList<DataStatus>[] baseReactions;     // List of base Reaction modifiers
+    @JsonProperty("multiReactions") private ArrayList<DataStatus>[] multiReactions;       // List of Reaction multipliers
 
-    @JsonProperty("maxHP") private StatBlock[] maxHP;
-    @JsonProperty("maxAura") private StatBlock[] maxAura;
-    @JsonProperty("maxResource1") private StatBlock[] maxResource1;
-    @JsonProperty("maxResource2") private StatBlock[] maxResource2;
-    @JsonProperty("maxResource3") private StatBlock[] maxResource3;
-    @JsonProperty("reactions") private StatBlock[] reactions;
+    @JsonProperty private double lostHP;                                            // Count of missing HP
+    @JsonProperty private double spentAura;                                         // Count of spent aura
+    @JsonProperty private double spentR1;                                           // Count of spent Class Resource 1  
+    @JsonProperty private double spentR2;                                           // Count of spent Class Resource 2         
+    @JsonProperty private double spentR3;                                           // Count of spent Class Resource 3 (subclass resource)
+    @JsonProperty private double spentReactions;                                    // Count of spent Reactions
 
-    @JsonProperty private double lostHP;         // missing HP
-    @JsonProperty private double spentAura;      // spent aura capacity
-    @JsonProperty private double mainOccupiedAura;    // aura reserved by abilities (main)
-    @JsonProperty private double grantOccupiedAura;   // aura reserved by granted abilities
-    @JsonProperty private double shield;         // temporary shielding
-    @JsonProperty private double stagger;        // stagger meter
-    @JsonProperty private double spentR1;
-    @JsonProperty private double spentR2;
-    @JsonProperty private double spentR3;
-    @JsonProperty private double spentReactions;
+    @JsonProperty private double mainOccupiedAura;                                  // Aura currently occupied by maintained abilities
+    @JsonProperty private double grantOccupiedAura;                                     // Aura currently occupied by abilities granted to allies
+    @JsonProperty private double shield;                                            // Shield counter: absorbs damage before HP is lost
+    @JsonProperty private double stagger;                                           // Stagger counter: absorbs partial damage, dealing HP damage over time
 
     public CharResources() {
-        this.maxHP       = initSingle("HP");
-        this.maxAura     = initSingle("AURA");
-        this.maxResource1 = initSingle("RESOURCE1");
-        this.maxResource2 = initSingle("RESOURCE2");
-        this.maxResource3 = initSingle("RESOURCE3");
-        this.reactions    = initSingle("REACTION");
+        this.baseHP       = initStatus("BASEHP");
+        this.multiHP       = initStatus("MULTIHP");
+        this.baseAura     = initStatus("BASEAURA");
+        this.multiAura     = initStatus("MULTIAURA");
+        this.baseResource1 = initStatus("BASER1");
+        this.multiResource1 = initStatus("MULTIR1");
+        this.baseResource2 = initStatus("BASER2");
+        this.multiResource2 = initStatus("MULTIR2");
+        this.baseResource3 = initStatus("BASER3");
+        this.multiResource3 = initStatus("MULTIR3");
+        this.baseReactions = initStatus("BASEREACT");
+        this.multiReactions = initStatus("MULTIREACT");
 
-        this.lostHP = 0;
-        this.spentAura = 0;
-        this.mainOccupiedAura = 0;
-        this.grantOccupiedAura = 0;
-        this.shield = 0;
-        this.stagger = 0;
-        this.spentR1 = 0;
-        this.spentR2 = 0;
-        this.spentR3 = 0;
-        this.spentReactions = 0;
+        this.lostHP = 0.0;
+        this.spentAura = 0.0;
+        this.spentR1 = 0.0;
+        this.spentR2 = 0.0;
+        this.spentR3 = 0.0;
+        this.spentReactions = 0.0;
+
+        this.mainOccupiedAura = 0.0;
+        this.grantOccupiedAura = 0.0;
+        this.shield = 0.0;
+        this.stagger = 0.0;
     }
 
-    private StatBlock[] initSingle(String attributeKey) {
-        StatBlock[] arr = new StatBlock[1];
-        StatBlock block = new StatBlock();
-        arr[0] = block;
-
-        seedBaseStatuses(block, attributeKey);
-
-        return arr;
-    }
-
-    // ---------------------------------------------------------
-    //   DESERIALIZATION SAFETY (accept legacy numeric values)
-    // ---------------------------------------------------------
-    @JsonSetter("maxHP") private void setMaxHP(JsonNode node) { this.maxHP = coerceStatBlocks(node, "HP"); }
-    @JsonSetter("maxAura") private void setMaxAura(JsonNode node) { this.maxAura = coerceStatBlocks(node, "AURA"); }
-    @JsonSetter("maxResource1") private void setMaxResource1(JsonNode node) { this.maxResource1 = coerceStatBlocks(node, "RESOURCE1"); }
-    @JsonSetter("maxResource2") private void setMaxResource2(JsonNode node) { this.maxResource2 = coerceStatBlocks(node, "RESOURCE2"); }
-    @JsonSetter("maxResource3") private void setMaxResource3(JsonNode node) { this.maxResource3 = coerceStatBlocks(node, "RESOURCE3"); }
-    @JsonSetter("reactions") private void setReactions(JsonNode node) { this.reactions = coerceStatBlocks(node, "REACTION"); }
-
-    private StatBlock[] coerceStatBlocks(JsonNode node, String attributeKey) {
-        if (node == null || node.isNull()) return initSingle(attributeKey);
-
-        // Legacy format: numeric value instead of StatBlock array
-        if (node.isNumber()) {
-            StatBlock[] arr = initSingle(attributeKey);
-            DataStatus passive = findPassiveStatus(arr[0]);
-            if (passive != null) {
-                passive.setSeverity(node.doubleValue());
-            }
-            return arr;
+    private ArrayList<DataStatus>[] initStatus(String attributeKey) {
+        ArrayList<DataStatus>[] list = new ArrayList[3];
+        String[] labels = { "Passive", "Maintained", "Temporary" };
+        for (int i = 0; i < 3; i++) {
+            list[i] = new ArrayList<>();
+            DataStatus base = new DataStatus();
+            base.setName(labels[i]);
+            base.setAttribute(attributeKey);
+            base.setSeverity(0);
+            base.setDurationType(labels[i]);
+            list[i].add(base);
         }
+        return list;
+    }
 
-        try {
-            StatBlock[] parsed = MAPPER.convertValue(node, StatBlock[].class);
-            return (parsed != null && parsed.length > 0) ? parsed : initSingle(attributeKey);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Failed to parse StatBlock array, using defaults: " + e.getMessage());
-            return initSingle(attributeKey);
+    // ---------------------------------------------------------
+    //   COMPUTED MAX VALUES
+    // ---------------------------------------------------------
+
+    @JsonIgnore
+    public double calcValue(ArrayList<DataStatus> list) {
+        double result = 0.0;
+        for (DataStatus status : list) {
+            if (status != null) result += status.getSeverity();
         }
+        return Math.max(0.0, result);
     }
 
-    // ---------------------------------------------------------
-    //   COMPUTED VALUES
-    // ---------------------------------------------------------
-
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxHP() {
-        double base = maxHP[0].computeValueNoBase();
-        return (int)Math.max(0, base);
-    }
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxAura() {
-        double base = maxAura[0].computeValueNoBase();
-        return (int)Math.max(0, base);
+    @JsonIgnore
+    public int calcMaxValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
+        double baseValue = 0.0, multiValue = 0.0;
+        for (int i = 0; i < 3; i++) {
+            baseValue += calcValue(base[i]);
+            multiValue += calcValue(base[i]);
+        }
+        return (int)Math.max(0, baseValue * multiValue);
     }
 
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxResource1() { return maxResource1[0].computeValue(); }
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxResource2() { return maxResource2[0].computeValue(); }
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxResource3() { return maxResource3[0].computeValue(); }
-
-    @JsonIgnore // derived value; exclude from serialization
-    public int getMaxReactions() { return reactions[0].computeValue(); }
+    @JsonIgnore public int calcMaxHP() { return calcMaxValue(baseHP, multiHP); }
+    @JsonIgnore public int calcMaxAura() { return calcMaxValue(baseAura, multiAura); }
+    @JsonIgnore public int calcMaxResource1() { return calcMaxValue(baseResource1, multiResource1); }
+    @JsonIgnore public int calcMaxResource2() { return calcMaxValue(baseResource2, multiResource2); }
+    @JsonIgnore public int calcMaxResource3() { return calcMaxValue(baseResource3, multiResource3); }
+    @JsonIgnore public int calcMaxReactions() { return calcMaxValue(baseReactions, multiReactions); }
 
     // ---------------------------------------------------------
-    //   CURRENT VALUES
+    //   COMPUTED CURRENT VALUES
     // ---------------------------------------------------------
 
-    @JsonIgnore // derived value; exclude from serialization
-    public int getCurrentHP() { return (int)(getMaxHP() - lostHP); }
-    @JsonIgnore // derived value; exclude from serialization
-    public int getCurrentAura() { return (int)(getMaxAura() - spentAura - getOccupiedAura()); }
-    @JsonIgnore // derived value; exclude from serialization
-    public int getCurrentReactions() { return (int)(getMaxReactions() - spentReactions); }
+    @JsonIgnore public int calcCurrentHP() { return (int)(calcMaxHP() - lostHP); }
+    @JsonIgnore public int calcCurrentAura() { return (int)(calcMaxAura() - spentAura - calcOccupiedAura()); }
+    @JsonIgnore public int calcCurrentResource1() { return (int)(calcMaxResource1() - spentR1); }
+    @JsonIgnore public int calcCurrentResource2() { return (int)(calcMaxResource2() - spentR2); }
+    @JsonIgnore public int calcCurrentResource3() { return (int)(calcMaxResource3() - spentR3); }
+    @JsonIgnore public int calcCurrentReactions() { return (int)(calcMaxReactions() - spentReactions); }
+
+    public double calcOccupiedAura() { return mainOccupiedAura + grantOccupiedAura; }
 
     // ---------------------------------------------------------
     //   RESOURCE OPERATIONS
     // ---------------------------------------------------------
 
-    public void damage(double amount) { lostHP = Math.min(getMaxHP(), lostHP + amount); }
+    public void damage(double amount) { lostHP = Math.min(calcMaxHP(), lostHP + amount); }
     public void heal(double amount) { lostHP = Math.max(0, lostHP - amount); }
     
-    public void spendAura(double amount) { spentAura = Math.min(getMaxAura(), spentAura + amount); }
+    public void spendAura(double amount) { spentAura = Math.min(calcMaxAura(), spentAura + amount); }
     public void restoreAura(double amount) { spentAura = Math.max(0, spentAura - amount); }
     public void occupyAura(double amount) { mainOccupiedAura += amount; }
     public void freeAura(double amount) { mainOccupiedAura = Math.max(0, mainOccupiedAura - amount); }
@@ -151,124 +142,113 @@ public class CharResources {
     public void addShield(double amount) { shield += amount; }
     public void removeShield(double amount) { shield = Math.max(0, shield - amount); }
 
-    public void spendReaction() { spentReactions = Math.min(getMaxReactions(), spentReactions + 1); }
+    public void spendReaction() { spentReactions = Math.min(calcMaxReactions(), spentReactions + 1); }
     public void resetReactions() { spentReactions = 0; }
 
     // ---------------------------------------------------------
     //   GETTERS & SETTERS
     // ---------------------------------------------------------
 
+    public ArrayList<DataStatus>[] getBaseHP() { return baseHP != null ? baseHP : initStatus("BASEHP"); }
+    public ArrayList<DataStatus>[] getMultiHP() { return multiHP != null ? multiHP : initStatus("MULTIHP"); }
+    public ArrayList<DataStatus>[] getBaseAura() { return baseAura != null ? baseAura : initStatus("BASEAURA"); }
+    public ArrayList<DataStatus>[] getMultiAura() { return multiAura != null ? multiAura : initStatus("MULTIAURA"); }
+    public ArrayList<DataStatus>[] getBaseResource1() { return baseResource1 != null ? baseResource1 : initStatus("BASER1"); }
+    public ArrayList<DataStatus>[] getMultiResource1() { return multiResource1 != null ? multiResource1 : initStatus("MULTIR1"); }
+    public ArrayList<DataStatus>[] getBaseResource2() { return baseResource2 != null ? baseResource2 : initStatus("BASER2"); }
+    public ArrayList<DataStatus>[] getMultiResource2() { return multiResource2 != null ? multiResource2 : initStatus("MULTIR2"); }
+    public ArrayList<DataStatus>[] getBaseResource3() { return baseResource3 != null ? baseResource3 : initStatus("BASER3"); }
+    public ArrayList<DataStatus>[] getMultiResource3() { return multiResource3 != null ? multiResource3 : initStatus("MULTIR3"); }
+    public ArrayList<DataStatus>[] getBaseReactions() { return baseReactions != null ? baseReactions : initStatus("BASEREACT"); }
+    public ArrayList<DataStatus>[] getMultiReactions() { return multiReactions != null ? multiReactions : initStatus("MULTIREACT"); }
+    
+    @JsonSetter("baseHP") public void setBaseHP(ArrayList<DataStatus>[] list) { this.baseHP = list != null ? list : initStatus("BASEHP"); }
+    @JsonSetter("multiHP") public void setMultiHP(ArrayList<DataStatus>[] list) { this.multiHP = list != null ? list : initStatus("MULTIHP"); }
+    @JsonSetter("baseAura") public void setBaseAura(ArrayList<DataStatus>[] list) { this.baseAura = list != null ? list : initStatus("BASEAURA"); }
+    @JsonSetter("multiAura") public void setMultiAura(ArrayList<DataStatus>[] list) { this.multiAura = list != null ? list : initStatus("MULTIAURA"); }
+    @JsonSetter("baseResource1") public void setBaseResource1(ArrayList<DataStatus>[] list) { this.baseResource1 = list != null ? list : initStatus("BASER1"); }
+    @JsonSetter("multiResource1") public void setMultiResource1(ArrayList<DataStatus>[] list) { this.multiResource1 = list != null ? list : initStatus("MULTIR1"); }
+    @JsonSetter("baseResource2") public void setBaseResource2(ArrayList<DataStatus>[] list) { this.baseResource2 = list != null ? list : initStatus("BASER2"); }
+    @JsonSetter("multiResource2") public void setMultiResource2(ArrayList<DataStatus>[] list) { this.multiResource2 = list != null ? list : initStatus("MULTIR2"); }
+    @JsonSetter("baseResource3") public void setBaseResource3(ArrayList<DataStatus>[] list) { this.baseResource3 = list != null ? list : initStatus("BASER3"); }
+    @JsonSetter("multiResource3") public void setMultiResource3(ArrayList<DataStatus>[] list) { this.multiResource3 = list != null ? list : initStatus("MULTIR3"); }
+    @JsonSetter("baseReactions") public void setBaseReactions(ArrayList<DataStatus>[] list) { this.baseReactions = list != null ? list : initStatus("BASEREACT"); }
+    @JsonSetter("multiReactions") public void setMultiReactions(ArrayList<DataStatus>[] list) { this.multiReactions = list != null ? list : initStatus("MULTIREACT"); }
+    
     public double getLostHP() { return lostHP; }
     public void setLostHP(double lostHP) { this.lostHP = lostHP; }
-
     public double getSpentAura() { return spentAura; }
     public void setSpentAura(double spentAura) { this.spentAura = spentAura; }
 
-    public double getOccupiedAura() { return mainOccupiedAura + grantOccupiedAura; }
-    public void setOccupiedAura(double occupiedAura) { this.mainOccupiedAura = Math.max(0, occupiedAura); }
     public double getMainOccupiedAura() { return mainOccupiedAura; }
+    public void setMainOccupiedAura(double occupiedAura) { this.mainOccupiedAura = Math.max(0, occupiedAura); }
     public double getGrantOccupiedAura() { return grantOccupiedAura; }
     public void setGrantOccupiedAura(double v) { this.grantOccupiedAura = Math.max(0, v); }
 
     public double getShield() { return shield; }
     public void setShield(double shield) { this.shield = shield; }
-
     public double getStagger() { return stagger; }
     public void setStagger(double stagger) { this.stagger = stagger; }
 
     public double getSpentR1() { return spentR1; }
     public double getSpentR2() { return spentR2; }
     public double getSpentR3() { return spentR3; }
-
-    public void setSpentR1(double v) { spentR1 = v; }
-    public void setSpentR2(double v) { spentR2 = v; }
-    public void setSpentR3(double v) { spentR3 = v; }
+    public void setSpentR1(double spent) { spentR1 = spent; }
+    public void setSpentR2(double spent) { spentR2 = spent; }
+    public void setSpentR3(double spent) { spentR3 = spent; }
 
     public double getSpentReactions() { return spentReactions; }
     public void setSpentReactions(double spentReactions) { this.spentReactions = spentReactions; }
 
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getMaxHPBlocks() { return maxHP; }
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getMaxAuraBlocks() { return maxAura; }
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getMaxResource1Blocks() { return maxResource1; }
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getMaxResource2Blocks() { return maxResource2; }
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getMaxResource3Blocks() { return maxResource3; }
-    @JsonIgnore // derived value; exclude from serialization
-    public StatBlock[] getReactionBlocks() { return reactions; }
-
-    @JsonIgnore
-    public CharData getOwner() { return owner; }
-    public void setOwner(CharData owner) { this.owner = owner; }
+    @JsonIgnore public CharData getOwner() { return owner; }
+    @JsonIgnore public void setOwner(CharData owner) { this.owner = owner; }
 
     // ---------------------------------------------------------
-    //   BASE VALUE HELPERS
+    //   HELPERS
     // ---------------------------------------------------------
 
-    /**
-     * Updates the "Passive" status entry for Max HP with the supplied value.
-     * If the status does not exist (e.g., older saved characters), it will be created.
-     */
-    public void setBaseMaxHP(double value) {
-        setBaseStatusValue(maxHP, value, "HP");
+    public void addStatus (DataStatus status) {
+        if (status == null || status.getAttribute() == null) return;
+        ArrayList<DataStatus> list = findStatusArray(findStatusBlock(status.getAttribute().toUpperCase()), status.getDurationType().toUpperCase());
+        DataStatus existing = findStatus(list, status.getName());
+        if (existing != null) existing.setSeverity(Math.max(existing.getSeverity(), status.getSeverity()));
+            // TODO better comparison logic for statuses of the same name? For now, just take the highest severity if a duplicate is added.
+        else list.add(status); 
     }
 
-    /**
-     * Updates the "Passive" status entry for Max Aura with the supplied value.
-     */
-    public void setBaseMaxAura(double value) {
-        setBaseStatusValue(maxAura, value, "AURA");
+    private ArrayList<DataStatus>[] findStatusBlock (String key) {
+        return switch (key) {
+            case "BASEHP" -> baseHP;
+            case "MULTIHP" -> multiHP;
+            case "BASEAURA" -> baseAura;
+            case "MULTIAURA" -> multiAura;
+            case "BASER1" -> baseResource1;
+            case "MULTIR1" -> multiResource1;
+            case "BASER2" -> baseResource2;
+            case "MULTIR2" -> multiResource2;
+            case "BASER3" -> baseResource3;
+            case "MULTIR3" -> multiResource3;
+            case "BASEREACT" -> baseReactions;
+            case "MULTIREACT" -> multiReactions;
+            default -> null;
+        };
     }
 
-    /**
-     * Shared helper to upsert the Passive status severity on the first StatBlock.
-     */
-    private void setBaseStatusValue(StatBlock[] blocks, double value, String attrKey) {
-        if (blocks == null || blocks.length == 0) return;
-        StatBlock block = blocks[0];
-        DataStatus baseStatus = findOrCreatePassiveStatus(block, attrKey);
-        baseStatus.setSeverity(Math.max(0, value));
+    private ArrayList<DataStatus> findStatusArray (ArrayList<DataStatus>[] block, String key) {
+        return switch (key) {
+            case "PASSIVE" -> block[0];
+            case "MAINTAINED" -> block[1];
+            case "TEMPORARY" -> block[2];
+            default -> null;
+        };
     }
 
-    private DataStatus findPassiveStatus(StatBlock block) {
-        if (block == null) return null;
-        for (DataStatus status : block.getStatus()) {
-            if (status != null && PASSIVE_STATUS.equalsIgnoreCase(status.getName())) {
+    private DataStatus findStatus(ArrayList<DataStatus> list, String name) {
+        for (DataStatus status : list) {
+            if (status != null && name.equalsIgnoreCase(status.getName())) {
                 return status;
             }
         }
         return null;
-    }
-
-    private DataStatus findOrCreatePassiveStatus(StatBlock block, String attrKey) {
-        DataStatus baseStatus = findPassiveStatus(block);
-        if (baseStatus != null) {
-            return baseStatus;
-        }
-
-        DataStatus created = new DataStatus();
-        created.setName(PASSIVE_STATUS);
-        created.setAttribute(attrKey);
-        created.setDurationType("Permanent");
-        block.addStatus(created);
-        return created;
-    }
-
-    /** Seeds a StatBlock with Passive/Maintained/Temporary base entries. */
-    private void seedBaseStatuses(StatBlock block, String key) {
-        if (block == null) return;
-        String[] labels = { "Passive", "Maintained", "Temporary" };
-        for (String label : labels) {
-            DataStatus base = new DataStatus();
-            base.setName(label);
-            base.setAttribute(key);
-            base.setDurationType("Permanent");
-            // For resources, default Passive to 10 (legacy), others to 0
-            base.setSeverity("Passive".equals(label) ? 10 : 0);
-            block.addStatus(base);
-        }
     }
 }

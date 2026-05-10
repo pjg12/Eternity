@@ -206,15 +206,9 @@ private Integer subclassReminderLevel = null;
 
 		// Warn about subclass lock-in at level 5
 		if (currentLevel == 5 && !java.util.Objects.equals(subclassReminderLevel, currentLevel)
-				&& character != null && character.getIdentity() != null) {
-			String subclass = character.getIdentity().getCharSubclass();
-			String cls = character.getIdentity().getCharClass();
-			String msg = "Upon reaching level 5 you will not be able to change subclass.\n"
-					+ "Current class: " + (cls == null ? "?" : cls) + "\n"
-					+ "Current subclass: " + (subclass == null ? "?" : subclass) + "\n\n"
-					+ "Ensure the correct subclass is selected before proceeding.";
-			javax.swing.JOptionPane.showMessageDialog(this, msg, "Subclass Reminder", javax.swing.JOptionPane.WARNING_MESSAGE);
-			subclassReminderLevel = currentLevel;
+				&& character != null && character.getIdentity() != null
+				&& !confirmSubclassLockIn(currentLevel)) {
+			return;
 		}
 
 		headerL.setText("Welcome to level " + currentLevel);
@@ -238,6 +232,60 @@ private Integer subclassReminderLevel = null;
 		buttons[1].addActionListener(e -> levelUpCon());
 		buttons[1].setBounds(320, 280, 120, 20);
 		buttons[1].setVisible(true);
+	}
+
+	private boolean confirmSubclassLockIn(int currentLevel) {
+		if (character == null || character.getIdentity() == null) {
+			return true;
+		}
+
+		String subclass = character.getIdentity().getCharSubclass();
+		String cls = character.getIdentity().getCharClass();
+		String msg = "Upon reaching level 5 you will not be able to change subclass.\n"
+				+ "Current class: " + (cls == null ? "?" : cls) + "\n"
+				+ "Current subclass: " + (subclass == null ? "?" : subclass) + "\n\n"
+				+ "Select Confirm to continue or Cancel to revert to level 4.";
+		int choice = javax.swing.JOptionPane.showConfirmDialog(
+				this,
+				msg,
+				"Subclass Reminder",
+				javax.swing.JOptionPane.OK_CANCEL_OPTION,
+				javax.swing.JOptionPane.WARNING_MESSAGE);
+		if (choice == javax.swing.JOptionPane.OK_OPTION) {
+			subclassReminderLevel = currentLevel;
+			return true;
+		}
+		revertLevelUpTo(Math.max(1, currentLevel - 1));
+		return false;
+	}
+
+	private void revertLevelUpTo(int targetLevel) {
+		if (character == null || character.getIdentity() == null) {
+			dispose();
+			return;
+		}
+
+		CharIdentity id = character.getIdentity();
+		int actualLevel = Math.max(1, id.getLevel());
+		float restoredExp = id.getExp();
+		for (int level = Math.max(1, targetLevel); level < actualLevel; level++) {
+			restoredExp += nextExpRequirement(level);
+		}
+
+		id.setLevel(targetLevel);
+		id.setExp(restoredExp);
+		character.updateAll();
+
+		if (sheetFrame != null) {
+			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+			sheetFrame.refreshTrainingPanel();
+		}
+
+		skipLevelIncrement = false;
+		levelContext = null;
+		subclassReminderLevel = null;
+		dispose();
 	}
 
 	public void levelUpCon() {
