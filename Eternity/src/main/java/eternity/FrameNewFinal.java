@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class FrameNewFinal extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private final CharData character;
+    private final StoreCharData character;
     private final FrameNew parent;
 
     private JTextField nameField;
@@ -37,7 +37,7 @@ public class FrameNewFinal extends JFrame {
     private JTextArea personalityArea;
     private JTextField campaignStartField;
 
-    public FrameNewFinal(FrameSheet sheetFrame, CharData character, FrameNew parent) {
+    public FrameNewFinal(FrameSheet sheetFrame, StoreCharData character, FrameNew parent) {
         super("Finalize Character");
         this.character = character;
         this.parent = parent;
@@ -219,3 +219,4 @@ public class FrameNewFinal extends JFrame {
         if (parent != null) parent.finalConfirmed();
     }
 }
+

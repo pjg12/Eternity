@@ -15,16 +15,16 @@ import javax.swing.SwingConstants;
  * Handles skill selection controls and applying the selected skill to a character.
  */
 public class FrameSkill {
-	private final DataQuery dataQuery;
+	private final StoreRuleManager dataQuery;
 	private final JComboBox<String> skillList;
 	private final JComboBox<String> skillAttributes;
 	private boolean skillLevel;
 	private boolean hideOwnedSkills;
-	private CharData ownerForFilter;
+	private StoreCharData ownerForFilter;
 
 	private final String[] ATTRIBUTES = {"STR","DEX","CON","FOC","CAP","CTL","KNOW","MECH","PERC","INT","CHA","SUB"};
 
-	FrameSkill(DataQuery dataQuery) {
+	FrameSkill(StoreRuleManager dataQuery) {
 		this.dataQuery = dataQuery;
 		skillList = new JComboBox<>();
 		skillAttributes = new JComboBox<>(ATTRIBUTES);
@@ -66,7 +66,7 @@ public class FrameSkill {
 		updateData();
 	}
 
-	public void applySelection(CharData character) {
+	public void applySelection(StoreCharData character) {
 		if (!skillLevel || character == null || character.getSpecials() == null) return;
 		DataSkill picked = dataQuery.getSkillByName((String)skillList.getSelectedItem());
 		if (picked == null) return;
@@ -75,7 +75,7 @@ public class FrameSkill {
 		character.getSpecials().addSkill(copy);
 	}
 
-	private void setOwnedSkillFilter(CharData character, boolean hideOwnedSkills) {
+	private void setOwnedSkillFilter(StoreCharData character, boolean hideOwnedSkills) {
 		this.ownerForFilter = character;
 		this.hideOwnedSkills = hideOwnedSkills;
 	}
@@ -83,7 +83,7 @@ public class FrameSkill {
 	/**
 	 * Prompts the user to select a new, unlearned skill using FrameSkill controls.
 	 */
-	public static boolean promptForTrainingSkill(JFrame parent, DataQuery dataQuery, CharData character) {
+	public static boolean promptForTrainingSkill(JFrame parent, StoreRuleManager dataQuery, StoreCharData character) {
 		if (parent == null || dataQuery == null || character == null || character.getSpecials() == null) return false;
 
 		FrameSkill picker = new FrameSkill(dataQuery);
@@ -165,3 +165,4 @@ public class FrameSkill {
 		}
 	}
 }
+

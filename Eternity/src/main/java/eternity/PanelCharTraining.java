@@ -54,7 +54,7 @@ public class PanelCharTraining extends PanelCharBase {
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
 	 */
-	PanelCharTraining (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharTraining (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(222, 232, 244));
 		

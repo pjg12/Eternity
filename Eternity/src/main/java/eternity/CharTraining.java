@@ -21,7 +21,7 @@ public class CharTraining {
 
     /** The parent character data object. */
     @JsonIgnore
-    private CharData parent;
+    private StoreCharData parent;
 
     /** Natural elemental / cosmic affinities the character is born with. */
     @JsonProperty
@@ -187,7 +187,7 @@ public class CharTraining {
     @JsonIgnore
     public int getBaseMaxTechs() {
         DataLevel dl = null;
-        if (parent != null) dl = CharDataManager.getDataQuery().getLevel(parent.getLevel());
+        if (parent != null) dl = StoreMetaManager.getDataQuery().getLevel(parent.getLevel());
         if (dl != null) return Math.max(0, dl.getBaseTechs());
         return 0;
     }
@@ -459,6 +459,7 @@ public class CharTraining {
     
 
     @JsonIgnore
-    public CharData getParent() { return parent; }
-    public void setParent(CharData parent) { this.parent = parent; }
+    public StoreCharData getParent() { return parent; }
+    public void setParent(StoreCharData parent) { this.parent = parent; }
 }
+

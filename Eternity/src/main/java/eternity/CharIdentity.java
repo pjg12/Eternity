@@ -20,7 +20,7 @@ public class CharIdentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @JsonIgnore
-    private CharData owner;
+    private StoreCharData owner;
 
     // --- Fields ---
     @JsonProperty private int index;
@@ -214,8 +214,8 @@ public class CharIdentity implements Serializable {
     public void setTimeSinceLastLevel(Duration timeSinceLastLevel) { this.timeSinceLastLevel = timeSinceLastLevel == null ? Duration.ZERO : timeSinceLastLevel; }
     
     @JsonIgnore
-    public CharData getOwner() { return owner; }
-    public void setOwner(CharData owner) { this.owner = owner; }
+    public StoreCharData getOwner() { return owner; }
+    public void setOwner(StoreCharData owner) { this.owner = owner; }
 
     // --- Helpers ---
     private String safeString(String value) { return (value == null) ? "" : value.trim(); }
@@ -303,3 +303,4 @@ public class CharIdentity implements Serializable {
                 '}';
     }
 }
+

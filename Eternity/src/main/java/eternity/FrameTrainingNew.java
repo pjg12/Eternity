@@ -23,7 +23,7 @@ class FrameTrainingNew extends FrameTraining {
 	private boolean typeBoxBuilt = false;
 	private String lastAffinity = null;
 
-	FrameTrainingNew(FrameSheet sheetFrame, DataQuery dataQuery) {
+	FrameTrainingNew(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
 		super(sheetFrame, dataQuery);
 		headerL.setText("Select NEW Technique to Train");
 		auraType.addActionListener(e -> updateNewTechList());
@@ -37,7 +37,7 @@ class FrameTrainingNew extends FrameTraining {
 	}
 
 	@Override
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		super.updateCharacter(character);
 		availableTechNamesByAffinity.clear();
 		lastAffinity = null;
@@ -247,3 +247,4 @@ class FrameTrainingNew extends FrameTraining {
 		return value == null ? "" : value.toLowerCase(Locale.ROOT);
 	}
 }
+

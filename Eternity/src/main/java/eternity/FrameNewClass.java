@@ -26,8 +26,8 @@ import javax.swing.border.EmptyBorder;
 
 public class FrameNewClass extends JFrame {
     private static final long serialVersionUID = 1L;
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
@@ -76,7 +76,7 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     // Constructor
     // ---------------------------------------------------
-    public FrameNewClass(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewClass(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Select Class");
         this.dataQuery = dataQuery;
         this.character = character;
@@ -427,3 +427,4 @@ public class FrameNewClass extends JFrame {
             String atk
     ) {}
 }
+

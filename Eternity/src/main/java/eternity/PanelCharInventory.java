@@ -100,15 +100,15 @@ public class PanelCharInventory extends PanelCharBase {
 	/*
 	 * 		DEFAULT CONSTRUCTOR
 	 */
-	PanelCharInventory (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharInventory (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(255, 255, 204));
 		equipSaveDebounceTimer = new Timer(350, e -> {
 			if (character == null) return;
-			CharData toSave = character;
-			Thread saver = new Thread(() -> CharDataManager.saveCharacter(toSave), "equip-auto-save");
+			StoreCharData toSave = character;
+			/*Thread saver = new Thread(() -> StoreMetaManager.saveCharacter(toSave), "equip-auto-save");
 			saver.setDaemon(true);
-			saver.start();
+			saver.start();*/
 		});
 		equipSaveDebounceTimer.setRepeats(false);
 
@@ -188,7 +188,7 @@ public class PanelCharInventory extends PanelCharBase {
 
     	saveButton.addActionListener(e -> {
     		if (character != null) {
-    			CharDataManager.saveCharacter(character);
+    			//StoreMetaManager.saveCharacter(character);
     		}
     	});
 	    
@@ -519,7 +519,7 @@ public class PanelCharInventory extends PanelCharBase {
 		--------------*/
 
 	@Override
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		super.updateCharacter(character);
 		enforceReadOnlyChecks();
 		enforceHeavyPlacement();
@@ -1163,4 +1163,5 @@ public class PanelCharInventory extends PanelCharBase {
 
 	
 }
+
 

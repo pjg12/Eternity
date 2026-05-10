@@ -28,10 +28,19 @@
 }, {
   "index" : 3,
   "name" : "Benjamin",
-  "campaign" : "",
+  "campaign" : "Divine Sin",
   "race" : "Kenti",
   "charClass" : "Monk",
-  "level" : 8,
-  "updated" : "2026-05-10T03:48:35.861+0000",
+  "level" : 1,
+  "updated" : "2026-05-10T07:06:32.366+0000",
   "reference" : "Characters\\3.json"
+}, {
+  "index" : 4,
+  "name" : "Benjamin",
+  "campaign" : "Divine Sin",
+  "race" : "Kenti",
+  "charClass" : "Monk",
+  "level" : 1,
+  "updated" : "2026-05-10T07:03:24.756+0000",
+  "reference" : "Characters\\Auto\\4Auto1.json"
 } ]

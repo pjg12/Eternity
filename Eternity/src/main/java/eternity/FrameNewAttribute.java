@@ -22,7 +22,7 @@ import javax.swing.ToolTipManager;
 public class FrameNewAttribute extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private final CharData character;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
@@ -42,7 +42,7 @@ public class FrameNewAttribute extends JFrame {
     private boolean warn;
     private boolean corePhase = true;
 
-    public FrameNewAttribute(FrameSheet sheetFrame, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewAttribute(FrameSheet sheetFrame, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Attributes");
         this.character = character;
         this.parent = parent;
@@ -268,13 +268,13 @@ public class FrameNewAttribute extends JFrame {
         for (int i = 0; i < ATTRIBUTES.length; i++) {
             String key = ATTRIBUTES[i];
             int value = (i < 6) ? coreAtts[i] : charAtts[i - 6];
-            character.getAttributes().setStatusSeverity("attribute", key, "Passive", value);
+            character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + key, value, "Passive", -1));
         }
-        character.getAttributes().setStatusSeverity("combat", "APP", "Passive", 10);
-        character.getAttributes().setStatusSeverity("combat", "MOVE", "Passive", 25);
-        character.getAttributes().setStatusSeverity("combat", "RANGE", "Passive", 15);
-        character.getAttributes().setStatusSeverity("combat", "INIT", "Passive", 10);
-        character.getAttributes().setStatusSeverity("secondary", "MAXATK", "Passive", 1);
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "APP", 10, "Passive", -1));
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "MOVE", 25, "Passive", -1));
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "RANGE", 15, "Passive", -1));
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "INIT", 10, "Passive", -1));
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "MAXATK", 1, "Passive", -1));
     }
 
     private void closeFrame() {
@@ -305,3 +305,4 @@ public class FrameNewAttribute extends JFrame {
         }
     }
 }
+

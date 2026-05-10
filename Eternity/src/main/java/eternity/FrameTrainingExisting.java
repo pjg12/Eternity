@@ -21,7 +21,7 @@ class FrameTrainingExisting extends FrameTraining {
 	private String lastCategory = null;
 	private String trainingCategorySignature = null;
 
-	FrameTrainingExisting(FrameSheet sheetFrame, DataQuery dataQuery) {
+	FrameTrainingExisting(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
 		super(sheetFrame, dataQuery);
 		headerL.setText("Select EXISTING Technique to Train");
 		auraType.addActionListener(e -> updateExTechList());
@@ -35,7 +35,7 @@ class FrameTrainingExisting extends FrameTraining {
 	}
 
 	@Override
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		super.updateCharacter(character);
 		trainingsByCategory.clear();
 		trainingByCategoryAndName.clear();
@@ -254,3 +254,4 @@ class FrameTrainingExisting extends FrameTraining {
 		}
 	}
 }
+

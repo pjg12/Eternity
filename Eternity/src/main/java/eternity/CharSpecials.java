@@ -322,9 +322,10 @@ public class CharSpecials {
     }
 
     @JsonIgnore
-    private CharData owner;
+    private StoreCharData owner;
 
     @JsonIgnore
-    public CharData getOwner() { return owner; }
-    public void setOwner(CharData owner) { this.owner = owner; }
+    public StoreCharData getOwner() { return owner; }
+    public void setOwner(StoreCharData owner) { this.owner = owner; }
 }
+

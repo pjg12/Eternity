@@ -20,8 +20,8 @@ public class FrameNewRacePicker extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String EMPTY_OPTION = "***";
     private static volatile String[] sortedRaceNamesCache;
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNewRace parent;
     private final DataRace selectedRace;
 
@@ -33,8 +33,8 @@ public class FrameNewRacePicker extends JFrame {
     private JLabel headerLabel;
 
     public FrameNewRacePicker(FrameSheet sheetFrame,
-                              DataQuery dataQuery,
-                              CharData character,
+                              StoreRuleManager dataQuery,
+                              StoreCharData character,
                               DataRace selectedRace,
                               FrameNewRace parent) {
 
@@ -216,3 +216,4 @@ public class FrameNewRacePicker extends JFrame {
             "Option 3"
     };
 }
+

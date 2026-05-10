@@ -23,7 +23,7 @@ public class FrameInventoryRemove extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private final FrameSheet sheetFrame;
-    private CharData character;
+    private StoreCharData character;
 
     private final JComboBox<String> sourceBox;
     private final JComboBox<String> itemBox;
@@ -33,7 +33,7 @@ public class FrameInventoryRemove extends JFrame {
 
     private final ArrayList<DataItem> resultItems;
 
-    FrameInventoryRemove(FrameSheet sheetFrame, DataQuery dataQuery) {
+    FrameInventoryRemove(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
         super("Remove Inventory");
         this.sheetFrame = sheetFrame;
         this.resultItems = new ArrayList<>();
@@ -96,7 +96,7 @@ public class FrameInventoryRemove extends JFrame {
         updateQuantityVisibility();
     }
 
-    void updateCharacter(CharData character) {
+    void updateCharacter(StoreCharData character) {
         this.character = character;
         refreshItemList();
     }
@@ -240,3 +240,4 @@ public class FrameInventoryRemove extends JFrame {
         quantityField.setVisible(!equipment);
     }
 }
+

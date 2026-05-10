@@ -18,8 +18,8 @@ import java.util.Map;
 public class FrameNewSpecials extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
@@ -31,7 +31,7 @@ public class FrameNewSpecials extends JFrame {
     private final String[] lastSelectedType = new String[2];
     private final Map<String, String[]> specialtyOptionsByType = new HashMap<>();
 
-    public FrameNewSpecials(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewSpecials(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Specialty Select");
         this.dataQuery = dataQuery;
         this.character = character;
@@ -184,3 +184,4 @@ public class FrameNewSpecials extends JFrame {
                 && (otherPick == null || !previousSpecial.equalsIgnoreCase(otherPick));
     }
 }
+

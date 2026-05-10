@@ -122,7 +122,7 @@ public class DataTraining {
     // --- Helpers ---
     
     /// Computes the maximum achievable rank based on character level, affinity, and prerequisites.
-    public int getMaxRank(CharData character) {
+    public int getMaxRank(StoreCharData character) {
         if (character == null || character.getIdentity() == null || character.getTraining() == null) return 0;
 
         int level = character.getIdentity().getLevel();
@@ -143,7 +143,7 @@ public class DataTraining {
     }
     
     //Returns a human-readable string explaining *what* is now the limiting factor: - "Level", - Prereq Skill name
-    public String getPrereqCap(CharData character) {
+    public String getPrereqCap(StoreCharData character) {
         if (character == null || character.getTraining() == null) return "Level";
 
         double cap = getMaxRank(character);
@@ -158,7 +158,7 @@ public class DataTraining {
     }
     
     /** Computes XP required for next rank. */
-    public int getNextAt(CharData character) {
+    public int getNextAt(StoreCharData character) {
         int value = getRank() * 4 + 10;
 
         // Spirit / Time penalty
@@ -183,3 +183,4 @@ public class DataTraining {
         "  affinity: \"" + affinity + "\",\n" + "  description: \"" + description + "\",\n" + "  levelCoef: " + levelCoef + ",\n" + "  levelMod: " + levelMod + ",\n" +
         "  prereq: " + prereq + ",\n" + "  grant: " + grant + ",\n" + "  rank: " + rank + ",\n" + "  al: " + al + ",\n" + "  exp: " + exp + "\n" + "}"; }
 }
+

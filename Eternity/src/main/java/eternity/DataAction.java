@@ -12,7 +12,7 @@ public class DataAction {
 	private static final String JOUSTING_CHARGE_SPECIALTY = "Jousting Charge";
 
 	@JsonIgnore
-	private CharData character;
+	private StoreCharData character;
 	
 	private int id;
 	private String name;
@@ -71,12 +71,12 @@ public class DataAction {
 	}
 
 	@JsonIgnore
-	public CharData getCharacter() {
+	public StoreCharData getCharacter() {
 		return character;
 	}
 
 	@JsonIgnore
-	public void setCharacter(CharData character) {
+	public void setCharacter(StoreCharData character) {
 		this.character = character;
 	}
 
@@ -431,3 +431,4 @@ public class DataAction {
 	
 	
 }
+

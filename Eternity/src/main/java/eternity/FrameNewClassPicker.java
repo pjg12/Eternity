@@ -21,8 +21,8 @@ import javax.swing.SwingConstants;
 public class FrameNewClassPicker extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String EMPTY_OPTION = "***";
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNewClass parent;
     private final DataClass selectedClass;
 
@@ -42,8 +42,8 @@ public class FrameNewClassPicker extends JFrame {
     // -------------------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------------------
-    public FrameNewClassPicker(DataQuery dataQuery,
-                               CharData character, DataClass selectedClass,
+    public FrameNewClassPicker(StoreRuleManager dataQuery,
+                               StoreCharData character, DataClass selectedClass,
                                FrameNewClass parent) {
 
         super("Class Options");
@@ -513,3 +513,4 @@ public class FrameNewClassPicker extends JFrame {
         };
     }
 }
+

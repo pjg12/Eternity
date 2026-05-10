@@ -1,3 +1,5 @@
+// CHECKED
+
 package eternity;
 
 import java.util.ArrayList;
@@ -18,10 +20,10 @@ public class EternityMain {
         FrameFirst first = new FrameFirst();
         first.setVisible(true);
 
-        new SwingWorker<ArrayList<StoreChar>, Void>() {
+        new SwingWorker<ArrayList<StoreMetaChar>, Void>() {
             @Override
-            protected ArrayList<StoreChar> doInBackground() {
-                ArrayList<StoreChar> store = CharDataManager.loadCharStore();
+            protected ArrayList<StoreMetaChar> doInBackground() {
+                ArrayList<StoreMetaChar> store = StoreMetaManager.loadCharStore();
                 if (store == null) {
                     store = new ArrayList<>();
                 }
@@ -31,7 +33,7 @@ public class EternityMain {
             @Override
             protected void done() {
                 try {
-                    ArrayList<StoreChar> store = get();
+                    ArrayList<StoreMetaChar> store = get();
                     first.attachStartupStore(store);
                 } catch (Exception e) {
                     first.showLoadError("Failed to initialize application: " + e.getMessage());

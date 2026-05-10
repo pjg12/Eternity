@@ -43,8 +43,8 @@ public class PanelCharBase extends JPanel {
 		format.setGroupingUsed(false);
 		return format;
 	});
-	DataQuery dataQuery;
-	CharData character;
+	StoreRuleManager dataQuery;
+	StoreCharData character;
 	FrameSheet sheetFrame;
 	int pageHeight;
 	boolean alternate;
@@ -74,7 +74,7 @@ public class PanelCharBase extends JPanel {
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
 	 */
-	PanelCharBase (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharBase (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		this.dataQuery = dataQuery;
 		this.sheetFrame = sheetFrame;
 		alternate = true;
@@ -303,7 +303,7 @@ public class PanelCharBase extends JPanel {
 	/*
 	 * 		UPDATE CHARACTER
 	 */
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 		refreshBaseState();
 		updateAll();
@@ -365,50 +365,16 @@ public class PanelCharBase extends JPanel {
 		
 		tempString = "<html>Maximum HP: " + res.calcMaxHP() + "<br>-------(Base)-------<br>";
 		StatBlock[] tempStatuses = null;
-		tempStatuses = character.getResources().getMaxHPBlocks();
-		if (tempStatuses != null) for (StatBlock sb : tempStatuses) {
-			List<DataStatus> statuses = sb.getAllStatuses();
-			if (statuses != null && !statuses.isEmpty()) {
-				for (DataStatus status : statuses) {
-					tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-				}
-			}
-			tempString += "--------(Multi)-------<br>";
-			statuses = sb.getAllMultipliers();
-			if (statuses != null && !statuses.isEmpty()) {
-				for (DataStatus status : statuses) {
-					if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-					else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-				}
-			}
-		}
+
 		charMaxHPL.setToolTipText(tempString);
 		charMaxHP.setToolTipText(tempString);
 		
-		tempString = "<html>Maximum Aura: " + res.getMaxAura() + "<br>-------(Base)-------<br>";
-		tempStatuses = null;
-		tempStatuses = character.getResources().getMaxAuraBlocks();
-		if (tempStatuses != null) for (StatBlock sb : tempStatuses) {
-			List<DataStatus> statuses = sb.getAllStatuses();
-			if (statuses != null && !statuses.isEmpty()) {
-				for (DataStatus status : statuses) {
-					tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-				}
-			}
-			tempString += "--------(Multi)-------<br>";
-			statuses = sb.getAllMultipliers();
-			if (statuses != null && !statuses.isEmpty()) {
-				for (DataStatus status : statuses) {
-					if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-					else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-				}
-			}
-		}
+
 		charMaxAuraL.setToolTipText(tempString);
 		charMaxAura.setToolTipText(tempString);
 
 		tempString = "<html>You have spent " + (int)res.getSpentAura() + " Aura.<br>You are ";
-		tempDouble = res.getCurrentAura() / ((double)res.getMaxAura() - res.getOccupiedAura());
+
 		if (tempDouble >= 1) {
 			tempString += "not drained.";
 		}
@@ -433,14 +399,7 @@ public class PanelCharBase extends JPanel {
 		charSpentAuraL.setToolTipText(tempString);
 		charSpentAura.setToolTipText(tempString);
 		
-		tempString = "<html>Occupied Aura: " + res.getOccupiedAura() + "<br>--------------<br>";
-		tempString += "+ Maintained Aura: " + res.getMainOccupiedAura() + "<br>";
-		tempString += "+ Grant Aura: " + res.getGrantOccupiedAura() + "<br>";
-		charOccAura.setToolTipText(tempString);
-		charOccAuraL.setToolTipText(tempString);
 
-		tempString = "<html>You have " + (int)res.getCurrentAura() + " Aura.<br>You are ";
-		tempDouble = res.getCurrentAura() / ((double)res.getMaxAura() - res.getOccupiedAura());
 		if (tempDouble >= 1) {
 			tempString += "not drained.";
 		}
@@ -465,25 +424,7 @@ public class PanelCharBase extends JPanel {
 		charAvailAura.setToolTipText(tempString);
 		charAvailAuraL.setToolTipText(tempString);
 		
-			// Text fields
-		int maxHp = Math.max(0, res.getMaxHP());
-		int currHp = Math.max(0, res.getCurrentHP());
-		charCurrHP.setMaximum(Math.max(1, maxHp));
-		charCurrHP.setValue(Math.min(currHp, Math.max(1, maxHp)));
-		charCurrHP.setString(Integer.toString(currHp));
-		charMaxHP.setValue(res.getMaxHP());
-		charMaxAura.setValue(res.getMaxAura());
-		int maxAura = Math.max(0, res.getMaxAura());
-		double occAura = Math.max(0.0, res.getOccupiedAura());
-		int occAuraInt = (int)Math.round(occAura);
-		charOccAura.setMaximum(Math.max(1, maxAura));
-		charOccAura.setValue(Math.max(0, Math.min(occAuraInt, Math.max(1, maxAura))));
-		charOccAura.setString(Integer.toString(occAuraInt));
-		charSpentAura.setValue(res.getSpentAura());
-		int currAura = res.getCurrentAura();
-		charAvailAura.setMaximum(Math.max(1, maxAura));
-		charAvailAura.setValue(Math.max(0, Math.min(currAura, Math.max(1, maxAura))));
-		charAvailAura.setString(Integer.toString(currAura));
+
 	}  /*--------------
 		END UPDATEHPAURA
 		--------------*/
@@ -828,3 +769,4 @@ public class PanelCharBase extends JPanel {
 	}
 	
 } ///////////////////////////////////////////////END OF CLASS////////////////////////////////////////////////////////////////////////
+

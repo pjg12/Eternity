@@ -18,7 +18,7 @@ public class PanelCharList extends PanelCharBase {
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
 	 */
-	PanelCharList (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharList (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(169, 169, 169));
 		

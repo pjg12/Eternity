@@ -31,7 +31,7 @@ public class PanelCharGranted extends PanelCharBase {
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
 	 */
-	PanelCharGranted (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharGranted (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(222, 244, 228));
 			
@@ -177,7 +177,7 @@ public class PanelCharGranted extends PanelCharBase {
 	}
 
 	@Override
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 		refreshBaseState();
 		updateMaintained();
@@ -610,4 +610,5 @@ public class PanelCharGranted extends PanelCharBase {
 
 	
 }
+
 

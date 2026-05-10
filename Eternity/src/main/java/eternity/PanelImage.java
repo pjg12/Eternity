@@ -36,7 +36,7 @@ public class PanelImage extends JPanel {
     private static final int PORTRAIT_MAX_HEIGHT = 190;
 
     private final FrameSheet sheetFrame;
-    private CharData character;
+    private StoreCharData character;
 
     // UI components
     private final JLabel picLabel;
@@ -52,7 +52,7 @@ public class PanelImage extends JPanel {
     private BufferedImage charPic;
     private final Map<Integer, ImageIcon> portraitCache = new HashMap<>();
     private int loadedPictureIndex = Integer.MIN_VALUE;
-    private CharData combatFrameCharacter;
+    private StoreCharData combatFrameCharacter;
     private String renderedName = null;
     private LocalDateTime renderedStartDate = null;
     private Duration renderedElapsed = null;
@@ -62,7 +62,7 @@ public class PanelImage extends JPanel {
     // Constructor
     // ---------------------------------------------------------
 
-    public PanelImage(FrameSheet sheetFrame, CharData character) {
+    public PanelImage(FrameSheet sheetFrame, StoreCharData character) {
         this.sheetFrame = sheetFrame;
         this.character = character;
 
@@ -157,7 +157,7 @@ public class PanelImage extends JPanel {
     // Update Character
     // ---------------------------------------------------------
 
-    public void updateCharacter(CharData character) {
+    public void updateCharacter(StoreCharData character) {
         if (character == null) return;
         this.character = character;
 
@@ -236,7 +236,7 @@ public class PanelImage extends JPanel {
         if (sheetFrame != null) {
             sheetFrame.onSavePressed();
         } else if (character != null) {
-            CharDataManager.saveCharacter(character);
+            StoreMetaManager.saveCharacter(character);
         }
     }
 
@@ -309,3 +309,4 @@ public class PanelImage extends JPanel {
         return new ImageIcon(scaled);
     }
 }
+

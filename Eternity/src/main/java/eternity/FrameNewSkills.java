@@ -20,8 +20,8 @@ import java.util.Set;
 public class FrameNewSkills extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
@@ -33,7 +33,7 @@ public class FrameNewSkills extends JFrame {
     private final String[] lastSelectedAttribute = new String[3];
     private final Map<String, String[]> skillOptionsByAttribute = new HashMap<>();
 
-    public FrameNewSkills(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewSkills(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Skill Select");
         this.dataQuery = dataQuery;
         this.character = character;
@@ -199,3 +199,4 @@ public class FrameNewSkills extends JFrame {
         return previousSkill != null && !EMPTY_OPTION.equals(previousSkill) && !disallowed.contains(previousSkill);
     }
 }
+

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * using the modern StatBlock architecture.
  */
 public class CharResources {
-    @JsonIgnore private CharData owner;                                                // Reference to main character data
+    @JsonIgnore private StoreCharData owner;                                                // Reference to main character data
 
     @JsonProperty("baseHP") private ArrayList<DataStatus>[] baseHP;                   // List of base HP modifiers
     @JsonProperty("multiHP") private ArrayList<DataStatus>[] multiHP;                     // List of HP multipliers
@@ -66,8 +66,9 @@ public class CharResources {
         this.stagger = 0.0;
     }
 
+    @SuppressWarnings("unchecked")
     private ArrayList<DataStatus>[] initStatus(String attributeKey) {
-        ArrayList<DataStatus>[] list = new ArrayList[3];
+        ArrayList<DataStatus>[] list = (ArrayList<DataStatus>[]) new ArrayList<?>[3];
         String[] labels = { "Passive", "Maintained", "Temporary" };
         for (int i = 0; i < 3; i++) {
             list[i] = new ArrayList<>();
@@ -128,7 +129,7 @@ public class CharResources {
     //   RESOURCE OPERATIONS
     // ---------------------------------------------------------
 
-    public void damage(double amount) { lostHP = Math.min(calcMaxHP(), lostHP + amount); }
+    /*public void damage(double amount) { lostHP = Math.min(calcMaxHP(), lostHP + amount); }
     public void heal(double amount) { lostHP = Math.max(0, lostHP - amount); }
     
     public void spendAura(double amount) { spentAura = Math.min(calcMaxAura(), spentAura + amount); }
@@ -143,7 +144,7 @@ public class CharResources {
     public void removeShield(double amount) { shield = Math.max(0, shield - amount); }
 
     public void spendReaction() { spentReactions = Math.min(calcMaxReactions(), spentReactions + 1); }
-    public void resetReactions() { spentReactions = 0; }
+    public void resetReactions() { spentReactions = 0; }*/
 
     // ---------------------------------------------------------
     //   GETTERS & SETTERS
@@ -200,8 +201,8 @@ public class CharResources {
     public double getSpentReactions() { return spentReactions; }
     public void setSpentReactions(double spentReactions) { this.spentReactions = spentReactions; }
 
-    @JsonIgnore public CharData getOwner() { return owner; }
-    @JsonIgnore public void setOwner(CharData owner) { this.owner = owner; }
+    @JsonIgnore public StoreCharData getOwner() { return owner; }
+    @JsonIgnore public void setOwner(StoreCharData owner) { this.owner = owner; }
 
     // ---------------------------------------------------------
     //   HELPERS
@@ -211,7 +212,7 @@ public class CharResources {
         if (status == null || status.getAttribute() == null) return;
         ArrayList<DataStatus> list = findStatusArray(findStatusBlock(status.getAttribute().toUpperCase()), status.getDurationType().toUpperCase());
         DataStatus existing = findStatus(list, status.getName());
-        if (existing != null) existing.setSeverity(Math.max(existing.getSeverity(), status.getSeverity()));
+        if (existing != null) existing.setSeverity(status.getSeverity());
             // TODO better comparison logic for statuses of the same name? For now, just take the highest severity if a duplicate is added.
         else list.add(status); 
     }
@@ -252,3 +253,4 @@ public class CharResources {
         return null;
     }
 }
+

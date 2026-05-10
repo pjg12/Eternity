@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class CharInventory {
     @JsonIgnore
-    private CharData owner;
+    private StoreCharData owner;
 
     @JsonProperty private double credits;
     @JsonProperty private String armor;            // current equipped armor name
@@ -178,6 +178,7 @@ public class CharInventory {
     }
 
     @JsonIgnore
-    public CharData getOwner() { return owner; }
-    public void setOwner(CharData owner) { this.owner = owner; }
+    public StoreCharData getOwner() { return owner; }
+    public void setOwner(StoreCharData owner) { this.owner = owner; }
 }
+

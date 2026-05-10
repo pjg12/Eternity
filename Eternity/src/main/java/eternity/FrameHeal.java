@@ -20,7 +20,7 @@ public class FrameHeal extends JFrame {
 
 	private final FrameSheet sheetFrame;
 	private final FrameCombat combatFrame;
-	private CharData character;
+	private StoreCharData character;
 	private DataAction action;
 	private JComboBox<String> select1;
 	private JComboBox<Integer> alSelect;
@@ -38,7 +38,7 @@ public class FrameHeal extends JFrame {
 	private final JSpinner[] numFields = new JSpinner[1];
 	private final JButton[] buttons = new JButton[4];
 	
-	FrameHeal(FrameSheet sheetFrame, FrameCombat combatFrame, CharData character, DataAction action) {
+	FrameHeal(FrameSheet sheetFrame, FrameCombat combatFrame, StoreCharData character, DataAction action) {
 		super("Heal Helper");
 		this.sheetFrame = sheetFrame;
 		this.combatFrame = combatFrame;
@@ -312,7 +312,7 @@ public class FrameHeal extends JFrame {
 		}
 	}
 
-	public void updateCharacter(CharData character, DataAction action) {
+	public void updateCharacter(StoreCharData character, DataAction action) {
 		this.character = character;
 		this.action = action;
 		attackStage();
@@ -429,7 +429,7 @@ public class FrameHeal extends JFrame {
 		if (character == null) return;
 		// Safe color lookup with sensible fallback
 		DataColor raceColor = null;
-		DataQuery dataQuery = new DataQuery();
+		StoreRuleManager dataQuery = new StoreRuleManager();
 		if (character.getIdentity() != null) {
 			raceColor = dataQuery.getColorByTitle(character.getIdentity().getRace());
 		}
@@ -527,7 +527,7 @@ public class FrameHeal extends JFrame {
 		DataClass cls = null;
 		CharIdentity identity = id();
 		if (identity != null && identity.getCharClass() != null) {
-			DataQuery dq = new DataQuery();
+			StoreRuleManager dq = new StoreRuleManager();
 			cls = dq.getClassByName(identity.getCharClass());
 		}
 		String prim = cls != null ? cls.getPrimaryAtt() : null;
@@ -564,7 +564,7 @@ public class FrameHeal extends JFrame {
 	}
 
 	private DataLevel getDataLevel() {
-		DataQuery dq = new DataQuery();
+		StoreRuleManager dq = new StoreRuleManager();
 		return dq.getLevel(getLevel());
 	}
 
@@ -656,7 +656,7 @@ public class FrameHeal extends JFrame {
 	}
 
 	private DataColor getDisplayColor() {
-		DataQuery dq = new DataQuery();
+		StoreRuleManager dq = new StoreRuleManager();
 		String race = Optional.ofNullable(id()).map(CharIdentity::getRace).orElse("Default");
 		DataColor color = dq.getColorByTitle(race);
 		if (color != null) return color;
@@ -664,3 +664,4 @@ public class FrameHeal extends JFrame {
 		return new DataColor("Default", 0, 0, 0, 255, 255, 255);
 	}
 }
+

@@ -15,8 +15,8 @@ public class FrameLevel extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 private final FrameSheet sheetFrame;
-private final DataQuery dataQuery;
-private CharData character;
+private final StoreRuleManager dataQuery;
+private StoreCharData character;
 private boolean skipLevelIncrement = false;
 private Integer levelContext = null; // optional override for display/logic
 private Integer subclassReminderLevel = null;
@@ -31,7 +31,7 @@ private Integer subclassReminderLevel = null;
 	private final JFormattedTextField[] numFields;
 	private final JButton[] buttons;
 
-	FrameLevel (FrameSheet sheetFrame, DataQuery dataQuery) {
+	FrameLevel (FrameSheet sheetFrame, StoreRuleManager dataQuery) {
 		super("Exp Up");
 		this.sheetFrame = sheetFrame;
 		this.dataQuery = dataQuery;
@@ -86,7 +86,7 @@ private Integer subclassReminderLevel = null;
 	/*
 	 * Sets the character to be modified
 	 */
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 	} //End of updateCharacter
 	
@@ -361,3 +361,4 @@ private Integer subclassReminderLevel = null;
 	
 
 }
+

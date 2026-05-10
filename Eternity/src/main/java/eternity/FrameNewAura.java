@@ -26,8 +26,8 @@ public class FrameNewAura extends JFrame {
     private static final int FRAME_WIDTH = 540;
     private static final int FRAME_HEIGHT = 320;
 
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
     private final boolean casterSelected;
@@ -44,7 +44,7 @@ public class FrameNewAura extends JFrame {
     private final Map<String, List<String>> starterWeaponsByProfile = new HashMap<>();
     private boolean updatingAffinityChoices;
 
-    public FrameNewAura(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewAura(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Affinity & Starter Weapons");
         this.dataQuery = dataQuery;
         this.character = character;
@@ -350,3 +350,4 @@ public class FrameNewAura extends JFrame {
         return String.join("|", parts);
     }
 }
+

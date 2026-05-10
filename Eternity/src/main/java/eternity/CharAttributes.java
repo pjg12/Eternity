@@ -1,311 +1,273 @@
+// CHECKED
+
 package eternity;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * Basic attribute data for a character.
  */
-@JsonIgnoreProperties({
-    "dataStore", "matchedLevel", "matchedRace",
-    "matchedClass", "charRacial", "classSpecials"
-})
+
 public class CharAttributes {
-    @JsonIgnore
-    private CharData owner;
+    @JsonIgnore private StoreCharData owner;                                             // Reference to main character data
 
     private static final String[] ATTRIBUTES = { "STR","DEX","CON","FOC","CTL","CAP","KNOW","MECH","PERC","INT","CHA","SUB" };
-    private static final String[] DEFENSE = { "ARMOR", "DODGE", "DEF", "FORT", "REF", "WILL", "AVOID" };
-    private static final String[] DMGTYPE = { "ALL", "PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME" };
-    private static final String[] COMBAT = { "ATK", "MATK", "RATK", "APP", "MOVE", "FLY", "RANGE", "INIT" };
-    private static final String[] SECONDARY = { "SUP", "IMP", "BEN", "EXCL", "GRANT", "CRUSH", "AREA", "MAST", "CMAN", "MAXATK" };
-    private static final String[] DAMAGE = { "BDMG", "BMDMG", "BRDMG", "TDMG", "TMDMG", "TRDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
-    private static final Map<String, Integer> ATTRIBUTE_INDEX = buildIndexMap(ATTRIBUTES);
-    private static final Map<String, Integer> DEFENSE_INDEX = buildIndexMap(DEFENSE);
-    private static final Map<String, Integer> RESIST_INDEX = buildIndexMap(DMGTYPE);
-    private static final Map<String, Integer> COMBAT_INDEX = buildIndexMap(COMBAT);
-    private static final Map<String, Integer> SECONDARY_INDEX = buildIndexMap(SECONDARY);
-    private static final Map<String, Integer> DAMAGE_INDEX = buildIndexMap(DAMAGE);
+    private static final String[] DEFENSE = { "ARMOR","DODGE","DEF","FORT","REF","WILL","AVOID" };
+    private static final String[] DMGTYPE = { "ALL","PHY","BLUNT","PIERCE","SLASH","FIRE","FROST","ELEC","ENERGY","SONIC","LIGHT","TOXIC","DARK","PSI","SPIRIT","TIME" };
+    private static final String[] COMBAT = { "ATK","APP","MOVE","FLY","RANGE","INIT","CMAN","MAXATK" };
+    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","AREA" };
+    private static final String[] DAMAGE = { "BDMG", "TDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
 
     //  GENERIC STAT ARRAYS
 
-    @JsonProperty("attributes") private StatBlock[] attributes;
-    @JsonProperty("defense") private StatBlock[] defense;
-    @JsonProperty("resist") private StatBlock[] resist;
-    @JsonProperty("combat") private StatBlock[] combat;
-    @JsonProperty("secondary") private StatBlock[] secondary;
-    @JsonProperty("damage") private StatBlock[] damage;
-    @JsonIgnore private transient boolean defenseSized;
-    @JsonIgnore private transient boolean secondarySized;
-    @JsonIgnore private transient boolean damageSized;
+    @JsonProperty("bAttributes") private ArrayList<DataStatus>[][] bAttributes;     // List of base attribute modifiers
+    @JsonProperty("mAttributes") private ArrayList<DataStatus>[][] mAttributes;         // List of attribute multipliers
+    @JsonProperty("bDefense") private ArrayList<DataStatus>[][] bDefense;           // List of base defense modifiers
+    @JsonProperty("mDefense") private ArrayList<DataStatus>[][] mDefense;               // List of defense multipliers
+    @JsonProperty("bResist") private ArrayList<DataStatus>[][] bResist;             // List of base resist modifiers
+    @JsonProperty("mResist") private ArrayList<DataStatus>[][] mResist;                 // List of resist multipliers
+    @JsonProperty("bCombat") private ArrayList<DataStatus>[][] bCombat;             // List of base combat modifiers
+    @JsonProperty("mCombat") private ArrayList<DataStatus>[][] mCombat;                 // List of combat multipliers
+    @JsonProperty("bSecondary") private ArrayList<DataStatus>[][] bSecondary;       // List of base secondary modifiers
+    @JsonProperty("mSecondary") private ArrayList<DataStatus>[][] mSecondary;           // List of secondary multipliers
+    @JsonProperty("bDamage") private ArrayList<DataStatus>[][] bDamage;             // List of base damage modifiers
+    @JsonProperty("mDamage") private ArrayList<DataStatus>[][] mDamage;                 // List of damage multipliers
 
     public CharAttributes() {
-    	this.attributes = initCategory(ATTRIBUTES);
-    	this.defense    = initCategory(DEFENSE);
-    	this.resist     = initCategory(DMGTYPE);
-    	this.combat     = initCategory(COMBAT);
-    	this.secondary  = initCategory(SECONDARY);
-        this.damage     = initCategory(DAMAGE);
-        this.defenseSized = true;
-        this.secondarySized = true;
-        this.damageSized = true;
+    	this.bAttributes = initCategory(ATTRIBUTES, true);
+        this.mAttributes = initCategory(ATTRIBUTES, false);
+    	this.bDefense    = initCategory(DEFENSE, true);
+        this.mDefense    = initCategory(DEFENSE, false);
+    	this.bResist     = initCategory(DMGTYPE, true);
+        this.mResist     = initCategory(DMGTYPE, false);
+    	this.bCombat     = initCategory(COMBAT, true);
+        this.mCombat     = initCategory(COMBAT, false);
+    	this.bSecondary  = initCategory(SECONDARY, true);
+        this.mSecondary  = initCategory(SECONDARY, false);
+        this.bDamage     = initCategory(DAMAGE, true);
+        this.mDamage     = initCategory(DAMAGE, false);
     }
 
     // ---------------------------------------------------------
     //  CATEGORY INITIALIZATION
     // ---------------------------------------------------------
 
-    private StatBlock[] initCategory(String[] categoryKeys) {
-        StatBlock[] arr = new StatBlock[categoryKeys.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            StatBlock block = new StatBlock();
-            arr[i] = block;
-            seedBaseStatuses(block, categoryKeys[i]);
+    @SuppressWarnings("unchecked")
+    private ArrayList<DataStatus>[][] initCategory(String[] categoryKeys, boolean isBase) {
+        ArrayList<DataStatus>[][] list = (ArrayList<DataStatus>[][]) new ArrayList<?>[categoryKeys.length][3];
+        String prefix = isBase ? "B" : "M";
+        for (int i = 0; i < categoryKeys.length; i++) {
+            list[i] = initStatus(prefix + categoryKeys[i]);
         }
+        return list;
+    }
 
-        return arr;
+    @SuppressWarnings("unchecked")
+    private ArrayList<DataStatus>[] initStatus(String attributeKey) {
+        ArrayList<DataStatus>[] list = (ArrayList<DataStatus>[]) new ArrayList<?>[3];
+        String[] labels = { "Passive", "Maintained", "Temporary" };
+        for (int i = 0; i < 3; i++) {
+            list[i] = new ArrayList<>();
+            DataStatus base = new DataStatus();
+            base.setName(labels[i]);
+            base.setAttribute(attributeKey);
+            base.setSeverity(0);
+            base.setDurationType(labels[i]);
+            list[i].add(base);
+        }
+        return list;
     }
     
-    /**
-     * Ensures a category array is at least as large as its key list. If the incoming
-     * array is shorter (e.g., loading legacy data before new keys were added), the
-     * missing slots are initialized with a base status for the corresponding key.
-     */
-    private StatBlock[] ensureCategorySize(StatBlock[] arr, String[] keys) {
-        if (arr == null || arr.length >= keys.length) return arr;
-        StatBlock[] expanded = new StatBlock[keys.length];
-        for (int i = 0; i < keys.length; i++) {
-            if (i < arr.length && arr[i] != null) {
-                expanded[i] = arr[i];
-            } else {
-                StatBlock block = new StatBlock();
-                seedBaseStatuses(block, keys[i]);
-                // apply key-specific defaults for newly added slots
-                if ("MAXATK".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 1);
-                } else if ("CRITDMG".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 2);
-                } else if ("AREA".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 1);
-                } else if ("GRANT".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 0);
-                } else if ("MAST".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 0);
-                } else if ("CMAN".equalsIgnoreCase(keys[i])) {
-                    setPassiveSeverity(block, 0);
-                }
-                expanded[i] = block;
-            }
-        }
-        return expanded;
-    }
-
     // ---------------------------------------------------------
-    //  UTILITY: INDEX MAPPING
+    //   COMPUTED VALUES
     // ---------------------------------------------------------
-
-    private static Map<String, Integer> buildIndexMap(String[] keys) {
-        Map<String, Integer> indexMap = new HashMap<>(keys.length);
-        for (int i = 0; i < keys.length; i++) {
-            indexMap.put(keys[i].toLowerCase(), i);
-        }
-        return indexMap;
-    }
-
-    private int idx(Map<String, Integer> indexMap, String key) {
-        if (key == null) return -1;
-        Integer index = indexMap.get(key.toLowerCase());
-        return index == null ? -1 : index;
-    }
-
-    private void ensureLegacyCategorySizing() {
-        if (!defenseSized) {
-            defense = ensureCategorySize(defense, DEFENSE);
-            defenseSized = true;
-        }
-        if (!secondarySized) {
-            secondary = ensureCategorySize(secondary, SECONDARY);
-            secondarySized = true;
-        }
-        if (!damageSized) {
-            damage = ensureCategorySize(damage, DAMAGE);
-            damageSized = true;
-        }
-        ensureBaseDamageDefaults();
-    }
-
-    // ---------------------------------------------------------
-    //  PUBLIC API: STATUS MODIFICATION
-    // ---------------------------------------------------------
-
-    public void addStatus(String category, String key, DataStatus status) {
-        StatBlock block = getBlock(category, key);
-        if (block != null) block.addStatus(status);
-    }
-
-    public void addMulti(String category, String key, DataStatus status) {
-        StatBlock block = getBlock(category, key);
-        if (block != null) block.addMulti(status);
-    }
-
-    public void removeStatus(String category, String key, String name) {
-        StatBlock block = getBlock(category, key);
-        if (block != null) block.removeStatus(name);
-    }
-
-    public void removeMulti(String category, String key, String name) {
-        StatBlock block = getBlock(category, key);
-        if (block != null) block.removeMulti(name);
-    }
-
-    /**
-     * Sets the severity of an existing status entry (by name) on the given category/key.
-     * Does nothing if the block or status is missing.
-     */
-    public void setStatusSeverity(String category, String key, String name, double severity) {
-        StatBlock block = getBlock(category, key);
-        if (block == null || name == null) return;
-        for (DataStatus status : block.getStatus()) {
-            if (name.equals(status.getName())) {
-                status.setSeverity(severity);
-                return;
-            }
-        }
-    }
-
-    /**
-     * Sets the severity of an existing multi entry (by name) on the given category/key.
-     * Does nothing if the block or multi-status is missing.
-     */
-    public void setMultiSeverity(String category, String key, String name, double severity) {
-        StatBlock block = getBlock(category, key);
-        if (block == null || name == null) return;
-        for (DataStatus status : block.getMulti()) {
-            if (name.equals(status.getName())) {
-                status.setSeverity(severity);
-                return;
-            }
-        }
-    }
-
-    // ---------------------------------------------------------
-    //  PUBLIC API: VALUE RETRIEVAL
-    // ---------------------------------------------------------
-
-    public int getValue(String category, String key) {
-        StatBlock block = getBlock(category, key);
-        return block == null ? 0 : block.computeValue();
-    }
-
-    // ---------------------------------------------------------
-    //  CATEGORY ACCESS
-    // ---------------------------------------------------------
-
-    public StatBlock getBlock(String category, String key) {
-        if (category == null) return null;
-        ensureLegacyCategorySizing();
-        int i;
-        switch (category.toLowerCase()) {
-            case "attribute": i = idx(ATTRIBUTE_INDEX, key); return i >= 0 ? attributes[i] : null;
-            case "defense":   i = idx(DEFENSE_INDEX, key);   return i >= 0 && i < defense.length ? defense[i] : null;
-            case "resist":    i = idx(RESIST_INDEX, key);    return i >= 0 ? resist[i] : null;
-            case "combat":    i = idx(COMBAT_INDEX, key);    return i >= 0 ? combat[i] : null;
-            case "secondary": i = idx(SECONDARY_INDEX, key); return i >= 0 && i < secondary.length ? secondary[i] : null;
-            case "damage":    i = idx(DAMAGE_INDEX, key);    return i >= 0 && i < damage.length ? damage[i] : null;
-            default: return null;
-        }
-    }
-
-    /** Seeds a new StatBlock with Passive, Maintained, Temporary base statuses and key-specific defaults. */
-    private void seedBaseStatuses(StatBlock block, String key) {
-        if (block == null) return;
-        String[] labels = { "Passive", "Maintained", "Temporary" };
-        for (String label : labels) {
-            DataStatus base = new DataStatus();
-            base.setName(label);
-            base.setAttribute(key);
-            base.setDurationType("Permanent");
-            boolean isAttributeKey = ATTRIBUTE_INDEX.containsKey(key.toLowerCase());
-            if (isAttributeKey) {
-                base.setSeverity("Passive".equals(label) ? 10 : 0); // attribute bases start at 10
-            } else if ("BDMG".equalsIgnoreCase(key)) {
-                base.setSeverity("Passive".equals(label) ? 10 : 0); // base damage starts at 10
-            } else if ("MAXATK".equalsIgnoreCase(key)) {
-                base.setSeverity(1); // base Max Attacks starts at 1
-            } else if ("CRITDMG".equalsIgnoreCase(key)) {
-                base.setSeverity(2); // base Critical Damage multiplier
-            } else if ("AREA".equalsIgnoreCase(key)) {
-                base.setSeverity(1); // base Area starts at 1
-            } else if ("GRANT".equalsIgnoreCase(key)) {
-                base.setSeverity(0); // baseline Grant
-            } else if ("MAST".equalsIgnoreCase(key)) {
-                base.setSeverity(0); // baseline Mastery
-            }
-            block.addStatus(base);
-        }
-    }
-
-    /** Convenience to tweak the Passive status severity for a newly seeded block. */
-    private void setPassiveSeverity(StatBlock block, double severity) {
-        if (block == null) return;
-        for (DataStatus s : block.getStatus()) {
-            if ("Passive".equalsIgnoreCase(s.getName())) {
-                s.setSeverity(severity);
-                return;
-            }
-        }
-    }
-
-    /** Applies non-attribute base defaults to loaded characters whose stat blocks predate current rules. */
-    private void ensureBaseDamageDefaults() {
-        StatBlock baseDamageBlock = getBlockWithoutSizing("damage", "BDMG");
-        setPassiveSeverity(baseDamageBlock, 10);
-    }
-
-    private StatBlock getBlockWithoutSizing(String category, String key) {
-        if (category == null) return null;
-        int i;
-        switch (category.toLowerCase()) {
-            case "attribute": i = idx(ATTRIBUTE_INDEX, key); return i >= 0 ? attributes[i] : null;
-            case "defense":   i = idx(DEFENSE_INDEX, key);   return i >= 0 && i < defense.length ? defense[i] : null;
-            case "resist":    i = idx(RESIST_INDEX, key);    return i >= 0 ? resist[i] : null;
-            case "combat":    i = idx(COMBAT_INDEX, key);    return i >= 0 ? combat[i] : null;
-            case "secondary": i = idx(SECONDARY_INDEX, key); return i >= 0 && i < secondary.length ? secondary[i] : null;
-            case "damage":    i = idx(DAMAGE_INDEX, key);    return i >= 0 && i < damage.length ? damage[i] : null;
-            default: return null;
-        }
-    }
-
-    // ---------------------------------------------------------
-    //  DIRECT CATEGORY GETTERS
-    // ---------------------------------------------------------
-
-    public int getAttribute(String key) { return getValue("attribute", key); }
-    public int getDefense(String key)   { return getValue("defense", key); }
-    public int getResist(String key)    { return getValue("resist", key); }
-    public int getCombat(String key)    { return getValue("combat", key); }
-    public int getSecondary(String key) { return getValue("secondary", key); }
-    public int getDamage(String key)    { return getValue("damage", key); }
-
-    /** Returns a defensive copy of attribute keys. */
-    public static String[] getAttributeKeys() { return ATTRIBUTES.clone(); }
-
-    // ---------------------------------------------------------
-    //  SERIALIZATION HELPERS
-    // ---------------------------------------------------------
-
-    @JsonProperty("attributes") public StatBlock[] getAttributes() { return attributes; }
-    @JsonProperty("defense") public StatBlock[] getDefense() { return defense; }
-    @JsonProperty("resist") public StatBlock[] getResist() { return resist; }
-    @JsonProperty("combat") public StatBlock[] getCombat() { return combat; }
-    @JsonProperty("secondary") public StatBlock[] getSecondary() { return secondary; }
-    @JsonProperty("damage") public StatBlock[] getDamage() { return damage; }
 
     @JsonIgnore
-    public CharData getOwner() { return owner; }
-    public void setOwner(CharData owner) { this.owner = owner; }
+    public double calcValue(ArrayList<DataStatus> list) {
+        double result = 0.0;
+        for (DataStatus status : list) {
+            if (status != null) result += status.getSeverity();
+        }
+        return Math.max(0.0, result);
+    }
+
+    @JsonIgnore
+    public int calcMaxValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
+        double baseValue = 0.0, multiValue = 0.0;
+        for (int i = 0; i < 3; i++) {
+            baseValue += calcValue(base[i]);
+            multiValue += calcValue(base[i]);
+        }
+        return (int)Math.max(0, baseValue * multiValue);
+    }
+
+    @JsonIgnore public int calcStatusValue(String key) {
+        ArrayList<DataStatus>[] base = findStatusBlock(findStatusCategory(findCatByAttribute("B" + key)), key);
+        ArrayList<DataStatus>[] multi = findStatusBlock(findStatusCategory(findCatByAttribute("M" + key)), key);
+        if (base == null || multi == null) return 0;
+        return calcMaxValue(base, multi);
+    }
+
+    // ---------------------------------------------------------
+    //   GETTERS & SETTERS
+    // ---------------------------------------------------------
+    public ArrayList<DataStatus>[][] getBAttributes() { return bAttributes; }
+    public ArrayList<DataStatus>[][] getMAttributes() { return mAttributes; }
+    public ArrayList<DataStatus>[][] getBDefense() { return bDefense; }
+    public ArrayList<DataStatus>[][] getMDefense() { return mDefense; }
+    public ArrayList<DataStatus>[][] getBResist() { return bResist; }
+    public ArrayList<DataStatus>[][] getMResist() { return mResist; }
+    public ArrayList<DataStatus>[][] getBCombat() { return bCombat; }
+    public ArrayList<DataStatus>[][] getMCombat() { return mCombat; }
+    public ArrayList<DataStatus>[][] getBSecondary() { return bSecondary; }
+    public ArrayList<DataStatus>[][] getMSecondary() { return mSecondary; }
+    public ArrayList<DataStatus>[][] getBDamage() { return bDamage; }
+    public ArrayList<DataStatus>[][] getMDamage() { return mDamage; }
+
+    @JsonSetter("bAttributes") public void setBAttributes(ArrayList<DataStatus>[][] list) { this.bAttributes = list; }
+    @JsonSetter("mAttributes") public void setMAttributes(ArrayList<DataStatus>[][] list) { this.mAttributes = list; }
+    @JsonSetter("bDefense") public void setBDefense(ArrayList<DataStatus>[][] list) { this.bDefense = list; }
+    @JsonSetter("mDefense") public void setMDefense(ArrayList<DataStatus>[][] list) { this.mDefense = list; }
+    @JsonSetter("bResist") public void setBResist(ArrayList<DataStatus>[][] list) { this.bResist = list; }
+    @JsonSetter("mResist") public void setMResist(ArrayList<DataStatus>[][] list) { this.mResist = list; }
+    @JsonSetter("bCombat") public void setBCombat(ArrayList<DataStatus>[][] list) { this.bCombat = list; }
+    @JsonSetter("mCombat") public void setMCombat(ArrayList<DataStatus>[][] list) { this.mCombat = list; }
+    @JsonSetter("bSecondary") public void setBSecondary(ArrayList<DataStatus>[][] list) { this.bSecondary = list; }
+    @JsonSetter("mSecondary") public void setMSecondary(ArrayList<DataStatus>[][] list) { this.mSecondary = list; }
+    @JsonSetter("bDamage") public void setBDamage(ArrayList<DataStatus>[][] list) { this.bDamage = list; }
+    @JsonSetter("mDamage") public void setMDamage(ArrayList<DataStatus>[][] list) { this.mDamage = list; }
+
+    @JsonIgnore public StoreCharData getOwner() { return owner; }
+    @JsonIgnore public void setOwner(StoreCharData owner) { this.owner = owner; }
+
+    public static String[] getAttributeKeys() { return ATTRIBUTES.clone(); }
+    public static String[] getDefenseKeys() { return DEFENSE.clone(); }
+    public static String[] getDamageTypeKeys() { return DMGTYPE.clone(); }
+    public static String[] getCombatKeys() { return COMBAT.clone(); }
+    public static String[] getSecondaryKeys() { return SECONDARY.clone(); }
+    public static String[] getDamageKeys() { return DAMAGE.clone(); }
+
+    // ---------------------------------------------------------
+    //   HELPERS
+    // ---------------------------------------------------------
+
+    public void addStatus (DataStatus status) {
+        if (status == null || status.getAttribute() == null) return;
+        String att = status.getAttribute().toUpperCase();
+        ArrayList<DataStatus> list = findStatusArray( findStatusBlock( findStatusCategory( findCatByAttribute(att)), att), status.getDurationType().toUpperCase());
+        DataStatus existing = findStatus(list, status.getName());
+        if (existing != null) existing.setSeverity(status.getSeverity());
+            // TODO better comparison logic for statuses of the same name? For now, just take the highest severity if a duplicate is added.
+        else list.add(status); 
+    }
+
+    public void removeStatus (String name, String category) {
+        name = name.toUpperCase();
+        category = category.toUpperCase();
+        ArrayList<DataStatus>[][] catList = findStatusCategory(category);
+        for (int i = 0; i < catList.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                ArrayList<DataStatus> list = catList[i][j];
+                DataStatus existing = findStatus(list, name);
+                if (existing != null) list.remove(existing);
+            }
+        }
+    }
+
+    public void removeStatusByStatus (DataStatus status) {
+        String name = status.getName().toUpperCase();
+        String category = findCatByAttribute(status.getAttribute().toUpperCase()).toUpperCase();
+        ArrayList<DataStatus>[][] catList = findStatusCategory(category);
+        for (int i = 0; i < catList.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                ArrayList<DataStatus> list = catList[i][j];
+                DataStatus existing = findStatus(list, name);
+                if (existing != null) list.remove(existing);
+            }
+        }
+    }
+    
+    private ArrayList<DataStatus>[][] findStatusCategory (String key) {
+        key = key.toUpperCase();
+        return switch (key) {
+            case "BATTRIBUTES" -> bAttributes;
+            case "MATTRIBUTES" -> mAttributes;
+            case "BDEFENSE" -> bDefense;
+            case "MDEFENSE" -> mDefense;
+            case "BRESIST" -> bResist;
+            case "MRESIST" -> mResist;
+            case "BCOMBAT" -> bCombat;
+            case "MCOMBAT" -> mCombat;
+            case "BSECONDARY" -> bSecondary;
+            case "MSECONDARY" -> mSecondary;
+            case "BDAMAGE" -> bDamage;
+            case "MDAMAGE" -> mDamage;
+            default -> null;
+        };
+    }
+
+    private ArrayList<DataStatus>[] findStatusBlock (ArrayList<DataStatus>[][] category, String key) {
+        if (category == null) return null;
+        String cat;
+        for (int i = 0; i < category.length; i++) {
+            cat = category[i][0].get(0).getAttribute(); 
+            if (cat.equalsIgnoreCase(key)) {
+                return category[i];
+            }
+        }
+        return null;
+    }
+
+    private ArrayList<DataStatus> findStatusArray (ArrayList<DataStatus>[] block, String key) {
+        return switch (key) {
+            case "PASSIVE" -> block[0];
+            case "MAINTAINED" -> block[1];
+            case "TEMPORARY" -> block[2];
+            default -> null;
+        };
+    }
+
+    private DataStatus findStatus(ArrayList<DataStatus> list, String name) {
+        for (DataStatus status : list) {
+            if (status != null && name.equalsIgnoreCase(status.getName())) {
+                return status;
+            }
+        }
+        return null;
+    }
+
+    private String findCatByAttribute(String attribute) {
+        String cat = checkCatByKey(attribute);
+        if (cat != null) return cat;
+        throw new IllegalArgumentException("Invalid attribute key: " + attribute);
+    }
+
+    private String checkCatByKey(String key) {
+        String subcat = key.substring(0, 1);
+        key = key.substring(1).toUpperCase();
+        for (String cat: ATTRIBUTES) {
+            if ((cat).equals(key)) return subcat + "attributes";
+        }
+        for (String cat: DEFENSE) {
+            if (cat.equals(key)) return subcat + "defense";
+        }
+        for (String cat: DMGTYPE) {
+            if (cat.equals(key)) return subcat + "resist";
+        }
+        for (String cat: COMBAT) {
+            if (cat.equals(key)) return subcat + "combat";
+        }
+        for (String cat: SECONDARY) {
+            if (cat.equals(key)) return subcat + "secondary";
+        }
+        for (String cat: DAMAGE) {
+            if (cat.equals(key)) return subcat + "damage";
+        }
+        return null;
+    }
 }
+

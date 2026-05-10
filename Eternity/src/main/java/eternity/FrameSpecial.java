@@ -15,16 +15,16 @@ import javax.swing.SwingConstants;
  * Handles specialty selection controls and applying the selected specialty.
  */
 public class FrameSpecial {
-	private final DataQuery dataQuery;
+	private final StoreRuleManager dataQuery;
 	private final JComboBox<String> specialsList;
 	private final JComboBox<String> specialsType;
 	private boolean specLevel;
 	private boolean hideOwnedSpecialties;
-	private CharData ownerForFilter;
+	private StoreCharData ownerForFilter;
 
 	private final String[] SPECTYPES = {"Proficiency","Martial","Class"};
 
-	FrameSpecial(DataQuery dataQuery) {
+	FrameSpecial(StoreRuleManager dataQuery) {
 		this.dataQuery = dataQuery;
 		specialsList = new JComboBox<>();
 		specialsType = new JComboBox<>(SPECTYPES);
@@ -66,14 +66,14 @@ public class FrameSpecial {
 		updateData();
 	}
 
-	public void applySelection(CharData character) {
+	public void applySelection(StoreCharData character) {
 		if (!specLevel || character == null || character.getSpecials() == null) return;
 		DataSpecialty picked = dataQuery.getSpecialtyByName((String)specialsList.getSelectedItem());
 		if (picked == null) return;
 		character.getSpecials().addTrainedSpecialty(new DataSpecialty(picked));
 	}
 
-	private void setOwnedSpecialtyFilter(CharData character, boolean hideOwnedSpecialties) {
+	private void setOwnedSpecialtyFilter(StoreCharData character, boolean hideOwnedSpecialties) {
 		this.ownerForFilter = character;
 		this.hideOwnedSpecialties = hideOwnedSpecialties;
 	}
@@ -81,7 +81,7 @@ public class FrameSpecial {
 	/**
 	 * Prompts the user to select a new, unlearned specialty using FrameSpecial controls.
 	 */
-	public static boolean promptForTrainingSpecialty(JFrame parent, DataQuery dataQuery, CharData character) {
+	public static boolean promptForTrainingSpecialty(JFrame parent, StoreRuleManager dataQuery, StoreCharData character) {
 		if (parent == null || dataQuery == null || character == null || character.getSpecials() == null) return false;
 
 		FrameSpecial picker = new FrameSpecial(dataQuery);
@@ -163,3 +163,4 @@ public class FrameSpecial {
 		}
 	}
 }
+

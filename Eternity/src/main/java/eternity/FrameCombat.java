@@ -47,7 +47,7 @@ public class FrameCombat extends JFrame {
 	private static final int OPTION_PANEL_WIDTH = 580;
 	private static final int OPTION_PANEL_BOTTOM_PADDING = 10;
 	private final FrameSheet sheetFrame;
-	private CharData character;
+	private StoreCharData character;
 	private int stdActCount, moveActCount, auraActCount;
 	private boolean stdDemoCheck, moveDemoCheck;
 	
@@ -91,7 +91,7 @@ public class FrameCombat extends JFrame {
 	/*
 	 * DEFAULT CONSTRUCTOR
 	 */
-	FrameCombat (FrameSheet sheetFrame, CharData character2) {
+	FrameCombat (FrameSheet sheetFrame, StoreCharData character2) {
 		super("Combat Helper");
 		this.sheetFrame = sheetFrame;
 		this.character = character2;
@@ -319,7 +319,7 @@ public class FrameCombat extends JFrame {
 		auraAbilityCat.setVisible(false);
 	}
 	
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 		if (this.character != null && this.character.getCombat() != null) {
 			this.character.getCombat().rebuildActions(this.character);
@@ -1007,7 +1007,7 @@ public class FrameCombat extends JFrame {
 		String affinity = action.getAffinity();
 		if (affinity == null || affinity.isBlank() || "None".equalsIgnoreCase(affinity)) return;
 
-		DataColor color = CharDataManager.getDataQuery().getColorByTitle(affinity);
+		DataColor color = StoreMetaManager.getDataQuery().getColorByTitle(affinity);
 		if (color == null) return;
 
 		actionButton.setAffinityColors(color.getBackColor(), color.getForeColor());
@@ -1262,7 +1262,7 @@ public class FrameCombat extends JFrame {
 		if (character == null) return;
 		// Safe color lookup with sensible fallback
 		DataColor raceColor = null;
-		DataQuery dataQuery = new DataQuery();
+		StoreRuleManager dataQuery = new StoreRuleManager();
 		if (character.getIdentity() != null) {
 			raceColor = dataQuery.getColorByTitle(character.getIdentity().getRace());
 		}
@@ -1336,3 +1336,4 @@ public class FrameCombat extends JFrame {
 	}
 
 }
+

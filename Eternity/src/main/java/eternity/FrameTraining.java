@@ -20,14 +20,14 @@ import javax.swing.text.NumberFormatter;
 
 /**
  * Lightweight replacement for the legacy FrameHelper-based training dialogs.
- * It compiles against the current data model (CharData, CharTraining, DataQuery).
+ * It compiles against the current data model (StoreCharData, CharTraining, StoreRuleManager).
  */
 public class FrameTraining extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	protected final FrameSheet sheetFrame;
-	protected final DataQuery dataQuery;
-	protected CharData character;
+	protected final StoreRuleManager dataQuery;
+	protected StoreCharData character;
 
 	public JComboBox<String> auraType, auraTech;
 	public boolean warn, isNew;
@@ -43,7 +43,7 @@ public class FrameTraining extends JFrame {
 
 	public final String[] AURATYPES = {"Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Force", "Sound", "Light", "Darkness", "Poison", "Psionic", "Energy", "Spirit", "Time", "Deviant"};
 
-	FrameTraining(FrameSheet sheetFrame, DataQuery dataQuery) {
+	FrameTraining(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
 		super("Training");
 		this.sheetFrame = sheetFrame;
 		this.dataQuery = dataQuery;
@@ -194,7 +194,7 @@ public class FrameTraining extends JFrame {
 	/*
 	 * UPDATE CHARACTER
 	 */
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 	}
 
@@ -463,3 +463,4 @@ public class FrameTraining extends JFrame {
 		}
 	}
 }
+

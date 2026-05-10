@@ -21,7 +21,7 @@ public class FrameRest extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private final FrameSheet sheetFrame;
-    private CharData character;
+    private StoreCharData character;
 
     private final JCheckBox shortRest = new JCheckBox("Short Rest", false);
     private final JCheckBox longRest  = new JCheckBox("Long Rest");
@@ -88,7 +88,7 @@ public class FrameRest extends JFrame {
         add(south, BorderLayout.SOUTH);
     }
 
-    public void updateCharacter(CharData character) {
+    public void updateCharacter(StoreCharData character) {
         this.character = character;
     }
 
@@ -107,11 +107,7 @@ public class FrameRest extends JFrame {
             res.setSpentR3(0);
             res.setSpentReactions(0);
         } else if (shortRest.isSelected()) {
-            double heal = res.getMaxHP() * 0.25;
-            res.setLostHP(Math.max(0, res.getLostHP() - heal));
 
-            double auraRestore = res.getMaxAura() * 0.25;
-            res.setSpentAura(Math.max(0, res.getSpentAura() - auraRestore));
 
             res.setSpentR1(0);
             res.setSpentR2(0);
@@ -140,3 +136,4 @@ public class FrameRest extends JFrame {
         setVisible(false);
     }
 }
+

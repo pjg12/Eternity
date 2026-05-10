@@ -15,7 +15,7 @@ public class FrameCombatDamage extends JFrame {
 	private static final long serialVersionUID = 1;
 
 	private final FrameSheet sheetFrame;
-	private final CharData character;
+	private final StoreCharData character;
 
 	private JComboBox<String> damageType;
 private final String[] DMGTYPE = {"PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME"};
@@ -30,7 +30,7 @@ private final JButton cancelButton = new JButton();
 private final JButton confirmButton = new JButton();
 private final JButton calcButton = new JButton();
 
-	FrameCombatDamage(FrameSheet sheetFrame, CharData character) {
+	FrameCombatDamage(FrameSheet sheetFrame, StoreCharData character) {
 		super("Under Attack Helper");
 		this.sheetFrame = sheetFrame;
 		this.character = character;
@@ -194,3 +194,4 @@ private final JButton calcButton = new JButton();
 		return damage.intValue();
 	}
 }
+

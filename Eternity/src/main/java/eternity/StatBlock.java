@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class StatBlock {
 
-    private final TrackedStatusList status = new TrackedStatusList();
+    /*private final TrackedStatusList status = new TrackedStatusList();
     private final TrackedStatusList multi = new TrackedStatusList();
 
     public List<DataStatus> getStatus() { return status; }
@@ -208,5 +208,5 @@ public class StatBlock {
         private static String normalizeName(String name) {
             return name == null ? null : name.toLowerCase(Locale.ROOT);
         }
-    }
+    }*/
 }

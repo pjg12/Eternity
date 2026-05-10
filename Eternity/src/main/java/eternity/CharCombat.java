@@ -21,7 +21,7 @@ public class CharCombat {
 
 
     @JsonIgnore
-    private CharData owner;
+    private StoreCharData owner;
 
     @JsonProperty
     private boolean inCombat;
@@ -90,8 +90,8 @@ public class CharCombat {
     }
 
     /* Owner plumbing */
-    public void setOwner(CharData owner) { this.owner = owner; }
-    @JsonIgnore public CharData getOwner() { return owner; }
+    public void setOwner(StoreCharData owner) { this.owner = owner; }
+    @JsonIgnore public StoreCharData getOwner() { return owner; }
 
     /* State flags */
     public boolean isInCombat() { return inCombat; }
@@ -149,7 +149,7 @@ public class CharCombat {
      * Rebuilds runtime combat action buckets from the character's current derived state.
      * These actions are not persisted; they are regenerated whenever the character updates.
      */
-    public void rebuildActions(CharData character) {
+    public void rebuildActions(StoreCharData character) {
         if (character != null) {
             this.owner = character;
         }
@@ -162,7 +162,7 @@ public class CharCombat {
             return;
         }
 
-        DataQuery dataQuery = CharDataManager.getDataQuery();
+        StoreRuleManager dataQuery = StoreMetaManager.getDataQuery();
         ArrayList<DataTraining> trainedTechniques = new ArrayList<>();
         for (DataTraining tech : owner.getTraining().getAllTraining()) {
             if (!hasTrainedActionTechnique(tech)) continue;
@@ -234,7 +234,7 @@ public class CharCombat {
         return tech.getRank() >= 1;
     }
 
-    private void addTrainingActionFromData(DataTraining tech, DataQuery dataQuery) {
+    private void addTrainingActionFromData(DataTraining tech, StoreRuleManager dataQuery) {
         if (tech == null || dataQuery == null) return;
         DataAction actionTemplate = dataQuery.getActionById(tech.getId());
         if (actionTemplate == null) return;
@@ -360,3 +360,4 @@ public class CharCombat {
         return Collections.unmodifiableList(bucket);
     }
 }
+

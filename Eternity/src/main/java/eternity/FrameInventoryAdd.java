@@ -24,9 +24,9 @@ public class FrameInventoryAdd extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private final FrameSheet sheetFrame;
-    private final DataQuery dataQuery;
+    private final StoreRuleManager dataQuery;
 
-    private CharData character;
+    private StoreCharData character;
 
     private final JTextField searchField;
     private final JComboBox<String> itemBox;
@@ -42,7 +42,7 @@ public class FrameInventoryAdd extends JFrame {
 
     private final ArrayList<DataItemEquipment> resultItems;
 
-    FrameInventoryAdd(FrameSheet sheetFrame, DataQuery dataQuery) {
+    FrameInventoryAdd(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
         super("Add Inventory");
         this.sheetFrame = sheetFrame;
         this.dataQuery = dataQuery;
@@ -133,7 +133,7 @@ public class FrameInventoryAdd extends JFrame {
         updateSearchItemVisibility();
     }
 
-    void updateCharacter(CharData character) {
+    void updateCharacter(StoreCharData character) {
         this.character = character;
     }
 
@@ -291,3 +291,4 @@ public class FrameInventoryAdd extends JFrame {
         return s == null ? "" : s;
     }
 }
+

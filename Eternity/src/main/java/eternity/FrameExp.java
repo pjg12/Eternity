@@ -18,8 +18,8 @@ public class FrameExp extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private final FrameSheet sheetFrame;
-	private final DataQuery dataQuery;
-	private CharData character;
+	private final StoreRuleManager dataQuery;
+	private StoreCharData character;
 	private FrameLevel levelFrame;
 
 	private boolean skillLevel, specLevel;
@@ -44,7 +44,7 @@ public class FrameExp extends JFrame {
 	private final String[] ATTRIBUTES = {"STR","DEX","CON","FOC","CAP","CTL","KNOW","MECH","PERC","INT","CHA","SUB"};
 	private final String[] SPECTYPES = {"Proficiency","Martial","Class"};
 
-	FrameExp (FrameSheet sheetFrame, DataQuery dataQuery) {
+	FrameExp (FrameSheet sheetFrame, StoreRuleManager dataQuery) {
 		super("Exp Up");
 		this.sheetFrame = sheetFrame;
 		this.dataQuery = dataQuery;
@@ -104,7 +104,7 @@ public class FrameExp extends JFrame {
 	/*
 	 * Sets the character to be modified
 	 */
-	public void updateCharacter(CharData character) {
+	public void updateCharacter(StoreCharData character) {
 		this.character = character;
 	} //End of updateCharacter
 	
@@ -460,3 +460,4 @@ public class FrameExp extends JFrame {
 	
 
 }
+

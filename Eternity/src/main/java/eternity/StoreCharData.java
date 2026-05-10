@@ -19,9 +19,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *  - Training (Aura techniques, affinities, domains)
  *  - Combat (derived values)
  *
- * CharData is the root of the character sheet object graph.
+ * StoreCharData is the root of the character sheet object graph.
  */
-public class CharData {
+public class StoreCharData {
     private static final String EQUIP_PASSIVE_PREFIX = "Equip Passive: ";
     private static final String SPECIALTY_PASSIVE_PREFIX = "Specialty Passive: ";
     private static final boolean ENABLE_SPECIALTY_CHECKS = false;
@@ -32,8 +32,8 @@ public class CharData {
     // ---------------------------------------------------------
 
     private final CharIdentity identity;
-    private final CharAttributes attributes;
     private final CharResources resources;
+    private final CharAttributes attributes;
     private final CharSpecials specials;
     private final CharInventory inventory;
     private final CharTraining training;
@@ -48,7 +48,7 @@ public class CharData {
     // Constructor
     // ---------------------------------------------------------
 
-    public CharData() {
+    public StoreCharData() {
         this.identity = new CharIdentity();
         this.attributes = new CharAttributes();
         this.resources = new CharResources();
@@ -100,7 +100,7 @@ public class CharData {
     }
 
     public void refreshIdentityDerivedState() {
-        DataQuery dq = CharDataManager.getDataQuery();
+        StoreRuleManager dq = StoreMetaManager.getDataQuery();
         int lvl = identity != null ? identity.getLevel() : 1;
         DataLevel dataLevel = dq.getLevel(lvl);
         updateResourceCaps(dataLevel);
@@ -109,7 +109,7 @@ public class CharData {
     }
 
     public void refreshTrainingDerivedBonuses() {
-        applyTrainingPermStatuses(CharDataManager.getDataQuery());
+        applyTrainingPermStatuses(StoreMetaManager.getDataQuery());
     }
 
     private void updateResourceCaps(DataLevel dataLevel) {
@@ -126,7 +126,7 @@ public class CharData {
         resources.addStatus(status);
     }
 
-    private void updateIdentityDerivedState(DataQuery dq, int level, DataLevel currentLevelData) {
+    private void updateIdentityDerivedState(StoreRuleManager dq, int level, DataLevel currentLevelData) {
         if (identity == null || specials == null) return;
 
         DataRace race = dq.getRaceByName(identity.getRace());
@@ -149,7 +149,7 @@ public class CharData {
         applyClassAttributeBonuses(baseClass);
     }
 
-    private void syncRaceDerivedState(DataQuery dq, DataRace race) {
+    private void syncRaceDerivedState(StoreRuleManager dq, DataRace race) {
         if (race == null) return;
         if (race.getRacialID() >= 0) {
             DataSpecialty racialSpec = dq.getSpecialtyById(race.getRacialID());
@@ -169,12 +169,12 @@ public class CharData {
         if (racialStatuses == null) return;
         for (DataStatus racialStatus : racialStatuses) {
             if (racialStatus == null || racialStatus.getAttribute() == null) continue;
-            attributes.removeStatus("attribute", racialStatus.getAttribute(), racialStatus.getName());
-            attributes.addStatus("attribute", racialStatus.getAttribute(), racialStatus);
+            attributes.removeStatus(racialStatus.getName(), "bAttribute");
+            attributes.addStatus(new DataStatus(racialStatus));
         }
     }
 
-    private List<DataSpecialty> buildClassSpecialtyTemplates(DataQuery dq, DataClass dataClass, int classRank) {
+    private List<DataSpecialty> buildClassSpecialtyTemplates(StoreRuleManager dq, DataClass dataClass, int classRank) {
         List<DataSpecialty> classSpecs = new ArrayList<>();
         for (int i = 1; i <= classRank; i++) {
             DataLevel levelData = dq.getLevel(i);
@@ -192,7 +192,7 @@ public class CharData {
         return classSpecs;
     }
 
-    private List<DataSpecialty> getCachedClassSpecialties(DataQuery dq, DataClass dataClass, int classRank) {
+    private List<DataSpecialty> getCachedClassSpecialties(StoreRuleManager dq, DataClass dataClass, int classRank) {
         String className = dataClass.getName() == null ? "" : dataClass.getName();
         String cacheKey = className + "|" + classRank;
         if (!cacheKey.equals(cachedClassSpecialtyKey)) {
@@ -207,7 +207,7 @@ public class CharData {
         return copies;
     }
 
-    private void addClassSpecialty(List<DataSpecialty> classSpecs, DataQuery dq, int specialtyId) {
+    private void addClassSpecialty(List<DataSpecialty> classSpecs, StoreRuleManager dq, int specialtyId) {
         DataSpecialty baseSpec = dq.getSpecialtyById(specialtyId);
         if (baseSpec != null) {
             classSpecs.add(new DataSpecialty(baseSpec));
@@ -217,31 +217,9 @@ public class CharData {
     private void applyClassResourceScaling(DataClass effectiveClass) {
         if (effectiveClass == null || resources == null) return;
 
-        StatBlock[] hpBlocks = resources.getMaxHPBlocks();
-        if (hpBlocks != null && hpBlocks.length > 0 && hpBlocks[0] != null) {
-            hpBlocks[0].removeMulti("ClassHpScaling");
-            DataStatus hpScale = new DataStatus();
-            hpScale.setName("ClassHpScaling");
-            hpScale.setAttribute("HPMULTI");
-            hpScale.setDurationType("Permanent");
-            hpScale.setSeverity(effectiveClass.getHpScaling());
-            hpScale.setAffinity("None");
-            hpScale.setDescription("HP multiplier from class scaling");
-            hpBlocks[0].addMulti(hpScale);
-        }
 
-        StatBlock[] auraBlocks = resources.getMaxAuraBlocks();
-        if (auraBlocks != null && auraBlocks.length > 0 && auraBlocks[0] != null) {
-            auraBlocks[0].removeMulti("ClassAuraScaling");
-            DataStatus auraScale = new DataStatus();
-            auraScale.setName("ClassAuraScaling");
-            auraScale.setAttribute("AURAMULTI");
-            auraScale.setDurationType("Permanent");
-            auraScale.setSeverity(effectiveClass.getAuraScaling());
-            auraScale.setAffinity("None");
-            auraScale.setDescription("Aura multiplier from class scaling");
-            auraBlocks[0].addMulti(auraScale);
-        }
+
+
     }
 
     private void applyClassLevelScalers(DataClass dataClass, DataLevel currentLevelData) {
@@ -260,8 +238,8 @@ public class CharData {
         if (attributes == null || dataClass == null || dataClass.getPrimaryAtt() == null) return;
 
         String primaryAttribute = dataClass.getPrimaryAtt().toUpperCase();
-        int primaryMod = attributes.getAttribute(primaryAttribute) - 10;
-        int primaryValue = attributes.getAttribute(primaryAttribute);
+        int primaryMod = attributes.calcStatusValue(primaryAttribute) - 10;
+        /*int primaryValue = attributes.getAttribute(primaryAttribute);
         int focusMod = attributes.getAttribute("FOC") - 10;
         int strengthMod = attributes.getAttribute("STR") - 10;
         int constitutionMod = attributes.getAttribute("CON") - 10;
@@ -273,9 +251,9 @@ public class CharData {
         int dexterityValue = attributes.getAttribute("DEX");
         int focusValue = attributes.getAttribute("FOC");
         int controlValue = attributes.getAttribute("CTL");
-        int capacityValue = attributes.getAttribute("CAP");
+        int capacityValue = attributes.getAttribute("CAP");*/
 
-        double primaryAtkSeverity = 0.5 * primaryValue;
+        /*double primaryAtkSeverity = 0.5 * primaryValue;
         double primarySeverity = 0.5 * primaryMod;
         double focusAtkSeverity = 0.5 * focusValue;
         double focusAppSeverity = 0.5 * focusMod;
@@ -286,9 +264,9 @@ public class CharData {
         double dodgeSeverity = 0.5 * dexterityValue;
         double hpMultiSeverity = 0.05 * constitutionMod;
         double auraMultiSeverity = 0.05 * capacityMod;
-        double controlSeverity = 0.5 * controlMod;
+        double controlSeverity = 0.5 * controlMod;*/
 
-        addPermanentAttributeStatus("combat", "ATK", "ClassPrimaryATK", primaryAtkSeverity, "Primary attribute bonus to ATK");
+        /*addPermanentAttributeStatus("combat", "ATK", "ClassPrimaryATK", primaryAtkSeverity, "Primary attribute bonus to ATK");
         addPermanentAttributeStatus("combat", "ATK", "FocusATKBonus", focusAtkSeverity, "Focus-based ATK bonus");
         addPermanentAttributeStatus("combat", "APP", "FocusAPPBonus", focusAppSeverity, "Focus-based APP bonus");
         addPermanentAttributeStatus("combat", "APP", "ClassPrimaryAPP", primarySeverity, "Primary attribute bonus to APP");
@@ -300,17 +278,16 @@ public class CharData {
         addPermanentAttributeStatus("defense", "WILL", "Attribute Bonus", willSeverity, "Control + Capacity derived Will");
         addPermanentAttributeStatus("resist", "ALL", "Attribute Bonus", strengthMod, "Strength derived Resist All");
         addPermanentAttributeStatus("defense", "DODGE", "DexDodgeBonus", dodgeSeverity, "Dexterity-based Dodge bonus");
-        addPermanentResourceMulti(resources != null ? resources.getMaxHPBlocks() : null, "ConHPMulti", "HPMULTI", hpMultiSeverity, "Constitution-based HP multiplier");
-        addPermanentResourceMulti(resources != null ? resources.getMaxAuraBlocks() : null, "CapAuraMulti", "AURAMULTI", auraMultiSeverity, "Capacity-based Aura multiplier");
         addPermanentAttributeStatus("damage", "TDMG", "CtlTDMGBonus", controlSeverity, "Control-based Total Damage bonus");
         addPermanentAttributeStatus("damage", "THEAL", "CtlTHEALBonus", controlSeverity, "Control-based Total Healing bonus");
-    }
+    */
+        }
 
     /**
      * Ensures level specialties are present for all levels up to current level (max 20).
      * This backfills missed grants when a character levels up.
      */
-    private void ensureLevelSpecialties(DataQuery dq, int level) {
+    private void ensureLevelSpecialties(StoreRuleManager dq, int level) {
         if (dq == null || specials == null) return;
         int cappedLevel = Math.max(0, Math.min(level, 20));
         for (int id = 1; id <= cappedLevel; id++) {
@@ -363,7 +340,7 @@ public class CharData {
 
     /** Rebuilds passive specialty statuses from the currently owned specialties. */
     public void refreshSpecialtyPassiveBonuses() {
-        applySpecialtyPassiveStatuses(CharDataManager.getDataQuery());
+        applySpecialtyPassiveStatuses(StoreMetaManager.getDataQuery());
     }
 
     public void setLists(List<List<DataList>> lists) { this.Lists = (lists == null) ? new ArrayList<>() : lists; }
@@ -422,17 +399,9 @@ public class CharData {
     /** Clears previously applied equipment passive statuses so updateAll can re-apply from current equip state. */
     private void clearEquipmentPassiveBonuses() {
         if (attributes != null) {
-            clearPrefixedStatuses(attributes.getAttributes(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getDefense(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getResist(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getCombat(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getSecondary(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getDamage(), EQUIP_PASSIVE_PREFIX);
+
         }
-        if (resources != null) {
-            clearPrefixedStatuses(resources.getMaxHPBlocks(), EQUIP_PASSIVE_PREFIX);
-            clearPrefixedStatuses(resources.getMaxAuraBlocks(), EQUIP_PASSIVE_PREFIX);
-        }
+
     }
 
     private void clearPrefixedStatuses(StatBlock[] blocks, String prefix) {
@@ -444,7 +413,7 @@ public class CharData {
         }
     }
 
-    private void applySpecialtyPassiveStatuses(DataQuery dq) {
+    private void applySpecialtyPassiveStatuses(StoreRuleManager dq) {
         clearSpecialtyPassiveBonuses();
         if (dq == null || specials == null) return;
 
@@ -463,20 +432,12 @@ public class CharData {
 
     private void clearSpecialtyPassiveBonuses() {
         if (attributes != null) {
-            clearPrefixedStatuses(attributes.getAttributes(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getDefense(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getResist(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getCombat(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getSecondary(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(attributes.getDamage(), SPECIALTY_PASSIVE_PREFIX);
+
         }
-        if (resources != null) {
-            clearPrefixedStatuses(resources.getMaxHPBlocks(), SPECIALTY_PASSIVE_PREFIX);
-            clearPrefixedStatuses(resources.getMaxAuraBlocks(), SPECIALTY_PASSIVE_PREFIX);
-        }
+
     }
 
-    private List<DataStatus> collectSpecialtyPermStatuses(DataQuery dq, DataSpecialty specialty) {
+    private List<DataStatus> collectSpecialtyPermStatuses(StoreRuleManager dq, DataSpecialty specialty) {
         ArrayList<DataStatus> copies = new ArrayList<>();
         if (specialty == null) return copies;
 
@@ -519,22 +480,6 @@ public class CharData {
                 : specialty.getName();
         String uniqueName = SPECIALTY_PASSIVE_PREFIX + baseName + " (S" + specialty.getId() + ")";
 
-        if ("MAXHP".equals(attr) || "BASEHP".equals(attr)) {
-            addSpecialtyResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HP", permStatus.getSeverity(), false, permStatus.getDescription());
-            return;
-        }
-        if ("HPMULTI".equals(attr)) {
-            addSpecialtyResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HPMULTI", permStatus.getSeverity(), true, permStatus.getDescription());
-            return;
-        }
-        if ("MAXAURA".equals(attr) || "BASEAURA".equals(attr)) {
-            addSpecialtyResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURA", permStatus.getSeverity(), false, permStatus.getDescription());
-            return;
-        }
-        if ("AURAMULTI".equals(attr)) {
-            addSpecialtyResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURAMULTI", permStatus.getSeverity(), true, permStatus.getDescription());
-            return;
-        }
 
         String category = resolveCategory(normalizedAttr);
         if (category == null) return;
@@ -543,8 +488,7 @@ public class CharData {
         copy.setName(uniqueName);
         copy.setAttribute(normalizedAttr);
         copy.setDurationType("Permanent");
-        attributes.removeStatus(category, normalizedAttr, uniqueName);
-        attributes.addStatus(category, normalizedAttr, copy);
+
     }
 
     private void addSpecialtyResourceStatus(StatBlock[] blocks, String uniqueName, String attribute, double severity, boolean multi, String description) {
@@ -581,14 +525,7 @@ public class CharData {
             addEquipmentAttributeStatus("defense", "WILL", severity, statusName + " (WILL)");
             return;
         }
-        if ("MAXHP".equals(rawKey)) {
-            addEquipmentResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, "HP", severity, statusName);
-            return;
-        }
-        if ("MAXAURA".equals(rawKey)) {
-            addEquipmentResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, "AURA", severity, statusName);
-            return;
-        }
+
 
         String mapped = switch (rawKey) {
             case "RESISTALL", "CRES" -> "ALL";
@@ -612,8 +549,7 @@ public class CharData {
         ds.setSeverity(severity);
         ds.setAffinity("None");
         ds.setDescription("Equipment passive bonus");
-        attributes.removeStatus(category, key, statusName);
-        attributes.addStatus(category, key, ds);
+
     }
 
     private void addPermanentAttributeStatus(String category, String key, String statusName, double severity, String description) {
@@ -625,8 +561,7 @@ public class CharData {
         ds.setSeverity(severity);
         ds.setAffinity("None");
         ds.setDescription(description);
-        attributes.removeStatus(category, key, statusName);
-        attributes.addStatus(category, key, ds);
+
     }
 
     private void addEquipmentResourceStatus(StatBlock[] blocks, String key, double severity, String statusName) {
@@ -757,7 +692,7 @@ public class CharData {
     /**
      * Applies permStatus grants from training data, scaled by rank, into live attributes.
      */
-    private void applyTrainingPermStatuses(DataQuery dq) {
+    private void applyTrainingPermStatuses(StoreRuleManager dq) {
         if (training == null || attributes == null) return;
         List<DataTraining> all = training.getAllTraining();
         if (all == null) return;
@@ -772,7 +707,7 @@ public class CharData {
         }
     }
 
-    private List<DataStatus> collectTrainingPermStatuses(DataQuery dq, DataTraining tech) {
+    private List<DataStatus> collectTrainingPermStatuses(StoreRuleManager dq, DataTraining tech) {
         ArrayList<DataStatus> copies = new ArrayList<>();
         if (tech == null) return copies;
 
@@ -814,23 +749,6 @@ public class CharData {
         String uniqueName = statusName + " (T" + tech.getId() + ")";
         double severity = tech.scaleStatusSeverity(permStatus.getSeverity());
 
-        if ("MAXHP".equals(attr)) {
-            addTrainingResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HP", severity, false);
-            return;
-        }
-        if ("HPMULTI".equals(attr)) {
-            addTrainingResourceStatus(resources != null ? resources.getMaxHPBlocks() : null, uniqueName, "HPMULTI", severity, true);
-            return;
-        }
-        if ("MAXAURA".equals(attr)) {
-            addTrainingResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURA", severity, false);
-            return;
-        }
-        if ("AURAMULTI".equals(attr)) {
-            addTrainingResourceStatus(resources != null ? resources.getMaxAuraBlocks() : null, uniqueName, "AURAMULTI", severity, true);
-            return;
-        }
-
         String category = resolveCategory(attr);
         if (category == null) return;
         DataStatus copy = new DataStatus(permStatus);
@@ -838,8 +756,6 @@ public class CharData {
         copy.setAttribute(attr);
         copy.setDurationType("Permanent");
         copy.setSeverity(severity);
-        attributes.removeStatus(category, attr, uniqueName);
-        attributes.addStatus(category, attr, copy);
     }
 
     private void addTrainingResourceStatus(StatBlock[] blocks, String uniqueName, String attribute, double severity, boolean multi) {
@@ -864,9 +780,7 @@ public class CharData {
         if (key == null) return null;
         // Normalize aliases
         String norm = normalizeAttrKey(key);
-        for (String c : STATUS_CATEGORY_ORDER) {
-            if (attributes.getBlock(c, norm) != null) return c;
-        }
+
         return null;
     }
 
@@ -914,8 +828,7 @@ public class CharData {
         ds.setSeverity(sev);
         ds.setAffinity("None");
         ds.setDescription("Class level scaling");
-        attrs.removeStatus(blockType, key, statusName);
-        attrs.addStatus(blockType, key, ds);
+
     }
 
     /** Applies a 1-based class scaling tier to the given block/key. */
@@ -972,8 +885,7 @@ public class CharData {
         refSizeBonus.setSeverity(refSev);
         refSizeBonus.setAffinity("None");
         refSizeBonus.setDescription("Size-based Reflex modifier");
-        attributes.removeStatus("defense", "REF", "Size Modifier");
-        attributes.addStatus("defense", "REF", refSizeBonus);
+
 
         DataStatus fortSizeBonus = new DataStatus();
         fortSizeBonus.setName("Size Modifier");
@@ -982,8 +894,7 @@ public class CharData {
         fortSizeBonus.setSeverity(fortSev);
         fortSizeBonus.setAffinity("None");
         fortSizeBonus.setDescription("Size-based Fortitude modifier");
-        attributes.removeStatus("defense", "FORT", "Size Modifier");
-        attributes.addStatus("defense", "FORT", fortSizeBonus);
+
 
         DataStatus dodgeSizeBonus = new DataStatus();
         dodgeSizeBonus.setName("Size Modifier");
@@ -992,8 +903,7 @@ public class CharData {
         dodgeSizeBonus.setSeverity(dodgeSev);
         dodgeSizeBonus.setAffinity("None");
         dodgeSizeBonus.setDescription("Size-based Dodge modifier");
-        attributes.removeStatus("defense", "DODGE", "Size Modifier");
-        attributes.addStatus("defense", "DODGE", dodgeSizeBonus);
+
     }
 
     /** Writes each current specialty name to the terminal for update-time inspection. */
@@ -1054,3 +964,4 @@ public class CharData {
         };
     }
 }
+

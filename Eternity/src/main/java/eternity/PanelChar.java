@@ -12,8 +12,8 @@ public class PanelChar extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private final DataQuery dataQuery;
-    private CharData character;
+    private final StoreRuleManager dataQuery;
+    private StoreCharData character;
     private final FrameSheet sheetFrame;
 
     private final JTabbedPane tabbedPane;
@@ -44,7 +44,7 @@ public class PanelChar extends JPanel {
     // Constructor
     // ---------------------------------------------------------
 
-    public PanelChar(DataQuery dataQuery, FrameSheet sheetFrame) {
+    public PanelChar(StoreRuleManager dataQuery, FrameSheet sheetFrame) {
         this.dataQuery = dataQuery;
         this.sheetFrame = sheetFrame;
         setLayout(null);
@@ -153,7 +153,7 @@ public class PanelChar extends JPanel {
         refreshSelectedTabIfNeeded();
     }
 
-    public void updateCharacter(CharData character) {
+    public void updateCharacter(StoreCharData character) {
         this.character = character;
         updateData();
     }
@@ -210,6 +210,7 @@ public class PanelChar extends JPanel {
         dirtyTabs[tabIndex] = false;
     }
 }
+
 
 
 

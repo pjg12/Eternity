@@ -7,8 +7,9 @@ package eternity;
 public class FrameNextAttack extends FrameAttack {
 	private static final long serialVersionUID = 1L;
 
-	FrameNextAttack(FrameSheet sheetFrame, FrameCombat combatFrame, CharData character, DataAction action) {
+	FrameNextAttack(FrameSheet sheetFrame, FrameCombat combatFrame, StoreCharData character, DataAction action) {
 		super(sheetFrame, combatFrame, character, action);
 		setTitle("Next Attack Helper");
 	}
 }
+

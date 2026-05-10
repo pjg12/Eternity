@@ -1,29 +1,19 @@
 package eternity;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DataQuery {
-    private static final class StoreDataHolder {
-        private static final StoreData INSTANCE = new StoreData();
-    }
+public class StoreRuleManager {
+    private static final StoreRuleData RULE_DATA = new StoreRuleData();
+    private static final QueryIndex QUERY_INDEX = new QueryIndex(RULE_DATA);
 
-    private static final class QueryIndexHolder {
-        private static final QueryIndex INSTANCE = new QueryIndex(StoreDataHolder.INSTANCE);
-    }
 
-    private final StoreData store;
-    private final QueryIndex index;
-
-    public DataQuery() {
-        this.store = StoreDataHolder.INSTANCE;
-        this.index = QueryIndexHolder.INSTANCE;
-    }
+    public StoreRuleManager() { /* No Code Needed */ }
 
     // ---------------------------------------------------------
     // Utility helpers
@@ -42,11 +32,11 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataColor getColorByTitle(String name) {
-        return index.colorsByTitle.get(normalizeKey(name));
+        return QUERY_INDEX.colorsByTitle.get(normalizeKey(name));
     }
 
     public List<DataColor> searchColorsByTitle(String namePart) {
-        return searchByEntries(index.colorTitleSearch, normalizeKey(namePart), index.colorSearchCache);
+        return searchByEntries(QUERY_INDEX.colorTitleSearch, normalizeKey(namePart), QUERY_INDEX.colorSearchCache);
     }
 
     // ---------------------------------------------------------
@@ -54,7 +44,7 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataLevel getLevel(int level) {
-        return index.levelsByLevel.get(level);
+        return QUERY_INDEX.levelsByLevel.get(level);
     }
 
     // ---------------------------------------------------------
@@ -62,19 +52,19 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataRace getRaceById(int id) {
-        return index.racesById.get(id);
+        return QUERY_INDEX.racesById.get(id);
     }
 
     public DataRace getRaceByName(String name) {
-        return index.racesByName.get(normalizeKey(name));
+        return QUERY_INDEX.racesByName.get(normalizeKey(name));
     }
 
     public List<DataRace> getRaceData() {
-        return store.getRaceData();
+        return RULE_DATA.getRaceData();
     }
 
     public List<DataRace> searchRaceByName(String namePart) {
-        return searchByEntries(index.raceNameSearch, normalizeKey(namePart), index.raceSearchCache);
+        return searchByEntries(QUERY_INDEX.raceNameSearch, normalizeKey(namePart), QUERY_INDEX.raceSearchCache);
     }
 
     // ---------------------------------------------------------
@@ -82,15 +72,15 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataClass getClassById(int id) {
-        return index.classesById.get(id);
+        return QUERY_INDEX.classesById.get(id);
     }
 
     public DataClass getClassByName(String name) {
-        return index.classesByName.get(normalizeKey(name));
+        return QUERY_INDEX.classesByName.get(normalizeKey(name));
     }
 
     public List<DataClass> searchClassByName(String namePart) {
-        return searchByEntries(index.classNameSearch, normalizeKey(namePart), index.classSearchCache);
+        return searchByEntries(QUERY_INDEX.classNameSearch, normalizeKey(namePart), QUERY_INDEX.classSearchCache);
     }
 
     // ---------------------------------------------------------
@@ -98,15 +88,15 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataDeity getDeityById(int id) {
-        return index.deitiesById.get(id);
+        return QUERY_INDEX.deitiesById.get(id);
     }
 
     public DataDeity getDeityByName(String name) {
-        return index.deitiesByName.get(normalizeKey(name));
+        return QUERY_INDEX.deitiesByName.get(normalizeKey(name));
     }
 
     public List<DataDeity> searchDeities(String namePart) {
-        return searchByEntries(index.deityNameSearch, normalizeKey(namePart), index.deitySearchCache);
+        return searchByEntries(QUERY_INDEX.deityNameSearch, normalizeKey(namePart), QUERY_INDEX.deitySearchCache);
     }
 
     // ---------------------------------------------------------
@@ -114,20 +104,20 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataSkill getSkillById(int id) {
-        return index.skillsById.get(id);
+        return QUERY_INDEX.skillsById.get(id);
     }
 
     public DataSkill getSkillByName(String name) {
-        return index.skillsByName.get(normalizeKey(name));
+        return QUERY_INDEX.skillsByName.get(normalizeKey(name));
     }
 
     public List<DataSkill> searchSkills(String namePart) {
-        return searchByEntries(index.skillNameSearch, normalizeKey(namePart), index.skillSearchCache);
+        return searchByEntries(QUERY_INDEX.skillNameSearch, normalizeKey(namePart), QUERY_INDEX.skillSearchCache);
     }
 
     public List<DataSkill> getSkillsByAttribute(String attribute) {
         if (attribute == null || attribute.equals("***")) return List.of();
-        List<DataSkill> skills = index.skillsByAttribute.get(normalizeKey(attribute));
+        List<DataSkill> skills = QUERY_INDEX.skillsByAttribute.get(normalizeKey(attribute));
         return skills != null ? skills : List.of();
     }
 
@@ -136,24 +126,24 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataSpecialty getSpecialtyById(int id) {
-        return index.specialtiesById.get(id);
+        return QUERY_INDEX.specialtiesById.get(id);
     }
 
     public List<DataSpecialty> getAllSpecialty() {
-        return store.getSpecialtyData();
+        return RULE_DATA.getSpecialtyData();
     }
 
     public List<DataSpecialty> getSpecialtiesByType(String type) {
-        if (type == null || type.equals("***")) return store.getSpecialtyData();
-        return index.specialtiesByType.getOrDefault(normalizeKey(type), List.of());
+        if (type == null || type.equals("***")) return RULE_DATA.getSpecialtyData();
+        return QUERY_INDEX.specialtiesByType.getOrDefault(normalizeKey(type), List.of());
     }
 
     public List<DataSpecialty> searchSpecialties(String namePart) {
-        return searchByEntries(index.specialtyNameSearch, normalizeKey(namePart), index.specialtySearchCache);
+        return searchByEntries(QUERY_INDEX.specialtyNameSearch, normalizeKey(namePart), QUERY_INDEX.specialtySearchCache);
     }
 
     public DataSpecialty getSpecialtyByName(String name) {
-        return index.specialtiesByName.get(normalizeKey(name));
+        return QUERY_INDEX.specialtiesByName.get(normalizeKey(name));
     }
 
     // ---------------------------------------------------------
@@ -161,11 +151,11 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public List<DataTechPerm> getTechPermData() {
-        return store.getTechPermData();
+        return RULE_DATA.getTechPermData();
     }
 
     public DataTechPerm getTechPermById(int id) {
-        return index.techPermsById.get(id);
+        return QUERY_INDEX.techPermsById.get(id);
     }
 
     // ---------------------------------------------------------
@@ -173,20 +163,20 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataItemEquipment getItemByDid(int did) {
-        return index.itemsByDid.get(did);
+        return QUERY_INDEX.itemsByDid.get(did);
     }
 
     public List<DataItemEquipment> getItemEquipmentData() {
-        return store.getItemEquipmentData();
+        return RULE_DATA.getItemEquipmentData();
     }
 
     public List<DataItemEquipment> searchItems(String namePart) {
-        return searchByEntries(index.itemNameSearch, normalizeKey(namePart), index.itemSearchCache);
+        return searchByEntries(QUERY_INDEX.itemNameSearch, normalizeKey(namePart), QUERY_INDEX.itemSearchCache);
     }
 
     public DataItemEquipment getItemByName(String name) {
         if (name == null) return null;
-        return index.itemsByName.get(normalizeKey(name));
+        return QUERY_INDEX.itemsByName.get(normalizeKey(name));
     }
 
     // ---------------------------------------------------------
@@ -194,15 +184,15 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public DataTraining getTrainingById(int id) {
-        return index.trainingById.get(id);
+        return QUERY_INDEX.trainingById.get(id);
     }
 
     public List<DataTraining> getTrainingData() {
-        return store.getTrainingData();
+        return RULE_DATA.getTrainingData();
     }
 
     public List<DataTraining> searchTraining(String namePart) {
-        return searchByEntries(index.trainingNameSearch, normalizeKey(namePart), index.trainingSearchCache);
+        return searchByEntries(QUERY_INDEX.trainingNameSearch, normalizeKey(namePart), QUERY_INDEX.trainingSearchCache);
     }
 
     // ---------------------------------------------------------
@@ -210,24 +200,24 @@ public class DataQuery {
     // ---------------------------------------------------------
 
     public List<DataAction> getActionData() {
-        return store.getActionData();
+        return RULE_DATA.getActionData();
     }
 
     public DataAction getActionById(int id) {
-        return index.actionsById.get(id);
+        return QUERY_INDEX.actionsById.get(id);
     }
 
     public DataAction getActionByName(String name) {
-        return index.actionsByName.get(normalizeKey(name));
+        return QUERY_INDEX.actionsByName.get(normalizeKey(name));
     }
 
     public List<DataAction> searchActions(String namePart) {
-        return searchByEntries(index.actionNameSearch, normalizeKey(namePart), index.actionSearchCache);
+        return searchByEntries(QUERY_INDEX.actionNameSearch, normalizeKey(namePart), QUERY_INDEX.actionSearchCache);
     }
 
     public List<DataAction> getActionsBySource(String source) {
-        if (source == null || source.equals("***")) return store.getActionData();
-        return index.actionsBySource.getOrDefault(normalizeKey(source), List.of());
+        if (source == null || source.equals("***")) return RULE_DATA.getActionData();
+        return QUERY_INDEX.actionsBySource.getOrDefault(normalizeKey(source), List.of());
     }
 
     private static <T> List<T> searchByEntries(List<SearchEntry<T>> entries, String normalizedSearch, Map<String, List<T>> cache) {
@@ -290,7 +280,7 @@ public class DataQuery {
         private final Map<String, List<DataTraining>> trainingSearchCache;
         private final Map<String, List<DataAction>> actionSearchCache;
 
-        private QueryIndex(StoreData store) {
+        private QueryIndex(StoreRuleData store) {
             List<DataColor> colorData = store.getColorData();
             List<DataLevel> levelData = store.getLevelData();
             List<DataRace> raceData = store.getRaceData();

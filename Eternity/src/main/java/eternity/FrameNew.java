@@ -27,8 +27,8 @@ import javax.swing.border.EmptyBorder;
  * Character Creation Wizard
  */
 public class FrameNew extends JFrame {
-    private final FrameSheet sheetFrame;
-    private final CharData character;
+    private final FrameSheet frameSheet;                // Reference to parent FrameSheet
+    private final StoreCharData character;
 
     private static final int ICON_SIZE = 100;
     private static final int STEP_COUNT = 6;
@@ -67,7 +67,7 @@ public class FrameNew extends JFrame {
     private static final String ARMOR_TYPE_HEAVY = "Heavy";
     private static final String ARMOR_TYPE_EXO = "Exo";
 
-    // Training constants from CharDataManager
+    // Training constants from StoreMetaManager
     private static final int[][] TRAINING_RANGES = {{1,12}, {21,24}, {31,49}, {51,55}, {61,65}};
     private static final int[] TRAINING_SINGLES = {101, 141, 181};
 
@@ -84,7 +84,7 @@ public class FrameNew extends JFrame {
     private void initializeBaseTraining() {
         if (character == null || character.getTraining() == null) return;
 
-        DataQuery dq = CharDataManager.getDataQuery();
+        StoreRuleManager dq = StoreMetaManager.getDataQuery();
         if (dq == null) return;
 
         CharTraining training = character.getTraining();
@@ -106,11 +106,11 @@ public class FrameNew extends JFrame {
     /**
      * Adds training technique if not already present, with special handling for certain ranges.
      * @param training The character's training component
-     * @param dq The DataQuery instance
+     * @param dq The StoreRuleManager instance
      * @param trainingId The training technique ID
      * @param rangeIndex The range index for special handling (-1 for singles)
      */
-    private void addTrainingIfMissing(CharTraining training, DataQuery dq, int trainingId, int rangeIndex) {
+    private void addTrainingIfMissing(CharTraining training, StoreRuleManager dq, int trainingId, int rangeIndex) {
         if (training.getTrainingById(trainingId) != null) return;
 
         DataTraining tech = dq.getTrainingById(trainingId);
@@ -160,7 +160,7 @@ public class FrameNew extends JFrame {
     // --------------------------------------------------------------------------
     // Constructor
     // --------------------------------------------------------------------------
-    public FrameNew(FrameSheet sheetFrame, CharData character) {
+    public FrameNew(FrameSheet sheetFrame, StoreCharData character) {
         this(sheetFrame, character, -1);
     }
 
@@ -169,9 +169,9 @@ public class FrameNew extends JFrame {
      * character's birthday is randomized to a date that makes them that many
      * years old in the current campaign year.
      */
-    public FrameNew(FrameSheet sheetFrame, CharData character, int age) {
+    public FrameNew(FrameSheet sheetFrame, StoreCharData character, int age) {
         super(TITLE);
-        this.sheetFrame = sheetFrame;
+        this.frameSheet = sheetFrame;
         this.character = character;
         this.stepDone = new boolean[STEP_COUNT];
         this.stepVisible = new boolean[STEP_COUNT];
@@ -367,7 +367,7 @@ public class FrameNew extends JFrame {
     private void onFinalizePressed() {
         if (finalFrame == null) {
             finalFrame = new FrameNewFinal(
-                sheetFrame,
+                parent,
                 character,
                 this
             );
@@ -381,8 +381,8 @@ public class FrameNew extends JFrame {
             // --- CLASS SELECTION WINDOW ---
             FrameNewClass classFrame =
                     new FrameNewClass(
-                        sheetFrame,
-                        CharDataManager.getDataQuery(),   // StoreData access
+                        parent,
+                        StoreMetaManager.getDataQuery(),   // StoreRuleData access
                         character,               // active character
                         this,                       // parent FrameNew
                         gmCheck != null && gmCheck.isSelected()
@@ -398,8 +398,8 @@ public class FrameNew extends JFrame {
             // --- RACE SELECTION WINDOW ---
             FrameNewRace raceFrame =
                     new FrameNewRace(
-                        sheetFrame,
-                        CharDataManager.getDataQuery(),   // StoreData access
+                        parent,
+                        StoreMetaManager.getDataQuery(),   // StoreRuleData access
                         character,               // active character
                         this,                       // parent FrameNew
                         gmCheck != null && gmCheck.isSelected()
@@ -411,7 +411,7 @@ public class FrameNew extends JFrame {
         case 2 -> {
             FrameNewAttribute attFrame =
                     new FrameNewAttribute(
-                        sheetFrame,
+                        parent,
                         character,
                         this,
                         gmCheck != null && gmCheck.isSelected()
@@ -422,8 +422,8 @@ public class FrameNew extends JFrame {
         case 3 -> {
             FrameNewSkills skillsFrame =
                     new FrameNewSkills(
-                        sheetFrame,
-                        CharDataManager.getDataQuery(),
+                        parent,
+                        StoreMetaManager.getDataQuery(),
                         character,
                         this,
                         gmCheck != null && gmCheck.isSelected()
@@ -434,8 +434,8 @@ public class FrameNew extends JFrame {
         case 4 -> {
             FrameNewSpecials specialsFrame =
                     new FrameNewSpecials(
-                        sheetFrame,
-                        CharDataManager.getDataQuery(),
+                        parent,
+                        StoreMetaManager.getDataQuery(),
                         character,
                         this,
                         gmCheck != null && gmCheck.isSelected()
@@ -446,8 +446,8 @@ public class FrameNew extends JFrame {
         case 5 -> {
             FrameNewAura auraFrame =
                     new FrameNewAura(
-                        sheetFrame,
-                        CharDataManager.getDataQuery(),
+                        parent,
+                        StoreMetaManager.getDataQuery(),
                         character,
                         this,
                         gmCheck != null && gmCheck.isSelected()
@@ -530,22 +530,22 @@ public class FrameNew extends JFrame {
     public void finalConfirmed()
     {
         saveCharacterToDisk();
-        if (sheetFrame != null && character != null) {
-            sheetFrame.loadCharacter(character);
+        if (parent != null && character != null) {
+            parent.loadCharacter(character);
         }
         dispose();
     }
 
     private void saveCharacterToDisk() {
         try {
-            ArrayList<StoreChar> stores = CharDataManager.loadCharStore();
+            ArrayList<StoreMetaChar> stores = StoreMetaManager.loadCharStore();
             CharIdentity id = character.getIdentity();
             boolean isNewCharacter = false;
 
             int idx = id.getIndex();
             if (idx <= 0) {
                 character.initializeNewCharacter();
-                idx = CharDataManager.getNextFreeIndex(stores);
+                idx = StoreMetaManager.getNextFreeIndex(stores);
                 id.setIndex(idx);
                 isNewCharacter = true;
             }
@@ -573,7 +573,7 @@ public class FrameNew extends JFrame {
             // Starter armor: grant tier 0 chest and legs that match the class armor type
             giveStarterArmor(id.getCharClass());
 
-            StoreChar updated = new StoreChar(
+            StoreMetaChar updated = new StoreMetaChar(
                 idx,
                 id.getName(),
                 id.getCampaign(),
@@ -583,15 +583,15 @@ public class FrameNew extends JFrame {
                 new Timestamp(System.currentTimeMillis())
             );
 
-            // Optimized StoreChar replacement using helper method
+            // Optimized StoreMetaChar replacement using helper method
             replaceOrAddCharStore(stores, updated);
 
-            // Persist character file first so StoreChar normalization can resolve snapshot metadata.
-            boolean saved = CharDataManager.saveCharacter(character);
+            // Persist character file first so StoreMetaChar normalization can resolve snapshot metadata.
+            boolean saved = StoreMetaManager.saveCharacter(character);
             if (saved) {
-                CharDataManager.saveCharStore(stores);
+                StoreMetaManager.saveCharStore(stores);
             } else {
-                System.err.println("Failed to persist character file; skipping StoreChar update.");
+                System.err.println("Failed to persist character file; skipping StoreMetaChar update.");
             }
         } catch (RuntimeException e) {
             System.err.println("Failed to save character: " + e.getMessage());
@@ -601,24 +601,16 @@ public class FrameNew extends JFrame {
     /**
      * Sets the DEF base severity to 10 for new characters.
      */
-    private static void setDefBaseSeverity(CharData character) {
-        CharAttributes attrs = character.getAttributes();
-        if (attrs != null) {
-            StatBlock[] defense = attrs.getDefense();
-            if (defense != null && defense.length > DEF_STAT_INDEX) {
-                var statuses = defense[DEF_STAT_INDEX].getStatus();
-                if (statuses != null && !statuses.isEmpty()) {
-                    statuses.get(0).setSeverity(10);
-                }
-            }
-        }
+    private static void setDefBaseSeverity(StoreCharData character) {
+        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "DEF", 10, "Permanent", -1));
     }
 
+
     /**
-     * Replaces existing StoreChar with matching index or adds new one if not found.
+     * Replaces existing StoreMetaChar with matching index or adds new one if not found.
      * More efficient than linear search for large store lists.
      */
-    private static void replaceOrAddCharStore(ArrayList<StoreChar> stores, StoreChar updated) {
+    private static void replaceOrAddCharStore(ArrayList<StoreMetaChar> stores, StoreMetaChar updated) {
         int idx = updated.getIndex();
         for (int i = 0; i < stores.size(); i++) {
             if (stores.get(i).getIndex() == idx) {
@@ -634,7 +626,7 @@ public class FrameNew extends JFrame {
         CharSpecials specials = character.getSpecials();
         if (specials == null) return;
 
-        DataQuery dq = CharDataManager.getDataQuery();
+        StoreRuleManager dq = StoreMetaManager.getDataQuery();
         if (dq == null) return;
 
         grantSpecialtyIfMissing(specials, dq.getSpecialtyByName("Level 1"));
@@ -672,7 +664,7 @@ public class FrameNew extends JFrame {
     private void giveStarterArmor(String className) {
         if (character == null || className == null) return;
        
-        DataQuery dq = CharDataManager.getDataQuery();
+        StoreRuleManager dq = StoreMetaManager.getDataQuery();
         if (dq == null) return;
 
         DataClass dc = dq.getClassByName(className);
@@ -686,7 +678,7 @@ public class FrameNew extends JFrame {
         addStarterPieces(inv, dq, armorType);
     }
 
-    private void addStarterPieces(CharInventory inv, DataQuery dq, String armorType) {
+    private void addStarterPieces(CharInventory inv, StoreRuleManager dq, String armorType) {
         int id = 0;
         if (null != armorType) switch (armorType) {
             case ARMOR_TYPE_LIGHT:
@@ -764,3 +756,4 @@ public class FrameNew extends JFrame {
         return iconsLoaded ? iconDone[stepIndex] : null;
     }
 }
+

@@ -1,3 +1,5 @@
+// CHECKED
+
 package eternity;
 
 import java.awt.Component;
@@ -17,17 +19,16 @@ import javax.swing.SwingConstants;
 
 /**
  * Welcome screen for the Eternity TTRPG Helper.
- * Standalone version with modern UI layout and no FrameHelper dependency.
  */
 public class FrameFirst extends JFrame {
     private static final long serialVersionUID = 1L;
+    
+    // UI Constants
     private static final int FRAME_WIDTH = 550;
     private static final int FRAME_HEIGHT = 220;
     private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
     private static final Font SUBHEADER_FONT = new Font(null, Font.PLAIN, 15);
     private static final Font STATUS_FONT = new Font(null, Font.PLAIN, 13);
-    
-    // UI Dimensions
     private static final int PADDING_TOP_BOTTOM = 25;
     private static final int PADDING_LEFT_RIGHT = 20;
     private static final int SPACING_HEADER = 10;
@@ -48,11 +49,12 @@ public class FrameFirst extends JFrame {
     private static final String BUTTON_LOAD = "Load";
     private static final String MSG_LOADING_BLOCKER = "Please wait until the app finishes loading.";
     private static final String DIALOG_LOADING = "Loading";
-    private static final String ERROR_TITLE = "Startup Error";
 
+    // References
     private FrameSheet sheetFrame;
-    private ArrayList<StoreChar> charStore;
+    private ArrayList<StoreMetaChar> charStore;
 
+    // UI Components
     private JLabel headerL;
     private JLabel subHeaderL;
     private JLabel statusL;
@@ -69,14 +71,14 @@ public class FrameFirst extends JFrame {
         buildUI();
     }
 
-    public void attachStartupStore(ArrayList<StoreChar> store) {
+    public void attachStartupStore(ArrayList<StoreMetaChar> store) {
         this.charStore = store;
         setLoadingState(false);
     }
 
     private void ensureSheetFrame() {
         if (sheetFrame != null) return;
-        sheetFrame = new FrameSheet(new DataQuery(), charStore);
+        sheetFrame = new FrameSheet(charStore);
     }
 
     public void showLoadError(String message) {
@@ -96,31 +98,31 @@ public class FrameFirst extends JFrame {
         loadBtn.setEnabled(!loading);
     }
 
-    /**
-     * Builds a modern, centered UI layout (BoxLayout-based).
-     */
     private void buildUI() {
         JPanel root = new JPanel();
         root.setLayout(new BoxLayout(root, BoxLayout.Y_AXIS));
         root.setBorder(BorderFactory.createEmptyBorder(PADDING_TOP_BOTTOM, PADDING_LEFT_RIGHT, PADDING_TOP_BOTTOM, PADDING_LEFT_RIGHT));
 
         // ------------------------
-        // Header
+        // Elements
         // ------------------------
+        // Header
         headerL = new JLabel(HEADER_TEXT);
         headerL.setFont(HEADER_FONT);
         headerL.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Subheader
         subHeaderL = new JLabel(SUBHEADER_TEXT);
         subHeaderL.setFont(SUBHEADER_FONT);
         subHeaderL.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // spacing
+        // Spacer
         root.add(headerL);
         root.add(Box.createVerticalStrut(SPACING_HEADER));
         root.add(subHeaderL);
         root.add(Box.createVerticalStrut(SPACING_STATUS));
 
+        // Status
         statusL = new JLabel(STATUS_LOADING, SwingConstants.CENTER);
         statusL.setFont(STATUS_FONT);
         statusL.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -150,10 +152,10 @@ public class FrameFirst extends JFrame {
         root.add(buttonPanel);
         root.add(Box.createVerticalGlue());
 
-        // Add root UI to frame
+        // Add root to frame
         add(root);
 
-        // Listeners and initial state
+        // Listeners
         newBtn.addActionListener(e -> onNewPressed());
         loadBtn.addActionListener(e -> onLoadPressed());
         setLoadingState(true);

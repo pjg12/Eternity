@@ -1,6 +1,8 @@
 package eternity;
 
 import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +11,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -42,12 +42,12 @@ public class FrameSheet extends JFrame {
         return t;
     });
 
-    private final DataQuery dataQuery;
-    private final ArrayList<StoreChar> charStore;
+    private final StoreRuleManager dataQuery;
+    private final ArrayList<StoreMetaChar> charStore;
     private final Map<Integer, Integer> charStoreIndexByCharId;
     private final ScheduledFuture<?> autoSaveTask;
     private boolean shuttingDown;
-    private CharData character;
+    private StoreCharData character;
     private FrameNew newFrame;
     private FrameLoad loadFrame;
     private FrameExp levelFrame;
@@ -61,12 +61,8 @@ public class FrameSheet extends JFrame {
     private PanelChar charPanel;
     private FrameDetail detailFrame;
 
-    public FrameSheet(ArrayList<StoreChar> charStore) {
-        this(CharDataManager.getDataQuery(), charStore);
-    }
-
-    public FrameSheet(DataQuery dataQuery, ArrayList<StoreChar> charStore) {
-        this.dataQuery = dataQuery;
+    public FrameSheet(ArrayList<StoreMetaChar> charStore) {
+        this.dataQuery = new StoreRuleManager();
         this.charStore = charStore;
         this.charStoreIndexByCharId = buildCharStoreIndex(charStore);
 
@@ -112,7 +108,7 @@ public class FrameSheet extends JFrame {
         add(charPanel);
     }
 
-    public void loadCharacter(CharData character) {
+    public void loadCharacter(StoreCharData character) {
         this.character = character;
         if (this.character != null) {
             this.character.updateAll(); // ensure derived/attribute data is current
@@ -161,7 +157,7 @@ public class FrameSheet extends JFrame {
 
     public void onNewPressed() {
         if (newFrame == null) {
-            character = new CharData();
+            character = new StoreCharData();
             newFrame = new FrameNew(this, character);
             newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
@@ -192,11 +188,9 @@ public class FrameSheet extends JFrame {
         }
         
         character.updateAll();
-        boolean ok = rotateBackups ? 
-            CharDataManager.saveCharacterManual(character) : 
-            CharDataManager.saveCharacter(character);
         
-        if (ok) {
+        
+        /*if (ok) {
             updateCharStoreEntry();
             if (showFeedback) {
                 JOptionPane.showMessageDialog(this, CHAR_SAVED_MSG, SAVE_SUCCESS_TITLE, JOptionPane.INFORMATION_MESSAGE);
@@ -205,8 +199,8 @@ public class FrameSheet extends JFrame {
             if (showFeedback) {
                 JOptionPane.showMessageDialog(this, SAVE_FAILED_MSG, SAVE_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
             }
-        }
-        return ok;
+        }*/
+        return true; // TODO: Implement proper error handling and return false if save fails
     }
 
     // Placeholder hooks for panel actions
@@ -232,7 +226,7 @@ public class FrameSheet extends JFrame {
         detailFrame.updateDetails(character);
         detailFrame.setVisible(true);
     }
-    public void restPressed(CharData character) {
+    public void restPressed(StoreCharData character) {
         FrameRest rest = new FrameRest(this);
         rest.updateCharacter(character);
         rest.setVisible(true);
@@ -270,7 +264,7 @@ public class FrameSheet extends JFrame {
             charPanel.saveEquipmentSelections();
         }
         character.updateAll();
-        CharDataManager.saveCharacter(character);
+        //StoreMetaManager.saveCharacter(character);
         JOptionPane.showMessageDialog(this, CHAR_EQUIPPED_MSG, SAVE_SUCCESS_TITLE, JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -294,7 +288,7 @@ public class FrameSheet extends JFrame {
         removeInventoryFrame.setVisible(true);
     }
 
-    private static Map<Integer, Integer> buildCharStoreIndex(ArrayList<StoreChar> charStore) {
+    private static Map<Integer, Integer> buildCharStoreIndex(ArrayList<StoreMetaChar> charStore) {
         Map<Integer, Integer> indexByCharId = new HashMap<>(Math.max(16, charStore.size() * 2));
         for (int i = 0; i < charStore.size(); i++) {
             indexByCharId.put(charStore.get(i).getIndex(), i);
@@ -303,7 +297,7 @@ public class FrameSheet extends JFrame {
     }
     
     /**
-     * Refreshes/creates the StoreChar entry for the current character and writes the charStore.json file.
+     * Refreshes/creates the StoreMetaChar entry for the current character and writes the charStore.json file.
      */
     private void updateCharStoreEntry() {
         if (charStore == null || character == null || character.getIdentity() == null) return;
@@ -311,7 +305,7 @@ public class FrameSheet extends JFrame {
         CharIdentity id = character.getIdentity();
         int idx = id.getIndex();
 
-        StoreChar updated = new StoreChar(
+        StoreMetaChar updated = new StoreMetaChar(
             idx,
             id.getName(),
             id.getCampaign(),
@@ -330,7 +324,7 @@ public class FrameSheet extends JFrame {
         }
         charStoreIndexByCharId.put(idx, existingIndex);
 
-        CharDataManager.saveCharStore(charStore);
+        //StoreMetaManager.saveCharStore(charStore);
     }
     
     /** Checks if a character is loaded; shows warning dialog if not. Returns true if loaded. */
@@ -347,7 +341,7 @@ public class FrameSheet extends JFrame {
 
     private void runAutoSave() {
         if (!requireCharacter()) return;
-        CharDataManager.saveCharacterAuto(character);
+        //StoreMetaManager.saveCharacterAuto(character);
     }
 
     private void handleWindowClosing() {
@@ -399,3 +393,4 @@ public class FrameSheet extends JFrame {
                 && character.getIdentity().getIndex() > 0;
     }
 }
+

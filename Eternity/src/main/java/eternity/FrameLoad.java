@@ -25,15 +25,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 /**
- * Simple character loader frame.
- *
- * Lists saved characters (newest first) and lets the user either load the
- * selected character or start a new one.
+ * Lists saved characters (newest first) for loading.
+ * Includes escape for new character.
  */
 public class FrameLoad extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    // Frame dimensions
+    // UI Constants
     private static final int FRAME_WIDTH = 480;
     private static final int FRAME_HEIGHT = 360;
     private static final int LIST_WIDTH = 440;
@@ -64,8 +62,8 @@ public class FrameLoad extends JFrame {
 
     // Date format
     private static final String DATE_FORMAT = "MM/dd/yyyy";
-    private static final Comparator<StoreChar> UPDATED_DESC =
-            Comparator.comparing(StoreChar::getUpdated, Comparator.nullsLast(Comparator.naturalOrder())).reversed();
+    private static final Comparator<StoreMetaChar> UPDATED_DESC =
+            Comparator.comparing(StoreMetaChar::getUpdated, Comparator.nullsLast(Comparator.naturalOrder())).reversed();
 
     // Paths
     private static final String CHARACTER_DIR = "Characters";
@@ -76,18 +74,21 @@ public class FrameLoad extends JFrame {
         public CharIdentity identity;
     }
 
+    // References
     private final FrameSheet sheetFrame;
-    private final ArrayList<StoreChar> charStore;
+    private final ArrayList<StoreMetaChar> charStore;
+
 
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JList<String> list = new JList<>(listModel);
-    private final ArrayList<StoreChar> displayStore = new ArrayList<>();
-    private final Map<Integer, StoreChar> charStoreByIndex = new HashMap<>();
+    private final ArrayList<StoreMetaChar> displayStore = new ArrayList<>();
+    private final Map<Integer, StoreMetaChar> charStoreByIndex = new HashMap<>();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-    public FrameLoad(FrameSheet sheetFrame, ArrayList<StoreChar> charStore) {
+    public FrameLoad(FrameSheet sheetFrame, ArrayList<StoreMetaChar> charStore) {
         this.sheetFrame = sheetFrame;
         this.charStore = charStore;
+
         rebuildCharStoreIndex();
         setTitle(TITLE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -97,6 +98,13 @@ public class FrameLoad extends JFrame {
 
         buildUI();
         setVisible(true);
+    }
+
+    private void rebuildCharStoreIndex() {
+        charStoreByIndex.clear();
+        for (StoreMetaChar store : charStore) {
+            charStoreByIndex.put(store.getIndex(), store);
+        }
     }
 
     private void buildUI() {
@@ -132,8 +140,8 @@ public class FrameLoad extends JFrame {
                 JOptionPane.showMessageDialog(this, NO_SELECTION_MSG, NO_SELECTION_TITLE, JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            StoreChar selected = displayStore.get(idx);
-            CharData character = CharDataManager.loadCharacter(selected.getIndex());
+            StoreMetaChar selected = displayStore.get(idx);
+            StoreCharData character = StoreMetaManager.loadCharacter(selected.getIndex());
             if (character != null) {
                 sheetFrame.loadCharacter(character);
                 dispose();
@@ -157,7 +165,7 @@ public class FrameLoad extends JFrame {
         displayStore.addAll(charStore);
         displayStore.sort(UPDATED_DESC);
 
-        for (StoreChar store : displayStore) {
+        for (StoreMetaChar store : displayStore) {
             String updated = store.getUpdated() != null ? dateFormat.format(store.getUpdated()) : "unknown";
             String entry = String.format("%s  -  %s  -  L%s  -  %s",
                     store.getName(), store.getCampaign(), store.getLevel(), updated);
@@ -168,12 +176,7 @@ public class FrameLoad extends JFrame {
         }
     }
 
-    private void rebuildCharStoreIndex() {
-        charStoreByIndex.clear();
-        for (StoreChar store : charStore) {
-            charStoreByIndex.put(store.getIndex(), store);
-        }
-    }
+    
 
     private int findDisplayIndex(int charIndex) {
         for (int i = 0; i < displayStore.size(); i++) {
@@ -187,7 +190,7 @@ public class FrameLoad extends JFrame {
         try {
             File f = new File(CHARACTER_DIR, idx + ".json");
             if (!f.exists()) return null;
-            CharMetadataOnly metadata = CharDataManager.mapper.readValue(f, CharMetadataOnly.class);
+            CharMetadataOnly metadata = StoreMetaManager.mapper.readValue(f, CharMetadataOnly.class);
             return metadata != null ? metadata.identity : null;
         } catch (IOException e) {
             return null;
@@ -248,7 +251,7 @@ public class FrameLoad extends JFrame {
             return;
         }
 
-        // Load only identity metadata instead of full CharData
+        // Load only identity metadata instead of full StoreCharData
         CharIdentity id = loadCharacterIdentity(idx);
         if (id == null) {
             JOptionPane.showMessageDialog(this,
@@ -258,7 +261,7 @@ public class FrameLoad extends JFrame {
             return;
         }
 
-        StoreChar updated = new StoreChar(
+        StoreMetaChar updated = new StoreMetaChar(
                 idx,
                 id.getName(),
                 id.getCampaign(),
@@ -268,7 +271,7 @@ public class FrameLoad extends JFrame {
                 id.getUpdated() != null ? id.getUpdated() : new java.sql.Timestamp(mainFile.lastModified())
         );
 
-        StoreChar existing = charStoreByIndex.get(idx);
+        StoreMetaChar existing = charStoreByIndex.get(idx);
         boolean replaced = existing != null;
         if (replaced) {
             int existingIndex = charStore.indexOf(existing);
@@ -280,7 +283,7 @@ public class FrameLoad extends JFrame {
         }
         charStoreByIndex.put(idx, updated);
 
-        CharDataManager.saveCharStore(charStore);
+        StoreMetaManager.saveCharStore(charStore);
         refreshListModel();
         int newIndex = findDisplayIndex(idx);
         if (newIndex >= 0) {
@@ -294,3 +297,4 @@ public class FrameLoad extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 }
+

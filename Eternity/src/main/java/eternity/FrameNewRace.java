@@ -23,8 +23,8 @@ import javax.swing.border.EmptyBorder;
 
 public class FrameNewRace extends JFrame {
     private static final long serialVersionUID = 1L;
-    private final DataQuery dataQuery;
-    private final CharData character;
+    private final StoreRuleManager dataQuery;
+    private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
@@ -52,7 +52,7 @@ public class FrameNewRace extends JFrame {
 
     private DataRace selectedRace;
 
-    public FrameNewRace(FrameSheet sheetFrame, DataQuery dataQuery, CharData character, FrameNew parent, boolean gmMode) {
+    public FrameNewRace(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
         super("Select Race");
         this.dataQuery = dataQuery;
         this.character = character;
@@ -376,3 +376,4 @@ public class FrameNewRace extends JFrame {
     ) {}
 
 }
+

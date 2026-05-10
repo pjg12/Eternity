@@ -12,7 +12,7 @@ private javax.swing.JScrollPane notesScroll;
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
 	 */
-	PanelCharNotes (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharNotes (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 
 		saveButton = buildButton("Save Notes");
@@ -61,7 +61,7 @@ private javax.swing.JScrollPane notesScroll;
 	private void saveNotes() {
 		if (character != null && character.getIdentity() != null) {
 			character.getIdentity().setNotes(notesArea.getText());
-			CharDataManager.saveCharacter(character); // full character save
+			StoreMetaManager.saveCharacter(character); // full character save
 			if (sheetFrame != null) {
 				sheetFrame.refreshMainPanel();
 				sheetFrame.refreshImagePanel();

@@ -27,8 +27,8 @@ public class FrameDetail extends JFrame {
     private static final int RIGHT_FIELD_COLUMN_WIDTH = 3;
 
     private final FrameSheet sheetFrame;
-    private final DataQuery dataQuery;
-    private CharData character;
+    private final StoreRuleManager dataQuery;
+    private StoreCharData character;
 
     private final JTextField nameField = new JTextField(10);
     private final JTextField campaignField = new JTextField(10);
@@ -46,7 +46,7 @@ public class FrameDetail extends JFrame {
     private final JTextArea personalityArea = new JTextArea(4, 10);
     private String loadedClassName = null;
 
-    public FrameDetail(FrameSheet sheetFrame, DataQuery dataQuery) {
+    public FrameDetail(FrameSheet sheetFrame, StoreRuleManager dataQuery) {
         super("Character Details");
         this.sheetFrame = sheetFrame;
         this.dataQuery = dataQuery;
@@ -129,7 +129,7 @@ public class FrameDetail extends JFrame {
         add(component, gc);
     }
 
-    public void updateDetails(CharData character) {
+    public void updateDetails(StoreCharData character) {
         this.character = character;
         if (character == null || character.getIdentity() == null) return;
         var id = character.getIdentity();
@@ -180,7 +180,7 @@ public class FrameDetail extends JFrame {
         id.setPersonality(personalityArea.getText());
 
         if (sheetFrame != null) {
-            CharDataManager.saveCharacter(character);
+            StoreMetaManager.saveCharacter(character);
             sheetFrame.refreshMainPanel();
             sheetFrame.refreshImagePanel();
         }
@@ -222,3 +222,4 @@ public class FrameDetail extends JFrame {
         }
     }
 }
+

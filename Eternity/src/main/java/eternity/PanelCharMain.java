@@ -82,7 +82,7 @@ public class PanelCharMain extends PanelCharBase {
 	/*
 	 * 		DEFAULT CONSTRUCTOR
 	 */
-	PanelCharMain (DataQuery dataQuery, FrameSheet sheetFrame){
+	PanelCharMain (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(244, 222, 222));
 		
@@ -596,7 +596,7 @@ public class PanelCharMain extends PanelCharBase {
 	public void updateDetails() {
 		CharIdentity id = character.getIdentity();
 		if (id == null) return;
-		DataQuery dq = this.dataQuery;
+		StoreRuleManager dq = this.dataQuery;
 
 		// Ensure new timing fields are initialized to safe defaults
 		if (id.getTimeSinceLastLevel() == null) {
@@ -779,7 +779,7 @@ public class PanelCharMain extends PanelCharBase {
 	}
 
 	private String buildAttributeTooltip(String name, String key, DataClass resolvedClass) {
-		String tempString = "<html>" + name + ": " + character.getAttributes().getAttribute(key);
+		/*String tempString = "<html>" + name + ": " + character.getAttributes().getAttribute(key);
 		if (isPrimaryAttribute(key, resolvedClass)) tempString += " <b>(Primary Attribute)</b>";
 		if (isSecondaryAttribute(key, resolvedClass)) tempString += " <b>(Secondary Attribute)</b>";
 		tempString += "<br>-------(Base)-------<br>";
@@ -799,7 +799,8 @@ public class PanelCharMain extends PanelCharBase {
 				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
 			}
 		}
-		return tempString + "</html>";
+		return tempString + "</html>";*/
+		return "";
 	}
 
 	/*
@@ -816,13 +817,13 @@ public class PanelCharMain extends PanelCharBase {
 		JButton[] rollButtons = {strRoll, dexRoll, conRoll, focRoll, ctlRoll, capRoll, knowRoll, mechRoll, percRoll, intRoll, chaRoll, subRoll};
 
 		for (int i = 0; i < keys.length; i++) {
-			int val = attrs.getAttribute(keys[i]);
+			/*int val = attrs.getAttribute(keys[i]);
 			valFields[i].setValue(val);
 
 			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i], resolvedClass);
 			attLabels[i].setToolTipText(tip);
 			valFields[i].setToolTipText(tip);
-			rollButtons[i].setToolTipText("/roll d20 + " + fmt(val));
+			rollButtons[i].setToolTipText("/roll d20 + " + fmt(val));*/
 		}
 	}  /*--------------
 		END UPDATEATTRIBUTES
@@ -836,7 +837,7 @@ public class PanelCharMain extends PanelCharBase {
 		if (attrs == null) return;
 
 		// Defense values
-		int def   = attrs.getDefense("DEF");
+		/*int def   = attrs.getDefense("DEF");
 		int armor = attrs.getDefense("ARMOR") + def;
 		int dodge = attrs.getDefense("DODGE") + def;
 		int fort  = attrs.getDefense("FORT");
@@ -1007,9 +1008,9 @@ public class PanelCharMain extends PanelCharBase {
 			}
 		}
 		dodgeStatL.setToolTipText(tempString + "</html>");
-		charDodge.setToolTipText(dodgeStatL.getToolTipText());
+		charDodge.setToolTipText(dodgeStatL.getToolTipText());*/
 
-
+/*
 		// Combat values
 		int atk   = attrs.getCombat("ATK");
 		int dc    = attrs.getCombat("APP");
@@ -1254,7 +1255,7 @@ public class PanelCharMain extends PanelCharBase {
 		critRoll.setToolTipText(tempString + "</html>");
 
 		//***************************************** */
-		tempString = character.getIdentity().getCharSubclass();
+		/*tempString = character.getIdentity().getCharSubclass();
 		DataClass charClass = dataQuery != null ? dataQuery.getClassByName(tempString) : null;
 		if (charClass == null && dataQuery != null) {
 			// Fallback to base class if subclass lookup failed
@@ -1487,7 +1488,7 @@ public class PanelCharMain extends PanelCharBase {
 			}
 		}
 		bhealRoll.setToolTipText(tempString + "</html>");
-
+*/
 	}  /*--------------
 		END UPDATESTATISTICS
 		--------------*/
@@ -1505,9 +1506,9 @@ public class PanelCharMain extends PanelCharBase {
 	private String buildResistTooltip(CharAttributes attrs) {
 		if (attrs == null) return "Resists: unknown";
 		StringBuilder sb = new StringBuilder("<html>Resists:<br>");
-		for (String key : RESIST_KEYS) {
+		/*for (String key : RESIST_KEYS) {
 			sb.append(key).append(": ").append(attrs.getResist(key)).append("<br>");
-		}
+		}*/
 		sb.append("</html>");
 		return sb.toString();
 	}
@@ -1524,9 +1525,9 @@ public class PanelCharMain extends PanelCharBase {
 	private String buildResistTooltipSignature(CharAttributes attrs) {
 		if (attrs == null) return "";
 		StringBuilder signature = new StringBuilder();
-		for (String key : RESIST_KEYS) {
+		/*for (String key : RESIST_KEYS) {
 			signature.append(key).append('=').append(attrs.getResist(key)).append(';');
-		}
+		}*/
 		return signature.toString();
 	}
 
@@ -1602,13 +1603,13 @@ public class PanelCharMain extends PanelCharBase {
 		List<String> avail = skill.getAvailAttributes();
 		double value = 0.0;
 		double cur = 0.0;
-		for (String s : chosen) {
+		/*for (String s : chosen) {
 			if (s.compareTo("-") == 0) continue;
 			cur = character.getAttributes().getAttribute(s) * 1.5;
 			value += cur;
 			tipTemp += "+ " + s + ": " + fmt(cur) + "<br>";
-		}
-		cur = character.getAttributes().getAttribute("INT") * 0.5;
+		}*/
+		//cur = character.getAttributes().getAttribute("INT") * 0.5;
 		value += cur;
 		tipTemp += "+ " + "INT" + ": " + fmt(cur) + "<br>";
 
@@ -1635,11 +1636,12 @@ public class PanelCharMain extends PanelCharBase {
 		if (skill == null || character == null || character.getAttributes() == null) return "Roll: unknown";
 		CharAttributes attrs = character.getAttributes();
 		String att = (selectedAtt == null || selectedAtt.isBlank() || "-".equals(selectedAtt)) ? "INT" : selectedAtt.toUpperCase();
-		double mod = attrs.getAttribute(att);
+		/*double mod = attrs.getAttribute(att);
 		// Skill formula mirrors checkPressed
 		mod *= 1.5;
 		mod += (attrs.getAttribute("INT") * 0.5);
-		return "/roll d20 + " + fmt(mod);
+		return "/roll d20 + " + fmt(mod);*/
+		return "";
 	}
 
 	private String buildSpecialtyTooltip(DataSpecialty spec) {
