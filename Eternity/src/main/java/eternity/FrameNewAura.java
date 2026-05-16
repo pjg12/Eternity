@@ -1,12 +1,5 @@
 package eternity;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 
 /**
  * Affinity and starter weapon selection.
@@ -143,12 +144,7 @@ public class FrameNewAura extends JFrame {
     private void auraConfirm() {
         if (gmMode) {
             randomizeAffinitySelections();
-            // auto-pick first non "***" weapon options if available
-            for (JComboBox<String> wp : weaponPick) {
-                if (wp.isEnabled() && wp.getItemCount() > 1) {
-                    wp.setSelectedIndex(1);
-                }
-            }
+            randomizeWeaponSelections();
         }
 
         String affinity = (String) auraPick.getSelectedItem();
@@ -196,16 +192,22 @@ public class FrameNewAura extends JFrame {
         character.getTraining().setNaturalAffinities(selectedAffinities);
 
         if (requireWeapons) {
+            ArrayList<String> selectedWeapons = new ArrayList<>();
             for (JComboBox<String> wp : weaponPick) {
                 String weaponName = (String) wp.getSelectedItem();
+                if (weaponName == null || EMPTY_OPTION.equals(weaponName)) continue;
+                selectedWeapons.add(weaponName);
                 DataItemEquipment item = dataQuery.getItemByName(weaponName);
                 if (item != null) {
                     character.getInventory().addEquipment(new DataItemEquipment(item));
                 }
             }
+            parent.setStarterWeaponSelections(selectedWeapons);
+        } else {
+            parent.setStarterWeaponSelections(List.of());
         }
 
-        parent.auraConfirmed();
+        parent.setStepConfirmed(5);
         dispose();
     }
 
@@ -231,6 +233,33 @@ public class FrameNewAura extends JFrame {
                 String bonus = options.get(ThreadLocalRandom.current().nextInt(options.size()));
                 bonusAuraPick.setSelectedItem(bonus);
             }
+        }
+    }
+
+    private void randomizeWeaponSelections() {
+        ArrayList<String> options = new ArrayList<>();
+        JComboBox<String> sourceBox = weaponPick[0];
+        if (sourceBox != null && sourceBox.isEnabled()) {
+            for (int i = 1; i < sourceBox.getItemCount(); i++) {
+                String item = sourceBox.getItemAt(i);
+                if (item != null && !EMPTY_OPTION.equals(item) && !options.contains(item)) {
+                    options.add(item);
+                }
+            }
+        }
+        if (options.isEmpty()) return;
+
+        String firstPick = options.get(ThreadLocalRandom.current().nextInt(options.size()));
+        weaponPick[0].setSelectedItem(firstPick);
+
+        String secondPick = firstPick;
+        if (options.size() > 1) {
+            ArrayList<String> remaining = new ArrayList<>(options);
+            remaining.removeIf(option -> option.equalsIgnoreCase(firstPick));
+            secondPick = remaining.get(ThreadLocalRandom.current().nextInt(remaining.size()));
+        }
+        if (weaponPick[1] != null && weaponPick[1].isEnabled()) {
+            weaponPick[1].setSelectedItem(secondPick);
         }
     }
 
@@ -350,4 +379,3 @@ public class FrameNewAura extends JFrame {
         return String.join("|", parts);
     }
 }
-

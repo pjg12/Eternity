@@ -1,70 +1,292 @@
 package eternity;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Data-driven race picker with String keys, modeled after FrameNewClassPicker.
  */
 public class FrameNewRacePicker extends JFrame {
-    private static final long serialVersionUID = 1L;
-    private static final String EMPTY_OPTION = "***";
-    private static volatile String[] sortedRaceNamesCache;
-    private final StoreRuleManager dataQuery;
+
+    // References
+    private final StoreRuleManager ruleManager;
     private final StoreCharData character;
     private final FrameNewRace parent;
     private final DataRace selectedRace;
+    private final boolean gmMode;
 
+    // UI Constants
+    private static final EmptyBorder HEADER_BORDER = new EmptyBorder(12, 18, 4, 18);
+    private static final EmptyBorder CENTER_BORDER = new EmptyBorder(10, 10, 10, 10);
+    private static final int[] GB_COLUMN_WIDTHS = new int[] { 250, 250 };
+    private static final Insets CENTER_INSETS = new Insets(10, 10, 10, 10);
+    private static final int FRAME_WIDTH = 640;
+    private static final int FRAME_HEIGHT = 420;
+    private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
+    private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
+    private static final int BUTTON_SPACING = 10;
+
+    // UI Strings
+    private static final String WINDOW_TITLE = " Options";
+    private static final String HEADER_TEXT = " Customization";
+    private static final String BUTTON_CANCEL = "Cancel";
+    private static final String BUTTON_CONFIRM = "Confirm";
+    private static final String EMPTY_OPTION = "***";
+    private static final String[] RACE_OPTIONS = { EMPTY_OPTION,"Alteri","Aquata","Ardian","Azuri","Boxlor","Cetryu","Construct","Deckan","En","Evan","Felsh","Felsh Cat","Forven","Gaian","Irdon","Kenti","Kitsune", "Loben","Loritho","Nohmen","Nosfer","Oon","Poruuk","Quez","Raigon","Reven", "Skren","Theran","Vindis","Vyrek","Xid","Zyan" };
+    
+    // UI Elements
+    private JPanel headerPanel, centerPanel, footerPanel;
+    private JLabel headerL;
+    private JLabel[] optionLabels;
+    private JComboBox<String>[] optionBoxes;
+    private JButton cancelButton, confirmButton;
+
+    // Maps
+    private final Map<String, String[]> raceChoicesMap;
     private final Map<String, JComboBox<String>> fields = new LinkedHashMap<>();
-    private Map<String, ChoiceConfig> choiceModel;
 
-    private JButton clearButton;
-    private JButton acceptButton;
-    private JLabel headerLabel;
-
-    public FrameNewRacePicker(FrameSheet sheetFrame,
-                              StoreRuleManager dataQuery,
-                              StoreCharData character,
-                              DataRace selectedRace,
-                              FrameNewRace parent) {
-
-        super("Race Options");
-
-        this.dataQuery = dataQuery;
+    @SuppressWarnings("unchecked")
+    public FrameNewRacePicker(StoreRuleManager ruleManager, StoreCharData character, DataRace selectedRace, FrameNewRace parent, boolean gmMode) {
+        super(WINDOW_TITLE);
+        this.ruleManager = ruleManager;
         this.character = character;
         this.selectedRace = selectedRace;
         this.parent = parent;
+        this.gmMode = gmMode;
 
-        setSize(640, 420);
-        setLayout(null);
-        setLocationRelativeTo(sheetFrame);
+        this.raceChoicesMap = makeChoiceMap(selectedRace);
+        if (raceChoicesMap != null) this.optionLabels = new JLabel[raceChoicesMap.keySet().size()];
+        if (raceChoicesMap != null) this.optionBoxes = (JComboBox<String>[]) new JComboBox[raceChoicesMap.size()];
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setLocationRelativeTo(parent);
+        setResizable(false);
+        setLayout(new BorderLayout(BUTTON_SPACING, BUTTON_SPACING));
 
+        buildUI();
+
+        if (gmMode) {
+            applyGmSelectionsAndConfirm();
+        }
+    }
+
+    // ---------------------------------------------------------
+    // Build UI
+    // ---------------------------------------------------------
+
+    private void buildUI() {
         buildHeader();
-        buildButtons();
-
-        this.choiceModel = buildChoiceModel(selectedRace);
-        renderChoices();
-
-        setVisible(true);
+        buildCenter();
+        buildFooter();
     }
 
     private void buildHeader() {
-        headerLabel = new JLabel(selectedRace.getName() + " Options", SwingConstants.CENTER);
-        headerLabel.setFont(headerLabel.getFont().deriveFont(Font.BOLD, 22f));
-        headerLabel.setBounds(10, 10, 600, 40);
-        add(headerLabel);
+        // Build panel
+        headerPanel = new JPanel(new BorderLayout());
+
+        // Build header
+        headerL = new JLabel(HEADER_TEXT, SwingConstants.CENTER);
+        headerL.setFont(HEADER_FONT);
+        headerL.setBorder(HEADER_BORDER);
+
+        // Add elements
+        headerPanel.add(headerL, BorderLayout.CENTER);
+        add(headerPanel, BorderLayout.NORTH);
     }
+
+    private void buildCenter() {
+        // Build panel
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWidths = GB_COLUMN_WIDTHS;
+        centerPanel = new JPanel(layout);
+        centerPanel.setBorder(CENTER_BORDER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = CENTER_INSETS;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
+        // Setup Variables
+        int tileIndex = 0;
+        int y;
+        int x;
+        int width;
+ 
+        for (String label : raceChoicesMap.keySet()) {
+            // Setup Grid
+            y = tileIndex / 2;
+            x = tileIndex % 2;
+            width = 1;
+            gridHelper(gbc, y, x, width);
+
+            // Build panel
+            JPanel choicePanel = new JPanel();
+            choicePanel.setLayout(new BoxLayout(choicePanel, BoxLayout.Y_AXIS));
+            choicePanel.setBorder(CENTER_BORDER);
+
+            // Build Label
+            JLabel lbl = buildLabel(label);
+            choicePanel.add(lbl);
+            optionLabels[tileIndex] = lbl;
+
+            // Build Choice
+            String[] choice = raceChoicesMap.get(label);
+            JComboBox<String> choiceBox = buildComboBox(choice);
+            choicePanel.add(choiceBox);
+            optionBoxes[tileIndex] = choiceBox;
+
+            centerPanel.add(choicePanel, gbc);
+            fields.put(label, choiceBox);
+            tileIndex++;
+        }
+        add(centerPanel, BorderLayout.CENTER);
+    }
+
+    private void buildFooter() {
+        // Build panel
+        footerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 8));
+
+        // Build buttons
+        cancelButton = new JButton(BUTTON_CANCEL);
+        cancelButton.addActionListener(e -> onCancelPressed());
+        confirmButton = new JButton(BUTTON_CONFIRM);
+        confirmButton.addActionListener(e -> onConfirmPressed());
+
+        // Add buttons
+        footerPanel.add(cancelButton);
+        footerPanel.add(confirmButton);
+
+        // Add panels
+        add(footerPanel, BorderLayout.SOUTH);
+    }
+
+    private JComboBox<String> buildComboBox(String[] choices) {
+        // Add empty choice
+        JComboBox<String> box = new JComboBox<>();
+        box.addItem(EMPTY_OPTION);
+
+        // Add choices
+        if (choices == null) return null;
+        for (String option : choices) {
+            if (option != null && !EMPTY_OPTION.equals(option)) {
+                box.addItem(option);
+            }
+        }
+        return box;
+    }
+
+    private JLabel buildLabel(String s) {
+        JLabel lbl = new JLabel(s);
+        lbl.setFont(LABEL_FONT);
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return lbl;
+    }
+
+    // ---------------------------------------------------------
+    // Button Handlers
+    // ---------------------------------------------------------
+
+    private void onCancelPressed() {
+        dispose();
+    }
+
+    public void onConfirmPressed() {
+        List<String> raceChoices = java.util.List.of();
+        if (selectedRace.getRacePick()) {
+            raceChoices = new ArrayList<>(raceChoicesMap.size());
+            for (String label : raceChoicesMap.keySet()) {
+                // Get choice
+                String choice = (String) fields.get(label).getSelectedItem();
+
+                // Force choice if required
+                if (choice == null || choice.equals(EMPTY_OPTION)) {
+                    JOptionPane.showMessageDialog(this, "Please complete all fields.");
+                    return;
+                }
+
+                // Save choice
+                raceChoices.add(choice);
+            }
+
+            // Add choices to character
+            character.getIdentity().setCharRacePick(raceChoices);
+        }
+
+        // Pass control back and close
+        parent.onConfirmPressed(raceChoices);
+        dispose();
+    }
+
+    // -------------------------------------------------------------------------
+    //  Helpers
+    // -------------------------------------------------------------------------
+
+    private void gridHelper (GridBagConstraints gbc, int y, int x, int width) {
+        gbc.gridwidth = width;
+        gbc.gridy = y;
+        gbc.gridx = x;
+    }
+
+    private Map<String, String[]> makeChoiceMap(DataRace race) {
+        // Generate new map
+        Map<String, String[]> map = new LinkedHashMap<>();
+        String name = race.getName();
+
+        // Input options based on class name
+        switch (name) {
+            case "Alteri" -> {
+                map.put("Shapeshift", RACE_OPTIONS);
+            }
+            default -> { return null; }
+        }
+        return map;
+    }
+
+    private void applyGmSelectionsAndConfirm() {
+        if (raceChoicesMap != null) {
+            for (String label : raceChoicesMap.keySet()) {
+                JComboBox<String> box = fields.get(label);
+                if (box == null || box.getItemCount() <= 1) continue;
+                box.setSelectedIndex(randomChoiceIndex(box));
+            }
+        }
+        onConfirmPressed();
+    }
+
+    private int randomChoiceIndex(JComboBox<String> box) {
+        int nonEmptyOptions = box.getItemCount() - 1;
+        if (nonEmptyOptions <= 0) return 0;
+        return ThreadLocalRandom.current().nextInt(nonEmptyOptions) + 1;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/// ////////////////////////////////////////////////////////////////////////////////////////////
+/// ////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
 
     private void buildButtons() {
         clearButton = new JButton("Clear");
@@ -217,3 +439,4 @@ public class FrameNewRacePicker extends JFrame {
     };
 }
 
+*/

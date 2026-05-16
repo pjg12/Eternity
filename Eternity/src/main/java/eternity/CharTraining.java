@@ -187,7 +187,7 @@ public class CharTraining {
     @JsonIgnore
     public int getBaseMaxTechs() {
         DataLevel dl = null;
-        if (parent != null) dl = StoreMetaManager.getDataQuery().getLevel(parent.getLevel());
+        //if (parent != null) dl = StoreMetaManager.getDataQuery().getLevel(parent.getLevel());
         if (dl != null) return Math.max(0, dl.getBaseTechs());
         return 0;
     }

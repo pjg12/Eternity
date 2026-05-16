@@ -34,6 +34,9 @@ import javax.swing.text.DefaultFormatterFactory;
  */
 public class PanelCharBase extends JPanel {
 	private static final long serialVersionUID = 1L;
+
+	private static final Color hpLColor = new Color(180, 0, 0);
+	private static final Color auraLColor = new Color(0, 70, 180);
 	private static final Set<String> ATTRIBUTE_SHORT_KEYS = Set.of("STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB");
 	private static final int REMINDER_MAX_ROWS = 2;
 	private static final DataColor DEFAULT_DISPLAY_COLOR = new DataColor("Default", 0, 0, 0, 255, 255, 255);
@@ -43,6 +46,9 @@ public class PanelCharBase extends JPanel {
 		format.setGroupingUsed(false);
 		return format;
 	});
+
+
+
 	StoreRuleManager dataQuery;
 	StoreCharData character;
 	FrameSheet sheetFrame;
@@ -84,22 +90,15 @@ public class PanelCharBase extends JPanel {
 		 * 	HP, Aura
 		 */	
 			// Labels
-		hpL = buildLabel("HP");
-		auraL = buildLabel("Aura");
-		hpL.setForeground(new Color(180, 0, 0));
-		auraL.setForeground(new Color(0, 70, 180));
-		charCurrHPL = buildLabel("Current HP");
-			charCurrHPL.setToolTipText(""); 
-		charMaxHPL = buildLabel("Max HP");
-			charMaxHPL.setToolTipText(""); 
-		charAvailAuraL = buildLabel("Available Aura");
-			charAvailAuraL.setToolTipText(""); 
-		charOccAuraL = buildLabel("Occupied Aura");
-			charOccAuraL.setToolTipText(""); 
-		charSpentAuraL = buildLabel("Spent Aura");
-			charSpentAuraL.setToolTipText(""); 
-		charMaxAuraL = buildLabel("Max Aura");
-			charMaxAuraL.setToolTipText("");
+		hpL = buildLabel("HP", hpLColor);
+		auraL = buildLabel("Aura", hpLColor);
+
+		charCurrHPL = buildLabel("Current HP", null);
+		charMaxHPL = buildLabel("Max HP", null);
+		charAvailAuraL = buildLabel("Available Aura", null);
+		charOccAuraL = buildLabel("Occupied Aura", null);
+		charSpentAuraL = buildLabel("Spent Aura", null);
+		charMaxAuraL = buildLabel("Max Aura", null);
 			
 			// Fields
 		charCurrHP = new JProgressBar();
@@ -145,14 +144,14 @@ public class PanelCharBase extends JPanel {
 		 */
 		racePanel = new JPanel();
 		racePanel.setLayout(null);
-		raceRemind = buildLabel("-");
+		raceRemind = buildLabel("-", null);
 		raceRemind.setBounds(0,0,555,40);
 		racePanel.add(raceRemind);
 		raceRemind.setVisible(true);
 		initializeReminderRows();
 		add(racePanel);
 		racePanel.setVisible(true);
-		tabTitleL = buildLabel("");
+		tabTitleL = buildLabel("", null);
 		tabTitleL.setFont(new Font("Arial", Font.BOLD, 16));
 		tabTitleL.setForeground(Color.BLACK);
 		tabTitleL.setVisible(true);
@@ -236,7 +235,7 @@ public class PanelCharBase extends JPanel {
 
 		if (skill) {
 			mod *= 1.5;
-			mod += (character.getAttributes().getAttribute("INT") * 0.5);
+			//mod += (character.getAttributes().getAttribute("INT") * 0.5);
 		}
 		
 		if (att2 != null && att2.compareTo("") != 0) {
@@ -270,28 +269,93 @@ public class PanelCharBase extends JPanel {
 		clipboard.setContents(stringSelection, null);
 	}
 
-	/** Returns attribute value or 0 if key is null/unknown to avoid AIOOB. */
-	private int safeAttribute(CharAttributes attrs, String key) {
+	/** Returns derived stat value or 0 if key is null/unknown. */
+	protected double safeAttribute(CharAttributes attrs, String key) {
+		return getDerivedStatusValue(attrs, key);
+	}
+
+	protected double getDerivedStatusValue(CharAttributes attrs, String key) {
 		if (attrs == null || key == null) return 0;
 		String upper = key.toUpperCase();
+		ArrayList<DataStatus>[] baseBlock = resolveStatusBlock(attrs, upper, true);
+		ArrayList<DataStatus>[] multiBlock = resolveStatusBlock(attrs, upper, false);
+		return computeStatusValue(baseBlock, multiBlock);
+	}
+
+	protected ArrayList<DataStatus>[] getBaseStatusBlock(CharAttributes attrs, String key) {
+		return resolveStatusBlock(attrs, key, true);
+	}
+
+	protected ArrayList<DataStatus>[] getMultiplierStatusBlock(CharAttributes attrs, String key) {
+		return resolveStatusBlock(attrs, key, false);
+	}
+
+	protected double sumStatusSeverity(List<DataStatus> statuses) {
+		if (statuses == null) return 0.0;
+		double total = 0.0;
+		for (DataStatus status : statuses) {
+			if (status != null) total += status.getSeverity();
+		}
+		return total;
+	}
+
+	private double computeStatusValue(ArrayList<DataStatus>[] baseBlock, ArrayList<DataStatus>[] multiBlock) {
+		if (baseBlock == null) return 0.0;
+		double baseValue = 0.0;
+		double multiplier = 1.0;
+		for (int i = 0; i < baseBlock.length; i++) {
+			baseValue += sumStatusSeverity(baseBlock[i]);
+		}
+		if (multiBlock != null) {
+			for (int i = 0; i < multiBlock.length; i++) {
+				multiplier += sumStatusSeverity(multiBlock[i]);
+			}
+		}
+		return Math.max(0.0, baseValue * multiplier);
+	}
+
+	private ArrayList<DataStatus>[] resolveStatusBlock(CharAttributes attrs, String key, boolean base) {
+		if (attrs == null || key == null) return null;
+		String upper = key.toUpperCase();
+		String prefix = base ? "B" : "M";
 		if (ATTRIBUTE_SHORT_KEYS.contains(upper)) {
-			return attrs.getAttribute(upper);
+			return findStatusBlock(base ? attrs.getBAttributes() : attrs.getMAttributes(), prefix + upper);
 		}
-		switch (upper) {
-			case "FORT":
-			case "REF":
-			case "WILL":
-			case "DEF":
-			case "DODGE":
-			case "AVOID":
-				return attrs.getDefense(upper);
-			case "INIT":
-			case "ATK":
-			case "APP":
-				return attrs.getCombat(upper);
-			default:
-				return 0;
+		if (matchesStatusKey(upper, CharAttributes.getDefenseKeys())) {
+			return findStatusBlock(base ? attrs.getBDefense() : attrs.getMDefense(), prefix + upper);
 		}
+		if (matchesStatusKey(upper, CharAttributes.getDamageTypeKeys())) {
+			return findStatusBlock(base ? attrs.getBResist() : attrs.getMResist(), prefix + upper);
+		}
+		if (matchesStatusKey(upper, CharAttributes.getCombatKeys())) {
+			return findStatusBlock(base ? attrs.getBCombat() : attrs.getMCombat(), prefix + upper);
+		}
+		if (matchesStatusKey(upper, CharAttributes.getSecondaryKeys())) {
+			return findStatusBlock(base ? attrs.getBSecondary() : attrs.getMSecondary(), prefix + upper);
+		}
+		if (matchesStatusKey(upper, CharAttributes.getDamageKeys())) {
+			return findStatusBlock(base ? attrs.getBDamage() : attrs.getMDamage(), prefix + upper);
+		}
+		return null;
+	}
+
+	private boolean matchesStatusKey(String key, String[] keys) {
+		for (String candidate : keys) {
+			if (candidate.equalsIgnoreCase(key)) return true;
+		}
+		return false;
+	}
+
+	private ArrayList<DataStatus>[] findStatusBlock(ArrayList<DataStatus>[][] category, String attributeKey) {
+		if (category == null || attributeKey == null) return null;
+		for (ArrayList<DataStatus>[] block : category) {
+			if (block == null || block.length == 0 || block[0] == null || block[0].isEmpty()) continue;
+			DataStatus first = block[0].get(0);
+			if (first != null && attributeKey.equalsIgnoreCase(first.getAttribute())) {
+				return block;
+			}
+		}
+		return null;
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,32 +393,47 @@ public class PanelCharBase extends JPanel {
 	 */
 	public void updateHPAura() {
 		if (character == null || character.getResources() == null) return;
-		String tempString = "";
-		double tempDouble = 0.0;
-		double tempDouble2 = 0.0;
-		ArrayList<DataStatus> tempList, tempList2;
-		
-			// Tooltips
 		CharResources res = character.getResources();
+		int maxHp = Math.max(0, res.calcMaxHP());
+		int currentHp = Math.max(0, res.calcCurrentHP());
+		double lostHp = Math.max(0.0, res.getLostHP());
+		int maxAura = Math.max(0, res.calcMaxAura());
+		int availableAura = Math.max(0, res.calcCurrentAura());
+		double occupiedAura = Math.max(0.0, res.calcOccupiedAura());
+		double spentAura = Math.max(0.0, res.getSpentAura());
 
-		tempString = "<html>You have " + (int)res.calcCurrentHP() + " HP.<br>You have lost " + (int)res.getLostHP() + " HP.<br>You are ";
-		tempDouble = res.calcCurrentHP() / (double)res.calcMaxHP();
-		if (tempDouble >= 1) {
+		charCurrHP.setMaximum(Math.max(1, maxHp));
+		charCurrHP.setValue(Math.min(currentHp, Math.max(1, maxHp)));
+		charCurrHP.setString(currentHp + "/" + maxHp);
+		charMaxHP.setValue(maxHp);
+
+		charAvailAura.setMaximum(Math.max(1, maxAura));
+		charAvailAura.setValue(Math.min(availableAura, Math.max(1, maxAura)));
+		charAvailAura.setString(availableAura + "/" + maxAura);
+		charOccAura.setMaximum(Math.max(1, maxAura));
+		charOccAura.setValue((int)Math.min(Math.round(occupiedAura), Math.max(1, maxAura)));
+		charOccAura.setString(fmt(occupiedAura));
+		charSpentAura.setValue(round2(spentAura));
+		charMaxAura.setValue(maxAura);
+
+		String tempString = "<html>You have " + currentHp + " HP.<br>You have lost " + fmt(lostHp) + " HP.<br>You are ";
+		double hpRatio = maxHp <= 0 ? 0.0 : currentHp / (double)maxHp;
+		if (hpRatio >= 1) {
 			tempString += "not wounded.";
 		}
-		else if (tempDouble >= 0.9) {
+		else if (hpRatio >= 0.9) {
 			tempString += "barely wounded.";
 		}
-		else if (tempDouble >= 0.7) {
+		else if (hpRatio >= 0.7) {
 			tempString += "lightly wounded.";
 		}
-		else if (tempDouble >= 0.5) {
+		else if (hpRatio >= 0.5) {
 			tempString += "moderately wounded.";
 		}
-		else if (tempDouble >= 0.3) {
+		else if (hpRatio >= 0.3) {
 			tempString += "heavily wounded.";
 		}
-		else if (tempDouble >= 0.1) {
+		else if (hpRatio >= 0.1) {
 			tempString += "severely wounded.";
 		}
 		else {
@@ -363,34 +442,32 @@ public class PanelCharBase extends JPanel {
 		charCurrHPL.setToolTipText(tempString);
 		charCurrHP.setToolTipText(tempString);
 		
-		tempString = "<html>Maximum HP: " + res.calcMaxHP() + "<br>-------(Base)-------<br>";
-		StatBlock[] tempStatuses = null;
-
+		tempString = "<html>Maximum HP: " + maxHp + "</html>";
 		charMaxHPL.setToolTipText(tempString);
 		charMaxHP.setToolTipText(tempString);
 		
-
+		tempString = "<html>Maximum Aura: " + maxAura + "</html>";
 		charMaxAuraL.setToolTipText(tempString);
 		charMaxAura.setToolTipText(tempString);
 
-		tempString = "<html>You have spent " + (int)res.getSpentAura() + " Aura.<br>You are ";
-
-		if (tempDouble >= 1) {
+		tempString = "<html>You have spent " + fmt(spentAura) + " Aura.<br>You are ";
+		double auraRatio = maxAura <= 0 ? 0.0 : availableAura / (double)maxAura;
+		if (auraRatio >= 1) {
 			tempString += "not drained.";
 		}
-		else if (tempDouble >= 0.9) {
+		else if (auraRatio >= 0.9) {
 			tempString += "barely drained.";
 		}
-		else if (tempDouble >= 0.7) {
+		else if (auraRatio >= 0.7) {
 			tempString += "lightly drained.";
 		}
-		else if (tempDouble >= 0.5) {
+		else if (auraRatio >= 0.5) {
 			tempString += "moderately drained.";
 		}
-		else if (tempDouble >= 0.3) {
+		else if (auraRatio >= 0.3) {
 			tempString += "heavily drained.";
 		}
-		else if (tempDouble >= 0.1) {
+		else if (auraRatio >= 0.1) {
 			tempString += "severely drained.";
 		}
 		else {
@@ -398,24 +475,28 @@ public class PanelCharBase extends JPanel {
 		}
 		charSpentAuraL.setToolTipText(tempString);
 		charSpentAura.setToolTipText(tempString);
-		
 
-		if (tempDouble >= 1) {
+		String occupiedTip = "<html>Occupied Aura: " + fmt(occupiedAura) + "<br>Main: " + fmt(res.getMainOccupiedAura()) + "<br>Granted: " + fmt(res.getGrantOccupiedAura()) + "</html>";
+		charOccAuraL.setToolTipText(occupiedTip);
+		charOccAura.setToolTipText(occupiedTip);
+
+		tempString = "<html>Available Aura: " + availableAura + "/" + maxAura + "<br>Spent: " + fmt(spentAura) + "<br>Occupied: " + fmt(occupiedAura) + "<br>You are ";
+		if (auraRatio >= 1) {
 			tempString += "not drained.";
 		}
-		else if (tempDouble >= 0.9) {
+		else if (auraRatio >= 0.9) {
 			tempString += "barely drained.";
 		}
-		else if (tempDouble >= 0.7) {
+		else if (auraRatio >= 0.7) {
 			tempString += "lightly drained.";
 		}
-		else if (tempDouble >= 0.5) {
+		else if (auraRatio >= 0.5) {
 			tempString += "moderately drained.";
 		}
-		else if (tempDouble >= 0.3) {
+		else if (auraRatio >= 0.3) {
 			tempString += "heavily drained.";
 		}
-		else if (tempDouble >= 0.1) {
+		else if (auraRatio >= 0.1) {
 			tempString += "severely drained.";
 		}
 		else {
@@ -423,8 +504,6 @@ public class PanelCharBase extends JPanel {
 		}
 		charAvailAura.setToolTipText(tempString);
 		charAvailAuraL.setToolTipText(tempString);
-		
-
 	}  /*--------------
 		END UPDATEHPAURA
 		--------------*/
@@ -597,9 +676,10 @@ public class PanelCharBase extends JPanel {
 	/*
 	 * 		BUILD LABEL
 	 */
-	public JLabel buildLabel (String tempString) {
+	public final JLabel buildLabel (String tempString, Color tempColor) {
 		JLabel tempField = new JLabel(tempString);
 		tempField.setHorizontalAlignment(JTextField.CENTER);
+		if (tempColor != null) tempField.setForeground(tempColor);
 		add(tempField);
 		return tempField;
 	}  /*--------------

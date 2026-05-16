@@ -148,6 +148,9 @@ public class PanelChar extends JPanel {
     public void updateData() {
         if (character == null) return;
 
+        character.syncIdentityDerivedState(dataQuery);
+        character.syncLevelBaseResources(dataQuery);
+        character.syncLevelCombatScalers(dataQuery);
         character.updateAll();
         markAllTabsDirty();
         refreshSelectedTabIfNeeded();

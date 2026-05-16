@@ -162,7 +162,7 @@ public class CharCombat {
             return;
         }
 
-        StoreRuleManager dataQuery = StoreMetaManager.getDataQuery();
+        //StoreRuleManager dataQuery = StoreMetaManager.getDataQuery();
         ArrayList<DataTraining> trainedTechniques = new ArrayList<>();
         for (DataTraining tech : owner.getTraining().getAllTraining()) {
             if (!hasTrainedActionTechnique(tech)) continue;
@@ -178,7 +178,7 @@ public class CharCombat {
         });
 
         for (DataTraining tech : trainedTechniques) {
-            addTrainingActionFromData(tech, dataQuery);
+            //addTrainingActionFromData(tech, dataQuery);
         }
     }
 

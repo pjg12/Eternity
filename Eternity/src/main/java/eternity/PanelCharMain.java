@@ -1,8 +1,8 @@
 package eternity;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 /*
  * 		MAIN PLAY PANEL
@@ -86,17 +85,17 @@ public class PanelCharMain extends PanelCharBase {
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(244, 222, 222));
 		
-		charNameL = buildLabel("Character Name");
+		charNameL = buildLabel("Character Name", null);
 		charName = buildTextField("");
 		
-		campNameL = buildLabel("Campaign Name");
-		charLevelL = buildLabel("Level");
+		campNameL = buildLabel("Campaign Name", null);
+		charLevelL = buildLabel("Level", null);
 			charLevelL.setToolTipText(" ");
-	    charExpL = buildLabel("Exp");
+	    charExpL = buildLabel("Exp", null);
 	    	charExpL.setToolTipText("<html>" + "Remaining XP to Level:");
-	    charClassL = buildLabel("Class");
+	    charClassL = buildLabel("Class", null);
 	    	charClassL.setToolTipText("<html>" + "Base Class:" + "<br>" + "Specialization:");
-	    charRaceL = buildLabel("Race");
+	    charRaceL = buildLabel("Race", null);
 	    	charRaceL.setToolTipText("<html>" + "Race:");
 	    
 	    
@@ -110,15 +109,15 @@ public class PanelCharMain extends PanelCharBase {
 	    charRace = buildTextField(" ");
 	    	charRace.setToolTipText("<html>" + "Race:"); 
 	    
-		charGenderL = buildLabel("Gender");
-		charSizeL = buildLabel("Size"); 
+		charGenderL = buildLabel("Gender", null);
+		charSizeL = buildLabel("Size", null); 
 			charSizeL.setToolTipText("");
-		charAgeL = buildLabel("Age");
+		charAgeL = buildLabel("Age", null);
 			charAgeL.setToolTipText("");
-		charHeightL = buildLabel("Height");
-		charWeightL = buildLabel("Weight");
-		charEyesL = buildLabel("Eyes");
-		charHairL = buildLabel("Hair"); 
+		charHeightL = buildLabel("Height", null);
+		charWeightL = buildLabel("Weight", null);
+		charEyesL = buildLabel("Eyes", null);
+		charHairL = buildLabel("Hair", null); 
 		
 		charGender = buildTextField("");
 		charSize = buildTextField("");
@@ -130,8 +129,8 @@ public class PanelCharMain extends PanelCharBase {
 		charEyes = buildTextField("");
 		charHair = buildTextField("");
 		
-		charPhysicalL = buildLabel("Physical Features");
-		charPersonalityL = buildLabel("Personality Traits");
+		charPhysicalL = buildLabel("Physical Features", null);
+		charPersonalityL = buildLabel("Personality Traits", null);
 		
 		charPhysical = buildTextArea("");
 		physicalPane = buildScrollPane(charPhysical);
@@ -150,16 +149,16 @@ public class PanelCharMain extends PanelCharBase {
 		editCharacterButton.addActionListener (e -> sheetFrame.editPressed());
 			editCharacterButton.setToolTipText("Open a dialog to edit the above character information."); 
 		
-		coreAttL = buildLabel("Core Attribute");
-		coreValueL = buildLabel("Value");
-		coreModL = buildLabel("Modifier");
+		coreAttL = buildLabel("Core Attribute", null);
+		coreValueL = buildLabel("Value", null);
+		coreModL = buildLabel("Modifier", null);
 		coreModL.setVisible(false);
-		coreRollL = buildLabel("Roll Check");
-		charAttL = buildLabel("Char Attribute");
-		charValueL = buildLabel("Value");
-		charModL = buildLabel("Modifier");
+		coreRollL = buildLabel("Roll Check", null);
+		charAttL = buildLabel("Char Attribute", null);
+		charValueL = buildLabel("Value", null);
+		charModL = buildLabel("Modifier", null);
 		charModL.setVisible(false);
-		charRollL = buildLabel("Roll Check");
+		charRollL = buildLabel("Roll Check", null);
 
 		strAttL = buildTextField("Strength");
 		dexAttL = buildTextField("Dexterity");
@@ -174,42 +173,42 @@ public class PanelCharMain extends PanelCharBase {
 		chaAttL = buildTextField("Charisma");
 		subAttL = buildTextField("Subtlety");
 		
-		charStr = buildNumTextField(0);
-		charDex = buildNumTextField(0);
-		charCon = buildNumTextField(0);
-		charFoc = buildNumTextField(0);
-		charCtl = buildNumTextField(0);
-		charCap = buildNumTextField(0);
-		charKnow = buildNumTextField(0);
-		charMech = buildNumTextField(0);
-		charPerc = buildNumTextField(0);
-		charInt = buildNumTextField(0);
-		charCha = buildNumTextField(0);
-		charSub = buildNumTextField(0);
+		charStr = buildNumTextField(0.0);
+		charDex = buildNumTextField(0.0);
+		charCon = buildNumTextField(0.0);
+		charFoc = buildNumTextField(0.0);
+		charCtl = buildNumTextField(0.0);
+		charCap = buildNumTextField(0.0);
+		charKnow = buildNumTextField(0.0);
+		charMech = buildNumTextField(0.0);
+		charPerc = buildNumTextField(0.0);
+		charInt = buildNumTextField(0.0);
+		charCha = buildNumTextField(0.0);
+		charSub = buildNumTextField(0.0);
 		
-		charStrMod = buildNumTextField(0);
+		charStrMod = buildNumTextField(0.0);
 		charStrMod.setVisible(false);
-		charDexMod = buildNumTextField(0);
+		charDexMod = buildNumTextField(0.0);
 		charDexMod.setVisible(false);
-		charConMod = buildNumTextField(0);
+		charConMod = buildNumTextField(0.0);
 		charConMod.setVisible(false);
-		charFocMod = buildNumTextField(0);
+		charFocMod = buildNumTextField(0.0);
 		charFocMod.setVisible(false);
-		charCtlMod = buildNumTextField(0);
+		charCtlMod = buildNumTextField(0.0);
 		charCtlMod.setVisible(false);
-		charCapMod = buildNumTextField(0);
+		charCapMod = buildNumTextField(0.0);
 		charCapMod.setVisible(false);
-		charKnowMod = buildNumTextField(0);
+		charKnowMod = buildNumTextField(0.0);
 		charKnowMod.setVisible(false);
-		charMechMod = buildNumTextField(0);
+		charMechMod = buildNumTextField(0.0);
 		charMechMod.setVisible(false);
-		charPercMod = buildNumTextField(0);
+		charPercMod = buildNumTextField(0.0);
 		charPercMod.setVisible(false);
-		charIntMod = buildNumTextField(0);
+		charIntMod = buildNumTextField(0.0);
 		charIntMod.setVisible(false);
-		charChaMod = buildNumTextField(0);
+		charChaMod = buildNumTextField(0.0);
 		charChaMod.setVisible(false);
-		charSubMod = buildNumTextField(0);
+		charSubMod = buildNumTextField(0.0);
 		charSubMod.setVisible(false);
 		
 		strRoll = buildCheckButton("Strength Check", false, "STR");
@@ -225,19 +224,19 @@ public class PanelCharMain extends PanelCharBase {
 		chaRoll = buildCheckButton("Charisma Check", false, "CHA");
 		subRoll = buildCheckButton("Subtlety Check", false, "SUB");
 		
-		defenseL = buildLabel("Defense");
-		utilityL = buildLabel("Utility");
-		miscL = buildLabel("Misc");
+		defenseL = buildLabel("Defense", null);
+		utilityL = buildLabel("Utility", null);
+		miscL = buildLabel("Misc", null);
 
-		defNameL = buildLabel("Name");
-		defModL = buildLabel("Mod");
-		defRollL = buildLabel("Roll");
-		utilNameL = buildLabel("Name");
-		utilModL = buildLabel("Mod");
-		utilRollL = buildLabel("Roll");
-		miscNameL = buildLabel("Name");
-		miscModL = buildLabel("Mod");
-		miscRollL = buildLabel("Roll");
+		defNameL = buildLabel("Name", null);
+		defModL = buildLabel("Mod", null);
+		defRollL = buildLabel("Roll", null);
+		utilNameL = buildLabel("Name", null);
+		utilModL = buildLabel("Mod", null);
+		utilRollL = buildLabel("Roll", null);
+		miscNameL = buildLabel("Name", null);
+		miscModL = buildLabel("Mod", null);
+		miscRollL = buildLabel("Roll", null);
     
 		acStatL = buildTextField("AC");
 		armorStatL = buildTextField("Armor");
@@ -247,13 +246,13 @@ public class PanelCharMain extends PanelCharBase {
 		refStatL = buildTextField("Ref");
 		willStatL = buildTextField("Will");
 			
-		charAC = buildNumTextField(0);
-		charArmor = buildNumTextField(0);
+		charAC = buildNumTextField(0.0);
+		charArmor = buildNumTextField(0.0);
 		charArmor.setVisible(false); // hidden; AC tooltips still include armor component
-		charDodge = buildNumTextField(0);
-		charFort = buildNumTextField(0);
-		charRef = buildNumTextField(0);
-		charWill = buildNumTextField(0);
+		charDodge = buildNumTextField(0.0);
+		charFort = buildNumTextField(0.0);
+		charRef = buildNumTextField(0.0);
+		charWill = buildNumTextField(0.0);
 
 		fortRoll = buildCheckButton("Fortitude Save", false, "FORT");
 		refRoll = buildCheckButton("Reflex Save", false, "REF");
@@ -275,13 +274,13 @@ public class PanelCharMain extends PanelCharBase {
 		bdmgRoll = buildTextField("Other");
 		bhealRoll = buildTextField("Other");
 		supRoll = buildTextField("Other");
-		charResist = buildNumTextField(0);
-		charAttack = buildNumTextField(0);
-		charMove = buildNumTextField(0);
-		charFly = buildNumTextField(0);
+		charResist = buildNumTextField(0.0);
+		charAttack = buildNumTextField(0.0);
+		charMove = buildNumTextField(0.0);
+		charFly = buildNumTextField(0.0);
 		charFly.setVisible(false); // removed from utility display order
-		charRange = buildNumTextField(0);
-		charInit = buildNumTextField(0);
+		charRange = buildNumTextField(0.0);
+		charInit = buildNumTextField(0.0);
 
 		initRoll = buildCheckButton("Initiative Roll", false, "INIT");
 					
@@ -294,27 +293,27 @@ public class PanelCharMain extends PanelCharBase {
 		bdmgStatL = buildTextField("B Dmg");
 		bhealStatL = buildTextField("B Heal");
 					
-		charSup = buildNumTextField(0);
-		charDC = buildNumTextField(0);
-		charGrant = buildNumTextField(0);
-		charExcl = buildNumTextField(0);
-		charMaxatt = buildNumTextField(0);
-		charDb = buildNumTextField(0);
-		charBdmg = buildNumTextField(0);
-		charBheal = buildNumTextField(0);
+		charSup = buildNumTextField(0.0);
+		charDC = buildNumTextField(0.0);
+		charGrant = buildNumTextField(0.0);
+		charExcl = buildNumTextField(0.0);
+		charMaxatt = buildNumTextField(0.0);
+		charDb = buildNumTextField(0.0);
+		charBdmg = buildNumTextField(0.0);
+		charBheal = buildNumTextField(0.0);
 		
 		skillsAtt = new ArrayList<JTextField>();
 		skillsName = new ArrayList<JTextField>();
 		skillsRoll = new ArrayList<JButton>();
 		specialtiesName = new ArrayList<JTextField>();
 		
-		skillsL = buildLabel("Skills");
-		specialtiesL = buildLabel("Specialties");
+		skillsL = buildLabel("Skills", null);
+		specialtiesL = buildLabel("Specialties", null);
 		
-		skillsAttL = buildLabel("Attribute");
-		skillsNameL = buildLabel("Name");
-		skillsRollL = buildLabel("Roll");
-		specialtiesNameL = buildLabel("Name");
+		skillsAttL = buildLabel("Attribute", null);
+		skillsNameL = buildLabel("Name", null);
+		skillsRollL = buildLabel("Roll", null);
+		specialtiesNameL = buildLabel("Name", null);
 	}  /*--------------
 		END DEFAULTCONSTRUCTOR
 		--------------*/
@@ -611,7 +610,7 @@ public class PanelCharMain extends PanelCharBase {
 	    campName.setText(id.getCampaign());
 	    charLevel.setValue(id.getLevel());
 	    charExp.setValue(id.getExp());
-	    charClass.setText(id.getCharClass());
+	    charClass.setText(resolveDisplayedClassName(id));
 	    charRace.setText(id.getRace());
 	    String elapsedToolTip = buildCampaignElapsedTooltip(id);
 	    campName.setToolTipText(elapsedToolTip);
@@ -747,15 +746,40 @@ public class PanelCharMain extends PanelCharBase {
 		return "<html>EXP to next level: " + nextReq + "<br>EXP remaining: " + (int)remaining + "</html>";
 	}
 
+	private String resolveDisplayedClassName(CharIdentity id) {
+		if (id == null) return "";
+		String subclass = id.getCharSubclass();
+		if (subclass != null && !subclass.isBlank() && !"?".equals(subclass.trim())) {
+			return subclass;
+		}
+		return id.getCharClass();
+	}
+
 	private String buildClassTooltip(CharIdentity id) {
-		if (dataQuery == null) return "Class: " + id.getCharClass();
-		DataClass dc = dataQuery.getClassByName(id.getCharClass());
-		if (dc == null) return "Class: " + id.getCharClass();
-		return "<html>Class: " + dc.getName() +
-				"<br>Role: " + dc.getRole() +
-				"<br>HP Scaling: " + dc.getHpScaling() +
-				"<br>Aura Scaling: " + dc.getAuraScaling() +
-				"</html>";
+		String baseClass = id.getCharClass();
+		String subclass = id.getCharSubclass();
+		DataClass effectiveClass = null;
+		if (dataQuery != null) {
+			if (subclass != null && !subclass.isBlank() && !"?".equals(subclass.trim())) {
+				effectiveClass = dataQuery.getClassByName(subclass);
+			}
+			if (effectiveClass == null) {
+				effectiveClass = dataQuery.getClassByName(baseClass);
+			}
+		}
+
+		StringBuilder sb = new StringBuilder("<html>");
+		sb.append("Base Class: ").append(baseClass == null ? "" : baseClass);
+		if (subclass != null && !subclass.isBlank() && !"?".equals(subclass.trim())) {
+			sb.append("<br>Specialization: ").append(subclass);
+		}
+		if (effectiveClass != null) {
+			sb.append("<br>Role: ").append(effectiveClass.getRole());
+			sb.append("<br>HP Scaling: ").append(effectiveClass.getHpScaling());
+			sb.append("<br>Aura Scaling: ").append(effectiveClass.getAuraScaling());
+		}
+		sb.append("</html>");
+		return sb.toString();
 	}
 
 	private String buildRaceTooltip(CharIdentity id) {
@@ -778,29 +802,44 @@ public class PanelCharMain extends PanelCharBase {
 				"</html>";
 	}
 
+	private String buildStatTooltip(String name, double value, String key) {
+		StringBuilder sb = new StringBuilder("<html>");
+		sb.append(name).append(": ").append(fmt1(value));
+		appendStatusBreakdown(sb, key);
+		sb.append("</html>");
+		return sb.toString();
+	}
+
+	private void appendStatusBreakdown(StringBuilder sb, String key) {
+		appendStatusLines(sb, "-------(Base)-------", getBaseStatusBlock(character.getAttributes(), key), false);
+		appendStatusLines(sb, "------(Multi)-----", getMultiplierStatusBlock(character.getAttributes(), key), true);
+	}
+
+	private void appendStatusLines(StringBuilder sb, String header, ArrayList<DataStatus>[] block, boolean multiplier) {
+		if (block == null) return;
+		sb.append("<br>").append(header).append("<br>");
+		for (ArrayList<DataStatus> list : block) {
+			if (list == null || list.isEmpty()) continue;
+			for (DataStatus status : list) {
+				if (status == null) continue;
+				double shownValue = status.getSeverity();
+				if (multiplier && "Base".equalsIgnoreCase(status.getName())) {
+					shownValue = 1.0;
+				}
+				sb.append("+ ").append(status.getName()).append(": ").append(fmt1(shownValue)).append("<br>");
+			}
+		}
+	}
+
 	private String buildAttributeTooltip(String name, String key, DataClass resolvedClass) {
-		/*String tempString = "<html>" + name + ": " + character.getAttributes().getAttribute(key);
-		if (isPrimaryAttribute(key, resolvedClass)) tempString += " <b>(Primary Attribute)</b>";
-		if (isSecondaryAttribute(key, resolvedClass)) tempString += " <b>(Secondary Attribute)</b>";
-		tempString += "<br>-------(Base)-------<br>";
-		StatBlock tempBlock = character.getAttributes().getBlock("attribute", key);
-		List<DataStatus> statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		tempString += "--------(Multi)-------<br>";
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		return tempString + "</html>";*/
-		return "";
+		double value = getDerivedStatusValue(character.getAttributes(), key);
+		StringBuilder sb = new StringBuilder("<html>");
+		sb.append(name).append(": ").append(fmt1(value));
+		if (isPrimaryAttribute(key, resolvedClass)) sb.append(" <b>(Primary Attribute)</b>");
+		if (isSecondaryAttribute(key, resolvedClass)) sb.append(" <b>(Secondary Attribute)</b>");
+		appendStatusBreakdown(sb, key);
+		sb.append("</html>");
+		return sb.toString();
 	}
 
 	/*
@@ -817,13 +856,13 @@ public class PanelCharMain extends PanelCharBase {
 		JButton[] rollButtons = {strRoll, dexRoll, conRoll, focRoll, ctlRoll, capRoll, knowRoll, mechRoll, percRoll, intRoll, chaRoll, subRoll};
 
 		for (int i = 0; i < keys.length; i++) {
-			/*int val = attrs.getAttribute(keys[i]);
-			valFields[i].setValue(val);
+			double val = getDerivedStatusValue(attrs, keys[i]);
+			valFields[i].setValue(round1(val));
 
 			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i], resolvedClass);
 			attLabels[i].setToolTipText(tip);
 			valFields[i].setToolTipText(tip);
-			rollButtons[i].setToolTipText("/roll d20 + " + fmt(val));*/
+			rollButtons[i].setToolTipText("/roll d20 + " + fmt1(val));
 		}
 	}  /*--------------
 		END UPDATEATTRIBUTES
@@ -837,658 +876,125 @@ public class PanelCharMain extends PanelCharBase {
 		if (attrs == null) return;
 
 		// Defense values
-		/*int def   = attrs.getDefense("DEF");
-		int armor = attrs.getDefense("ARMOR") + def;
-		int dodge = attrs.getDefense("DODGE") + def;
-		int fort  = attrs.getDefense("FORT");
-		int ref   = attrs.getDefense("REF");
-		int will  = attrs.getDefense("WILL");
-		int ac    = armor + dodge - def;
-		int resistAll = attrs.getResist("ALL");
-		int avoid = attrs.getDefense("AVOID");
+		double def = getDerivedStatusValue(attrs, "DEF");
+		double armor = getDerivedStatusValue(attrs, "ARMOR") + def;
+		double dodge = getDerivedStatusValue(attrs, "DODGE") + def;
+		double fort = getDerivedStatusValue(attrs, "FORT");
+		double ref = getDerivedStatusValue(attrs, "REF");
+		double will = getDerivedStatusValue(attrs, "WILL");
+		double resistAll = getDerivedStatusValue(attrs, "ALL");
+		double avoid = getDerivedStatusValue(attrs, "AVOID");
+		double ac = armor + dodge - def;
 
-		charAC.setValue(ac);
-		charArmor.setValue(armor);
-		charDodge.setValue(dodge);
-		charFort.setValue(fort);
-		charRef.setValue(ref);
-		charWill.setValue(will);
-		charResist.setValue(resistAll);
+		charAC.setValue(round1(ac));
+		charArmor.setValue(round1(armor));
+		charDodge.setValue(round1(dodge));
+		charFort.setValue(round1(fort));
+		charRef.setValue(round1(ref));
+		charWill.setValue(round1(will));
+		charResist.setValue(round1(resistAll));
 
-		String tempString = "<html>AC: " + ac + "<br>-------(Def)-------<br>";
-		StatBlock tempBlock = character.getAttributes().getBlock("defense", "DEF");
-		List<DataStatus> statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Def Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		tempBlock = character.getAttributes().getBlock("defense", "ARMOR");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Armor: " + armor + ")-----<br>";
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Armor Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		tempBlock = character.getAttributes().getBlock("defense", "DODGE");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Dodge: " + dodge + ")-----<br>";
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Dodge Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		acStatL.setToolTipText(tempString + "</html>");
+		acStatL.setToolTipText(html("AC: " + fmt1(ac), "Defense: " + fmt1(def), "Armor: " + fmt1(armor), "Avoid: " + fmt1(dodge)));
 		charAC.setToolTipText(acStatL.getToolTipText());
-
-		tempString = "<html>Fortitude: " + fort + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("defense", "FORT");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		fortStatL.setToolTipText(tempString + "</html>");
+		fortStatL.setToolTipText(buildStatTooltip("Fortitude", fort, "FORT"));
 		charFort.setToolTipText(fortStatL.getToolTipText());
-
-		tempString = "<html>Reflex: " + ref + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("defense", "REF");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		refStatL.setToolTipText(tempString + "</html>");
+		refStatL.setToolTipText(buildStatTooltip("Reflex", ref, "REF"));
 		charRef.setToolTipText(refStatL.getToolTipText());
-
-		tempString = "<html>Will: " + will + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("defense", "WILL");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		willStatL.setToolTipText(tempString + "</html>");
+		willStatL.setToolTipText(buildStatTooltip("Will", will, "WILL"));
 		charWill.setToolTipText(willStatL.getToolTipText());
-
-		tempString = "<html>Resist All: " + resistAll + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("resist", "ALL");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		resistStatL.setToolTipText(tempString + "</html>");
+		resistStatL.setToolTipText(buildStatTooltip("Resist All", resistAll, "ALL"));
 		charResist.setToolTipText(resistStatL.getToolTipText());
 		resistRoll.setToolTipText(getCachedResistTooltip(attrs));
+		dodgeStatL.setToolTipText(buildStatTooltip("Avoid", avoid, "AVOID"));
+		charDodge.setToolTipText(dodgeStatL.getToolTipText());
 
-		tempString = "<html>Avoid: " + avoid + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("defense", "AVOID");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		dodgeStatL.setToolTipText(tempString + "</html>");
-		charDodge.setToolTipText(dodgeStatL.getToolTipText());*/
+		double atk = getDerivedStatusValue(attrs, "ATK");
+		double dc = getDerivedStatusValue(attrs, "APP");
+		double move = getDerivedStatusValue(attrs, "MOVE");
+		double fly = getDerivedStatusValue(attrs, "FLY");
+		double range = getDerivedStatusValue(attrs, "RANGE");
+		double init = getDerivedStatusValue(attrs, "INIT");
+		double cman = getDerivedStatusValue(attrs, "CMAN");
+		double maxAtk = getDerivedStatusValue(attrs, "MAXATK");
 
-/*
-		// Combat values
-		int atk   = attrs.getCombat("ATK");
-		int dc    = attrs.getCombat("APP");
-		int move  = attrs.getCombat("MOVE");
-		int fly   = attrs.getCombat("FLY");
-		int range = attrs.getCombat("RANGE");
-		int init  = attrs.getCombat("INIT");
-		int maxatk = attrs.getSecondary("MAXATK");
+		charAttack.setValue(round1(atk));
+		charDC.setValue(round1(dc));
+		charMove.setValue(round1(move));
+		charFly.setValue(round1(fly));
+		charRange.setValue(round1(range));
+		charInit.setValue(round1(init));
+		charMaxatt.setValue(round1(maxAtk));
 
-		charAttack.setValue(atk);
-		charDC.setValue(dc);
-		charMove.setValue(move);
-		charFly.setValue(fly);
-		charRange.setValue(range);
-		charInit.setValue(init);
-		charMaxatt.setValue(maxatk);
-
-		tempString = "<html>Attack: " + atk + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "ATK");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		attackStatL.setToolTipText(tempString + "</html>");
+		attackStatL.setToolTipText(buildStatTooltip("Attack", atk, "ATK"));
 		charAttack.setToolTipText(attackStatL.getToolTipText());
-
-		tempString = "<html>Combat Maneuvers: " + atk + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "CMAN");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		attackRoll.setToolTipText(tempString + "</html>");
-
-		tempString = "<html>Application: " + dc + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "APP");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		dcStatL.setToolTipText(tempString + "</html>");
+		attackRoll.setToolTipText(buildStatTooltip("Combat Maneuvers", cman, "CMAN"));
+		dcStatL.setToolTipText(buildStatTooltip("Application", dc, "APP"));
 		charDC.setToolTipText(dcStatL.getToolTipText());
-
-		tempString = "<html>Move Speed: " + move + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "MOVE");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		moveStatL.setToolTipText(tempString + "</html>");
+		moveStatL.setToolTipText(buildStatTooltip("Move Speed", move, "MOVE"));
 		charMove.setToolTipText(moveStatL.getToolTipText());
-
-		tempString = "<html>Fly Speed: " + fly + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "FLY");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		moveRoll.setToolTipText(tempString + "</html>");
-
-		tempString = "<html>Range: " + range + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "RANGE");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		rangeStatL.setToolTipText(tempString + "</html>");
+		moveRoll.setToolTipText(buildStatTooltip("Fly Speed", fly, "FLY"));
+		rangeStatL.setToolTipText(buildStatTooltip("Range", range, "RANGE"));
 		charRange.setToolTipText(rangeStatL.getToolTipText());
-
-		tempString = "<html>Initiative: " + init + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("combat", "INIT");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		initStatL.setToolTipText(tempString + "</html>");
+		initStatL.setToolTipText(buildStatTooltip("Initiative", init, "INIT"));
 		charInit.setToolTipText(initStatL.getToolTipText());
-		initRoll.setToolTipText("/roll d20 + " + fmt(init));
-
-		tempString = "<html>Max Attacks: " + maxatk + "<br>";
-		if (maxatk > 1) tempString += "Your full attack grants " + Math.ceil(maxatk-1) + " attacks.<br>";
-		if ((double)Math.ceil(maxatk-1) != maxatk-1) tempString += "Your final attack will have reduced damage.<br>";
-		tempString += "-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "MAXATK");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		maxattStatL.setToolTipText(tempString + "</html>");
+		initRoll.setToolTipText("/roll d20 + " + fmt1(init));
+		maxattStatL.setToolTipText(buildStatTooltip("Max Attacks", maxAtk, "MAXATK"));
 		charMaxatt.setToolTipText(maxattStatL.getToolTipText());
 
+		double support = getDerivedStatusValue(attrs, "SUP");
+		double impairment = getDerivedStatusValue(attrs, "IMP");
+		double mastery = getDerivedStatusValue(attrs, "MAST");
+		double excl = getDerivedStatusValue(attrs, "EXCL");
+		double grant = getDerivedStatusValue(attrs, "GRANT");
+		double crush = getDerivedStatusValue(attrs, "CRUSH");
+		double area = getDerivedStatusValue(attrs, "AREA");
+		double baseDmg = getDerivedStatusValue(attrs, "BDMG");
+		double totalDmg = getDerivedStatusValue(attrs, "TDMG");
+		double baseHeal = getDerivedStatusValue(attrs, "BHEAL");
+		double totalHeal = getDerivedStatusValue(attrs, "THEAL");
+		double crit = getDerivedStatusValue(attrs, "CRIT");
+		double critMulti = getDerivedStatusValue(attrs, "CRITDMG");
 
+		charSup.setValue(round1(crit));
+		charDb.setValue(round1(support));
+		charGrant.setValue(round1(area));
+		charExcl.setValue(round1(crush));
+		charBdmg.setValue(round1(baseDmg));
+		charBheal.setValue(round1(baseHeal));
 
-		// Resist / secondary values
-		int sup       = attrs.getSecondary("SUP");
-		int imp       = attrs.getSecondary("IMP");
-		int ben       = attrs.getSecondary("BEN");
-		int excl      = attrs.getSecondary("EXCL");
-		int maxAtk    = attrs.getSecondary("MAXATK");
-		int baseDmg   = attrs.getDamage("BDMG");
-		int baseHeal  = attrs.getDamage("BHEAL");
-		int totalDmg  = attrs.getDamage("TDMG");
-		int totalHeal = attrs.getDamage("THEAL");
-		double critMulti = attrs.getDamage("CRITDMG");
-		double crush   = attrs.getSecondary("CRUSH");
-		int crit = attrs.getDamage("CRIT");
-		double area = attrs.getSecondary("AREA");
-
-		charSup.setValue(crit);
-		charDb.setValue(sup);
-		charGrant.setValue(round2(area));
-		charExcl.setValue(round2(crush));
-		charMaxatt.setValue(maxAtk);
-		charBdmg.setValue(baseDmg);
-		charBheal.setValue(baseHeal);
-
-		tempString = "<html>Critical Increment: " + crit + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "CRIT");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		supStatL.setToolTipText(tempString + "</html>");
+		supStatL.setToolTipText(buildStatTooltip("Critical Increment", crit, "CRIT"));
 		charSup.setToolTipText(supStatL.getToolTipText());
+		critRoll.setToolTipText(buildStatTooltip("Critical Damage Multiplier", critMulti, "CRITDMG"));
 
-		tempString = "<html>Critical Damage Multiplier: " + fmt(critMulti) + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "CRITDMG");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		critRoll.setToolTipText(tempString + "</html>");
-
-		//***************************************** */
-		/*tempString = character.getIdentity().getCharSubclass();
-		DataClass charClass = dataQuery != null ? dataQuery.getClassByName(tempString) : null;
-		if (charClass == null && dataQuery != null) {
-			// Fallback to base class if subclass lookup failed
-			charClass = dataQuery.getClassByName(character.getIdentity().getCharClass());
-		}
-		boolean impSub = charClass != null && ("Impairment".equals(charClass.getRole()) || "Control".equals(charClass.getRole()));
-
-		tempString = "<html>Support: " + sup + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "SUP");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-
-		tempString += "<<<----------------->>><br>Grant: " + fmt(sup) + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "GRANT");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-
-
-		if (impSub) {
+		String dbTitle = "Support";
+		String dbKey = "SUP";
+		double dbValue = support;
+		String role = resolveClass() != null ? resolveClass().getRole() : "";
+		if ("Impairment".equalsIgnoreCase(role) || "Control".equalsIgnoreCase(role)) {
+			dbTitle = "Impairment";
+			dbKey = "IMP";
+			dbValue = impairment;
 			dbStatL.setText("Imp");
-			charDb.setValue(imp);
-			supRoll.setToolTipText(tempString + "</html>");
+			supRoll.setToolTipText(buildStatTooltip("Mastery", mastery, "MAST"));
+		} else {
+			dbStatL.setText("Sup");
+			supRoll.setToolTipText(buildStatTooltip("Grant", grant, "GRANT"));
 		}
-		else {
-			dbStatL.setToolTipText(tempString + "</html>");
-			charDb.setToolTipText(dbStatL.getToolTipText());
-		}
+		dbStatL.setToolTipText(buildStatTooltip(dbTitle, dbValue, dbKey));
+		charDb.setValue(round1(dbValue));
+		charDb.setToolTipText(dbStatL.getToolTipText());
 
-		tempString = "<html>Impairment: " + imp + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "IMP");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-
-		tempString += "<<<----------------->>><br>Mastery: " + sup + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "MAST");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-
-		if (!impSub) supRoll.setToolTipText(tempString + "</html>");
-		else {
-			dbStatL.setToolTipText(tempString + "</html>");
-			charDb.setToolTipText(dbStatL.getToolTipText());
-		}
-
-		tempString = "<html>Area Multiplier: " + fmt(area) + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "AREA");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		grantStatL.setToolTipText(tempString + "</html>");
+		grantStatL.setToolTipText(buildStatTooltip("Area Multiplier", area, "AREA"));
 		charGrant.setToolTipText(grantStatL.getToolTipText());
-
-		tempString = "<html>Exclusion Count: " + excl + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "EXCL");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		areaRoll.setToolTipText(tempString + "</html>");
-
-		tempString = "<html>Crush: " + fmt(crush) + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("secondary", "CRUSH");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		exclStatL.setToolTipText(tempString + "</html>");
+		areaRoll.setToolTipText(buildStatTooltip("Exclusion Count", excl, "EXCL"));
+		exclStatL.setToolTipText(buildStatTooltip("Crush", crush, "CRUSH"));
 		charExcl.setToolTipText(exclStatL.getToolTipText());
-		
-		tempString = "<html>Base Damage: " + baseDmg + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "BDMG");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		bdmgStatL.setToolTipText(tempString + "</html>");
+		bdmgStatL.setToolTipText(buildStatTooltip("Base Damage", baseDmg, "BDMG"));
 		charBdmg.setToolTipText(bdmgStatL.getToolTipText());
-
-		tempString = "<html>Total Damage: " + totalDmg + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "TDMG");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		bdmgRoll.setToolTipText(tempString + "</html>");
-
-		tempString = "<html>Base Healing: " + baseHeal + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "BHEAL");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		bhealStatL.setToolTipText(tempString + "</html>");
+		bdmgRoll.setToolTipText(buildStatTooltip("Total Damage", totalDmg, "TDMG"));
+		bhealStatL.setToolTipText(buildStatTooltip("Base Healing", baseHeal, "BHEAL"));
 		charBheal.setToolTipText(bhealStatL.getToolTipText());
-
-		tempString = "<html>Total Healing: " + totalHeal + "<br>-------(Base)-------<br>";
-		tempBlock = character.getAttributes().getBlock("damage", "THEAL");
-		statuses = null;
-		if (tempBlock != null) statuses = tempBlock.getAllStatuses();
-		if (statuses != null && !statuses.isEmpty()) {
-			for (DataStatus status : statuses) {
-				tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		if (tempBlock != null) statuses = tempBlock.getAllMultipliers();
-		if (statuses != null && !statuses.isEmpty()) {
-			tempString += "------(Multi)-----<br>";
-			for (DataStatus status : statuses) {
-				if (status.getName().compareTo("Base") == 0) tempString += "+ " + status.getName() + ": 1.0<br>";
-				else tempString += "+ " + status.getName() + ": " + fmt(status.getSeverity()) + "<br>";
-			}
-		}
-		bhealRoll.setToolTipText(tempString + "</html>");
-*/
+		bhealRoll.setToolTipText(buildStatTooltip("Total Healing", totalHeal, "THEAL"));
 	}  /*--------------
 		END UPDATESTATISTICS
 		--------------*/
@@ -1506,9 +1012,9 @@ public class PanelCharMain extends PanelCharBase {
 	private String buildResistTooltip(CharAttributes attrs) {
 		if (attrs == null) return "Resists: unknown";
 		StringBuilder sb = new StringBuilder("<html>Resists:<br>");
-		/*for (String key : RESIST_KEYS) {
-			sb.append(key).append(": ").append(attrs.getResist(key)).append("<br>");
-		}*/
+		for (String key : RESIST_KEYS) {
+			sb.append(key).append(": ").append(fmt1(getDerivedStatusValue(attrs, key))).append("<br>");
+		}
 		sb.append("</html>");
 		return sb.toString();
 	}
@@ -1525,9 +1031,9 @@ public class PanelCharMain extends PanelCharBase {
 	private String buildResistTooltipSignature(CharAttributes attrs) {
 		if (attrs == null) return "";
 		StringBuilder signature = new StringBuilder();
-		/*for (String key : RESIST_KEYS) {
-			signature.append(key).append('=').append(attrs.getResist(key)).append(';');
-		}*/
+		for (String key : RESIST_KEYS) {
+			signature.append(key).append('=').append(fmt1(getDerivedStatusValue(attrs, key))).append(';');
+		}
 		return signature.toString();
 	}
 
@@ -1546,11 +1052,14 @@ public class PanelCharMain extends PanelCharBase {
 		}
 
 		List<DataSkill> skillList = specials.getSkills();
+		if (skillList == null) skillList = List.of();
 		ensureSkillRowCapacity(skillList.size());
 		for (int i = 0; i < skillList.size(); i++) {
 			DataSkill tempSkill = skillList.get(i);
 			String tempAtt = "-";
-			for (String attChoice : tempSkill.getChosenAttributes()) {
+			List<String> chosenForDisplay = tempSkill.getChosenAttributes();
+			if (chosenForDisplay == null) chosenForDisplay = List.of();
+			for (String attChoice : chosenForDisplay) {
 				if (attChoice != null && !attChoice.trim().isEmpty() && !attChoice.equals("-")) {
 					tempAtt = attChoice;
 					break;
@@ -1600,20 +1109,23 @@ public class PanelCharMain extends PanelCharBase {
 		String tipTemp = "";
 
 		List<String> chosen = skill.getChosenAttributes();
+		if (chosen == null) chosen = List.of();
 		List<String> avail = skill.getAvailAttributes();
+		if (avail == null) avail = List.of();
 		double value = 0.0;
-		double cur = 0.0;
-		/*for (String s : chosen) {
-			if (s.compareTo("-") == 0) continue;
-			cur = character.getAttributes().getAttribute(s) * 1.5;
+		for (String s : chosen) {
+			if (s == null) continue;
+			String key = s.trim().toUpperCase();
+			if (key.isEmpty() || "-".equals(key)) continue;
+			double cur = getDerivedStatusValue(character.getAttributes(), key) * 1.5;
 			value += cur;
-			tipTemp += "+ " + s + ": " + fmt(cur) + "<br>";
-		}*/
-		//cur = character.getAttributes().getAttribute("INT") * 0.5;
-		value += cur;
-		tipTemp += "+ " + "INT" + ": " + fmt(cur) + "<br>";
+			tipTemp += "+ " + key + ": " + fmt1(cur) + "<br>";
+		}
+		if (tipTemp.isEmpty()) {
+			tipTemp = "No chosen attribute<br>";
+		}
 
-		tooltipFinal = "<html>Total Skill Value: " + fmt(value) + "<br>-------(Attributes)-------<br>" + tipTemp;
+		tooltipFinal = "<html>Total Skill Value: " + fmt1(value) + "<br>-------(Attributes)-------<br>" + tipTemp;
 		tooltipFinal += "---Available Attributes---<br>";
 		for (String s : avail) {
 			tooltipFinal += "- " + s + "<br>";
@@ -1634,14 +1146,17 @@ public class PanelCharMain extends PanelCharBase {
 	
 	private String buildSkillRollTooltip(DataSkill skill, String selectedAtt) {
 		if (skill == null || character == null || character.getAttributes() == null) return "Roll: unknown";
-		CharAttributes attrs = character.getAttributes();
 		String att = (selectedAtt == null || selectedAtt.isBlank() || "-".equals(selectedAtt)) ? "INT" : selectedAtt.toUpperCase();
-		/*double mod = attrs.getAttribute(att);
-		// Skill formula mirrors checkPressed
-		mod *= 1.5;
-		mod += (attrs.getAttribute("INT") * 0.5);
-		return "/roll d20 + " + fmt(mod);*/
-		return "";
+		double mod = getDerivedStatusValue(character.getAttributes(), att) * 1.5;
+		return "/roll d20 + " + fmt1(mod);
+	}
+
+	private String fmt1(double val) {
+		return String.format(java.util.Locale.ROOT, "%.1f", round1(val));
+	}
+
+	private double round1(double val) {
+		return Math.round(val * 10.0) / 10.0;
 	}
 
 	private String buildSpecialtyTooltip(DataSpecialty spec) {
@@ -1707,16 +1222,16 @@ public class PanelCharMain extends PanelCharBase {
 		ensureSpecialtyRowCapacity(visibleSpecialties.size());
 		int idx = 0;
 		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
-			bindSpecialtyRow(idx++, racial, RACIAL_SPECIALTY_COLOR);
+			bindSpecialtyRow(idx++, racial, RACIAL_SPECIALTY_COLOR, false);
 		}
 		for (DataSpecialty spec : specials.getClassSpecialties()) {
 			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
-				bindSpecialtyRow(idx++, spec, CLASS_SPECIALTY_COLOR);
+				bindSpecialtyRow(idx++, spec, CLASS_SPECIALTY_COLOR, true);
 			}
 		}
 		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
 			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
-				bindSpecialtyRow(idx++, spec, TRAINED_SPECIALTY_COLOR);
+				bindSpecialtyRow(idx++, spec, TRAINED_SPECIALTY_COLOR, false);
 			}
 		}
 		hideUnusedSpecialtyRows(visibleSpecialties.size());
@@ -1746,12 +1261,21 @@ public class PanelCharMain extends PanelCharBase {
 		}
 	}
 
-	private void bindSpecialtyRow(int index, DataSpecialty spec, Color color) {
+	private void bindSpecialtyRow(int index, DataSpecialty spec, Color color, boolean showChoiceRef) {
 		JTextField field = specialtiesName.get(index);
-		field.setText(spec.getName());
+		field.setText(formatSpecialtyName(spec, showChoiceRef));
 		field.setForeground(color);
 		field.setToolTipText(buildSpecialtyTooltip(spec));
 		field.setVisible(true);
+	}
+
+	private String formatSpecialtyName(DataSpecialty spec, boolean showChoiceRef) {
+		if (spec == null) return "";
+		String name = spec.getName();
+		String refName = spec.getRefName();
+		if (name == null) return "";
+		if (!showChoiceRef || refName == null || refName.isBlank()) return name;
+		return name + ": " + refName;
 	}
 
 	private void hideUnusedSpecialtyRows(int usedCount) {

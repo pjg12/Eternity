@@ -1,3 +1,5 @@
+// CHECKED
+
 package eternity;
 
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -28,12 +31,14 @@ public class StoreMetaManager {
             .registerModule(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
+    private static ArrayList<StoreMetaChar> charStore;
+
     /*
     *   Constructor
     */
-    private StoreMetaManager() { /* No Code Needed */ }
+    public StoreMetaManager() { /* No Code Needed */ }
 
-    public static ArrayList<StoreMetaChar> loadCharStore() {
+    public static void loadCharStore() {
         ArrayList<StoreMetaChar> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("^\\d+\\.json$");
         
@@ -57,29 +62,33 @@ public class StoreMetaManager {
         catch (IOException e) { e.printStackTrace(); }
 
         sortCharStoreByTime(list);
-        return list;
+        
+        charStore = list;
     }
 
-    public static void sortCharStoreByTime(List<StoreMetaChar> list) {
-        list.sort(Comparator.comparing(StoreMetaChar::getUpdated).reversed());
-    }
-
-    public static void sortCharStoreByIndex(List<StoreMetaChar> list) {
-        list.sort(Comparator.comparing(StoreMetaChar::getIndex));
-    }
+    public static ArrayList<StoreMetaChar> getCharStore() { return charStore; }
+    public static void sortCharStoreByTime(List<StoreMetaChar> list) { list.sort(Comparator.comparing(StoreMetaChar::getUpdated).reversed()); }
+    public static void sortCharStoreByIndex(List<StoreMetaChar> list) { list.sort(Comparator.comparing(StoreMetaChar::getIndex)); }
 
     /**
      * Returns the smallest positive integer index not currently used by the given StoreMetaChar list.
      */
+    @JsonIgnore
     public static int getNextFreeIndex(List<StoreMetaChar> list) {
         sortCharStoreByIndex(list);
-
         for (int i = 1; i <= list.size(); i++) {
+            
             if (list.get(i - 1).getIndex() != i) {
                 return i;
             }
         }
-
         return list.size() + 1;
+    }
+
+    @JsonIgnore
+    public static StoreMetaChar getLastLoad(List<StoreMetaChar> list) {
+    	if (list == null || list.isEmpty()) return null;
+    	sortCharStoreByTime(list);
+        return list.get(0);
     }
 }

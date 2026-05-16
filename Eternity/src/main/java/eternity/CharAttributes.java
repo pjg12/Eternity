@@ -3,6 +3,8 @@
 package eternity;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -50,6 +52,15 @@ public class CharAttributes {
         this.mSecondary  = initCategory(SECONDARY, false);
         this.bDamage     = initCategory(DAMAGE, true);
         this.mDamage     = initCategory(DAMAGE, false);
+
+        // set base defense
+        this.bDefense[2][0].get(0).setSeverity(10);
+        // set base move
+        this.bCombat[2][0].get(0).setSeverity(25);
+        // set base init
+        this.bCombat[5][0].get(0).setSeverity(10);
+        // set base maxatk
+        this.bCombat[7][0].get(0).setSeverity(1);
     }
 
     // ---------------------------------------------------------
@@ -73,7 +84,7 @@ public class CharAttributes {
         for (int i = 0; i < 3; i++) {
             list[i] = new ArrayList<>();
             DataStatus base = new DataStatus();
-            base.setName(labels[i]);
+            base.setName("Base");
             base.setAttribute(attributeKey);
             base.setSeverity(0);
             base.setDurationType(labels[i]);
@@ -92,23 +103,24 @@ public class CharAttributes {
         for (DataStatus status : list) {
             if (status != null) result += status.getSeverity();
         }
-        return Math.max(0.0, result);
+        return roundToTenths(Math.max(0.0, result));
     }
 
     @JsonIgnore
-    public int calcMaxValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
-        double baseValue = 0.0, multiValue = 0.0;
+    public double calcMaxValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
+        double baseValue = 0.0;
+        double multiValue = 1.0;
         for (int i = 0; i < 3; i++) {
             baseValue += calcValue(base[i]);
-            multiValue += calcValue(base[i]);
+            multiValue += calcValue(multi[i]);
         }
-        return (int)Math.max(0, baseValue * multiValue);
+        return roundToTenths(Math.max(0.0, baseValue * multiValue));
     }
 
-    @JsonIgnore public int calcStatusValue(String key) {
+    @JsonIgnore public double calcStatusValue(String key) {
         ArrayList<DataStatus>[] base = findStatusBlock(findStatusCategory(findCatByAttribute("B" + key)), key);
         ArrayList<DataStatus>[] multi = findStatusBlock(findStatusCategory(findCatByAttribute("M" + key)), key);
-        if (base == null || multi == null) return 0;
+        if (base == null || multi == null) return 0.0;
         return calcMaxValue(base, multi);
     }
 
@@ -163,31 +175,50 @@ public class CharAttributes {
         if (existing != null) existing.setSeverity(status.getSeverity());
             // TODO better comparison logic for statuses of the same name? For now, just take the highest severity if a duplicate is added.
         else list.add(status); 
+        updateAttributes(status);
     }
 
     public void removeStatus (String name, String category) {
+        if (name == null || category == null) return;
         name = name.toUpperCase();
         category = category.toUpperCase();
         ArrayList<DataStatus>[][] catList = findStatusCategory(category);
+        if (catList == null) return;
+        Set<String> changedAttributes = new LinkedHashSet<>();
         for (int i = 0; i < catList.length; i++) {
             for (int j = 0; j < 3; j++) {
                 ArrayList<DataStatus> list = catList[i][j];
                 DataStatus existing = findStatus(list, name);
-                if (existing != null) list.remove(existing);
+                if (existing != null) {
+                    changedAttributes.add(existing.getAttribute());
+                    list.remove(existing);
+                }
             }
+        }
+        for (String attribute : changedAttributes) {
+            updateAttributes(attribute);
         }
     }
 
     public void removeStatusByStatus (DataStatus status) {
+        if (status == null || status.getName() == null || status.getAttribute() == null) return;
         String name = status.getName().toUpperCase();
         String category = findCatByAttribute(status.getAttribute().toUpperCase()).toUpperCase();
         ArrayList<DataStatus>[][] catList = findStatusCategory(category);
+        if (catList == null) return;
+        boolean removedAny = false;
         for (int i = 0; i < catList.length; i++) {
             for (int j = 0; j < 3; j++) {
                 ArrayList<DataStatus> list = catList[i][j];
                 DataStatus existing = findStatus(list, name);
-                if (existing != null) list.remove(existing);
+                if (existing != null) {
+                    list.remove(existing);
+                    removedAny = true;
+                }
             }
+        }
+        if (removedAny) {
+            updateAttributes(status);
         }
     }
     
@@ -268,6 +299,205 @@ public class CharAttributes {
             if (cat.equals(key)) return subcat + "damage";
         }
         return null;
+    }
+
+    private double roundToTenths(double value) {
+        return Math.round(value * 10.0) / 10.0;
+    }
+
+    private void updateAttributes(DataStatus status) {
+        if (status == null) return;
+        updateAttributes(status.getAttribute());
+    }
+
+    private void updateAttributes(String attribute) {
+        String key = normalizeLinkedAttribute(attribute);
+        if (key == null) return;
+
+        updatePrimaryAttributeLinks(key);
+
+        switch (key) {
+            case "STR" -> updateStrengthLinks();
+            case "DEX" -> updateDexterityLinks();
+            case "CON" -> updateConstitutionLinks();
+            case "FOC" -> updateFocusLinks();
+            case "CTL" -> updateControlLinks();
+            case "CAP" -> updateCapacityLinks();
+            default -> {
+                // Other attribute links are added as they are defined.
+            }
+        }
+    }
+
+    private void updateStrengthLinks() {
+        double strengthValue = calcStatusValue("STR");
+        double severity = roundToTenths(strengthValue * 0.5);
+        double constitutionValue = calcStatusValue("CON");
+        double severity2 = roundToTenths(constitutionValue * 0.5);
+        upsertPassiveStatus("BTDMG", "Attribute", severity, "Derived from Strength");
+        upsertPassiveStatus("BALL", "Attribute", severity, "Derived from Strength");
+        upsertPassiveStatus("BFORT", "Attribute", severity+severity2, "Derived from Strength / Constitution");
+    }
+
+    private void updateDexterityLinks() {
+        double dexterityValue = calcStatusValue("DEX");
+        double severity = roundToTenths(dexterityValue * 0.5);
+        double focusValue = calcStatusValue("FOC");
+        double severity2 = roundToTenths(focusValue * 0.5);
+        upsertPassiveStatus("BDODGE", "Attribute", severity, "Derived from Dexterity");
+        upsertPassiveStatus("BREF", "Attribute", severity+severity2, "Derived from Dexterity / Focus");
+    }
+
+    private void updateConstitutionLinks() {
+        double constitutionValue = calcStatusValue("CON");
+        double severity = roundToTenths(constitutionValue * 0.05);
+        double strengthValue = calcStatusValue("STR");
+        double severity2 = roundToTenths(strengthValue * 0.5);
+        upsertPassiveResourceStatus("MULTIHP", "Attribute", severity, "Derived from Constitution");
+        upsertPassiveStatus("BFORT", "Attribute", (severity*10)+severity2, "Derived from Strength / Constitution");
+    }
+
+    private void updateFocusLinks() {
+        double focusValue = calcStatusValue("FOC");
+        double severity = roundToTenths(focusValue * 0.25);
+        double dexterityValue = calcStatusValue("DEX");
+        double severity2 = roundToTenths(dexterityValue * 0.5);
+        upsertPassiveStatus("BATK", "Attribute", severity, "Derived from Focus");
+        upsertPassiveStatus("BAPP", "Attribute", severity, "Derived from Focus");
+        upsertPassiveStatus("BWILL", "Attribute", severity+severity+severity2, "Derived from Dexterity / Focus");
+    }
+
+    private void updateControlLinks() {
+        double controlValue = calcStatusValue("CTL");
+        double severity = roundToTenths(controlValue * 0.25);
+        double capacityValue = calcStatusValue("CAP");
+        double severity2 = roundToTenths(capacityValue * 0.5);
+        upsertPassiveStatus("BBDMG", "Attribute", severity, "Derived from Control");
+        upsertPassiveStatus("BBHEAL", "Attribute", severity, "Derived from Control");
+        upsertPassiveStatus("BREF", "Attribute", severity+severity+severity2, "Derived from Control / Capacity");
+    }
+
+    private void updateCapacityLinks() {
+        double capacityValue = calcStatusValue("CAP");
+        double severity = roundToTenths(capacityValue * 0.05);
+        double controlValue = calcStatusValue("CTL");
+        double severity2 = roundToTenths(controlValue * 0.5);
+        upsertPassiveResourceStatus("MULTIAURA", "Attribute", severity, "Derived from Capacity");
+        upsertPassiveStatus("BWILL", "Attribute", (severity*10)+severity2, "Derived from Control / Capacity");
+    }
+
+    private void updatePrimaryAttributeLinks(String changedAttribute) {
+        String primaryAttribute = resolvePrimaryAttribute();
+        if (primaryAttribute == null || !primaryAttribute.equalsIgnoreCase(changedAttribute)) return;
+
+        double primaryValue = calcStatusValue(primaryAttribute);
+        double severity = roundToTenths(primaryValue * 0.2);
+        upsertPassiveStatus("BTDMG", "Primary Attribute", severity, "Derived from Primary Attribute");
+        upsertPassiveStatus("BBDMG", "Primary Attribute", severity, "Derived from Primary Attribute");
+        upsertPassiveStatus("BATK", "Primary Attribute", severity, "Derived from Primary Attribute");
+        upsertPassiveStatus("BTHEAL", "Primary Attribute", severity, "Derived from Primary Attribute");
+        upsertPassiveStatus("BBHEAL", "Primary Attribute", severity, "Derived from Primary Attribute");
+        upsertPassiveStatus("BAPP", "Primary Attribute", severity, "Derived from Primary Attribute");
+    }
+
+    private void upsertPassiveStatus(String targetAttribute, String statusName, double severity, String description) {
+        if (targetAttribute == null || statusName == null) return;
+        String normalizedAttribute = targetAttribute.toUpperCase();
+        ArrayList<DataStatus>[][] category = findStatusCategory(findCatByAttribute(normalizedAttribute));
+        ArrayList<DataStatus>[] block = findStatusBlock(category, normalizedAttribute);
+        if (block == null || block[0] == null) return;
+
+        ArrayList<DataStatus> passiveList = block[0];
+        DataStatus existing = findStatus(passiveList, statusName);
+        if (existing == null) {
+            existing = new DataStatus();
+            existing.setName(statusName);
+            passiveList.add(existing);
+        }
+        existing.setAttribute(normalizedAttribute);
+        existing.setDurationType("Passive");
+        existing.setSeverity(severity);
+        existing.setAffinity("None");
+        existing.setDescription(description);
+    }
+
+    private void upsertPassiveResourceStatus(String targetAttribute, String statusName, double severity, String description) {
+        if (owner == null || owner.getResources() == null || targetAttribute == null || statusName == null) return;
+        ArrayList<DataStatus>[] block = findResourceStatusBlock(targetAttribute.toUpperCase());
+        if (block == null || block[0] == null) return;
+
+        ArrayList<DataStatus> passiveList = block[0];
+        DataStatus existing = findStatus(passiveList, statusName);
+        if (existing == null) {
+            existing = new DataStatus();
+            existing.setName(statusName);
+            passiveList.add(existing);
+        }
+        existing.setAttribute(targetAttribute.toUpperCase());
+        existing.setDurationType("Passive");
+        existing.setSeverity(severity);
+        existing.setAffinity("None");
+        existing.setDescription(description);
+    }
+
+    private ArrayList<DataStatus>[] findResourceStatusBlock(String attribute) {
+        if (owner == null || owner.getResources() == null || attribute == null) return null;
+        CharResources resources = owner.getResources();
+        return switch (attribute) {
+            case "BASEHP" -> resources.getBaseHP();
+            case "MULTIHP" -> resources.getMultiHP();
+            case "BASEAURA" -> resources.getBaseAura();
+            case "MULTIAURA" -> resources.getMultiAura();
+            case "BASER1" -> resources.getBaseResource1();
+            case "MULTIR1" -> resources.getMultiResource1();
+            case "BASER2" -> resources.getBaseResource2();
+            case "MULTIR2" -> resources.getMultiResource2();
+            case "BASER3" -> resources.getBaseResource3();
+            case "MULTIR3" -> resources.getMultiResource3();
+            case "BASEREACT" -> resources.getBaseReactions();
+            case "MULTIREACT" -> resources.getMultiReactions();
+            default -> null;
+        };
+    }
+
+    private String normalizeLinkedAttribute(String attribute) {
+        if (attribute == null || attribute.isBlank()) return null;
+        String upper = attribute.toUpperCase();
+        if (upper.length() > 1) {
+            char prefix = upper.charAt(0);
+            if ((prefix == 'B' || prefix == 'M') && containsAttributeKey(upper.substring(1))) {
+                return upper.substring(1);
+            }
+        }
+        return containsAttributeKey(upper) ? upper : null;
+    }
+
+    private boolean containsAttributeKey(String key) {
+        if (key == null) return false;
+        for (String attribute : ATTRIBUTES) {
+            if (attribute.equalsIgnoreCase(key)) return true;
+        }
+        return false;
+    }
+
+    private String resolvePrimaryAttribute() {
+        if (owner == null || owner.getIdentity() == null) return null;
+        StoreRuleManager ruleManager = new StoreRuleManager();
+        CharIdentity identity = owner.getIdentity();
+
+        String subclassName = identity.getCharSubclass();
+        if (subclassName != null && !subclassName.isBlank() && !"?".equals(subclassName.trim()) && !"***".equals(subclassName.trim())) {
+            DataClass subclass = ruleManager.getClassByName(subclassName);
+            if (subclass != null && containsAttributeKey(subclass.getPrimaryAtt())) {
+                return subclass.getPrimaryAtt().toUpperCase();
+            }
+        }
+
+        String className = identity.getCharClass();
+        if (className == null || className.isBlank() || "?".equals(className.trim())) return null;
+        DataClass baseClass = ruleManager.getClassByName(className);
+        if (baseClass == null || !containsAttributeKey(baseClass.getPrimaryAtt())) return null;
+        return baseClass.getPrimaryAtt().toUpperCase();
     }
 }
 

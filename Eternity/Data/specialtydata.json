@@ -1,7 +1,7 @@
 [ {
   "id" : 1,
   "name" : "Level 1",
-  "refName" : "Level 1",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 1",
   "type" : "level",
@@ -11,7 +11,7 @@
 }, {
   "id" : 2,
   "name" : "Level 2",
-  "refName" : "Level 2",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 2",
   "type" : "level",
@@ -21,7 +21,7 @@
 }, {
   "id" : 3,
   "name" : "Level 3",
-  "refName" : "Level 3",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 3",
   "type" : "level",
@@ -31,7 +31,7 @@
 }, {
   "id" : 4,
   "name" : "Level 4",
-  "refName" : "Level 4",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 4",
   "type" : "level",
@@ -41,7 +41,7 @@
 }, {
   "id" : 5,
   "name" : "Level 5",
-  "refName" : "Level 5",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 5",
   "type" : "level",
@@ -51,7 +51,7 @@
 }, {
   "id" : 6,
   "name" : "Level 6",
-  "refName" : "Level 6",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 6",
   "type" : "level",
@@ -61,7 +61,7 @@
 }, {
   "id" : 7,
   "name" : "Level 7",
-  "refName" : "Level 7",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 7",
   "type" : "level",
@@ -71,7 +71,7 @@
 }, {
   "id" : 8,
   "name" : "Level 8",
-  "refName" : "Level 8",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 8",
   "type" : "level",
@@ -81,7 +81,7 @@
 }, {
   "id" : 9,
   "name" : "Level 9",
-  "refName" : "Level 9",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 9",
   "type" : "level",
@@ -91,7 +91,7 @@
 }, {
   "id" : 10,
   "name" : "Level 10",
-  "refName" : "Level 10",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 10",
   "type" : "level",
@@ -101,7 +101,7 @@
 }, {
   "id" : 11,
   "name" : "Level 11",
-  "refName" : "Level 11",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 11",
   "type" : "level",
@@ -111,7 +111,7 @@
 }, {
   "id" : 12,
   "name" : "Level 12",
-  "refName" : "Level 12",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 12",
   "type" : "level",
@@ -121,7 +121,7 @@
 }, {
   "id" : 13,
   "name" : "Level 13",
-  "refName" : "Level 13",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 13",
   "type" : "level",
@@ -131,7 +131,7 @@
 }, {
   "id" : 14,
   "name" : "Level 14",
-  "refName" : "Level 14",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 14",
   "type" : "level",
@@ -141,7 +141,7 @@
 }, {
   "id" : 15,
   "name" : "Level 15",
-  "refName" : "Level 15",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 15",
   "type" : "level",
@@ -151,7 +151,7 @@
 }, {
   "id" : 16,
   "name" : "Level 16",
-  "refName" : "Level 16",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 16",
   "type" : "level",
@@ -161,7 +161,7 @@
 }, {
   "id" : 17,
   "name" : "Level 17",
-  "refName" : "Level 17",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 17",
   "type" : "level",
@@ -171,7 +171,7 @@
 }, {
   "id" : 18,
   "name" : "Level 18",
-  "refName" : "Level 18",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 18",
   "type" : "level",
@@ -181,7 +181,7 @@
 }, {
   "id" : 19,
   "name" : "Level 19",
-  "refName" : "Level 19",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 19",
   "type" : "level",
@@ -191,7 +191,7 @@
 }, {
   "id" : 20,
   "name" : "Level 20",
-  "refName" : "Level 20",
+  "refName" : "",
   "category" : "Level",
   "description" : "Level 20",
   "type" : "level",
@@ -200,48 +200,48 @@
   "permStatus" : [ ]
 }, {
   "id" : 41,
-  "name" : "Proficiency (Light Armor)",
-  "refName" : "Light Armor",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
-  "description" : "Allows the character to equip Light Armor",
+  "description" : "Allows the character to equip ",
   "type" : "proficiency",
   "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 42,
-  "name" : "Proficiency (Medium Armor)",
-  "refName" : "Medium Armor",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
-  "description" : "Allows the character to equip Medium Armor",
+  "description" : "Allows the character to equip ",
   "type" : "proficiency",
   "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 43,
-  "name" : "Proficiency (Heavy Armor)",
-  "refName" : "Heavy Armor",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
-  "description" : "Allows the character to equip Heavy Armor",
+  "description" : "Allows the character to equip ",
   "type" : "proficiency",
   "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 44,
-  "name" : "Proficiency (Exo Armor)",
-  "refName" : "Exo Armor",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
-  "description" : "Allows the character to equip Exo Armor",
+  "description" : "Allows the character to equip ",
   "type" : "proficiency",
   "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 51,
-  "name" : "Proficiency (Blade)",
-  "refName" : "Blade",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a blade.",
   "type" : "proficiency",
@@ -250,8 +250,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 52,
-  "name" : "Proficiency (Dagger)",
-  "refName" : "Dagger",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a dagger.",
   "type" : "proficiency",
@@ -260,8 +260,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 53,
-  "name" : "Proficiency (Fist)",
-  "refName" : "Fist",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a fist.",
   "type" : "proficiency",
@@ -270,8 +270,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 54,
-  "name" : "Proficiency (Whip)",
-  "refName" : "Whip",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a whip.",
   "type" : "proficiency",
@@ -280,8 +280,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 55,
-  "name" : "Proficiency (Sword)",
-  "refName" : "Sword",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a sword.",
   "type" : "proficiency",
@@ -290,8 +290,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 56,
-  "name" : "Proficiency (Axe)",
-  "refName" : "Axe",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding an axe.",
   "type" : "proficiency",
@@ -300,8 +300,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 57,
-  "name" : "Proficiency (Mace)",
-  "refName" : "Mace",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a mace.",
   "type" : "proficiency",
@@ -310,8 +310,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 58,
-  "name" : "Proficiency (Shield)",
-  "refName" : "Shield",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a shield.",
   "type" : "proficiency",
@@ -320,8 +320,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 59,
-  "name" : "Proficiency (Greatsword)",
-  "refName" : "Greatsword",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a greatsword.",
   "type" : "proficiency",
@@ -330,8 +330,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 60,
-  "name" : "Proficiency (Battleaxe)",
-  "refName" : "Battleaxe",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a battleaxe.",
   "type" : "proficiency",
@@ -340,8 +340,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 61,
-  "name" : "Proficiency (Warhammer)",
-  "refName" : "Warhammer",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a warhammer.",
   "type" : "proficiency",
@@ -350,8 +350,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 62,
-  "name" : "Proficiency (Polearm)",
-  "refName" : "Polearm",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a polearm.",
   "type" : "proficiency",
@@ -360,8 +360,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 63,
-  "name" : "Proficiency (Thrown)",
-  "refName" : "Thrown",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a thrown weapon.",
   "type" : "proficiency",
@@ -370,8 +370,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 64,
-  "name" : "Proficiency (Handbow)",
-  "refName" : "Handbow",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a handbow.",
   "type" : "proficiency",
@@ -380,8 +380,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 65,
-  "name" : "Proficiency (Pistol)",
-  "refName" : "Pistol",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a pistol.",
   "type" : "proficiency",
@@ -390,8 +390,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 66,
-  "name" : "Proficiency (Sling)",
-  "refName" : "Sling",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a sling.",
   "type" : "proficiency",
@@ -400,8 +400,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 67,
-  "name" : "Proficiency (Bow)",
-  "refName" : "Bow",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a bow.",
   "type" : "proficiency",
@@ -410,8 +410,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 68,
-  "name" : "Proficiency (Crossbow)",
-  "refName" : "Crossbow",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a crossbow.",
   "type" : "proficiency",
@@ -420,8 +420,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 69,
-  "name" : "Proficiency (Rifle)",
-  "refName" : "Rifle",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a rifle.",
   "type" : "proficiency",
@@ -430,8 +430,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 70,
-  "name" : "Proficiency (Cannon)",
-  "refName" : "Cannon",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a cannon.",
   "type" : "proficiency",
@@ -440,8 +440,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 71,
-  "name" : "Proficiency (Wand)",
-  "refName" : "Wand",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a wand.",
   "type" : "proficiency",
@@ -450,8 +450,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 72,
-  "name" : "Proficiency (Ring)",
-  "refName" : "Ring",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a ring.",
   "type" : "proficiency",
@@ -460,8 +460,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 73,
-  "name" : "Proficiency (Orb)",
-  "refName" : "Orb",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding an orb.",
   "type" : "proficiency",
@@ -470,8 +470,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 74,
-  "name" : "Proficiency (Talisman)",
-  "refName" : "Talisman",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a talisman.",
   "type" : "proficiency",
@@ -480,8 +480,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 75,
-  "name" : "Proficiency (Staff)",
-  "refName" : "Staff",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a staff.",
   "type" : "proficiency",
@@ -490,8 +490,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 76,
-  "name" : "Proficiency (Tome)",
-  "refName" : "Tome",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a tome.",
   "type" : "proficiency",
@@ -500,8 +500,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 77,
-  "name" : "Proficiency (Relic)",
-  "refName" : "Relic",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a relic.",
   "type" : "proficiency",
@@ -510,8 +510,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 78,
-  "name" : "Proficiency (Symbol)",
-  "refName" : "Symbol",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to use their primary Attribute when weilding a holy symbol.",
   "type" : "proficiency",
@@ -520,8 +520,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 79,
-  "name" : "Proficiency (Matrix)",
-  "refName" : "Matrix",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to equip a matrix.",
   "type" : "proficiency",
@@ -530,8 +530,8 @@
   "permStatus" : [ ]
 }, {
   "id" : 80,
-  "name" : "Proficiency (Exo Weapon)",
-  "refName" : "Exo Weapon",
+  "name" : "Proficiency ()",
+  "refName" : "",
   "category" : "Proficiency",
   "description" : "Allows the character to equip Exo Weapons.",
   "type" : "proficiency",
@@ -541,21 +541,21 @@
 }, {
   "id" : 101,
   "name" : "Shapeshifting (Alteri)",
-  "refName" : "Shapeshift",
+  "refName" : "",
   "category" : "Racial",
   "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
   "type" : "reminder",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
   "id" : 102,
   "name" : "Waveborne (Aquios)",
-  "refName" : "Breathe under water. Double move speed while swimming.",
+  "refName" : "",
   "category" : "Racial",
   "description" : "Aquata can survive under water indefinitely. Aquata move twice their move speed when swimming.",
   "type" : "reminder",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -565,7 +565,7 @@
   "category" : "Racial",
   "description" : "Ardians can move 5ft at the end of any turn during which they took damage.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -575,7 +575,7 @@
   "category" : "Racial",
   "description" : "Azuri choose a Pursuit character attribute at character creation and a minimum of one skill for that attribute. Azuri add their racial level as a bonus to skills matching their pursuit. Additionally, they make take 20 when using these skills in any situation where a character could take 10.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -585,7 +585,7 @@
   "category" : "Racial",
   "description" : "Boxlor can regenerate a lost limb or from another significant injury by spending a cumulative 24 hours in long rest. A Boxlor is considered to be large size and receives all bonuses and penalties thereof.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -595,7 +595,7 @@
   "category" : "Racial",
   "description" : "Cetryu never suffer penalties to KNOW or MECH checks and can take 10 on such checks when under pressure. Cetryu use KNOW in place of INT for any skill where KNOW seems relevant.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -605,7 +605,7 @@
   "category" : "Racial",
   "description" : "A construct may install, assimilate, or otherwise use catalysts. Acclimation to a new catalyst will be treated as a 'list' addition and be subject to the same time requirements. Removing a catalyst requires one hour.",
   "type" : "T",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -615,7 +615,7 @@
   "category" : "Racial",
   "description" : "Deckans receive a bonus to Attack and Damage while in 'honorable' standing. If a Deckan is reduced to an honorless state, these bonuses become penalties and the Deckan suffers an additional -10 WILL until their honor is restored.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -625,7 +625,7 @@
   "category" : "Racial",
   "description" : "En",
   "type" : "T",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -635,7 +635,7 @@
   "category" : "Racial",
   "description" : "Evans have a distinct Hero or Villain alignment. Evans gain a Hero or Villain index equal to their race level. An Evan can spend an index point to grant all allies a bonus to current Init equal to their race level.",
   "type" : "f",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
@@ -645,17 +645,17 @@
   "category" : "Racial",
   "description" : "Felsh receive Aura Ritual equal to their race level. Felsh also increase their Max Ranks by 0.5% per race level.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 112,
   "name" : "Felshify (Felsh Cat)",
-  "refName" : "Form",
+  "refName" : "",
   "category" : "Racial",
   "description" : "Felsh Cats can turn into their humanoid forms or revert to their cat forms once per turn as a free action.",
   "type" : "reminder",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -665,7 +665,7 @@
   "category" : "Racial",
   "description" : "Forven add their entire INT mod to Crafting rolls. When crafting, Forven can spend additional time to improve their crafting outcome. Each additional hour increases their result by 2 and they may spend additional time until the result is Masterwork. Forven also generate 50% additional crafting revenue.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
@@ -675,7 +675,7 @@
   "category" : "Racial",
   "description" : "Gaians gain an additional skill and an additional feature at level 1.",
   "type" : "T",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
@@ -685,7 +685,7 @@
   "category" : "Racial",
   "description" : "Irdon host an angelic spirit controlled by the narrator. An Irdon's spirit generates a resource referred to as their Angel Index. An Irdon may consume a point from their index to add an additional target to a non-AoE ability. Doing so will double the cost of that ability. The Angel index will be restored following a long rest.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -695,7 +695,7 @@
   "category" : "Racial",
   "description" : "Kenti who are in Balance receive a +1 bonus to all attributes aside from their primary attribute. A Kenti is in balance if all of their attributes aside from their primary attribute are within 1.5 of the average of those attributes.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -705,7 +705,7 @@
   "category" : "Racial",
   "description" : "Kitsune can invoke an ancestral spirit as a free action once per day. The effects of this invocation remain with the Kitsune until they invoke a different spirit. Kitsune can invoke any of the tailed spirits from one up to their racial level.",
   "type" : "T",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
@@ -715,7 +715,7 @@
   "category" : "Racial",
   "description" : "Loben have exceptional senses of sight, hearing, and smell. Loben are also capable of cutting off an overwhelmed sense before they are disoriented. If they are able to utilize even one of these senses, Loben receive no penalties for being blinded, deafened, or odorized.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -725,7 +725,7 @@
   "category" : "Racial",
   "description" : "Loritho get bonus range. Loritho get bonuses to navigation when outside. Once per day, a Loritho can shift their fortunes, rerolling a single die.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -735,7 +735,7 @@
   "category" : "Racial",
   "description" : "Meridians increase the durations of their debuff and support techniques by one regardless of duration type.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -745,7 +745,7 @@
   "category" : "Racial",
   "description" : "Nohmen receive the Balance skill at level 1 and automatically succeed at mundane balance checks. Nohmen are considered small creatures, gaining all bonuses and penalties of such.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -755,7 +755,7 @@
   "category" : "Racial",
   "description" : "Nosfer receive a +2 bonus per racial level against all disease and poison effects and are immune to mundane disease and poison. Whenever a Nosfer applies a disease effect to an enemy, apply 'Bloodplague' to that enemy as well, increasing the damage they take from all attacks by the Nosfer's Racial level until End of Round.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -765,7 +765,7 @@
   "category" : "Racial",
   "description" : "Oons receive a bonus to grapple actions equal to their racial level. Oons possess a bite attack that can be used as a free action in any state of grapple.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -775,7 +775,7 @@
   "category" : "Racial",
   "description" : "Poruuk can hide in plain sight and increase the DC to track groups they are a part of by an amount equal to their racial level.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -785,7 +785,7 @@
   "category" : "Racial",
   "description" : "Quez of the Formicidae Family receive +0.5 CON per Racial Level. These Quez have double the standard lifting capacity. Formicidae never become exhausted from travel.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -795,7 +795,7 @@
   "category" : "Racial",
   "description" : "-",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -805,7 +805,7 @@
   "category" : "Racial",
   "description" : "-",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -815,7 +815,7 @@
   "category" : "Racial",
   "description" : "Raigon can activate their dragonshape as an aura action. Raigon can maintain their dragonshape for a number of rounds each day equal to racial level. In dragonshape, Raigon gain fly speed equal to their move speed and Armor equal to racial level. They can use a breath attack once per day, increased to twice at racial level 6.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -825,7 +825,7 @@
   "category" : "Racial",
   "description" : "Reven are not immediately rendered unconscious when reduced below 0 HP. Reven make a FORT save (DC equal to their negative HP) at the start of their turn. If they succeed, they remain conscious. Additionally, any creature damaged by the Reven which dies briefly enters the Reven's service. This creature may not attack, but occupies its tile.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -835,7 +835,7 @@
   "category" : "Racial",
   "description" : "Skren receive the Intimidate skill at level 1. At the start of a Skren's combat turn, make an Intimidate check and multiply the result by your racial level. Any creature with less HP than this value must make a WILL save (DC your original intimidate check). A creature that fails this save has their morale broken.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -845,7 +845,7 @@
   "category" : "Racial",
   "description" : "Therans require 1/2 rations and 1/2 sleep time. Increase INIT by 1/2 racial level during daylight. Increase RESISTALL by twice racial level outside daylight.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -855,7 +855,7 @@
   "category" : "Racial",
   "description" : "Vindis have the rank cost and xp requirement for spirit affinity techniques reduced by 25%. Vindis can summon a companion spirit.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -865,7 +865,7 @@
   "category" : "Racial",
   "description" : "Vyrek host a demonic spirit controlled by the narrator. A Vyrek's spirit generates a resource referred to as their Demon Index. A Vyrek may consume a point from their index to increase the damage of a non-AoE ability by 50%. Doing so will double the cost of that ability. This effect may be activated after the hit has been confirmed. The Demon index will be restored following a long rest.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -875,7 +875,7 @@
   "category" : "Racial",
   "description" : "Xid are tiny creatures and are subject to all bonuses and penalties that entails. Xid do not occupy the tile they are in and must enter an enemy's tile to make a melee attack. Xid have the natural ability to fly and have natural flight speed equal to 15ft + 2.5ft per racial level.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -885,7 +885,7 @@
   "category" : "Racial",
   "description" : "Zyans can assume or revert their hybrid form as a free action once per turn. The bonuses of this form depend on the Xyan's culture.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -895,7 +895,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 51,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -905,7 +905,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 52,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -915,7 +915,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 53,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -925,7 +925,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 54,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -935,7 +935,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 55,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -945,7 +945,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 56,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -955,7 +955,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 57,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -965,7 +965,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 58,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -975,7 +975,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 59,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -985,7 +985,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 60,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -995,7 +995,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 61,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1005,7 +1005,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 62,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1015,7 +1015,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 63,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1025,7 +1025,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 64,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1035,7 +1035,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 65,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1045,7 +1045,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 66,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1055,7 +1055,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 67,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1065,7 +1065,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 68,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1075,7 +1075,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 69,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1085,7 +1085,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 70,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1095,7 +1095,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 71,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1105,7 +1105,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 72,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1115,7 +1115,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 73,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1125,7 +1125,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 74,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1135,7 +1135,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 75,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1145,7 +1145,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 76,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1155,7 +1155,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 77,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1165,7 +1165,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 78,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1175,7 +1175,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 201,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1185,7 +1185,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 202,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1195,7 +1195,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 203,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1205,7 +1205,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 204,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1215,7 +1215,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 205,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1225,7 +1225,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 206,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1235,7 +1235,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 207,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1245,7 +1245,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 208,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1255,7 +1255,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 209,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1265,7 +1265,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 210,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1275,7 +1275,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 211,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1285,7 +1285,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 212,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1295,7 +1295,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 213,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1305,7 +1305,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 214,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1315,7 +1315,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 215,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1325,7 +1325,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 216,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1335,7 +1335,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 217,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1345,7 +1345,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 218,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1355,7 +1355,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 219,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1365,7 +1365,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 220,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1375,7 +1375,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 221,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1385,7 +1385,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 222,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1395,7 +1395,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 223,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1405,7 +1405,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 224,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1415,7 +1415,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 225,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1425,7 +1425,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 226,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1435,7 +1435,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 227,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1445,7 +1445,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 228,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1455,7 +1455,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 231,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1465,7 +1465,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 232,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1475,7 +1475,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 233,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1485,7 +1485,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 234,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1495,7 +1495,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 235,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1505,7 +1505,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 236,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1515,7 +1515,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 237,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1525,7 +1525,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 238,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1535,7 +1535,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 239,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1545,7 +1545,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 240,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1555,7 +1555,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 241,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1565,7 +1565,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 242,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1575,7 +1575,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 243,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1585,7 +1585,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 244,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1595,7 +1595,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 245,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1605,7 +1605,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 246,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1615,7 +1615,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 247,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1625,7 +1625,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 248,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1635,7 +1635,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 249,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1645,7 +1645,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 250,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1655,7 +1655,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 251,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1665,7 +1665,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 252,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1675,7 +1675,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 253,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1685,7 +1685,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 254,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1695,7 +1695,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 255,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1705,7 +1705,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 256,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1715,7 +1715,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 257,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1725,7 +1725,7 @@
   "category" : "Martial",
   "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 258,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1753,7 +1753,7 @@
   "category" : "Martial",
   "description" : "More HP",
   "type" : "passive",
-  "prereq" : 0,
+  "prereq" : 301,
   "pick" : false,
   "permStatus" : [ {
     "name" : "Hardy",
@@ -1779,7 +1779,7 @@
   "category" : "Martial",
   "description" : "More HP",
   "type" : "passive",
-  "prereq" : 0,
+  "prereq" : 302,
   "pick" : false,
   "permStatus" : [ {
     "name" : "Durable",
@@ -1815,7 +1815,7 @@
   "category" : "Martial",
   "description" : "More Aura",
   "type" : "passive",
-  "prereq" : 0,
+  "prereq" : 311,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1825,7 +1825,7 @@
   "category" : "Martial",
   "description" : "More Aura",
   "type" : "passive",
-  "prereq" : 0,
+  "prereq" : 312,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1845,7 +1845,7 @@
   "category" : "Class",
   "description" : "Gain a Martial type Feature of your choice.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1865,7 +1865,7 @@
   "category" : "Class",
   "description" : "Gain access to your first Class Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1875,7 +1875,27 @@
   "category" : "Class",
   "description" : "Gain access to active abilities Crushing Blow (Triumph) and Crushing Blow (Break).",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1023,
+  "name" : "Crushing Blow (Triumph)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "F",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1024,
+  "name" : "Crushing Blow (Break)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "F",
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1885,7 +1905,7 @@
   "category" : "Class",
   "description" : "Choose a Special Combat Action. When performing that action, gain a bonus equal to char level.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1895,7 +1915,7 @@
   "category" : "Class",
   "description" : "When performing a Special Combat Action augmented by your class abilities or features, gain an additional bonus equal to 1/2 STR.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1905,7 +1925,7 @@
   "category" : "Class",
   "description" : "Choose a weapon you are proficient with. Gain the Weapon Specialization feature for that weapon. If you already have Weapon Specialization for that weapon, select another martial feature to gain instead.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1915,7 +1935,7 @@
   "category" : "Class",
   "description" : "Choose an available stance. Gain 1 rank in the chosen stance.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1925,7 +1945,7 @@
   "category" : "Class",
   "description" : "Gain a 50% increase to base HP. Gain a bonus to reactions equal to your char level. An adjacent enemy must succeed at a WILL save to attack a target that is not a tank.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1935,7 +1955,7 @@
   "category" : "Class",
   "description" : "Gain a bonus to DC equal to 1/2 char level. Gain a 50% increase to Debuff. Your impairment effects gain an increase of +1 to duration.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1945,7 +1965,7 @@
   "category" : "Class",
   "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1955,7 +1975,7 @@
   "category" : "Class",
   "description" : "Gain access to active abilities Taunt and Taunting Shout.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1965,7 +1985,7 @@
   "category" : "Class",
   "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1975,7 +1995,7 @@
   "category" : "Class",
   "description" : "Gain access to active abilities Rend and Rending Cleave.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1985,7 +2005,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Whirlwind.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -1995,7 +2015,7 @@
   "category" : "Class",
   "description" : "Gain a 50% increase to Critical Damage.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2005,7 +2025,7 @@
   "category" : "Class",
   "description" : "While equipped with a shield, gain an additional attack for 50% damage. While not using a shield, your first attack each turn gains a +25% modifier.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2015,7 +2035,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Ignore Pain.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2025,7 +2045,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Hemorrhage.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2035,7 +2055,7 @@
   "category" : "Class",
   "description" : "Gain access to your special Class Resource. Maximum value equal to char level. Decays between combat. Gain 1 Rage at end of your turn if you dealt damage. Gain 1 Rage at start of your turn if you received damage that cycle.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2045,7 +2065,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Battle Frenzy.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2055,7 +2075,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Enrage. (Blood rage?)",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2065,7 +2085,7 @@
   "category" : "Class",
   "description" : "Choose a weapon you have specialization for. Gain Weapon Expertise for that weapon. If you already have Weapon Expertise, you may choose another martial feature instead.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2075,7 +2095,7 @@
   "category" : "Class",
   "description" : "Gain a bonus to DEF equal to 1/5 of your attack bonus.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2085,7 +2105,7 @@
   "category" : "Class",
   "description" : "When you apply an impairment to an enemy, apply Hamstring for the same duration. Hamstring reduces movement speed by 50%.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2095,7 +2115,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Savage Strike.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2105,7 +2125,7 @@
   "category" : "Class",
   "description" : "Each time you are dealt damage or deal damage, gain 1 Enrage. Lose 1/2 your enrage stacks at end of round. Your total damage is increased by +1 per Enrage stack.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2115,7 +2135,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Instigate.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2125,7 +2145,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Sunder.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2135,7 +2155,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Raging Blow.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2145,7 +2165,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Intercept.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2155,7 +2175,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Impale.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2165,7 +2185,7 @@
   "category" : "Class",
   "description" : "At the resolution of an attack where you dealt damage, any enemy target with more bleed than HP dies.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2175,7 +2195,7 @@
   "category" : "Class",
   "description" : "Your wound effects require two heals to cure.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2185,7 +2205,7 @@
   "category" : "Class",
   "description" : "You may execute a special combat action as a free action at the conclusion of a charge attack.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2195,7 +2215,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Punish.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2205,7 +2225,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Pummel.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2215,7 +2235,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Berserker Rage.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2225,7 +2245,7 @@
   "category" : "Class",
   "description" : "Choose a weapon you have expertise for. Gain Weapon Mastery for that weapon. If you already have Weapon Mastery, you may choose another martial feature instead.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2235,7 +2255,7 @@
   "category" : "Class",
   "description" : "Any time you perform a special combat action you may perform two special combat actions.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2245,7 +2265,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Last Stand.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2255,7 +2275,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Shatter.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2265,7 +2285,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2275,7 +2295,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2285,7 +2305,7 @@
   "category" : "Class",
   "description" : "Gain access to active ability Colossal Smash.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2295,7 +2315,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2305,7 +2325,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2315,7 +2335,7 @@
   "category" : "Class",
   "description" : "You may weild a heavy melee weapon in one hand. You may use a standard melee weapon in your off-hand.",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2325,7 +2345,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2335,7 +2355,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2345,7 +2365,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2355,7 +2375,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2365,7 +2385,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2375,7 +2395,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2385,7 +2405,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2395,7 +2415,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2405,7 +2425,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2435,7 +2455,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2445,7 +2465,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2455,7 +2475,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2465,7 +2485,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2475,7 +2495,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2485,7 +2505,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2495,7 +2515,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2505,7 +2525,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2515,7 +2535,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2525,7 +2545,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2535,7 +2555,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2545,7 +2565,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2555,7 +2575,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2565,7 +2585,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2575,7 +2595,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2585,7 +2605,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2595,7 +2615,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2605,7 +2625,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2615,7 +2635,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2625,7 +2645,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2635,7 +2655,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2645,7 +2665,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2655,7 +2675,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2665,7 +2685,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2675,7 +2695,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2685,7 +2705,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2695,7 +2715,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2705,7 +2725,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2715,7 +2735,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2725,7 +2745,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2735,7 +2755,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2745,7 +2765,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2755,7 +2775,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2765,7 +2785,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2775,7 +2795,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2785,7 +2805,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2795,7 +2815,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2805,7 +2825,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2815,7 +2835,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2825,7 +2845,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2835,7 +2855,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2845,7 +2865,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2855,7 +2875,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2865,7 +2885,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2875,7 +2895,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2885,7 +2905,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2895,7 +2915,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2905,7 +2925,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2915,7 +2935,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2925,7 +2945,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2935,7 +2955,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2945,7 +2965,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2955,7 +2975,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2985,7 +3005,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2995,7 +3015,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3005,7 +3025,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3015,7 +3035,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3025,7 +3045,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3035,7 +3055,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3045,7 +3065,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3055,7 +3075,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3065,7 +3085,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3075,7 +3095,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3085,7 +3105,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3095,7 +3115,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3105,7 +3125,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3115,7 +3135,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3125,7 +3145,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3135,7 +3155,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3145,7 +3165,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3155,7 +3175,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3165,7 +3185,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3175,7 +3195,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3185,7 +3205,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3195,7 +3215,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3205,7 +3225,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3215,7 +3235,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3225,7 +3245,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3235,7 +3255,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3245,7 +3265,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3255,7 +3275,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3265,7 +3285,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3275,7 +3295,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3285,7 +3305,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3295,7 +3315,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3305,7 +3325,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3315,7 +3335,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3325,7 +3345,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3335,7 +3355,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3345,7 +3365,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3355,7 +3375,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3365,7 +3385,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3375,7 +3395,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3385,7 +3405,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3395,7 +3415,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3405,7 +3425,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3415,7 +3435,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3425,7 +3445,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3435,7 +3455,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3445,7 +3465,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3455,7 +3475,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3465,7 +3485,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3475,7 +3495,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3485,7 +3505,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3495,7 +3515,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3505,7 +3525,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3535,7 +3555,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3545,7 +3565,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3555,7 +3575,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3565,7 +3585,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3575,7 +3595,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3585,7 +3605,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3595,7 +3615,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3605,7 +3625,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3615,7 +3635,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3625,7 +3645,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3635,7 +3655,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3645,7 +3665,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3655,7 +3675,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3665,7 +3685,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3675,7 +3695,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3685,7 +3705,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3695,7 +3715,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3705,7 +3725,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3715,7 +3735,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3725,7 +3745,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3735,7 +3755,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3745,7 +3765,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3755,7 +3775,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3765,7 +3785,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3775,7 +3795,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3785,7 +3805,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3795,7 +3815,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3805,7 +3825,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3815,7 +3835,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3825,7 +3845,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3835,7 +3855,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3845,7 +3865,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3855,7 +3875,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3865,7 +3885,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3875,7 +3895,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3885,7 +3905,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3895,7 +3915,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3905,7 +3925,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3915,7 +3935,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3925,7 +3945,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3935,7 +3955,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3945,7 +3965,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3955,7 +3975,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3965,7 +3985,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3975,7 +3995,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3985,7 +4005,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3995,7 +4015,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4005,7 +4025,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4015,7 +4035,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4025,7 +4045,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4035,7 +4055,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4045,7 +4065,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4055,7 +4075,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4085,7 +4105,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4095,7 +4115,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4105,7 +4125,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4115,7 +4135,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4125,7 +4145,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4135,7 +4155,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4145,7 +4165,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4155,7 +4175,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4165,7 +4185,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4175,7 +4195,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4185,7 +4205,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4195,7 +4215,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4205,7 +4225,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4215,7 +4235,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4225,7 +4245,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4235,7 +4255,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4245,7 +4265,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4255,7 +4275,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4265,7 +4285,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4275,7 +4295,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4285,7 +4305,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4295,7 +4315,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4305,7 +4325,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4315,7 +4335,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4325,7 +4345,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4335,7 +4355,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4345,7 +4365,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4355,7 +4375,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4365,7 +4385,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4375,7 +4395,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4385,7 +4405,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4395,7 +4415,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4405,7 +4425,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4415,7 +4435,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4425,7 +4445,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4435,7 +4455,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4445,7 +4465,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4455,7 +4475,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4465,7 +4485,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4475,7 +4495,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4485,7 +4505,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4495,7 +4515,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4505,7 +4525,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4515,7 +4535,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4525,7 +4545,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4535,7 +4555,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4545,7 +4565,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4555,7 +4575,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4565,7 +4585,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4575,7 +4595,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4585,7 +4605,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4595,7 +4615,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4605,7 +4625,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4635,7 +4655,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4645,7 +4665,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4655,7 +4675,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4665,7 +4685,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4675,7 +4695,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4685,7 +4705,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4695,7 +4715,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4705,7 +4725,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4715,7 +4735,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4725,7 +4745,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4735,7 +4755,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4745,7 +4765,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4755,7 +4775,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4765,7 +4785,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4775,7 +4795,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4785,7 +4805,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4795,7 +4815,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4805,7 +4825,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4815,7 +4835,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4825,7 +4845,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4835,7 +4855,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4845,7 +4865,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4855,7 +4875,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4865,7 +4885,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4875,7 +4895,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4885,7 +4905,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4895,7 +4915,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4905,7 +4925,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4915,7 +4935,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4925,7 +4945,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4935,7 +4955,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4945,7 +4965,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4955,7 +4975,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4965,7 +4985,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4975,7 +4995,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4985,7 +5005,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4995,7 +5015,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5005,7 +5025,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5015,7 +5035,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5025,7 +5045,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5035,7 +5055,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5045,7 +5065,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5055,7 +5075,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5065,7 +5085,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5075,7 +5095,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5085,7 +5105,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5095,7 +5115,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5105,7 +5125,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5115,7 +5135,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5125,7 +5145,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5135,7 +5155,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5145,7 +5165,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5155,7 +5175,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5185,7 +5205,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5195,7 +5215,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5205,7 +5225,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5215,7 +5235,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5225,7 +5245,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5235,7 +5255,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5245,7 +5265,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5255,7 +5275,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5265,7 +5285,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5275,7 +5295,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5285,7 +5305,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5295,7 +5315,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5305,7 +5325,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5315,7 +5335,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5325,7 +5345,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5335,7 +5355,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5345,7 +5365,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5355,7 +5375,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5365,7 +5385,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5375,7 +5395,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5385,7 +5405,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5395,7 +5415,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5405,7 +5425,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5415,7 +5435,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5425,7 +5445,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5435,7 +5455,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5445,7 +5465,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5455,7 +5475,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5465,7 +5485,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5475,7 +5495,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5485,7 +5505,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5495,7 +5515,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5505,7 +5525,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5515,7 +5535,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5525,7 +5545,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5535,7 +5555,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5545,7 +5565,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5555,7 +5575,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5565,7 +5585,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5575,7 +5595,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5585,7 +5605,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5595,7 +5615,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5605,7 +5625,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5615,7 +5635,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5625,7 +5645,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5635,7 +5655,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5645,7 +5665,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5655,7 +5675,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5665,7 +5685,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5675,7 +5695,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5685,7 +5705,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5695,7 +5715,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5705,7 +5725,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5735,7 +5755,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5745,7 +5765,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5755,7 +5775,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5765,7 +5785,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5775,7 +5795,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5785,7 +5805,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5795,7 +5815,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5805,7 +5825,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5815,7 +5835,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5825,7 +5845,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5835,7 +5855,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5845,7 +5865,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5855,7 +5875,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5865,7 +5885,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5875,7 +5895,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5885,7 +5905,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5895,7 +5915,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5905,7 +5925,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5915,7 +5935,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5925,7 +5945,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5935,7 +5955,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5945,7 +5965,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5955,7 +5975,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5965,7 +5985,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5975,7 +5995,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5985,7 +6005,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5995,7 +6015,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6005,7 +6025,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6015,7 +6035,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6025,7 +6045,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6035,7 +6055,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6045,7 +6065,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6055,7 +6075,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6065,7 +6085,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6075,7 +6095,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6085,7 +6105,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6095,7 +6115,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6105,7 +6125,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6115,7 +6135,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6125,7 +6145,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6135,7 +6155,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6145,7 +6165,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6155,7 +6175,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6165,7 +6185,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6175,7 +6195,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6185,7 +6205,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6195,7 +6215,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6205,7 +6225,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6215,7 +6235,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6225,7 +6245,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6235,7 +6255,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6245,7 +6265,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6255,7 +6275,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6285,7 +6305,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6295,7 +6315,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 2,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6305,7 +6325,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6315,7 +6335,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6325,7 +6345,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6335,7 +6355,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6345,7 +6365,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6355,7 +6375,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6365,7 +6385,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6375,7 +6395,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6385,7 +6405,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6395,7 +6415,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6405,7 +6425,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6415,7 +6435,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6425,7 +6445,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6435,7 +6455,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6445,7 +6465,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6455,7 +6475,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6465,7 +6485,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6475,7 +6495,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6485,7 +6505,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6495,7 +6515,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6505,7 +6525,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6515,7 +6535,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6525,7 +6545,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 10,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6535,7 +6555,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6545,7 +6565,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6555,7 +6575,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 11,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6565,7 +6585,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6575,7 +6595,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 12,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6585,7 +6605,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6595,7 +6615,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6605,7 +6625,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 13,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6615,7 +6635,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6625,7 +6645,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 14,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6635,7 +6655,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6645,7 +6665,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6655,7 +6675,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 15,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6665,7 +6685,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6675,7 +6695,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 16,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6685,7 +6705,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6695,7 +6715,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6705,7 +6725,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 17,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6715,7 +6735,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6725,7 +6745,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6735,7 +6755,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 18,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6745,7 +6765,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6755,7 +6775,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6765,7 +6785,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 19,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6775,7 +6795,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6785,7 +6805,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6795,7 +6815,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -6805,7 +6825,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : 20,
   "pick" : false,
   "permStatus" : [ ]
 } ]

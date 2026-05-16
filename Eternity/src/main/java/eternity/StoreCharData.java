@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class StoreCharData {
     private static final String EQUIP_PASSIVE_PREFIX = "Equip Passive: ";
     private static final String SPECIALTY_PASSIVE_PREFIX = "Specialty Passive: ";
+    private static final String TRAINING_STATUS_PREFIX = "Training Passive: ";
     private static final boolean ENABLE_SPECIALTY_CHECKS = false;
     private static final String[] STATUS_CATEGORY_ORDER = { "attribute", "defense", "resist", "combat", "secondary", "damage" };
 
@@ -99,17 +100,88 @@ public class StoreCharData {
         }
     }
 
+    public void syncLevelBaseResources(StoreRuleManager dq) {
+        if (dq == null || identity == null || resources == null) return;
+        DataLevel dataLevel = dq.getLevel(identity.getLevel());
+        if (dataLevel == null) return;
+        DataClass effectiveClass = resolveEffectiveClass(dq);
+        double hpScaling = effectiveClass != null ? effectiveClass.getHpScaling() : 1.0;
+        double auraScaling = effectiveClass != null ? effectiveClass.getAuraScaling() : 1.0;
+
+        DataStatus hpStatus = new DataStatus();
+        hpStatus.setName("Base");
+        hpStatus.setAttribute("BASEHP");
+        hpStatus.setDurationType("Passive");
+        hpStatus.setSeverity(dataLevel.getBaseHP() * hpScaling);
+        hpStatus.setAffinity("None");
+        hpStatus.setDescription("Level and class-based base HP");
+        resources.addStatus(hpStatus);
+
+        DataStatus auraStatus = new DataStatus();
+        auraStatus.setName("Base");
+        auraStatus.setAttribute("BASEAURA");
+        auraStatus.setDurationType("Passive");
+        auraStatus.setSeverity(dataLevel.getBaseAura() * auraScaling);
+        auraStatus.setAffinity("None");
+        auraStatus.setDescription("Level and class-based base Aura");
+        resources.addStatus(auraStatus);
+    }
+
+    public void syncLevelCombatScalers(StoreRuleManager dq) {
+        if (dq == null || identity == null || attributes == null) return;
+        DataLevel dataLevel = dq.getLevel(identity.getLevel());
+        if (dataLevel == null) return;
+
+        DataClass effectiveClass = resolveEffectiveClass(dq);
+        if (effectiveClass == null) return;
+
+        int[] statScale = effectiveClass.getStatScaling();
+        int[] levelScalers = dataLevel.getScalers();
+        if (statScale == null || levelScalers == null) return;
+
+        double fortSeverity = getTieredScalerSeverity(statScale, 0, levelScalers);
+        double refSeverity = getTieredScalerSeverity(statScale, 1, levelScalers);
+        double willSeverity = getTieredScalerSeverity(statScale, 2, levelScalers);
+        double atkSeverity = getTieredScalerSeverity(statScale, 3, levelScalers);
+        double appSeverity = getTieredScalerSeverity(statScale, 4, levelScalers, 3);
+        double rangeSeverity = getTieredScalerSeverity(statScale, 5, levelScalers, 3);
+        double baseDamageSeverity = parseLevelDamageValue(dataLevel.getDamage());
+
+        setBasePassiveSeverity(attributes.getBDefense(), "BFORT", fortSeverity, "Class-based Fortitude base");
+        removePassiveStatusByName(attributes.getBDefense(), "BFORT", "ClassLevelFort");
+        setBasePassiveSeverity(attributes.getBDefense(), "BREF", refSeverity, "Class-based Reflex base");
+        removePassiveStatusByName(attributes.getBDefense(), "BREF", "ClassLevelRef");
+        setBasePassiveSeverity(attributes.getBDefense(), "BWILL", willSeverity, "Class-based Will base");
+        removePassiveStatusByName(attributes.getBDefense(), "BWILL", "ClassLevelWill");
+        setBasePassiveSeverity(attributes.getBCombat(), "BATK", atkSeverity, "Class-based Attack base");
+        removePassiveStatusByName(attributes.getBCombat(), "BATK", "ClassLevelATK");
+        setBasePassiveSeverity(attributes.getBCombat(), "BAPP", appSeverity, "Class-based Application base");
+        removePassiveStatusByName(attributes.getBCombat(), "BAPP", "ClassLevelAPP");
+        setBasePassiveSeverity(attributes.getBCombat(), "BRANGE", rangeSeverity, "Class-based Range base");
+        removePassiveStatusByName(attributes.getBCombat(), "BRANGE", "ClassLevelRange");
+        upsertLevelScalerStatus(attributes.getBDamage(), "BBDMG", "LevelBaseDamage", baseDamageSeverity, "Level-based base damage");
+    }
+
     public void refreshIdentityDerivedState() {
-        StoreRuleManager dq = StoreMetaManager.getDataQuery();
+       /* StoreRuleManager dq = StoreMetaManager.getDataQuery();
         int lvl = identity != null ? identity.getLevel() : 1;
         DataLevel dataLevel = dq.getLevel(lvl);
         updateResourceCaps(dataLevel);
         updateIdentityDerivedState(dq, lvl, dataLevel);
+        applySizeSaveModifiers();*/
+    }
+
+    public void syncIdentityDerivedState(StoreRuleManager dq) {
+        if (dq == null || identity == null) return;
+        int level = identity.getLevel();
+        DataLevel dataLevel = dq.getLevel(level);
+        updateIdentityDerivedState(dq, level, dataLevel);
         applySizeSaveModifiers();
     }
 
     public void refreshTrainingDerivedBonuses() {
-        applyTrainingPermStatuses(StoreMetaManager.getDataQuery());
+        clearTrainingDerivedBonuses();
+        applyTrainingPermStatuses(new StoreRuleManager());
     }
 
     private void updateResourceCaps(DataLevel dataLevel) {
@@ -142,11 +214,144 @@ public class StoreCharData {
         }
 
         int classRank = training != null ? training.getClassTrainingRank() : level;
-        specials.setClassSpecialties(getCachedClassSpecialties(dq, effectiveClass, classRank));
+        specials.setClassSpecialties(buildResolvedClassSpecialties(dq, effectiveClass, classRank));
 
         applyClassResourceScaling(effectiveClass);
         applyClassLevelScalers(baseClass, currentLevelData);
         applyClassAttributeBonuses(baseClass);
+    }
+
+    private DataClass resolveEffectiveClass(StoreRuleManager dq) {
+        if (dq == null || identity == null) return null;
+
+        String subclassName = identity.getCharSubclass();
+        if (subclassName != null && !subclassName.isBlank() && !"***".equals(subclassName.trim()) && !"?".equals(subclassName.trim())) {
+            DataClass subclass = dq.getClassByName(subclassName);
+            if (subclass != null) return subclass;
+        }
+
+        String className = identity.getCharClass();
+        if (className == null || className.isBlank() || "?".equals(className.trim())) return null;
+        return dq.getClassByName(className);
+    }
+
+
+    private double getTieredScalerSeverity(int[] statScale, int statScaleIndex, int[] levelScalers) {
+        if (statScale == null || levelScalers == null || statScaleIndex < 0 || statScaleIndex >= statScale.length) return 0.0;
+        int scalerTier = statScale[statScaleIndex];
+        if (scalerTier <= 0 || scalerTier > levelScalers.length) return 0.0;
+        return levelScalers[scalerTier - 1];
+    }
+
+    private double getTieredScalerSeverity(int[] statScale, int statScaleIndex, int[] levelScalers, int fallbackIndex) {
+        if (statScale != null && statScaleIndex >= 0 && statScaleIndex < statScale.length) {
+            return getTieredScalerSeverity(statScale, statScaleIndex, levelScalers);
+        }
+        return getTieredScalerSeverity(statScale, fallbackIndex, levelScalers);
+    }
+
+    private double parseLevelDamageValue(String damageValue) {
+        if (damageValue == null || damageValue.isBlank()) return 0.0;
+        String trimmed = damageValue.trim().toLowerCase();
+        try {
+            return Double.parseDouble(trimmed);
+        } catch (NumberFormatException ignored) {
+        }
+
+        int dIndex = trimmed.indexOf('d');
+        if (dIndex > 0) {
+            String prefix = trimmed.substring(0, dIndex).trim();
+            if (!prefix.isEmpty()) {
+                try {
+                    return Double.parseDouble(prefix);
+                } catch (NumberFormatException ignored) {
+                }
+            }
+            String suffix = trimmed.substring(dIndex + 1).trim();
+            if (!suffix.isEmpty()) {
+                try {
+                    return Double.parseDouble(suffix);
+                } catch (NumberFormatException ignored) {
+                }
+            }
+        }
+        return 0.0;
+    }
+
+    private void upsertLevelScalerStatus(ArrayList<DataStatus>[][] category, String blockAttribute, String statusName, double severity, String description) {
+        if (category == null || blockAttribute == null || statusName == null) return;
+        for (ArrayList<DataStatus>[] block : category) {
+            if (block == null || block.length == 0 || block[0] == null || block[0].isEmpty()) continue;
+            DataStatus first = block[0].get(0);
+            if (first == null || !blockAttribute.equalsIgnoreCase(first.getAttribute())) continue;
+
+            ArrayList<DataStatus> passiveList = block[0];
+            DataStatus existing = null;
+            for (DataStatus status : passiveList) {
+                if (status != null && statusName.equalsIgnoreCase(status.getName())) {
+                    existing = status;
+                    break;
+                }
+            }
+
+            if (existing == null) {
+                DataStatus added = new DataStatus();
+                added.setName(statusName);
+                added.setAttribute(blockAttribute);
+                added.setDurationType("Passive");
+                added.setSeverity(severity);
+                added.setAffinity("None");
+                added.setDescription(description);
+                passiveList.add(added);
+            } else {
+                existing.setSeverity(severity);
+                existing.setDescription(description);
+                existing.setDurationType("Passive");
+                existing.setAttribute(blockAttribute);
+            }
+            return;
+        }
+    }
+
+    private void setBasePassiveSeverity(ArrayList<DataStatus>[][] category, String blockAttribute, double severity, String description) {
+        if (category == null || blockAttribute == null) return;
+        for (ArrayList<DataStatus>[] block : category) {
+            if (block == null || block.length == 0 || block[0] == null || block[0].isEmpty()) continue;
+            DataStatus first = block[0].get(0);
+            if (first == null || !blockAttribute.equalsIgnoreCase(first.getAttribute())) continue;
+
+            DataStatus baseStatus = null;
+            for (DataStatus status : block[0]) {
+                if (status != null && "Base".equalsIgnoreCase(status.getName())) {
+                    baseStatus = status;
+                    break;
+                }
+            }
+            if (baseStatus == null) {
+                baseStatus = new DataStatus();
+                baseStatus.setName("Base");
+                baseStatus.setAttribute(blockAttribute);
+                baseStatus.setDurationType("Passive");
+                block[0].add(0, baseStatus);
+            }
+            baseStatus.setSeverity(severity);
+            baseStatus.setDescription(description);
+            baseStatus.setDurationType("Passive");
+            baseStatus.setAttribute(blockAttribute);
+            baseStatus.setAffinity("None");
+            return;
+        }
+    }
+
+    private void removePassiveStatusByName(ArrayList<DataStatus>[][] category, String blockAttribute, String statusName) {
+        if (category == null || blockAttribute == null || statusName == null) return;
+        for (ArrayList<DataStatus>[] block : category) {
+            if (block == null || block.length == 0 || block[0] == null || block[0].isEmpty()) continue;
+            DataStatus first = block[0].get(0);
+            if (first == null || !blockAttribute.equalsIgnoreCase(first.getAttribute())) continue;
+            block[0].removeIf(status -> status != null && statusName.equalsIgnoreCase(status.getName()));
+            return;
+        }
     }
 
     private void syncRaceDerivedState(StoreRuleManager dq, DataRace race) {
@@ -169,27 +374,42 @@ public class StoreCharData {
         if (racialStatuses == null) return;
         for (DataStatus racialStatus : racialStatuses) {
             if (racialStatus == null || racialStatus.getAttribute() == null) continue;
-            attributes.removeStatus(racialStatus.getName(), "bAttribute");
+            attributes.removeStatusByStatus(racialStatus);
             attributes.addStatus(new DataStatus(racialStatus));
         }
     }
 
     private List<DataSpecialty> buildClassSpecialtyTemplates(StoreRuleManager dq, DataClass dataClass, int classRank) {
         List<DataSpecialty> classSpecs = new ArrayList<>();
+        int classFamily = resolveClassSpecialtyFamily(dataClass);
+        int subclassSpecStart = resolveSubclassSpecStart(dataClass);
+        if (classFamily <= 0) return classSpecs;
+
         for (int i = 1; i <= classRank; i++) {
             DataLevel levelData = dq.getLevel(i);
             if (levelData == null) continue;
 
             int generalCount = levelData.getClassGeneral();
             int specCount = levelData.getClassSpec();
+            int levelBaseId = (classFamily * 1000) + (10 * i);
             for (int j = 0; j < generalCount; j++) {
-                addClassSpecialty(classSpecs, dq, dataClass.getAbilBase() + (10 * i) + j);
+                addClassSpecialty(classSpecs, dq, levelBaseId + j + 1);
             }
             for (int j = 0; j < specCount; j++) {
-                addClassSpecialty(classSpecs, dq, dataClass.getAbilBase() + (10 * i) + j + dataClass.getAbilOffset());
+                addClassSpecialty(classSpecs, dq, levelBaseId + subclassSpecStart + j);
             }
         }
         return classSpecs;
+    }
+
+    private int resolveClassSpecialtyFamily(DataClass dataClass) {
+        if (dataClass == null || dataClass.getID() <= 0) return -1;
+        return ((dataClass.getID() - 1) / 3) + 1;
+    }
+
+    private int resolveSubclassSpecStart(DataClass dataClass) {
+        if (dataClass == null || dataClass.getID() <= 0) return 1;
+        return 1 + (((dataClass.getID() - 1) % 3) * 3);
     }
 
     private List<DataSpecialty> getCachedClassSpecialties(StoreRuleManager dq, DataClass dataClass, int classRank) {
@@ -207,9 +427,83 @@ public class StoreCharData {
         return copies;
     }
 
+    private List<DataSpecialty> buildResolvedClassSpecialties(StoreRuleManager dq, DataClass dataClass, int classRank) {
+        List<DataSpecialty> resolved = new ArrayList<>(getCachedClassSpecialties(dq, dataClass, classRank));
+        if (identity == null) return resolved;
+
+        List<String> picks = identity.getCharClassPick();
+        if (picks == null || picks.isEmpty()) return resolved;
+
+        List<String> choiceLabels = getStoredClassChoiceLabels(identity.getCharClass());
+        boolean[] consumed = new boolean[picks.size()];
+        for (int i = 0; i < picks.size() && i < choiceLabels.size(); i++) {
+            String pick = picks.get(i);
+            if (pick == null || pick.isBlank()) continue;
+            String featureName = mapChoiceLabelToFeatureName(choiceLabels.get(i));
+            if (featureName == null || featureName.isBlank()) continue;
+            consumed[i] = applyClassChoiceToFeature(resolved, featureName, pick);
+        }
+
+        for (int i = 0; i < picks.size(); i++) {
+            if (consumed[i]) continue;
+            String pick = picks.get(i);
+            if (pick == null || pick.isBlank()) continue;
+            DataSpecialty pickedSpecialty = dq.getSpecialtyByName(pick);
+            if (pickedSpecialty != null) {
+                resolved.add(new DataSpecialty(pickedSpecialty));
+            }
+        }
+        return resolved;
+    }
+
+    private List<String> getStoredClassChoiceLabels(String className) {
+        if (className == null || className.isBlank()) return List.of();
+        return switch (className) {
+            case "Paladin" -> List.of("Deity", "Vow", "Domain");
+            case "Cleric" -> List.of("Deity", "Domain");
+            case "Warrior" -> List.of("Specialty", "Combat Action");
+            case "Monk" -> List.of("Discipline");
+            case "Archer" -> List.of("Favor Type", "Favored Selection");
+            case "Shifter" -> List.of("Melee Affinity", "Ranged Affinity", "Weapon Mold 1", "Weapon Mold 2");
+            case "Pilot" -> List.of("Primary Attribute");
+            default -> List.of();
+        };
+    }
+
+    private String mapChoiceLabelToFeatureName(String choiceLabel) {
+        if (choiceLabel == null || choiceLabel.isBlank()) return null;
+        return switch (choiceLabel) {
+            case "Deity" -> "Divine Attunement";
+            case "Vow" -> "Divine Vow";
+            case "Domain" -> "Holy Domain";
+            case "Specialty" -> "Martial Feature";
+            case "Combat Action" -> "Specialized Combatant";
+            case "Discipline" -> "Discipline";
+            case "Favored Selection" -> "Favored Enemy or Terrain";
+            case "Primary Attribute" -> "Primary Attribute";
+            case "Melee Affinity" -> "Melee Affinity";
+            case "Ranged Affinity" -> "Ranged Affinity";
+            case "Weapon Mold 1" -> "Weapon Mold 1";
+            case "Weapon Mold 2" -> "Weapon Mold 2";
+            default -> null;
+        };
+    }
+
+    private boolean applyClassChoiceToFeature(List<DataSpecialty> specialties, String featureName, String choiceValue) {
+        if (specialties == null || featureName == null || featureName.isBlank() || choiceValue == null || choiceValue.isBlank()) return false;
+        for (DataSpecialty specialty : specialties) {
+            if (specialty == null || specialty.getName() == null) continue;
+            if (!featureName.equalsIgnoreCase(specialty.getName())) continue;
+            if (specialty.getRefName() != null && !specialty.getRefName().isBlank()) continue;
+            specialty.setRefName(choiceValue);
+            return true;
+        }
+        return false;
+    }
+
     private void addClassSpecialty(List<DataSpecialty> classSpecs, StoreRuleManager dq, int specialtyId) {
         DataSpecialty baseSpec = dq.getSpecialtyById(specialtyId);
-        if (baseSpec != null) {
+        if (baseSpec != null && classSpecs.stream().noneMatch(spec -> spec != null && spec.getId() == specialtyId)) {
             classSpecs.add(new DataSpecialty(baseSpec));
         }
     }
@@ -238,7 +532,7 @@ public class StoreCharData {
         if (attributes == null || dataClass == null || dataClass.getPrimaryAtt() == null) return;
 
         String primaryAttribute = dataClass.getPrimaryAtt().toUpperCase();
-        int primaryMod = attributes.calcStatusValue(primaryAttribute) - 10;
+        double primaryMod = attributes.calcStatusValue(primaryAttribute) - 10.0;
         /*int primaryValue = attributes.getAttribute(primaryAttribute);
         int focusMod = attributes.getAttribute("FOC") - 10;
         int strengthMod = attributes.getAttribute("STR") - 10;
@@ -340,7 +634,7 @@ public class StoreCharData {
 
     /** Rebuilds passive specialty statuses from the currently owned specialties. */
     public void refreshSpecialtyPassiveBonuses() {
-        applySpecialtyPassiveStatuses(StoreMetaManager.getDataQuery());
+        //applySpecialtyPassiveStatuses(StoreMetaManager.getDataQuery());
     }
 
     public void setLists(List<List<DataList>> lists) { this.Lists = (lists == null) ? new ArrayList<>() : lists; }
@@ -408,8 +702,8 @@ public class StoreCharData {
         if (blocks == null || prefix == null) return;
         for (StatBlock block : blocks) {
             if (block == null) continue;
-            block.getStatus().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));
-            block.getMulti().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));
+            /*block.getStatus().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));
+            block.getMulti().removeIf(s -> s != null && s.getName() != null && s.getName().startsWith(prefix));*/
         }
     }
 
@@ -500,13 +794,13 @@ public class StoreCharData {
         copy.setSeverity(severity);
         copy.setAffinity("None");
         copy.setDescription(description == null || description.isBlank() ? "Specialty passive bonus" : description);
-        if (multi) {
+        /*if (multi) {
             blocks[0].removeMulti(uniqueName);
             blocks[0].addMulti(copy);
         } else {
             blocks[0].removeStatus(uniqueName);
             blocks[0].addStatus(copy);
-        }
+        }*/
     }
 
     /** Maps equipment bonus keys to live stat blocks and applies passive severity. */
@@ -566,7 +860,7 @@ public class StoreCharData {
 
     private void addEquipmentResourceStatus(StatBlock[] blocks, String key, double severity, String statusName) {
         if (blocks == null || blocks.length == 0 || blocks[0] == null || statusName == null) return;
-        blocks[0].removeStatus(statusName);
+        //blocks[0].removeStatus(statusName);
         DataStatus ds = new DataStatus();
         ds.setName(statusName);
         ds.setAttribute(key);
@@ -574,12 +868,12 @@ public class StoreCharData {
         ds.setSeverity(severity);
         ds.setAffinity("None");
         ds.setDescription("Equipment passive bonus");
-        blocks[0].addStatus(ds);
+        //blocks[0].addStatus(ds);
     }
 
     private void addPermanentResourceMulti(StatBlock[] blocks, String statusName, String key, double severity, String description) {
         if (blocks == null || blocks.length == 0 || blocks[0] == null || statusName == null || key == null) return;
-        blocks[0].removeMulti(statusName);
+        //blocks[0].removeMulti(statusName);
         DataStatus ds = new DataStatus();
         ds.setName(statusName);
         ds.setAttribute(key);
@@ -587,7 +881,7 @@ public class StoreCharData {
         ds.setSeverity(severity);
         ds.setAffinity("None");
         ds.setDescription(description);
-        blocks[0].addMulti(ds);
+        //blocks[0].addMulti(ds);
     }
 
     /**
@@ -693,12 +987,16 @@ public class StoreCharData {
      * Applies permStatus grants from training data, scaled by rank, into live attributes.
      */
     private void applyTrainingPermStatuses(StoreRuleManager dq) {
-        if (training == null || attributes == null) return;
+        if (dq == null || training == null || attributes == null || resources == null) return;
         List<DataTraining> all = training.getAllTraining();
         if (all == null) return;
 
         for (DataTraining tech : all) {
-            if (tech == null || tech.getRank() <= 0 || !tech.getType().equals("Passive")) continue;
+            if (tech == null) continue;
+            boolean passiveTech = "Passive".equalsIgnoreCase(tech.getType());
+            boolean maintainedTech = "Maintained".equalsIgnoreCase(tech.getType());
+            if (!passiveTech && !maintainedTech) continue;
+            if (tech.getStatusScaleLevel() <= 0) continue;
             List<DataStatus> perms = collectTrainingPermStatuses(dq, tech);
             if (perms.isEmpty()) continue;
             for (DataStatus ps : perms) {
@@ -711,19 +1009,35 @@ public class StoreCharData {
         ArrayList<DataStatus> copies = new ArrayList<>();
         if (tech == null) return copies;
 
+        boolean foundRuleStatuses = false;
         if (tech.getId() > 0) {
             DataTraining base = dq.getTrainingById(tech.getId());
             if (base != null) {
                 List<DataStatus> perms = base.getPermStatus();
                 if (perms != null) {
                     for (DataStatus ps : perms) {
-                        if (ps != null) copies.add(new DataStatus(ps));
+                        if (ps != null) {
+                            copies.add(new DataStatus(ps));
+                            foundRuleStatuses = true;
+                        }
                     }
                 }
             }
         }
 
-        if (tech.getGrant() != null) {
+        if (!foundRuleStatuses) {
+            List<DataStatus> localPerms = tech.getPermStatus();
+            if (localPerms != null) {
+                for (DataStatus ps : localPerms) {
+                    if (ps != null) {
+                        copies.add(new DataStatus(ps));
+                        foundRuleStatuses = true;
+                    }
+                }
+            }
+        }
+
+        if (!foundRuleStatuses && tech.getGrant() != null) {
             for (Integer gid : tech.getGrant()) {
                 if (gid == null || gid <= 0) continue;
                 DataTechPerm perm = dq.getTechPermById(gid);
@@ -744,35 +1058,83 @@ public class StoreCharData {
 
     private void applyTrainingPermStatus(DataTraining tech, DataStatus permStatus) {
         if (tech == null || permStatus == null || permStatus.getAttribute() == null) return;
-        String attr = permStatus.getAttribute().toUpperCase();
-        String statusName = permStatus.getName() != null ? permStatus.getName() : ("Training " + tech.getName());
-        String uniqueName = statusName + " (T" + tech.getId() + ")";
+        String attr = normalizeAttrKey(permStatus.getAttribute());
+        if (attr == null || attr.isBlank()) return;
+        String statusName = permStatus.getName() != null ? permStatus.getName() : tech.getName();
+        String uniqueName = TRAINING_STATUS_PREFIX + statusName + " [" + attr + "] (T" + tech.getId() + ")";
         double severity = tech.scaleStatusSeverity(permStatus.getSeverity());
+        String durationType = "Maintained".equalsIgnoreCase(tech.getType()) ? "Maintained" : "Passive";
+        String description = permStatus.getDescription() == null || permStatus.getDescription().isBlank()
+                ? "Training passive bonus"
+                : permStatus.getDescription();
+        if (applyTrainingResourceStatus(uniqueName, attr, severity, durationType, description)) {
+            return;
+        }
+        if (applyTrainingMultiplierAliases(uniqueName, attr, severity, durationType, description)) {
+            return;
+        }
 
         String category = resolveCategory(attr);
         if (category == null) return;
         DataStatus copy = new DataStatus(permStatus);
         copy.setName(uniqueName);
-        copy.setAttribute(attr);
-        copy.setDurationType("Permanent");
+        copy.setAttribute("B" + attr);
+        copy.setDurationType(durationType);
         copy.setSeverity(severity);
+        copy.setAffinity("None");
+        copy.setDescription(description);
+        attributes.addStatus(copy);
     }
 
-    private void addTrainingResourceStatus(StatBlock[] blocks, String uniqueName, String attribute, double severity, boolean multi) {
-        if (blocks == null || blocks.length == 0 || blocks[0] == null) return;
+    private boolean applyTrainingResourceStatus(String uniqueName, String attribute, double severity, String durationType, String description) {
+        String resourceAttribute = switch (attribute) {
+            case "MAXHP" -> "BASEHP";
+            case "HPMULTI" -> "MULTIHP";
+            case "MAXAURA" -> "BASEAURA";
+            case "AURAMULTI" -> "MULTIAURA";
+            case "REACT" -> "BASEREACT";
+            case "R1" -> "BASER1";
+            case "R2" -> "BASER2";
+            case "R3" -> "BASER3";
+            default -> null;
+        };
+        if (resourceAttribute == null) return false;
+
+        DataStatus copy = new DataStatus();
+        copy.setName(uniqueName);
+        copy.setAttribute(resourceAttribute);
+        copy.setDurationType(durationType);
+        copy.setSeverity(severity);
+        copy.setAffinity("None");
+        copy.setDescription(description);
+        resources.addStatus(copy);
+        return true;
+    }
+
+    private boolean applyTrainingMultiplierAliases(String uniqueName, String attribute, double severity, String durationType, String description) {
+        if ("DMGMULTI".equals(attribute)) {
+            addTrainingAttributeStatus(uniqueName + " (BDMG)", "MBDMG", severity, durationType, description);
+            addTrainingAttributeStatus(uniqueName + " (TDMG)", "MTDMG", severity, durationType, description);
+            return true;
+        }
+        if ("HEALMULTI".equals(attribute)) {
+            addTrainingAttributeStatus(uniqueName + " (BHEAL)", "MBHEAL", severity, durationType, description);
+            addTrainingAttributeStatus(uniqueName + " (THEAL)", "MTHEAL", severity, durationType, description);
+            return true;
+        }
+        return false;
+    }
+
+    private void addTrainingAttributeStatus(String uniqueName, String attribute, double severity, String durationType, String description) {
+        if (attributes == null || attribute == null || attribute.isBlank()) return;
         DataStatus copy = new DataStatus();
         copy.setName(uniqueName);
         copy.setAttribute(attribute);
-        copy.setDurationType("Permanent");
+        copy.setDurationType(durationType);
         copy.setSeverity(severity);
         copy.setAffinity("None");
-        if (multi) {
-            blocks[0].removeMulti(uniqueName);
-            blocks[0].addMulti(copy);
-        } else {
-            blocks[0].removeStatus(uniqueName);
-            blocks[0].addStatus(copy);
-        }
+        copy.setDescription(description);
+        attributes.addStatus(copy);
     }
 
     /** Heuristically resolve which category an attribute key belongs to. */
@@ -780,7 +1142,12 @@ public class StoreCharData {
         if (key == null) return null;
         // Normalize aliases
         String norm = normalizeAttrKey(key);
-
+        if (containsKey(CharAttributes.getAttributeKeys(), norm)) return "attribute";
+        if (containsKey(CharAttributes.getDefenseKeys(), norm)) return "defense";
+        if (containsKey(CharAttributes.getDamageTypeKeys(), norm)) return "resist";
+        if (containsKey(CharAttributes.getCombatKeys(), norm)) return "combat";
+        if (containsKey(CharAttributes.getSecondaryKeys(), norm)) return "secondary";
+        if (containsKey(CharAttributes.getDamageKeys(), norm)) return "damage";
         return null;
     }
 
@@ -788,6 +1155,8 @@ public class StoreCharData {
     private String normalizeAttrKey(String key) {
         if (key == null) return null;
         String upper = key.toUpperCase();
+        if ("APPLY".equals(upper)) return "APP";
+        if ("IMPAIR".equals(upper)) return "IMP";
         if ("RESPHY".equals(upper)) return "PHY";
         // Strip common "RES" or "RESIST" prefixes so resist tech attributes map correctly
         if (upper.startsWith("RESIST")) {
@@ -797,6 +1166,60 @@ public class StoreCharData {
             return upper.substring(3);
         }
         return upper;
+    }
+
+    private boolean containsKey(String[] keys, String target) {
+        if (keys == null || target == null) return false;
+        for (String key : keys) {
+            if (target.equalsIgnoreCase(key)) return true;
+        }
+        return false;
+    }
+
+    private void clearTrainingDerivedBonuses() {
+        if (attributes != null) {
+            clearStatusPrefix(attributes.getBAttributes(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMAttributes(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBDefense(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMDefense(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBResist(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMResist(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBCombat(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMCombat(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBSecondary(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMSecondary(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBDamage(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMDamage(), TRAINING_STATUS_PREFIX);
+        }
+        if (resources != null) {
+            clearStatusPrefix(resources.getBaseHP(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiHP(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseAura(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiAura(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource1(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource1(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource2(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource2(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource3(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource3(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseReactions(), TRAINING_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiReactions(), TRAINING_STATUS_PREFIX);
+        }
+    }
+
+    private void clearStatusPrefix(ArrayList<DataStatus>[][] category, String prefix) {
+        if (category == null) return;
+        for (ArrayList<DataStatus>[] block : category) {
+            clearStatusPrefix(block, prefix);
+        }
+    }
+
+    private void clearStatusPrefix(ArrayList<DataStatus>[] block, String prefix) {
+        if (block == null || prefix == null || prefix.isBlank()) return;
+        for (ArrayList<DataStatus> statuses : block) {
+            if (statuses == null) continue;
+            statuses.removeIf(status -> status != null && status.getName() != null && status.getName().startsWith(prefix));
+        }
     }
 
     /** Returns the character's display name. */
@@ -962,6 +1385,22 @@ public class StoreCharData {
             case "SHIELD" -> resources.setShield(value);
             case "STAGGER" -> resources.setStagger(value);
         };
+    }
+
+    public void checkSkillSpecialChanges() {
+        specials.checkChanges();
+    }
+
+    public void refreshSkills() {
+        if (specials != null) {
+            
+        }
+    }
+
+    public void refreshSpecialties() {
+        if (specials != null) {
+            
+        }
     }
 }
 

@@ -181,14 +181,14 @@ private final JButton calcButton = new JButton();
 			return damage.intValue();
 		}
 
-		int resAll = character.getAttributes().getResist("ALL");
-        int typeRes = character.getAttributes().getResist(tempString);
+		//int resAll = character.getAttributes().getResist("ALL");
+        //int typeRes = character.getAttributes().getResist(tempString);
 		double crush = (Double) crushField.getValue();
-		int effectiveResAll = (int)Math.max(0, resAll - crush);
+		//int effectiveResAll = (int)Math.max(0, resAll - crush);
 		// Increase effectiveResAll by the specific type resistance
-		effectiveResAll += typeRes;
-        double resPercent = 1.0 - Math.pow(0.99, effectiveResAll);
-        damage *= (1.0 - resPercent);
+		//effectiveResAll += typeRes;
+        //double resPercent = 1.0 - Math.pow(0.99, effectiveResAll);
+        //damage *= (1.0 - resPercent);
         if (damage < 1.0) damage = 1.0;
 
 		return damage.intValue();

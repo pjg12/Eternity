@@ -1,18 +1,13 @@
+// CHECKED
+
 package eternity;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.regex.Pattern;
+import java.nio.file.StandardCopyOption;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -22,64 +17,154 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class StoreCharManager {
     // Strings
     private static final String CHARACTER_DIR = "Characters";
+    private static final String MANUAL_DIR = "Characters/Backup";
+    private static final String AUTO_DIR = "Characters/Auto";
 
     // JSON Mappers
     private static final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    private static final ObjectWriter PRETTY_WRITER = mapper.writerWithDefaultPrettyPrinter();
 
     /*
     *   Constructor
     */
-    private StoreCharManager() { /* No Code Needed */ }
+    public StoreCharManager() { /* No Code Needed */ }
 
-    public static ArrayList<StoreMetaChar> loadCharStore() {
-        ArrayList<StoreMetaChar> list = new ArrayList<>();
-        Pattern pattern = Pattern.compile("^\\d+\\.json$");
+    // ---- File path helpers ----
+    private static String getCharacterPath(int idx) { return CHARACTER_DIR + File.separator + idx + ".json"; }
+    private static String getManBackPath(int idx, int backupNum) { return MANUAL_DIR + File.separator + idx + "Backup" + backupNum + ".json"; }
+    private static String getAutoBackPath(int idx, int autoNum) { return AUTO_DIR + File.separator + idx + "Auto" + autoNum + ".json"; }
+
+    /**
+     * Load the full character JSON for the given id.
+     * Returns null if the file is missing or can't be parsed.
+     */
+    public static StoreCharData loadCharacter(int index) {
+        if (index < 1) return null;
         
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(CHARACTER_DIR))) {
-            StoreMetaChar readIn;
-            for (Path path : stream) {
-                if (!Files.isRegularFile(path) || !pattern.matcher(path.getFileName().toString()).matches()) {
-                    continue;
-                }
-                readIn = new StoreMetaChar();
-                JsonNode nextFile = mapper.readTree(new File(path.toString()));
-                readIn.setIndex(nextFile.get("identity").get("index").asInt());
-                readIn.setName(nextFile.get("identity").get("name").asText());
-                readIn.setCampaign(nextFile.get("identity").get("campaign").asText());
-                readIn.setRace(nextFile.get("identity").get("race").asText());
-                readIn.setCharClass(nextFile.get("identity").get("charClass").asText());
-                readIn.setLevel(nextFile.get("identity").get("level").asInt());
-                list.add(readIn);
-            }
-        } 
-        catch (IOException e) { e.printStackTrace(); }
+        File file = new File(getCharacterPath(index));
+        try {
+            if (!file.exists()) {
+                System.err.println("Character file not found for index " + index + ": " + file.getPath());
+                return null;
+           }
+           return mapper.readValue(file, StoreCharData.class);
+        } catch (Exception e) {
+            System.err.println("Error loading character " + index + ".json: " + e.getMessage());
+            return null;
+        }
 
-        sortCharStoreByTime(list);
-        return list;
-    }
-
-    public static void sortCharStoreByTime(List<StoreMetaChar> list) {
-        list.sort(Comparator.comparing(StoreMetaChar::getUpdated).reversed());
-    }
-
-    public static void sortCharStoreByIndex(List<StoreMetaChar> list) {
-        list.sort(Comparator.comparing(StoreMetaChar::getIndex));
     }
 
     /**
-     * Returns the smallest positive integer index not currently used by the given StoreMetaChar list.
+     * Saves the full StoreCharData JSON to the Characters directory using its index as filename.
+     * Returns true on success, false on failure.
      */
-    public static int getNextFreeIndex(List<StoreMetaChar> list) {
-        sortCharStoreByIndex(list);
+    public static boolean saveCharacterNew(StoreCharData character) {
+        String backupDirPath = CHARACTER_DIR;
+        File backDir = new File(backupDirPath);
+        if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
+            return false;
+        }
+        backupDirPath = AUTO_DIR;
+        backDir = new File(backupDirPath);
+        if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
+            return false;
+        }
+        backupDirPath = MANUAL_DIR;
+        backDir = new File(backupDirPath);
+        if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
+            return false;
+        }
+        return saveCharacter(character);
+    }
 
-        for (int i = 1; i <= list.size(); i++) {
-            if (list.get(i - 1).getIndex() != i) {
-                return i;
-            }
+    /**
+     * Saves character and rotates backups for explicit user-initiated saves:
+     * Backup1 -> Backup2, current main file -> Backup1, then write new main file.
+     */
+    public static boolean saveCharacterManual(StoreCharData character) {
+        generateBackups(character, true);
+        return saveCharacter(character);
+    }
+
+    /**
+     * Autosave snapshot rotation:
+     * Auto2 -> Auto3, Auto1 -> Auto2, current autosave -> Auto1.
+     */
+    public static boolean saveCharacterAuto(StoreCharData character) {
+        generateBackups(character, false);
+        // Finally save the new main file (even if backup rotation failed, to avoid losing progress)
+        return saveCharacter(character);
+    }
+
+    private static boolean saveCharacter(StoreCharData character) {
+        int idx = character.getIdentity().getIndex();
+        File dir = new File(CHARACTER_DIR);
+        if (!ensureDirectory(dir, "Cannot save character: failed to create directory")) {
+            return false;
         }
 
-        return list.size() + 1;
+        File target = new File(getCharacterPath(idx));
+        try {
+            PRETTY_WRITER.writeValue(target, character);
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error saving character " + idx + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Backup snapshot rotation:
+     * back2 -> back3, back1 -> back2, current save -> back1.
+     */
+    public static void generateBackups(StoreCharData character, boolean isManualSave) {
+        if (character == null || character.getIdentity() == null) {
+            System.err.println("Cannot generate backups: character or identity is null.");
+            return;
+        }
+
+        int idx = character.getIdentity().getIndex();
+        if (idx < 0) {
+            System.err.println("Cannot save character: invalid index " + idx);
+            return;
+        }
+
+        File main = new File(getCharacterPath(idx));
+        File back1, back2, back3;
+        if (isManualSave) {
+            back1 = new File(getManBackPath(idx, 1));
+            back2 = new File(getManBackPath(idx, 2));
+            back3 = new File(getManBackPath(idx, 3));
+        } else {
+            back1 = new File(getAutoBackPath(idx, 1));
+            back2 = new File(getAutoBackPath(idx, 2));
+            back3 = new File(getAutoBackPath(idx, 3));
+        }
+
+        String backupDirPath = isManualSave ? MANUAL_DIR : AUTO_DIR;
+        File backDir = new File(backupDirPath);
+        if (!ensureDirectory(backDir, "Cannot backup character: failed to create directory")) {
+            return;
+        }
+
+        try {
+            // Rotate older snapshots first
+            if (back2.exists()) Files.move(back2.toPath(), back3.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            if (back1.exists()) Files.move(back1.toPath(), back2.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            if (main.exists()) Files.move(main.toPath(), back1.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return;
+        } catch (Exception e) {
+            System.err.println("Error during autosave backups " + idx + ": " + e.getMessage());
+        }
+    }
+
+    private static boolean ensureDirectory(File dir, String errorContext) {
+        if (dir.exists()) return true;
+        if (dir.mkdirs()) return true;
+        System.err.println(errorContext + " " + dir.getPath());
+        return false;
     }
 }

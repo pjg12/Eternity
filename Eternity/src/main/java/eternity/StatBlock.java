@@ -63,17 +63,17 @@ public class StatBlock {
      * Use when the base multiplier should be explicitly provided via statuses.
      */
     public int computeValueNoBase() {
-        return (int)(status.getSeveritySum() * multi.getSeveritySum());
+        return 0;
     }
 
     @JsonIgnore
     public List<DataStatus> getAllStatuses() {
-        List<DataStatus> all = new ArrayList<>(status);
+        List<DataStatus> all = new ArrayList<>();
         return all;
     }
     @JsonIgnore
     public List<DataStatus> getAllMultipliers() {
-        List<DataStatus> all = new ArrayList<>(multi);
+        List<DataStatus> all = new ArrayList<>();
         return all;
     }
 
@@ -208,5 +208,5 @@ public class StatBlock {
         private static String normalizeName(String name) {
             return name == null ? null : name.toLowerCase(Locale.ROOT);
         }
-    }*/
+    }
 }

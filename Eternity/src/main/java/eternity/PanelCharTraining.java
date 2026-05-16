@@ -1,12 +1,11 @@
 package eternity;
 
-import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,10 +14,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-
-import eternity.CharTraining;
-import eternity.DataColor;
-import eternity.DataTraining;
 
 /*
  * 		TRAINING PANEL
@@ -58,12 +53,12 @@ public class PanelCharTraining extends PanelCharBase {
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(222, 232, 244));
 		
-		naturalAffinityL = buildLabel("Natural Affinity");
+		naturalAffinityL = buildLabel("Natural Affinity", null);
 		natAffinity = new ArrayList<JTextField>();
 		
-		atMaxTechL = buildLabel("Max Techs");
-		atCurTechL = buildLabel("Current Techs");
-		atRemTechL = buildLabel("Remain Techs");
+		atMaxTechL = buildLabel("Max Techs", null);
+		atCurTechL = buildLabel("Current Techs", null);
+		atRemTechL = buildLabel("Remain Techs", null);
 		atMaxTech = buildNumTextField(0); 
 		atMaxTech.setEditable(false);
 		atCurTech = buildNumTextField(0.0); 
@@ -103,12 +98,12 @@ public class PanelCharTraining extends PanelCharBase {
 
 		for (int i = 0; i < TRAINING.length; i++) {
 			final int sectionIndex = i;
-			atAffinityL.add(buildLabel("Affinity:"));
-			atNameL.add(buildLabel("Name:"));
-			atMaxRankL.add(buildLabel("Max:"));
-			atCurRankL.add(buildLabel("Cur:"));
-			atExpL.add(buildLabel("Exp:"));
-			atNextAtL.add(buildLabel("Next:"));
+			atAffinityL.add(buildLabel("Affinity:", null));
+			atNameL.add(buildLabel("Name:", null));
+			atMaxRankL.add(buildLabel("Max:", null));
+			atCurRankL.add(buildLabel("Cur:", null));
+			atExpL.add(buildLabel("Exp:", null));
+			atNextAtL.add(buildLabel("Next:", null));
 			JButton toggleButton = buildButton("[-]");
 			toggleButton.addActionListener(e -> toggleSection(sectionIndex));
 			atSectionToggleB.add(toggleButton);

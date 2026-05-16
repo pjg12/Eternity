@@ -646,7 +646,7 @@ public class FrameCombat extends JFrame {
 			}
 		}
 		if (isStandard && character.getAttributes() != null) {
-			int maxAtk = character.getAttributes().getSecondary("MAXATK");
+			int maxAtk = 1;
 			boolean alreadyHasFullAttack = false;
 			for (DataAction action : filtered) {
 				if (action != null && "Full Attack".equalsIgnoreCase(action.getName())) {
@@ -661,7 +661,7 @@ public class FrameCombat extends JFrame {
 				fullAttack.setSource("Standard");
 				fullAttack.setAffinity("None");
 				fullAttack.setActionType("Standard");
-				int range = isSelectedWeaponMelee() ? 0 : character.getAttributes().getCombat("RANGE");
+				int range = isSelectedWeaponMelee() ? 0 : 1;
 				fullAttack.setRanged(range);
 				fullAttack.setCharacter(character);
 				filtered.add(0, fullAttack);
@@ -1007,10 +1007,10 @@ public class FrameCombat extends JFrame {
 		String affinity = action.getAffinity();
 		if (affinity == null || affinity.isBlank() || "None".equalsIgnoreCase(affinity)) return;
 
-		DataColor color = StoreMetaManager.getDataQuery().getColorByTitle(affinity);
-		if (color == null) return;
+		//DataColor color = StoreMetaManager.getDataQuery().getColorByTitle(affinity);
+		//if (color == null) return;
 
-		actionButton.setAffinityColors(color.getBackColor(), color.getForeColor());
+		//actionButton.setAffinityColors(color.getBackColor(), color.getForeColor());
 	}
 
 	private static final class ActionEntryButton extends JButton {
@@ -1281,7 +1281,7 @@ public class FrameCombat extends JFrame {
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
 		int initMod = 0;
 		if (character.getAttributes() != null) {
-			initMod = character.getAttributes().getCombat("INIT");
+			//initMod = character.getAttributes().getCombat("INIT");
 		}
 		tempString += " --=SkillCheck|1d20+" + initMod + " --+| [$SkillCheck] = [$SkillCheck.Base] + " + initMod;
 		tempString += " --=InitTotal| [$SkillCheck] + @{tracker|" + charName + "} &{noerror} --+|Total: --+| [$InitTotal] = [$SkillCheck] +  @{tracker|" + charName + "} &{noerror} --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
@@ -1300,7 +1300,7 @@ public class FrameCombat extends JFrame {
 		boolean melee = isSelectedWeaponMelee();
 		int charRange = 0;
 		if (character.getAttributes() != null) {
-			charRange = character.getAttributes().getCombat("RANGE");
+			//charRange = character.getAttributes().getCombat("RANGE");
 		}
 		int newRange = melee ? 0 : charRange;
 		if (character.getCombat() != null) {

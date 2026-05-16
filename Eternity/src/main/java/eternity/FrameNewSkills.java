@@ -1,202 +1,398 @@
 package eternity;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
-import java.awt.Font;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Skill selection window: pick 3 skills, each tied to an attribute.
  */
 public class FrameNewSkills extends JFrame {
-    private static final long serialVersionUID = 1L;
-
-    private final StoreRuleManager dataQuery;
+    // References
+    private final FrameSheet sheetFrame;
+    private final StoreRuleManager ruleManager;
     private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
+    // UI Constants
+    private static final EmptyBorder HEADER_BORDER = new EmptyBorder(12, 18, 4, 18);
+    private static final EmptyBorder LEFT_BORDER = new EmptyBorder(10, 10, 10, 10);
+    private static final EmptyBorder FOOTER_BORDER = new EmptyBorder(0, 10, 2, 10);
+    private static final Insets RIGHT_GB_INSETS = new Insets(2, 5, 5, 5);
+    private static final int[] GB_COLUMN_WIDTHS = new int[] { 90, 90, 90, 90 };
+    private static final int FRAME_WIDTH = 560;
+    private static final int FRAME_HEIGHT = 360;
+    private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
+    private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
+    private static final int BUTTON_SPACING = 10;
+    private static final int SKILL_COUNT = 3;
+
+    // UI Strings
+    private static final String WINDOW_TITLE = "Skill Selection";
+    private static final String HEADER_CORE_TEXT = "Select Skills";
+    private static final String BUTTON_CANCEL = "Cancel";
+    private static final String BUTTON_CONFIRM = "Confirm";
     private static final String[] ATTRIBUTES = {"***", "STR", "DEX", "FOC", "CTL", "KNOW", "MECH", "PERC", "CHA", "SUB"};
     private static final String EMPTY_OPTION = "***";
 
-    private final JComboBox<String>[] skillAttributes = new JComboBox[3];
-    private final JComboBox<String>[] skillPick = new JComboBox[3];
-    private final String[] lastSelectedAttribute = new String[3];
-    private final Map<String, String[]> skillOptionsByAttribute = new HashMap<>();
+    // UI Elements
+    private JPanel headerPanel, centerPanel, footerPanel;
+    private JLabel headerL;
+    private JButton cancelButton, confirmButton;
+    private final JComboBox<String>[] attBoxes = new JComboBox[SKILL_COUNT];
+    private final JComboBox<String>[] skillBoxes = new JComboBox[SKILL_COUNT];
+    private boolean updatingSkillLists;
 
-    public FrameNewSkills(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
-        super("Skill Select");
-        this.dataQuery = dataQuery;
+
+    
+
+    
+    
+
+
+
+    // ---------------------------------------------------
+    // Constructor
+    // ---------------------------------------------------
+    public FrameNewSkills(FrameSheet sheetFrame, StoreRuleManager ruleManager, StoreCharData character, FrameNew parent, boolean gmMode) {
+        super(WINDOW_TITLE);
+        this.sheetFrame = sheetFrame;
+        this.ruleManager = ruleManager;
         this.character = character;
         this.parent = parent;
         this.gmMode = gmMode;
 
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+        //ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
-        setLayout(null);
-        setSize(520, 330);
-        setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setLocationRelativeTo(sheetFrame);
+        setResizable(false);
+        setLayout(new BorderLayout(BUTTON_SPACING, BUTTON_SPACING));
 
-        buildHeader();
+        buildUI();
+
+        /*buildHeader();
         buildLabels();
         buildPickers();
-        buildButtons();
+        buildButtons();*/
+    }
+
+    // ---------------------------------------------------------
+    // Build UI
+    // ---------------------------------------------------------
+
+    private void buildUI() {
+        buildHeader();
+        buildCenterPanel();
+        buildFooter();
     }
 
     private void buildHeader() {
-        JLabel headerL = new JLabel("Skill Select", SwingConstants.CENTER);
-        headerL.setFont(headerL.getFont().deriveFont(Font.BOLD, 20f));
-        headerL.setBounds(20, 15, 480, 24);
-        add(headerL);
+        // Build panel
+        headerPanel = new JPanel(new BorderLayout());
+
+        // Build header
+        headerL = new JLabel(HEADER_CORE_TEXT, SwingConstants.CENTER);
+        headerL.setFont(HEADER_FONT);
+        headerL.setBorder(HEADER_BORDER);
+
+        // Add elements
+        headerPanel.add(headerL, BorderLayout.CENTER);
+        add(headerPanel, BorderLayout.NORTH);
     }
 
-    private void buildLabels() {
-        JLabel attrLabel = new JLabel("Attribute");
-        attrLabel.setBounds(25, 60, 125, 20);
-        add(attrLabel);
+    private void buildCenterPanel() {
+        // Build layout
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWidths = GB_COLUMN_WIDTHS;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = RIGHT_GB_INSETS;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        JLabel skillLabel = new JLabel("Skill");
-        skillLabel.setBounds(225, 60, 250, 20);
-        add(skillLabel);
+        // Build panel
+        centerPanel = new JPanel(layout);
+
+        // Setup Variables
+        int y = 0;
+        int x = 0;
+        int width = 1;
+        gridHelper(gbc, y, x, width);
+
+        // Blank Label
+        JLabel lbl = buildLabel(" ");
+        centerPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Value Label
+        lbl = buildLabel("Value");
+        centerPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Cost Label
+        lbl = buildLabel("Cost");
+        centerPanel.add(lbl, gbc);
+
+        for (int i = 0; i < SKILL_COUNT; i++) {
+            final int index = i;
+            y = i +1;
+            x = 0;
+            gridHelper(gbc, y, x, width);
+
+            JLabel sLabel = new JLabel("Skill " + i + ":");
+            centerPanel.add(sLabel, gbc);
+
+            x++;
+            gridHelper(gbc, y, x, width);
+
+            attBoxes[i] = buildAttributeBox(index);
+            centerPanel.add(attBoxes[i], gbc);
+
+            x++;
+            gridHelper(gbc, y, x, width);
+
+            skillBoxes[i] = buildSkillBox(index);
+            centerPanel.add(skillBoxes[i], gbc);
+        }
+
+        add(centerPanel, BorderLayout.CENTER);
     }
 
-    private void buildPickers() {
-        for (int i = 0; i < 3; i++) {
-            int idx = i;
+    private void buildFooter() {
+        // Build panel
+        footerPanel = new JPanel();
+        footerPanel.setBorder(FOOTER_BORDER);
 
-            JComboBox<String> attBox = new JComboBox<>(ATTRIBUTES);
-            attBox.setBounds(25, 100 + 50 * i, 125, 20);
-            attBox.addActionListener(e -> updateSkillPick(idx));
-            skillAttributes[i] = attBox;
-            add(attBox);
+        // Build cancel button
+        cancelButton = new JButton(BUTTON_CANCEL);
+        cancelButton.addActionListener(e -> onCancelPressed());
+        footerPanel.add(cancelButton, BorderLayout.WEST);
+        
+        // Build next button
+        confirmButton = new JButton(BUTTON_CONFIRM);
+        confirmButton.addActionListener(e -> onConfirmPressed());
+        footerPanel.add(confirmButton, BorderLayout.EAST);
 
-            JComboBox<String> skillBox = new JComboBox<>();
-            skillBox.addItem(EMPTY_OPTION);
-            skillBox.setBounds(225, 100 + 50 * i, 250, 20);
-            skillPick[i] = skillBox;
-            add(skillBox);
-        }
+        add(footerPanel, BorderLayout.SOUTH);
     }
 
-    private void buildButtons() {
-        JButton back = new JButton("Back");
-        back.setBounds(140, 240, 100, 28);
-        back.addActionListener(e -> dispose());
-        add(back);
-
-        JButton confirm = new JButton("Confirm");
-        confirm.setBounds(280, 240, 120, 28);
-        confirm.addActionListener(e -> skillConfirm());
-        add(confirm);
+    private JLabel buildLabel(String s) {
+        JLabel lbl = new JLabel(s);
+        lbl.setFont(LABEL_FONT);
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return lbl;
     }
 
-    private void updateSkillPick(int k) {
-        JComboBox<String> attBox = skillAttributes[k];
-        JComboBox<String> skillBox = skillPick[k];
-
-        String selectedAttr = (String) attBox.getSelectedItem();
-        if (selectedAttr == null) selectedAttr = EMPTY_OPTION;
-        String previousSkill = (String) skillBox.getSelectedItem();
-
-        // Gather skills already chosen for this attribute in other rows
-        Set<String> disallowed = new HashSet<>();
-        for (int i = 0; i < skillPick.length; i++) {
-            if (i == k) continue;
-            String otherAttr = (String) skillAttributes[i].getSelectedItem();
-            String otherSkill = (String) skillPick[i].getSelectedItem();
-            if (selectedAttr.equals(otherAttr) && otherSkill != null && !EMPTY_OPTION.equals(otherSkill)) {
-                disallowed.add(otherSkill);
-            }
-        }
-
-        if (selectedAttr.equals(lastSelectedAttribute[k]) && isSelectionStillAllowed(previousSkill, disallowed)) {
-            return;
-        }
-        lastSelectedAttribute[k] = selectedAttr;
-
-        skillBox.removeAllItems();
-        skillBox.addItem(EMPTY_OPTION);
-
-        for (String option : getSkillOptions(selectedAttr)) {
-            if (!disallowed.contains(option)) {
-                skillBox.addItem(option);
-            }
-        }
-
-        if (previousSkill != null && !disallowed.contains(previousSkill)) {
-            skillBox.setSelectedItem(previousSkill);
-        }
+    private JComboBox<String> buildComboBox(String[] values) {
+        JComboBox<String> box = new JComboBox<>(values);
+        return box;
     }
 
-    private void skillConfirm() {
-        if (gmMode) {
-            // Pre-fill three picks and proceed.
-            skillAttributes[0].setSelectedItem("STR");
-            skillAttributes[1].setSelectedItem("DEX");
-            skillAttributes[2].setSelectedItem("CTL");
-            // refresh dependent options after setting attributes
-            updateSkillPick(0);
-            updateSkillPick(1);
-            updateSkillPick(2);
-            skillPick[0].setSelectedItem("Climb");
-            skillPick[1].setSelectedItem("Acrobatics");
-            skillPick[2].setSelectedItem("Charge Device");
-        }
+    private JComboBox<String> buildAttributeBox(int index) {
+        JComboBox<String> box = buildComboBox(ATTRIBUTES);
+        box.addActionListener(e -> onSelectionChanged(index));
+        return box;
+    }
 
-        for (int i = 0; i < 3; i++) {
-            String att = (String) skillAttributes[i].getSelectedItem();
-            String skillName = (String) skillPick[i].getSelectedItem();
+    private JComboBox<String> buildSkillBox(int index) {
+        JComboBox<String> box = buildComboBox(new String[] { EMPTY_OPTION });
+        box.addActionListener(e -> onSelectionChanged(index));
+        return box;
+    }
 
-            if (att == null || EMPTY_OPTION.equals(att) || skillName == null || EMPTY_OPTION.equals(skillName)) {
-                JOptionPane.showMessageDialog(this, "Select an attribute and skill for all three choices.");
-                return;
-            }
-        }
+    // --------------------------------------------------------------------------
+    // Helpers
+    // --------------------------------------------------------------------------
 
-        for (int i = 0; i < 3; i++) {
-            String skillName = (String) skillPick[i].getSelectedItem();
-            String att = (String) skillAttributes[i].getSelectedItem();
+    private void gridHelper (GridBagConstraints gbc, int y, int x, int width) {
+        gbc.gridwidth = width;
+        gbc.gridy = y;
+        gbc.gridx = x;
+    }
 
-            DataSkill base = dataQuery.getSkillByName(skillName);
-            if (base == null) continue;
+    // ---------------------------------------------------------
+    // Button Handlers
+    // ---------------------------------------------------------
 
-            DataSkill chosen = new DataSkill(base); // copy so we don't mutate shared data
-            chosen.addChosenAttribute(att);
-            character.getSpecials().addSkill(chosen);
-        }
-
-        parent.skillsConfirmed();
+    private void onCancelPressed() {
         dispose();
     }
 
-    private String[] getSkillOptions(String attribute) {
-        return skillOptionsByAttribute.computeIfAbsent(attribute, this::buildSkillOptions);
+    public void onConfirmPressed() {
+        if (gmMode) {
+            applyGmSelections();
+        }
+
+        if (!validateSkills()) {
+            JOptionPane.showMessageDialog(this, "Please ensure all skills have been chosen and are unique.");
+            return;
+        }
+
+        ArrayList<DataSkill> skills = new ArrayList<>();
+        for (int i = 0; i < SKILL_COUNT; i++) {
+            DataSkill baseSkill = ruleManager.getSkillByName((String) skillBoxes[i].getSelectedItem());
+            if (baseSkill == null) continue;
+
+            DataSkill newSkill = new DataSkill(baseSkill);
+            newSkill.setChosenAttributes(new ArrayList<>());
+            newSkill.addChosenAttribute((String) attBoxes[i].getSelectedItem());
+            skills.add(newSkill);
+        }
+
+        character.getSpecials().setSkills(skills);
+
+        parent.setStepConfirmed(3);
+        dispose();
     }
 
-    private String[] buildSkillOptions(String attribute) {
-        List<DataSkill> options = dataQuery.getSkillsByAttribute(attribute);
-        if (options == null || options.isEmpty()) {
-            return new String[0];
+    private boolean validateSkills() {
+        String att1, att2, skill1, skill2;
+
+        // Validate no unchosen skills
+        for (int i = 0; i < SKILL_COUNT; i++) {
+            skill1 = (String) skillBoxes[i].getSelectedItem();
+            if (skill1.compareTo(EMPTY_OPTION) == 0) return false;
         }
-        String[] names = new String[options.size()];
-        for (int i = 0; i < options.size(); i++) {
-            names[i] = options.get(i).getName();
+        
+        // Validate each skill unique
+        for (int i = 0; i < SKILL_COUNT-1; i++) {
+            att1 = (String) attBoxes[i].getSelectedItem();
+            for (int j = i+1; j < SKILL_COUNT; j++) {
+                att2 = (String) attBoxes[j].getSelectedItem();
+                if (att1.compareTo(att2) != 0) continue;
+                skill1 = (String) skillBoxes[i].getSelectedItem();
+                skill2 = (String) skillBoxes[j].getSelectedItem();
+                if (skill1.compareTo(skill2) == 0) return false;
+            }
         }
-        return names;
+
+        return true;
     }
 
-    private boolean isSelectionStillAllowed(String previousSkill, Set<String> disallowed) {
-        return previousSkill != null && !EMPTY_OPTION.equals(previousSkill) && !disallowed.contains(previousSkill);
+    private void updateSkillList(int index) {
+        JComboBox<String> sbox = skillBoxes[index];
+        String att = (String)attBoxes[index].getSelectedItem();
+        String skill = (String)skillBoxes[index].getSelectedItem();
+        
+        sbox.removeAllItems();
+        sbox.addItem(EMPTY_OPTION);
+
+        Set<String> filter = updateFilter(index);
+
+        List<DataSkill> options = ruleManager.getSkillsByAttribute(att);
+        if (options == null || options.isEmpty()) return;
+
+        for (DataSkill opt : options) {
+            if (filter == null || !filter.contains(opt.getName())) sbox.addItem(opt.getName());
+            if (skill != null && opt.getName().compareTo(skill) ==0) sbox.setSelectedItem(skill);
+        }
+    }
+
+    private void refreshAllSkillLists() {
+        updatingSkillLists = true;
+        try {
+            for (int i = 0; i < SKILL_COUNT; i++) {
+                updateSkillList(i);
+            }
+        } finally {
+            updatingSkillLists = false;
+        }
+    }
+
+    private void onSelectionChanged(int index) {
+        if (updatingSkillLists) return;
+        refreshAllSkillLists();
+        updateSkillList(index);
+    }
+
+    private Set<String> updateFilter(int index) {
+        Set<String> list = new HashSet<>();
+        String att = (String)attBoxes[index].getSelectedItem();
+
+        for (int i = 0; i < SKILL_COUNT; i++) {
+            if (i == index) continue;
+            if (att.compareTo((String)attBoxes[i].getSelectedItem()) != 0) continue;
+            list.add((String)skillBoxes[i].getSelectedItem());
+        }
+        if (!list.isEmpty()) return list;
+        return null;
+    }
+
+    private void applyGmSelections() {
+        String[] preferredAttributes = {"STR", "DEX", "CTL"};
+        Set<String> usedSkills = new HashSet<>();
+
+        updatingSkillLists = true;
+        try {
+            for (int i = 0; i < SKILL_COUNT; i++) {
+                String preferredAttribute = preferredAttributes[i];
+                if (hasAvailableSkill(preferredAttribute, usedSkills)) {
+                    attBoxes[i].setSelectedItem(preferredAttribute);
+                    continue;
+                }
+
+                for (String attribute : ATTRIBUTES) {
+                    if (EMPTY_OPTION.equals(attribute)) continue;
+                    if (!hasAvailableSkill(attribute, usedSkills)) continue;
+                    attBoxes[i].setSelectedItem(attribute);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < SKILL_COUNT; i++) {
+                updateSkillList(i);
+                String selectedSkill = findFirstAvailableSkill(i, usedSkills);
+                if (selectedSkill != null) {
+                    skillBoxes[i].setSelectedItem(selectedSkill);
+                    usedSkills.add(selectedSkill);
+                }
+            }
+        } finally {
+            updatingSkillLists = false;
+        }
+    }
+
+    private boolean hasAvailableSkill(String attribute, Set<String> usedSkills) {
+        List<DataSkill> options = ruleManager.getSkillsByAttribute(attribute);
+        if (options == null || options.isEmpty()) return false;
+
+        for (DataSkill option : options) {
+            if (option == null || option.getName() == null) continue;
+            if (!usedSkills.contains(option.getName())) return true;
+        }
+        return false;
+    }
+
+    private String findFirstAvailableSkill(int index, Set<String> usedSkills) {
+        JComboBox<String> skillBox = skillBoxes[index];
+        for (int i = 0; i < skillBox.getItemCount(); i++) {
+            String option = skillBox.getItemAt(i);
+            if (option == null || EMPTY_OPTION.equals(option)) continue;
+            if (!usedSkills.contains(option)) return option;
+        }
+        return null;
     }
 }
-

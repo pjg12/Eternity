@@ -73,7 +73,7 @@ public class CharResources {
         for (int i = 0; i < 3; i++) {
             list[i] = new ArrayList<>();
             DataStatus base = new DataStatus();
-            base.setName(labels[i]);
+            base.setName("Base");
             base.setAttribute(attributeKey);
             base.setSeverity(0);
             base.setDurationType(labels[i]);
@@ -97,10 +97,11 @@ public class CharResources {
 
     @JsonIgnore
     public int calcMaxValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
-        double baseValue = 0.0, multiValue = 0.0;
+        double baseValue = 0.0;
+        double multiValue = 1.0;
         for (int i = 0; i < 3; i++) {
             baseValue += calcValue(base[i]);
-            multiValue += calcValue(base[i]);
+            multiValue += calcValue(multi[i]);
         }
         return (int)Math.max(0, baseValue * multiValue);
     }
@@ -252,5 +253,6 @@ public class CharResources {
         }
         return null;
     }
+
 }
 

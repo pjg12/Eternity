@@ -115,12 +115,12 @@ public class PanelCharInventory extends PanelCharBase {
 		/*	
 		 * 	Currency
 		 */
-		currencyL = buildLabel("Currency");
+		currencyL = buildLabel("Currency", null);
 		charCurrency = buildTextArea("-");
 		charCurrency.setEditable(true);
 		currencyPane = buildScrollPane(charCurrency);
 
-		armorProfL = buildLabel("Armor Proficiency");
+		armorProfL = buildLabel("Armor Proficiency", null);
 		charArmorProf = new JTextPane();
 		charArmorProf.setText("-");
 		charArmorProf.setEditable(false);
@@ -131,7 +131,7 @@ public class PanelCharInventory extends PanelCharBase {
 		armorProfPane = buildScrollPane(charArmorProf);
 		armorProfPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
-		weapProfL = buildLabel("Weapon Proficiency");
+		weapProfL = buildLabel("Weapon Proficiency", null);
 		charWeapProf = buildTextArea("-");
 		charWeapProf.setEditable(false);
 		weapProfPane = buildScrollPane(charWeapProf);
@@ -142,7 +142,7 @@ public class PanelCharInventory extends PanelCharBase {
 		equipL = new ArrayList<JLabel>(); 
 		JLabel tempLabel;
 		for (int i = 0; i < 16; i++) {
-			tempLabel = buildLabel(SLOTS[i]);
+			tempLabel = buildLabel(SLOTS[i], null);
 			equipL.add(tempLabel);
 		}
 
@@ -171,12 +171,12 @@ public class PanelCharInventory extends PanelCharBase {
     	dollLabel.setHorizontalAlignment(JLabel.CENTER);
 
     	// Summary row at top
-    	currencyLabel = buildLabel("Currency");
-    	currencyValue = buildLabel("-");
-    	weaponProfLabel = buildLabel("Weapon Proficiencies");
-    	weaponProfValue = buildLabel("-");
-    	armorProfLabel = buildLabel("Armor Proficiency");
-    	armorProfValue = buildLabel("-");
+    	currencyLabel = buildLabel("Currency", null);
+    	currencyValue = buildLabel("-", null);
+    	weaponProfLabel = buildLabel("Weapon Proficiencies", null);
+    	weaponProfValue = buildLabel("-", null);
+    	armorProfLabel = buildLabel("Armor Proficiency", null);
+    	armorProfValue = buildLabel("-", null);
     	saveButton = buildButton("Save Currency");
     	add(currencyLabel);
     	add(currencyValue);
@@ -192,7 +192,7 @@ public class PanelCharInventory extends PanelCharBase {
     		}
     	});
 	    
-    	equipmentL = buildLabel("Equipment");
+    	equipmentL = buildLabel("Equipment", null);
     	
     	equipmentNameL = new ArrayList<JLabel>();
     	equipmentTierL = new ArrayList<JLabel>();
@@ -205,20 +205,20 @@ public class PanelCharInventory extends PanelCharBase {
     	equipmentModL = new ArrayList<JLabel>();
     	equipmentAugL = new ArrayList<JLabel>();
     	
-    	equipmentNameL.add(buildLabel("Weapon"));
-    	equipmentNameL.add(buildLabel("Armor"));
-    	equipmentNameL.add(buildLabel("Accessory"));
+    	equipmentNameL.add(buildLabel("Weapon", null));
+    	equipmentNameL.add(buildLabel("Armor", null));
+    	equipmentNameL.add(buildLabel("Accessory", null));
     	
     	for (int i = 0; i < 3; i++) {
-	    	equipmentTierL.add(buildLabel("Tier"));
-	    	equipmentCatL.add(buildLabel("Category"));
-	    	equipmentEquippedL.add(buildLabel("Equip"));
-	    	equipmentEnchL.add(buildLabel("Ench"));
-	    	equipmentGemL.add(buildLabel("Gem"));
-	    	equipmentStorL.add(buildLabel("Stor"));
-	    	equipmentOilL.add(buildLabel("Oil"));
-	    	equipmentModL.add(buildLabel("Mod"));
-	    	equipmentAugL.add(buildLabel("Aug"));
+	    	equipmentTierL.add(buildLabel("Tier", null));
+	    	equipmentCatL.add(buildLabel("Category", null));
+	    	equipmentEquippedL.add(buildLabel("Equip", null));
+	    	equipmentEnchL.add(buildLabel("Ench", null));
+	    	equipmentGemL.add(buildLabel("Gem", null));
+	    	equipmentStorL.add(buildLabel("Stor", null));
+	    	equipmentOilL.add(buildLabel("Oil", null));
+	    	equipmentModL.add(buildLabel("Mod", null));
+	    	equipmentAugL.add(buildLabel("Aug", null));
     	}
 
     	equipmentName = new ArrayList<ArrayList<JTextField>>();
@@ -245,26 +245,26 @@ public class PanelCharInventory extends PanelCharBase {
 	    	equipmentAug.add(new ArrayList<JCheckBox>());
     	}
     	
-    	consumableL = buildLabel("Consumables");
-    	consumableNameL = buildLabel("Name");
-    	consumableQtyL = buildLabel("Qty");
-    	consumableNoteL = buildLabel("Note");
+    	consumableL = buildLabel("Consumables", null);
+    	consumableNameL = buildLabel("Name", null);
+    	consumableQtyL = buildLabel("Qty", null);
+    	consumableNoteL = buildLabel("Note", null);
     	consumableName = new ArrayList<>();
     	consumableQty = new ArrayList<>();
     	consumableNote = new ArrayList<>();
     	
-    	goodsL = buildLabel("Goods");
-    	goodsNameL = buildLabel("Name");
-    	goodsQtyL = buildLabel("Qty");
-    	goodsNoteL = buildLabel("Note");
+    	goodsL = buildLabel("Goods", null);
+    	goodsNameL = buildLabel("Name", null);
+    	goodsQtyL = buildLabel("Qty", null);
+    	goodsNoteL = buildLabel("Note", null);
     	goodsName = new ArrayList<>();
     	goodsQty = new ArrayList<>();
     	goodsNote = new ArrayList<>();
     	
-    	itemsL = buildLabel("Items");
-    	itemsNameL = buildLabel("Name");
-    	itemsQtyL = buildLabel("Qty");
-    	itemsNoteL = buildLabel("Note");
+    	itemsL = buildLabel("Items", null);
+    	itemsNameL = buildLabel("Name", null);
+    	itemsQtyL = buildLabel("Qty", null);
+    	itemsNoteL = buildLabel("Note", null);
     	itemsName = new ArrayList<>();
     	itemsQty = new ArrayList<>();
     	itemsNote = new ArrayList<>();
@@ -272,14 +272,14 @@ public class PanelCharInventory extends PanelCharBase {
 		/*
 		 * 	Inventory
 		 */	
-    	inventoryL = buildLabel("Inventory");
+    	inventoryL = buildLabel("Inventory", null);
 
-		inventoryNameL = buildLabel("Name");
-		inventoryGemL = buildLabel("Gem");
-		inventoryQuanL = buildLabel("Quantity");
-		inventoryEnchantL = buildLabel("Enchant");
-		inventoryStoreL = buildLabel("Storage");
-		inventoryCatL = buildLabel("Category");
+		inventoryNameL = buildLabel("Name", null);
+		inventoryGemL = buildLabel("Gem", null);
+		inventoryQuanL = buildLabel("Quantity", null);
+		inventoryEnchantL = buildLabel("Enchant", null);
+		inventoryStoreL = buildLabel("Storage", null);
+		inventoryCatL = buildLabel("Category", null);
 		
 		invenName = new ArrayList<JTextField>();
 		invenNote = new ArrayList<JTextField>();

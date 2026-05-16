@@ -1,7 +1,7 @@
 package eternity;
 
-import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -38,13 +38,13 @@ public class PanelCharGranted extends PanelCharBase {
 		/**************
 		* ***********		Maintained
 		*/// ***********			
-		grantedTechsL = buildLabel("Granted Techniques");
-		mtNameL = buildLabel("Name");
-		mtMaxL = buildLabel("Max");
-		mtActLevelL = buildLabel("AL");
-		mtCostPerALL = buildLabel("Cost");
-		mtCostL = buildLabel("Occ");
-		mtAffinityL = buildLabel("Affinity");
+		grantedTechsL = buildLabel("Granted Techniques", null);
+		mtNameL = buildLabel("Name", null);
+		mtMaxL = buildLabel("Max", null);
+		mtActLevelL = buildLabel("AL", null);
+		mtCostPerALL = buildLabel("Cost", null);
+		mtCostL = buildLabel("Occ", null);
+		mtAffinityL = buildLabel("Affinity", null);
 
 		mtName = new ArrayList<JTextField>();
 		mtAffinity = new ArrayList<JTextField>();
@@ -544,13 +544,13 @@ public class PanelCharGranted extends PanelCharBase {
 
 	private void ensureSectionCapacity(int size) {
 		while (mtSectionTitles.size() < size) {
-			mtSectionTitles.add(buildLabel(""));
-			mtSectionAffinityL.add(buildLabel(""));
-			mtSectionNameL.add(buildLabel(""));
-			mtSectionMaxL.add(buildLabel(""));
-			mtSectionActLevelL.add(buildLabel(""));
-			mtSectionCostPerALL.add(buildLabel(""));
-			mtSectionCostL.add(buildLabel(""));
+			mtSectionTitles.add(buildLabel("", null));
+			mtSectionAffinityL.add(buildLabel("", null));
+			mtSectionNameL.add(buildLabel("", null));
+			mtSectionMaxL.add(buildLabel("", null));
+			mtSectionActLevelL.add(buildLabel("", null));
+			mtSectionCostPerALL.add(buildLabel("", null));
+			mtSectionCostL.add(buildLabel("", null));
 		}
 	}
 

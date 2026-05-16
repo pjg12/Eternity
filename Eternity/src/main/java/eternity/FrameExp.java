@@ -228,10 +228,13 @@ public class FrameExp extends JFrame {
 			return;
 		}
 
-		// commit changes using the simulated results
-		id.setLevel(tempLevel);
-		id.setExp((float)tempExp);
-		character.updateAll();
+        // commit changes using the simulated results
+        id.setLevel(tempLevel);
+        id.setExp((float)tempExp);
+        character.syncIdentityDerivedState(dataQuery);
+        character.syncLevelBaseResources(dataQuery);
+        character.syncLevelCombatScalers(dataQuery);
+        character.updateAll();
 
 		if (sheetFrame != null) {
 			sheetFrame.refreshMainPanel();
@@ -380,11 +383,14 @@ public class FrameExp extends JFrame {
 				character.getSpecials().addTrainedSpecialty(new DataSpecialty(picked));
 			}
 		}
-		CharIdentity id = character.getIdentity();
-		float newExp = (float)(id.getExp() - nextExpRequirement(id.getLevel()));
-		id.setExp(Math.max(0f, newExp));
-		id.setLevel(id.getLevel() + 1);
-		character.updateAll();
+        CharIdentity id = character.getIdentity();
+        float newExp = (float)(id.getExp() - nextExpRequirement(id.getLevel()));
+        id.setExp(Math.max(0f, newExp));
+        id.setLevel(id.getLevel() + 1);
+        character.syncIdentityDerivedState(dataQuery);
+        character.syncLevelBaseResources(dataQuery);
+        character.syncLevelCombatScalers(dataQuery);
+        character.updateAll();
 		
 		if (sheetFrame != null) {
 			sheetFrame.refreshMainPanel();

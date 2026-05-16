@@ -236,7 +236,7 @@ public class PanelImage extends JPanel {
         if (sheetFrame != null) {
             sheetFrame.onSavePressed();
         } else if (character != null) {
-            StoreMetaManager.saveCharacter(character);
+            //StoreMetaManager.saveCharacter(character);
         }
     }
 

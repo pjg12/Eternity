@@ -123,7 +123,7 @@ public class PanelCharList extends PanelCharBase {
 
 	private void ensureSectionCapacity(int size) {
 		while (titles.size() <= size) {
-			titles.add(buildLabel(""));
+			titles.add(buildLabel("", null));
 			lists.add(new ArrayList<JTextField>());
 		}
 	}

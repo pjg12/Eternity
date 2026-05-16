@@ -6,7 +6,6 @@ C:\Eternity\Eternity\src\main\java\eternity\CharResources.java
 C:\Eternity\Eternity\src\main\java\eternity\CharSpecials.java
 C:\Eternity\Eternity\src\main\java\eternity\CharTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\DataAction.java
-C:\Eternity\Eternity\src\main\java\eternity\DataBuilder.java
 C:\Eternity\Eternity\src\main\java\eternity\DataClass.java
 C:\Eternity\Eternity\src\main\java\eternity\DataColor.java
 C:\Eternity\Eternity\src\main\java\eternity\DataDeity.java
@@ -30,12 +29,10 @@ C:\Eternity\Eternity\src\main\java\eternity\FrameCombatDamage.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameDetail.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameExp.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameFirst.java
-C:\Eternity\Eternity\src\main\java\eternity\FrameHeal.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameInventoryAdd.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameInventoryRemove.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameLevel.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameLoad.java
-C:\Eternity\Eternity\src\main\java\eternity\FrameMitigation.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNew.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewAttribute.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameNewAura.java
@@ -67,6 +64,7 @@ C:\Eternity\Eternity\src\main\java\eternity\PanelImage.java
 C:\Eternity\Eternity\src\main\java\eternity\SpecCheck.java
 C:\Eternity\Eternity\src\main\java\eternity\StatBlock.java
 C:\Eternity\Eternity\src\main\java\eternity\StoreCharData.java
+C:\Eternity\Eternity\src\main\java\eternity\StoreCharManager.java
 C:\Eternity\Eternity\src\main\java\eternity\StoreMetaChar.java
 C:\Eternity\Eternity\src\main\java\eternity\StoreMetaManager.java
 C:\Eternity\Eternity\src\main\java\eternity\StoreRuleData.java

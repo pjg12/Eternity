@@ -180,7 +180,11 @@ public class FrameDetail extends JFrame {
         id.setPersonality(personalityArea.getText());
 
         if (sheetFrame != null) {
-            StoreMetaManager.saveCharacter(character);
+            character.syncIdentityDerivedState(dataQuery);
+            character.syncLevelBaseResources(dataQuery);
+            character.syncLevelCombatScalers(dataQuery);
+            character.updateAll();
+            //StoreMetaManager.saveCharacter(character);
             sheetFrame.refreshMainPanel();
             sheetFrame.refreshImagePanel();
         }
@@ -222,4 +226,3 @@ public class FrameDetail extends JFrame {
         }
     }
 }
-

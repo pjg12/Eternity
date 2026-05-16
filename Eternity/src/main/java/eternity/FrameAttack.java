@@ -479,32 +479,32 @@ public class FrameAttack extends JFrame {
 			return action.getRanged();
 		}
 		CharAttributes a = attrs();
-		return a == null ? 0 : a.getCombat("RANGE");
+		return a == null ? 0 : 1;
 	}
 
 	private int getAttack() {
 		CharAttributes a = attrs();
-		int charAtk = a == null ? 0 : a.getCombat("ATK");
+		int charAtk = a == null ? 0 : 1;
 		int actionAtk = action == null ? 0 : action.getAtk();
 		return Math.max(0, charAtk + actionAtk);
 	}
 
 	private int getExtraAttacks() {
 		CharAttributes a = attrs();
-		int maxAtk = a == null ? 0 : a.getSecondary("MAXATK");
+		int maxAtk = a == null ? 0 : 1;
 		return Math.max(0, maxAtk - 1);
 	}
 
 	private int getBaseDamage() {
 		CharAttributes a = attrs();
-		int charBdmg = a == null ? 0 : a.getDamage("BDMG");
+		int charBdmg = a == null ? 0 : 1;
 		int actionBdmg = action == null ? 0 : action.getBdmg();
 		return charBdmg + actionBdmg;
 	}
 
 	private int getTotalDamage() {
 		CharAttributes a = attrs();
-		int charTdmg = a == null ? 0 : a.getDamage("TDMG");
+		int charTdmg = a == null ? 0 : 1;
 		int actionTdmg = action == null ? 0 : action.getTdmg();
 		return charTdmg + actionTdmg;
 	}
@@ -534,7 +534,7 @@ public class FrameAttack extends JFrame {
 		if (prim == null) return 0;
 		CharAttributes a = attrs();
 		if (a == null) return 0;
-		int val = a.getAttribute(prim.toUpperCase());
+		int val = 1;
 		return val - 10;
 	}
 
@@ -563,7 +563,7 @@ public class FrameAttack extends JFrame {
 
 	private double getCrush() {
 		if (character != null && character.getAttributes() != null) {
-			return character.getAttributes().getCombat("CRUSH");
+			return 1;
 		}
 		return 0.0;
 	}

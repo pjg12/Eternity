@@ -1,3 +1,5 @@
+// CHECKED
+
 package eternity;
 
 import java.util.ArrayList;
@@ -12,7 +14,10 @@ public class StoreRuleManager {
     private static final StoreRuleData RULE_DATA = new StoreRuleData();
     private static final QueryIndex QUERY_INDEX = new QueryIndex(RULE_DATA);
 
-
+    // --------------------------------------------------------------------------
+    // Constructor
+    // --------------------------------------------------------------------------
+    
     public StoreRuleManager() { /* No Code Needed */ }
 
     // ---------------------------------------------------------

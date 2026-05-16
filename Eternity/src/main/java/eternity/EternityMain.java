@@ -2,44 +2,26 @@
 
 package eternity;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 
 /**
- * Main Eternity TTRPG Function
+ * Main Class for Eternity
  */
 public class EternityMain {
+    // ---------------------------------------------------------
+    // Main Eternity Method
+    // ---------------------------------------------------------
+
     public static void main(String[] args) {
         // Start GUI on Event Dispatch Thread
         SwingUtilities.invokeLater(EternityMain::startApp);
     }
 
     private static void startApp() {
-        FrameFirst first = new FrameFirst();
+        FrameSheet sheetFrame = new FrameSheet();
+        sheetFrame.setVisible(true);
+        
+        FrameFirst first = new FrameFirst(sheetFrame);
         first.setVisible(true);
-
-        new SwingWorker<ArrayList<StoreMetaChar>, Void>() {
-            @Override
-            protected ArrayList<StoreMetaChar> doInBackground() {
-                ArrayList<StoreMetaChar> store = StoreMetaManager.loadCharStore();
-                if (store == null) {
-                    store = new ArrayList<>();
-                }
-                return store;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    ArrayList<StoreMetaChar> store = get();
-                    first.attachStartupStore(store);
-                } catch (Exception e) {
-                    first.showLoadError("Failed to initialize application: " + e.getMessage());
-                }
-            }
-        }.execute();
     }
-
 }

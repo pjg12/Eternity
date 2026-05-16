@@ -118,27 +118,49 @@ public class DataRace {
             this.baseStatus = baseStatus.clone();
     }
     public DataStatus[] getBaseDataStatus() {
-        String[] labels = {"STR", "DEX", "CON", "INT", "WIS", "CHA"};
-        int i = 0;
-        while (i < baseStatus.length)
-            if (baseStatus[i] != -1) i++; 
-            else break;
-        DataStatus[] statuses = new DataStatus[i];
-        for (int j = 0; j < i; j++) {
-            if (j > 0 && labels[j].compareTo(labels[j-1]) == 0) {
-                statuses[j].setSeverity(statuses[j].getSeverity() + 1);
-                continue;
-            }
-            statuses[j] = new DataStatus();
-            statuses[j].setName("Base Racial");
-            statuses[j].setAttribute(labels[j]);
-            if (j == 2)
-                statuses[j].setSeverity(-1);
-            else
-                statuses[j].setSeverity(statuses[j].getSeverity() + 1);
+        if (baseStatus == null || baseStatus.length == 0) return new DataStatus[0];
+
+        java.util.LinkedHashMap<String, Double> totals = new java.util.LinkedHashMap<>();
+        int lastIndex = -1;
+        for (int i = 0; i < baseStatus.length; i++) {
+            if (baseStatus[i] == -1) break;
+            lastIndex = i;
+        }
+        if (lastIndex < 0) return new DataStatus[0];
+
+        for (int i = 0; i <= lastIndex; i++) {
+            String attribute = mapBaseStatusCode(baseStatus[i]);
+            if (attribute == null) continue;
+            double delta = (i == lastIndex && lastIndex > 0) ? -1.0 : 1.0;
+            totals.merge(attribute, delta, Double::sum);
         }
 
+        DataStatus[] statuses = new DataStatus[totals.size()];
+        int index = 0;
+        for (java.util.Map.Entry<String, Double> entry : totals.entrySet()) {
+            DataStatus status = new DataStatus();
+            status.setName("Base Racial");
+            status.setAffinity("None");
+            status.setDescription("Racial base status");
+            status.setAttribute(entry.getKey());
+            status.setSeverity(entry.getValue());
+            status.setDurationType("Passive");
+            status.setDuration(-1);
+            statuses[index++] = status;
+        }
         return statuses;
+    }
+
+    private String mapBaseStatusCode(int code) {
+        return switch (code) {
+            case 1 -> "BSTR";
+            case 2 -> "BDEX";
+            case 3 -> "BCON";
+            case 4 -> "BFOC";
+            case 5 -> "BCTL";
+            case 6 -> "BCAP";
+            default -> null;
+        };
     }
 
     public String getScalingStatusDesc() { return scalingStatusDesc; }

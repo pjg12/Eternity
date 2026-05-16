@@ -8,8 +8,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,200 +22,213 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 
 /**
  * Character Creation Wizard
  */
 public class FrameNew extends JFrame {
-    private final FrameSheet frameSheet;                // Reference to parent FrameSheet
+
+    // References
+    private final FrameSheet sheetFrame;                
     private final StoreCharData character;
 
-    private static final int ICON_SIZE = 100;
-    private static final int STEP_COUNT = 6;
-    private static final String[] STEPS = { "Class", "Race", "Attributes", "Skills", "Specialties", "Affinity" };
-
     // UI Constants
-    private static final float HEADER_FONT_SIZE = 22f;
-    private static final float LABEL_FONT_SIZE = 14f;
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 520;
-    private static final int HEADER_HEIGHT = 60;
-    private static final int CENTER_HEIGHT = 380;
-    private static final int FOOTER_HEIGHT = 60;
+    private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
+    private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
     private static final int BUTTON_SPACING = 10;
     private static final int ICON_SPACING = 20;
-    private static final Insets HEADER_INSETS = new Insets(12, 18, 4, 18);
+    private static final EmptyBorder HEADER_BORDER = new EmptyBorder(12, 18, 4, 18);
+    private static final EmptyBorder CENTER_BORDER = new EmptyBorder(10, 10, 10, 10);
     private static final Insets CENTER_INSETS = new Insets(10, 10, 10, 10);
-    private static final Insets FOOTER_INSETS = new Insets(5, 10, 5, 10);
+    private static final EmptyBorder FOOTER_BORDER = new EmptyBorder(5, 10, 5, 10);
+    private static final int ICON_SIZE = 100;
+    private static final int STEP_COUNT = 6;
+    private static final int BUTTONS_PER_ROW = 3;
+    private static final int ROW_INCREMENT = 2;
 
     // UI Strings
-    private static final String TITLE = "Character Builder";
-    private static final String CANCEL_BUTTON_TEXT = "Cancel / Load";
-    private static final String FINALIZE_BUTTON_TEXT = "Finalize";
-    private static final String GM_CHECK_TEXT = "GM Mode";
+    private static final String WINDOW_TITLE = "Character Builder";
     private static final String HEADER_TEXT = "Character Builder";
-    private static final String STEP_PREFIX = "Step ";
-    private static final String CONFIRMATION_TITLE = "Confirmation";
-    private static final String CONFIRMATION_MESSAGE = "Are you sure you want to finalize this character?";
-    private static final String SAVE_ERROR_TITLE = "Save Error";
-    private static final String SAVE_ERROR_MESSAGE = "Failed to save character.";
-    private static final String SUCCESS_TITLE = "Success";
-    private static final String SUCCESS_MESSAGE = "Character created successfully!";
-    private static final String RACE_TRAINING_NAME = "Race Training";
+    private static final String BUTTON_RESET = "Reset";
+    private static final String BUTTON_CANCEL = "Cancel / Load";
+    private static final String BUTTON_FINALIZE = "Finalize";
+    private static final String GM_CHECK_TEXT = "GM Mode";
+    private static final String[] STEPS = { "Class", "Race", "Attributes", "Skills", "Specialties", "Affinity" };
     private static final String ARMOR_TYPE_LIGHT = "Light";
     private static final String ARMOR_TYPE_MEDIUM = "Medium";
     private static final String ARMOR_TYPE_HEAVY = "Heavy";
     private static final String ARMOR_TYPE_EXO = "Exo";
+    private static final int[] STARTING_TECHS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21, 22, 51, 52, 53, 54, 55 };
+    private static final int[] STARTING_TECHS_1 = { 23, 24, 61, 62, 63, 64, 65 };
 
-    // Training constants from StoreMetaManager
-    private static final int[][] TRAINING_RANGES = {{1,12}, {21,24}, {31,49}, {51,55}, {61,65}};
-    private static final int[] TRAINING_SINGLES = {101, 141, 181};
-
-    // DEF stat constants
-    private static final int DEF_STAT_INDEX = 2; // DEF is the third entry in DEFENSE array {ARMOR, DODGE, DEF, FORT, REF, WILL}
-
-    // Grid layout constants
-    private static final int BUTTONS_PER_ROW = 3;
-    private static final int ROW_INCREMENT = 2;
-    /**
-     * Initializes base training techniques for a new character using predefined ranges and singles.
-     * Handles special cases for certain training IDs (e.g., rank initialization).
-     */
-    private void initializeBaseTraining() {
-        if (character == null || character.getTraining() == null) return;
-
-        StoreRuleManager dq = StoreMetaManager.getDataQuery();
-        if (dq == null) return;
-
-        CharTraining training = character.getTraining();
-
-        // Handle range-based training
-        for (int rangeIndex = 0; rangeIndex < TRAINING_RANGES.length; rangeIndex++) {
-            int[] range = TRAINING_RANGES[rangeIndex];
-            for (int trainingId = range[0]; trainingId <= range[1]; trainingId++) {
-                addTrainingIfMissing(training, dq, trainingId, rangeIndex);
-            }
-        }
-
-        // Handle single training IDs
-        for (int trainingId : TRAINING_SINGLES) {
-            addTrainingIfMissing(training, dq, trainingId, -1);
-        }
-    }
-
-    /**
-     * Adds training technique if not already present, with special handling for certain ranges.
-     * @param training The character's training component
-     * @param dq The StoreRuleManager instance
-     * @param trainingId The training technique ID
-     * @param rangeIndex The range index for special handling (-1 for singles)
-     */
-    private void addTrainingIfMissing(CharTraining training, StoreRuleManager dq, int trainingId, int rangeIndex) {
-        if (training.getTrainingById(trainingId) != null) return;
-
-        DataTraining tech = dq.getTrainingById(trainingId);
-        if (tech == null) return;
-
-        DataTraining techClone = new DataTraining(tech);
-
-        // Special handling based on range
-        if (rangeIndex == 1 && trainingId == 23) { // Range 21-24, ID 23
-            techClone.setRank(1);
-        } else if (rangeIndex == 2) { // Range 31-49 (affinity-based)
-            techClone.setRank(0);
-            for (String aff : training.getNaturalAffinities()) {
-                if (techClone.getAffinity() != null && techClone.getAffinity().equals(aff)) {
-                    techClone.setRank(1);
-                    break;
-                }
-            }
-        } else if (rangeIndex == 4) { // Range 61-65
-            techClone.setRank(1);
-        } else {
-            techClone.setRank(0);
-        }
-
-        training.addTraining(techClone);
-    }
-
-    // Cached icons (loaded once and shared across all instances)
+    // Icons
     private static ImageIcon[] iconNormal;
     private static ImageIcon[] iconHover;
     private static ImageIcon[] iconDone;
     private static boolean iconsLoaded = false;
 
     // UI Elements
-    private JLabel headerLabel;
+    private JPanel headerPanel, centerPanel, footerPanel;
+    private JPanel gmPanel, buttonPanel;
+    private JLabel headerL;
     private JButton[] stepButtons;
     private JLabel[] stepLabels;
-    private JButton cancelButton;
-    private JButton finalizeButton;
-    private FrameNewFinal finalFrame;
     private JCheckBox gmCheck;
+    private JButton resetButton, cancelButton, finalizeButton;
+
+    // Frames
+    private FrameNewClass classFrame;
+    private FrameNewRace raceFrame;
+    private FrameNewAttribute attributeFrame;
+    private FrameNewSkills skillsFrame;
+    private FrameNewSpecials specialsFrame;
+    private FrameNewAura auraFrame;
+    private FrameNewFinal finalFrame;
+    private final List<String> starterWeaponSelections;
 
     // Step completion state
     private final boolean[] stepDone;
-    private final boolean[] stepVisible;
 
     // --------------------------------------------------------------------------
     // Constructor
     // --------------------------------------------------------------------------
+
     public FrameNew(FrameSheet sheetFrame, StoreCharData character) {
-        this(sheetFrame, character, -1);
+        super(WINDOW_TITLE);
+        this.sheetFrame = sheetFrame;
+        this.character = character;
+
+        this.stepDone = new boolean[STEP_COUNT];
+        this.starterWeaponSelections = new ArrayList<>();
+        //ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);      
+        SwingUtilities.invokeLater(this::loadIconsAsync);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setLocationRelativeTo(sheetFrame);
+        setResizable(false);
+        setLayout(new BorderLayout(BUTTON_SPACING, BUTTON_SPACING));
+
+        buildUI();
     }
 
-    /**
-     * Creates a new character builder. When {@code age} is non-negative, the
-     * character's birthday is randomized to a date that makes them that many
-     * years old in the current campaign year.
-     */
-    public FrameNew(FrameSheet sheetFrame, StoreCharData character, int age) {
-        super(TITLE);
-        this.frameSheet = sheetFrame;
-        this.character = character;
-        this.stepDone = new boolean[STEP_COUNT];
-        this.stepVisible = new boolean[STEP_COUNT];
+    // ---------------------------------------------------------
+    // Build UI
+    // ---------------------------------------------------------
 
-        if (age >= 0 && this.character != null && this.character.getIdentity() != null) {
-            this.character.getIdentity().randomBirthday(age);
-        }
-
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);      
-
-        // Load icons asynchronously to avoid blocking UI creation
-        SwingUtilities.invokeLater(this::loadIconsAsync);
-        
-        initWindow();
+    private void buildUI() {
         buildHeader();
         buildCenter();
         buildFooter();
-
-        setVisible(true);
-        updateFrame();
-    }
-
-    // --------------------------------------------------------------------------
-    // Window Setup
-    // --------------------------------------------------------------------------
-    private void initWindow() {
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setMinimumSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT - 40));
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout(BUTTON_SPACING, BUTTON_SPACING));
     }
 
     private void buildHeader() {
-        headerLabel = new JLabel(HEADER_TEXT, SwingConstants.CENTER);
-        headerLabel.setFont(headerLabel.getFont().deriveFont(Font.BOLD, HEADER_FONT_SIZE));
-        headerLabel.setBorder(new EmptyBorder(HEADER_INSETS.top, HEADER_INSETS.left, HEADER_INSETS.bottom, HEADER_INSETS.right));
+        // Build panel
+        headerPanel = new JPanel(new BorderLayout());
 
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.add(headerLabel, BorderLayout.CENTER);
+        // Build header
+        headerL = new JLabel(HEADER_TEXT, SwingConstants.CENTER);
+        headerL.setFont(HEADER_FONT);
+        headerL.setBorder(HEADER_BORDER);
 
+        // Add elements
+        headerPanel.add(headerL, BorderLayout.CENTER);
         add(headerPanel, BorderLayout.NORTH);
+    }
+
+    private void buildCenter() {
+        // Build panel
+        centerPanel = new JPanel(new GridBagLayout());
+        centerPanel.setBorder(CENTER_BORDER);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = CENTER_INSETS;
+        gc.anchor = GridBagConstraints.CENTER;
+        gc.fill = GridBagConstraints.NONE;
+
+        // Build button arrays
+        stepButtons = new JButton[STEP_COUNT];
+        stepLabels  = new JLabel[STEP_COUNT];
+
+        int row = 0;
+        for (int i = 0; i < STEP_COUNT; i++) {
+            // Manage format
+            gc.gridx = i % BUTTONS_PER_ROW;
+            gc.gridy = row;
+
+            // Build button
+            JButton btn = new JButton(getNormalIcon(i));
+            btn.setRolloverIcon(getHoverIcon(i));
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setPreferredSize(new Dimension(ICON_SIZE, ICON_SIZE));
+            btn.setMinimumSize(new Dimension(ICON_SIZE, ICON_SIZE));
+            btn.setMaximumSize(new Dimension(ICON_SIZE, ICON_SIZE));
+
+            // Add Listener
+            final int index = i;
+            btn.addActionListener(e -> onStepPressed(index));
+
+            // Add button
+            stepButtons[i] = btn;
+            centerPanel.add(btn, gc);
+
+            // Build label
+            gc.gridy = row + 1;
+            JLabel lbl = new JLabel(STEPS[i], SwingConstants.CENTER);
+            lbl.setPreferredSize(new Dimension(ICON_SIZE, 20));
+            lbl.setFont(LABEL_FONT);
+
+            // Add label
+            stepLabels[i] = lbl;
+            centerPanel.add(lbl, gc);
+
+            // Advance
+            if (i % BUTTONS_PER_ROW == BUTTONS_PER_ROW - 1) {
+                row += ROW_INCREMENT;
+            }
+        }
+
+        // Add panel
+        add(centerPanel, BorderLayout.CENTER);
+    }
+
+    private void buildFooter() {
+        // Build panels
+        footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setBorder(FOOTER_BORDER);
+        gmPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, BUTTON_SPACING, BUTTON_SPACING));
+        gmPanel.setOpaque(false);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ICON_SPACING, BUTTON_SPACING));
+
+        // Build GM Mode button
+        gmCheck = new JCheckBox(GM_CHECK_TEXT);
+        gmCheck.setFocusable(false);
+        gmCheck.setOpaque(false);
+        gmCheck.addItemListener(e -> onGmCheckChanged());
+
+        // Build buttons
+        resetButton = new JButton(BUTTON_RESET);
+        resetButton.addActionListener(e -> onResetPressed());
+        cancelButton = new JButton(BUTTON_CANCEL);
+        cancelButton.addActionListener(e -> onCancelPressed());
+        finalizeButton = new JButton(BUTTON_FINALIZE);
+        finalizeButton.addActionListener(e -> onFinalizePressed());
+        finalizeButton.setVisible(false);
+
+        // Add buttons
+        gmPanel.add(gmCheck);
+        buttonPanel.add(resetButton);
+        buttonPanel.add(cancelButton);
+        buttonPanel.add(finalizeButton);
+
+        // Add panels
+        footerPanel.add(gmPanel, BorderLayout.WEST);
+        footerPanel.add(buttonPanel, BorderLayout.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
     }
 
     // --------------------------------------------------------------------------
@@ -222,31 +237,27 @@ public class FrameNew extends JFrame {
     private static synchronized void loadIcons() {
         if (iconsLoaded) return;
 
+        // Build icon arrays
         iconNormal = new ImageIcon[STEP_COUNT];
         iconHover  = new ImageIcon[STEP_COUNT];
         iconDone   = new ImageIcon[STEP_COUNT];
 
         for (int i = 0; i < STEP_COUNT; i++) {
+            // Load icons from images directory
             ImageIcon raw1 = loadIcon(STEPS[i], "1");
             ImageIcon raw2 = loadIcon(STEPS[i], "2");
             ImageIcon raw3 = loadIcon(STEPS[i], "3");
 
+            // Add icons to icon arrays
             iconNormal[i] = scaleIcon(raw1, ICON_SIZE, ICON_SIZE);
             iconHover[i]  = scaleIcon(raw2, ICON_SIZE, ICON_SIZE);
             iconDone[i]   = scaleIcon(raw3, ICON_SIZE, ICON_SIZE);
         }
-
         iconsLoaded = true;
     }
 
-    private static ImageIcon scaleIcon(ImageIcon src, int width, int height) {
-        Image img = src.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(img);
-    }
-    
-    private static ImageIcon loadIcon(String name, String variant) {
-        return new ImageIcon("images/" + name + variant + ".png");
-    }
+    private static ImageIcon scaleIcon(ImageIcon src, int width, int height) { return new ImageIcon(src.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)); }
+    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon("images/" + name + variant + ".png"); }
 
     /**
      * Loads icons asynchronously to avoid blocking UI creation.
@@ -261,424 +272,296 @@ public class FrameNew extends JFrame {
 
             @Override
             protected void done() {
-                applyLoadedIcons();
+                applyRolloverIcons();
                 updateFrame();
             }
         };
         worker.execute();
     }
 
-    // --------------------------------------------------------------------------
-    // Center Buttons + Labels (Modern GridBag)
-    // --------------------------------------------------------------------------
-    private void buildCenter() {
+    private static ImageIcon getNormalIcon(int stepIndex) { return iconsLoaded ? iconNormal[stepIndex] : null; }
+    private static ImageIcon getHoverIcon(int stepIndex) { return iconsLoaded ? iconHover[stepIndex] : null; }
+    private static ImageIcon getDoneIcon(int stepIndex) { return iconsLoaded ? iconDone[stepIndex] : null; }
 
-        JPanel centerPanel = new JPanel(new GridBagLayout());
-        centerPanel.setBorder(new EmptyBorder(CENTER_INSETS.top, CENTER_INSETS.left, CENTER_INSETS.bottom, CENTER_INSETS.right));
-        GridBagConstraints gc = new GridBagConstraints();
-
-        stepButtons = new JButton[STEP_COUNT];
-        stepLabels  = new JLabel[STEP_COUNT];
-
-        gc.insets = CENTER_INSETS;
-        gc.anchor = GridBagConstraints.CENTER;
-        gc.fill = GridBagConstraints.NONE;
-
-        int row = 0;
+    private void applyRolloverIcons() {
+        if (stepButtons == null || !iconsLoaded) return;
 
         for (int i = 0; i < STEP_COUNT; i++) {
-
-            gc.gridx = i % BUTTONS_PER_ROW;
-            gc.gridy = row;
-
-            // Button
-            JButton btn = new JButton(getNormalIcon(i));
-            btn.setRolloverIcon(getHoverIcon(i));
-            btn.setBorderPainted(false);
-            btn.setFocusPainted(false);
-            btn.setContentAreaFilled(false);
-            btn.setPreferredSize(new Dimension(ICON_SIZE, ICON_SIZE));
-            btn.setMinimumSize(new Dimension(ICON_SIZE, ICON_SIZE));
-            btn.setMaximumSize(new Dimension(ICON_SIZE, ICON_SIZE));
-
-            final int index = i;
-            btn.addActionListener(e -> onStepSelected(index));
-
-            stepButtons[i] = btn;
-            centerPanel.add(btn, gc);
-
-            // Label under button
-            gc.gridy = row + 1;
-            JLabel lbl = new JLabel(STEPS[i], SwingConstants.CENTER);
-            lbl.setPreferredSize(new Dimension(ICON_SIZE, 20));
-            lbl.setFont(lbl.getFont().deriveFont(LABEL_FONT_SIZE));
-            stepLabels[i] = lbl;
-            centerPanel.add(lbl, gc);
-
-            // Move down after each row of buttons
-            if (i % BUTTONS_PER_ROW == BUTTONS_PER_ROW - 1) {
-                row += ROW_INCREMENT;
-            }
+            stepButtons[i].setRolloverIcon(getHoverIcon(i));
         }
-
-        add(centerPanel, BorderLayout.CENTER);
     }
 
-    // --------------------------------------------------------------------------
-    // Footer (Cancel + Finalize)
-    // --------------------------------------------------------------------------
-    private void buildFooter() {
-        JPanel footer = new JPanel(new BorderLayout());
-
-        gmCheck = new JCheckBox(GM_CHECK_TEXT);
-        gmCheck.setFocusable(false);
-        gmCheck.setOpaque(false);
-
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, BUTTON_SPACING, BUTTON_SPACING));
-        leftPanel.setOpaque(false);
-        leftPanel.add(gmCheck);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ICON_SPACING, BUTTON_SPACING));
-
-        cancelButton = new JButton(CANCEL_BUTTON_TEXT);
-        cancelButton.addActionListener(e -> onCancelPressed());
-
-        finalizeButton = new JButton(FINALIZE_BUTTON_TEXT);
-        finalizeButton.setVisible(false);
-        finalizeButton.addActionListener(e -> onFinalizePressed());
-
-        buttonPanel.add(cancelButton);
-        buttonPanel.add(finalizeButton);
-
-        footer.add(leftPanel, BorderLayout.WEST);
-        footer.add(buttonPanel, BorderLayout.CENTER);
-
-        add(footer, BorderLayout.SOUTH);
+    private void setStepIcon(int stepIndex, boolean done) {
+        ImageIcon icon = done ? getDoneIcon(stepIndex) : getNormalIcon(stepIndex);
+        if (icon != null && stepButtons[stepIndex].getIcon() != icon) {
+            stepButtons[stepIndex].setIcon(icon);
+        }
     }
 
-    // --------------------------------------------------------------------------
-    // Button Actions
-    // --------------------------------------------------------------------------
+    // ---------------------------------------------------------
+    // Button Handlers
+    // ---------------------------------------------------------
+    private void onGmCheckChanged() {
+        onResetPressed();
+    }
+
+    private void onResetPressed() {
+        disposeSubFrames();
+        clearSteps();
+        starterWeaponSelections.clear();
+        updateFrame();
+    }
+
     private void onCancelPressed() {
-        //sheetFrame.onLoadPressed();
+        sheetFrame.onLoadPressed();
         dispose();
     }
 
     private void onFinalizePressed() {
-        if (finalFrame == null) {
-            finalFrame = new FrameNewFinal(
-                parent,
-                character,
-                this
-            );
-        }
+        List<DataItemEquipment> grantedArmor = giveStarterArmor();
+        giveStarterTechs();
+        equipStarterLoadout(grantedArmor);
+        if (finalFrame == null) finalFrame = new FrameNewFinal(sheetFrame, character, this);
         finalFrame.setVisible(true);
     }
 
-    private void onStepSelected(int index) {
-    switch (index) {
-        case 0 -> {
-            // --- CLASS SELECTION WINDOW ---
-            FrameNewClass classFrame =
-                    new FrameNewClass(
-                        parent,
-                        StoreMetaManager.getDataQuery(),   // StoreRuleData access
-                        character,               // active character
-                        this,                       // parent FrameNew
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-
-            classFrame.setVisible(true);
-        }
-
-        // --------------------------------------------------------------------
-        // Other steps still use placeholder dialogs for now
-        // --------------------------------------------------------------------
-        case 1 -> {
-            // --- RACE SELECTION WINDOW ---
-            FrameNewRace raceFrame =
-                    new FrameNewRace(
-                        parent,
-                        StoreMetaManager.getDataQuery(),   // StoreRuleData access
-                        character,               // active character
-                        this,                       // parent FrameNew
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-
-            raceFrame.setVisible(true);
-        }
-
-        case 2 -> {
-            FrameNewAttribute attFrame =
-                    new FrameNewAttribute(
-                        parent,
-                        character,
-                        this,
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-            attFrame.setVisible(true);
-        }
-
-        case 3 -> {
-            FrameNewSkills skillsFrame =
-                    new FrameNewSkills(
-                        parent,
-                        StoreMetaManager.getDataQuery(),
-                        character,
-                        this,
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-            skillsFrame.setVisible(true);
-        }
-
-        case 4 -> {
-            FrameNewSpecials specialsFrame =
-                    new FrameNewSpecials(
-                        parent,
-                        StoreMetaManager.getDataQuery(),
-                        character,
-                        this,
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-            specialsFrame.setVisible(true);
-        }
-
-        case 5 -> {
-            FrameNewAura auraFrame =
-                    new FrameNewAura(
-                        parent,
-                        StoreMetaManager.getDataQuery(),
-                        character,
-                        this,
-                        gmCheck != null && gmCheck.isSelected()
-                    );
-            auraFrame.setVisible(true);
+    private void onStepPressed(int index) {
+        switch (index) {
+            case 0 -> {
+                if (classFrame == null) classFrame = new FrameNewClass(sheetFrame, sheetFrame.getStoreRuleManager(), character, this, gmCheck != null && gmCheck.isSelected());
+                classFrame.setVisible(true);
+            }
+            case 1 -> {
+                if (raceFrame == null) raceFrame = new FrameNewRace(sheetFrame, sheetFrame.getStoreRuleManager(), character, this, gmCheck != null && gmCheck.isSelected());
+                raceFrame.setVisible(true);
+            }
+            case 2 -> {
+                if (attributeFrame == null) attributeFrame = new FrameNewAttribute(sheetFrame, character, this, gmCheck != null && gmCheck.isSelected());
+                attributeFrame.setVisible(true);
+            }
+            case 3 -> {
+                if (skillsFrame == null) skillsFrame = new FrameNewSkills(sheetFrame, sheetFrame.getStoreRuleManager(), character, this, gmCheck != null && gmCheck.isSelected());
+                skillsFrame.setVisible(true);
+            }
+            case 4 -> {
+                if (specialsFrame == null) specialsFrame = new FrameNewSpecials(sheetFrame, sheetFrame.getStoreRuleManager(), character, this, gmCheck != null && gmCheck.isSelected());
+                specialsFrame.setVisible(true);
+            }
+            case 5 -> {
+                if (auraFrame == null) auraFrame = new FrameNewAura(sheetFrame, sheetFrame.getStoreRuleManager(), character, this, gmCheck != null && gmCheck.isSelected());
+                auraFrame.setVisible(true);
+            }
         }
     }
-}
 
     // --------------------------------------------------------------------------
-    // Update Step Progress (unchanged from your logic)
+    // Helpers
     // --------------------------------------------------------------------------
+
+    private void disposeSubFrames() {
+        if (classFrame != null) {
+            classFrame.dispose();
+            classFrame = null;
+        }
+        if (raceFrame != null && raceFrame.isDisplayable()) {
+            raceFrame.dispose();
+            raceFrame = null;
+        }
+        if (attributeFrame != null && attributeFrame.isDisplayable()) {
+            attributeFrame.dispose();
+            attributeFrame = null;
+        }
+        if (skillsFrame != null && skillsFrame.isDisplayable()) {
+            skillsFrame.dispose();
+            skillsFrame = null;
+        }
+        if (specialsFrame != null && specialsFrame.isDisplayable()) {
+            specialsFrame.dispose();
+            specialsFrame = null;
+        }
+        if (auraFrame != null && auraFrame.isDisplayable()) {
+            auraFrame.dispose();
+            auraFrame = null;
+        }
+        if (finalFrame != null && finalFrame.isDisplayable()) {
+            finalFrame.dispose();
+            finalFrame = null;
+        }
+    }
+
+     private void saveCharacter() { StoreCharManager.saveCharacterNew(character); }
+
+     public void finalConfirmed() {
+        saveCharacter();
+        if (sheetFrame != null && character != null) sheetFrame.loadCharacter(character); 
+        dispose();
+    }
+
+    // --------------------------------------------------------------------------
+    // Step Updaters
+    // --------------------------------------------------------------------------
+
     private void updateFrame() {
         if (stepButtons == null || stepLabels == null) return;
 
+        // First step always visible
         updateStepVisibility(0, true);
-        boolean unlocked = stepDone[0];
 
-        for (int i = 1; i < STEP_COUNT; i++) {
-            if (unlocked) {
-                setStepIcon(i - 1, true);
-                updateStepVisibility(i, true);
-                unlocked = stepDone[i];
+        // If a user clears progress for a selection, do not display options for other selections even if user has completed them.
+        // dontShow will help track the earliest incomplete selection
+        int dontShow = 0;
+        // Update completed steps through stepDone[]
+        for (int i = 0; i < STEP_COUNT; i++) {
+            if ((i <= dontShow) && stepDone[i]) {
+                dontShow = i+1;
+                setStepIcon(i, true);
+                updateStepVisibility(i+1, true);
             }
             else {
-                setStepIcon(i - 1, false);
-                updateStepVisibility(i, false);
+                setStepIcon(i, false);
+                updateStepVisibility(i+1, false);
             }
         }
+    }
 
-        // Final button appears only if all steps done
-        if (finalizeButton.isVisible() != unlocked) {
-            finalizeButton.setVisible(unlocked);
+    private void updateStepVisibility(int stepIndex, boolean visible) {
+        if (stepIndex == STEP_COUNT) { 
+            finalizeButton.setVisible(visible);
+            return;
         }
 
-        setStepIcon(STEP_COUNT - 1, unlocked);
+        stepButtons[stepIndex].setVisible(visible);
+        stepLabels[stepIndex].setVisible(visible);
     }
 
-    public void classConfirmed()
-    {
-        setStepConfirmed(0);
-    }
-
-    public void raceConfirmed()
-    {
-        setStepConfirmed(1);
-    }
-
-    public void attConfirmed()
-    {
-        setStepConfirmed(2);
-    }
-
-    public void skillsConfirmed()
-    {
-        setStepConfirmed(3);
-    }
-
-    public void specialsConfirmed()
-    {
-        setStepConfirmed(4);
-    }
-
-    public void auraConfirmed()
-    {
-        setStepConfirmed(5);
-    }
+    private void clearSteps() { for (int i = 0; i < STEP_COUNT; i++) stepDone[i] = false; }
 
     /**
      * Marks the specified step as confirmed and updates the UI.
-     * @param stepIndex The index of the step to confirm (0-5)
      */
-    private void setStepConfirmed(int stepIndex) {
+    public void setStepConfirmed(int stepIndex) {
         if (stepIndex >= 0 && stepIndex < STEP_COUNT && !stepDone[stepIndex]) {
             stepDone[stepIndex] = true;
             updateFrame();
         }
     }
 
-    public void finalConfirmed()
-    {
-        saveCharacterToDisk();
-        if (parent != null && character != null) {
-            parent.loadCharacter(character);
-        }
-        dispose();
-    }
-
-    private void saveCharacterToDisk() {
-        try {
-            ArrayList<StoreMetaChar> stores = StoreMetaManager.loadCharStore();
-            CharIdentity id = character.getIdentity();
-            boolean isNewCharacter = false;
-
-            int idx = id.getIndex();
-            if (idx <= 0) {
-                character.initializeNewCharacter();
-                idx = StoreMetaManager.getNextFreeIndex(stores);
-                id.setIndex(idx);
-                isNewCharacter = true;
-            }
-
-            // Preload base training techniques using consolidated method
-            if (character.getTraining() != null) {
-                initializeBaseTraining();
-            }
-
-            // New-character safeguard: Race Training should always begin at rank 1.
-            if (isNewCharacter && character.getTraining() != null) {
-                DataTraining raceTraining = character.getTraining().getTrainingByName(RACE_TRAINING_NAME);
-                if (raceTraining != null) {
-                    raceTraining.setRank(1);
-                }
-            }
-
-            if (isNewCharacter) {
-                grantInitialSpecialties();
-            }
-
-            // Ensure DEF base severity (index 0 status) is set to 10 before saving
-            setDefBaseSeverity(character);
-
-            // Starter armor: grant tier 0 chest and legs that match the class armor type
-            giveStarterArmor(id.getCharClass());
-
-            StoreMetaChar updated = new StoreMetaChar(
-                idx,
-                id.getName(),
-                id.getCampaign(),
-                id.getRace(),
-                id.getCharClass(),
-                id.getLevel(),
-                new Timestamp(System.currentTimeMillis())
-            );
-
-            // Optimized StoreMetaChar replacement using helper method
-            replaceOrAddCharStore(stores, updated);
-
-            // Persist character file first so StoreMetaChar normalization can resolve snapshot metadata.
-            boolean saved = StoreMetaManager.saveCharacter(character);
-            if (saved) {
-                StoreMetaManager.saveCharStore(stores);
-            } else {
-                System.err.println("Failed to persist character file; skipping StoreMetaChar update.");
-            }
-        } catch (RuntimeException e) {
-            System.err.println("Failed to save character: " + e.getMessage());
+    public void setStarterWeaponSelections(List<String> selections) {
+        starterWeaponSelections.clear();
+        if (selections == null) return;
+        for (String selection : selections) {
+            if (selection == null || selection.isBlank()) continue;
+            starterWeaponSelections.add(selection);
         }
     }
 
-    /**
-     * Sets the DEF base severity to 10 for new characters.
-     */
-    private static void setDefBaseSeverity(StoreCharData character) {
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "DEF", 10, "Permanent", -1));
-    }
+
+
+   
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
 
 
     /**
-     * Replaces existing StoreMetaChar with matching index or adds new one if not found.
-     * More efficient than linear search for large store lists.
+     * Grants the configured starter techniques to the new character.
+     * Techniques are copied from rule data and initialized at their configured starting ranks.
      */
-    private static void replaceOrAddCharStore(ArrayList<StoreMetaChar> stores, StoreMetaChar updated) {
-        int idx = updated.getIndex();
-        for (int i = 0; i < stores.size(); i++) {
-            if (stores.get(i).getIndex() == idx) {
-                stores.set(i, updated);
-                return;
-            }
-        }
-        stores.add(updated);
+    private void giveStarterTechs() {
+        if (character == null || character.getTraining() == null || sheetFrame == null) return;
+
+        StoreRuleManager ruleManager = sheetFrame.getStoreRuleManager();
+        if (ruleManager == null) return;
+
+        CharTraining training = character.getTraining();
+        addStarterTechs(training, ruleManager, STARTING_TECHS, 0);
+        addStarterTechs(training, ruleManager, STARTING_TECHS_1, 1);
+        addNaturalAffinityStarterTechs(training, ruleManager);
     }
 
-    private void grantInitialSpecialties() {
-        if (character == null) return;
-        CharSpecials specials = character.getSpecials();
-        if (specials == null) return;
+    private void addStarterTechs(CharTraining training, StoreRuleManager ruleManager, int[] techIds, int startingRank) {
+        if (training == null || ruleManager == null || techIds == null) return;
+        for (int techId : techIds) {
+            if (techId <= 0 || training.getTrainingById(techId) != null) continue;
 
-        StoreRuleManager dq = StoreMetaManager.getDataQuery();
-        if (dq == null) return;
+            DataTraining template = ruleManager.getTrainingById(techId);
+            if (template == null) continue;
 
-        grantSpecialtyIfMissing(specials, dq.getSpecialtyByName("Level 1"));
-
-        CharInventory inv = character.getInventory();
-        if (inv == null) return;
-        for (String prof : inv.getWeaponProficiencies()) {
-            if (prof == null || prof.isBlank()) continue;
-
-            DataSpecialty spec = null;
-            for (DataSpecialty candidate : dq.getSpecialtiesByType("Proficiency")) {
-                if (candidate == null) continue;
-                String refName = candidate.getRefName();
-                String name = candidate.getName();
-                if ((refName != null && refName.equalsIgnoreCase(prof))
-                        || (name != null && name.equalsIgnoreCase("Proficiency (" + prof + ")"))) {
-                    spec = candidate;
-                    break;
-                }
-            }
-            grantSpecialtyIfMissing(specials, spec);
+            DataTraining tech = new DataTraining(template);
+            tech.setRank(Math.max(0, startingRank));
+            tech.setExp(0.0);
+            tech.setAl(0);
+            training.addTraining(tech);
         }
     }
 
-    private void grantSpecialtyIfMissing(CharSpecials specials, DataSpecialty spec) {
-        if (specials == null || spec == null || spec.getName() == null || spec.getName().isBlank()) return;
-        if (specials.hasSpecialty(spec.getName())) return;
-        specials.addTrainedSpecialty(new DataSpecialty(spec));
+    private void addNaturalAffinityStarterTechs(CharTraining training, StoreRuleManager ruleManager) {
+        if (training == null || ruleManager == null) return;
+        for (String affinity : training.getNaturalAffinities()) {
+            if (affinity == null || affinity.isBlank()) continue;
+            for (DataTraining template : ruleManager.getTrainingData()) {
+                if (!isMatchingAuraAffinityTechnique(template, affinity)) continue;
+                if (training.getTrainingById(template.getId()) != null) continue;
+
+                DataTraining tech = new DataTraining(template);
+                tech.setRank(1);
+                tech.setExp(0.0);
+                tech.setAl(0);
+                training.addTraining(tech);
+            }
+        }
+    }
+
+    private boolean isMatchingAuraAffinityTechnique(DataTraining tech, String affinity) {
+        if (tech == null || affinity == null) return false;
+        String name = tech.getName();
+        String techAffinity = tech.getAffinity();
+        if (name == null || techAffinity == null) return false;
+        return name.trim().toLowerCase().startsWith("aura affinity")
+                && techAffinity.equalsIgnoreCase(affinity);
     }
 
     /**
      * Grants tier 0 chest and leg armor that match the class armor type (Light/Medium/Heavy).
      * Items are only added if found in data and not already present.
      */
-    private void giveStarterArmor(String className) {
-        if (character == null || className == null) return;
-       
-        StoreRuleManager dq = StoreMetaManager.getDataQuery();
-        if (dq == null) return;
-
-        DataClass dc = dq.getClassByName(className);
+    private List<DataItemEquipment> giveStarterArmor() {
+        ArrayList<DataItemEquipment> granted = new ArrayList<>();
+        if (character == null || sheetFrame == null || character.getIdentity() == null) return granted;
+        DataClass charClass = sheetFrame.getStoreRuleManager().getClassByName(character.getIdentity().getCharClass());
+        if (charClass == null) return granted;
+        
         CharInventory inv = character.getInventory();
-        if (dc == null || inv == null) return;
+        if (inv == null) return granted;
    
-        String armorType = dc.getArmor();
-        if (armorType == null || armorType.isBlank()) return;
+        String armorType = charClass.getArmor();
+        if (armorType == null || armorType.isBlank()) return granted;
         armorType = armorType.trim();
     
-        addStarterPieces(inv, dq, armorType);
+        addStarterPieces(inv, armorType, granted);
+        return granted;
     }
 
-    private void addStarterPieces(CharInventory inv, StoreRuleManager dq, String armorType) {
+    private void addStarterPieces(CharInventory inv, String armorType, List<DataItemEquipment> granted) {
         int id = 0;
         if (null != armorType) switch (armorType) {
             case ARMOR_TYPE_LIGHT:
@@ -711,49 +594,64 @@ public class FrameNew extends JFrame {
         }
 
         for (int i = 0; i < 2; i++) {
-            DataItemEquipment base = dq.getItemByDid(id+i+1);
+            DataItemEquipment base = sheetFrame.getStoreRuleManager().getItemByDid(id+i+1);
             if (base == null) return;
             
             // O(1) duplicate check using Sets
-            if (existingIds.contains(base.getDid())) return;
+            if (existingIds.contains(base.getDid())) continue;
             String baseName = base.getDname();
-            if (baseName != null && existingNames.contains(baseName.toLowerCase())) return;
+            if (baseName != null && existingNames.contains(baseName.toLowerCase())) continue;
             
-            inv.addEquipment(new DataItemEquipment(base));
+            DataItemEquipment added = new DataItemEquipment(base);
+            inv.addEquipment(added);
+            if (granted != null) {
+                granted.add(added);
+            }
+            existingIds.add(base.getDid());
+            if (baseName != null) {
+                existingNames.add(baseName.toLowerCase());
+            }
         }
     }
 
-    private void applyLoadedIcons() {
-        if (stepButtons == null || !iconsLoaded) return;
-        for (int i = 0; i < STEP_COUNT; i++) {
-            stepButtons[i].setRolloverIcon(getHoverIcon(i));
+    private void equipStarterLoadout(List<DataItemEquipment> grantedArmor) {
+        if (character == null) return;
+        CharInventory inventory = character.getInventory();
+        if (inventory == null) return;
+
+        Set<String> starterWeapons = new LinkedHashSet<>();
+        for (String selection : starterWeaponSelections) {
+            if (selection != null && !selection.isBlank()) {
+                starterWeapons.add(selection.trim().toLowerCase());
+            }
+        }
+
+        for (DataItemEquipment item : inventory.getEquipment()) {
+            if (item == null) continue;
+            if (isStarterWeapon(item, starterWeapons) || isGrantedArmor(item, grantedArmor)) {
+                item.setEquipped(true);
+            }
         }
     }
 
-    private void updateStepVisibility(int stepIndex, boolean visible) {
-        if (stepVisible[stepIndex] == visible) return;
-        stepVisible[stepIndex] = visible;
-        stepButtons[stepIndex].setVisible(visible);
-        stepLabels[stepIndex].setVisible(visible);
+    private boolean isStarterWeapon(DataItemEquipment item, Set<String> starterWeapons) {
+        if (item == null || starterWeapons == null || starterWeapons.isEmpty()) return false;
+        String displayName = item.getDname();
+        String inventoryName = item.getIname();
+        return matchesSelection(displayName, starterWeapons) || matchesSelection(inventoryName, starterWeapons);
     }
 
-    private void setStepIcon(int stepIndex, boolean done) {
-        ImageIcon icon = done ? getDoneIcon(stepIndex) : getNormalIcon(stepIndex);
-        if (icon != null && stepButtons[stepIndex].getIcon() != icon) {
-            stepButtons[stepIndex].setIcon(icon);
+    private boolean matchesSelection(String itemName, Set<String> starterWeapons) {
+        if (itemName == null || itemName.isBlank()) return false;
+        return starterWeapons.contains(itemName.trim().toLowerCase());
+    }
+
+    private boolean isGrantedArmor(DataItemEquipment item, List<DataItemEquipment> grantedArmor) {
+        if (item == null || grantedArmor == null || grantedArmor.isEmpty()) return false;
+        for (DataItemEquipment granted : grantedArmor) {
+            if (granted == item) return true;
         }
-    }
-
-    private static ImageIcon getNormalIcon(int stepIndex) {
-        return iconsLoaded ? iconNormal[stepIndex] : null;
-    }
-
-    private static ImageIcon getHoverIcon(int stepIndex) {
-        return iconsLoaded ? iconHover[stepIndex] : null;
-    }
-
-    private static ImageIcon getDoneIcon(int stepIndex) {
-        return iconsLoaded ? iconDone[stepIndex] : null;
+        return false;
     }
 }
 

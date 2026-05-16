@@ -39,13 +39,13 @@ public class PanelCharMaintained extends PanelCharBase {
 		/**************
 		* ***********		Maintained
 		*/// ***********			
-		maintainedTechsL = buildLabel("Maintained Techniques");
-		mtNameL = buildLabel("Name");
-		mtMaxL = buildLabel("Max");
-		mtActLevelL = buildLabel("AL");
-		mtCostPerALL = buildLabel("Cost");
-		mtCostL = buildLabel("Occ");
-		mtAffinityL = buildLabel("Affinity");
+		maintainedTechsL = buildLabel("Maintained Techniques", null);
+		mtNameL = buildLabel("Name", null);
+		mtMaxL = buildLabel("Max", null);
+		mtActLevelL = buildLabel("AL", null);
+		mtCostPerALL = buildLabel("Cost", null);
+		mtCostL = buildLabel("Occ", null);
+		mtAffinityL = buildLabel("Affinity", null);
 
 		mtName = new ArrayList<JTextField>();
 		mtAffinity = new ArrayList<JTextField>();
@@ -317,7 +317,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		String norm = key.toUpperCase();
 		String[] cats = { "attribute", "defense", "resist", "combat", "secondary", "damage" };
 		for (String c : cats) {
-			if (attrs.getBlock(c, norm) != null) return c;
+			//if (attrs.getBlock(c, norm) != null) return c;
 		}
 		return null;
 	}
@@ -364,7 +364,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		ds.setSeverity(severity);
 		ds.setAffinity("None");
 		ds.setDescription("Maintained technique effect");
-		block.addStatus(ds);
+		//block.addStatus(ds);
 	}
 
 	private void upsertMultiSeverity(StatBlock[] blocks, String name, String attr, double severity) {
@@ -377,7 +377,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		ds.setSeverity(severity);
 		ds.setAffinity("None");
 		ds.setDescription("Maintained technique effect");
-		block.addMulti(ds);
+		//block.addMulti(ds);
 	}
 
 	private void styleMaxField(JFormattedTextField field) {
@@ -608,13 +608,13 @@ public class PanelCharMaintained extends PanelCharBase {
 
 	private void ensureSectionCapacity(int size) {
 		while (mtSectionTitles.size() < size) {
-			mtSectionTitles.add(buildLabel(""));
-			mtSectionAffinityL.add(buildLabel(""));
-			mtSectionNameL.add(buildLabel(""));
-			mtSectionMaxL.add(buildLabel(""));
-			mtSectionActLevelL.add(buildLabel(""));
-			mtSectionCostPerALL.add(buildLabel(""));
-			mtSectionCostL.add(buildLabel(""));
+			mtSectionTitles.add(buildLabel("", null));
+			mtSectionAffinityL.add(buildLabel("", null));
+			mtSectionNameL.add(buildLabel("", null));
+			mtSectionMaxL.add(buildLabel("", null));
+			mtSectionActLevelL.add(buildLabel("", null));
+			mtSectionCostPerALL.add(buildLabel("", null));
+			mtSectionCostL.add(buildLabel("", null));
 		}
 	}
 
@@ -651,7 +651,12 @@ public class PanelCharMaintained extends PanelCharBase {
 		if (forceRebuild) {
 			cachedStructureSignature = "";
 		}
-		refreshHPAuraOnly();
+		if (character != null && dataQuery != null) {
+			character.syncIdentityDerivedState(dataQuery);
+			character.syncLevelBaseResources(dataQuery);
+			character.syncLevelCombatScalers(dataQuery);
+			character.updateAll();
+		}
 		if (forceRebuild) {
 			updateMaintained();
 		} else {
@@ -659,6 +664,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		}
 		if (sheetFrame != null) {
 			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshTrainingPanel();
 			sheetFrame.refreshImagePanel();
 		}
 	}
@@ -680,6 +686,5 @@ public class PanelCharMaintained extends PanelCharBase {
 
 	
 }
-
 
 

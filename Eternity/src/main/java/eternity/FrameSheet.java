@@ -1,5 +1,6 @@
 package eternity;
 
+import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,15 +17,37 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class FrameSheet extends JFrame {
-    // Frame dimensions and layout
+
+    // References
+    private final StoreRuleManager ruleManager;
+    private final ArrayList<StoreMetaChar> metaStore;
+    private StoreCharData character;
+    private final StoreCharManager charManager;
+
+    // UI Constants
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 1000;
     private static final int IMAGE_PANEL_HEIGHT = 230;
-    private static final int IMAGE_PANEL_Y = 0;
-    private static final int CHAR_PANEL_Y = IMAGE_PANEL_HEIGHT;
+    private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
+    private static final Font SUBHEADER_FONT = new Font(null, Font.PLAIN, 17);
+    private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
+    private static final int PADDING_TOP_BOTTOM = 25;
+    private static final int PADDING_LEFT_RIGHT = 20;
+    private static final int SPACING_HEADER = 10;
+    private static final int SPACING_STATUS = 10;
+    private static final int SPACING_BEFORE_BUTTONS = 15;
+    private static final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 30;
+    private static final int BUTTON_SPACING = 20;
+
+
+    // Frame dimensions and layout
+    
+    //private static final int IMAGE_PANEL_Y = 0;
+    //private static final int CHAR_PANEL_Y = IMAGE_PANEL_HEIGHT;
     
     // Timing
-    private static final int AUTO_SAVE_INTERVAL_MS = 5 * 60 * 1000;
+    private static final int AUTO_SAVE_INTERVAL_MS = 5 /* Minutes */ * 60 /* Seconds Per Min */ * 1000 /* MS Per Sec */;
     
     // UI Strings
     private static final String NO_CHAR_LOADED = "No Character Loaded";
@@ -42,12 +65,11 @@ public class FrameSheet extends JFrame {
         return t;
     });
 
-    private final StoreRuleManager dataQuery;
-    private final ArrayList<StoreMetaChar> charStore;
+    
     private final Map<Integer, Integer> charStoreIndexByCharId;
     private final ScheduledFuture<?> autoSaveTask;
     private boolean shuttingDown;
-    private StoreCharData character;
+    
     private FrameNew newFrame;
     private FrameLoad loadFrame;
     private FrameExp levelFrame;
@@ -61,10 +83,16 @@ public class FrameSheet extends JFrame {
     private PanelChar charPanel;
     private FrameDetail detailFrame;
 
-    public FrameSheet(ArrayList<StoreMetaChar> charStore) {
-        this.dataQuery = new StoreRuleManager();
-        this.charStore = charStore;
-        this.charStoreIndexByCharId = buildCharStoreIndex(charStore);
+    // ---------------------------------------------------------
+    // Constructor
+    // ---------------------------------------------------------
+    
+    public FrameSheet() {
+        this.ruleManager = new StoreRuleManager();
+        StoreMetaManager.loadCharStore();
+        this.metaStore = StoreMetaManager.getCharStore();
+        this.charStoreIndexByCharId = buildCharStoreIndex(metaStore);
+        this.charManager = new StoreCharManager();
 
         setupFrame();
         initPanels();
@@ -77,6 +105,8 @@ public class FrameSheet extends JFrame {
             TimeUnit.MILLISECONDS
         );
     }
+
+    public StoreRuleManager getStoreRuleManager() { return ruleManager; }
 
     private void setupFrame() {
         setLayout(null);
@@ -100,17 +130,20 @@ public class FrameSheet extends JFrame {
      */
     private void initPanels() {
         characterImage = new PanelImage(this, character);
-        characterImage.setBounds(IMAGE_PANEL_Y, IMAGE_PANEL_Y, FRAME_WIDTH, IMAGE_PANEL_HEIGHT);
+        characterImage.setBounds(0, 0, FRAME_WIDTH, IMAGE_PANEL_HEIGHT);
         add(characterImage);
 
-        charPanel = new PanelChar(dataQuery, this);
-        charPanel.setBounds(0, CHAR_PANEL_Y, FRAME_WIDTH, FRAME_HEIGHT - IMAGE_PANEL_HEIGHT);
+        charPanel = new PanelChar(ruleManager, this);
+        charPanel.setBounds(0, IMAGE_PANEL_HEIGHT, FRAME_WIDTH, FRAME_HEIGHT - IMAGE_PANEL_HEIGHT);
         add(charPanel);
     }
 
     public void loadCharacter(StoreCharData character) {
         this.character = character;
         if (this.character != null) {
+            this.character.syncIdentityDerivedState(ruleManager);
+            this.character.syncLevelBaseResources(ruleManager);
+            this.character.syncLevelCombatScalers(ruleManager);
             this.character.updateAll(); // ensure derived/attribute data is current
         }
         setTitle(character.getName());
@@ -158,15 +191,22 @@ public class FrameSheet extends JFrame {
     public void onNewPressed() {
         if (newFrame == null) {
             character = new StoreCharData();
+            character.getIdentity().setIndex(StoreMetaManager.getNextFreeIndex(metaStore));
             newFrame = new FrameNew(this, character);
-            newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         newFrame.setVisible(true);
     }
 
+    /*public void reopenNewBuilder() {
+        character = new StoreCharData();
+        newFrame = new FrameNew(this, character);
+        newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        newFrame.setVisible(true);
+    }*/
+
     public void onLoadPressed() {
         if (loadFrame == null) {
-            loadFrame = new FrameLoad(this, charStore);
+            loadFrame = new FrameLoad(this, metaStore);
             loadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         loadFrame.setVisible(true);
@@ -186,7 +226,10 @@ public class FrameSheet extends JFrame {
         if (!skipEquipmentSave && charPanel != null) {
             charPanel.saveEquipmentSelections();
         }
-        
+
+        character.syncIdentityDerivedState(ruleManager);
+        character.syncLevelBaseResources(ruleManager);
+        character.syncLevelCombatScalers(ruleManager);
         character.updateAll();
         
         
@@ -207,7 +250,7 @@ public class FrameSheet extends JFrame {
     public void expPressed() {
         if (!requireCharacter()) return;
         if (levelFrame == null) {
-            levelFrame = new FrameExp(this, dataQuery);
+            levelFrame = new FrameExp(this, ruleManager);
         }
         levelFrame.updateCharacter(character);
         levelFrame.addXp();
@@ -220,7 +263,7 @@ public class FrameSheet extends JFrame {
     public void editPressed() {
         if (!requireCharacter()) return;
         if (detailFrame == null) {
-            detailFrame = new FrameDetail(this, dataQuery);
+            detailFrame = new FrameDetail(this, ruleManager);
             detailFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         detailFrame.updateDetails(character);
@@ -234,7 +277,7 @@ public class FrameSheet extends JFrame {
     public void trainNewPressed() {
         if (!requireCharacter()) return;
         if (trainingNewFrame == null) {
-            trainingNewFrame = new FrameTrainingNew(this, dataQuery);
+            trainingNewFrame = new FrameTrainingNew(this, ruleManager);
         }
         trainingNewFrame.updateCharacter(character);
         trainingNewFrame.setVisible(true);
@@ -245,7 +288,7 @@ public class FrameSheet extends JFrame {
     public void trainExistingPressed(String category, String techniqueName) {
         if (!requireCharacter()) return;
         if (trainingExistingFrame == null) {
-            trainingExistingFrame = new FrameTrainingExisting(this, dataQuery);
+            trainingExistingFrame = new FrameTrainingExisting(this, ruleManager);
         }
         trainingExistingFrame.updateCharacter(character);
         if (category != null && techniqueName != null) {
@@ -263,6 +306,9 @@ public class FrameSheet extends JFrame {
         if (charPanel != null) {
             charPanel.saveEquipmentSelections();
         }
+        character.syncIdentityDerivedState(ruleManager);
+        character.syncLevelBaseResources(ruleManager);
+        character.syncLevelCombatScalers(ruleManager);
         character.updateAll();
         //StoreMetaManager.saveCharacter(character);
         JOptionPane.showMessageDialog(this, CHAR_EQUIPPED_MSG, SAVE_SUCCESS_TITLE, JOptionPane.INFORMATION_MESSAGE);
@@ -271,7 +317,7 @@ public class FrameSheet extends JFrame {
     public void inventoryCharacter() {
         if (!checkCharacterLoaded("No character loaded.")) return;
         if (addInventoryFrame == null) {
-            addInventoryFrame = new FrameInventoryAdd(this, dataQuery);
+            addInventoryFrame = new FrameInventoryAdd(this, ruleManager);
             addInventoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         addInventoryFrame.updateCharacter(character);
@@ -281,7 +327,7 @@ public class FrameSheet extends JFrame {
     public void removeInventoryCharacter() {
         if (!checkCharacterLoaded("No character loaded.")) return;
         if (removeInventoryFrame == null) {
-            removeInventoryFrame = new FrameInventoryRemove(this, dataQuery);
+            removeInventoryFrame = new FrameInventoryRemove(this, ruleManager);
             removeInventoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         removeInventoryFrame.updateCharacter(character);
@@ -300,7 +346,7 @@ public class FrameSheet extends JFrame {
      * Refreshes/creates the StoreMetaChar entry for the current character and writes the charStore.json file.
      */
     private void updateCharStoreEntry() {
-        if (charStore == null || character == null || character.getIdentity() == null) return;
+        if (metaStore == null || character == null || character.getIdentity() == null) return;
 
         CharIdentity id = character.getIdentity();
         int idx = id.getIndex();
@@ -317,10 +363,10 @@ public class FrameSheet extends JFrame {
 
         Integer existingIndex = charStoreIndexByCharId.get(idx);
         if (existingIndex != null) {
-            charStore.set(existingIndex, updated);
+            metaStore.set(existingIndex, updated);
         } else {
-            existingIndex = charStore.size();
-            charStore.add(updated);
+            existingIndex = metaStore.size();
+            metaStore.add(updated);
         }
         charStoreIndexByCharId.put(idx, existingIndex);
 
@@ -383,7 +429,7 @@ public class FrameSheet extends JFrame {
 
     @Override
     public void dispose() {
-        autoSaveTask.cancel(false);
+        if (autoSaveTask != null) autoSaveTask.cancel(false);
         super.dispose();
     }
 
@@ -392,5 +438,12 @@ public class FrameSheet extends JFrame {
                 && character.getIdentity() != null
                 && character.getIdentity().getIndex() > 0;
     }
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// 
+    public StoreCharManager getCharManager() { return charManager; }
 }
 

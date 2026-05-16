@@ -1,195 +1,365 @@
 package eternity;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
+import javax.swing.border.EmptyBorder;
 
-/**
- * Attribute selection flow (core + character attributes) using a simple point-buy.
- * Simplified replacement for the old FrameHelper-based implementation.
- */
 public class FrameNewAttribute extends JFrame {
-    private static final long serialVersionUID = 1L;
 
+    // References
+    private final FrameSheet sheetFrame;
     private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
 
+    // UI Constants
+    private static final EmptyBorder HEADER_BORDER = new EmptyBorder(12, 18, 4, 18);
+    private static final EmptyBorder LEFT_BORDER = new EmptyBorder(10, 10, 10, 10);
+    private static final EmptyBorder FOOTER_BORDER = new EmptyBorder(0, 10, 2, 10);
+    private static final Insets RIGHT_GB_INSETS = new Insets(2, 5, 5, 5);
+    private static final int[] GB_COLUMN_WIDTHS = new int[] { 90, 90, 90, 90 };
+    private static final int FRAME_WIDTH = 560;
+    private static final int FRAME_HEIGHT = 360;
+    private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
+    private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
+    private static final int BUTTON_SPACING = 10;
+
+    // UI Strings
+    private static final String WINDOW_TITLE = "Attribute Selection";
+    private static final String HEADER_CORE_TEXT = "Select Core Attributes";
+    private static final String HEADER_CHAR_TEXT = "Select Char Attributes";
+    private static final String BUTTON_CANCEL = "Cancel";
+    private static final String BUTTON_NEXT = "Next →";
+    private static final String BUTTON_BACK = "Back";
+    private static final String BUTTON_CONFIRM = "Confirm";
     private static final Integer[] ATTVALUES = {8, 9, 10, 11, 12, 13, 14, 15};
-    private static final String[] ATTRIBUTES = {"STR", "DEX", "CON", "FOC", "CAP", "CTL", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"};
+    private static final String[] CORE_ATTRIBUTES = { "STR", "DEX", "CON", "FOC", "CAP", "CTL" };
+    private static final String[] CHAR_ATTRIBUTES = { "KNOW", "MECH", "PERC", "INT", "CHA", "SUB" };
 
-    private final JComboBox<Integer>[] attributeAnswers = new JComboBox[6];
-    private final int[] coreAtts = new int[6];
-    private final int[] charAtts = new int[6];
-
-    private final JLabel[] labels = new JLabel[9];
-    private final JFormattedTextField[] numFields = new JFormattedTextField[7];
-    private final JButton[] buttons = new JButton[2];
-    private JLabel headerL;
-
+    // UI Tracker
     private int remainder;
     private boolean warn;
     private boolean corePhase = true;
 
+    // UI Elements
+    private JPanel headerPanel, centerPanel, footerPanel;
+    private JPanel corePanel, charPanel;
+    private JPanel coreBPanel, charBPanel;
+    private JLabel headerL;
+    private JButton cancelButton, nextButton;
+    private JButton backButton, confirmButton;
+    private final JComboBox<Integer>[] coreBoxes = new JComboBox[6];
+    private final JComboBox<Integer>[] charBoxes = new JComboBox[6];
+    private final JLabel[] coreLabels = new JLabel[6];
+    private final JLabel[] charLabels = new JLabel[6];
+    private final JFormattedTextField[] coreNumFields = new JFormattedTextField[7];
+    private final JFormattedTextField[] charNumFields = new JFormattedTextField[7];
+    private final CardLayout centerLayout = new CardLayout();
+    private final CardLayout footerLayout = new CardLayout();
+
+    // ---------------------------------------------------
+    // Constructor
+    // ---------------------------------------------------
     public FrameNewAttribute(FrameSheet sheetFrame, StoreCharData character, FrameNew parent, boolean gmMode) {
-        super("Attributes");
+        super(WINDOW_TITLE);
+        this.sheetFrame = sheetFrame;
         this.character = character;
         this.parent = parent;
         this.gmMode = gmMode;
 
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-        initDefaults();
-        buildLayout();
+        //ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);      
 
-        setSize(560, 360);
-        setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setLocationRelativeTo(sheetFrame);
+        setResizable(false);
+        setLayout(new BorderLayout(BUTTON_SPACING, BUTTON_SPACING));
 
-    private void initDefaults() {
-        for (int i = 0; i < 6; i++) {
-            coreAtts[i] = 10;
-            charAtts[i] = 10;
-        }
-    }
+        buildUI();
+        resetBoxes();
+        corePhase();
 
-    private void buildLayout() {
-        setLayout(null);
 
-        headerL = new JLabel("Attributes", SwingConstants.CENTER);
-        headerL.setBounds(20, 15, 520, 24);
-        headerL.setFont(headerL.getFont().deriveFont(Font.BOLD, 18f));
-        add(headerL);
 
-        // Labels and fields
-        for (int i = 0; i < labels.length; i++) {
-            labels[i] = new JLabel("");
-            labels[i].setBounds(40, 80 + 35 * i, 140, 20);
-            labels[i].setVisible(false);
-            add(labels[i]);
-        }
 
-        for (int i = 0; i < numFields.length; i++) {
-            numFields[i] = new JFormattedTextField(NumberFormat.getIntegerInstance());
-            numFields[i].setBounds(265, 80 + 35 * i, 100, 20);
-            numFields[i].setEditable(false);
-            numFields[i].setVisible(false);
-            add(numFields[i]);
-        }
 
-        // Combo boxes (reused for both phases)
-        for (int i = 0; i < 6; i++) {
-            JComboBox<Integer> box = new JComboBox<>(ATTVALUES);
-            box.setBounds(160, 80 + 35 * i, 80, 20);
-            box.addActionListener(e -> updateRemainder());
-            attributeAnswers[i] = box;
-            add(box);
-        }
-
-        // Buttons
-        buttons[0] = new JButton("Back");
-        buttons[0].setBounds(140, 280, 100, 28);
-        buttons[0].addActionListener(e -> onBackPressed());
-        add(buttons[0]);
-
-        buttons[1] = new JButton("Next >>>");
-        buttons[1].setBounds(320, 280, 120, 28);
-        buttons[1].addActionListener(e -> onNextPressed());
-        add(buttons[1]);
-
-        // Static label headers
-        labels[6].setBounds(160, 60, 80, 20);
-        labels[6].setText("Value");
-        labels[6].setVisible(true);
-
-        labels[7].setBounds(265, 60, 100, 20);
-        labels[7].setText("Cost");
-        labels[7].setVisible(true);
-
-        labels[8].setBounds(380, 60, 140, 20);
-        labels[8].setText("Remaining Points");
-        labels[8].setVisible(true);
-
-        numFields[6].setBounds(380, 85, 140, 20);
-        numFields[6].setEditable(false);
-        numFields[6].setVisible(true);
-
-        // Visual border around the form area
-        JLabel border = new JLabel();
-        border.setBounds(20, 50, 520, 210);
-        border.setBorder(BorderFactory.createLineBorder(getForeground()));
-        add(border);
-
-        showCorePhase();
+        /*ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+        initDefaults();
+        buildLayout();*/
     }
 
     // ---------------------------------------------------------
-    // Phases
+    // Build UI
     // ---------------------------------------------------------
-    private void showCorePhase() {
+
+    private void buildUI() {
+        buildHeader();
+        buildCenterPanel();
+        buildFooter();
+    }
+
+    private void buildHeader() {
+        // Build panel
+        headerPanel = new JPanel(new BorderLayout());
+
+        // Build header
+        headerL = new JLabel(HEADER_CORE_TEXT, SwingConstants.CENTER);
+        headerL.setFont(HEADER_FONT);
+        headerL.setBorder(HEADER_BORDER);
+
+        // Add elements
+        headerPanel.add(headerL, BorderLayout.CENTER);
+        add(headerPanel, BorderLayout.NORTH);
+    }
+
+    private void buildCenterPanel() {
+        // Build panel
+        centerPanel = new JPanel(centerLayout);
+
+        // Build subpanels
+        GridBagLayout layout = new GridBagLayout();
+        layout.columnWidths = GB_COLUMN_WIDTHS;
+        corePanel = new JPanel(layout);
+        charPanel = new JPanel(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = RIGHT_GB_INSETS;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        // Setup Variables
+        int y = 0;
+        int x = 0;
+        int width = 1;
+        gridHelper(gbc, y, x, width);
+
+        // Blank Label
+        JLabel lbl = buildLabel(" ");
+        corePanel.add(lbl, gbc);
+        lbl = buildLabel(" ");
+        charPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Value Label
+        lbl = buildLabel("Value");
+        corePanel.add(lbl, gbc);
+        lbl = buildLabel("Value");
+        charPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Cost Label
+        lbl = buildLabel("Cost");
+        corePanel.add(lbl, gbc);
+        lbl = buildLabel("Cost");
+        charPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Remaining Label
+        lbl = buildLabel("Remaining Points");
+        corePanel.add(lbl, gbc);
+        lbl = buildLabel("Remaining Points");
+        charPanel.add(lbl, gbc);
+
+        gridHelper(gbc, y+1, x, width);
+        coreNumFields[6] = buildNumField();
+        charNumFields[6] = buildNumField();
+        corePanel.add(coreNumFields[6], gbc);
+        charPanel.add(charNumFields[6], gbc);
+
+        for (int i = 0; i < CORE_ATTRIBUTES.length; i++) {
+            y = i +1;
+            x = 0;
+            gridHelper(gbc, y, x, width);
+
+            coreLabels[i] = new JLabel(CORE_ATTRIBUTES[i]);
+            charLabels[i] = new JLabel(CHAR_ATTRIBUTES[i]);
+            corePanel.add(coreLabels[i], gbc);
+            charPanel.add(charLabels[i], gbc);
+
+            x++;
+            gridHelper(gbc, y, x, width);
+
+            coreBoxes[i] = buildComboBox(ATTVALUES);
+            charBoxes[i] = buildComboBox(ATTVALUES);
+            corePanel.add(coreBoxes[i], gbc);
+            charPanel.add(charBoxes[i], gbc);
+
+            x++;
+            gridHelper(gbc, y, x, width);
+
+            coreNumFields[i] = buildNumField();
+            charNumFields[i] = buildNumField();
+            corePanel.add(coreNumFields[i], gbc);
+            charPanel.add(charNumFields[i], gbc);
+        }
+
+        // Add cards
+        centerPanel.add(corePanel, "CORE");
+        centerPanel.add(charPanel, "CHAR");
+
+        add(centerPanel, BorderLayout.CENTER);
+    }
+
+    private void buildFooter() {
+        // Build panel
+        footerPanel = new JPanel(footerLayout);
+        footerPanel.setBorder(FOOTER_BORDER);
+
+        coreBPanel = new JPanel(new BorderLayout());
+        charBPanel = new JPanel(new BorderLayout());
+
+        // Build cancel button
+        cancelButton = new JButton(BUTTON_CANCEL);
+        cancelButton.addActionListener(e -> onCancelPressed());
+        coreBPanel.add(cancelButton, BorderLayout.WEST);
+        
+        // Build next button
+        nextButton = new JButton(BUTTON_NEXT);
+        nextButton.addActionListener(e -> onNextPressed());
+        coreBPanel.add(nextButton, BorderLayout.EAST);
+
+        // Build back button
+        backButton = new JButton(BUTTON_BACK);
+        backButton.addActionListener(e -> onBackPressed());
+        charBPanel.add(backButton, BorderLayout.WEST);
+        
+        // Build next button
+        confirmButton = new JButton(BUTTON_CONFIRM);
+        confirmButton.addActionListener(e -> onConfirmPressed());
+        charBPanel.add(confirmButton, BorderLayout.EAST);
+
+        // Add cards
+        footerPanel.add(coreBPanel, "CORE");
+        footerPanel.add(charBPanel, "CHAR");
+
+        add(footerPanel, BorderLayout.SOUTH);
+    }
+
+    private JLabel buildLabel(String s) {
+        JLabel lbl = new JLabel(s);
+        lbl.setFont(LABEL_FONT);
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return lbl;
+    }
+
+    private JFormattedTextField buildNumField() {
+        JFormattedTextField numF = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        numF.setFont(LABEL_FONT);
+        numF.setHorizontalAlignment(SwingConstants.CENTER);
+        numF.setAlignmentX(Component.CENTER_ALIGNMENT);
+        numF.setEditable(false);
+        return numF;
+    }
+
+    private JComboBox<Integer> buildComboBox(Integer[] values) {
+        JComboBox<Integer> box = new JComboBox<>(values);
+        box.addActionListener(e -> updateRemainder());
+        return box;
+    }
+
+    // ---------------------------------------------------------
+    // Button Handlers
+    // ---------------------------------------------------------
+
+    private void onCancelPressed() {
+        dispose();
+    }
+
+    private void onNextPressed() {
+        if (gmMode) {
+            ThreadLocalRandom rng = ThreadLocalRandom.current();
+            int value = 0;
+            for (int i = 0; i < 6; i++) {
+                value = rng.nextInt(0, 8);
+                coreBoxes[i].setSelectedIndex(value);
+
+                value = rng.nextInt(0, 8);
+                charBoxes[i].setSelectedIndex(value);
+            }
+
+            applyAttributes();
+            parent.setStepConfirmed(2);
+            dispose();
+            return;
+        }
+        if (!validateSpend()) return;
+
+        charPhase();
+    }
+
+    private void onBackPressed() {
+        corePhase();
+    }
+
+    public void onConfirmPressed() {
+        if (!validateSpend()) return;
+
+        applyAttributes();
+
+        parent.setStepConfirmed(2);
+        dispose();
+    }
+
+    // --------------------------------------------------------------------------
+    // Helpers
+    // --------------------------------------------------------------------------
+
+    private void gridHelper (GridBagConstraints gbc, int y, int x, int width) {
+        gbc.gridwidth = width;
+        gbc.gridy = y;
+        gbc.gridx = x;
+    }
+
+    private void corePhase() {
+        headerL.setText(HEADER_CORE_TEXT);
+        centerLayout.show(centerPanel, "CORE");
+        footerLayout.show(footerPanel, "CORE");
         corePhase = true;
-        headerL.setText("Determine Core Attribute values:");
-        setLabels(new String[]{"Strength", "Dexterity", "Constitution", "Focus", "Control", "Capacity"});
-        setTooltips(List.of(
-                "Strength increases Melee Total Damage.",
-                "Dexterity increases Dodge.",
-                "Constitution increases Maximum Hit Points.",
-                "Focus increases Attack.",
-                "Control increases Total Healing and Range.",
-                "Capacity increases Maximum Aura."
-        ));
-
-        loadPhaseValues(coreAtts);
-
-        buttons[0].setText("Back");
-
-        updateRemainder();
     }
 
-    private void showCharacterPhase() {
+    private void charPhase() {
+        headerL.setText(HEADER_CHAR_TEXT);
+        centerLayout.show(centerPanel, "CHAR");
+        footerLayout.show(footerPanel, "CHAR");
         corePhase = false;
-        headerL.setText("Determine Character Attribute values:");
-        setLabels(new String[]{"Knowledge", "Mechanical", "Perception", "Intuition", "Charisma", "Subtlety"});
-        setTooltips(List.of("", "", "", "", "", ""));
-
-        loadPhaseValues(charAtts);
-
-        buttons[0].setText("Back");
-
-        updateRemainder();
     }
 
-    private void setLabels(String[] texts) {
+    private void resetBoxes() {
         for (int i = 0; i < 6; i++) {
-            labels[i].setText(texts[i]);
-            labels[i].setVisible(true);
+            coreBoxes[i].setSelectedItem(10);
+            charBoxes[i].setSelectedItem(10);
         }
     }
 
-    private void setTooltips(List<String> tooltips) {
-        for (int i = 0; i < tooltips.size(); i++) {
-            labels[i].setToolTipText(tooltips.get(i));
-        }
-    }
-
-    // ---------------------------------------------------------
-    // Logic
-    // ---------------------------------------------------------
     private void updateRemainder() {
         remainder = 0;
         for (int i = 0; i < 6; i++) {
-            Object sel = attributeAnswers[i].getSelectedItem();
+            Object sel;
+            if (corePhase) sel = coreBoxes[i].getSelectedItem();
+            else sel = charBoxes[i].getSelectedItem();
+                
             if (!(sel instanceof Integer)) continue;
 
             int tempInt = (Integer) sel;
@@ -197,56 +367,15 @@ public class FrameNewAttribute extends JFrame {
             int attVariant = Math.abs(attMod) + 1;
             attVariant = (attVariant * attMod) / 2;
 
-            numFields[i].setValue(attVariant);
+            if (corePhase) coreNumFields[i].setValue(attVariant);
+            else charNumFields[i].setValue(attVariant);
+
             remainder += attVariant;
         }
-
         remainder = 25 - remainder;
-        numFields[6].setValue(remainder);
+        if (corePhase) coreNumFields[6].setValue(remainder);
+        else charNumFields[6].setValue(remainder);
         warn = false;
-    }
-
-    private void coreAttConfirm() {
-        if (gmMode) {
-            ThreadLocalRandom rng = ThreadLocalRandom.current();
-            for (int i = 0; i < 6; i++) {
-                coreAtts[i] = rng.nextInt(10, 16);
-            }
-            for (int i = 0; i < 6; i++) {
-                charAtts[i] = rng.nextInt(10, 16);
-            }
-            applyAttributesToCharacter();
-            parent.attConfirmed();
-            dispose();
-            return;
-        }
-
-        if (!validateSpend()) return;
-
-        for (int i = 0; i < 6; i++) {
-            coreAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
-        }
-
-        showCharacterPhase();
-    }
-
-    private void characterCharAttBack() {
-        for (int i = 0; i < 6; i++) {
-            charAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
-        }
-        showCorePhase();
-    }
-
-    private void charAttConfirm() {
-        if (!validateSpend()) return;
-
-        for (int i = 0; i < 6; i++) {
-            charAtts[i] = (Integer) attributeAnswers[i].getSelectedItem();
-        }
-
-        applyAttributesToCharacter();
-        parent.attConfirmed();
-        dispose();
     }
 
     private boolean validateSpend() {
@@ -263,46 +392,17 @@ public class FrameNewAttribute extends JFrame {
         return true;
     }
 
-    private void applyAttributesToCharacter() {
-        // Remove any previous "CharCreation" modifiers, then apply new ones.
-        for (int i = 0; i < ATTRIBUTES.length; i++) {
-            String key = ATTRIBUTES[i];
-            int value = (i < 6) ? coreAtts[i] : charAtts[i - 6];
+    private void applyAttributes() {
+        String key;
+        int value = 0;
+        for (int i = 0; i < CORE_ATTRIBUTES.length; i++) {
+            key = CORE_ATTRIBUTES[i];
+            value = (int)coreBoxes[i].getSelectedItem();
             character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + key, value, "Passive", -1));
-        }
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "APP", 10, "Passive", -1));
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "MOVE", 25, "Passive", -1));
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "RANGE", 15, "Passive", -1));
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "INIT", 10, "Passive", -1));
-        character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + "MAXATK", 1, "Passive", -1));
-    }
 
-    private void closeFrame() {
-        dispose();
-    }
-
-    private void loadPhaseValues(int[] values) {
-        for (int i = 0; i < 6; i++) {
-            attributeAnswers[i].setSelectedItem(values[i]);
-            attributeAnswers[i].setVisible(true);
-            numFields[i].setVisible(true);
-        }
-    }
-
-    private void onBackPressed() {
-        if (corePhase) {
-            closeFrame();
-        } else {
-            characterCharAttBack();
-        }
-    }
-
-    private void onNextPressed() {
-        if (corePhase) {
-            coreAttConfirm();
-        } else {
-            charAttConfirm();
+            key = CHAR_ATTRIBUTES[i];
+            value = (int)charBoxes[i].getSelectedItem();
+            character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + key, value, "Passive", -1));
         }
     }
 }
-

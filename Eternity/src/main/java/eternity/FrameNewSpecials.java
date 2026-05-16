@@ -1,5 +1,13 @@
 package eternity;
 
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -7,10 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
-import java.awt.Font;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Specialty selection window: pick 2 specialties by type.
@@ -133,12 +137,13 @@ public class FrameNewSpecials extends JFrame {
 
     private void specialsConfirm() {
         if (gmMode) {
-            specialType[0].setSelectedItem("Martial");
-            specialType[1].setSelectedItem("Martial");
-            updateSpecialPick(0);
-            updateSpecialPick(1);
-            specialPick[0].setSelectedItem("Specialization (Blade)");
-            specialPick[1].setSelectedItem("Specialization (Sword)");
+            if (!grantRandomGmSpecialties()) {
+                JOptionPane.showMessageDialog(this, "No specialties are available for GM random selection.");
+                return;
+            }
+            parent.setStepConfirmed(4);
+            dispose();
+            return;
         }
 
         for (int i = 0; i < 2; i++) {
@@ -158,8 +163,44 @@ public class FrameNewSpecials extends JFrame {
             character.getSpecials().addTrainedSpecialty(copy);
         }
 
-        parent.specialsConfirmed();
+        parent.setStepConfirmed(4);
         dispose();
+    }
+
+    private boolean grantRandomGmSpecialties() {
+        List<DataSpecialty> available = collectAvailableSpecialties();
+        if (available.isEmpty()) return false;
+
+        int picksToGrant = Math.min(2, available.size());
+        for (int i = 0; i < picksToGrant; i++) {
+            int pickIndex = ThreadLocalRandom.current().nextInt(available.size());
+            DataSpecialty selected = available.remove(pickIndex);
+            character.getSpecials().addTrainedSpecialty(new DataSpecialty(selected));
+        }
+        return picksToGrant > 0;
+    }
+
+    private List<DataSpecialty> collectAvailableSpecialties() {
+        Map<String, DataSpecialty> uniqueByName = new LinkedHashMap<>();
+        for (String type : SPECTYPES) {
+            if (type == null || EMPTY_OPTION.equals(type)) continue;
+            List<DataSpecialty> options = dataQuery.getSpecialtiesByType(type);
+            if (options == null) continue;
+            for (DataSpecialty spec : options) {
+                if (!isAvailableSpecialty(spec)) continue;
+                String name = spec.getName();
+                if (name == null || name.isBlank()) continue;
+                uniqueByName.putIfAbsent(name.toLowerCase(), spec);
+            }
+        }
+        return new ArrayList<>(uniqueByName.values());
+    }
+
+    private boolean isAvailableSpecialty(DataSpecialty specialty) {
+        if (specialty == null || specialty.getPrereq() != 0 || isCurrentClassSpecialty(specialty)) return false;
+        String name = specialty.getName();
+        if (name == null || name.isBlank()) return false;
+        return character == null || character.getSpecials() == null || !character.getSpecials().hasSpecialty(name);
     }
 
     private String[] getSpecialtyOptions(String type) {
@@ -171,11 +212,37 @@ public class FrameNewSpecials extends JFrame {
         if (options == null || options.isEmpty()) {
             return new String[0];
         }
+        options = options.stream()
+                .filter(this::isAvailableSpecialty)
+                .toList();
         String[] names = new String[options.size()];
         for (int i = 0; i < options.size(); i++) {
             names[i] = options.get(i).getName();
         }
         return names;
+    }
+
+    private boolean isCurrentClassSpecialty(DataSpecialty specialty) {
+        if (specialty == null || character == null || character.getIdentity() == null) return false;
+        DataClass cls = resolveCurrentClass();
+        if (cls == null) return false;
+        int family = resolveClassSpecialtyFamily(cls);
+        if (family <= 0) return false;
+        int specialtyId = specialty.getId();
+        int familyStart = family * 1000;
+        return specialtyId >= familyStart && specialtyId < familyStart + 1000;
+    }
+
+    private DataClass resolveCurrentClass() {
+        String subclass = character.getIdentity().getCharSubclass();
+        DataClass cls = dataQuery.getClassByName(subclass);
+        if (cls != null) return cls;
+        return dataQuery.getClassByName(character.getIdentity().getCharClass());
+    }
+
+    private int resolveClassSpecialtyFamily(DataClass dataClass) {
+        if (dataClass == null || dataClass.getID() <= 0) return -1;
+        return ((dataClass.getID() - 1) / 3) + 1;
     }
 
     private boolean isSpecialStillAllowed(String previousSpecial, String otherPick) {
@@ -184,4 +251,3 @@ public class FrameNewSpecials extends JFrame {
                 && (otherPick == null || !previousSpecial.equalsIgnoreCase(otherPick));
     }
 }
-

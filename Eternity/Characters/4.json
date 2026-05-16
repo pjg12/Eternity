@@ -1,18 +1,18 @@
 {
   "identity" : {
-    "index" : 1,
-    "name" : "wee",
+    "index" : 4,
+    "name" : "ian",
     "nickname" : "",
     "campaign" : "",
     "campaignStartDate" : "0065-01-01T00:00:00",
     "campaignElapsedTime" : "PT0S",
-    "birthday" : "0046-09-25",
+    "birthday" : "0046-07-18",
     "birthdayManual" : true,
     "race" : "Alteri",
-    "charRacePick" : [ "Construct" ],
+    "charRacePick" : [ "Kitsune" ],
     "charClass" : "Warrior",
-    "charSubclass" : "Fighter",
-    "charClassPick" : [ "Specialization (Crossbow)", "Sunder" ],
+    "charSubclass" : "Guardian",
+    "charClassPick" : [ "Combat Medic" ],
     "level" : 1,
     "exp" : 0.0,
     "gender" : "",
@@ -24,9 +24,9 @@
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-05-15T05:18:31.407+0000",
-    "createdAt" : "2026-05-15T05:18:13.502+0000",
-    "lastLevelUp" : "2026-05-15T05:18:13.502+0000",
+    "updated" : "2026-05-15T19:37:10.584+0000",
+    "createdAt" : "2026-05-15T19:36:10.007+0000",
+    "lastLevelUp" : "2026-05-15T19:36:10.007+0000",
     "timeSinceLastLevel" : "PT0S"
   },
   "resources" : {
@@ -371,7 +371,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BDEX",
-      "severity" : 12.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -395,7 +395,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCON",
-      "severity" : 11.0,
+      "severity" : 9.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -419,7 +419,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BFOC",
-      "severity" : 11.0,
+      "severity" : 9.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -443,7 +443,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCTL",
-      "severity" : 14.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -467,7 +467,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCAP",
-      "severity" : 13.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -491,7 +491,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BKNOW",
-      "severity" : 14.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -515,7 +515,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMECH",
-      "severity" : 14.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -539,7 +539,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BPERC",
-      "severity" : 8.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -563,7 +563,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BINT",
-      "severity" : 10.0,
+      "severity" : 15.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -587,7 +587,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCHA",
-      "severity" : 10.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -611,7 +611,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BSUB",
-      "severity" : 15.0,
+      "severity" : 9.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3069,21 +3069,31 @@
     } ],
     "classSpecialties" : [ ],
     "trainedSpecialties" : [ {
-      "id" : 201,
-      "name" : "Specialization (Blade)",
+      "id" : 6012,
+      "name" : "Send Summon",
       "refName" : "",
-      "category" : "Martial",
-      "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
+      "category" : "Class",
+      "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
       "pick" : false,
       "permStatus" : [ ]
     }, {
-      "id" : 205,
-      "name" : "Specialization (Sword)",
+      "id" : 4011,
+      "name" : "Unarmed Prowess",
       "refName" : "",
-      "category" : "Martial",
-      "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
+      "category" : "Class",
+      "description" : "Stuff",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 6011,
+      "name" : "Summon Minion (Minor + General + Melee)",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
       "pick" : false,
@@ -3093,7 +3103,7 @@
   "inventory" : {
     "credits" : 0.0,
     "armor" : "",
-    "weaponProf" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Bow" ],
+    "weaponProf" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Handbow" ],
     "equipment" : [ {
       "did" : 7005,
       "iid" : -1,
@@ -3144,10 +3154,10 @@
     "consumables" : [ ],
     "goods" : [ ],
     "items" : [ ],
-    "weaponProficiencies" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Bow" ]
+    "weaponProficiencies" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Handbow" ]
   },
   "training" : {
-    "naturalAffinities" : [ "Enhancement" ],
+    "naturalAffinities" : [ "Air" ],
     "domains" : [ ],
     "isDeviant" : false,
     "classTrainingRank" : 1,

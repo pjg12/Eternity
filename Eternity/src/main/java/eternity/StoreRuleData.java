@@ -1,3 +1,5 @@
+// CHECKED
+
 package eternity;
 
 import java.io.IOException;

@@ -29,7 +29,7 @@ public class DataClass {
 
     // --- Constructors ---
 
-    public DataClass() { this(-1, "", "", true, "", "", "", 0.0, 0.0, "", "", new ArrayList<>(), new ArrayList<>(), new int[]{0, 0, 0, 0}, new ArrayList<>(), -1, -1); }
+    public DataClass() { this(-1, "", "", true, "", "", "", 0.0, 0.0, "", "", new ArrayList<>(), new ArrayList<>(), new int[]{0, 0, 0, 0, 0, 0}, new ArrayList<>(), -1, -1); }
     public DataClass(DataClass src) { this(src.ID, src.name, src.description, src.baseClass, src.primaryAtt, src.secondaryAtt, src.role, src.hpScaling, src.auraScaling, src.armor, src.profLabel, src.profAuto, src.profPick, src.statScaling, src.resourceNames, src.abilBase, src.abilOffset); }
     
     public DataClass(int ID, String name, String description, boolean baseClass, String primaryAtt, String secondaryAtt, String role, double hpScaling, double auraScaling, String armor, String profLabel, 
@@ -47,7 +47,7 @@ public class DataClass {
         this.profLabel = safe(profLabel);
         this.profAuto = new ArrayList<>(profAuto);
         this.profPick = new ArrayList<>(profPick);
-        this.statScaling = (statScaling != null) ? statScaling.clone() : new int[]{0,0,0,0};
+        this.statScaling = (statScaling != null) ? statScaling.clone() : new int[]{0,0,0,0,0,0};
         this.resourceNames = new ArrayList<>(resourceNames);
         this.abilBase = abilBase;
         this.abilOffset = abilOffset;
@@ -95,7 +95,7 @@ public class DataClass {
     public void setProfPick(List<String> profPick) { this.profPick = (profPick == null ? new ArrayList<>() : new ArrayList<>(profPick)); }
 
     public int[] getStatScaling() { return statScaling.clone(); }
-    public void setStatScaling(int[] statScaling) { this.statScaling = (statScaling == null ? new int[]{0,0,0,0} : statScaling.clone()); }
+    public void setStatScaling(int[] statScaling) { this.statScaling = (statScaling == null ? new int[]{0,0,0,0,0,0} : statScaling.clone()); }
 
     public List<String> getResourceNames() { return new ArrayList<>(resourceNames); }
     public void setResourceNames(List<String> resourceNames) { this.resourceNames = (resourceNames == null ? new ArrayList<>() : new ArrayList<>(resourceNames)); }
@@ -115,7 +115,7 @@ public class DataClass {
         return "DataClass {\n" + "  ID: " + ID + ",\n" + "  name: \"" + name + "\",\n" + "  description: \"" + description + "\",\n" +
             "  baseClass: " + baseClass + ",\n" + "  primaryAtt: \"" + primaryAtt + "\",\n" + "  secondaryAtt: \"" + secondaryAtt + "\",\n" +
             "  role: \"" + role + "\",\n" + "  hpScaling: " + hpScaling + ",\n" + "  auraScaling: " + auraScaling + ",\n" + "  armor: \"" + armor + "\",\n" +
-            "  profLabel: \"" + profLabel + "\",\n" + "  profAuto: " + profAuto + ",\n" + "  profPick: " + profPick + ",\n" + "  statScaling: [" + statScaling[0] + ", " + statScaling[1] + ", " + statScaling[2] + ", " + statScaling[3] + "],\n" +
+            "  profLabel: \"" + profLabel + "\",\n" + "  profAuto: " + profAuto + ",\n" + "  profPick: " + profPick + ",\n" + "  statScaling: [" + statScaling[0] + ", " + statScaling[1] + ", " + statScaling[2] + ", " + statScaling[3] +  ", " + statScaling[4] + ", " + statScaling[5] + "],\n" +
             "  resourceNames: " + resourceNames + ",\n" + "  abilBase: " + abilBase + ",\n" + "  abilOffset: " + abilOffset + "\n" + "}";
     }
 }
