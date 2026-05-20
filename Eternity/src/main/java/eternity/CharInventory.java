@@ -89,6 +89,17 @@ public class CharInventory {
     public List<DataItemEquipment> getEquipment() { return Collections.unmodifiableList(equipment); }
     public void addEquipment(DataItemEquipment item) { if (item != null) equipment.add(item); }
     public void removeEquipment(DataItemEquipment item) { equipment.remove(item); }
+    public void addWeapon(DataItemWeapon weapon) { if (weapon != null) equipment.add(weapon); }
+
+    @JsonIgnore
+    public List<DataItemWeapon> getWeapons() {
+        ArrayList<DataItemWeapon> weapons = new ArrayList<>();
+        for (DataItemEquipment item : equipment) {
+            if (!isWeaponEntry(item)) continue;
+            weapons.add(item instanceof DataItemWeapon weapon ? weapon : new DataItemWeapon(item));
+        }
+        return Collections.unmodifiableList(weapons);
+    }
 
     public DataItem findEquipmentByName(String name) {
         for (DataItem item : equipment) {
@@ -180,5 +191,30 @@ public class CharInventory {
     @JsonIgnore
     public StoreCharData getOwner() { return owner; }
     public void setOwner(StoreCharData owner) { this.owner = owner; }
+
+    private boolean isWeaponEntry(DataItemEquipment item) {
+        if (item == null) return false;
+        String slot = item.getSlot() == null ? "" : item.getSlot().toLowerCase();
+        String category = item.getCategory() == null ? "" : item.getCategory().toLowerCase();
+        String type = item.getType() == null ? "" : item.getType().toLowerCase();
+        return slot.contains("weapon")
+                || slot.contains("hand")
+                || category.contains("weapon")
+                || category.contains("melee")
+                || category.contains("ranged")
+                || category.contains("aura")
+                || type.contains("bow")
+                || type.contains("crossbow")
+                || type.contains("gun")
+                || type.contains("rifle")
+                || type.contains("pistol")
+                || type.contains("sword")
+                || type.contains("axe")
+                || type.contains("spear")
+                || type.contains("dagger")
+                || type.contains("staff")
+                || type.contains("mace")
+                || type.contains("hammer");
+    }
 }
 

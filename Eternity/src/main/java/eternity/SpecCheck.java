@@ -55,9 +55,10 @@ public class SpecCheck {
         if (panelReminderSetter == null) return;
         String refName = special.getRefName();
         String label = (refName != null && !refName.isBlank()) ? special.getName() + ": " + refName : special.getName();
-        if (label == null || label.isBlank()) return;
+        String description = special.getDescription();
 
         if (special.getPick()) {
+            if (label == null || label.isBlank()) return;
             List<String> options;
             String specialName = special.getName() == null ? "" : special.getName();
             if (specialName.toLowerCase().contains("felshify")) {
@@ -75,7 +76,10 @@ public class SpecCheck {
                 options.add("Empty");
             }
             panelReminderSetter.accept(label + "::" + String.join("|", options));
-        } else {
+        }
+        if (description != null && !description.isBlank()) {
+            panelReminderSetter.accept(description.trim());
+        } else if (!special.getPick() && label != null && !label.isBlank()) {
             panelReminderSetter.accept(label);
         }
     }

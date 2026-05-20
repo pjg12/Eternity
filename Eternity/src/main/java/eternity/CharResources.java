@@ -218,6 +218,19 @@ public class CharResources {
         else list.add(status); 
     }
 
+    public void removeStatusByStatus(DataStatus status) {
+        if (status == null || status.getName() == null || status.getAttribute() == null) return;
+        ArrayList<DataStatus>[] block = findStatusBlock(status.getAttribute().toUpperCase());
+        if (block == null) return;
+        String name = status.getName();
+        for (int i = 0; i < block.length; i++) {
+            DataStatus existing = findStatus(block[i], name);
+            if (existing != null) {
+                block[i].remove(existing);
+            }
+        }
+    }
+
     private ArrayList<DataStatus>[] findStatusBlock (String key) {
         return switch (key) {
             case "BASEHP" -> baseHP;

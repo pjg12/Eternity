@@ -27,6 +27,7 @@ public class StoreRuleData {
 	private final List<DataSkill> skillData;
 	private final List<DataSpecialty> specialtyData;
 	private final List<DataItemEquipment> itemEquipmentData;
+	private final List<DataItemWeapon> itemWeaponData;
 	private final List<DataTraining> trainingData;
 	private final List<DataTechPerm> techPermData;
     private final List<DataAction> actionData;
@@ -44,6 +45,7 @@ public class StoreRuleData {
         skillData          = safeLoad("skilldata.json",        DataSkill[].class);
         specialtyData      = safeLoad("specialtydata.json",    DataSpecialty[].class);
         itemEquipmentData  = safeLoad("itemequipdata.json",    DataItemEquipment[].class);
+        itemWeaponData     = safeLoad("itemweapondata.json",   DataItemWeapon[].class);
         techPermData       = safeLoad("techpermdata.json",     DataTechPerm[].class);
         trainingData       = safeLoad("trainingdata.json",     DataTraining[].class);
         actionData         = safeLoad("actiondata.json",       DataAction[].class);
@@ -130,6 +132,7 @@ public class StoreRuleData {
     public List<DataSkill> getSkillData() { return skillData; }
     public List<DataSpecialty> getSpecialtyData() { return specialtyData; }
     public List<DataItemEquipment> getItemEquipmentData() { return itemEquipmentData; }
+    public List<DataItemWeapon> getItemWeaponData() { return itemWeaponData; }
     public List<DataTraining> getTrainingData() { return trainingData; }
     public List<DataTechPerm> getTechPermData() { return techPermData; }
     public List<DataAction> getActionData() { return actionData; }

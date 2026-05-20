@@ -61,8 +61,16 @@ public class FrameNew extends JFrame {
     private static final String ARMOR_TYPE_MEDIUM = "Medium";
     private static final String ARMOR_TYPE_HEAVY = "Heavy";
     private static final String ARMOR_TYPE_EXO = "Exo";
-    private static final int[] STARTING_TECHS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21, 22, 51, 52, 53, 54, 55 };
-    private static final int[] STARTING_TECHS_1 = { 23, 24, 61, 62, 63, 64, 65 };
+    private static final String[] STARTING_TECHS = {
+            "Strength Training", "Dexterity Training", "Constitution Training", "Focus Training",
+            "Control Training", "Capacity Training", "Knowledge Training", "Mechanical Training",
+            "Perception Training", "Intuition Training", "Charisma Training", "Subtlety Training",
+            "Skill Training", "Specialty Training", "Benefaction", "Emission", "Manifestation",
+            "Potency", "Transmutation"
+    };
+    private static final String[] STARTING_TECHS_1 = {
+            "Race Training", "Boost", "Harden", "Prism", "Shape", "Zone"
+    };
 
     // Icons
     private static ImageIcon[] iconNormal;
@@ -498,13 +506,14 @@ public class FrameNew extends JFrame {
         addNaturalAffinityStarterTechs(training, ruleManager);
     }
 
-    private void addStarterTechs(CharTraining training, StoreRuleManager ruleManager, int[] techIds, int startingRank) {
-        if (training == null || ruleManager == null || techIds == null) return;
-        for (int techId : techIds) {
-            if (techId <= 0 || training.getTrainingById(techId) != null) continue;
+    private void addStarterTechs(CharTraining training, StoreRuleManager ruleManager, String[] techNames, int startingRank) {
+        if (training == null || ruleManager == null || techNames == null) return;
+        for (String techName : techNames) {
+            if (techName == null || techName.isBlank()) continue;
 
-            DataTraining template = ruleManager.getTrainingById(techId);
+            DataTraining template = findTrainingTemplateByName(ruleManager, techName);
             if (template == null) continue;
+            if (training.getTrainingById(template.getId()) != null) continue;
 
             DataTraining tech = new DataTraining(template);
             tech.setRank(Math.max(0, startingRank));
@@ -512,6 +521,15 @@ public class FrameNew extends JFrame {
             tech.setAl(0);
             training.addTraining(tech);
         }
+    }
+
+    private DataTraining findTrainingTemplateByName(StoreRuleManager ruleManager, String techName) {
+        if (ruleManager == null || techName == null || techName.isBlank()) return null;
+        for (DataTraining tech : ruleManager.getTrainingData()) {
+            if (tech == null || tech.getName() == null) continue;
+            if (tech.getName().equalsIgnoreCase(techName)) return tech;
+        }
+        return null;
     }
 
     private void addNaturalAffinityStarterTechs(CharTraining training, StoreRuleManager ruleManager) {
@@ -523,7 +541,7 @@ public class FrameNew extends JFrame {
                 if (training.getTrainingById(template.getId()) != null) continue;
 
                 DataTraining tech = new DataTraining(template);
-                tech.setRank(1);
+                tech.setRank(2);
                 tech.setExp(0.0);
                 tech.setAl(0);
                 training.addTraining(tech);
@@ -626,15 +644,19 @@ public class FrameNew extends JFrame {
             }
         }
 
+        for (DataItemWeapon weapon : inventory.getWeapons()) {
+            if (weapon != null && isStarterWeapon(weapon, starterWeapons)) {
+                weapon.setEquipped(true);
+            }
+        }
         for (DataItemEquipment item : inventory.getEquipment()) {
-            if (item == null) continue;
-            if (isStarterWeapon(item, starterWeapons) || isGrantedArmor(item, grantedArmor)) {
+            if (item != null && isGrantedArmor(item, grantedArmor)) {
                 item.setEquipped(true);
             }
         }
     }
 
-    private boolean isStarterWeapon(DataItemEquipment item, Set<String> starterWeapons) {
+    private boolean isStarterWeapon(DataItemWeapon item, Set<String> starterWeapons) {
         if (item == null || starterWeapons == null || starterWeapons.isEmpty()) return false;
         String displayName = item.getDname();
         String inventoryName = item.getIname();

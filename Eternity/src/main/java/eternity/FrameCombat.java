@@ -16,7 +16,9 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -34,7 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
-import eternity.DataItemEquipment;
+import eternity.DataItemWeapon;
 
 /*
  * Combat Helper
@@ -60,7 +62,7 @@ public class FrameCombat extends JFrame {
 	private JPanel optionPanel;
 	private JScrollPane optionPane;
 	private ArrayList<JButton> optionButtons;
-	private ArrayList<DataStatus> battleStatus;
+	private List<DataStatus> battleStatus;
 	private JComboBox<String> stdActCat;
 	private JComboBox<String> stdAbilityCat;
 	private JComboBox<String> moveActCat;
@@ -68,18 +70,21 @@ public class FrameCombat extends JFrame {
 	private JComboBox<String> auraActCat;
 	private JComboBox<String> auraAbilityCat;
 	private JComboBox<String> weaponSelect;
-	private ArrayList<DataItemEquipment> weaponOptions = new ArrayList<>();
+	private ArrayList<DataItemWeapon> weaponOptions = new ArrayList<>();
 	
 	private ArrayList<JButton> actionButtons;
 	private ArrayList<DataAction> actionList;
+	private FrameStatus statusFrame;
 	
 	private final String[] ICONS = {"stdAct", "moveAct", "auraAct", "damage", "round", "freeAct", "intAct", "stdDemo", "moveDemo"};
 	private final String[] STDACTCAT = {"All", "Standard", "Combat Maneuver", "Class", "Aura", "Specialty", "Item"};
 	private final String[] MOVEACTCAT = {"All", "Move"};
 	private final String[] STDABILITYCAT = {"All", "Attack", "Heal", "Next Attack", "Mitigation", "Remedy", "Other"};
 	private final String[] AURAACTCAT = {"All", "Aura"};
-	private final String[] DMGTYPE = {"PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME"};
-	
+	private final String[] DMGTYPE = {"BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME"};
+	private static final String[][] AURA_DMG_PAIR = { {"Enhancement", "PHY"},{"Body", "PHY"},{"Nature", "PIERCE"},{"Metal", "PHY"},{"Earth", "PHY"},{"Water", "FROST"},{"Air", "SLASH"},{"Fire", "FIRE"},{"Electricity", "ELEC"},{"Force", "BLUNT"},{"Sound", "SONIC"},{"Light", "LIGHT"},{"Darkness", "DARK"},{"Poison", "TOXIC"},{"Psionic", "PSI"},{"Energy", "ENERGY"},{"Spirit", "SPIRIT"},{"Time", "TIME"},{"Deviant", "TRUE"} };
+	private static final String[][] AURA_SAVE_PAIR = { {"PIERCE", "REF"},{"FROST", "FORT"},{"SLASH", "REF"},{"FIRE", "REF"},{"ELEC", "FORT"},{"BLUNT", "FORT"},{"SONIC", "WILL"},{"LIGHT", "WILL"},{"DARK", "WILL"},{"TOXIC", "FORT"},{"PSI", "WILL"},{"ENERGY", "REF"},{"SPIRIT", "WILL"},{"TIME", "FORT"} };
+
 	private final JLabel noCombatImage;
 
 	private final JLabel headerL;
@@ -235,17 +240,19 @@ public class FrameCombat extends JFrame {
 		
 		buttons[0].setBounds(25, 425, 145, 20);
 		buttons[0].setText("Status");
-		//buttons[0].addActionListener(e -> statusChange());
+		buttons[0].addActionListener(e -> statusChange());
 		buttons[1].setBounds(195, 425, 145, 20);
 		buttons[2].setBounds(365, 425, 145, 20);
 		
-		battleStatus = new ArrayList<DataStatus>();
+		battleStatus = character != null && character.getCombat() != null
+				? character.getCombat().getCombatStatus()
+				: new ArrayList<DataStatus>();
 		stdActCat = new JComboBox<String>(STDACTCAT);
-		stdActCat.addActionListener(e -> updateStdAct()); // keep list in sync with category selection
+		stdActCat.addActionListener(e -> refreshSelectedActionView()); // keep active list in sync with category selection
 		stdActCat.setBounds(0, 0, 160, 20);
 		optionPanel.add(stdActCat);
 		stdAbilityCat = new JComboBox<String>(STDABILITYCAT);
-		stdAbilityCat.addActionListener(e -> updateStdAct());
+		stdAbilityCat.addActionListener(e -> refreshSelectedActionView());
 		stdAbilityCat.setBounds(170, 0, 160, 20);
 		stdAbilityCat.setVisible(false);
 		optionPanel.add(stdAbilityCat);
@@ -271,6 +278,7 @@ public class FrameCombat extends JFrame {
 		optionPanel.add(auraAbilityCat);
 		weaponSelect = new JComboBox<String>();
 		weaponSelect.setBounds(340, 0, 160, 20);
+		weaponSelect.addActionListener(e -> onWeaponSelectionChanged());
 		weaponSelect.setVisible(false); // only shown when Standard actions are active
 		optionPanel.add(weaponSelect);
 		
@@ -312,15 +320,28 @@ public class FrameCombat extends JFrame {
 		}
 		
 		stdActCat.setVisible(false);
+		stdActCat.setEnabled(true);
 		stdAbilityCat.setVisible(false);
+		stdAbilityCat.setEnabled(true);
 		moveActCat.setVisible(false);
+		moveActCat.setEnabled(true);
 		moveAbilityCat.setVisible(false);
+		moveAbilityCat.setEnabled(true);
 		auraActCat.setVisible(false);
+		auraActCat.setEnabled(true);
 		auraAbilityCat.setVisible(false);
+		auraAbilityCat.setEnabled(true);
+		weaponSelect.setVisible(false);
 	}
 	
 	public void updateCharacter(StoreCharData character) {
 		this.character = character;
+		battleStatus = this.character != null && this.character.getCombat() != null
+				? this.character.getCombat().getCombatStatus()
+				: new ArrayList<DataStatus>();
+		if (statusFrame != null) {
+			statusFrame.updateCharacter(character);
+		}
 		if (this.character != null && this.character.getCombat() != null) {
 			this.character.getCombat().rebuildActions(this.character);
 		}
@@ -333,15 +354,7 @@ public class FrameCombat extends JFrame {
 		clearCombat();
 		showNoCombatImage(false);
 		
-		for (int i = 0; i < battleStatus.size(); i++) {
-			if (battleStatus.get(i).getDurationType().compareTo("Turn") <= 0) {
-				battleStatus.get(i).setDuration(battleStatus.get(i).getDuration() - 1);
-				if (battleStatus.get(i).getDuration() == 0) {
-					//character.removeStatus(battleStatus.get(i));
-					battleStatus.remove(i);
-				}
-			}
-		}
+		advanceTrackedStatuses("Turn");
 		
 		/*
 		 * Set Headers
@@ -359,6 +372,7 @@ public class FrameCombat extends JFrame {
 		intOptions();
 		
 		buttons[0].setVisible(true);
+		buttons[0].addActionListener(e -> statusChange());
 		
 		buttons[1].setText("My Turn");
 		buttons[1].setVisible(true);
@@ -401,6 +415,7 @@ public class FrameCombat extends JFrame {
 		stdOptions();
 		
 		buttons[0].setVisible(true);
+		buttons[0].addActionListener(e -> statusChange());
 		
 		buttons[1].setText("End My Turn");
 		buttons[1].setVisible(true);
@@ -414,16 +429,9 @@ public class FrameCombat extends JFrame {
 	public void startMyTurn() {
 		clearCombat();
 		
-		for (int i = 0; i < battleStatus.size(); i++) {
-			if (battleStatus.get(i).getDurationType().compareTo("Cycle") == 0) {
-				battleStatus.get(i).setDuration(battleStatus.get(i).getDuration() - 1);
-				if (battleStatus.get(i).getDuration() <= 0) {
-					//character.removeStatus(battleStatus.get(i));
-					battleStatus.remove(i);
-				}
-			}
-		}
+		advanceTrackedStatuses("Cycle");
 
+		resetActionCountsToMaximum();
 		
 		myTurn();
 	}
@@ -450,7 +458,9 @@ public class FrameCombat extends JFrame {
 	
 	public void stdOptions() {
 		stdActCat.setVisible(true);
+		stdActCat.setEnabled(true);
 		stdAbilityCat.setVisible(true);
+		stdAbilityCat.setEnabled(true);
 		moveActCat.setVisible(false);
 		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
@@ -468,10 +478,12 @@ public class FrameCombat extends JFrame {
 		stdActCat.setVisible(false);
 		stdAbilityCat.setVisible(false);
 		moveActCat.setVisible(true);
+		moveActCat.setEnabled(true);
 		moveAbilityCat.setVisible(true);
+		moveAbilityCat.setEnabled(true);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
-		weaponSelect.setVisible(false);
+		weaponSelect.setVisible(true);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
 		
@@ -484,8 +496,10 @@ public class FrameCombat extends JFrame {
 		moveActCat.setVisible(false);
 		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(true);
+		auraActCat.setEnabled(true);
 		auraAbilityCat.setVisible(true);
-		weaponSelect.setVisible(false);
+		auraAbilityCat.setEnabled(true);
+		weaponSelect.setVisible(true);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
 		
@@ -493,13 +507,15 @@ public class FrameCombat extends JFrame {
 	}
 	
 	public void freeOptions() {
-		stdActCat.setVisible(false);
-		stdAbilityCat.setVisible(false);
+		stdActCat.setVisible(true);
+		stdActCat.setEnabled(true);
+		stdAbilityCat.setVisible(true);
+		stdAbilityCat.setEnabled(true);
 		moveActCat.setVisible(false);
 		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
-		weaponSelect.setVisible(false);
+		weaponSelect.setVisible(true);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
 		
@@ -507,13 +523,15 @@ public class FrameCombat extends JFrame {
 	}
 	
 	public void intOptions() {
-		stdActCat.setVisible(false);
-		stdAbilityCat.setVisible(false);
+		stdActCat.setVisible(true);
+		stdActCat.setEnabled(true);
+		stdAbilityCat.setVisible(true);
+		stdAbilityCat.setEnabled(true);
 		moveActCat.setVisible(false);
 		moveAbilityCat.setVisible(false);
 		auraActCat.setVisible(false);
 		auraAbilityCat.setVisible(false);
-		weaponSelect.setVisible(false);
+		weaponSelect.setVisible(true);
 		stdDemoCheck = false;
 		moveDemoCheck = false;
 
@@ -565,15 +583,7 @@ public class FrameCombat extends JFrame {
 	}
 	
 	public void endRound() {
-		for (int i = 0; i < battleStatus.size(); i++) {
-			if (battleStatus.get(i).getDurationType().compareTo("Round") == 0) {
-				battleStatus.get(i).setDuration(battleStatus.get(i).getDuration() - 1);
-				if (battleStatus.get(i).getDuration() == 0) {
-					//character.removeStatus(battleStatus.get(i));
-					battleStatus.remove(i);
-				}
-			}
-		}
+		advanceTrackedStatuses("Round");
 		if (character != null && character.getCombat() != null) {
 			character.getCombat().nextRound();
 			updateRoundHeader();
@@ -590,15 +600,11 @@ public class FrameCombat extends JFrame {
 	}	
 	
 	public void statusChange() {
-		JDialog statusBox = new JDialog();
-		statusBox.setSize(550, 500);
-		System.out.println("select add, remove, or share status");
-		System.out.println("if remove status, pick status to remove");
-		System.out.println("remove status and close window");
-		System.out.println("if add status, paste status code");
-		System.out.println("add status and close window");
-		System.out.println("if give status, generate code with button to copy to clipboard.");
-		System.out.println("instruct user to paste to discord or roll20, then close when done");
+		if (statusFrame == null) {
+			statusFrame = new FrameStatus(this, character);
+		}
+		statusFrame.updateCharacter(character);
+		statusFrame.setVisible(true);
 	}	
 	
 	public void enterCombat() {
@@ -616,8 +622,9 @@ public class FrameCombat extends JFrame {
 	
 	public void exitCombat() {
 		for (int i = battleStatus.size()-1; i >= 0; i--) {
-			if (battleStatus.get(i).getDurationType().compareTo("Round") == 0 || battleStatus.get(i).getDurationType().compareTo("Cycle") == 0 || battleStatus.get(i).getDurationType().compareTo("Turn") == 0) {
-				// No backing status container to remove from; just clear the local list for now.
+			String durationType = battleStatus.get(i).getDurationType();
+			if (isTrackedDuration(durationType)) {
+				removeTimedStatus(battleStatus.get(i));
 				battleStatus.remove(i);
 			}
 		}
@@ -629,11 +636,37 @@ public class FrameCombat extends JFrame {
 		}
 		nonCombat();
 	}	
+
+	public boolean applyBuiltStatus(DataStatus status) {
+		if (character == null || status == null || status.getAttribute() == null || status.getAttribute().isBlank()) return false;
+
+		DataStatus applied = new DataStatus(status);
+		String originalDurationType = applied.getDurationType();
+		if (isTimedDuration(originalDurationType)) {
+			applied.setDurationType("Temporary");
+		}
+
+		boolean appliedOk = applyStatusToCharacter(applied);
+		if (!appliedOk) return false;
+
+		if (isTimedDuration(originalDurationType)) {
+			DataStatus tracked = new DataStatus(status);
+			if (character.getCombat() != null) {
+				character.getCombat().addStatus(tracked);
+			} else {
+				battleStatus.add(new DataStatus(tracked));
+			}
+		}
+
+		refreshAfterStatusChange();
+		return true;
+	}
 	
 	void updateStdAct() {
 		String tempString = (String)stdActCat.getSelectedItem();
 		String abilityCategory = (String)stdAbilityCat.getSelectedItem();
 		boolean showAllTypes = tempString != null && tempString.equalsIgnoreCase("All");
+		boolean standardLayoutActive = stdActCat.isVisible();
 		boolean isStandard = showAllTypes || (tempString != null && tempString.equalsIgnoreCase("Standard"));
 		clearDisplayedActions();
 		
@@ -670,17 +703,8 @@ public class FrameCombat extends JFrame {
 		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
 			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
 		}
-
-		// Always pin Standard Attack to the top of the standard-action list.
-		for (int i = 0; i < filtered.size(); i++) {
-			DataAction action = filtered.get(i);
-			if (action != null && "Standard Attack".equalsIgnoreCase(action.getName())) {
-				if (i != 0) {
-					filtered.remove(i);
-					filtered.add(0, action);
-				}
-				break;
-			}
+		if (standardLayoutActive && character.getCombat() != null) {
+			pinSelectedStandardBaseline(filtered, tempString, abilityCategory);
 		}
 		
 		for (int i = 0; i < filtered.size(); i++) {
@@ -698,6 +722,123 @@ public class FrameCombat extends JFrame {
 		}
 		refreshOptionPanelSize();
 	}	
+
+	private void onWeaponSelectionChanged() {
+		updateStandardAttackRange();
+		if (weaponSelect != null && weaponSelect.isVisible()) {
+			updateStdAct();
+		}
+	}
+
+	private void pinSelectedStandardBaseline(ArrayList<DataAction> filtered, String sourceFilter, String abilityCategory) {
+		if (filtered == null || character == null || character.getCombat() == null) return;
+		DataAction preferred = getPreferredStandardBaseline();
+		if (preferred == null) return;
+		if (!matchesActionSource(preferred, sourceFilter)) return;
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)
+				&& !matchesActionCategory(preferred, abilityCategory)) {
+			return;
+		}
+
+		filtered.removeIf(action -> isNamedAction(action, "Standard Attack") || isNamedAction(action, "Standard Cast"));
+		filtered.add(0, preferred);
+	}
+
+	private DataAction getPreferredStandardBaseline() {
+		if (character == null || character.getCombat() == null) return null;
+		DataItemWeapon selectedWeapon = getSelectedWeapon();
+		String attackString = selectedWeapon == null ? "" : selectedWeapon.getAttack();
+		if ("AC".equalsIgnoreCase(attackString)) {
+			return character.getCombat().getStandardAttackAction();
+		}
+		return character.getCombat().getStandardSpellAction();
+	}
+
+	private DataItemWeapon getSelectedWeapon() {
+		int idx = weaponSelect == null ? -1 : weaponSelect.getSelectedIndex();
+		if (idx < 0 || idx >= weaponOptions.size()) return null;
+		return weaponOptions.get(idx);
+	}
+
+	DataItemWeapon getSelectedWeaponForAttackFrame() {
+		return getSelectedWeapon();
+	}
+
+	List<String> getStandardDamageTypeOptions() {
+		LinkedHashSet<String> damageTypes = new LinkedHashSet<>();
+		if (character == null || character.getTraining() == null) {
+			return new ArrayList<>(damageTypes);
+		}
+
+		Set<String> unlockedAffinities = new LinkedHashSet<>();
+		for (DataTraining training : character.getTraining().getAllTraining()) {
+			if (training == null || training.getRank() < 1) continue;
+			String name = training.getName();
+			String affinity = training.getAffinity();
+			if (name == null || affinity == null) continue;
+			if (!name.startsWith("Aura Affinity")) continue;
+			unlockedAffinities.add(affinity.trim());
+		}
+
+		for (String[] pair : AURA_DMG_PAIR) {
+			if (pair == null || pair.length < 2) continue;
+			String auraType = pair[0];
+			String damageType = pair[1];
+			if (auraType == null || damageType == null) continue;
+			if (!containsIgnoreCase(unlockedAffinities, auraType)) continue;
+			if ("PHY".equalsIgnoreCase(damageType)) {
+				damageTypes.add("BLUNT");
+				damageTypes.add("PIERCE");
+				damageTypes.add("SLASH");
+			} else {
+				damageTypes.add(damageType.toUpperCase());
+			}
+		}
+
+		return new ArrayList<>(damageTypes);
+	}
+
+	String getAttackVsForDamageType(String damageType) {
+		if (damageType == null) return "";
+		for (String[] pair : AURA_SAVE_PAIR) {
+			if (pair == null || pair.length < 2) continue;
+			String pairDamageType = pair[0];
+			String attackVs = pair[1];
+			if (pairDamageType == null || attackVs == null) continue;
+			if (damageType.equalsIgnoreCase(pairDamageType)) {
+				return attackVs.toUpperCase();
+			}
+		}
+		return "";
+	}
+
+	String getDamageTypeForAuraAffinity(String affinity) {
+		if (affinity == null) return "";
+		for (String[] pair : AURA_DMG_PAIR) {
+			if (pair == null || pair.length < 2) continue;
+			String auraAffinity = pair[0];
+			String damageType = pair[1];
+			if (auraAffinity == null || damageType == null) continue;
+			if (affinity.equalsIgnoreCase(auraAffinity)) {
+				return damageType.toUpperCase();
+			}
+		}
+		return "";
+	}
+
+	private boolean containsIgnoreCase(Set<String> values, String target) {
+		if (values == null || target == null) return false;
+		for (String value : values) {
+			if (value != null && value.equalsIgnoreCase(target)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isNamedAction(DataAction action, String name) {
+		return action != null && action.getName() != null && action.getName().equalsIgnoreCase(name);
+	}
 	
 	void updateMoveAct() {
 		clearDisplayedActions();
@@ -798,19 +939,45 @@ public class FrameCombat extends JFrame {
 		
 		if (character == null) return;
 		List<DataAction> tempActions = character.getCombat().getFreeActions();
+		String tempString = (String)stdActCat.getSelectedItem();
+		String abilityCategory = (String)stdAbilityCat.getSelectedItem();
+		boolean showAllTypes = tempString == null || tempString.equalsIgnoreCase("All");
+		ArrayList<DataAction> filtered = new ArrayList<>();
+
+		for (DataAction action : tempActions) {
+			if (showAllTypes || (action != null && action.getSource() != null && action.getSource().equalsIgnoreCase(tempString))) {
+				filtered.add(action);
+			}
+		}
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
+			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
+		}
+
+		if (filtered.isEmpty()) {
+			JButton tempButton = buildButton(null);
+			tempButton.setText("No free actions available");
+			tempButton.setEnabled(false);
+			optionPanel.add(tempButton);
+			tempButton.setBounds(0, OPTION_HEADER_HEIGHT, 500, OPTION_ROW_HEIGHT);
+			actionButtons.add(tempButton);
+			actionList.add(null);
+			tempButton.setVisible(true);
+			refreshOptionPanelSize();
+			return;
+		}
 		
-		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton(tempActions.get(i));
-			tempButton.setText(tempActions.get(i).getName());
+		for (int i = 0; i < filtered.size(); i++) {
+			JButton tempButton = buildButton(filtered.get(i));
+			tempButton.setText(filtered.get(i).getName());
 			if (tempButton instanceof ActionEntryButton) 
-				applyActionButtonColor(tempButton, tempActions.get(i));
+				applyActionButtonColor(tempButton, filtered.get(i));
 
 			optionPanel.add(tempButton);
 			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickFreeAction(e));
-			actionList.add(tempActions.get(i));
+			actionList.add(filtered.get(i));
 		}
 		refreshOptionPanelSize();
 	}
@@ -832,7 +999,19 @@ public class FrameCombat extends JFrame {
 		}
 
 		List<DataAction> tempActions = character.getCombat().getInterruptActions();
-		if (tempActions == null || tempActions.isEmpty()) {
+		String tempString = (String)stdActCat.getSelectedItem();
+		String abilityCategory = (String)stdAbilityCat.getSelectedItem();
+		boolean showAllTypes = tempString == null || tempString.equalsIgnoreCase("All");
+		ArrayList<DataAction> filtered = new ArrayList<>();
+		for (DataAction action : tempActions) {
+			if (showAllTypes || (action != null && action.getSource() != null && action.getSource().equalsIgnoreCase(tempString))) {
+				filtered.add(action);
+			}
+		}
+		if (abilityCategory != null && !"All".equalsIgnoreCase(abilityCategory)) {
+			filtered.removeIf(action -> !matchesActionCategory(action, abilityCategory));
+		}
+		if (filtered.isEmpty()) {
 			JButton tempButton = buildButton(null);
 			tempButton.setText("No actions available");
 			tempButton.setEnabled(false);
@@ -845,18 +1024,18 @@ public class FrameCombat extends JFrame {
 			return;
 		}
 
-		for (int i = 0; i < tempActions.size(); i++) {
-			JButton tempButton = buildButton(tempActions.get(i));
-			tempButton.setText(tempActions.get(i).getName());
+		for (int i = 0; i < filtered.size(); i++) {
+			JButton tempButton = buildButton(filtered.get(i));
+			tempButton.setText(filtered.get(i).getName());
 			if (tempButton instanceof ActionEntryButton) {
-				applyActionButtonColor(tempButton, tempActions.get(i));
+				applyActionButtonColor(tempButton, filtered.get(i));
 			}
 			optionPanel.add(tempButton);
 			tempButton.setBounds(0, OPTION_HEADER_HEIGHT + OPTION_ROW_HEIGHT * i, 500, OPTION_ROW_HEIGHT);
 			actionButtons.add(tempButton);
 			tempButton.setVisible(true);
 			tempButton.addActionListener(e -> pickIntAction(e));
-			actionList.add(tempActions.get(i));
+			actionList.add(filtered.get(i));
 		}
 		refreshOptionPanelSize();
 	}
@@ -867,10 +1046,9 @@ public class FrameCombat extends JFrame {
 		}
 		else {
 			for (int i = 0; i < actionButtons.size(); i ++) {
-				if (e.getSource() == actionButtons.get(i)) {
-					FrameAttack attackFrame = new FrameAttack(sheetFrame, this, character, actionList.get(i));
-				
-					attackFrame.setVisible(true);
+				if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
+					openActionFrame(actionList.get(i));
+					return;
 				}
 			}
 		}
@@ -881,7 +1059,27 @@ public class FrameCombat extends JFrame {
 			JOptionPane.showMessageDialog(this, "You are out of move Actions.");
 		}
 		else {
-			moveActCount--;
+			for (int i = 0; i < actionButtons.size(); i ++) {
+				if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
+					DataAction action = actionList.get(i);
+					if (isNextAttackAction(action)) {
+						openActionFrame(action);
+					} else if (isStandardMoveAction(action)) {
+						int moveDistance = getDerivedCombatValue("MOVE");
+						int moveChoice = JOptionPane.showConfirmDialog(
+								this,
+								"You can move up to " + moveDistance + " ft.\nConfirm this move action?",
+								"Move",
+								JOptionPane.OK_CANCEL_OPTION);
+						if (moveChoice == JOptionPane.OK_OPTION) {
+							finishActionUse("Move");
+						}
+					} else {
+						finishActionUse("Move");
+					}
+					return;
+				}
+			}
 		}
 	}
 	
@@ -892,8 +1090,12 @@ public class FrameCombat extends JFrame {
 		else {
 			for (int i = 0; i < actionButtons.size(); i ++) {
 				if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
-					auraActCount--;
-					myTurn();
+					DataAction action = actionList.get(i);
+					if (isNextAttackAction(action)) {
+						openActionFrame(action);
+					} else {
+						finishActionUse("Aura");
+					}
 					return;
 				}
 			}
@@ -901,15 +1103,22 @@ public class FrameCombat extends JFrame {
 	}
 	
 	void pickFreeAction(ActionEvent e) {
-		
+		for (int i = 0; i < actionButtons.size(); i ++) {
+			if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
+				DataAction action = actionList.get(i);
+				if (isNextAttackAction(action)) {
+					openActionFrame(action);
+				}
+				return;
+			}
+		}
 	}
 	
 	void pickIntAction(ActionEvent e) {
 		for (int i = 0; i < actionButtons.size(); i ++) {
-			if (e.getSource() == actionButtons.get(i)) {
-				FrameAttack attackFrame = new FrameAttack(sheetFrame, this, character, actionList.get(i));
-				
-				attackFrame.setVisible(true);
+			if (e.getSource() == actionButtons.get(i) && actionList.get(i) != null) {
+				openActionFrame(actionList.get(i));
+				return;
 			}
 		}
 	}
@@ -968,13 +1177,61 @@ public class FrameCombat extends JFrame {
 	
 	
 	void stdActionFinish(String at) {
-		if (at.compareTo("Standard")==0) {
+		resolveAttackAction(at);
+	}
+
+	void resolveAttackAction(String at) {
+		advanceTrackedStatuses("Next Attack");
+		finishActionUse(at);
+	}
+
+	void finishActionUse(String at) {
+		consumeActionUse(at);
+		myTurn();
+	}
+
+	private void consumeActionUse(String at) {
+		if ("Standard".equalsIgnoreCase(at) && stdActCount > 0) {
 			stdActCount--;
 		}
-		else if (at.compareTo("Aura")==0) {
+		else if ("Move".equalsIgnoreCase(at) && moveActCount > 0) {
+			moveActCount--;
+		}
+		else if ("Aura".equalsIgnoreCase(at) && auraActCount > 0) {
 			auraActCount--;
 		}
-		myTurn();
+	}
+
+	private void openActionFrame(DataAction action) {
+		if (action == null) return;
+		JFrame actionFrame = isNextAttackAction(action)
+				? new FrameNextAttack(sheetFrame, this, character, action)
+				: new FrameAttack(sheetFrame, this, character, action);
+		actionFrame.setVisible(true);
+	}
+
+	private boolean isNextAttackAction(DataAction action) {
+		return action != null
+				&& action.getCategory() != null
+				&& action.getCategory().equalsIgnoreCase("Next Attack");
+	}
+
+	private void resetActionCountsToMaximum() {
+		stdActCount = getMaxStandardActionCount();
+		moveActCount = getMaxMoveActionCount();
+		auraActCount = getMaxAuraActionCount();
+	}
+
+	private int getMaxStandardActionCount() {
+		return 1;
+	}
+
+	private int getMaxMoveActionCount() {
+		return 1;
+	}
+
+	private int getMaxAuraActionCount() {
+		return 1;
 	}
 
 	// -------------------------
@@ -1145,6 +1402,86 @@ public class FrameCombat extends JFrame {
 		popupCheckBox.setVisible(false);
 	}
 
+	private void advanceTrackedStatuses(String durationType) {
+		if (durationType == null || battleStatus == null) return;
+		for (int i = 0; i < battleStatus.size(); i++) {
+			DataStatus trackedStatus = battleStatus.get(i);
+			if (trackedStatus == null || trackedStatus.getDurationType() == null) continue;
+			if (!durationType.equalsIgnoreCase(trackedStatus.getDurationType())) continue;
+			trackedStatus.setDuration(trackedStatus.getDuration() - 1);
+			if (trackedStatus.getDuration() <= 0) {
+				removeTimedStatus(trackedStatus);
+				battleStatus.remove(i);
+				i--;
+			}
+		}
+	}
+
+	private boolean applyStatusToCharacter(DataStatus status) {
+		if (status == null || character == null || status.getAttribute() == null) return false;
+		String attribute = status.getAttribute().toUpperCase();
+		try {
+			if (isResourceAttribute(attribute)) {
+				character.getResources().addStatus(status);
+			} else {
+				character.getAttributes().addStatus(status);
+			}
+			return true;
+		} catch (RuntimeException ex) {
+			return false;
+		}
+	}
+
+	private void removeTimedStatus(DataStatus status) {
+		if (status == null || character == null || status.getAttribute() == null) return;
+		DataStatus applied = new DataStatus(status);
+		applied.setDurationType("Temporary");
+		String attribute = applied.getAttribute().toUpperCase();
+		if (isResourceAttribute(attribute)) {
+			character.getResources().removeStatusByStatus(applied);
+		} else {
+			character.getAttributes().removeStatusByStatus(applied);
+		}
+		refreshAfterStatusChange();
+	}
+
+	private boolean isTimedDuration(String durationType) {
+		return durationType != null
+				&& ("TURN".equalsIgnoreCase(durationType)
+				|| "ROUND".equalsIgnoreCase(durationType)
+				|| "CYCLE".equalsIgnoreCase(durationType)
+				|| "NEXT ATTACK".equalsIgnoreCase(durationType));
+	}
+
+	private boolean isTrackedDuration(String durationType) {
+		return isTimedDuration(durationType);
+	}
+
+	private boolean isResourceAttribute(String attribute) {
+		return "BASEHP".equalsIgnoreCase(attribute)
+				|| "MULTIHP".equalsIgnoreCase(attribute)
+				|| "BASEAURA".equalsIgnoreCase(attribute)
+				|| "MULTIAURA".equalsIgnoreCase(attribute)
+				|| "BASER1".equalsIgnoreCase(attribute)
+				|| "MULTIR1".equalsIgnoreCase(attribute)
+				|| "BASER2".equalsIgnoreCase(attribute)
+				|| "MULTIR2".equalsIgnoreCase(attribute)
+				|| "BASER3".equalsIgnoreCase(attribute)
+				|| "MULTIR3".equalsIgnoreCase(attribute)
+				|| "BASEREACT".equalsIgnoreCase(attribute)
+				|| "MULTIREACT".equalsIgnoreCase(attribute);
+	}
+
+	private void refreshAfterStatusChange() {
+		if (character != null) {
+			character.updateAll();
+		}
+		if (sheetFrame != null) {
+			sheetFrame.refreshMainPanel();
+			sheetFrame.refreshImagePanel();
+		}
+	}
+
 	private void loadNoCombatImage() {
 		try {
 			File src = new File("Images", "NoCombat.jpg");
@@ -1226,13 +1563,13 @@ public class FrameCombat extends JFrame {
 			updateStandardAttackRange();
 			return;
 		}
-		List<DataItemEquipment> eq = character.getInventory().getEquipment();
+		List<DataItemWeapon> eq = character.getInventory().getWeapons();
 		boolean added = false;
-		for (DataItemEquipment item : eq) {
+		for (DataItemWeapon item : eq) {
 			if (item == null) continue;
-			String slot = item.getSlot() == null ? "" : item.getSlot();
-			if (item.isEquipped() && slot.toLowerCase().contains("weapon")) {
-				String name = item.getIname() != null && item.getIname().compareTo("-") != 0 ? item.getIname() : item.getDname();
+			if (item.isEquipped()) {
+				String iname = item.getIname();
+				String name = (iname != null && !iname.isBlank() && iname.compareTo("-") != 0) ? iname : item.getDname();
 				weaponSelect.addItem(name != null ? name : "Weapon");
 				weaponOptions.add(item);
 				added = true;
@@ -1317,7 +1654,7 @@ public class FrameCombat extends JFrame {
 	private boolean isSelectedWeaponMelee() {
 		int idx = weaponSelect.getSelectedIndex();
 		if (idx < 0 || idx >= weaponOptions.size()) return true; // default to melee if none
-		DataItemEquipment w = weaponOptions.get(idx);
+		DataItemWeapon w = weaponOptions.get(idx);
 		if (w == null) return true;
 		String category = w.getCategory() == null ? "" : w.getCategory().toLowerCase();
 		String type = w.getType() == null ? "" : w.getType().toLowerCase();
@@ -1333,6 +1670,53 @@ public class FrameCombat extends JFrame {
 		String actionCategory = action.getCategory();
 		if (actionCategory == null || actionCategory.isBlank()) return false;
 		return actionCategory.equalsIgnoreCase(selectedCategory);
+	}
+
+	private boolean matchesActionSource(DataAction action, String selectedSource) {
+		if (action == null || selectedSource == null || selectedSource.isBlank()
+				|| "All".equalsIgnoreCase(selectedSource)) {
+			return true;
+		}
+		String actionSource = action.getSource();
+		if (actionSource == null || actionSource.isBlank()) return false;
+		return actionSource.equalsIgnoreCase(selectedSource);
+	}
+
+	private boolean isStandardMoveAction(DataAction action) {
+		if (action == null) return false;
+		if (!"Move".equalsIgnoreCase(action.getName())) return false;
+		if (!"Standard".equalsIgnoreCase(action.getSource())) return false;
+		return "Move".equalsIgnoreCase(action.getActionType());
+	}
+
+	private int getDerivedCombatValue(String key) {
+		if (character == null || character.getAttributes() == null || key == null) {
+			return 0;
+		}
+		double value = character.getAttributes().calcStatusValue(key);
+		return (int) Math.round(Math.max(0.0, value));
+	}
+
+	private void refreshSelectedActionView() {
+		if (stdButton != null && stdButton.isSelected()) {
+			updateStdAct();
+			return;
+		}
+		if (moveButton != null && moveButton.isSelected()) {
+			updateMoveAct();
+			return;
+		}
+		if (auraButton != null && auraButton.isSelected()) {
+			updateAuraAct();
+			return;
+		}
+		if (freeButton != null && freeButton.isSelected()) {
+			updateFreeAct();
+			return;
+		}
+		if (intButton != null && intButton.isSelected()) {
+			updateIntAct();
+		}
 	}
 
 }

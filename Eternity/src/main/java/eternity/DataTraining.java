@@ -137,7 +137,11 @@ public class DataTraining {
         // Prereq cap
         if (prereq != -1) {
             DataTraining req = character.getTraining().getTrainingById(prereq);
-            if (req != null) max = Math.min(max, req.getRank()); 
+            if (req == null) {
+                max = 0;
+            } else {
+                max = Math.min(max, req.getRank());
+            }
         }
         return (int) max;
     }

@@ -1,10 +1,12 @@
 package eternity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A DataItemEquipment represents an item that can be equipped.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DataItemEquipment extends DataItem {
     @JsonProperty private String slot;        // Where the item can be equipped
     @JsonProperty private int tier;           // Relative power tier

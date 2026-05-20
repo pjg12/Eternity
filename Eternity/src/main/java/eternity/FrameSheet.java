@@ -73,7 +73,8 @@ public class FrameSheet extends JFrame {
     private FrameNew newFrame;
     private FrameLoad loadFrame;
     private FrameExp levelFrame;
-    private FrameTrainingNew trainingNewFrame;
+    private FrameTraining trainingNewFrame;
+    private FrameTrainingExp trainingXpFrame;
     private FrameTrainingExisting trainingExistingFrame;
     private FrameInventoryAdd addInventoryFrame;
     private FrameInventoryRemove removeInventoryFrame;
@@ -168,6 +169,7 @@ public class FrameSheet extends JFrame {
     /** Refreshes the main stats panel (PanelCharMain) after out-of-band changes such as rests. */
     public void refreshMainPanel() {
         if (charPanel != null && character != null) {
+            character.updateAll();
             charPanel.refreshMainOnly();
         }
     }
@@ -231,19 +233,25 @@ public class FrameSheet extends JFrame {
         character.syncLevelBaseResources(ruleManager);
         character.syncLevelCombatScalers(ruleManager);
         character.updateAll();
-        
-        
-        /*if (ok) {
+
+        boolean ok;
+        if (character.getIdentity() == null || character.getIdentity().getIndex() <= 0) {
+            ok = StoreCharManager.saveCharacterNew(character);
+        } else if (rotateBackups) {
+            ok = StoreCharManager.saveCharacterManual(character);
+        } else {
+            ok = StoreCharManager.saveCharacterAuto(character);
+        }
+
+        if (ok) {
             updateCharStoreEntry();
             if (showFeedback) {
                 JOptionPane.showMessageDialog(this, CHAR_SAVED_MSG, SAVE_SUCCESS_TITLE, JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {
-            if (showFeedback) {
-                JOptionPane.showMessageDialog(this, SAVE_FAILED_MSG, SAVE_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
-            }
-        }*/
-        return true; // TODO: Implement proper error handling and return false if save fails
+        } else if (showFeedback) {
+            JOptionPane.showMessageDialog(this, SAVE_FAILED_MSG, SAVE_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
+        }
+        return ok;
     }
 
     // Placeholder hooks for panel actions
@@ -277,24 +285,31 @@ public class FrameSheet extends JFrame {
     public void trainNewPressed() {
         if (!requireCharacter()) return;
         if (trainingNewFrame == null) {
-            trainingNewFrame = new FrameTrainingNew(this, ruleManager);
+            trainingNewFrame = new FrameTraining(this, ruleManager, character);
         }
         trainingNewFrame.updateCharacter(character);
+        trainingNewFrame.showCard(FrameTraining.CARD_NEW);
         trainingNewFrame.setVisible(true);
+    }
+    public void gainTrainingXpPressed() {
+        if (!requireCharacter()) return;
+        if (trainingXpFrame == null) {
+            trainingXpFrame = new FrameTrainingExp(this, ruleManager);
+        }
+        trainingXpFrame.updateCharacter(character);
+        trainingXpFrame.setVisible(true);
     }
     public void trainExistingPressed() {
         trainExistingPressed(null, null);
     }
     public void trainExistingPressed(String category, String techniqueName) {
         if (!requireCharacter()) return;
-        if (trainingExistingFrame == null) {
-            trainingExistingFrame = new FrameTrainingExisting(this, ruleManager);
+        if (trainingNewFrame == null) {
+            trainingNewFrame = new FrameTraining(this, ruleManager, character);
         }
-        trainingExistingFrame.updateCharacter(character);
-        if (category != null && techniqueName != null) {
-            trainingExistingFrame.selectTechnique(category, techniqueName);
-        }
-        trainingExistingFrame.setVisible(true);
+        trainingNewFrame.updateCharacter(character);
+        trainingNewFrame.showCard(FrameTraining.CARD_EXISTING);
+        trainingNewFrame.setVisible(true);
     }
 
     /**

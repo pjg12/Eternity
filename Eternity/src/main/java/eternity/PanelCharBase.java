@@ -66,7 +66,8 @@ public class PanelCharBase extends JPanel {
 	JPanel racePanel;
 	JLabel raceRemind;
 	private JLabel tabTitleL;
-	private static final int REMINDER_TOP_MARGIN = 10;
+	private static final int REMINDER_PANEL_MIN_HEIGHT = 40;
+	private static final int REMINDER_ROW_HEIGHT = 20;
 	private final JLabel[] reminderLabels = new JLabel[REMINDER_MAX_ROWS];
 	@SuppressWarnings("unchecked")
 	private final JComboBox<String>[] reminderCombos = new JComboBox[REMINDER_MAX_ROWS];
@@ -145,7 +146,7 @@ public class PanelCharBase extends JPanel {
 		racePanel = new JPanel();
 		racePanel.setLayout(null);
 		raceRemind = buildLabel("-", null);
-		raceRemind.setBounds(0,0,555,40);
+		raceRemind.setBounds(0,0,555,REMINDER_PANEL_MIN_HEIGHT);
 		racePanel.add(raceRemind);
 		raceRemind.setVisible(true);
 		initializeReminderRows();
@@ -193,7 +194,7 @@ public class PanelCharBase extends JPanel {
 		 * Place Reminder
 		 */
 		pageHeight += 5;
-		racePanel.setBounds(5,pageHeight,555,40);
+		racePanel.setBounds(5,pageHeight,555,REMINDER_PANEL_MIN_HEIGHT);
 		pageHeight += 45;
 		tabTitleL.setBounds(5, pageHeight, 555, 20);
 		pageHeight += 25;
@@ -260,13 +261,81 @@ public class PanelCharBase extends JPanel {
 		tempString += charName + " --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|" + colorString2 + " --#leftSub|";
 		tempString += checkName + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em  --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		tempString += " --=RawPercentRoll|1d21 + 9 * 5 --=PercentRoll|1d21 + 9 * 5 / 100 --=SkillCheck|[$PercentRoll] * " + fmt(mod) + " {FLOOR} --+| [$SkillCheck] = [$PercentRoll] x " + (int)mod;
-		if (att.compareTo("INIT") != 0) tempString += "}}";
-		else tempString += " --=InitTotal| [$SkillCheck] + @{tracker|" + charName + "} &{noerror} --+|Total: --+| [$InitTotal] = [$SkillCheck] +  @{tracker|" + charName + "} &{noerror} --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
+		tempString += buildPercentRollBlock("Check", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "CheckPercentRoll", "FinalRawPercentRoll", "PercentRoll");
+		tempString += " --=SkillCheck|[$PercentRoll] * " + fmt(mod) + " {FLOOR}";
+		if (att.compareTo("INIT") != 0) {
+			tempString += " --+|Percent Roll: [$FinalRawPercentRoll] x 5% = [$PercentRoll] [br]&nbsp;&nbsp; ";
+			tempString += checkName + ": [$SkillCheck] = [$PercentRoll] x " + fmt(mod) + "}}";
+		}
+		else {
+			tempString += " --=InitTotal|[$SkillCheck]";
+			tempString += " --+|Percent Roll: [$FinalRawPercentRoll] x 5% = [$PercentRoll]";
+			tempString += " --+|Initiative Check: [$SkillCheck] = [$PercentRoll] x " + fmt(mod);
+			tempString += " --+|Total Initiative: [$InitTotal]";
+			tempString += " --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
+		}
 		
 		StringSelection stringSelection = new StringSelection(tempString);
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection, null);
+	}
+
+	private String buildPercentRollBlock(String labelPrefix, String rawVar, String bonusVar, String countVar,
+			String rolledPercentVar, String finalRawVar, String percentVar) {
+		String block = "";
+		block += " --=" + rawVar + "|1d21 + 9";
+		block += " --=" + bonusVar + "|0";
+		block += " --=" + countVar + "|1";
+		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
+		block += buildPercentRollDisplayBlock(labelPrefix, "Initial", rawVar, countVar, rolledPercentVar, false);
+		block += " --%" + labelPrefix + "Explode|while;[$" + rawVar + ".Total] -eq 30 -or [$" + rawVar + ".Total] -eq 10";
+		block += buildPercentRollAdjustmentBlock(labelPrefix, rawVar, bonusVar);
+		block += " --=" + rawVar + "|1d21 + 9";
+		block += " --=" + countVar + "|[$" + countVar + "] + 1";
+		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
+		block += buildPercentRollDisplayBlock(labelPrefix, "Loop", rawVar, countVar, rolledPercentVar, true);
+		block += " --%|";
+		block += " --=" + finalRawVar + "|[$" + rawVar + "] + [$" + bonusVar + "]";
+		block += " --=" + percentVar + "|[$" + finalRawVar + "] * 5 / 100";
+		return block;
+	}
+
+	private String buildPercentRollAdjustmentBlock(String labelPrefix, String rawVar, String bonusVar) {
+		String baseLabel = labelPrefix + "PercentAdjust";
+		String block = "";
+		block += " --?[$" + rawVar + ".Total] -eq 30|>" + baseLabel + "Up|>" + baseLabel + "Down";
+		block += " --^" + baseLabel + "After|";
+		block += " --:" + baseLabel + "Up|";
+		block += " --=" + bonusVar + "|[$" + bonusVar + "] + 10";
+		block += " --<|";
+		block += " --:" + baseLabel + "Down|";
+		block += " --=" + bonusVar + "|[$" + bonusVar + "] - 10";
+		block += " --<|";
+		block += " --:" + baseLabel + "After|";
+		return block;
+	}
+
+	private String buildPercentRollDisplayBlock(String labelPrefix, String labelSuffix, String rawVar, String countVar, String rolledPercentVar, boolean showNormalRow) {
+		String baseLabel = labelPrefix + "PercentDisplay" + labelSuffix;
+		String block = "";
+		block += " --?[$" + rawVar + ".Total] -eq 30|>" + baseLabel + "Green|>" + baseLabel + "CheckRed";
+		block += " --^" + baseLabel + "After|";
+		block += " --:" + baseLabel + "CheckRed|";
+		block += " --?[$" + rawVar + ".Total] -eq 10|>" + baseLabel + "Red|>" + baseLabel + (showNormalRow ? "Normal" : "After");
+		block += " --^" + baseLabel + "After|";
+		block += " --:" + baseLabel + "Green|";
+		block += " --+|[#0a7a0a]" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; +0.5[/#]";
+		block += " --<|";
+		block += " --:" + baseLabel + "Red|";
+		block += " --+|[#aa2222]" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; -0.5[/#]";
+		block += " --<|";
+		if (showNormalRow) {
+			block += " --:" + baseLabel + "Normal|";
+			block += " --+|" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; [$" + rolledPercentVar + "]";
+			block += " --<|";
+		}
+		block += " --:" + baseLabel + "After|";
+		return block;
 	}
 
 	/** Returns derived stat value or 0 if key is null/unknown. */
@@ -515,12 +584,13 @@ public class PanelCharBase extends JPanel {
 		String reminder = (character != null) ? character.getPanelReminder() : null;
 		resetReminderRows();
 		if (reminder == null || reminder.isBlank()) {
-			raceRemind.setText("This is where your reminder will go.");
-			raceRemind.setBounds(0, REMINDER_TOP_MARGIN, 555, 40);
-			raceRemind.setVisible(true);
+			raceRemind.setText("");
+			raceRemind.setVisible(false);
 		} else {
 			String normalized = reminder.replace("\r\n", "\n").replace("\r", "\n");
 			String[] lines = normalized.split("\n");
+			int displayRowCount = countReminderRows(lines);
+			int reminderTop = getReminderTop(displayRowCount);
 			int row = 0;
 			for (String rawLine : lines) {
 				if (rawLine == null) continue;
@@ -551,7 +621,8 @@ public class PanelCharBase extends JPanel {
 						JLabel lineLabel = reminderLabels[row];
 						lineLabel.setText(entryText);
 						lineLabel.setHorizontalAlignment(JTextField.RIGHT);
-						lineLabel.setBounds(5, REMINDER_TOP_MARGIN + (row * 20), 255, 20);
+						lineLabel.setVerticalAlignment(JLabel.CENTER);
+						lineLabel.setBounds(5, reminderTop + (row * REMINDER_ROW_HEIGHT), 255, REMINDER_ROW_HEIGHT);
 						lineLabel.setVisible(true);
 
 						JComboBox<String> drop = reminderCombos[row];
@@ -559,7 +630,7 @@ public class PanelCharBase extends JPanel {
 						for (String option : options) {
 							drop.addItem(option);
 						}
-						drop.setBounds(275, REMINDER_TOP_MARGIN + (row * 20), 142, 20);
+						drop.setBounds(275, reminderTop + (row * REMINDER_ROW_HEIGHT), 142, REMINDER_ROW_HEIGHT);
 						boolean isFelshify = entryText.toLowerCase().contains("felshify");
 						if (isFelshify) {
 							drop.setSelectedItem("Cat");
@@ -593,7 +664,8 @@ public class PanelCharBase extends JPanel {
 				JLabel lineLabel = reminderLabels[row];
 				lineLabel.setText(line);
 				lineLabel.setHorizontalAlignment(JTextField.CENTER);
-				lineLabel.setBounds(0, REMINDER_TOP_MARGIN + (row * 20), 555, 20);
+				lineLabel.setVerticalAlignment(JLabel.CENTER);
+				lineLabel.setBounds(0, reminderTop + (row * REMINDER_ROW_HEIGHT), 555, REMINDER_ROW_HEIGHT);
 				lineLabel.setVisible(true);
 				row++;
 			}
@@ -605,6 +677,26 @@ public class PanelCharBase extends JPanel {
 	}  /*--------------
 		END UPDATEREMINDER
 		--------------*/
+
+	private int countReminderRows(String[] lines) {
+		if (lines == null) return 0;
+		int count = 0;
+		for (String rawLine : lines) {
+			if (rawLine == null) continue;
+			String line = rawLine.trim();
+			if (line.isBlank()) continue;
+			count++;
+			if (count >= REMINDER_MAX_ROWS) {
+				return REMINDER_MAX_ROWS;
+			}
+		}
+		return count;
+	}
+
+	private int getReminderTop(int rowCount) {
+		int visibleRows = Math.max(1, Math.min(REMINDER_MAX_ROWS, rowCount));
+		return Math.max(0, (REMINDER_PANEL_MIN_HEIGHT - (visibleRows * REMINDER_ROW_HEIGHT)) / 2);
+	}
 
 	private boolean applyFelshifySize(String selection) {
 		if (character == null || character.getIdentity() == null) return false;

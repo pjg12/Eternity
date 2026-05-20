@@ -14,6 +14,7 @@ C:\Eternity\Eternity\src\main\java\eternity\DataItemConsume.java
 C:\Eternity\Eternity\src\main\java\eternity\DataItemEquipment.java
 C:\Eternity\Eternity\src\main\java\eternity\DataItemGoods.java
 C:\Eternity\Eternity\src\main\java\eternity\DataItemMisc.java
+C:\Eternity\Eternity\src\main\java\eternity\DataItemWeapon.java
 C:\Eternity\Eternity\src\main\java\eternity\DataLevel.java
 C:\Eternity\Eternity\src\main\java\eternity\DataList.java
 C:\Eternity\Eternity\src\main\java\eternity\DataRace.java
@@ -48,8 +49,10 @@ C:\Eternity\Eternity\src\main\java\eternity\FrameRest.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSheet.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSkill.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameSpecial.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameStatus.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTraining.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTrainingExisting.java
+C:\Eternity\Eternity\src\main\java\eternity\FrameTrainingExp.java
 C:\Eternity\Eternity\src\main\java\eternity\FrameTrainingNew.java
 C:\Eternity\Eternity\src\main\java\eternity\PanelChar.java
 C:\Eternity\Eternity\src\main\java\eternity\PanelCharBase.java

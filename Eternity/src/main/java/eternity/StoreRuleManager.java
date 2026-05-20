@@ -184,6 +184,23 @@ public class StoreRuleManager {
         return QUERY_INDEX.itemsByName.get(normalizeKey(name));
     }
 
+    public DataItemWeapon getWeaponByDid(int did) {
+        return QUERY_INDEX.weaponsByDid.get(did);
+    }
+
+    public List<DataItemWeapon> getItemWeaponData() {
+        return RULE_DATA.getItemWeaponData();
+    }
+
+    public List<DataItemWeapon> searchWeapons(String namePart) {
+        return searchByEntries(QUERY_INDEX.weaponNameSearch, normalizeKey(namePart), QUERY_INDEX.weaponSearchCache);
+    }
+
+    public DataItemWeapon getWeaponByName(String name) {
+        if (name == null) return null;
+        return QUERY_INDEX.weaponsByName.get(normalizeKey(name));
+    }
+
     // ---------------------------------------------------------
     // TRAINING SEARCH
     // ---------------------------------------------------------
@@ -268,6 +285,9 @@ public class StoreRuleManager {
         private final Map<Integer, DataItemEquipment> itemsByDid;
         private final Map<String, DataItemEquipment> itemsByName;
         private final List<SearchEntry<DataItemEquipment>> itemNameSearch;
+        private final Map<Integer, DataItemWeapon> weaponsByDid;
+        private final Map<String, DataItemWeapon> weaponsByName;
+        private final List<SearchEntry<DataItemWeapon>> weaponNameSearch;
         private final Map<Integer, DataTraining> trainingById;
         private final List<SearchEntry<DataTraining>> trainingNameSearch;
         private final Map<Integer, DataAction> actionsById;
@@ -282,6 +302,7 @@ public class StoreRuleManager {
         private final Map<String, List<DataSkill>> skillSearchCache;
         private final Map<String, List<DataSpecialty>> specialtySearchCache;
         private final Map<String, List<DataItemEquipment>> itemSearchCache;
+        private final Map<String, List<DataItemWeapon>> weaponSearchCache;
         private final Map<String, List<DataTraining>> trainingSearchCache;
         private final Map<String, List<DataAction>> actionSearchCache;
 
@@ -295,6 +316,7 @@ public class StoreRuleManager {
             List<DataSpecialty> specialtyData = store.getSpecialtyData();
             List<DataTechPerm> techPermData = store.getTechPermData();
             List<DataItemEquipment> itemEquipmentData = store.getItemEquipmentData();
+            List<DataItemWeapon> itemWeaponData = store.getItemWeaponData();
             List<DataTraining> trainingData = store.getTrainingData();
             List<DataAction> actionData = store.getActionData();
 
@@ -428,6 +450,29 @@ public class StoreRuleManager {
                         : (normalizedInternalName == null ? normalizedDisplayName : normalizedDisplayName + "\n" + normalizedInternalName);
                 if (combinedSearch != null) {
                     itemNameSearch.add(new SearchEntry<>(combinedSearch, item));
+                }
+            }
+
+            weaponsByDid = new HashMap<>(Math.max(16, itemWeaponData.size() * 2));
+            weaponsByName = new HashMap<>(Math.max(16, itemWeaponData.size() * 3));
+            weaponNameSearch = new ArrayList<>(itemWeaponData.size());
+            weaponSearchCache = new ConcurrentHashMap<>();
+            for (DataItemWeapon weapon : itemWeaponData) {
+                if (weapon == null) continue;
+                weaponsByDid.putIfAbsent(weapon.getDid(), weapon);
+                String normalizedDisplayName = normalizeKey(weapon.getDname());
+                String normalizedInternalName = normalizeKey(weapon.getIname());
+                if (weapon.getIname() != null) {
+                    weaponsByName.putIfAbsent(normalizedInternalName, weapon);
+                }
+                if (weapon.getDname() != null) {
+                    weaponsByName.putIfAbsent(normalizedDisplayName, weapon);
+                }
+                String combinedSearch = normalizedDisplayName == null
+                        ? normalizedInternalName
+                        : (normalizedInternalName == null ? normalizedDisplayName : normalizedDisplayName + "\n" + normalizedInternalName);
+                if (combinedSearch != null) {
+                    weaponNameSearch.add(new SearchEntry<>(combinedSearch, weapon));
                 }
             }
 

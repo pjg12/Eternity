@@ -553,7 +553,7 @@
   "name" : "Waveborne (Aquios)",
   "refName" : "",
   "category" : "Racial",
-  "description" : "Aquata can survive under water indefinitely. Aquata move twice their move speed when swimming.",
+  "description" : "<html><center>Aquata can survive under water indefinitely.<br>Aquata move twice their move speed when swimming.</center></html>",
   "type" : "reminder",
   "prereq" : -1,
   "pick" : false,

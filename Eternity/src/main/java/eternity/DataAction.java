@@ -250,12 +250,7 @@ public class DataAction {
 
 		for (ModifierKey entry : modifierKey) {
 			if (entry == null) continue;
-			String operator = entry.getOperator();
-			if (operator != null && operator.toUpperCase().contains("AL")) {
-				applyModifierKeyWithAl(entry);
-			} else {
-				applyModifierKey(entry);
-			}
+			applyModifierKey(entry);
 		}
 
 		applyRacialCombatManeuverBonuses();
@@ -284,31 +279,17 @@ public class DataAction {
 		return raceTraining == null ? 0 : Math.max(0, raceTraining.getRank());
 	}
 
-	private void applyModifierKeyWithAl(ModifierKey entry) {
-		if (entry == null) return;
-		entry.setModifier(entry.getModifier() * al);
-		applyModifierKey(entry);
-	}
-
 	private void applyModifierKey(ModifierKey entry) {
 		if (entry == null) return;
-		String operator = entry.getOperator().replaceFirst("AL", "").trim();
-		if (operator != null && operator.toUpperCase().matches(".*[a-z].*")) { 
-			applyModifierKeyWithOther(operator, entry);
-		} else {
-		applyModifierToField(entry.getAttribute(), entry.getOperator(), entry.getModifier());
-		}
+		applyModifierToField(entry.getAttribute(), entry.getOperator());
 	}
 
-	private void applyModifierKeyWithOther(String operator, ModifierKey entry) {
-		
-	}
-
-	private void applyModifierToField(String attribute, String operator, double operand) {
+	private void applyModifierToField(String attribute, String operatorExpression) {
 		if (attribute == null || attribute.isBlank()) return;
 		String normalizedAttribute = attribute.trim().toUpperCase();
-		String normalizedOperator = operator == null ? "+" : operator.trim().toUpperCase();
+		String normalizedOperator = operatorExpression == null ? "+" : operatorExpression.trim().toUpperCase();
 		char mathOperator = resolveMathOperator(normalizedOperator);
+		double operand = resolveOperand(normalizedOperator, mathOperator);
 
 		switch (normalizedAttribute) {
 			case "ATK" -> atk = applyIntOperator(atk, mathOperator, operand);
@@ -325,11 +306,96 @@ public class DataAction {
 
 	private char resolveMathOperator(String operator) {
 		if (operator == null || operator.isBlank()) return '+';
-		if (operator.indexOf('=') >= 0) return '=';
-		if (operator.indexOf('*') >= 0) return '*';
-		if (operator.indexOf('/') >= 0) return '/';
-		if (operator.indexOf('-') >= 0) return '-';
-		return '+';
+		String normalized = operator.trim();
+		char first = normalized.charAt(0);
+		return switch (first) {
+			case '=', '*', '/', '-', '+' -> first;
+			default -> '+';
+		};
+	}
+
+	private double resolveOperand(String operatorExpression, char mathOperator) {
+		if (operatorExpression == null || operatorExpression.isBlank()) {
+			return defaultOperand(mathOperator);
+		}
+
+		String normalized = operatorExpression.trim();
+		String operandExpression = stripLeadingOperator(normalized, mathOperator);
+		if (operandExpression.isBlank()) {
+			return defaultOperand(mathOperator);
+		}
+		try {
+			return evaluateModifierExpression(operandExpression);
+		} catch (IllegalArgumentException ignored) {
+			return defaultOperand(mathOperator);
+		}
+	}
+
+	private String stripLeadingOperator(String operatorExpression, char mathOperator) {
+		if (operatorExpression == null) return "";
+		String trimmed = operatorExpression.trim();
+		if (!trimmed.isEmpty() && trimmed.charAt(0) == mathOperator
+				&& (mathOperator == '+' || mathOperator == '-' || mathOperator == '*'
+				|| mathOperator == '/' || mathOperator == '=')) {
+			return trimmed.substring(1).trim();
+		}
+		return trimmed;
+	}
+
+	private double evaluateModifierExpression(String expression) {
+		return new ModifierExpressionParser(expression).parse();
+	}
+
+	private double resolveExpressionIdentifier(String token) {
+		if (token == null || token.isBlank()) return 0.0;
+		String normalized = token.trim().toUpperCase();
+		return switch (normalized) {
+			case "AL" -> al;
+			case "ATK" -> atk;
+			case "BDMG" -> bdmg;
+			case "TDMG" -> tdmg;
+			case "DMGMULTI" -> dmgMulti;
+			case "RANGED", "RANGE" -> ranged;
+			case "APP" -> character != null && character.getAttributes() != null
+					? character.getAttributes().calcStatusValue("APP")
+					: 0.0;
+			default -> resolveCharacterStatValue(normalized);
+		};
+	}
+
+	private double resolveCharacterStatValue(String key) {
+		if (character == null) return 0.0;
+		if (character.getAttributes() != null && isKnownAttributeKey(key)) {
+			return character.getAttributes().calcStatusValue(key);
+		}
+		double resourceValue = character.calcResourceValue(key);
+		return resourceValue >= 0.0 ? resourceValue : 0.0;
+	}
+
+	private boolean isKnownAttributeKey(String key) {
+		return containsIgnoreCase(CharAttributes.getAttributeKeys(), key)
+				|| containsIgnoreCase(CharAttributes.getDefenseKeys(), key)
+				|| containsIgnoreCase(CharAttributes.getDamageTypeKeys(), key)
+				|| containsIgnoreCase(CharAttributes.getCombatKeys(), key)
+				|| containsIgnoreCase(CharAttributes.getSecondaryKeys(), key)
+				|| containsIgnoreCase(CharAttributes.getDamageKeys(), key);
+	}
+
+	private boolean containsIgnoreCase(String[] values, String target) {
+		if (values == null || target == null) return false;
+		for (String value : values) {
+			if (value != null && value.equalsIgnoreCase(target)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private double defaultOperand(char mathOperator) {
+		return switch (mathOperator) {
+			case '*', '/' -> 1.0;
+			default -> 0.0;
+		};
 	}
 
 	private int applyIntOperator(int currentValue, char operator, double operand) {
@@ -345,6 +411,115 @@ public class DataAction {
 			case '/' -> operand == 0.0 ? currentValue : currentValue / operand;
 			default -> currentValue + operand;
 		};
+	}
+
+	private final class ModifierExpressionParser {
+		private final String expression;
+		private int index = 0;
+
+		private ModifierExpressionParser(String expression) {
+			this.expression = expression == null ? "" : expression;
+		}
+
+		private double parse() {
+			double value = parseExpression();
+			skipWhitespace();
+			if (index < expression.length()) {
+				throw new IllegalArgumentException("Unexpected token in modifier expression");
+			}
+			return value;
+		}
+
+		private double parseExpression() {
+			double value = parseTerm();
+			while (true) {
+				skipWhitespace();
+				if (match('+')) {
+					value += parseTerm();
+				} else if (match('-')) {
+					value -= parseTerm();
+				} else {
+					return value;
+				}
+			}
+		}
+
+		private double parseTerm() {
+			double value = parseFactor();
+			while (true) {
+				skipWhitespace();
+				if (match('*')) {
+					value *= parseFactor();
+				} else if (match('/')) {
+					double divisor = parseFactor();
+					if (divisor != 0.0) {
+						value /= divisor;
+					}
+				} else {
+					return value;
+				}
+			}
+		}
+
+		private double parseFactor() {
+			skipWhitespace();
+			if (match('+')) return parseFactor();
+			if (match('-')) return -parseFactor();
+			if (match('(')) {
+				double value = parseExpression();
+				if (!match(')')) {
+					throw new IllegalArgumentException("Unclosed modifier expression group");
+				}
+				return value;
+			}
+			if (index >= expression.length()) {
+				throw new IllegalArgumentException("Unexpected end of modifier expression");
+			}
+			char current = expression.charAt(index);
+			if (Character.isDigit(current) || current == '.') {
+				return parseNumber();
+			}
+			if (Character.isLetter(current)) {
+				return parseIdentifier();
+			}
+			throw new IllegalArgumentException("Unsupported modifier expression token");
+		}
+
+		private double parseNumber() {
+			int start = index;
+			while (index < expression.length()) {
+				char current = expression.charAt(index);
+				if (!Character.isDigit(current) && current != '.') break;
+				index++;
+			}
+			return Double.parseDouble(expression.substring(start, index));
+		}
+
+		private double parseIdentifier() {
+			int start = index;
+			while (index < expression.length()) {
+				char current = expression.charAt(index);
+				if (!Character.isLetterOrDigit(current) && current != '_') break;
+				index++;
+			}
+			String identifier = expression.substring(start, index);
+			return resolveExpressionIdentifier(identifier);
+		}
+
+		private boolean match(char expected) {
+			skipWhitespace();
+			if (index < expression.length() && expression.charAt(index) == expected) {
+				index++;
+				return true;
+			}
+			return false;
+		}
+
+		private void skipWhitespace() {
+			while (index < expression.length() && Character.isWhitespace(expression.charAt(index))) {
+				index++;
+			}
+		}
 	}
 
 	public static class CostPair {
@@ -385,22 +560,19 @@ public class DataAction {
 	public static class ModifierKey {
 		private String attribute;
 		private String operator;
-		private double modifier;
 
 		public ModifierKey() {
-			this("", "+", 0.0);
+			this("", "+");
 		}
 
-		public ModifierKey(String attribute, String operator, double modifier) {
+		public ModifierKey(String attribute, String operator) {
 			this.attribute = attribute;
 			this.operator = operator;
-			this.modifier = modifier;
 		}
 
 		public ModifierKey(ModifierKey other) {
 			this.attribute = other == null ? null : other.attribute;
 			this.operator = other == null ? "+" : other.operator;
-			this.modifier = other == null ? 0.0 : other.modifier;
 		}
 
 		public String getAttribute() {
@@ -418,17 +590,8 @@ public class DataAction {
 		public void setOperator(String operator) {
 			this.operator = operator;
 		}
-
-		public double getModifier() {
-			return modifier;
-		}
-
-		public void setModifier(double modifier) {
-			this.modifier = modifier;
-		}
 	}
 	
 	
 	
 }
-

@@ -25,7 +25,6 @@ public class StoreCharData {
     private static final String EQUIP_PASSIVE_PREFIX = "Equip Passive: ";
     private static final String SPECIALTY_PASSIVE_PREFIX = "Specialty Passive: ";
     private static final String TRAINING_STATUS_PREFIX = "Training Passive: ";
-    private static final boolean ENABLE_SPECIALTY_CHECKS = false;
     private static final String[] STATUS_CATEGORY_ORDER = { "attribute", "defense", "resist", "combat", "secondary", "damage" };
 
     // ---------------------------------------------------------
@@ -62,6 +61,13 @@ public class StoreCharData {
         this.panelReminder = "";
         this.cachedClassSpecialtyKey = "";
         this.cachedClassSpecialtyTemplates = List.of();
+        this.identity.setOwner(this);
+        this.attributes.setOwner(this);
+        this.resources.setOwner(this);
+        this.specials.setOwner(this);
+        this.inventory.setOwner(this);
+        this.training.setParent(this);
+        this.combat.setOwner(this);
     }
 
     // ---------------------------------------------------------
@@ -73,6 +79,14 @@ public class StoreCharData {
      * Call whenever anything changes (level, gear, buffs, etc.)
      */
     public void updateAll() {
+        this.identity.setOwner(this);
+        this.attributes.setOwner(this);
+        this.resources.setOwner(this);
+        this.specials.setOwner(this);
+        this.inventory.setOwner(this);
+        this.training.setParent(this);
+        this.combat.setOwner(this);
+
         try {
             if (training != null) {
                 training.sortTrainingById();
@@ -86,18 +100,11 @@ public class StoreCharData {
         refreshTrainingDerivedBonuses();
         applyEquipmentPassiveBonuses();
         refreshSpecialtyPassiveBonuses();
-
-        this.identity.setOwner(this);
-        this.attributes.setOwner(this);
-        this.resources.setOwner(this);
-        this.specials.setOwner(this);
-        this.inventory.setOwner(this);
-        this.training.setParent(this);
-        this.combat.setOwner(this);
-        this.combat.rebuildActions(this);
-        if (ENABLE_SPECIALTY_CHECKS) {
-            logSpecialtyNames();
+        if (attributes != null) {
+            attributes.refreshLinkedAttributeStatuses();
         }
+        this.combat.rebuildActions(this);
+        logSpecialtyNames();
     }
 
     public void syncLevelBaseResources(StoreRuleManager dq) {
@@ -160,6 +167,7 @@ public class StoreCharData {
         setBasePassiveSeverity(attributes.getBCombat(), "BRANGE", rangeSeverity, "Class-based Range base");
         removePassiveStatusByName(attributes.getBCombat(), "BRANGE", "ClassLevelRange");
         upsertLevelScalerStatus(attributes.getBDamage(), "BBDMG", "LevelBaseDamage", baseDamageSeverity, "Level-based base damage");
+        upsertLevelScalerStatus(attributes.getBDamage(), "BBHEAL", "LevelBaseDamage", baseDamageSeverity, "Level-based base healing");
     }
 
     public void refreshIdentityDerivedState() {
@@ -213,8 +221,7 @@ public class StoreCharData {
             effectiveClass = baseClass;
         }
 
-        int classRank = training != null ? training.getClassTrainingRank() : level;
-        specials.setClassSpecialties(buildResolvedClassSpecialties(dq, effectiveClass, classRank));
+        specials.setClassSpecialties(buildResolvedClassSpecialties(dq, effectiveClass, level));
 
         applyClassResourceScaling(effectiveClass);
         applyClassLevelScalers(baseClass, currentLevelData);
@@ -693,9 +700,33 @@ public class StoreCharData {
     /** Clears previously applied equipment passive statuses so updateAll can re-apply from current equip state. */
     private void clearEquipmentPassiveBonuses() {
         if (attributes != null) {
-
+            clearStatusPrefix(attributes.getBAttributes(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMAttributes(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getBDefense(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMDefense(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getBResist(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMResist(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getBCombat(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMCombat(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getBSecondary(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMSecondary(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getBDamage(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(attributes.getMDamage(), EQUIP_PASSIVE_PREFIX);
         }
-
+        if (resources != null) {
+            clearStatusPrefix(resources.getBaseHP(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiHP(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getBaseAura(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiAura(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getBaseResource1(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiResource1(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getBaseResource2(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiResource2(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getBaseResource3(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiResource3(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getBaseReactions(), EQUIP_PASSIVE_PREFIX);
+            clearStatusPrefix(resources.getMultiReactions(), EQUIP_PASSIVE_PREFIX);
+        }
     }
 
     private void clearPrefixedStatuses(StatBlock[] blocks, String prefix) {
@@ -838,12 +869,12 @@ public class StoreCharData {
         if (attributes == null || category == null || key == null || statusName == null) return;
         DataStatus ds = new DataStatus();
         ds.setName(statusName);
-        ds.setAttribute(key);
-        ds.setDurationType("Permanent");
+        ds.setAttribute("B" + key.toUpperCase());
+        ds.setDurationType("Passive");
         ds.setSeverity(severity);
         ds.setAffinity("None");
         ds.setDescription("Equipment passive bonus");
-
+        attributes.addStatus(ds);
     }
 
     private void addPermanentAttributeStatus(String category, String key, String statusName, double severity, String description) {

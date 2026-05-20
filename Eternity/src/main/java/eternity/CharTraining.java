@@ -35,9 +35,17 @@ public class CharTraining {
     @JsonProperty
     private boolean isDeviant;
 
-    /** Rank used for class-based training progression (may differ from character level). */
+    /** Legacy field retained for save compatibility; class progression now follows character level directly. */
     @JsonProperty
     private int classTrainingRank = 1;
+
+    /** Unspent or tracked aggregate training XP for the character. */
+    @JsonProperty
+    private double trainingXp;
+
+    /** Per-aura-type training XP totals, aligned to the tracked aura type list. */
+    @JsonProperty
+    private final List<Double> trainingXpByAuraType;
 
     /**
      * Training techniques organized by category.
@@ -84,6 +92,9 @@ public class CharTraining {
 
         this.isDeviant = false;
         this.classTrainingRank = 1;
+        this.trainingXp = 0.0;
+        this.trainingXpByAuraType = new ArrayList<>();
+        initializeTrainingXpByAuraType();
     }
 
 
@@ -156,23 +167,58 @@ public class CharTraining {
     // ---------------------------------------------------------
 
     /**
-     * Returns the current class training rank. Falls back to the parent's level if unset.
+     * Class progression now follows character level directly.
+     * The legacy Class Training technique is ignored.
      */
     public int getClassTrainingRank() {
-        ensureTrainingState();
-        DataTraining classTech = getTrainingById(23); // Class Training
-        if (classTech != null && classTech.getRank() > 0) {
-            classTrainingRank = classTech.getRank();
-            return classTrainingRank;
-        }
-        if (classTrainingRank <= 0 && parent != null) {
-            classTrainingRank = Math.max(1, parent.getLevel());
+        if (parent != null) {
+            return Math.max(1, parent.getLevel());
         }
         return Math.max(1, classTrainingRank);
     }
 
     public void setClassTrainingRank(int classTrainingRank) {
         this.classTrainingRank = Math.max(1, classTrainingRank);
+    }
+
+    public double getTrainingXp() {
+        return trainingXp;
+    }
+
+    public void setTrainingXp(double trainingXp) {
+        this.trainingXp = Math.max(0.0, trainingXp);
+    }
+
+    public List<Double> getTrainingXpByAuraType() {
+        ensureTrainingXpByAuraTypeSize();
+        return Collections.unmodifiableList(trainingXpByAuraType);
+    }
+
+    public void setTrainingXpByAuraType(List<Double> values) {
+        trainingXpByAuraType.clear();
+        if (values != null) {
+            if (values.size() == 19) {
+                migrateLegacyAuraTypeXp(values);
+            } else {
+                for (Double value : values) {
+                    trainingXpByAuraType.add(value == null ? 0.0 : Math.max(0.0, value));
+                }
+            }
+        }
+        ensureTrainingXpByAuraTypeSize();
+    }
+
+    public double getTrainingXpByAuraType(int index) {
+        ensureTrainingXpByAuraTypeSize();
+        if (index < 0 || index >= trainingXpByAuraType.size()) return 0.0;
+        Double value = trainingXpByAuraType.get(index);
+        return value == null ? 0.0 : value;
+    }
+
+    public void setTrainingXpByAuraType(int index, double value) {
+        ensureTrainingXpByAuraTypeSize();
+        if (index < 0 || index >= trainingXpByAuraType.size()) return;
+        trainingXpByAuraType.set(index, Math.max(0.0, value));
     }
 
 
@@ -207,6 +253,34 @@ public class CharTraining {
         return created;
     }
 
+    private void initializeTrainingXpByAuraType() {
+        for (int i = 0; i < getTrackedAuraTypeCount(); i++) {
+            trainingXpByAuraType.add(0.0);
+        }
+    }
+
+    private void ensureTrainingXpByAuraTypeSize() {
+        while (trainingXpByAuraType.size() < getTrackedAuraTypeCount()) {
+            trainingXpByAuraType.add(0.0);
+        }
+        while (trainingXpByAuraType.size() > getTrackedAuraTypeCount()) {
+            trainingXpByAuraType.remove(trainingXpByAuraType.size() - 1);
+        }
+    }
+
+    private int getTrackedAuraTypeCount() {
+        return Math.max(0, FrameTrainingExp.AURA_TYPES.length - 1);
+    }
+
+    private void migrateLegacyAuraTypeXp(List<Double> legacyValues) {
+        for (int i = 0; i < 6; i++) {
+            trainingXpByAuraType.add(0.0);
+        }
+        for (Double value : legacyValues) {
+            trainingXpByAuraType.add(value == null ? 0.0 : Math.max(0.0, value));
+        }
+    }
+
     @JsonIgnore
     public Set<String> getTrainingCategories() {
         ensureTrainingState();
@@ -231,6 +305,7 @@ public class CharTraining {
     public void addTraining(DataTraining tech) {
         ensureTrainingState();
         if (tech != null) {
+            if (isDeprecatedTraining(tech)) return;
             String category = normalizeCategory(tech.getAffinity());
             List<DataTraining> list = getOrCreateCategory(category);
             Set<Integer> categoryIds = trainingIdsByCategory.computeIfAbsent(category, ignored -> new HashSet<>());
@@ -368,6 +443,7 @@ public class CharTraining {
 
             for (DataTraining tech : sourceList) {
                 if (tech == null) continue;
+                if (isDeprecatedTraining(tech)) continue;
                 if (categoryIds.add(tech.getId())) {
                     normalizedList.add(tech);
                 }
@@ -395,6 +471,13 @@ public class CharTraining {
         }
 
         allTrainingDirty = true;
+    }
+
+    private boolean isDeprecatedTraining(DataTraining tech) {
+        if (tech == null) return false;
+        if (tech.getId() == 23) return true;
+        String name = tech.getName();
+        return name != null && name.equalsIgnoreCase("Class Training");
     }
 
     private void ensureCategorySorted(String category, List<DataTraining> list) {
@@ -462,4 +545,3 @@ public class CharTraining {
     public StoreCharData getParent() { return parent; }
     public void setParent(StoreCharData parent) { this.parent = parent; }
 }
-

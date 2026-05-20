@@ -877,14 +877,16 @@ public class PanelCharMain extends PanelCharBase {
 
 		// Defense values
 		double def = getDerivedStatusValue(attrs, "DEF");
-		double armor = getDerivedStatusValue(attrs, "ARMOR") + def;
-		double dodge = getDerivedStatusValue(attrs, "DODGE") + def;
+		double armorBonus = getDerivedStatusValue(attrs, "ARMOR");
+		double dodgeBonus = getDerivedStatusValue(attrs, "DODGE");
+		double armor = armorBonus + def;
+		double dodge = dodgeBonus + def;
 		double fort = getDerivedStatusValue(attrs, "FORT");
 		double ref = getDerivedStatusValue(attrs, "REF");
 		double will = getDerivedStatusValue(attrs, "WILL");
 		double resistAll = getDerivedStatusValue(attrs, "ALL");
 		double avoid = getDerivedStatusValue(attrs, "AVOID");
-		double ac = armor + dodge - def;
+		double ac = def + armorBonus + dodgeBonus;
 
 		charAC.setValue(round1(ac));
 		charArmor.setValue(round1(armor));
@@ -894,8 +896,12 @@ public class PanelCharMain extends PanelCharBase {
 		charWill.setValue(round1(will));
 		charResist.setValue(round1(resistAll));
 
-		acStatL.setToolTipText(html("AC: " + fmt1(ac), "Defense: " + fmt1(def), "Armor: " + fmt1(armor), "Avoid: " + fmt1(dodge)));
+		acStatL.setToolTipText(html("AC: " + fmt1(ac), "DEF: " + fmt1(def), "Armor: " + fmt1(armorBonus), "Dodge: " + fmt1(dodgeBonus)));
 		charAC.setToolTipText(acStatL.getToolTipText());
+		armorStatL.setToolTipText(html("Armor: " + fmt1(armor), "DEF: " + fmt1(def), "Armor Bonus: " + fmt1(armorBonus)));
+		charArmor.setToolTipText(armorStatL.getToolTipText());
+		dodgeStatL.setToolTipText(html("Dodge: " + fmt1(dodge), "DEF: " + fmt1(def), "Dodge Bonus: " + fmt1(dodgeBonus)));
+		charDodge.setToolTipText(dodgeStatL.getToolTipText());
 		fortStatL.setToolTipText(buildStatTooltip("Fortitude", fort, "FORT"));
 		charFort.setToolTipText(fortStatL.getToolTipText());
 		refStatL.setToolTipText(buildStatTooltip("Reflex", ref, "REF"));
@@ -905,8 +911,6 @@ public class PanelCharMain extends PanelCharBase {
 		resistStatL.setToolTipText(buildStatTooltip("Resist All", resistAll, "ALL"));
 		charResist.setToolTipText(resistStatL.getToolTipText());
 		resistRoll.setToolTipText(getCachedResistTooltip(attrs));
-		dodgeStatL.setToolTipText(buildStatTooltip("Avoid", avoid, "AVOID"));
-		charDodge.setToolTipText(dodgeStatL.getToolTipText());
 
 		double atk = getDerivedStatusValue(attrs, "ATK");
 		double dc = getDerivedStatusValue(attrs, "APP");

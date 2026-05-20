@@ -253,12 +253,14 @@ public class FrameNewClass extends JFrame {
     }
 
     private void onNextPressed() {
-        if (pickerFrame == null || !pickerFrame.isDisplayable()) {
-            pickerFrame = new FrameNewClassPicker(ruleManager, character, selectedClass, this, gmMode);
+        if (selectedClass == null) {
+            return;
         }
-        if (pickerFrame.isDisplayable()) {
-            pickerFrame.setVisible(true);
+        if (pickerFrame != null) {
+            pickerFrame.dispose();
         }
+        pickerFrame = new FrameNewClassPicker(ruleManager, character, selectedClass, this, gmMode);
+        pickerFrame.setVisible(true);
     }
 
     // Called by FrameNewClassPicker

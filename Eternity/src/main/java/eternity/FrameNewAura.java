@@ -197,9 +197,9 @@ public class FrameNewAura extends JFrame {
                 String weaponName = (String) wp.getSelectedItem();
                 if (weaponName == null || EMPTY_OPTION.equals(weaponName)) continue;
                 selectedWeapons.add(weaponName);
-                DataItemEquipment item = dataQuery.getItemByName(weaponName);
+                DataItemWeapon item = dataQuery.getWeaponByName(weaponName);
                 if (item != null) {
-                    character.getInventory().addEquipment(new DataItemEquipment(item));
+                    character.getInventory().addWeapon(new DataItemWeapon(item));
                 }
             }
             parent.setStarterWeaponSelections(selectedWeapons);
@@ -321,8 +321,8 @@ public class FrameNewAura extends JFrame {
 
         Set<String> names = new LinkedHashSet<>();
 
-        List<DataItemEquipment> all = dataQuery.getItemEquipmentData();
-        for (DataItemEquipment item : all) {
+        List<DataItemWeapon> all = dataQuery.getItemWeaponData();
+        for (DataItemWeapon item : all) {
             if (item == null || item.getTier() != 0) continue;
             String category = item.getCategory() == null ? "" : item.getCategory();
             if (!category.equalsIgnoreCase("Melee") &&
@@ -347,7 +347,7 @@ public class FrameNewAura extends JFrame {
         return out;
     }
 
-    private boolean matchesProficiency(DataItemEquipment item, String prof) {
+    private boolean matchesProficiency(DataItemWeapon item, String prof) {
         if (item == null || prof == null) return false;
         String p = prof.trim();
         if (p.isBlank()) return false;

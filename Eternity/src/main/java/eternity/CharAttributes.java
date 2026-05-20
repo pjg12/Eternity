@@ -58,7 +58,7 @@ public class CharAttributes {
         // set base move
         this.bCombat[2][0].get(0).setSeverity(25);
         // set base init
-        this.bCombat[5][0].get(0).setSeverity(10);
+        this.bCombat[5][0].get(0).setSeverity(20);
         // set base maxatk
         this.bCombat[7][0].get(0).setSeverity(1);
     }
@@ -118,8 +118,12 @@ public class CharAttributes {
     }
 
     @JsonIgnore public double calcStatusValue(String key) {
-        ArrayList<DataStatus>[] base = findStatusBlock(findStatusCategory(findCatByAttribute("B" + key)), key);
-        ArrayList<DataStatus>[] multi = findStatusBlock(findStatusCategory(findCatByAttribute("M" + key)), key);
+        if (key == null || key.isBlank()) return 0.0;
+        String normalized = key.toUpperCase();
+        String baseKey = "B" + normalized;
+        String multiKey = "M" + normalized;
+        ArrayList<DataStatus>[] base = findStatusBlock(findStatusCategory(findCatByAttribute(baseKey)), baseKey);
+        ArrayList<DataStatus>[] multi = findStatusBlock(findStatusCategory(findCatByAttribute(multiKey)), multiKey);
         if (base == null || multi == null) return 0.0;
         return calcMaxValue(base, multi);
     }
@@ -155,6 +159,12 @@ public class CharAttributes {
 
     @JsonIgnore public StoreCharData getOwner() { return owner; }
     @JsonIgnore public void setOwner(StoreCharData owner) { this.owner = owner; }
+
+    public void refreshLinkedAttributeStatuses() {
+        for (String attribute : ATTRIBUTES) {
+            updateAttributes(attribute);
+        }
+    }
 
     public static String[] getAttributeKeys() { return ATTRIBUTES.clone(); }
     public static String[] getDefenseKeys() { return DEFENSE.clone(); }
@@ -336,7 +346,7 @@ public class CharAttributes {
         double severity2 = roundToTenths(constitutionValue * 0.5);
         upsertPassiveStatus("BTDMG", "Attribute", severity, "Derived from Strength");
         upsertPassiveStatus("BALL", "Attribute", severity, "Derived from Strength");
-        upsertPassiveStatus("BFORT", "Attribute", severity+severity2, "Derived from Strength / Constitution");
+        upsertPassiveStatus("BFORT", "Attribute", (severity + severity2)/2, "Derived from Strength / Constitution");
     }
 
     private void updateDexterityLinks() {
@@ -345,7 +355,7 @@ public class CharAttributes {
         double focusValue = calcStatusValue("FOC");
         double severity2 = roundToTenths(focusValue * 0.5);
         upsertPassiveStatus("BDODGE", "Attribute", severity, "Derived from Dexterity");
-        upsertPassiveStatus("BREF", "Attribute", severity+severity2, "Derived from Dexterity / Focus");
+        upsertPassiveStatus("BREF", "Attribute", (severity + severity2)/2, "Derived from Dexterity / Focus");
     }
 
     private void updateConstitutionLinks() {
@@ -354,7 +364,7 @@ public class CharAttributes {
         double strengthValue = calcStatusValue("STR");
         double severity2 = roundToTenths(strengthValue * 0.5);
         upsertPassiveResourceStatus("MULTIHP", "Attribute", severity, "Derived from Constitution");
-        upsertPassiveStatus("BFORT", "Attribute", (severity*10)+severity2, "Derived from Strength / Constitution");
+        upsertPassiveStatus("BFORT", "Attribute", ((severity * 10) + severity2)/2, "Derived from Strength / Constitution");
     }
 
     private void updateFocusLinks() {
@@ -364,7 +374,7 @@ public class CharAttributes {
         double severity2 = roundToTenths(dexterityValue * 0.5);
         upsertPassiveStatus("BATK", "Attribute", severity, "Derived from Focus");
         upsertPassiveStatus("BAPP", "Attribute", severity, "Derived from Focus");
-        upsertPassiveStatus("BWILL", "Attribute", severity+severity+severity2, "Derived from Dexterity / Focus");
+        upsertPassiveStatus("BWILL", "Attribute", severity+(severity2/2), "Derived from Dexterity / Focus");
     }
 
     private void updateControlLinks() {
@@ -374,7 +384,7 @@ public class CharAttributes {
         double severity2 = roundToTenths(capacityValue * 0.5);
         upsertPassiveStatus("BBDMG", "Attribute", severity, "Derived from Control");
         upsertPassiveStatus("BBHEAL", "Attribute", severity, "Derived from Control");
-        upsertPassiveStatus("BREF", "Attribute", severity+severity+severity2, "Derived from Control / Capacity");
+        upsertPassiveStatus("BREF", "Attribute", severity+(severity2/2), "Derived from Control / Capacity");
     }
 
     private void updateCapacityLinks() {
@@ -383,7 +393,7 @@ public class CharAttributes {
         double controlValue = calcStatusValue("CTL");
         double severity2 = roundToTenths(controlValue * 0.5);
         upsertPassiveResourceStatus("MULTIAURA", "Attribute", severity, "Derived from Capacity");
-        upsertPassiveStatus("BWILL", "Attribute", (severity*10)+severity2, "Derived from Control / Capacity");
+        upsertPassiveStatus("BWILL", "Attribute", ((severity*10)+severity2)/2, "Derived from Control / Capacity");
     }
 
     private void updatePrimaryAttributeLinks(String changedAttribute) {
@@ -391,7 +401,7 @@ public class CharAttributes {
         if (primaryAttribute == null || !primaryAttribute.equalsIgnoreCase(changedAttribute)) return;
 
         double primaryValue = calcStatusValue(primaryAttribute);
-        double severity = roundToTenths(primaryValue * 0.2);
+        double severity = roundToTenths(primaryValue * 0.25);
         upsertPassiveStatus("BTDMG", "Primary Attribute", severity, "Derived from Primary Attribute");
         upsertPassiveStatus("BBDMG", "Primary Attribute", severity, "Derived from Primary Attribute");
         upsertPassiveStatus("BATK", "Primary Attribute", severity, "Derived from Primary Attribute");

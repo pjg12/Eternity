@@ -3,6 +3,7 @@ package eternity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -59,6 +60,8 @@ public class CharCombat {
     private final List<DataAction> interruptActions;
     @JsonIgnore
     private final DataAction standardAttackAction;
+    @JsonIgnore
+    private final DataAction standardMoveAction;
     private final DataAction standardSpellAction;
     @JsonIgnore
     private final List<DataAction> defaultCombatManeuverActions;
@@ -79,8 +82,10 @@ public class CharCombat {
 
         // Baseline action every character has
         this.standardAttackAction = generateStandardAttack(true);
+        this.standardMoveAction = generateStandardMoveAction();
         this.standardSpellAction = generateStandardAttack(false);
         this.standardActions.add(standardAttackAction);
+        this.moveActions.add(standardMoveAction);
 
         for (String name : DEFAULT_COMBAT_MANEUVER_NAMES) {
             DataAction maneuver = generateCombatManeuverAction(name);
@@ -142,6 +147,7 @@ public class CharCombat {
         freeActions.clear();
         interruptActions.clear();
         ensureStandardAttackExists();
+        ensureStandardMoveExists();
         ensureDefaultCombatManeuversExist();
     }
 
@@ -156,16 +162,18 @@ public class CharCombat {
 
         clearActions();
         ensureStandardAttackExists();
+        ensureStandardMoveExists();
         ensureDefaultCombatManeuversExist();
+        syncBaselineActionsFromCharacter();
 
         if (owner == null || owner.getTraining() == null) {
             return;
         }
 
-        //StoreRuleManager dataQuery = StoreMetaManager.getDataQuery();
+        StoreRuleManager dataQuery = new StoreRuleManager();
         ArrayList<DataTraining> trainedTechniques = new ArrayList<>();
         for (DataTraining tech : owner.getTraining().getAllTraining()) {
-            if (!hasTrainedActionTechnique(tech)) continue;
+            if (!hasTrainedActionTechnique(tech, dataQuery)) continue;
             trainedTechniques.add(tech);
         }
 
@@ -178,8 +186,26 @@ public class CharCombat {
         });
 
         for (DataTraining tech : trainedTechniques) {
-            //addTrainingActionFromData(tech, dataQuery);
+            addTrainingActionFromData(tech, dataQuery);
         }
+    }
+
+    private void syncBaselineActionsFromCharacter() {
+        if (owner == null || owner.getAttributes() == null) return;
+        CharAttributes attrs = owner.getAttributes();
+
+        standardAttackAction.setAtk(roundDerivedCombatStat(attrs, "ATK"));
+        standardAttackAction.setBdmg(roundDerivedCombatStat(attrs, "BDMG"));
+        standardAttackAction.setTdmg(roundDerivedCombatStat(attrs, "TDMG"));
+
+        standardSpellAction.setAtk(roundDerivedCombatStat(attrs, "APP"));
+        standardSpellAction.setBdmg(roundDerivedCombatStat(attrs, "BDMG"));
+        standardSpellAction.setTdmg(roundDerivedCombatStat(attrs, "TDMG"));
+    }
+
+    private int roundDerivedCombatStat(CharAttributes attrs, String key) {
+        if (attrs == null || key == null) return 0;
+        return (int) Math.round(Math.max(0.0, attrs.calcStatusValue(key)));
     }
 
     public void addStatus(DataStatus status) {
@@ -229,19 +255,90 @@ public class CharCombat {
         bucket.add(new DataAction(action));
     }
 
-    private boolean hasTrainedActionTechnique(DataTraining tech) {
-        if (tech == null || tech.getId() <= 0) return false;
-        return tech.getRank() >= 1;
+    private boolean hasTrainedActionTechnique(DataTraining tech, StoreRuleManager dataQuery) {
+        if (tech == null || dataQuery == null) return false;
+        if (tech.getRank() < 1) return false;
+        if (!"Active".equalsIgnoreCase(tech.getType())) return false;
+        return !getTrainingActionTemplates(tech, dataQuery).isEmpty();
     }
 
     private void addTrainingActionFromData(DataTraining tech, StoreRuleManager dataQuery) {
         if (tech == null || dataQuery == null) return;
-        DataAction actionTemplate = dataQuery.getActionById(tech.getId());
-        if (actionTemplate == null) return;
+        List<DataAction> actionTemplates = getTrainingActionTemplates(tech, dataQuery);
+        if (actionTemplates.isEmpty()) return;
 
-        DataAction action = new DataAction(actionTemplate);
-        action.setCharacter(owner);
-        routeActionByType(action);
+        for (DataAction actionTemplate : actionTemplates) {
+            if (actionTemplate == null) continue;
+            DataAction action = new DataAction(actionTemplate);
+            action.setCharacter(owner);
+            routeActionByType(action);
+        }
+    }
+
+    private List<DataAction> getTrainingActionTemplates(DataTraining tech, StoreRuleManager dataQuery) {
+        ArrayList<DataAction> actionTemplates = new ArrayList<>();
+        if (tech == null || dataQuery == null) return actionTemplates;
+
+        DataTraining ruleTemplate = resolveTrainingRuleTemplate(tech, dataQuery);
+        LinkedHashSet<Integer> actionIds = new LinkedHashSet<>();
+        collectGrantedActionIds(actionIds, ruleTemplate);
+        collectGrantedActionIds(actionIds, tech);
+
+        for (Integer actionId : actionIds) {
+            if (actionId == null || actionId <= 0) continue;
+            DataAction actionTemplate = dataQuery.getActionById(actionId);
+            if (actionTemplate != null) {
+                actionTemplates.add(actionTemplate);
+            }
+        }
+
+        if (!actionTemplates.isEmpty()) {
+            return actionTemplates;
+        }
+
+        addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(tech.getName()));
+        if (ruleTemplate != null) {
+            addActionTemplateIfPresent(actionTemplates, dataQuery.getActionById(ruleTemplate.getId()));
+        }
+        addActionTemplateIfPresent(actionTemplates, dataQuery.getActionById(tech.getId()));
+        return actionTemplates;
+    }
+
+    private DataTraining resolveTrainingRuleTemplate(DataTraining tech, StoreRuleManager dataQuery) {
+        if (tech == null || dataQuery == null) return null;
+
+        String techName = tech.getName();
+        if (techName != null && !techName.isBlank()) {
+            for (DataTraining candidate : dataQuery.getTrainingData()) {
+                if (candidate != null && techName.equalsIgnoreCase(candidate.getName())) {
+                    return candidate;
+                }
+            }
+        }
+
+        if (tech.getId() > 0) {
+            return dataQuery.getTrainingById(tech.getId());
+        }
+        return null;
+    }
+
+    private void collectGrantedActionIds(LinkedHashSet<Integer> actionIds, DataTraining tech) {
+        if (actionIds == null || tech == null) return;
+        for (Integer grantId : tech.getGrant()) {
+            if (grantId != null && grantId > 0) {
+                actionIds.add(grantId);
+            }
+        }
+    }
+
+    private void addActionTemplateIfPresent(List<DataAction> actionTemplates, DataAction actionTemplate) {
+        if (actionTemplates == null || actionTemplate == null) return;
+        for (DataAction existing : actionTemplates) {
+            if (existing != null && existing.getId() == actionTemplate.getId()) {
+                return;
+            }
+        }
+        actionTemplates.add(actionTemplate);
     }
 
     private void routeActionByType(DataAction action) {
@@ -278,10 +375,27 @@ public class CharCombat {
             baseAttack.setSource("Standard");
             baseAttack.setAtkType("AC");
         } else {
-            baseAttack.setName("Standard Spell");
+            baseAttack.setName("Standard Cast");
             baseAttack.setSource("Spell");
         }
         return baseAttack;
+    }
+
+    /** Builds the baseline Move action. */
+    public DataAction generateStandardMoveAction() {
+        DataAction moveAction = new DataAction();
+        moveAction.setCharacter(owner);
+        moveAction.setName("Move");
+        moveAction.setCategory("");
+        moveAction.setSource("Standard");
+        moveAction.setAffinity("None");
+        moveAction.setAtkType("Other");
+        moveAction.setRanged(0);
+        moveAction.setActionType(MOVE_ACTION_TYPE);
+        moveAction.setWeapon(null);
+        moveAction.setCosts(List.of(new DataAction.CostPair("None", 0.0)));
+        moveAction.setModifierKey(List.of());
+        return moveAction;
     }
 
     /** Builds a baseline Combat Maneuver action. */
@@ -309,6 +423,23 @@ public class CharCombat {
             }
         }
         standardActions.add(standardAttackAction);
+    }
+
+    /** Ensures the baseline Move action exists exactly once in the move-action list. */
+    public void ensureStandardMoveExists() {
+        standardMoveAction.setCharacter(owner);
+        for (DataAction action : moveActions) {
+            if (action == standardMoveAction) {
+                return;
+            }
+            if (action != null
+                    && "Move".equalsIgnoreCase(action.getName())
+                    && "Standard".equalsIgnoreCase(action.getSource())
+                    && "Move".equalsIgnoreCase(action.getActionType())) {
+                return;
+            }
+        }
+        moveActions.add(standardMoveAction);
     }
 
     /** Ensures all baseline Combat Maneuver actions exist exactly once in the standard-action list. */
@@ -360,4 +491,3 @@ public class CharCombat {
         return Collections.unmodifiableList(bucket);
     }
 }
-

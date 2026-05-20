@@ -28,9 +28,9 @@ public class PanelCharTraining extends PanelCharBase {
 	private ArrayList<JTextField> natAffinity;
 	
 	//aura training
-	private JButton trainNewButton, trainExistingButton;
-	private JLabel auraTrainingL, atMaxTechL, atCurTechL, atRemTechL;
-	private JFormattedTextField atMaxTech, atCurTech, atRemTech;
+	private JButton gainTrainingXpButton, trainNewButton, trainExistingButton;
+	private JLabel auraTrainingL, atTrainingXpL, atMaxTechL, atCurTechL, atRemTechL;
+	private JFormattedTextField atTrainingXp, atMaxTech, atCurTech, atRemTech;
 	
 	private ArrayList<JLabel> atAffinityL, atNameL, atMaxRankL, atCurRankL, atExpL, atNextAtL;
 	private ArrayList<ArrayList<JTextField>> atName, atAffinity;
@@ -56,14 +56,21 @@ public class PanelCharTraining extends PanelCharBase {
 		naturalAffinityL = buildLabel("Natural Affinity", null);
 		natAffinity = new ArrayList<JTextField>();
 		
+		atTrainingXpL = buildLabel("Training XP", null);
 		atMaxTechL = buildLabel("Max Techs", null);
 		atCurTechL = buildLabel("Current Techs", null);
 		atRemTechL = buildLabel("Remain Techs", null);
+		atTrainingXp = buildNumTextField(0.0);
+		atTrainingXp.setEditable(false);
 		atMaxTech = buildNumTextField(0); 
 		atMaxTech.setEditable(false);
 		atCurTech = buildNumTextField(0.0); 
 		atRemTech = buildNumTextField(0.0);
 		
+		gainTrainingXpButton = buildButton("Gain Training Xp");
+		gainTrainingXpButton.addActionListener (e -> sheetFrame.gainTrainingXpPressed());
+		gainTrainingXpButton.setToolTipText("Open a dialog to add training XP to the character.");
+
 		trainNewButton = buildButton("Train New");
 		trainNewButton.addActionListener (e -> sheetFrame.trainNewPressed());
 		trainNewButton.setToolTipText("Open a dialog to select a new technique to train."); 
@@ -148,6 +155,7 @@ public class PanelCharTraining extends PanelCharBase {
 		}
 
 		// update straight values
+		atTrainingXp.setValue(round2(training.getTrainingXp()));
 		atMaxTech.setValue(maxTechs);
 		// Exclude specific generic categories from "current techs" and apply natural-affinity weighting.
 		double current = calculateWeightedCurrentTechs(training);
@@ -230,18 +238,21 @@ public class PanelCharTraining extends PanelCharBase {
 		}
 		pageHeight += 25;
 
-		atMaxTechL.setBounds(40,pageHeight,140,19);
-		atCurTechL.setBounds(220,pageHeight,140,19);
-		atRemTechL.setBounds(400,pageHeight,140,19);
+		atTrainingXpL.setBounds(5,pageHeight,130,19);
+		atMaxTechL.setBounds(145,pageHeight,130,19);
+		atCurTechL.setBounds(285,pageHeight,130,19);
+		atRemTechL.setBounds(425,pageHeight,130,19);
 		pageHeight += 20;
 		
-		atMaxTech.setBounds(40,pageHeight,140,19);
-		atCurTech.setBounds(220,pageHeight,140,19);
-		atRemTech.setBounds(400,pageHeight,140,19);
+		atTrainingXp.setBounds(5,pageHeight,130,19);
+		atMaxTech.setBounds(145,pageHeight,130,19);
+		atCurTech.setBounds(285,pageHeight,130,19);
+		atRemTech.setBounds(425,pageHeight,130,19);
 		pageHeight += 30;
 		
-		trainNewButton.setBounds(40,pageHeight,200,19);
-		trainExistingButton.setBounds(340,pageHeight,200,19);
+		gainTrainingXpButton.setBounds(5,pageHeight,175,19);
+		trainNewButton.setBounds(195,pageHeight,175,19);
+		trainExistingButton.setBounds(385,pageHeight,175,19);
 		pageHeight += 30;
 		
 		for (int i = 0; i < TRAINING.length; i++) {

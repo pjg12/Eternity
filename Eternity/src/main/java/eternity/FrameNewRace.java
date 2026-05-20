@@ -92,7 +92,7 @@ public class FrameNewRace extends JFrame {
 
 
 
-// ---------------------------------------------------
+    // ---------------------------------------------------
     // Constructor
     // ---------------------------------------------------
     public FrameNewRace(FrameSheet sheetFrame, StoreRuleManager ruleManager, StoreCharData character, FrameNew parent, boolean gmMode) {
