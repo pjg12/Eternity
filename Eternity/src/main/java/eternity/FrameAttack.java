@@ -210,7 +210,7 @@ public class FrameAttack extends JFrame {
 		numFields[0].setBounds(220, 305, 100, 20);
 		numFields[0].setValue(0);
 		
-		buttons[2].setBounds(25, 250, 145, 20);
+		buttons[2].setBounds(195, 325, 145, 20);
 		buttons[2].setText("Roll");
 		buttons[2].setVisible(true);
 		buttons[2].setEnabled(true);
@@ -336,43 +336,43 @@ public class FrameAttack extends JFrame {
 		headerL.setText(action.getName());
 		headerL.setVisible(true);
 		
-		labels[2].setBounds(145, 80, 100, 20);
+		labels[2].setBounds(25, 80, 100, 20);
 		labels[2].setText(castLayout ? "Application" : "Attack");
 		labels[2].setVisible(true);
-		textFields[2].setBounds(145, 103, 100, 22);
+		textFields[2].setBounds(25, 103, 100, 22);
 		attackBonus = castLayout ? getApplication() : getAttack();
 		textFields[2].setText(formatAttackDisplay((int) attackBonus));
 		textFields[2].setVisible(true);
 		textFields[2].setEditable(false);
 
-		labels[1].setBounds(25, 80, 100, 20);
+		labels[1].setBounds(25, 150, 100, 20);
 		labels[1].setText("Affinity");
 		labels[1].setVisible(true);
-		textFields[1].setBounds(25, 103, 100, 22);
+		textFields[1].setBounds(25, 173, 100, 22);
 		textFields[1].setText(action.getAffinity());
 		textFields[1].setVisible(true);
 		textFields[1].setEditable(false);
 
-		labels[4].setBounds(265, 80, 100, 20);
+		labels[4].setBounds(145, 80, 100, 20);
 		labels[4].setText("Base Damage");
 		labels[4].setVisible(true);
-		textFields[3].setBounds(265, 103, 100, 22);
+		textFields[3].setBounds(145, 103, 100, 22);
 		textFields[3].setText(String.valueOf(getBaseDamage()));
 		textFields[3].setVisible(true);
 		textFields[3].setEditable(false);
 
-		labels[5].setBounds(385, 80, 100, 20);
+		labels[5].setBounds(265, 80, 100, 20);
 		labels[5].setText("Multiplier");
 		labels[5].setVisible(true);
-		textFields[4].setBounds(385, 103, 100, 22);
+		textFields[4].setBounds(265, 103, 100, 22);
 		textFields[4].setText(String.valueOf(getCharDmgMulti()));
 		textFields[4].setVisible(true);
 		textFields[4].setEditable(false);
 
-		labels[6].setBounds(25, 150, 100, 20);
+		labels[6].setBounds(385, 80, 100, 20);
 		labels[6].setText("Total Damage");
 		labels[6].setVisible(true);
-		textFields[5].setBounds(25, 173, 100, 22);
+		textFields[5].setBounds(385, 103, 100, 22);
 		textFields[5].setText(String.valueOf(getTotalDamage()));
 		textFields[5].setVisible(true);
 		textFields[5].setEditable(false);
@@ -405,7 +405,7 @@ public class FrameAttack extends JFrame {
 			textFields[0].setEditable(false);
 		}
 
-		labels[9].setBounds(405, 150, 120, 20);
+		labels[9].setBounds(385, 150, 120, 20);
 		labels[9].setText("Damage Type");
 		labels[9].setVisible(true);
 		if (damageType == null) {
@@ -414,7 +414,7 @@ public class FrameAttack extends JFrame {
 		if (damageType.getParent() == null) {
 			activeCardPanel.add(damageType);
 		}
-		damageType.setBounds(405, 173, 100, 22);
+		damageType.setBounds(385, 173, 100, 22);
 		damageType.setVisible(true);
 		applyDamageTypeSelection();
 		attachDamageTypeListener();
@@ -432,7 +432,7 @@ public class FrameAttack extends JFrame {
 		numFields[0].setBounds(220, 305, 100, 20);
 		numFields[0].setValue(0.0);
 		
-		buttons[2].setBounds(25, 250, 145, 20);
+		buttons[2].setBounds(195, 325, 145, 20);
 		buttons[2].setText("Roll");
 		buttons[2].setVisible(true);
 		buttons[2].setEnabled(true);

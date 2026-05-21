@@ -48,6 +48,14 @@ public class FrameCombat extends JFrame {
 	private static final int OPTION_PANEL_MIN_HEIGHT = 130;
 	private static final int OPTION_PANEL_WIDTH = 580;
 	private static final int OPTION_PANEL_BOTTOM_PADDING = 10;
+	private static final int LEFT_COLUMN_X = 25;
+	private static final int CENTER_COLUMN_X = 195;
+	private static final int RIGHT_COLUMN_X = 365;
+	private static final int MAIN_BUTTON_Y = 60;
+	private static final int MAIN_BUTTON_SIZE = 100;
+	private static final int SMALL_BUTTON_SIZE = 50;
+	private static final int LEFT_MID_COLUMN_X = 135;
+	private static final int RIGHT_MID_COLUMN_X = 305;
 	private final FrameSheet sheetFrame;
 	private StoreCharData character;
 	private int stdActCount, moveActCount, auraActCount;
@@ -126,6 +134,7 @@ public class FrameCombat extends JFrame {
 		labels = new JLabel[3];
 		for (int j = 0; j < labels.length; j++) {
 			labels[j] = new JLabel();
+			labels[j].setHorizontalAlignment(JLabel.CENTER);
 			labels[j].setVisible(false);
 			add(labels[j]);
 		}
@@ -139,7 +148,7 @@ public class FrameCombat extends JFrame {
 		
 		popupCheckBox = new JCheckBox("Popup");
 		popupCheckBox.setSelected(resolvePopupDefault()); // default pulled from combat if available
-		popupCheckBox.setBounds(25, 425, 100, 20); // align with bottom buttons
+		popupCheckBox.setBounds(LEFT_COLUMN_X, 425, 100, 20); // align with bottom buttons
 		popupCheckBox.setVisible(false);
 		popupCheckBox.addActionListener(e -> syncPopupStateToCombat());
 		add(popupCheckBox);
@@ -172,59 +181,59 @@ public class FrameCombat extends JFrame {
 		int i = 0;
 		
 		stdButton = buildRadioButton(buttonPic[i], buttonPic2[i]);
-		stdButton.setBounds(35, 60, 100, 100);
+		stdButton.setBounds(LEFT_COLUMN_X, MAIN_BUTTON_Y, MAIN_BUTTON_SIZE, MAIN_BUTTON_SIZE);
 		stdButton.addActionListener(e -> stdOptions());
 		stdButton.setToolTipText("Standard Action");
 		i++;
 		
 		moveButton = buildRadioButton(buttonPic[i], buttonPic2[i]);
-		moveButton.setBounds(215 , 60, 100, 100);
+		moveButton.setBounds(CENTER_COLUMN_X, MAIN_BUTTON_Y, MAIN_BUTTON_SIZE, MAIN_BUTTON_SIZE);
 		moveButton.addActionListener(e -> moveOptions());
 		moveButton.setToolTipText("Move Action");
 		i++;
 		
 		auraButton = buildRadioButton(buttonPic[i], buttonPic2[i]);
-		auraButton.setBounds(395 , 60, 100, 100);
+		auraButton.setBounds(RIGHT_COLUMN_X, MAIN_BUTTON_Y, MAIN_BUTTON_SIZE, MAIN_BUTTON_SIZE);
 		auraButton.addActionListener(e -> auraOptions());
 		auraButton.setToolTipText("Aura Action");
 		i++;
 		
 		damageButton = buildDemoButton(buttonPic[i], buttonPic2[i]);
-		damageButton.setBounds(35, 60, 100, 100);
+		damageButton.setBounds(LEFT_COLUMN_X, MAIN_BUTTON_Y, MAIN_BUTTON_SIZE, MAIN_BUTTON_SIZE);
 		damageButton.addActionListener(e -> underAttack());
 		damageButton.setToolTipText("Incoming Attack");
 		i++;
 		
 		endRoundButton = buildDemoButton(buttonPic[i], buttonPic2[i]);
-		endRoundButton.setBounds(395 , 60, 100, 100);
+		endRoundButton.setBounds(RIGHT_COLUMN_X, MAIN_BUTTON_Y, MAIN_BUTTON_SIZE, MAIN_BUTTON_SIZE);
 		endRoundButton.addActionListener(e -> endRound());
 		endRoundButton.setToolTipText("End of Round");
 		i++;
 		
 		freeButton = buildRadioButton(buttonPic[i], buttonPic2[i]);
-		freeButton.setBounds(150, 120, 50, 50);
+		freeButton.setBounds(LEFT_MID_COLUMN_X, 120, SMALL_BUTTON_SIZE, SMALL_BUTTON_SIZE);
 		freeButton.addActionListener(e -> freeOptions());
 		freeButton.setToolTipText("Free Action");
 		i++;
 		
 		intButton = buildRadioButton(buttonPic[i], buttonPic2[i]);
-		intButton.setBounds(330, 120, 50, 50);
+		intButton.setBounds(RIGHT_MID_COLUMN_X, 120, SMALL_BUTTON_SIZE, SMALL_BUTTON_SIZE);
 		intButton.addActionListener(e -> intOptions());
 		intButton.setToolTipText("Interrupt Action");
 		i++;		
 		
 		stdDemoButton = buildDemoButton(buttonPic[i], buttonPic2[i]);
-		stdDemoButton.setBounds(150, 50, 50, 50);
+		stdDemoButton.setBounds(LEFT_MID_COLUMN_X, 50, SMALL_BUTTON_SIZE, SMALL_BUTTON_SIZE);
 		stdDemoButton.addActionListener(e -> stdDemoClick());
 		i++;	
 		
 		moveDemoButton = buildDemoButton(buttonPic[i], buttonPic2[i]);
-		moveDemoButton.setBounds(330, 50, 50, 50);
+		moveDemoButton.setBounds(RIGHT_MID_COLUMN_X, 50, SMALL_BUTTON_SIZE, SMALL_BUTTON_SIZE);
 		moveDemoButton.addActionListener(e -> moveDemoClick());		
 		
-		labels[0].setBounds(35, 160, 100, 20);
-		labels[1].setBounds(215, 160, 100, 20);
-		labels[2].setBounds(395, 160, 100, 20);
+		labels[0].setBounds(LEFT_COLUMN_X, 160, MAIN_BUTTON_SIZE, 20);
+		labels[1].setBounds(CENTER_COLUMN_X, 160, MAIN_BUTTON_SIZE, 20);
+		labels[2].setBounds(RIGHT_COLUMN_X, 160, MAIN_BUTTON_SIZE, 20);
 		
 		optionPanel = new JPanel();
 		optionPanel.setVisible(true);
@@ -235,14 +244,14 @@ public class FrameCombat extends JFrame {
 		optionPanel.setPreferredSize(new Dimension(OPTION_PANEL_WIDTH, OPTION_PANEL_MIN_HEIGHT));
 		optionPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		optionPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		optionPane.setBounds(25, 190, 500, 220);
+		optionPane.setBounds(LEFT_COLUMN_X, 190, 500, 220);
 		optionPane.getVerticalScrollBar().setUnitIncrement(15);	//set mouse wheel scroll amount
 		
-		buttons[0].setBounds(25, 425, 145, 20);
+		buttons[0].setBounds(LEFT_COLUMN_X, 425, 145, 20);
 		buttons[0].setText("Status");
 		buttons[0].addActionListener(e -> statusChange());
-		buttons[1].setBounds(195, 425, 145, 20);
-		buttons[2].setBounds(365, 425, 145, 20);
+		buttons[1].setBounds(CENTER_COLUMN_X, 425, 145, 20);
+		buttons[2].setBounds(RIGHT_COLUMN_X, 425, 145, 20);
 		
 		battleStatus = character != null && character.getCombat() != null
 				? character.getCombat().getCombatStatus()
@@ -1204,9 +1213,14 @@ public class FrameCombat extends JFrame {
 
 	private void openActionFrame(DataAction action) {
 		if (action == null) return;
-		JFrame actionFrame = isNextAttackAction(action)
-				? new FrameNextAttack(sheetFrame, this, character, action)
-				: new FrameAttack(sheetFrame, this, character, action);
+		JFrame actionFrame;
+		if (isNextAttackAction(action)) {
+			actionFrame = new FrameNextAttack(sheetFrame, this, character, action);
+		} else if (isHealAction(action)) {
+			actionFrame = new FrameHeal(sheetFrame, this, character, action);
+		} else {
+			actionFrame = new FrameAttack(sheetFrame, this, character, action);
+		}
 		actionFrame.setVisible(true);
 	}
 
@@ -1214,6 +1228,12 @@ public class FrameCombat extends JFrame {
 		return action != null
 				&& action.getCategory() != null
 				&& action.getCategory().equalsIgnoreCase("Next Attack");
+	}
+
+	private boolean isHealAction(DataAction action) {
+		return action != null
+				&& action.getCategory() != null
+				&& action.getCategory().equalsIgnoreCase("Heal");
 	}
 
 	private void resetActionCountsToMaximum() {
