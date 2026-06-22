@@ -34,7 +34,7 @@ Copy-Item -LiteralPath (Join-Path $sourceDir "content.js") -Destination $staging
 Copy-Item -LiteralPath (Join-Path $sourceDir "pageBridge.js") -Destination $stagingDir
 
 @"
-Roll20 Bridge Chrome Extension
+Chrome Roll20-EternityTTRPG Bridge
 
 Install:
 1. Extract this folder.

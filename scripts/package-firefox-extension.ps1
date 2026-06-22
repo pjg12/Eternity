@@ -40,13 +40,14 @@ $firefoxManifest.browser_specific_settings = [pscustomobject]@{
         id = "roll20-bridge@eternity.local"
     }
 }
+$firefoxManifest.name = "Firefox Roll20-EternityTTRPG Bridge"
 
 $firefoxManifest | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath (Join-Path $stagingDir "manifest.json")
 Copy-Item -LiteralPath (Join-Path $sourceDir "content.js") -Destination $stagingDir
 Copy-Item -LiteralPath (Join-Path $sourceDir "pageBridge.js") -Destination $stagingDir
 
 @"
-Roll20 Bridge Firefox Extension
+Firefox Roll20-EternityTTRPG Bridge
 
 Temporary test install:
 1. Open Firefox.

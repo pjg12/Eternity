@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Roll20 Bridge",
+  "name": "Chrome Roll20-EternityTTRPG Bridge",
   "version": "1.0",
 
   "host_permissions": [

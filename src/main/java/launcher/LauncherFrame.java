@@ -173,6 +173,7 @@ final class LauncherFrame extends JFrame {
                 builder.directory(launchSpec.workingDirectory().toFile());
             }
             builder.start();
+            closeLauncher();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Launch Failed", JOptionPane.ERROR_MESSAGE);
         }
@@ -191,6 +192,12 @@ final class LauncherFrame extends JFrame {
 
     private void setStatusTextSafe(String text) {
         SwingUtilities.invokeLater(() -> statusLabel.setText(text));
+    }
+
+    private void closeLauncher() {
+        setVisible(false);
+        dispose();
+        System.exit(0);
     }
 
     private void showInstallationCompleteDialog(String message, Path installLocation) {

@@ -12,6 +12,9 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <app.display.name>EternityLauncher</app.display.name>
+        <app.vendor>Eternity</app.vendor>
+        <windows.install.dir>EternityLauncher</windows.install.dir>
         <windows.jpackage.input.dir>${project.build.directory}/jpackage-input-${maven.build.timestamp}</windows.jpackage.input.dir>
         <windows.appimage.dir>${project.build.directory}/dist-${maven.build.timestamp}</windows.appimage.dir>
         <windows.installer.dir>${project.build.directory}/installer-${maven.build.timestamp}</windows.installer.dir>
@@ -141,7 +144,7 @@
                                         <argument>--type</argument>
                                         <argument>app-image</argument>
                                         <argument>--name</argument>
-                                        <argument>EternityLauncher</argument>
+                                        <argument>${app.display.name}</argument>
                                         <argument>--input</argument>
                                         <argument>${windows.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
@@ -153,11 +156,11 @@
                                         <argument>--dest</argument>
                                         <argument>${windows.appimage.dir}</argument>
                                         <argument>--vendor</argument>
-                                        <argument>Eternity</argument>
+                                        <argument>${app.vendor}</argument>
                                         <argument>--app-version</argument>
                                         <argument>${project.version}</argument>
                                         <argument>--install-dir</argument>
-                                        <argument>EternityLauncher</argument>
+                                        <argument>${windows.install.dir}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -218,7 +221,7 @@
                                         <argument>--type</argument>
                                         <argument>exe</argument>
                                         <argument>--name</argument>
-                                        <argument>EternityLauncher</argument>
+                                        <argument>${app.display.name}</argument>
                                         <argument>--input</argument>
                                         <argument>${windows.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
@@ -230,9 +233,11 @@
                                         <argument>--dest</argument>
                                         <argument>${windows.installer.dir}</argument>
                                         <argument>--vendor</argument>
-                                        <argument>Eternity</argument>
+                                        <argument>${app.vendor}</argument>
                                         <argument>--app-version</argument>
                                         <argument>${project.version}</argument>
+                                        <argument>--install-dir</argument>
+                                        <argument>${windows.install.dir}</argument>
                                         <argument>--win-dir-chooser</argument>
                                     </arguments>
                                 </configuration>
