@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  * Inventory add helper frame. Lets the user search item templates and add one to a character inventory.
@@ -120,6 +122,22 @@ public class FrameInventoryAdd extends JFrame {
         add(buttons, BorderLayout.SOUTH);
 
         searchField.addActionListener(e -> refreshItemList());
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                refreshItemList();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                refreshItemList();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                refreshItemList();
+            }
+        });
         itemBox.addActionListener(e -> updateSelectedMeta());
         destinationBox.addActionListener(e -> updateSearchItemVisibility());
         cancelB.addActionListener(e -> setVisible(false));
@@ -138,15 +156,21 @@ public class FrameInventoryAdd extends JFrame {
     }
 
     private void refreshItemList() {
+        DataItemEquipment previousSelection = getSelectedTemplate();
+        Integer preferredDid = previousSelection != null ? previousSelection.getDid() : null;
         itemBox.removeAllItems();
         resultItems.clear();
 
         String search = searchField.getText() == null ? "" : searchField.getText().trim().toLowerCase(Locale.ROOT);
-        List<DataItemEquipment> found = dataQuery.searchItems("");
+        List<DataItemEquipment> found = dataQuery.getItemEquipmentData();
 
+        int selectedIndex = -1;
         for (DataItemEquipment item : found) {
             if (item == null) continue;
             if (!matchesSearch(item, search)) continue;
+            if (selectedIndex < 0 && preferredDid != null && item.getDid() == preferredDid) {
+                selectedIndex = resultItems.size();
+            }
             resultItems.add(item);
             itemBox.addItem(display(item));
         }
@@ -154,7 +178,7 @@ public class FrameInventoryAdd extends JFrame {
         if (itemBox.getItemCount() == 0) {
             selectedMetaL.setText("No matching items found.");
         } else {
-            itemBox.setSelectedIndex(0);
+            itemBox.setSelectedIndex(selectedIndex >= 0 ? selectedIndex : 0);
             updateSelectedMeta();
         }
     }
@@ -224,6 +248,7 @@ public class FrameInventoryAdd extends JFrame {
         character.updateAll();
         if (sheetFrame != null) {
             sheetFrame.refreshMainPanel();
+            sheetFrame.refreshInventoryPanel();
         }
 
         JOptionPane.showMessageDialog(this, "Added: " + safe(template.getDname()), "Add Inventory", JOptionPane.INFORMATION_MESSAGE);

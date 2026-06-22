@@ -5,7 +5,6 @@ package eternity;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StoreRuleData {
     private static final String DATA_DIR = "Data";
-    private static final Path DATA_PATH = Paths.get(System.getProperty("user.dir")).resolve(DATA_DIR);
+    private static final Path DATA_PATH = AppPaths.dataDir();
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
 	private final List<DataColor> colorData;
@@ -24,6 +23,9 @@ public class StoreRuleData {
 	private final List<DataRace> raceData;
 	private final List<DataClass> classData;
 	private final List<DataDeity> deityData;
+	private final List<DataDomain> domainData;
+	private final List<DataTechnical> technicalData;
+	private final List<DataVow> vowData;
 	private final List<DataSkill> skillData;
 	private final List<DataSpecialty> specialtyData;
 	private final List<DataItemEquipment> itemEquipmentData;
@@ -42,6 +44,9 @@ public class StoreRuleData {
         raceData           = safeLoad("racedata.json",         DataRace[].class);
         classData          = safeLoad("classdata.json",        DataClass[].class);
         deityData          = safeLoad("deitydata.json",        DataDeity[].class);
+        domainData         = safeLoad("domaindata.json",       DataDomain[].class);
+        technicalData      = safeLoad("technicaldata.json",    DataTechnical[].class);
+        vowData            = safeLoad("vowdata.json",          DataVow[].class);
         skillData          = safeLoad("skilldata.json",        DataSkill[].class);
         specialtyData      = safeLoad("specialtydata.json",    DataSpecialty[].class);
         itemEquipmentData  = safeLoad("itemequipdata.json",    DataItemEquipment[].class);
@@ -129,6 +134,9 @@ public class StoreRuleData {
     public List<DataRace> getRaceData() { return raceData; }
     public List<DataClass> getClassData() { return classData; }
     public List<DataDeity> getDeityData() { return deityData; }
+    public List<DataDomain> getDomainData() { return domainData; }
+    public List<DataTechnical> getTechnicalData() { return technicalData; }
+    public List<DataVow> getVowData() { return vowData; }
     public List<DataSkill> getSkillData() { return skillData; }
     public List<DataSpecialty> getSpecialtyData() { return specialtyData; }
     public List<DataItemEquipment> getItemEquipmentData() { return itemEquipmentData; }

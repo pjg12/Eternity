@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,12 +28,19 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  */
 public class StoreMetaManager {
     // Strings
-    private static final String CHARACTER_DIR = "Characters";
+    private static final Path CHARACTER_DIR = AppPaths.charactersDir();
 
     // JSON Mappers
     private static final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    private static final DateTimeFormatter UPDATED_FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+            .optionalStart()
+            .appendFraction(ChronoField.MILLI_OF_SECOND, 1, 3, true)
+            .optionalEnd()
+            .appendOffset("+HHMM", "+0000")
+            .toFormatter();
 
     private static ArrayList<StoreMetaChar> charStore;
 
@@ -42,7 +53,7 @@ public class StoreMetaManager {
         ArrayList<StoreMetaChar> list = new ArrayList<>();
         Pattern pattern = Pattern.compile("^\\d+\\.json$");
         
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(CHARACTER_DIR))) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(CHARACTER_DIR)) {
             StoreMetaChar readIn;
             for (Path path : stream) {
                 if (!Files.isRegularFile(path) || !pattern.matcher(path.getFileName().toString()).matches()) {
@@ -56,6 +67,17 @@ public class StoreMetaManager {
                 readIn.setRace(nextFile.get("identity").get("race").asText());
                 readIn.setCharClass(nextFile.get("identity").get("charClass").asText());
                 readIn.setLevel(nextFile.get("identity").get("level").asInt());
+                JsonNode updatedNode = nextFile.path("identity").path("updated");
+                if (!updatedNode.isMissingNode() && !updatedNode.isNull()) {
+                    String updatedText = updatedNode.asText();
+                    if (updatedText != null && !updatedText.isBlank()) {
+                        try {
+                            readIn.setUpdated(Timestamp.from(OffsetDateTime.parse(updatedText, UPDATED_FORMATTER).toInstant()));
+                        } catch (Exception ignored) {
+                            // Leave constructor default timestamp when stored data is malformed.
+                        }
+                    }
+                }
                 list.add(readIn);
             }
         } 

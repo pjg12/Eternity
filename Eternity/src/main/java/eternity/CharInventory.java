@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Manages a character's inventory, currency, equipment, and proficiencies.
  */
 public class CharInventory {
+    private static final double STARTING_CREDITS = 1000.0;
+
     @JsonIgnore
     private StoreCharData owner;
 
@@ -27,7 +29,7 @@ public class CharInventory {
     // ---------------------------------------------------------
 
     public CharInventory() {
-        this.credits = 0.0;
+        this.credits = STARTING_CREDITS;
         this.armor = "";
         this.weaponProf = new ArrayList<>();
         this.equipment = new ArrayList<>();
@@ -197,6 +199,7 @@ public class CharInventory {
         String slot = item.getSlot() == null ? "" : item.getSlot().toLowerCase();
         String category = item.getCategory() == null ? "" : item.getCategory().toLowerCase();
         String type = item.getType() == null ? "" : item.getType().toLowerCase();
+        if (category.contains("matrix")) return false;
         return slot.contains("weapon")
                 || slot.contains("hand")
                 || category.contains("weapon")

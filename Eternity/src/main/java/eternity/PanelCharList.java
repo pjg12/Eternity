@@ -62,7 +62,7 @@ public class PanelCharList extends PanelCharBase {
 			for (DataList data : currList) {
 				if (data == null) continue;
 				JTextField field = fields.get(usedFields);
-				field.setText(data.getName() == null ? "" : data.getName());
+				field.setText(formatListEntryText(data));
 				field.setToolTipText(data.getDescription() != null && !data.getDescription().isBlank() ? data.getDescription() : null);
 				field.setVisible(true);
 				usedFields++;
@@ -119,6 +119,16 @@ public class PanelCharList extends PanelCharBase {
 			}
 		}
 		return "List";
+	}
+
+	private String formatListEntryText(DataList data) {
+		if (data == null) return "";
+		String name = data.getName() == null ? "" : data.getName();
+		String description = data.getDescription() == null ? "" : data.getDescription().trim();
+		if (description.matches("(?i)Rank\\s+\\d+")) {
+			return name + " (" + description + ")";
+		}
+		return name;
 	}
 
 	private void ensureSectionCapacity(int size) {

@@ -6,8 +6,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -21,6 +25,8 @@ public class FrameSheet extends JFrame {
     // References
     private final StoreRuleManager ruleManager;
     private final ArrayList<StoreMetaChar> metaStore;
+    private final boolean promptToSaveOnClose;
+    private final boolean exitProgramWhenLastSheetCloses;
     private StoreCharData character;
     private final StoreCharManager charManager;
 
@@ -64,6 +70,7 @@ public class FrameSheet extends JFrame {
         t.setDaemon(true);
         return t;
     });
+    private static final Set<FrameSheet> OPEN_SHEETS = Collections.synchronizedSet(new HashSet<>());
 
     
     private final Map<Integer, Integer> charStoreIndexByCharId;
@@ -78,6 +85,7 @@ public class FrameSheet extends JFrame {
     private FrameTrainingExisting trainingExistingFrame;
     private FrameInventoryAdd addInventoryFrame;
     private FrameInventoryRemove removeInventoryFrame;
+    private FrameStatus statusFrame;
 
     // === UI Components ===
     private PanelImage characterImage;
@@ -89,11 +97,18 @@ public class FrameSheet extends JFrame {
     // ---------------------------------------------------------
     
     public FrameSheet() {
+        this(true, true);
+    }
+
+    public FrameSheet(boolean promptToSaveOnClose, boolean exitProgramWhenLastSheetCloses) {
         this.ruleManager = new StoreRuleManager();
         StoreMetaManager.loadCharStore();
         this.metaStore = StoreMetaManager.getCharStore();
         this.charStoreIndexByCharId = buildCharStoreIndex(metaStore);
+        this.promptToSaveOnClose = promptToSaveOnClose;
+        this.exitProgramWhenLastSheetCloses = exitProgramWhenLastSheetCloses;
         this.charManager = new StoreCharManager();
+        OPEN_SHEETS.add(this);
 
         setupFrame();
         initPanels();
@@ -105,6 +120,10 @@ public class FrameSheet extends JFrame {
             AUTO_SAVE_INTERVAL_MS,
             TimeUnit.MILLISECONDS
         );
+    }
+
+    public static FrameSheet createNarratorSheet() {
+        return new FrameSheet(false, false);
     }
 
     public StoreRuleManager getStoreRuleManager() { return ruleManager; }
@@ -166,19 +185,50 @@ public class FrameSheet extends JFrame {
         }
     }
 
+    public void invalidateCharacterPortrait(int characterIndex) {
+        if (characterImage != null && characterIndex > 0) {
+            characterImage.invalidatePortrait(characterIndex);
+        }
+    }
+
     /** Refreshes the main stats panel (PanelCharMain) after out-of-band changes such as rests. */
     public void refreshMainPanel() {
         if (charPanel != null && character != null) {
             character.updateAll();
             charPanel.refreshMainOnly();
+            charPanel.refreshAllPrimaryHeaders();
         }
     }
 
     /** Refreshes the training tab without reloading the full sheet. */
     public void refreshTrainingPanel() {
         if (charPanel != null && character != null) {
+            character.updateAll();
             charPanel.refreshTrainingOnly();
+            charPanel.refreshMaintainedOnly();
+            charPanel.refreshGrantedOnly();
+            charPanel.refreshAllPrimaryHeaders();
         }
+    }
+
+    /** Refreshes the inventory tab so doll/equipment displays pick up identity changes. */
+    public void refreshInventoryPanel() {
+        if (charPanel != null && character != null) {
+            character.updateAll();
+            charPanel.refreshInventoryOnly();
+            charPanel.refreshAllPrimaryHeaders();
+        }
+    }
+
+    public void refreshAllCharacterPanelHeaders() {
+        if (charPanel != null && character != null) {
+            character.updateAll();
+            charPanel.refreshAllPrimaryHeaders();
+        }
+    }
+
+    public List<PanelCharMinion.MinionInitiativeInfo> getSummonedMinionInitiativeInfo() {
+        return charPanel == null ? List.of() : charPanel.getSummonedMinionInitiativeInfo();
     }
 
     /** Enables or disables all interactive panels. */
@@ -211,7 +261,43 @@ public class FrameSheet extends JFrame {
             loadFrame = new FrameLoad(this, metaStore);
             loadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
+        loadFrame.setOpenCombatHelperAfterLoad(false);
         loadFrame.setVisible(true);
+    }
+
+    public void onLoadPressedForPlayer() {
+        if (loadFrame == null) {
+            loadFrame = new FrameLoad(this, metaStore);
+            loadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+        loadFrame.setOpenCombatHelperAfterLoad(true);
+        loadFrame.setVisible(true);
+    }
+
+    public boolean hasActiveCharacter() {
+        return hasLoadedCharacter();
+    }
+
+    public FrameSheet createSiblingSheet() {
+        return new FrameSheet(promptToSaveOnClose, exitProgramWhenLastSheetCloses);
+    }
+
+    public void openCombatHelper() {
+        openCombatHelper(false);
+    }
+
+    public void openCombatHelper(boolean playerMode) {
+        if (!requireCharacter() || characterImage == null) {
+            return;
+        }
+        characterImage.openCombatHelper(playerMode);
+    }
+
+    public void enterPlayerMode() {
+        if (!requireCharacter() || characterImage == null) {
+            return;
+        }
+        characterImage.enterPlayerMode();
     }
 
     /** Saves the currently loaded character to disk and updates the store metadata. */
@@ -276,6 +362,15 @@ public class FrameSheet extends JFrame {
         }
         detailFrame.updateDetails(character);
         detailFrame.setVisible(true);
+    }
+    public void statusPressed() {
+        if (!requireCharacter()) return;
+        if (statusFrame == null) {
+            statusFrame = new FrameStatus(this, character);
+            statusFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        }
+        statusFrame.updateCharacter(character);
+        statusFrame.setVisible(true);
     }
     public void restPressed(StoreCharData character) {
         FrameRest rest = new FrameRest(this);
@@ -406,8 +501,13 @@ public class FrameSheet extends JFrame {
     }
 
     private void handleWindowClosing() {
-        if (!hasLoadedCharacter()) {
-            exitApplication();
+        boolean shouldExitProgram = exitProgramWhenLastSheetCloses && getOpenSheetCount() <= 1;
+        if (!promptToSaveOnClose || !hasLoadedCharacter()) {
+            if (shouldExitProgram) {
+                exitApplication();
+            } else {
+                closeCurrentSheet();
+            }
             return;
         }
 
@@ -426,7 +526,11 @@ public class FrameSheet extends JFrame {
             JOptionPane.showMessageDialog(this, SAVE_FAILED_MSG, SAVE_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        exitApplication();
+        if (shouldExitProgram) {
+            exitApplication();
+        } else {
+            closeCurrentSheet();
+        }
     }
 
     private void exitApplication() {
@@ -442,9 +546,45 @@ public class FrameSheet extends JFrame {
         System.exit(0);
     }
 
+    private void closeCurrentSheet() {
+        if (shuttingDown) return;
+        shuttingDown = true;
+        disposeOwnedWindows();
+        dispose();
+    }
+
+    private void disposeOwnedWindows() {
+        safeDispose(newFrame);
+        safeDispose(loadFrame);
+        safeDispose(levelFrame);
+        safeDispose(trainingNewFrame);
+        safeDispose(trainingXpFrame);
+        safeDispose(trainingExistingFrame);
+        safeDispose(addInventoryFrame);
+        safeDispose(removeInventoryFrame);
+        safeDispose(statusFrame);
+        safeDispose(detailFrame);
+        if (characterImage != null) {
+            characterImage.disposeOwnedWindows();
+        }
+    }
+
+    private void safeDispose(Window window) {
+        if (window != null) {
+            window.dispose();
+        }
+    }
+
+    private static int getOpenSheetCount() {
+        synchronized (OPEN_SHEETS) {
+            return OPEN_SHEETS.size();
+        }
+    }
+
     @Override
     public void dispose() {
         if (autoSaveTask != null) autoSaveTask.cancel(false);
+        OPEN_SHEETS.remove(this);
         super.dispose();
     }
 

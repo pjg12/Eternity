@@ -1,0 +1,231 @@
+[ {
+  "id" : 1,
+  "name" : "Crushing Blow (Bend)",
+  "category" : "Defense",
+  "save" : "NONE",
+  "effect" : "self",
+  "description" : "Gain Resist All",
+  "numDescription" : "Increase your ResistAll by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5)",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 2,
+  "name" : "Crushing Blow (Break)",
+  "category" : "Impairment",
+  "save" : "FORT",
+  "effect" : "status",
+  "description" : "Apply a debuff that reduces Dodge.",
+  "numDescription" : "Reduce the target's Dodge by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.2",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 11,
+  "name" : "Judgment (Innocent)",
+  "category" : "Restoration",
+  "save" : "WILL",
+  "effect" : "reminder",
+  "description" : "Apply a debuff that heals the attacker when the target receives damage.",
+  "numDescription" : "Apply a debuff to target that heals attackers for @ whenver the target is damaged.  Apply this effects to an additional <TP> targets within range.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 2",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 12,
+  "name" : "Judgment (Guilty)",
+  "category" : "Defense",
+  "save" : "REF",
+  "effect" : "reminder",
+  "description" : "Apply a debuff that damages the target when it attacks your allies.",
+  "numDescription" : "Whenever affected target attacks an ally that is not you, the affected target is dealt @ divine damage.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 2",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 21,
+  "name" : "Shiv (Under)",
+  "category" : "Impairment",
+  "save" : "REF",
+  "effect" : "status",
+  "description" : "Apply a debuff that reduces the target's ATK",
+  "numDescription" : "Apply a debuff that reduces the target's ATK by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.5",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 22,
+  "name" : "Shiv (Over)",
+  "category" : "Control",
+  "save" : "FORT",
+  "effect" : "status",
+  "description" : "Apply stun tokens to the target",
+  "numDescription" : "Apply @ stun tokens to the target.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.1",
+  "duration" : "Combat"
+}, {
+  "id" : 23,
+  "name" : "Stealth Strike",
+  "category" : "Damage",
+  "save" : "WILL",
+  "effect" : "",
+  "description" : "",
+  "numDescription" : "",
+  "number" : "",
+  "duration" : ""
+}, {
+  "id" : 31,
+  "name" : "Resonant Strike (Ebb)",
+  "category" : "Control",
+  "save" : "FORT",
+  "effect" : "status",
+  "description" : "Apply heavy tokens to the target",
+  "numDescription" : "Apply @ heavy tokens to the target.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.2",
+  "duration" : "Combat"
+}, {
+  "id" : 32,
+  "name" : "Resonant Strike (Flow)",
+  "category" : "Defense",
+  "save" : "NONE",
+  "effect" : "self",
+  "description" : "Gain Shield",
+  "numDescription" : "Increase your Shield by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 41,
+  "name" : "Misdirection (Toss)",
+  "category" : "Control",
+  "save" : "WILL",
+  "effect" : "status",
+  "description" : "Prevent target from attacking",
+  "numDescription" : "Apply @ pacify tokens to the target.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.2",
+  "duration" : "Combat"
+}, {
+  "id" : 42,
+  "name" : "Misdirection (Turn)",
+  "category" : "Support",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Allies are considered flanking.",
+  "numDescription" : "Apply a buff to @ allies that grants them flanking bonuses against all targets.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 51,
+  "name" : "Command (Safe)",
+  "category" : "Support",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Apply a buff that increases an ally's DEF",
+  "numDescription" : "Apply a buff to target ally that increases their DEF by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 52,
+  "name" : "Command (Sound)",
+  "category" : "Restoration",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Apply healing over time effects to allies.",
+  "numDescription" : "Apply a heal over time effect to an ally that heals for @. Apply this effect <TP> times.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 61,
+  "name" : "Chastise (Night)",
+  "category" : "Impairment",
+  "save" : "WILL",
+  "effect" : "status",
+  "description" : "Apply a debuff to increase the damage a target receives.",
+  "numDescription" : "Apply a debuff to increase damage dealt to the target by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 62,
+  "name" : "Chastise (Day)",
+  "category" : "Restoration",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Shield and heal an ally.",
+  "numDescription" : "Target ally is healed for @ HP and gains @ shield. Repeat this effect <TP> times.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "Combat"
+}, {
+  "id" : 71,
+  "name" : "Efflux (Rise)",
+  "category" : "Support",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Apply a buff that increases an ally's TDMG",
+  "numDescription" : "Apply a buff to target ally that increases their TDMG by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 72,
+  "name" : "Efflux (Fall)",
+  "category" : "Impairment",
+  "save" : "WILL",
+  "effect" : "status",
+  "description" : "Apply a debuff to reduce the damage a target deals.",
+  "numDescription" : "Apply a debuff to target enemy that reduces their TDMG by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 81,
+  "name" : "Pulse (Slow) Melee",
+  "category" : "Control",
+  "save" : "REF",
+  "effect" : "status",
+  "description" : "Apply incapacitate tokens to the target.",
+  "numDescription" : "Apply @ incapacitate tokens to the target.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 82,
+  "name" : "Pulse (Slow) Ranged",
+  "category" : "Control",
+  "save" : "REF",
+  "effect" : "status",
+  "description" : "Apply root tokens to the target.",
+  "numDescription" : "Apply @ root tokens to the target.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 83,
+  "name" : "Pulse (Steady) Melee",
+  "category" : "Restoration",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Heal an ally.",
+  "numDescription" : "Target ally is healed for @ HP. Repeat this effect <TP> times.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 84,
+  "name" : "Pulse (Steady) Ranged",
+  "category" : "Restoration",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Heal an ally.",
+  "numDescription" : "Target ally is healed for @ HP. Repeat this effect <TP> times.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5)",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 91,
+  "name" : "Ionize (Supply)",
+  "category" : "Support",
+  "save" : "NONE",
+  "effect" : "status",
+  "description" : "Apply a buff that grants Resist All to an ally.",
+  "numDescription" : "Apply a buff that grants @ Resist All to an ally.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5) * 0.02 * MAXHP",
+  "duration" : "TP+1+(0.1*SEC)"
+}, {
+  "id" : 92,
+  "name" : "Ionize (Demand)",
+  "category" : "Defense",
+  "save" : "NONE",
+  "effect" : "self",
+  "description" : "Gain DEF",
+  "numDescription" : "Increase your DEF by @.",
+  "number" : "(PRIM+SEC+(2*CL)) * (TP+0.5)",
+  "duration" : "TP+1+(0.1*SEC)"
+} ]

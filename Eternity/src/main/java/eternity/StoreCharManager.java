@@ -4,7 +4,9 @@ package eternity;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.sql.Timestamp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -16,9 +18,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  */
 public class StoreCharManager {
     // Strings
-    private static final String CHARACTER_DIR = "Characters";
-    private static final String MANUAL_DIR = "Characters/Backup";
-    private static final String AUTO_DIR = "Characters/Auto";
+    private static final Path CHARACTER_DIR = AppPaths.charactersDir();
+    private static final Path MANUAL_DIR = CHARACTER_DIR.resolve("Backup");
+    private static final Path AUTO_DIR = CHARACTER_DIR.resolve("Auto");
 
     // JSON Mappers
     private static final ObjectMapper mapper = new ObjectMapper()
@@ -32,9 +34,9 @@ public class StoreCharManager {
     public StoreCharManager() { /* No Code Needed */ }
 
     // ---- File path helpers ----
-    private static String getCharacterPath(int idx) { return CHARACTER_DIR + File.separator + idx + ".json"; }
-    private static String getManBackPath(int idx, int backupNum) { return MANUAL_DIR + File.separator + idx + "Backup" + backupNum + ".json"; }
-    private static String getAutoBackPath(int idx, int autoNum) { return AUTO_DIR + File.separator + idx + "Auto" + autoNum + ".json"; }
+    private static String getCharacterPath(int idx) { return CHARACTER_DIR.resolve(idx + ".json").toString(); }
+    private static String getManBackPath(int idx, int backupNum) { return MANUAL_DIR.resolve(idx + "Backup" + backupNum + ".json").toString(); }
+    private static String getAutoBackPath(int idx, int autoNum) { return AUTO_DIR.resolve(idx + "Auto" + autoNum + ".json").toString(); }
 
     /**
      * Load the full character JSON for the given id.
@@ -62,18 +64,18 @@ public class StoreCharManager {
      * Returns true on success, false on failure.
      */
     public static boolean saveCharacterNew(StoreCharData character) {
-        String backupDirPath = CHARACTER_DIR;
-        File backDir = new File(backupDirPath);
+        String backupDirPath = CHARACTER_DIR.toString();
+        File backDir = CHARACTER_DIR.toFile();
         if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
             return false;
         }
-        backupDirPath = AUTO_DIR;
-        backDir = new File(backupDirPath);
+        backupDirPath = AUTO_DIR.toString();
+        backDir = AUTO_DIR.toFile();
         if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
             return false;
         }
-        backupDirPath = MANUAL_DIR;
-        backDir = new File(backupDirPath);
+        backupDirPath = MANUAL_DIR.toString();
+        backDir = MANUAL_DIR.toFile();
         if (!ensureDirectory(backDir, "Cannot backup autosave character: failed to create directory")) {
             return false;
         }
@@ -100,8 +102,13 @@ public class StoreCharManager {
     }
 
     private static boolean saveCharacter(StoreCharData character) {
+        if (character == null || character.getIdentity() == null) {
+            System.err.println("Cannot save character: character or identity is null.");
+            return false;
+        }
+        character.getIdentity().setUpdated(new Timestamp(System.currentTimeMillis()));
         int idx = character.getIdentity().getIndex();
-        File dir = new File(CHARACTER_DIR);
+        File dir = CHARACTER_DIR.toFile();
         if (!ensureDirectory(dir, "Cannot save character: failed to create directory")) {
             return false;
         }
@@ -144,7 +151,7 @@ public class StoreCharManager {
             back3 = new File(getAutoBackPath(idx, 3));
         }
 
-        String backupDirPath = isManualSave ? MANUAL_DIR : AUTO_DIR;
+        String backupDirPath = isManualSave ? MANUAL_DIR.toString() : AUTO_DIR.toString();
         File backDir = new File(backupDirPath);
         if (!ensureDirectory(backDir, "Cannot backup character: failed to create directory")) {
             return;

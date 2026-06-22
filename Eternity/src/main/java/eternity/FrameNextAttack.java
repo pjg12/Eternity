@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
  */
 public class FrameNextAttack extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final String STEALTH_STRIKE_ACTION = "Stealth Strike";
 
 	private final FrameSheet sheetFrame;
 	private final FrameCombat combatFrame;
@@ -145,6 +146,7 @@ public class FrameNextAttack extends JFrame {
 		if (effectsArea == null) return;
 		List<DataStatus> previewStatuses = buildPendingStatuses();
 		StringBuilder text = new StringBuilder();
+		appendChargeInstructions(text);
 		text.append("Pending effects applied until the next resolved attack.");
 		text.append(System.lineSeparator()).append(System.lineSeparator());
 
@@ -156,8 +158,79 @@ public class FrameNextAttack extends JFrame {
 			}
 		}
 
+		if (isTechnicalAction(previewStatuses)) {
+			appendTechnicalDescription(text);
+		}
+
 		effectsArea.setText(text.toString());
 		effectsArea.setCaretPosition(0);
+	}
+
+	private void appendChargeInstructions(StringBuilder text) {
+		if (text == null || !isChargeAction()) return;
+		text.append("You must move a minimum of ")
+				.append(getChargeMinimumDistance())
+				.append("ft and a maximum of ")
+				.append(getChargeMoveDistance())
+				.append("ft.")
+				.append(System.lineSeparator());
+		text.append("You must move in a direct path toward a visible enemy without deviating more than 45\u00B0.")
+				.append(System.lineSeparator());
+		text.append("You will have reduced AC during your charge.")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
+		if (character != null
+				&& character.getSpecials() != null
+				&& character.getSpecials().hasSpecialty("War Charge")) {
+			text.append("You are not subject to attacks of opportunity during a Charge attack.")
+					.append(System.lineSeparator());
+		}
+		text.append(System.lineSeparator());
+	}
+
+	private boolean isChargeAction() {
+		return action != null
+				&& action.getName() != null
+				&& action.getName().equalsIgnoreCase("Charge");
+	}
+
+	private double getChargeMoveDistance() {
+		double cmanValue = character == null ? 0.0 : character.getEffectiveCombatManeuverValue(action == null ? null : action.getName());
+		double moveValue = resolveCharacterStatValue("MOVE") + cmanValue;
+		if (character != null
+				&& character.getSpecials() != null
+				&& character.getSpecials().hasSpecialty("War Charge")
+				&& character.getIdentity() != null) {
+			moveValue += 2.5 * character.getIdentity().getLevel();
+		}
+		if (hasEnJoustingCharge()) {
+			moveValue += 5.0 * getRaceTrainingRank();
+		}
+		return Math.max(0, moveValue);
+	}
+
+	private int getChargeMinimumDistance() {
+		return hasEnJoustingCharge() ? 10 : 15;
+	}
+
+	private boolean hasEnJoustingCharge() {
+		if (character == null || character.getSpecials() == null) return false;
+		DataSpecialty racial = character.getSpecials().getRacialSpecialty();
+		if (racial == null || racial.getName() == null) return false;
+		return racial.getName().equalsIgnoreCase("Jousting Charge (En)");
+	}
+
+	private boolean hasJoustingCharge() {
+		if (!isChargeAction() || character == null || character.getSpecials() == null) return false;
+		DataSpecialty racial = character.getSpecials().getRacialSpecialty();
+		if (racial == null || racial.getName() == null) return false;
+		return racial.getName().regionMatches(true, 0, "Jousting Charge", 0, "Jousting Charge".length());
+	}
+
+	private int getRaceTrainingRank() {
+		if (character == null || character.getTraining() == null) return 0;
+		DataTraining raceTraining = character.getTraining().getTrainingByName("Race Training");
+		return raceTraining == null ? 0 : Math.max(0, raceTraining.getRank());
 	}
 
 	private void confirmPressed() {
@@ -174,7 +247,9 @@ public class FrameNextAttack extends JFrame {
 		}
 
 		if (combatFrame != null) {
-			combatFrame.finishActionUse(action.getActionType());
+			if (!combatFrame.finishActionUse(action)) {
+				return;
+			}
 		}
 		if (sheetFrame != null) {
 			sheetFrame.refreshImagePanel();
@@ -185,14 +260,33 @@ public class FrameNextAttack extends JFrame {
 
 	private List<DataStatus> buildPendingStatuses() {
 		ArrayList<DataStatus> statuses = new ArrayList<>();
+		if (isSmiteAction()) {
+			statuses.add(buildMarkerStatus("SMITE", "Smite"));
+		}
+		if (isStealthStrikeAction()) {
+			statuses.add(buildMarkerStatus("STEALTHSTRIKE", "Stealth Strike"));
+		}
 		Map<String, Double> accumulatedEffects = new LinkedHashMap<>();
 		for (DataAction.ModifierKey modifier : action.getModifierKey()) {
 			accumulatePendingEffect(accumulatedEffects, modifier);
+		}
+		accumulateChargeRacialEffects(accumulatedEffects);
+		if (!isStealthStrikeAction() && resolveTechnicalData() != null && !accumulatedEffects.containsKey("TECH")) {
+			accumulatedEffects.put("TECH", 1.0);
 		}
 		for (Map.Entry<String, Double> entry : accumulatedEffects.entrySet()) {
 			addPendingStatus(statuses, entry.getKey(), entry.getValue(), describeAttribute(entry.getKey()));
 		}
 		return statuses;
+	}
+
+	private void accumulateChargeRacialEffects(Map<String, Double> accumulatedEffects) {
+		if (accumulatedEffects == null || !hasJoustingCharge()) return;
+		int raceTrainingRank = getRaceTrainingRank();
+		if (raceTrainingRank <= 0) return;
+		mergeEffect(accumulatedEffects, "BATK", raceTrainingRank / 2.0);
+		mergeEffect(accumulatedEffects, "BBDMG", raceTrainingRank);
+		mergeEffect(accumulatedEffects, "BTDMG", raceTrainingRank);
 	}
 
 	private void addPendingStatus(List<DataStatus> statuses, String attribute, double severity, String label) {
@@ -212,12 +306,16 @@ public class FrameNextAttack extends JFrame {
 	}
 
 	private DataStatus buildMarkerStatus() {
+		return buildMarkerStatus("BATK", "Pending");
+	}
+
+	private DataStatus buildMarkerStatus(String attribute, String label) {
 		DataStatus status = new DataStatus();
-		status.setName(action.getName() + " [Pending]");
+		status.setName(action.getName() + " [" + label + "]");
 		status.setAffinity(safeDisplay(action.getAffinity()));
 		status.setDescription("Pending next-attack marker for " + action.getName());
-		status.setAttribute("BATK");
-		status.setSeverity(0.0);
+		status.setAttribute(attribute);
+		status.setSeverity("BATK".equalsIgnoreCase(attribute) ? 0.0 : 1.0);
 		status.setDurationType("Next Attack");
 		status.setDuration(1);
 		return status;
@@ -274,18 +372,118 @@ public class FrameNextAttack extends JFrame {
 
 	private String formatStatusEffect(DataStatus status) {
 		if (status == null) return "";
+		if ("TECH".equalsIgnoreCase(status.getAttribute())) {
+			return "Technical: Yes";
+		}
+		if ("SMITE".equalsIgnoreCase(status.getAttribute())) {
+			return "Smite: The next attack becomes Divine and targets Dodge.";
+		}
+		if ("STEALTHSTRIKE".equalsIgnoreCase(status.getAttribute())) {
+			return "Stealth Strike: Successful attack grants 1 TP, failed WILL save grants 1 TP, then spend TP on rogue follow-up effects.";
+		}
 		return describeAttribute(status.getAttribute()) + ": " + formatSignedNumber(status.getSeverity());
+	}
+
+	private boolean hasTechnicalPendingStatus(List<DataStatus> statuses) {
+		if (statuses == null) return false;
+		for (DataStatus status : statuses) {
+			if (status != null && "TECH".equalsIgnoreCase(status.getAttribute())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isTechnicalAction(List<DataStatus> statuses) {
+		return hasTechnicalPendingStatus(statuses) || resolveTechnicalData() != null;
+	}
+
+	private boolean isSmiteAction() {
+		return action != null
+				&& action.getName() != null
+				&& "Smite".equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isStealthStrikeAction() {
+		return action != null
+				&& action.getName() != null
+				&& STEALTH_STRIKE_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private void appendTechnicalDescription(StringBuilder text) {
+		if (text == null) return;
+		text.append(System.lineSeparator())
+				.append("The next attack you resolve will be Technical.");
+
+		DataTechnical technical = resolveTechnicalData();
+		if (technical == null) return;
+
+		text.append(System.lineSeparator())
+				.append("Category: ")
+				.append(safeDisplay(technical.getCategory()));
+
+		String save = technical.getSave();
+		if (save != null && !save.isBlank() && !"None".equalsIgnoreCase(save.trim())) {
+			text.append(System.lineSeparator())
+					.append("Save: ")
+					.append(save.trim());
+		}
+
+		String description = technical.getDescription();
+		if (description != null && !description.isBlank()) {
+			text.append(System.lineSeparator())
+					.append(description.trim());
+		}
+	}
+
+	private DataTechnical resolveTechnicalData() {
+		if (action == null || action.getName() == null || action.getName().isBlank()) return null;
+		StoreRuleManager ruleManager = new StoreRuleManager();
+		String technicalName = resolveTechnicalNameForAction(action.getName());
+		return ruleManager.getTechnicalByName(technicalName);
+	}
+
+	private String resolveTechnicalNameForAction(String actionName) {
+		if (actionName == null || actionName.isBlank()) return actionName;
+		String trimmed = actionName.trim();
+		if ("Pulse (Slow)".equalsIgnoreCase(trimmed)) {
+			return isCurrentShifterMeleeForm() ? "Pulse (Slow) Melee" : "Pulse (Slow) Ranged";
+		}
+		if ("Pulse (Steady)".equalsIgnoreCase(trimmed)) {
+			return isCurrentShifterMeleeForm() ? "Pulse (Steady) Melee" : "Pulse (Steady) Ranged";
+		}
+		return trimmed;
+	}
+
+	private boolean isCurrentShifterMeleeForm() {
+		if (character == null || character.getIdentity() == null) return true;
+		if (!"Shifter".equalsIgnoreCase(character.getIdentity().getCharClass())) return true;
+		String selectedForm = character.getReminderSelection("Current Form:");
+		if (selectedForm == null || selectedForm.isBlank()) return true;
+		String normalized = selectedForm.trim().toLowerCase(java.util.Locale.ROOT);
+		if (normalized.contains("light") || normalized.contains("ranged")) {
+			return false;
+		}
+		return true;
 	}
 
 	private String describeAttribute(String attribute) {
 		if (attribute == null) return "Effect";
 		return switch (attribute.toUpperCase()) {
 			case "BATK" -> "Attack";
+			case "BAPP" -> "Application";
+			case "BDEF" -> "Defense";
 			case "BBDMG" -> "Base Damage";
 			case "BTDMG" -> "Total Damage";
+			case "BBHEAL" -> "Base Healing";
+			case "BTHEAL" -> "Total Healing";
 			case "BRANGE" -> "Range";
+			case "BCRIT" -> "Critical Increment";
+			case "BCRUSH" -> "Crush";
 			case "MBDMG" -> "Base Damage Multiplier";
 			case "MTDMG" -> "Total Damage Multiplier";
+			case "MBHEAL" -> "Base Healing Multiplier";
+			case "MTHEAL" -> "Total Healing Multiplier";
 			default -> attribute;
 		};
 	}
@@ -304,6 +502,11 @@ public class FrameNextAttack extends JFrame {
 
 	private void accumulatePendingEffect(Map<String, Double> accumulatedEffects, DataAction.ModifierKey modifier) {
 		if (accumulatedEffects == null || modifier == null || modifier.getAttribute() == null) return;
+		String attribute = modifier.getAttribute().trim().toUpperCase();
+		if ("TECH".equals(attribute)) {
+			mergeEffect(accumulatedEffects, "TECH", 1.0);
+			return;
+		}
 		double effectValue;
 		try {
 			effectValue = evaluateModifierValue(modifier.getOperator());
@@ -311,16 +514,17 @@ public class FrameNextAttack extends JFrame {
 			return;
 		}
 		if (Math.abs(effectValue) <= 0.0001) return;
-
-		String attribute = modifier.getAttribute().trim().toUpperCase();
 		switch (attribute) {
 			case "ATK" -> mergeEffect(accumulatedEffects, "BATK", effectValue);
 			case "APP" -> mergeEffect(accumulatedEffects, "BAPP", effectValue);
+			case "DEF" -> mergeEffect(accumulatedEffects, "BDEF", effectValue);
 			case "BDMG" -> mergeEffect(accumulatedEffects, "BBDMG", effectValue);
 			case "TDMG" -> mergeEffect(accumulatedEffects, "BTDMG", effectValue);
 			case "BHEAL" -> mergeEffect(accumulatedEffects, "BBHEAL", effectValue);
 			case "THEAL" -> mergeEffect(accumulatedEffects, "BTHEAL", effectValue);
 			case "RANGED", "RANGE" -> mergeEffect(accumulatedEffects, "BRANGE", effectValue);
+			case "CRIT" -> mergeEffect(accumulatedEffects, "BCRIT", effectValue);
+			case "CRUSH" -> mergeEffect(accumulatedEffects, "BCRUSH", effectValue);
 			case "DMGMULTI" -> {
 				mergeEffect(accumulatedEffects, "MBDMG", effectValue);
 				mergeEffect(accumulatedEffects, "MTDMG", effectValue);
@@ -345,15 +549,12 @@ public class FrameNextAttack extends JFrame {
 		String trimmed = operatorExpression.trim();
 		char operator = trimmed.charAt(0);
 		String expression = trimmed;
-		if (operator == '+' || operator == '-' || operator == '*' || operator == '/' || operator == '=') {
+		if (operator == '*' || operator == '/' || operator == '=') {
 			expression = trimmed.substring(1).trim();
-		} else {
-			operator = '+';
 		}
 		if (expression.isBlank()) return 0.0;
 
-		double value = new ModifierExpressionParser(expression).parse();
-		return operator == '-' ? -value : value;
+		return new ModifierExpressionParser(expression).parse();
 	}
 
 	private double roundDownToThreeDecimals(double value) {
@@ -377,7 +578,8 @@ public class FrameNextAttack extends JFrame {
 		if (token == null || token.isBlank()) return 0.0;
 		String normalized = token.trim().toUpperCase();
 		return switch (normalized) {
-			case "AL" -> getSelectedAl();
+			case "AL" -> character == null || action == null ? 0.0 : character.getEffectiveTechniqueAl(action.getAffinity(), getSelectedAl());
+			case "CL" -> getClassLevel();
 			case "ATK" -> 0.0;
 			case "APP" -> 0.0;
 			case "BDMG" -> 0.0;
@@ -386,6 +588,11 @@ public class FrameNextAttack extends JFrame {
 			case "RANGED", "RANGE" -> 0.0;
 			default -> resolveCharacterStatValue(normalized);
 		};
+	}
+
+	private double getClassLevel() {
+		if (character == null || character.getIdentity() == null) return 0.0;
+		return Math.max(0, character.getIdentity().getLevel());
 	}
 
 	private double resolveCharacterStatValue(String key) {

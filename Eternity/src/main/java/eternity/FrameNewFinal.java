@@ -1,15 +1,24 @@
 package eternity;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +28,7 @@ import java.time.LocalDateTime;
  */
 public class FrameNewFinal extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final String[] SUPPORTED_IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "gif", "bmp"};
 
     private final StoreCharData character;
     private final FrameNew parent;
@@ -45,7 +55,7 @@ public class FrameNewFinal extends JFrame {
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
         setLayout(null);
-        setSize(560, 400);
+        setSize(560, 430);
         setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -64,47 +74,69 @@ public class FrameNewFinal extends JFrame {
     }
 
     private void buildFields() {
-        int y = 60;
+        int contentLeft = 20;
+        int contentWidth = 520;
+        int fourColGap = 15;
+        int threeColGap = 15;
+        int twoColGap = 20;
+        int fourColWidth = 118;
+        int threeColWidth = 163;
+        int twoColWidth = 250;
+        int row1Y = 55;
+        int row2Y = 115;
+        int row3Y = 175;
+        int row4LabelY = 235;
+        int row4FieldY = 255;
 
-        nameField = addLabeledField("Name", 10, y, 140, 20);
-        nicknameField = addLabeledField("Nickname", 190, y, 140, 20);
-        campaignField = addLabeledField("Campaign", 370, y, 140, 20);
-        raceField = addLabeledField("Race", 10, y + 40, 140, 20);
-        raceField.setEditable(false);
+        int col1X = contentLeft;
+        int col2X = col1X + fourColWidth + fourColGap;
+        int col3X = col2X + fourColWidth + fourColGap;
+        int col4X = col3X + fourColWidth + fourColGap;
 
-        y += 40;
-        classField = addLabeledField("Class", 190, y, 140, 20);
-        classField.setEditable(false);
-        genderField = addLabeledField("Gender", 370, y, 120, 20);
-        heightField = addLabeledField("Height", 10, y + 40, 80, 20);
-        weightField = addLabeledField("Weight", 110, y + 40, 80, 20);
-
-        y += 40;
-        eyesField = addLabeledField("Eyes", 200, y + 40, 120, 20);
-        hairField = addLabeledField("Hair", 340, y + 40, 120, 20);
-
-        // Campaign start date (ISO-8601 local date)
-        campaignStartField = addLabeledField("Campaign Start (YYYY-MM-DD)", 400, 20, 140, 20);
+        nameField = addLabeledField("Name", col1X, row1Y, fourColWidth, 20);
+        nicknameField = addLabeledField("Nickname", col2X, row1Y, fourColWidth, 20);
+        campaignField = addLabeledField("Campaign", col3X, row1Y, fourColWidth, 20);
+        campaignStartField = addLabeledField("Campaign Start", col4X, row1Y, fourColWidth, 20);
         campaignStartField.setToolTipText("Enter the in-campaign start date; defaults to today if left blank.");
 
-        y += 50;
+        col1X = contentLeft;
+        col2X = col1X + threeColWidth + threeColGap;
+        col3X = col2X + threeColWidth + threeColGap;
+
+        raceField = addLabeledField("Race", col1X, row2Y, threeColWidth, 20);
+        raceField.setEditable(false);
+        classField = addLabeledField("Class", col2X, row2Y, threeColWidth, 20);
+        classField.setEditable(false);
+        genderField = addLabeledField("Gender", col3X, row2Y, threeColWidth, 20);
+
+        col1X = contentLeft;
+        col2X = col1X + fourColWidth + fourColGap;
+        col3X = col2X + fourColWidth + fourColGap;
+        col4X = col3X + fourColWidth + fourColGap;
+
+        heightField = addLabeledField("Height", col1X, row3Y, fourColWidth, 20);
+        weightField = addLabeledField("Weight", col2X, row3Y, fourColWidth, 20);
+        eyesField = addLabeledField("Eyes", col3X, row3Y, fourColWidth, 20);
+        hairField = addLabeledField("Hair", col4X, row3Y, fourColWidth, 20);
+
         JLabel physLabel = new JLabel("Physical");
-        physLabel.setBounds(25, y - 20, 200, 20);
+        physLabel.setBounds(contentLeft, row4LabelY, twoColWidth, 20);
         add(physLabel);
 
         physicalArea = new JTextArea();
         JScrollPane physPane = new JScrollPane(physicalArea);
-        physPane.setBounds(25, y, 225, 90);
+        physPane.setBounds(contentLeft, row4FieldY, twoColWidth, 90);
         physPane.setBorder(BorderFactory.createLineBorder(getForeground()));
         add(physPane);
 
+        int rightPaneX = contentLeft + twoColWidth + twoColGap;
         JLabel persLabel = new JLabel("Personality");
-        persLabel.setBounds(300, y - 20, 200, 20);
+        persLabel.setBounds(rightPaneX, row4LabelY, twoColWidth, 20);
         add(persLabel);
 
         personalityArea = new JTextArea();
         JScrollPane persPane = new JScrollPane(personalityArea);
-        persPane.setBounds(300, y, 225, 90);
+        persPane.setBounds(rightPaneX, row4FieldY, twoColWidth, 90);
         persPane.setBorder(BorderFactory.createLineBorder(getForeground()));
         add(persPane);
     }
@@ -123,12 +155,17 @@ public class FrameNewFinal extends JFrame {
 
     private void buildButtons() {
         JButton back = new JButton("Back");
-        back.setBounds(140, 320, 120, 26);
+        back.setBounds(70, 360, 120, 26);
         back.addActionListener(e -> dispose());
         add(back);
 
+        JButton image = new JButton("Image");
+        image.setBounds(220, 360, 120, 26);
+        image.addActionListener(e -> chooseImageFile());
+        add(image);
+
         JButton accept = new JButton("Accept");
-        accept.setBounds(300, 320, 120, 26);
+        accept.setBounds(370, 360, 120, 26);
         accept.addActionListener(e -> confirmFinalize());
         add(accept);
     }
@@ -217,6 +254,91 @@ public class FrameNewFinal extends JFrame {
 
         dispose();
         if (parent != null) parent.finalConfirmed();
+    }
+
+    private void chooseImageFile() {
+        if (character == null || character.getIdentity() == null) return;
+        int characterIndex = character.getIdentity().getIndex();
+        if (characterIndex < 1) {
+            JOptionPane.showMessageDialog(this,
+                    "Character index is not available yet, so the image cannot be imported.",
+                    "Image Import Unavailable",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Choose Character Image");
+        chooser.setFileFilter(new FileNameExtensionFilter(
+                "Image Files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)",
+                SUPPORTED_IMAGE_EXTENSIONS));
+        chooser.setAcceptAllFileFilterUsed(true);
+
+        int result = chooser.showOpenDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File selectedFile = chooser.getSelectedFile();
+        if (selectedFile == null || !selectedFile.isFile()) {
+            JOptionPane.showMessageDialog(this,
+                    "The selected file is not valid.",
+                    "Invalid Image",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String extension = resolveExtension(selectedFile.getName());
+            if (extension == null) {
+                throw new IllegalArgumentException("Unsupported image type.");
+            }
+
+            BufferedImage preview = ImageIO.read(selectedFile);
+            if (preview == null) {
+                throw new IllegalArgumentException("The selected file could not be read as an image.");
+            }
+
+            Path imagesDir = AppPaths.imagesDir();
+            Files.createDirectories(imagesDir);
+            deleteExistingPortraits(imagesDir, characterIndex);
+
+            Path targetPath = imagesDir.resolve(characterIndex + "." + extension);
+            Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+            JOptionPane.showMessageDialog(this,
+                    "Image imported for this character.",
+                    "Image Imported",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Unable to import the selected image.\n" + ex.getMessage(),
+                    "Image Import Failed",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String resolveExtension(String fileName) {
+        if (fileName == null) return null;
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex < 0 || dotIndex == fileName.length() - 1) return null;
+        String extension = fileName.substring(dotIndex + 1).toLowerCase();
+        for (String candidate : SUPPORTED_IMAGE_EXTENSIONS) {
+            if (candidate.equalsIgnoreCase(extension)) {
+                return extension;
+            }
+        }
+        return null;
+    }
+
+    private void deleteExistingPortraits(Path imagesDir, int characterIndex) {
+        for (String extension : SUPPORTED_IMAGE_EXTENSIONS) {
+            try {
+                Files.deleteIfExists(imagesDir.resolve(characterIndex + "." + extension));
+            } catch (Exception ignored) {
+                // Best effort; import can still proceed with overwrite on the chosen extension.
+            }
+        }
     }
 }
 

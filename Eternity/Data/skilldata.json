@@ -83,6 +83,13 @@
   "availAttributes" : [ "DEX" ],
   "chosenAttributes" : [ "-" ]
 }, {
+  "id" : 349,
+  "name" : "Craft",
+  "type" : "Gen",
+  "description" : "Allows the user to make items.",
+  "availAttributes" : [ "ALL" ],
+  "chosenAttributes" : [ "-" ]
+}, {
   "id" : 310,
   "name" : "Deception",
   "type" : "Gen",
@@ -182,7 +189,7 @@
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 314,
-  "name" : "Imitate Appearance",
+  "name" : "Imitate",
   "type" : "Gen",
   "description" : "Allows the user to mimic the appearance of another creature.",
   "availAttributes" : [ "SUB" ],
@@ -245,17 +252,17 @@
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 334,
-  "name" : "Performance",
+  "name" : "Perform",
   "type" : "Gen",
   "description" : "Allows the user to put on a show for the entertainment of others.",
-  "availAttributes" : [ "CHA" ],
+  "availAttributes" : [ "ALL" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 327,
   "name" : "Piloting",
   "type" : "Gen",
   "description" : "Allows the user to operate a flying vehicle.",
-  "availAttributes" : [ "MECH", "FOC" ],
+  "availAttributes" : [ "ALL" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 338,
@@ -269,7 +276,7 @@
   "name" : "Profession",
   "type" : "Gen",
   "description" : "Allows the user to perform a skillful trade.",
-  "availAttributes" : [ "KNOW", "FOC" ],
+  "availAttributes" : [ "ALL" ],
   "chosenAttributes" : [ "-" ]
 }, {
   "id" : 328,

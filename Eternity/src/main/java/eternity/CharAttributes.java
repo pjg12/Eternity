@@ -21,7 +21,7 @@ public class CharAttributes {
     private static final String[] DEFENSE = { "ARMOR","DODGE","DEF","FORT","REF","WILL","AVOID" };
     private static final String[] DMGTYPE = { "ALL","PHY","BLUNT","PIERCE","SLASH","FIRE","FROST","ELEC","ENERGY","SONIC","LIGHT","TOXIC","DARK","PSI","SPIRIT","TIME" };
     private static final String[] COMBAT = { "ATK","APP","MOVE","FLY","RANGE","INIT","CMAN","MAXATK" };
-    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","AREA" };
+    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","BREAK","AREA","POWER" };
     private static final String[] DAMAGE = { "BDMG", "TDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
 
     //  GENERIC STAT ARRAYS
@@ -38,6 +38,8 @@ public class CharAttributes {
     @JsonProperty("mSecondary") private ArrayList<DataStatus>[][] mSecondary;           // List of secondary multipliers
     @JsonProperty("bDamage") private ArrayList<DataStatus>[][] bDamage;             // List of base damage modifiers
     @JsonProperty("mDamage") private ArrayList<DataStatus>[][] mDamage;                 // List of damage multipliers
+    @JsonProperty("bSkill") private ArrayList<DataStatus>[] bSkill;                 // List of skill-specific flat bonuses
+    @JsonProperty("mSkill") private ArrayList<DataStatus>[] mSkill;                 // Reserved for skill-specific multipliers
 
     public CharAttributes() {
     	this.bAttributes = initCategory(ATTRIBUTES, true);
@@ -48,10 +50,12 @@ public class CharAttributes {
         this.mResist     = initCategory(DMGTYPE, false);
     	this.bCombat     = initCategory(COMBAT, true);
         this.mCombat     = initCategory(COMBAT, false);
-    	this.bSecondary  = initCategory(SECONDARY, true);
+        this.bSecondary  = initCategory(SECONDARY, true);
         this.mSecondary  = initCategory(SECONDARY, false);
         this.bDamage     = initCategory(DAMAGE, true);
         this.mDamage     = initCategory(DAMAGE, false);
+        this.bSkill      = initStatus("BSKILL");
+        this.mSkill      = initStatus("MSKILL");
 
         // set base defense
         this.bDefense[2][0].get(0).setSeverity(10);
@@ -61,6 +65,8 @@ public class CharAttributes {
         this.bCombat[5][0].get(0).setSeverity(20);
         // set base maxatk
         this.bCombat[7][0].get(0).setSeverity(1);
+        // set base area
+        this.bSecondary[7][0].get(0).setSeverity(1);
     }
 
     // ---------------------------------------------------------
@@ -143,19 +149,23 @@ public class CharAttributes {
     public ArrayList<DataStatus>[][] getMSecondary() { return mSecondary; }
     public ArrayList<DataStatus>[][] getBDamage() { return bDamage; }
     public ArrayList<DataStatus>[][] getMDamage() { return mDamage; }
+    public ArrayList<DataStatus>[] getBSkill() { return bSkill; }
+    public ArrayList<DataStatus>[] getMSkill() { return mSkill; }
 
-    @JsonSetter("bAttributes") public void setBAttributes(ArrayList<DataStatus>[][] list) { this.bAttributes = list; }
-    @JsonSetter("mAttributes") public void setMAttributes(ArrayList<DataStatus>[][] list) { this.mAttributes = list; }
-    @JsonSetter("bDefense") public void setBDefense(ArrayList<DataStatus>[][] list) { this.bDefense = list; }
-    @JsonSetter("mDefense") public void setMDefense(ArrayList<DataStatus>[][] list) { this.mDefense = list; }
-    @JsonSetter("bResist") public void setBResist(ArrayList<DataStatus>[][] list) { this.bResist = list; }
-    @JsonSetter("mResist") public void setMResist(ArrayList<DataStatus>[][] list) { this.mResist = list; }
-    @JsonSetter("bCombat") public void setBCombat(ArrayList<DataStatus>[][] list) { this.bCombat = list; }
-    @JsonSetter("mCombat") public void setMCombat(ArrayList<DataStatus>[][] list) { this.mCombat = list; }
-    @JsonSetter("bSecondary") public void setBSecondary(ArrayList<DataStatus>[][] list) { this.bSecondary = list; }
-    @JsonSetter("mSecondary") public void setMSecondary(ArrayList<DataStatus>[][] list) { this.mSecondary = list; }
-    @JsonSetter("bDamage") public void setBDamage(ArrayList<DataStatus>[][] list) { this.bDamage = list; }
-    @JsonSetter("mDamage") public void setMDamage(ArrayList<DataStatus>[][] list) { this.mDamage = list; }
+    @JsonSetter("bAttributes") public void setBAttributes(ArrayList<DataStatus>[][] list) { this.bAttributes = normalizeCategory(list, ATTRIBUTES, true); }
+    @JsonSetter("mAttributes") public void setMAttributes(ArrayList<DataStatus>[][] list) { this.mAttributes = normalizeCategory(list, ATTRIBUTES, false); }
+    @JsonSetter("bDefense") public void setBDefense(ArrayList<DataStatus>[][] list) { this.bDefense = normalizeCategory(list, DEFENSE, true); }
+    @JsonSetter("mDefense") public void setMDefense(ArrayList<DataStatus>[][] list) { this.mDefense = normalizeCategory(list, DEFENSE, false); }
+    @JsonSetter("bResist") public void setBResist(ArrayList<DataStatus>[][] list) { this.bResist = normalizeCategory(list, DMGTYPE, true); }
+    @JsonSetter("mResist") public void setMResist(ArrayList<DataStatus>[][] list) { this.mResist = normalizeCategory(list, DMGTYPE, false); }
+    @JsonSetter("bCombat") public void setBCombat(ArrayList<DataStatus>[][] list) { this.bCombat = normalizeCategory(list, COMBAT, true); }
+    @JsonSetter("mCombat") public void setMCombat(ArrayList<DataStatus>[][] list) { this.mCombat = normalizeCategory(list, COMBAT, false); }
+    @JsonSetter("bSecondary") public void setBSecondary(ArrayList<DataStatus>[][] list) { this.bSecondary = normalizeCategory(list, SECONDARY, true); }
+    @JsonSetter("mSecondary") public void setMSecondary(ArrayList<DataStatus>[][] list) { this.mSecondary = normalizeCategory(list, SECONDARY, false); }
+    @JsonSetter("bDamage") public void setBDamage(ArrayList<DataStatus>[][] list) { this.bDamage = normalizeCategory(list, DAMAGE, true); }
+    @JsonSetter("mDamage") public void setMDamage(ArrayList<DataStatus>[][] list) { this.mDamage = normalizeCategory(list, DAMAGE, false); }
+    @JsonSetter("bSkill") public void setBSkill(ArrayList<DataStatus>[] list) { this.bSkill = normalizeStatusBlock(list, "BSKILL"); }
+    @JsonSetter("mSkill") public void setMSkill(ArrayList<DataStatus>[] list) { this.mSkill = normalizeStatusBlock(list, "MSKILL"); }
 
     @JsonIgnore public StoreCharData getOwner() { return owner; }
     @JsonIgnore public void setOwner(StoreCharData owner) { this.owner = owner; }
@@ -164,6 +174,7 @@ public class CharAttributes {
         for (String attribute : ATTRIBUTES) {
             updateAttributes(attribute);
         }
+        syncLeaderPowerStat();
     }
 
     public static String[] getAttributeKeys() { return ATTRIBUTES.clone(); }
@@ -180,18 +191,33 @@ public class CharAttributes {
     public void addStatus (DataStatus status) {
         if (status == null || status.getAttribute() == null) return;
         String att = status.getAttribute().toUpperCase();
-        ArrayList<DataStatus> list = findStatusArray( findStatusBlock( findStatusCategory( findCatByAttribute(att)), att), status.getDurationType().toUpperCase());
+        ArrayList<DataStatus> list = resolveStatusArray(att, status.getDurationType());
+        if (list == null) return;
         DataStatus existing = findStatus(list, status.getName());
         if (existing != null) existing.setSeverity(status.getSeverity());
             // TODO better comparison logic for statuses of the same name? For now, just take the highest severity if a duplicate is added.
         else list.add(status); 
-        updateAttributes(status);
+        if (!isSkillPseudoAttribute(att)) {
+            updateAttributes(status);
+        }
     }
 
     public void removeStatus (String name, String category) {
         if (name == null || category == null) return;
         name = name.toUpperCase();
         category = category.toUpperCase();
+        if ("BSKILL".equals(category) || "MSKILL".equals(category)) {
+            ArrayList<DataStatus>[] block = "BSKILL".equals(category) ? bSkill : mSkill;
+            if (block == null) return;
+            for (ArrayList<DataStatus> list : block) {
+                if (list == null) continue;
+                DataStatus existing = findStatus(list, name);
+                if (existing != null) {
+                    list.remove(existing);
+                }
+            }
+            return;
+        }
         ArrayList<DataStatus>[][] catList = findStatusCategory(category);
         if (catList == null) return;
         Set<String> changedAttributes = new LinkedHashSet<>();
@@ -213,7 +239,20 @@ public class CharAttributes {
     public void removeStatusByStatus (DataStatus status) {
         if (status == null || status.getName() == null || status.getAttribute() == null) return;
         String name = status.getName().toUpperCase();
-        String category = findCatByAttribute(status.getAttribute().toUpperCase()).toUpperCase();
+        String attribute = status.getAttribute().toUpperCase();
+        if (isSkillPseudoAttribute(attribute)) {
+            ArrayList<DataStatus>[] block = findSkillStatusBlock(attribute);
+            if (block == null) return;
+            for (ArrayList<DataStatus> list : block) {
+                if (list == null) continue;
+                DataStatus existing = findStatus(list, name);
+                if (existing != null) {
+                    list.remove(existing);
+                }
+            }
+            return;
+        }
+        String category = findCatByAttribute(attribute).toUpperCase();
         ArrayList<DataStatus>[][] catList = findStatusCategory(category);
         if (catList == null) return;
         boolean removedAny = false;
@@ -255,6 +294,10 @@ public class CharAttributes {
         if (category == null) return null;
         String cat;
         for (int i = 0; i < category.length; i++) {
+            if (category[i] == null || category[i].length == 0 || category[i][0] == null || category[i][0].isEmpty()
+                    || category[i][0].get(0) == null || category[i][0].get(0).getAttribute() == null) {
+                continue;
+            }
             cat = category[i][0].get(0).getAttribute(); 
             if (cat.equalsIgnoreCase(key)) {
                 return category[i];
@@ -263,13 +306,97 @@ public class CharAttributes {
         return null;
     }
 
+    private ArrayList<DataStatus> resolveStatusArray(String attribute, String durationType) {
+        if (attribute == null || durationType == null) return null;
+        if (isSkillPseudoAttribute(attribute)) {
+            return findStatusArray(findSkillStatusBlock(attribute), durationType.toUpperCase());
+        }
+        ArrayList<DataStatus>[][] category = findStatusCategory(findCatByAttribute(attribute));
+        ArrayList<DataStatus>[] block = findStatusBlock(category, attribute);
+        if (block == null) return null;
+        return findStatusArray(block, durationType.toUpperCase());
+    }
+
+    private boolean isSkillPseudoAttribute(String attribute) {
+        String base = stripBaseOrMultiPrefix(attribute);
+        return base.startsWith("SKILL") && base.length() > "SKILL".length();
+    }
+
+    private ArrayList<DataStatus>[] findSkillStatusBlock(String attribute) {
+        if (!isSkillPseudoAttribute(attribute)) return null;
+        return attribute.toUpperCase().startsWith("MSKILL") ? mSkill : bSkill;
+    }
+
+    private String stripBaseOrMultiPrefix(String attribute) {
+        if (attribute == null || attribute.isBlank()) return "";
+        String upper = attribute.toUpperCase();
+        if ((upper.startsWith("B") || upper.startsWith("M")) && upper.length() > 1) {
+            return upper.substring(1);
+        }
+        return upper;
+    }
+
     private ArrayList<DataStatus> findStatusArray (ArrayList<DataStatus>[] block, String key) {
+        if (block == null) return null;
         return switch (key) {
             case "PASSIVE" -> block[0];
             case "MAINTAINED" -> block[1];
             case "TEMPORARY" -> block[2];
             default -> null;
         };
+    }
+
+    private ArrayList<DataStatus>[][] normalizeCategory(ArrayList<DataStatus>[][] source, String[] categoryKeys, boolean isBase) {
+        ArrayList<DataStatus>[][] normalized = initCategory(categoryKeys, isBase);
+        if (source == null) return normalized;
+        for (ArrayList<DataStatus>[] block : source) {
+            if (block == null || block.length == 0 || block[0] == null || block[0].isEmpty()
+                    || block[0].get(0) == null || block[0].get(0).getAttribute() == null) {
+                continue;
+            }
+            String attribute = block[0].get(0).getAttribute().toUpperCase();
+            int targetIndex = findCategoryIndex(categoryKeys, attribute);
+            if (targetIndex < 0) continue;
+            normalized[targetIndex] = normalizeStatusBlock(block, attribute);
+        }
+        return normalized;
+    }
+
+    private int findCategoryIndex(String[] categoryKeys, String blockAttribute) {
+        if (categoryKeys == null || blockAttribute == null || blockAttribute.isBlank()) return -1;
+        String upper = blockAttribute.toUpperCase();
+        for (int i = 0; i < categoryKeys.length; i++) {
+            String expectedBase = "B" + categoryKeys[i].toUpperCase();
+            String expectedMulti = "M" + categoryKeys[i].toUpperCase();
+            if (expectedBase.equals(upper) || expectedMulti.equals(upper)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private ArrayList<DataStatus>[] normalizeStatusBlock(ArrayList<DataStatus>[] source, String expectedAttribute) {
+        ArrayList<DataStatus>[] normalized = initStatus(expectedAttribute);
+        if (source == null) return normalized;
+        for (int i = 0; i < Math.min(source.length, normalized.length); i++) {
+            if (source[i] == null || source[i].isEmpty()) continue;
+            normalized[i].clear();
+            for (DataStatus status : source[i]) {
+                if (status == null) continue;
+                DataStatus copy = new DataStatus(status);
+                copy.setAttribute(expectedAttribute);
+                normalized[i].add(copy);
+            }
+            if (normalized[i].isEmpty()) {
+                DataStatus base = new DataStatus();
+                base.setName("Base");
+                base.setAttribute(expectedAttribute);
+                base.setSeverity(0);
+                base.setDurationType(i == 0 ? "Passive" : (i == 1 ? "Maintained" : "Temporary"));
+                normalized[i].add(base);
+            }
+        }
+        return normalized;
     }
 
     private DataStatus findStatus(ArrayList<DataStatus> list, String name) {
@@ -408,6 +535,27 @@ public class CharAttributes {
         upsertPassiveStatus("BTHEAL", "Primary Attribute", severity, "Derived from Primary Attribute");
         upsertPassiveStatus("BBHEAL", "Primary Attribute", severity, "Derived from Primary Attribute");
         upsertPassiveStatus("BAPP", "Primary Attribute", severity, "Derived from Primary Attribute");
+    }
+
+    private void syncLeaderPowerStat() {
+        if (owner == null || owner.getIdentity() == null) return;
+        double severity = 0.0;
+        String description = "Leader class-based Power";
+        if (isLeaderClass()) {
+            String primaryAttribute = resolvePrimaryAttribute();
+            if (primaryAttribute != null) {
+                double primaryValue = calcStatusValue(primaryAttribute);
+                severity = roundToTenths((primaryValue * 0.5) + owner.getLevel());
+                description = "Derived from Leader primary attribute and level";
+            }
+        }
+        upsertPassiveStatus("BPOWER", "Leader Class", severity, description);
+    }
+
+    private boolean isLeaderClass() {
+        if (owner == null || owner.getIdentity() == null) return false;
+        String className = owner.getIdentity().getCharClass();
+        return className != null && className.equalsIgnoreCase("Leader");
     }
 
     private void upsertPassiveStatus(String targetAttribute, String statusName, double severity, String description) {

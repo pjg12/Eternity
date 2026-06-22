@@ -53,6 +53,7 @@ public class StoreMetaChar {
     public void setLevel(int level) { this.level = level; }
     
     public Timestamp getUpdated() { return updated; }
+    public void setUpdated(Timestamp updated) { this.updated = updated; }
     public void setUpdated() { this.updated = new Timestamp(System.currentTimeMillis()); }
     
     @Override

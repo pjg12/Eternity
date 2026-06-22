@@ -26,6 +26,7 @@ public class FrameHeal extends JFrame {
 	private StoreCharData character;
 	private DataAction action;
 	private JComboBox<Integer> alSelect;
+	private JComboBox<String> rangeSelect;
 	private boolean actionResolved;
 	private boolean healRollUsed;
 
@@ -86,6 +87,7 @@ public class FrameHeal extends JFrame {
 	}
 
 	private void showHealStage() {
+		boolean meleeRangeSelected = isMeleeRangeSelected();
 		clearUiState();
 		syncActionFromCurrentAl();
 		healRollUsed = false;
@@ -128,10 +130,10 @@ public class FrameHeal extends JFrame {
 		labels[4].setBounds(25, 150, 100, 20);
 		labels[4].setText("Range");
 		labels[4].setVisible(true);
-		textFields[4].setBounds(25, 173, 100, 22);
-		textFields[4].setText(getRange() <= 0 ? "Melee" : (getRange() + " ft"));
-		textFields[4].setEditable(false);
-		textFields[4].setVisible(true);
+		ensureRangeSelect();
+		populateRangeSelect(meleeRangeSelected);
+		rangeSelect.setBounds(25, 173, 100, 22);
+		rangeSelect.setVisible(true);
 
 		if (isAuraTechniqueAction()) {
 			labels[5].setBounds(145, 150, 100, 20);
@@ -198,6 +200,15 @@ public class FrameHeal extends JFrame {
 				alSelect.getParent().remove(alSelect);
 			}
 		}
+		if (rangeSelect != null) {
+			for (ActionListener listener : rangeSelect.getActionListeners()) {
+				rangeSelect.removeActionListener(listener);
+			}
+			rangeSelect.setVisible(false);
+			if (rangeSelect.getParent() != null) {
+				rangeSelect.getParent().remove(rangeSelect);
+			}
+		}
 	}
 
 	private void cancelPressed() {
@@ -225,7 +236,9 @@ public class FrameHeal extends JFrame {
 	private void finishCombatActionIfNeeded() {
 		if (actionResolved) return;
 		if (combatFrame != null && action != null && action.getActionType() != null) {
-			combatFrame.resolveAttackAction(action.getActionType());
+			if (!combatFrame.resolveAttackAction(action)) {
+				return;
+			}
 		}
 		actionResolved = true;
 	}
@@ -246,7 +259,7 @@ public class FrameHeal extends JFrame {
 		}
 		tempString += actionSubtitle + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		tempString += " --+|Range: " + (getRange() <= 0 ? "Melee" : (getRange() + " ft"));
+		tempString += " --+|Range: " + getSelectedRangeLabel();
 		tempString += buildPercentRollBlock("Heal", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "HealPercentRoll", "FinalRawPercentRoll", "PercentRoll");
 		tempString += " --=HealRoll|[$PercentRoll] * " + formatNumber(getBaseHeal()) + " * " + formatNumber(getHealMultiplier()) + " + " + formatNumber(getTotalHeal()) + " {FLOOR}";
 		tempString += " --+|Heal Percent Roll: [$FinalRawPercentRoll] x 5% = [$PercentRoll] [br]&nbsp;&nbsp;";
@@ -325,6 +338,30 @@ public class FrameHeal extends JFrame {
 		}
 	}
 
+	private void ensureRangeSelect() {
+		if (rangeSelect == null) {
+			rangeSelect = new JComboBox<String>();
+		}
+		if (rangeSelect.getParent() == null) {
+			mainPanel.add(rangeSelect);
+		}
+	}
+
+	private void populateRangeSelect(boolean meleeSelected) {
+		if (rangeSelect == null) return;
+		rangeSelect.removeAllItems();
+		rangeSelect.addItem(getDefaultRangeLabel());
+		rangeSelect.addItem("Melee");
+		rangeSelect.setSelectedItem(meleeSelected ? "Melee" : getDefaultRangeLabel());
+		rangeSelect.addActionListener(e -> rangeSelectionChanged());
+	}
+
+	private void rangeSelectionChanged() {
+		if (textFields[2] != null) {
+			textFields[2].setText(formatNumber(getHealMultiplier()));
+		}
+	}
+
 	private void populateAlSelect() {
 		if (alSelect == null || action == null) return;
 		alSelect.removeAllItems();
@@ -375,6 +412,22 @@ public class FrameHeal extends JFrame {
 				&& "Aura".equalsIgnoreCase(action.getSource());
 	}
 
+	private String getDefaultRangeLabel() {
+		int range = getRange();
+		return range <= 0 ? "Melee" : (range + " ft");
+	}
+
+	private String getSelectedRangeLabel() {
+		if (rangeSelect == null || rangeSelect.getSelectedItem() == null) {
+			return getDefaultRangeLabel();
+		}
+		return safeText(String.valueOf(rangeSelect.getSelectedItem()));
+	}
+
+	private boolean isMeleeRangeSelected() {
+		return "Melee".equalsIgnoreCase(getSelectedRangeLabel());
+	}
+
 	private int getRange() {
 		if (action == null) return 0;
 		if (action.getRanged() > 0) {
@@ -392,7 +445,8 @@ public class FrameHeal extends JFrame {
 	}
 
 	private double getHealMultiplier() {
-		return Math.max(0.0, 1.0 + evaluateActionModifierTotal("HEALMULTI"));
+		double meleeBonus = isMeleeRangeSelected() ? 0.5 : 0.0;
+		return Math.max(0.0, 1.0 + evaluateActionModifierTotal("HEALMULTI") + meleeBonus);
 	}
 
 	private double evaluateActionModifierTotal(String targetAttribute) {
@@ -460,12 +514,18 @@ public class FrameHeal extends JFrame {
 		if (token == null || token.isBlank()) return 0.0;
 		String normalized = token.trim().toUpperCase();
 		return switch (normalized) {
-			case "AL" -> action == null ? 0.0 : Math.max(0, action.getAl());
+			case "AL" -> action == null || character == null ? 0.0 : character.getEffectiveTechniqueAl(action);
+			case "CL" -> getClassLevel();
 			case "BHEAL" -> getDerivedStatusValue("BHEAL");
 			case "THEAL" -> getDerivedStatusValue("THEAL");
 			case "HEALMULTI" -> 0.0;
 			default -> resolveCharacterStatValue(normalized);
 		};
+	}
+
+	private double getClassLevel() {
+		if (character == null || character.getIdentity() == null) return 0.0;
+		return Math.max(0, character.getIdentity().getLevel());
 	}
 
 	private double resolveCharacterStatValue(String key) {

@@ -20,7 +20,27 @@
   "modifierKey" : [ ]
 }, {
   "id" : 102,
-  "name" : "Full Attack",
+  "name" : "Standard Cast",
+  "category" : "Attack",
+  "source" : "Standard",
+  "affinity" : "None",
+  "atkType" : "Spell",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 103,
+  "name" : "Extend Attack",
   "category" : "Attack",
   "source" : "Standard",
   "affinity" : "None",
@@ -39,7 +59,133 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 103,
+  "id" : 104,
+  "name" : "Step",
+  "category" : "",
+  "source" : "Standard",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 111,
+  "name" : "Move",
+  "category" : "",
+  "source" : "Standard",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Move",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 112,
+  "name" : "Defensive Step",
+  "category" : "",
+  "source" : "Standard",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Move",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 113,
+  "name" : "Charge",
+  "category" : "Next Attack",
+  "source" : "Combat Maneuver",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Move",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "AuraAction",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(CL+CMAN)*0.5"
+  }, {
+    "attribute" : "def",
+    "operator" : "-(CL+CMAN)*0.5"
+  } ]
+}, {
+  "id" : 114,
+  "name" : "Push",
+  "category" : "Inform",
+  "source" : "Combat Maneuver",
+  "affinity" : "None",
+  "atkType" : "FORT",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Move",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "AuraAction",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 115,
+  "name" : "Overrun",
+  "category" : "Inform",
+  "source" : "Combat Maneuver",
+  "affinity" : "None",
+  "atkType" : "REF",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Move",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "AuraAction",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 121,
   "name" : "Grapple",
   "category" : "Attack",
   "source" : "Combat Maneuver",
@@ -59,87 +205,7 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 104,
-  "name" : "Charge",
-  "category" : "Next Attack",
-  "source" : "Combat Maneuver",
-  "affinity" : "None",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Move",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "None",
-    "value" : 0.0
-  } ],
-  "modifierKey" : [ ]
-}, {
-  "id" : 105,
-  "name" : "Rush",
-  "category" : "",
-  "source" : "Combat Maneuver",
-  "affinity" : "None",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "None",
-    "value" : 0.0
-  } ],
-  "modifierKey" : [ ]
-}, {
-  "id" : 106,
-  "name" : "Disarm",
-  "category" : "Attack",
-  "source" : "Combat Maneuver",
-  "affinity" : "None",
-  "atkType" : "Dodge",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "None",
-    "value" : 0.0
-  } ],
-  "modifierKey" : [ ]
-}, {
-  "id" : 107,
-  "name" : "Overrun",
-  "category" : "",
-  "source" : "Combat Maneuver",
-  "affinity" : "None",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "None",
-    "value" : 0.0
-  } ],
-  "modifierKey" : [ ]
-}, {
-  "id" : 108,
+  "id" : 122,
   "name" : "Sunder",
   "category" : "Attack",
   "source" : "Combat Maneuver",
@@ -159,7 +225,27 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 109,
+  "id" : 123,
+  "name" : "Disarm",
+  "category" : "Inform",
+  "source" : "Combat Maneuver",
+  "affinity" : "None",
+  "atkType" : "Dodge",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "MoveAction",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 124,
   "name" : "Trip",
   "category" : "Attack",
   "source" : "Combat Maneuver",
@@ -179,12 +265,12 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 110,
+  "id" : 133,
   "name" : "Feint",
-  "category" : "Next Attack",
+  "category" : "Apply",
   "source" : "Combat Maneuver",
   "affinity" : "None",
-  "atkType" : "Other",
+  "atkType" : "WILL",
   "atk" : 0,
   "bdmg" : 0,
   "tdmg" : 0,
@@ -199,7 +285,7 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 111,
+  "id" : 134,
   "name" : "Brace",
   "category" : "Mitigation",
   "source" : "Combat Maneuver",
@@ -219,7 +305,7 @@
   } ],
   "modifierKey" : [ ]
 }, {
-  "id" : 112,
+  "id" : 135,
   "name" : "Protect",
   "category" : "Support",
   "source" : "Combat Maneuver",
@@ -238,6 +324,735 @@
     "value" : 0.0
   } ],
   "modifierKey" : [ ]
+}, {
+  "id" : 151,
+  "name" : "Crushing Blow (Bend)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 152,
+  "name" : "Crushing Blow (Break)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 211,
+  "name" : "Judgment (Innocent)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 212,
+  "name" : "Judgment (Guilty)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 213,
+  "name" : "Smite",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 214,
+  "name" : "Crusader Seal",
+  "category" : "Apply",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 215,
+  "name" : "Unleash Crusader Seal",
+  "category" : "Apply",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxatk",
+    "operator" : "+0.5*CTR"
+  } ]
+}, {
+  "id" : 251,
+  "name" : "Shiv (Over)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 252,
+  "name" : "Shiv (Under)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 253,
+  "name" : "Offhand Attack",
+  "category" : "Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 254,
+  "name" : "Stealth Strike",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "crit",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 301,
+  "name" : "Resonant Strike (Ebb)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 302,
+  "name" : "Resonant Strike (Flow)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 303,
+  "name" : "Follow Up",
+  "category" : "Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 304,
+  "name" : "Still Mind",
+  "category" : "Inform",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "None",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 305,
+  "name" : "Clash",
+  "category" : "Inform",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R2",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 306,
+  "name" : "Spear Strike",
+  "category" : "Inform",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 351,
+  "name" : "Misdirection (Toss)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 352,
+  "name" : "Misdirection (Turn)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 401,
+  "name" : "Restore Summon",
+  "category" : "Inform",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 0.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 402,
+  "name" : "Command (Safe)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 403,
+  "name" : "Command (Sound)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 451,
+  "name" : "Chastise (Night)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 452,
+  "name" : "Chastise (Day)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 501,
+  "name" : "Efflux (Rise)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 502,
+  "name" : "Efflux (Fall)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 551,
+  "name" : "Pulse (Slow)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 552,
+  "name" : "Pulse (Steady)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 601,
+  "name" : "Ionize (Supply)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
+}, {
+  "id" : 602,
+  "name" : "Ionize (Demand)",
+  "category" : "Next Attack",
+  "source" : "Class",
+  "affinity" : "None",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "R1",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+CL"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+CL"
+  } ]
 }, {
   "id" : 1001,
   "name" : "Strong Shot (Weak)",
@@ -933,6 +1748,84 @@
   } ]
 }, {
   "id" : 1028,
+  "name" : "Enhanced Eruption (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Enhancement",
+  "atkType" : "REF",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.25)-1"
+  }, {
+    "attribute" : "radius",
+    "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+  } ]
+}, {
+  "id" : 1029,
+  "name" : "Enhanced Eruption (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Enhancement",
+  "atkType" : "REF",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.5)-1"
+  }, {
+    "attribute" : "radius",
+    "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+  } ]
+}, {
+  "id" : 1030,
+  "name" : "Enhanced Eruption (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Enhancement",
+  "atkType" : "REF",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.75)-1"
+  }, {
+    "attribute" : "radius",
+    "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+  } ]
+}, {
+  "id" : 1031,
   "name" : "Enhanced Heal (Weak)",
   "category" : "Heal",
   "source" : "Aura",
@@ -955,7 +1848,7 @@
     "operator" : "+(AL*0.5)"
   } ]
 }, {
-  "id" : 1029,
+  "id" : 1032,
   "name" : "Enhanced Heal (Medium)",
   "category" : "Heal",
   "source" : "Aura",
@@ -978,7 +1871,7 @@
     "operator" : "+(AL*1.0)"
   } ]
 }, {
-  "id" : 1030,
+  "id" : 1033,
   "name" : "Enhanced Heal (Strong)",
   "category" : "Heal",
   "source" : "Aura",
@@ -1001,7 +1894,7 @@
     "operator" : "+(AL*1.5)"
   } ]
 }, {
-  "id" : 1031,
+  "id" : 1034,
   "name" : "Enhanced Mend (Weak)",
   "category" : "Heal",
   "source" : "Aura",
@@ -1024,7 +1917,7 @@
     "operator" : "+(AL*0.4)-1"
   } ]
 }, {
-  "id" : 1032,
+  "id" : 1035,
   "name" : "Enhanced Mend (Medium)",
   "category" : "Heal",
   "source" : "Aura",
@@ -1047,7 +1940,7 @@
     "operator" : "+(AL*0.8)-1"
   } ]
 }, {
-  "id" : 1033,
+  "id" : 1036,
   "name" : "Enhanced Mend (Strong)",
   "category" : "Heal",
   "source" : "Aura",
@@ -1070,7 +1963,7 @@
     "operator" : "+(AL*1.2)-1"
   } ]
 }, {
-  "id" : 1034,
+  "id" : 1037,
   "name" : "Enhanced Shield (Weak)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1093,7 +1986,7 @@
     "operator" : "*(AL*0.05)"
   } ]
 }, {
-  "id" : 1035,
+  "id" : 1038,
   "name" : "Enhanced Shield (Medium)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1116,7 +2009,7 @@
     "operator" : "*(AL*0.1)"
   } ]
 }, {
-  "id" : 1036,
+  "id" : 1039,
   "name" : "Enhanced Shield (Strong)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1139,7 +2032,7 @@
     "operator" : "*(AL*0.15)"
   } ]
 }, {
-  "id" : 1037,
+  "id" : 1040,
   "name" : "Enhanced Shell (Weak)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1162,7 +2055,7 @@
     "operator" : "*(AL*0.01)"
   } ]
 }, {
-  "id" : 1038,
+  "id" : 1041,
   "name" : "Enhanced Shell (Medium)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1185,7 +2078,7 @@
     "operator" : "*(AL*0.02)"
   } ]
 }, {
-  "id" : 1039,
+  "id" : 1042,
   "name" : "Enhanced Shell (Strong)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -1208,7 +2101,7 @@
     "operator" : "*(AL*0.03)"
   } ]
 }, {
-  "id" : 1040,
+  "id" : 1043,
   "name" : "Enhanced Therapy",
   "category" : "Remedy",
   "source" : "Aura",
@@ -8658,6 +9551,1440 @@
   } ],
   "modifierKey" : [ ]
 }, {
+  "id" : 28032,
+  "name" : "Sound Smash (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.5)"
+  } ]
+}, {
+  "id" : 28033,
+  "name" : "Sonic Shot (Weak)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*FOC*0.025)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*FOC*0.025)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*FOC*0.125)"
+  } ]
+}, {
+  "id" : 28034,
+  "name" : "Sonic Shot (Strong)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*FOC*0.075)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*FOC*0.075)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*FOC*0.375)"
+  } ]
+}, {
+  "id" : 28035,
+  "name" : "Sonic Shot (Medium)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*FOC*0.05)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*FOC*0.05)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*FOC*0.25)"
+  } ]
+}, {
+  "id" : 28036,
+  "name" : "Reverb Shot (Medium)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.05)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.05)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.25)"
+  } ]
+}, {
+  "id" : 28037,
+  "name" : "Reverb Shot (Weak)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.025)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.025)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.125)"
+  } ]
+}, {
+  "id" : 28038,
+  "name" : "Sound Smash (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.0)"
+  } ]
+}, {
+  "id" : 28039,
+  "name" : "Reverb Shot (Strong)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.075)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.075)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.375)"
+  } ]
+}, {
+  "id" : 28040,
+  "name" : "Sound Smash (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.5)"
+  } ]
+}, {
+  "id" : 28041,
+  "name" : "Sound Jab (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.4)-1"
+  } ]
+}, {
+  "id" : 28042,
+  "name" : "Sound Jab (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.8)-1"
+  } ]
+}, {
+  "id" : 28043,
+  "name" : "Sound Jab (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.2)-1"
+  } ]
+}, {
+  "id" : 28044,
+  "name" : "Sound Blast (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.4)"
+  } ]
+}, {
+  "id" : 28045,
+  "name" : "Sound Blast (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.8)"
+  } ]
+}, {
+  "id" : 28046,
+  "name" : "Sound Blast (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.2)"
+  } ]
+}, {
+  "id" : 28047,
+  "name" : "Sound Bolt (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.3)-1"
+  } ]
+}, {
+  "id" : 28048,
+  "name" : "Sound Bolt (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.6)-1"
+  } ]
+}, {
+  "id" : 28049,
+  "name" : "Sound Bolt (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.9)-1"
+  } ]
+}, {
+  "id" : 28050,
+  "name" : "Sound Heal (Weak)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.5)"
+  } ]
+}, {
+  "id" : 28051,
+  "name" : "Sound Heal (Medium)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.0)"
+  } ]
+}, {
+  "id" : 28052,
+  "name" : "Sound Heal (Strong)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.5)"
+  } ]
+}, {
+  "id" : 28053,
+  "name" : "Sound Mend (Weak)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.4)-1"
+  } ]
+}, {
+  "id" : 28054,
+  "name" : "Sound Mend (Medium)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.8)-1"
+  } ]
+}, {
+  "id" : 28055,
+  "name" : "Sound Mend (Strong)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.2)-1"
+  } ]
+}, {
+  "id" : 28056,
+  "name" : "Sound Shield (Weak)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.05)"
+  } ]
+}, {
+  "id" : 28057,
+  "name" : "Sound Shield (Medium)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.1)"
+  } ]
+}, {
+  "id" : 28058,
+  "name" : "Sound Shield (Strong)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.15)"
+  } ]
+}, {
+  "id" : 28059,
+  "name" : "Sound Shell (Weak)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.01)"
+  } ]
+}, {
+  "id" : 28060,
+  "name" : "Sound Shell (Medium)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.02)"
+  } ]
+}, {
+  "id" : 28058,
+  "name" : "Light Smash (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.5)"
+  } ]
+}, {
+  "id" : 28059,
+  "name" : "Sound Shell (Strong)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.03)"
+  } ]
+}, {
+  "id" : 28060,
+  "name" : "Luminous Shot (Strong)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*STR*0.075)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*STR*0.075)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*STR*0.375)"
+  } ]
+}, {
+  "id" : 28061,
+  "name" : "Sound Therapy",
+  "category" : "Remedy",
+  "source" : "Aura",
+  "affinity" : "Sound",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
+  "id" : 28062,
+  "name" : "Bright Shot (Medium)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.05)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.05)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.25)"
+  } ]
+}, {
+  "id" : 28063,
+  "name" : "Bright Shot (Weak)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.025)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.025)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.125)"
+  } ]
+}, {
+  "id" : 28064,
+  "name" : "Light Smash (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.0)"
+  } ]
+}, {
+  "id" : 28065,
+  "name" : "Bright Shot (Strong)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*CTL*0.075)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*CTL*0.075)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*CTL*0.375)"
+  } ]
+}, {
+  "id" : 28066,
+  "name" : "Light Smash (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.5)"
+  } ]
+}, {
+  "id" : 28067,
+  "name" : "Light Jab (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.4)-1"
+  } ]
+}, {
+  "id" : 28068,
+  "name" : "Light Jab (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.8)-1"
+  } ]
+}, {
+  "id" : 28069,
+  "name" : "Light Jab (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.2)-1"
+  } ]
+}, {
+  "id" : 28070,
+  "name" : "Light Blast (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.4)"
+  } ]
+}, {
+  "id" : 28071,
+  "name" : "Light Blast (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.8)"
+  } ]
+}, {
+  "id" : 28072,
+  "name" : "Light Blast (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*1.2)"
+  } ]
+}, {
+  "id" : 28073,
+  "name" : "Light Bolt (Weak)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.3)-1"
+  } ]
+}, {
+  "id" : 28074,
+  "name" : "Light Bolt (Medium)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.6)-1"
+  } ]
+}, {
+  "id" : 28075,
+  "name" : "Light Bolt (Strong)",
+  "category" : "Attack",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "AC",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "dmgmulti",
+    "operator" : "+(AL*0.9)-1"
+  } ]
+}, {
+  "id" : 28076,
+  "name" : "Light Heal (Weak)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.5)"
+  } ]
+}, {
+  "id" : 28077,
+  "name" : "Light Heal (Medium)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.0)"
+  } ]
+}, {
+  "id" : 28078,
+  "name" : "Light Heal (Strong)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Standard",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.5)"
+  } ]
+}, {
+  "id" : 28079,
+  "name" : "Light Mend (Weak)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.4)-1"
+  } ]
+}, {
+  "id" : 28080,
+  "name" : "Light Mend (Medium)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*0.8)-1"
+  } ]
+}, {
+  "id" : 28081,
+  "name" : "Light Mend (Strong)",
+  "category" : "Heal",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "healmulti",
+    "operator" : "+(AL*1.2)-1"
+  } ]
+}, {
+  "id" : 28082,
+  "name" : "Light Shield (Weak)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.05)"
+  } ]
+}, {
+  "id" : 28083,
+  "name" : "Light Shield (Medium)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.1)"
+  } ]
+}, {
+  "id" : 28084,
+  "name" : "Light Shield (Strong)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.15)"
+  } ]
+}, {
+  "id" : 28085,
+  "name" : "Light Shell (Weak)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.01)"
+  } ]
+}, {
+  "id" : 28086,
+  "name" : "Light Shell (Medium)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.02)"
+  } ]
+}, {
+  "id" : 28087,
+  "name" : "Light Shell (Strong)",
+  "category" : "Mitigation",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Interrupt",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "maxhp",
+    "operator" : "*(AL*0.03)"
+  } ]
+}, {
+  "id" : 28088,
+  "name" : "Light Cleanse",
+  "category" : "Remedy",
+  "source" : "Aura",
+  "affinity" : "Light",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 15,
+  "actionType" : "Aura",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 1.0
+  } ],
+  "modifierKey" : [ ]
+}, {
   "id" : 31001,
   "name" : "Thunder Shot (Weak)",
   "category" : "Next Attack",
@@ -8745,752 +11072,6 @@
     "operator" : "+(AL*STR*0.375)"
   } ]
 }, {
-  "id" : 31004,
-  "name" : "Sonic Shot (Weak)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*FOC*0.025)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*FOC*0.025)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*FOC*0.125)"
-  } ]
-}, {
-  "id" : 31005,
-  "name" : "Sonic Shot (Medium)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*FOC*0.05)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*FOC*0.05)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*FOC*0.25)"
-  } ]
-}, {
-  "id" : 31006,
-  "name" : "Sonic Shot (Strong)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*FOC*0.075)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*FOC*0.075)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*FOC*0.375)"
-  } ]
-}, {
-  "id" : 31007,
-  "name" : "Reverb Shot (Weak)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.025)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.025)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.125)"
-  } ]
-}, {
-  "id" : 31008,
-  "name" : "Reverb Shot (Medium)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.05)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.05)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.25)"
-  } ]
-}, {
-  "id" : 31009,
-  "name" : "Reverb Shot (Strong)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.075)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.075)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.375)"
-  } ]
-}, {
-  "id" : 31007,
-  "name" : "Sound Smash (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.5)"
-  } ]
-}, {
-  "id" : 31008,
-  "name" : "Sound Smash (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.0)"
-  } ]
-}, {
-  "id" : 31009,
-  "name" : "Sound Smash (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.5)"
-  } ]
-}, {
-  "id" : 31010,
-  "name" : "Sound Jab (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.4)-1"
-  } ]
-}, {
-  "id" : 31011,
-  "name" : "Sound Jab (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.8)-1"
-  } ]
-}, {
-  "id" : 31012,
-  "name" : "Sound Jab (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.2)-1"
-  } ]
-}, {
-  "id" : 31013,
-  "name" : "Sound Blast (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.4)"
-  } ]
-}, {
-  "id" : 31014,
-  "name" : "Sound Blast (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.8)"
-  } ]
-}, {
-  "id" : 31015,
-  "name" : "Sound Blast (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.2)"
-  } ]
-}, {
-  "id" : 31016,
-  "name" : "Sound Bolt (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.3)-1"
-  } ]
-}, {
-  "id" : 31017,
-  "name" : "Sound Bolt (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.6)-1"
-  } ]
-}, {
-  "id" : 31018,
-  "name" : "Sound Bolt (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.9)-1"
-  } ]
-}, {
-  "id" : 31019,
-  "name" : "Sound Heal (Weak)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.5)"
-  } ]
-}, {
-  "id" : 31020,
-  "name" : "Sound Heal (Medium)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.0)"
-  } ]
-}, {
-  "id" : 31021,
-  "name" : "Sound Heal (Strong)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.5)"
-  } ]
-}, {
-  "id" : 31022,
-  "name" : "Sound Mend (Weak)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.4)-1"
-  } ]
-}, {
-  "id" : 31023,
-  "name" : "Sound Mend (Medium)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.8)-1"
-  } ]
-}, {
-  "id" : 31024,
-  "name" : "Sound Mend (Strong)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.2)-1"
-  } ]
-}, {
-  "id" : 31025,
-  "name" : "Sound Shield (Weak)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.05)"
-  } ]
-}, {
-  "id" : 31026,
-  "name" : "Sound Shield (Medium)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.1)"
-  } ]
-}, {
-  "id" : 31027,
-  "name" : "Sound Shield (Strong)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.15)"
-  } ]
-}, {
-  "id" : 31028,
-  "name" : "Sound Shell (Weak)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.01)"
-  } ]
-}, {
-  "id" : 31029,
-  "name" : "Sound Shell (Medium)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.02)"
-  } ]
-}, {
-  "id" : 31030,
-  "name" : "Sound Shell (Strong)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.03)"
-  } ]
-}, {
-  "id" : 31031,
-  "name" : "Sound Therapy",
-  "category" : "Remedy",
-  "source" : "Aura",
-  "affinity" : "Sound",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ ]
-}, {
   "id" : 34001,
   "name" : "Luminous Shot (Weak)",
   "category" : "Next Attack",
@@ -9548,694 +11129,6 @@
     "attribute" : "tdmg",
     "operator" : "+(AL*STR*0.25)"
   } ]
-}, {
-  "id" : 34003,
-  "name" : "Luminous Shot (Strong)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*STR*0.075)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*STR*0.075)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*STR*0.375)"
-  } ]
-}, {
-  "id" : 34004,
-  "name" : "Bright Shot (Weak)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.025)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.025)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.125)"
-  } ]
-}, {
-  "id" : 34005,
-  "name" : "Bright Shot (Medium)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.05)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.05)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.25)"
-  } ]
-}, {
-  "id" : 34006,
-  "name" : "Bright Shot (Strong)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*CTL*0.075)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*CTL*0.075)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*CTL*0.375)"
-  } ]
-}, {
-  "id" : 34004,
-  "name" : "Light Smash (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.5)"
-  } ]
-}, {
-  "id" : 34005,
-  "name" : "Light Smash (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.0)"
-  } ]
-}, {
-  "id" : 34006,
-  "name" : "Light Smash (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.5)"
-  } ]
-}, {
-  "id" : 34007,
-  "name" : "Light Jab (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.4)-1"
-  } ]
-}, {
-  "id" : 34008,
-  "name" : "Light Jab (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.8)-1"
-  } ]
-}, {
-  "id" : 34009,
-  "name" : "Light Jab (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.2)-1"
-  } ]
-}, {
-  "id" : 34010,
-  "name" : "Light Blast (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.4)"
-  } ]
-}, {
-  "id" : 34011,
-  "name" : "Light Blast (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.8)"
-  } ]
-}, {
-  "id" : 34012,
-  "name" : "Light Blast (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*1.2)"
-  } ]
-}, {
-  "id" : 34013,
-  "name" : "Light Bolt (Weak)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.3)-1"
-  } ]
-}, {
-  "id" : 34014,
-  "name" : "Light Bolt (Medium)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.6)-1"
-  } ]
-}, {
-  "id" : 34015,
-  "name" : "Light Bolt (Strong)",
-  "category" : "Attack",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "AC",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "dmgmulti",
-    "operator" : "+(AL*0.9)-1"
-  } ]
-}, {
-  "id" : 34016,
-  "name" : "Light Heal (Weak)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.5)"
-  } ]
-}, {
-  "id" : 34017,
-  "name" : "Light Heal (Medium)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.0)"
-  } ]
-}, {
-  "id" : 34018,
-  "name" : "Light Heal (Strong)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Standard",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.5)"
-  } ]
-}, {
-  "id" : 34019,
-  "name" : "Light Mend (Weak)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.4)-1"
-  } ]
-}, {
-  "id" : 34020,
-  "name" : "Light Mend (Medium)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*0.8)-1"
-  } ]
-}, {
-  "id" : 34021,
-  "name" : "Light Mend (Strong)",
-  "category" : "Heal",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "healmulti",
-    "operator" : "+(AL*1.2)-1"
-  } ]
-}, {
-  "id" : 34022,
-  "name" : "Light Shield (Weak)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.05)"
-  } ]
-}, {
-  "id" : 34023,
-  "name" : "Light Shield (Medium)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.1)"
-  } ]
-}, {
-  "id" : 34024,
-  "name" : "Light Shield (Strong)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.15)"
-  } ]
-}, {
-  "id" : 34025,
-  "name" : "Light Shell (Weak)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.01)"
-  } ]
-}, {
-  "id" : 34026,
-  "name" : "Light Shell (Medium)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.02)"
-  } ]
-}, {
-  "id" : 34027,
-  "name" : "Light Shell (Strong)",
-  "category" : "Mitigation",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Interrupt",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "maxhp",
-    "operator" : "*(AL*0.03)"
-  } ]
-}, {
-  "id" : 34028,
-  "name" : "Light Cleanse",
-  "category" : "Remedy",
-  "source" : "Aura",
-  "affinity" : "Light",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 15,
-  "actionType" : "Aura",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 1.0
-  } ],
-  "modifierKey" : [ ]
 }, {
   "id" : 37001,
   "name" : "Twilight Shot (Weak)",
@@ -11012,64 +11905,6 @@
     "operator" : "+(AL*DEX*0.125)"
   } ]
 }, {
-  "id" : 40002,
-  "name" : "Corrosive Shot (Medium)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Poison",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 3.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*DEX*0.05)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*DEX*0.05)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*DEX*0.25)"
-  } ]
-}, {
-  "id" : 40003,
-  "name" : "Corrosive Shot (Strong)",
-  "category" : "Next Attack",
-  "source" : "Aura",
-  "affinity" : "Poison",
-  "atkType" : "Other",
-  "atk" : 0,
-  "bdmg" : 0,
-  "tdmg" : 0,
-  "dmgMulti" : 0.0,
-  "al" : 0,
-  "ranged" : 0,
-  "actionType" : "Free",
-  "weapon" : null,
-  "costs" : [ {
-    "type" : "Aura",
-    "value" : 6.0
-  } ],
-  "modifierKey" : [ {
-    "attribute" : "atk",
-    "operator" : "+(AL*DEX*0.075)"
-  }, {
-    "attribute" : "bdmg",
-    "operator" : "+(AL*DEX*0.075)"
-  }, {
-    "attribute" : "tdmg",
-    "operator" : "+(AL*DEX*0.375)"
-  } ]
-}, {
   "id" : 40001,
   "name" : "Venom Shot (Weak)",
   "category" : "Next Attack",
@@ -11100,6 +11935,35 @@
   } ]
 }, {
   "id" : 40002,
+  "name" : "Corrosive Shot (Medium)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Poison",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 3.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*DEX*0.05)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*DEX*0.05)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*DEX*0.25)"
+  } ]
+}, {
+  "id" : 40003,
   "name" : "Venom Shot (Medium)",
   "category" : "Next Attack",
   "source" : "Aura",
@@ -11128,7 +11992,36 @@
     "operator" : "+(AL*FOC*0.25)"
   } ]
 }, {
-  "id" : 40003,
+  "id" : 40004,
+  "name" : "Corrosive Shot (Strong)",
+  "category" : "Next Attack",
+  "source" : "Aura",
+  "affinity" : "Poison",
+  "atkType" : "Other",
+  "atk" : 0,
+  "bdmg" : 0,
+  "tdmg" : 0,
+  "dmgMulti" : 0.0,
+  "al" : 0,
+  "ranged" : 0,
+  "actionType" : "Free",
+  "weapon" : null,
+  "costs" : [ {
+    "type" : "Aura",
+    "value" : 6.0
+  } ],
+  "modifierKey" : [ {
+    "attribute" : "atk",
+    "operator" : "+(AL*DEX*0.075)"
+  }, {
+    "attribute" : "bdmg",
+    "operator" : "+(AL*DEX*0.075)"
+  }, {
+    "attribute" : "tdmg",
+    "operator" : "+(AL*DEX*0.375)"
+  } ]
+}, {
+  "id" : 40005,
   "name" : "Venom Shot (Strong)",
   "category" : "Next Attack",
   "source" : "Aura",
@@ -11157,7 +12050,7 @@
     "operator" : "+(AL*FOC*0.375)"
   } ]
 }, {
-  "id" : 40004,
+  "id" : 40006,
   "name" : "Chemical Shot (Weak)",
   "category" : "Next Attack",
   "source" : "Aura",
@@ -11186,7 +12079,7 @@
     "operator" : "+(AL*CTL*0.125)"
   } ]
 }, {
-  "id" : 40005,
+  "id" : 40007,
   "name" : "Chemical Shot (Medium)",
   "category" : "Next Attack",
   "source" : "Aura",
@@ -11215,7 +12108,7 @@
     "operator" : "+(AL*CTL*0.25)"
   } ]
 }, {
-  "id" : 40006,
+  "id" : 40008,
   "name" : "Chemical Shot (Strong)",
   "category" : "Next Attack",
   "source" : "Aura",
@@ -11244,7 +12137,7 @@
     "operator" : "+(AL*CTL*0.375)"
   } ]
 }, {
-  "id" : 40007,
+  "id" : 40009,
   "name" : "Poison Smash (Weak)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11267,7 +12160,7 @@
     "operator" : "+(AL*0.5)"
   } ]
 }, {
-  "id" : 40008,
+  "id" : 40010,
   "name" : "Poison Smash (Medium)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11290,7 +12183,7 @@
     "operator" : "+(AL*1.0)"
   } ]
 }, {
-  "id" : 40009,
+  "id" : 40011,
   "name" : "Poison Smash (Strong)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11313,7 +12206,7 @@
     "operator" : "+(AL*1.5)"
   } ]
 }, {
-  "id" : 40010,
+  "id" : 40012,
   "name" : "Poison Jab (Weak)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11336,7 +12229,7 @@
     "operator" : "+(AL*0.4)-1"
   } ]
 }, {
-  "id" : 40011,
+  "id" : 40013,
   "name" : "Poison Jab (Medium)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11359,7 +12252,7 @@
     "operator" : "+(AL*0.8)-1"
   } ]
 }, {
-  "id" : 40012,
+  "id" : 40014,
   "name" : "Poison Jab (Strong)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11382,7 +12275,7 @@
     "operator" : "+(AL*1.2)-1"
   } ]
 }, {
-  "id" : 40013,
+  "id" : 40015,
   "name" : "Poison Blast (Weak)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11405,7 +12298,7 @@
     "operator" : "+(AL*0.4)"
   } ]
 }, {
-  "id" : 40014,
+  "id" : 40016,
   "name" : "Poison Blast (Medium)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11428,7 +12321,7 @@
     "operator" : "+(AL*0.8)"
   } ]
 }, {
-  "id" : 40015,
+  "id" : 40017,
   "name" : "Poison Blast (Strong)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11451,7 +12344,7 @@
     "operator" : "+(AL*1.2)"
   } ]
 }, {
-  "id" : 40016,
+  "id" : 40018,
   "name" : "Poison Bolt (Weak)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11474,7 +12367,7 @@
     "operator" : "+(AL*0.3)-1"
   } ]
 }, {
-  "id" : 40017,
+  "id" : 40019,
   "name" : "Poison Bolt (Medium)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11497,7 +12390,7 @@
     "operator" : "+(AL*0.6)-1"
   } ]
 }, {
-  "id" : 40018,
+  "id" : 40020,
   "name" : "Poison Bolt (Strong)",
   "category" : "Attack",
   "source" : "Aura",
@@ -11520,7 +12413,7 @@
     "operator" : "+(AL*0.9)-1"
   } ]
 }, {
-  "id" : 40019,
+  "id" : 40021,
   "name" : "Poison Heal (Weak)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11543,7 +12436,7 @@
     "operator" : "+(AL*0.5)"
   } ]
 }, {
-  "id" : 40020,
+  "id" : 40022,
   "name" : "Poison Heal (Medium)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11566,7 +12459,7 @@
     "operator" : "+(AL*1.0)"
   } ]
 }, {
-  "id" : 40021,
+  "id" : 40023,
   "name" : "Poison Heal (Strong)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11589,7 +12482,7 @@
     "operator" : "+(AL*1.5)"
   } ]
 }, {
-  "id" : 40022,
+  "id" : 40024,
   "name" : "Poison Mend (Weak)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11612,7 +12505,7 @@
     "operator" : "+(AL*0.4)-1"
   } ]
 }, {
-  "id" : 40023,
+  "id" : 40025,
   "name" : "Poison Mend (Medium)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11635,7 +12528,7 @@
     "operator" : "+(AL*0.8)-1"
   } ]
 }, {
-  "id" : 40024,
+  "id" : 40026,
   "name" : "Poison Mend (Strong)",
   "category" : "Heal",
   "source" : "Aura",
@@ -11658,7 +12551,7 @@
     "operator" : "+(AL*1.2)-1"
   } ]
 }, {
-  "id" : 40025,
+  "id" : 40027,
   "name" : "Poison Shield (Weak)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11681,7 +12574,7 @@
     "operator" : "*(AL*0.05)"
   } ]
 }, {
-  "id" : 40026,
+  "id" : 40028,
   "name" : "Poison Shield (Medium)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11704,7 +12597,7 @@
     "operator" : "*(AL*0.1)"
   } ]
 }, {
-  "id" : 40027,
+  "id" : 40029,
   "name" : "Poison Shield (Strong)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11727,7 +12620,7 @@
     "operator" : "*(AL*0.15)"
   } ]
 }, {
-  "id" : 40028,
+  "id" : 40030,
   "name" : "Poison Shell (Weak)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11750,7 +12643,7 @@
     "operator" : "*(AL*0.01)"
   } ]
 }, {
-  "id" : 40029,
+  "id" : 40031,
   "name" : "Poison Shell (Medium)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11773,7 +12666,7 @@
     "operator" : "*(AL*0.02)"
   } ]
 }, {
-  "id" : 40030,
+  "id" : 40032,
   "name" : "Poison Shell (Strong)",
   "category" : "Mitigation",
   "source" : "Aura",
@@ -11796,7 +12689,7 @@
     "operator" : "*(AL*0.03)"
   } ]
 }, {
-  "id" : 40031,
+  "id" : 40033,
   "name" : "Poison Antidote",
   "category" : "Remedy",
   "source" : "Aura",

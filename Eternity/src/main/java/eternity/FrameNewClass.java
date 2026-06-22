@@ -291,7 +291,7 @@ public class FrameNewClass extends JFrame {
     }
 
     private static ImageIcon scaleIcon(ImageIcon src, int width, int height) { return new ImageIcon(src.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)); }
-    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon("images/" + name + variant + ".png"); }
+    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon(AppPaths.imagesDir().resolve(name + variant + ".png").toString()); }
 
     /**
      * Loads icons asynchronously to avoid blocking UI creation.

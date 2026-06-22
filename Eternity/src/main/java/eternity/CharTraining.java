@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -27,9 +28,17 @@ public class CharTraining {
     @JsonProperty
     private final Set<String> naturalAffinities;
 
+    /** Derived affinities granted by class/domain rules and rebuilt during updateAll(). */
+    @JsonIgnore
+    private final Set<String> derivedAffinities;
+
     /** Deity / cosmic domain associations (if used by your setting). */
     @JsonProperty
     private final Set<String> domains;
+
+    /** Domain-derived effects currently available to the character. */
+    @JsonProperty
+    private final List<DataStatus> domainStatusEffects;
 
     /** Whether the character is Deviant (special case mutation). */
     @JsonProperty
@@ -53,7 +62,7 @@ public class CharTraining {
      * Key: category string (e.g., "Attribute", "Affinity", "Spirit", "Metal", etc.)
      * Val: List of aura techniques trained under that category.
      */
-    @JsonProperty
+    @JsonIgnore
     private final Map<String, List<DataTraining>> trainingByCategory;
     @JsonIgnore
     private final Map<String, Set<Integer>> trainingIdsByCategory;
@@ -72,6 +81,24 @@ public class CharTraining {
     @JsonIgnore
     private final Set<String> sortedCategories;
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    private static class PersistedTrainingRecord {
+        @JsonProperty
+        private int id;
+        @JsonProperty
+        private int rank;
+
+        public PersistedTrainingRecord() { }
+
+        public PersistedTrainingRecord(DataTraining tech) {
+            this.id = tech == null ? 0 : tech.getId();
+            this.rank = tech == null ? 0 : tech.getRank();
+        }
+
+        public int getId() { return id; }
+        public int getRank() { return rank; }
+    }
+
 
     // ---------------------------------------------------------
     // Constructor
@@ -79,7 +106,9 @@ public class CharTraining {
 
     public CharTraining() {
         this.naturalAffinities = new LinkedHashSet<>();
+        this.derivedAffinities = new LinkedHashSet<>();
         this.domains = new LinkedHashSet<>();
+        this.domainStatusEffects = new ArrayList<>();
         this.trainingByCategory = new HashMap<>();
         this.trainingIdsByCategory = new HashMap<>();
         this.trainingById = new HashMap<>();
@@ -106,6 +135,18 @@ public class CharTraining {
         return List.copyOf(naturalAffinities);
     }
 
+    @JsonIgnore
+    public List<String> getDomainAffinities() {
+        return List.copyOf(derivedAffinities);
+    }
+
+    @JsonIgnore
+    public List<String> getAllAffinities() {
+        LinkedHashSet<String> combined = new LinkedHashSet<>(naturalAffinities);
+        combined.addAll(derivedAffinities);
+        return List.copyOf(combined);
+    }
+
     public void setNaturalAffinities(List<String> affinities) {
         naturalAffinities.clear();
         if (affinities == null) return;
@@ -123,12 +164,24 @@ public class CharTraining {
         naturalAffinities.removeIf(existing -> existing != null && existing.equalsIgnoreCase(affinity));
     }
 
+    public boolean hasNaturalAffinity(String affinity) {
+        return containsIgnoreCase(naturalAffinities, affinity);
+    }
+
+    public boolean hasDomainAffinity(String affinity) {
+        return containsIgnoreCase(derivedAffinities, affinity);
+    }
+
     public boolean hasAffinity(String affinity) {
-        if (affinity == null) return false;
-        for (String existing : naturalAffinities) {
-            if (existing != null && existing.equalsIgnoreCase(affinity)) return true;
-        }
-        return false;
+        return hasNaturalAffinity(affinity) || hasDomainAffinity(affinity);
+    }
+
+    public void clearDerivedAffinities() {
+        derivedAffinities.clear();
+    }
+
+    public void addDerivedAffinity(String affinity) {
+        addUniqueIgnoreCase(derivedAffinities, affinity);
     }
 
 
@@ -147,6 +200,36 @@ public class CharTraining {
     public void removeDomain(String domain) {
         if (domain == null) return;
         domains.removeIf(existing -> existing != null && existing.equalsIgnoreCase(domain));
+    }
+
+    public void setDomains(List<String> domains) {
+        this.domains.clear();
+        if (domains == null) return;
+        for (String domain : domains) {
+            addUniqueIgnoreCase(this.domains, domain);
+        }
+    }
+
+    public List<DataStatus> getDomainStatusEffects() {
+        ArrayList<DataStatus> copies = new ArrayList<>(domainStatusEffects.size());
+        for (DataStatus status : domainStatusEffects) {
+            if (status != null) copies.add(new DataStatus(status));
+        }
+        return Collections.unmodifiableList(copies);
+    }
+
+    public void setDomainStatusEffects(List<DataStatus> statuses) {
+        domainStatusEffects.clear();
+        if (statuses == null) return;
+        for (DataStatus status : statuses) {
+            if (status != null) {
+                domainStatusEffects.add(new DataStatus(status));
+            }
+        }
+    }
+
+    public void clearDomainStatusEffects() {
+        domainStatusEffects.clear();
     }
 
 
@@ -285,6 +368,46 @@ public class CharTraining {
     public Set<String> getTrainingCategories() {
         ensureTrainingState();
         return Collections.unmodifiableSet(trainingByCategory.keySet());
+    }
+
+    @JsonProperty("trainingByCategory")
+    private Map<String, List<PersistedTrainingRecord>> getPersistedTrainingByCategory() {
+        ensureTrainingState();
+        Map<String, List<PersistedTrainingRecord>> persisted = new HashMap<>();
+        for (var entry : trainingByCategory.entrySet()) {
+            String category = entry.getKey();
+            List<DataTraining> source = entry.getValue();
+            if (category == null || source == null) continue;
+            ArrayList<PersistedTrainingRecord> records = new ArrayList<>();
+            for (DataTraining tech : source) {
+                if (tech == null || isDeprecatedTraining(tech)) continue;
+                records.add(new PersistedTrainingRecord(tech));
+            }
+            persisted.put(category, records);
+        }
+        return persisted;
+    }
+
+    @JsonProperty("trainingByCategory")
+    private void setPersistedTrainingByCategory(Map<String, List<PersistedTrainingRecord>> persistedTrainingByCategory) {
+        clearTrainingState();
+        if (persistedTrainingByCategory == null || persistedTrainingByCategory.isEmpty()) return;
+
+        StoreRuleManager ruleManager = new StoreRuleManager();
+        for (var entry : persistedTrainingByCategory.entrySet()) {
+            List<PersistedTrainingRecord> records = entry.getValue();
+            if (records == null) continue;
+            for (PersistedTrainingRecord record : records) {
+                if (record == null || record.getId() <= 0) continue;
+                DataTraining template = ruleManager.getTrainingById(record.getId());
+                if (template == null) continue;
+                DataTraining rebuilt = new DataTraining(template);
+                rebuilt.setRank(Math.max(0, record.getRank()));
+                rebuilt.setAl(0);
+                addTraining(rebuilt);
+            }
+        }
+        sortTrainingById();
     }
 
 
@@ -473,6 +596,18 @@ public class CharTraining {
         allTrainingDirty = true;
     }
 
+    private void clearTrainingState() {
+        trainingByCategory.clear();
+        trainingViewsByCategory.clear();
+        trainingIdsByCategory.clear();
+        trainingById.clear();
+        trainingByName.clear();
+        allTrainingCache = List.of();
+        allTrainingDirty = false;
+        dirtyCategories.clear();
+        sortedCategories.clear();
+    }
+
     private boolean isDeprecatedTraining(DataTraining tech) {
         if (tech == null) return false;
         if (tech.getId() == 23) return true;
@@ -526,12 +661,18 @@ public class CharTraining {
     private void addUniqueIgnoreCase(Set<String> values, String value) {
         String normalized = normalizeName(value);
         if (normalized == null || values == null) return;
+        if (containsIgnoreCase(values, value)) return;
+        values.add(value);
+    }
+
+    private boolean containsIgnoreCase(Set<String> values, String value) {
+        if (values == null || value == null) return false;
         for (String existing : values) {
             if (existing != null && existing.equalsIgnoreCase(value)) {
-                return;
+                return true;
             }
         }
-        values.add(value);
+        return false;
     }
 
     private String normalizeName(String name) {

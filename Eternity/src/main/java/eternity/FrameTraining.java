@@ -3,12 +3,14 @@ package eternity;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +35,16 @@ public class FrameTraining extends JFrame {
     public static final String CARD_EXISTING = "existing";
     private static final String FILTER_ALL = "All";
     private static final String NO_TECHNIQUES = "No techniques available";
+    private static final String RACE_TRAINING_NAME = "Race Training";
+    private static final String ALTERI_RACIAL_SPECIALTY = "Shapeshifting (Alteri)";
+    private static final String ALTERI_SHAPESHIFT_LIST = "Shapeshift";
+    private static final String MOLDS_LIST = "Molds";
+    private static final String MOLD_CATEGORY_WEAPON = "Weapon";
+    private static final String MOLD_CATEGORY_ARMOR = "Armor";
+    private static final String MOLD_CATEGORY_ITEM = "Item";
+    private static final String SKILL_TRAINING_NAME = "Skill Training";
+    private static final String SPECIALTY_TRAINING_NAME = "Specialty Training";
+    private static final Set<String> EXCLUDED_TECH_CATEGORIES = Set.of("attribute", "misc", "affinity", "fundamental", "standard", "crafting");
 
 	// References
     private final FrameSheet sheetFrame;
@@ -58,14 +70,13 @@ public class FrameTraining extends JFrame {
 	private static final String HEADER_TEXT = "Technique Training";
 	private static final String NEW_HEADER_TEXT = "New Technique";
 	private static final String BUTTON_CANCEL = "Cancel";
-    private static final String BUTTON_CONFIRM = "Confirm";
+    private static final String BUTTON_CONFIRM = "Rank Up";
 	private static final String AURA_TYPE = "Affinity";
     private static final String AURA_CATEGORY = "Tech Type";
-    private static final String AURA_TECHNIQUE = "Aura Technique";
+	private static final String AURA_TECHNIQUE = "Aura Technique";
 	private static final String MAX_RANK = "Max Rank:";
 	private static final String CUR_RANK = "Current Rank:";
-	private static final String CUR_XP = "Current XP:";
-	private static final String NEXT_XP = "Next Rank At:";
+	private static final String NEXT_XP = "Next Rank Cost:";
 	private final String[] TRAINING = {"Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity", "Energy", "Force", "Light", "Darkness", "Poison", "Sound", "Psionic", "Spirit", "Time", "Deviant"};
 	
 	// UI Elements
@@ -78,6 +89,8 @@ public class FrameTraining extends JFrame {
     private TrainingCardControls existingControls;
     private final List<DataTraining> newTechniques = new ArrayList<>();
     private final List<DataTraining> existingTechniques = new ArrayList<>();
+
+    private record MoldEntrySelection(String entryName, String description) {}
 
 	public boolean warn, isNew;
 	public JRadioButton self, source, teacher;
@@ -211,17 +224,14 @@ public class FrameTraining extends JFrame {
 		panel.add(curRankL, gbc);
 
 		x++;
-		gridHelper(gbc, y, x, width);
-		JLabel curXpL = buildLabel(CUR_XP);
-		panel.add(curXpL, gbc);
-
-		x++;
+		width = 2;
 		gridHelper(gbc, y, x, width);
 		JLabel nextXpL = buildLabel(NEXT_XP);
 		panel.add(nextXpL, gbc);
 
 		y++;
 		x = 0;
+		width = 1;
 		gridHelper(gbc, y, x, width);
 		controls.maxRankField = buildNumField();
 		panel.add(controls.maxRankField, gbc);
@@ -232,17 +242,14 @@ public class FrameTraining extends JFrame {
 		panel.add(controls.curRankField, gbc);
 
 		x++;
-		gridHelper(gbc, y, x, width);
-		controls.curXpField = buildValueField();
-		panel.add(controls.curXpField, gbc);
-
-		x++;
+		width = 2;
 		gridHelper(gbc, y, x, width);
 		controls.nextXpField = buildNumField();
 		panel.add(controls.nextXpField, gbc);
 
 		y++;
 		x = 0;
+		width = 1;
 		gridHelper(gbc, y, x, width);
 		JLabel genXpL = buildLabel("Aura XP:");
 		panel.add(genXpL, gbc);
@@ -252,13 +259,9 @@ public class FrameTraining extends JFrame {
 		JLabel specXpL = buildLabel("Typed XP:");
 		panel.add(specXpL, gbc);
 
-		x+=2;
-		gridHelper(gbc, y, x, width);
-		JLabel useXpL = buildLabel("XP to Use:");
-		panel.add(useXpL, gbc);
-
 		y++;
 		x = 0;
+		width = 1;
 		gridHelper(gbc, y, x, width);
 		controls.auraXpField = buildValueField();
 		panel.add(controls.auraXpField, gbc);
@@ -267,12 +270,6 @@ public class FrameTraining extends JFrame {
 		gridHelper(gbc, y, x, width);
 		controls.typedXpField = buildValueField();
 		panel.add(controls.typedXpField, gbc);
-
-		x+=2;
-		gridHelper(gbc, y, x, width);
-		controls.useXpField = buildValueField();
-		controls.useXpField.setEditable(true);
-		panel.add(controls.useXpField, gbc);
 
 		y++;
 		x = 0;
@@ -407,21 +404,50 @@ public class FrameTraining extends JFrame {
     }
 
     private void refreshExistingTechniqueChoices() {
+        String selectedAffinity = getSelectedComboValue(existingControls == null ? null : existingControls.affinityBox);
+        String selectedType = getSelectedComboValue(existingControls == null ? null : existingControls.typeBox);
+        String selectedTechnique = getSelectedComboValue(existingControls == null ? null : existingControls.techniqueBox);
         if (existingControls == null) return;
 
         existingTechniques.clear();
         if (character != null && character.getTraining() != null) {
             for (DataTraining tech : character.getTraining().getAllTraining()) {
                 if (tech == null) continue;
-                existingTechniques.add(tech);
+                if (canAdvanceExistingTechnique(tech)) {
+                    existingTechniques.add(tech);
+                }
+                String listName = resolveAssociatedListName(tech);
+                if (!listName.isBlank() && canAdvanceExistingListTechnique(tech, listName)) {
+                    existingTechniques.add(buildListTrainingEntry(tech, listName));
+                }
             }
         }
+        existingTechniques.sort(Comparator
+                .comparing((DataTraining t) -> safeLabel(t == null ? null : t.getAffinity()), String.CASE_INSENSITIVE_ORDER)
+                .thenComparingInt((DataTraining t) -> isAuraAffinityTech(t) ? 0 : 1)
+                .thenComparingInt((DataTraining t) -> getTypeOrder(t == null ? null : t.getType()))
+                .thenComparingInt(t -> t != null && t.isListEntry() ? 1 : 0)
+                .thenComparing(t -> safeLabel(t == null ? null : t.getName()), String.CASE_INSENSITIVE_ORDER));
         populateFilterBox(existingControls.affinityBox, existingTechniques, true);
         populateFilterBox(existingControls.typeBox, existingTechniques, false);
-        populateTechniqueBox(existingControls, existingTechniques);
+        restoreSelection(existingControls, existingTechniques, selectedAffinity, selectedType, selectedTechnique);
+    }
+
+    private boolean canAdvanceExistingTechnique(DataTraining tech) {
+        if (tech == null || character == null) return false;
+        return tech.getRank() < tech.getMaxRank(character);
+    }
+
+    private boolean canAdvanceExistingListTechnique(DataTraining tech, String listName) {
+        if (tech == null || listName == null || listName.isBlank()) return false;
+        DataTraining listEntry = buildListTrainingEntry(tech, listName);
+        return countListMembers(listName) < resolveListMaxMembers(listEntry);
     }
 
     private void refreshNewTechniqueChoices() {
+        String selectedAffinity = getSelectedComboValue(newControls == null ? null : newControls.affinityBox);
+        String selectedType = getSelectedComboValue(newControls == null ? null : newControls.typeBox);
+        String selectedTechnique = getSelectedComboValue(newControls == null ? null : newControls.techniqueBox);
         if (newControls == null) return;
 
         newTechniques.clear();
@@ -436,7 +462,7 @@ public class FrameTraining extends JFrame {
         }
         populateFilterBox(newControls.affinityBox, newTechniques, true);
         populateFilterBox(newControls.typeBox, newTechniques, false);
-        populateTechniqueBox(newControls, newTechniques);
+        restoreSelection(newControls, newTechniques, selectedAffinity, selectedType, selectedTechnique);
     }
 
     private void populateFilterBox(JComboBox<String> box, List<DataTraining> techniques, boolean affinityFilter) {
@@ -472,6 +498,28 @@ public class FrameTraining extends JFrame {
             box.setSelectedItem(selected);
         } else {
             box.setSelectedItem(FILTER_ALL);
+        }
+    }
+
+    private String getSelectedComboValue(JComboBox<String> box) {
+        if (box == null || box.getSelectedItem() == null) return null;
+        String value = box.getSelectedItem().toString();
+        return value == null || value.isBlank() ? null : value;
+    }
+
+    private void restoreSelection(TrainingCardControls controls, List<DataTraining> techniques,
+            String affinity, String type, String techniqueName) {
+        if (controls == null) return;
+        if (affinity != null && containsComboItem(controls.affinityBox, affinity)) {
+            controls.affinityBox.setSelectedItem(affinity);
+        }
+        if (type != null && containsComboItem(controls.typeBox, type)) {
+            controls.typeBox.setSelectedItem(type);
+        }
+        populateTechniqueBox(controls, techniques);
+        if (techniqueName != null && containsComboItem(controls.techniqueBox, techniqueName)) {
+            controls.techniqueBox.setSelectedItem(techniqueName);
+            updateTechniqueDetails(controls, techniques, controls == newControls);
         }
     }
 
@@ -521,14 +569,17 @@ public class FrameTraining extends JFrame {
         if (newView) {
             displayTech = new DataTraining(tech);
             displayTech.setRank(0);
-            displayTech.setExp(0.0);
             displayTech.setAl(0);
         }
-
-        controls.maxRankField.setValue(displayTech.getMaxRank(character));
-        controls.curRankField.setValue(displayTech.getRank());
-        controls.curXpField.setValue(displayTech.getExp());
-        controls.nextXpField.setValue(displayTech.getNextAt(character));
+        if (!newView && tech.isListEntry()) {
+            controls.maxRankField.setValue(resolveListMaxMembers(tech));
+            controls.curRankField.setValue(countListMembers(tech.getListName()));
+            controls.nextXpField.setValue(10);
+        } else {
+            controls.maxRankField.setValue(displayTech.getMaxRank(character));
+            controls.curRankField.setValue(displayTech.getRank());
+            controls.nextXpField.setValue(displayTech.getNextAt(character));
+        }
         updateTrainingXpFields(controls, displayTech);
     }
 
@@ -544,7 +595,6 @@ public class FrameTraining extends JFrame {
         if (controls == null) return;
         if (controls.maxRankField != null) controls.maxRankField.setValue(0);
         if (controls.curRankField != null) controls.curRankField.setValue(0);
-        if (controls.curXpField != null) controls.curXpField.setValue(0.0);
         if (controls.nextXpField != null) controls.nextXpField.setValue(0);
         if (controls.auraXpField != null) controls.auraXpField.setValue(getCharacterTrainingXp());
         if (controls.typedXpField != null) controls.typedXpField.setValue(0.0);
@@ -625,38 +675,53 @@ public class FrameTraining extends JFrame {
 
         DataTraining added = new DataTraining(template);
         added.setRank(0);
-        added.setExp(0.0);
         added.setAl(0);
 
-        double expToUse = parseNumericField(newControls.useXpField);
+        int xpCost = added.getNextAt(character);
         double availableAuraXp = getCharacterTrainingXp();
         double availableTypedXp = getTypedTrainingXp(template.getAffinity());
         double totalAvailableXp = availableAuraXp + availableTypedXp;
-        if (expToUse > totalAvailableXp) {
-            int choice = JOptionPane.showOptionDialog(
+        if (totalAvailableXp + 0.0001 < xpCost) {
+            JOptionPane.showMessageDialog(
                     this,
-                    "Insufficient XP is available for that amount.",
+                    "Insufficient XP is available to reach the next rank.",
                     "Insufficient XP",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    new Object[] {"Use available XP", "Cancel Training"},
-                    "Use available XP");
-            if (choice == 1 || choice == JOptionPane.CLOSED_OPTION) {
-                dispose();
-                return;
-            }
-            expToUse = totalAvailableXp;
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
-        double spendableXp = Math.min(expToUse, getMaxSpendableXp(added));
-        if (newControls.useXpField != null) newControls.useXpField.setValue(spendableXp);
-        consumeTrainingXp(template.getAffinity(), availableAuraXp, availableTypedXp, spendableXp);
+        boolean createInitialMoldsList = shouldCreateInitialMoldsList(added);
+        MoldEntrySelection firstMoldEntry = null;
+        if (createInitialMoldsList) {
+            firstMoldEntry = promptForMoldEntrySelection(List.of(), 1, 1);
+            if (firstMoldEntry == null) return;
+        }
 
-        added.setExp(spendableXp);
-        applyTrainingExpProgression(added);
+        DataTraining preview = new DataTraining(added);
+        int oldRank = preview.getRank();
+        preview.setRank(oldRank + 1);
+        if (wouldExceedMaxTechsWithNewTechnique(preview)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Learning that technique would make Current Techs greater than Max Techs.",
+                    "Max Techs Exceeded",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        List<DataSkill> grantedSkills = promptForSkillsFromTrainingRankGain(preview, oldRank, preview.getRank());
+        if (grantedSkills == null) return;
+        List<FrameSpecial.SpecialtyGrant> grantedSpecialties = promptForSpecialtiesFromTrainingRankGain(preview, oldRank, preview.getRank(), grantedSkills);
+        if (grantedSpecialties == null) return;
+
+        consumeTrainingXp(template.getAffinity(), availableAuraXp, availableTypedXp, xpCost);
+        added.setRank(preview.getRank());
 
         character.getTraining().addTraining(added);
+        grantTrainingSkills(grantedSkills);
+        grantTrainingSpecialties(grantedSpecialties);
+        if (createInitialMoldsList) {
+            ensureListWithFirstEntry(MOLDS_LIST, firstMoldEntry.entryName(), firstMoldEntry.description());
+        }
         character.updateAll();
 
         if (sheetFrame != null) {
@@ -665,9 +730,94 @@ public class FrameTraining extends JFrame {
             sheetFrame.refreshImagePanel();
         }
 
-        refreshExistingTechniqueChoices();
+        boolean atMaxRank = added.getRank() >= added.getMaxRank(character);
         refreshNewTechniqueChoices();
-        if (newControls.useXpField != null) newControls.useXpField.setValue(0.0);
+        refreshExistingTechniqueChoices();
+        if (!atMaxRank) {
+            showCard(CARD_EXISTING);
+            restoreSelection(existingControls, existingTechniques, added.getAffinity(), added.getType(), added.getName());
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    added.getName() + " has reached its maximum rank.",
+                    "Maximum Rank Reached",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private boolean wouldExceedMaxTechsWithNewTechnique(DataTraining preview) {
+        if (preview == null || character == null || character.getTraining() == null) return false;
+        double projectedCurrent = calculateWeightedCurrentTechs(character.getTraining()) + calculateWeightedTechContribution(preview);
+        return projectedCurrent > getMaxTechCapacity() + 0.0001;
+    }
+
+    private int getMaxTechCapacity() {
+        if (character == null || character.getIdentity() == null || ruleManager == null) return 0;
+        int maxTechs = 0;
+        DataLevel levelData = ruleManager.getLevel(character.getIdentity().getLevel());
+        if (levelData != null) {
+            maxTechs = Math.max(0, levelData.getBaseTechs());
+        }
+        if (character.hasAuraProficiencySpecialty()) {
+            maxTechs = (int) (maxTechs * character.getAuraProficiencyBonusMultiplier());
+        }
+        return maxTechs;
+    }
+
+    private double calculateWeightedCurrentTechs(CharTraining training) {
+        if (training == null) return 0.0;
+        Set<String> natural = normalizeAffinitySet(training.getNaturalAffinities());
+        Set<String> domain = normalizeAffinitySet(training.getDomainAffinities());
+        double total = 0.0;
+
+        for (String category : training.getTrainingCategories()) {
+            if (category == null) continue;
+            if (EXCLUDED_TECH_CATEGORIES.contains(category.toLowerCase())) continue;
+
+            for (DataTraining tech : training.getTrainingList(category)) {
+                total += calculateWeightedTechContribution(category, tech, natural, domain);
+            }
+        }
+        return total;
+    }
+
+    private double calculateWeightedTechContribution(DataTraining tech) {
+        if (tech == null) return 0.0;
+        Set<String> natural = normalizeAffinitySet(character != null && character.getTraining() != null
+                ? character.getTraining().getNaturalAffinities()
+                : List.of());
+        Set<String> domain = normalizeAffinitySet(character != null && character.getTraining() != null
+                ? character.getTraining().getDomainAffinities()
+                : List.of());
+        String category = safeLabel(tech.getAffinity());
+        return calculateWeightedTechContribution(category, tech, natural, domain);
+    }
+
+    private double calculateWeightedTechContribution(String category, DataTraining tech, Set<String> natural, Set<String> domain) {
+        if (tech == null) return 0.0;
+        String normalizedCategory = category == null ? "" : category.toLowerCase();
+        if (EXCLUDED_TECH_CATEGORIES.contains(normalizedCategory)) return 0.0;
+        String normalizedAffinity = tech.getAffinity() == null ? "" : tech.getAffinity().toLowerCase();
+        boolean naturalMatch = natural.contains(normalizedCategory) || natural.contains(normalizedAffinity);
+        boolean domainMatch = domain.contains(normalizedCategory) || domain.contains(normalizedAffinity);
+        boolean spiritOrTime = ("Spirit".equalsIgnoreCase(category) || "Time".equalsIgnoreCase(category))
+                || ("Spirit".equalsIgnoreCase(tech.getAffinity()) || "Time".equalsIgnoreCase(tech.getAffinity()));
+        double multiplier = 1.0;
+        if (naturalMatch) multiplier *= 0.5;
+        else if (domainMatch) multiplier *= 0.75;
+        if (spiritOrTime) multiplier *= 1.5;
+        return tech.getRank() * multiplier;
+    }
+
+    private Set<String> normalizeAffinitySet(Iterable<String> affinities) {
+        Set<String> normalized = new LinkedHashSet<>();
+        if (affinities == null) return normalized;
+        for (String affinity : affinities) {
+            if (affinity != null) {
+                normalized.add(affinity.toLowerCase());
+            }
+        }
+        return normalized;
     }
 
     private void confirmExistingTechnique() {
@@ -678,34 +828,97 @@ public class FrameTraining extends JFrame {
 
         DataTraining existing = findTechniqueByName(existingTechniques, selected.toString());
         if (existing == null) return;
-
-        double expToUse = parseNumericField(existingControls.useXpField);
+        if (existing.isListEntry()) {
+            confirmExistingListTechnique(existing);
+            return;
+        }
+        int xpCost = existing.getNextAt(character);
         double availableAuraXp = getCharacterTrainingXp();
         double availableTypedXp = getTypedTrainingXp(existing.getAffinity());
         double totalAvailableXp = availableAuraXp + availableTypedXp;
-        if (expToUse > totalAvailableXp) {
-            int choice = JOptionPane.showOptionDialog(
+        if (totalAvailableXp + 0.0001 < xpCost) {
+            JOptionPane.showMessageDialog(
                     this,
-                    "Insufficient XP is available for that amount.",
+                    "Insufficient XP is available to reach the next rank.",
                     "Insufficient XP",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    new Object[] {"Use available XP", "Cancel Training"},
-                    "Use available XP");
-            if (choice == 1 || choice == JOptionPane.CLOSED_OPTION) {
-                dispose();
-                return;
-            }
-            expToUse = totalAvailableXp;
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
-        double spendableXp = Math.min(expToUse, getMaxSpendableXp(existing));
-        if (existingControls.useXpField != null) existingControls.useXpField.setValue(spendableXp);
-        consumeTrainingXp(existing.getAffinity(), availableAuraXp, availableTypedXp, spendableXp);
+        DataTraining preview = new DataTraining(existing);
+        int oldRank = existing.getRank();
+        preview.setRank(oldRank + 1);
+        List<DataSkill> grantedSkills = promptForSkillsFromTrainingRankGain(preview, oldRank, preview.getRank());
+        if (grantedSkills == null) return;
+        List<FrameSpecial.SpecialtyGrant> grantedSpecialties = promptForSpecialtiesFromTrainingRankGain(preview, oldRank, preview.getRank(), grantedSkills);
+        if (grantedSpecialties == null) return;
 
-        existing.setExp(existing.getExp() + spendableXp);
-        applyTrainingExpProgression(existing);
+        consumeTrainingXp(existing.getAffinity(), availableAuraXp, availableTypedXp, xpCost);
+        existing.setRank(preview.getRank());
+        grantTrainingSkills(grantedSkills);
+        grantTrainingSpecialties(grantedSpecialties);
+
+        character.updateAll();
+
+        if (sheetFrame != null) {
+            sheetFrame.refreshTrainingPanel();
+            sheetFrame.refreshMainPanel();
+            sheetFrame.refreshImagePanel();
+        }
+
+        boolean atMaxRank = existing.getRank() >= existing.getMaxRank(character);
+        refreshNewTechniqueChoices();
+        refreshExistingTechniqueChoices();
+        if (!atMaxRank) {
+            restoreSelection(existingControls, existingTechniques, existing.getAffinity(), existing.getType(), existing.getName());
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    existing.getName() + " has reached its maximum rank.",
+                    "Maximum Rank Reached",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void confirmExistingListTechnique(DataTraining listTech) {
+        if (character == null || character.getTraining() == null || listTech == null || !listTech.isListEntry()) return;
+
+        DataTraining parent = character.getTraining().getTrainingById(listTech.getListParentId());
+        if (parent == null) return;
+
+        int currentRank = countListMembers(listTech.getListName());
+        int maxRank = resolveListMaxMembers(listTech);
+        int remainingRanks = Math.max(0, maxRank - currentRank);
+        if (remainingRanks <= 0) {
+            JOptionPane.showMessageDialog(this, "No additional list entries can currently be learned.", "List Full", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        double availableAuraXp = getCharacterTrainingXp();
+        double availableTypedXp = getTypedTrainingXp(listTech.getAffinity());
+        double totalAvailableXp = availableAuraXp + availableTypedXp;
+        if (remainingRanks <= 0 || totalAvailableXp + 0.0001 < 10.0) {
+            JOptionPane.showMessageDialog(this, "List training requires 10 XP per new list entry.", "Insufficient XP", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        MoldEntrySelection chosenEntry = MOLDS_LIST.equalsIgnoreCase(safeLabel(listTech.getListName()))
+                ? promptForMoldEntrySelection(List.of(), 1, 1)
+                : null;
+        if (MOLDS_LIST.equalsIgnoreCase(safeLabel(listTech.getListName()))) {
+            if (chosenEntry == null) {
+                return;
+            }
+        } else {
+            String genericEntry = promptForSingleListEntry(listTech.getListName(), List.of(), 1, 1);
+            if (genericEntry == null) {
+                return;
+            }
+            chosenEntry = new MoldEntrySelection(genericEntry, "");
+        }
+
+        consumeTrainingXp(listTech.getAffinity(), availableAuraXp, availableTypedXp, 10.0);
+        addListEntry(listTech.getListName(), chosenEntry.entryName(), chosenEntry.description());
 
         character.updateAll();
 
@@ -717,43 +930,47 @@ public class FrameTraining extends JFrame {
 
         refreshExistingTechniqueChoices();
         refreshNewTechniqueChoices();
-        if (existingControls.useXpField != null) existingControls.useXpField.setValue(0.0);
+        restoreSelection(existingControls, existingTechniques, listTech.getAffinity(), listTech.getType(), listTech.getName());
     }
 
-    private void applyTrainingExpProgression(DataTraining tech) {
-        if (tech == null || character == null) return;
-        while (tech.getRank() < tech.getMaxRank(character) && tech.getExp() >= tech.getNextAt(character)) {
-            tech.setExp(tech.getExp() - tech.getNextAt(character));
-            tech.setRank(tech.getRank() + 1);
+    private List<DataSkill> promptForSkillsFromTrainingRankGain(DataTraining tech, int oldRank, int newRank) {
+        if (!isSkillTraining(tech) || newRank <= oldRank) {
+            return List.of();
         }
-        if (tech.getRank() >= tech.getMaxRank(character)) {
-            tech.setExp(0.0);
+        return FrameSkill.promptForTrainingSkills(this, ruleManager, character, newRank - oldRank);
+    }
+
+    private boolean isSkillTraining(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return false;
+        return SKILL_TRAINING_NAME.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private void grantTrainingSkills(List<DataSkill> grantedSkills) {
+        if (grantedSkills == null || character == null || character.getSpecials() == null) return;
+        for (DataSkill skill : grantedSkills) {
+            if (skill != null) {
+                character.getSpecials().addSkill(skill);
+            }
         }
     }
 
-    private double getMaxSpendableXp(DataTraining tech) {
-        if (tech == null || character == null) return 0.0;
-        DataTraining preview = new DataTraining(tech);
-        double spendable = 0.0;
-        while (preview.getRank() < preview.getMaxRank(character)) {
-            int nextAt = preview.getNextAt(character);
-            spendable += Math.max(0, nextAt - Math.max(0.0, preview.getExp()));
-            preview.setRank(preview.getRank() + 1);
-            preview.setExp(0.0);
+    private List<FrameSpecial.SpecialtyGrant> promptForSpecialtiesFromTrainingRankGain(DataTraining tech, int oldRank, int newRank, List<DataSkill> reservedSkills) {
+        if (!isSpecialtyTraining(tech) || newRank <= oldRank) {
+            return List.of();
         }
-        return spendable;
+        return FrameSpecial.promptForTrainingSpecialtyGrants(this, ruleManager, character, newRank - oldRank, null, reservedSkills);
     }
 
-    private double parseNumericField(JFormattedTextField field) {
-        if (field == null || field.getValue() == null) return 0.0;
-        Object value = field.getValue();
-        if (value instanceof Number number) {
-            return Math.max(0.0, number.doubleValue());
-        }
-        try {
-            return Math.max(0.0, Double.parseDouble(value.toString()));
-        } catch (NumberFormatException ignored) {
-            return 0.0;
+    private boolean isSpecialtyTraining(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return false;
+        return SPECIALTY_TRAINING_NAME.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private void grantTrainingSpecialties(List<FrameSpecial.SpecialtyGrant> grantedSpecialties) {
+        if (grantedSpecialties == null || character == null) return;
+        for (FrameSpecial.SpecialtyGrant grant : grantedSpecialties) {
+            if (grant == null || grant.specialty() == null) continue;
+            FrameSpecial.applyResolvedSpecialtyGrant(character, grant.specialty(), grant.grantedSkills());
         }
     }
 
@@ -773,17 +990,385 @@ public class FrameTraining extends JFrame {
         training.setTrainingXp(Math.max(0.0, availableAuraXp - auraUsed));
     }
 
+    private DataTraining buildListTrainingEntry(DataTraining parent, String listName) {
+        DataTraining listEntry = new DataTraining(parent);
+        listEntry.setName("New " + listName);
+        listEntry.setListName(listName);
+        listEntry.setListEntry(true);
+        listEntry.setListParentId(parent.getId());
+        listEntry.setRank(countListMembers(listName));
+        listEntry.setAl(0);
+        return listEntry;
+    }
+
+    private String resolveAssociatedListName(DataTraining tech) {
+        if (tech == null) return "";
+        if (isAlteriRaceTraining(tech)) return ALTERI_SHAPESHIFT_LIST;
+        String listName = tech.getListName();
+        return listName == null ? "" : listName.trim();
+    }
+
+    private boolean isAlteriRaceTraining(DataTraining tech) {
+        if (tech == null || tech.getName() == null || !RACE_TRAINING_NAME.equalsIgnoreCase(tech.getName().trim())) return false;
+        if (character == null || character.getSpecials() == null) return false;
+        DataSpecialty racial = character.getSpecials().getRacialSpecialty();
+        if (racial == null || racial.getName() == null) return false;
+        return ALTERI_RACIAL_SPECIALTY.equalsIgnoreCase(racial.getName().trim());
+    }
+
+    private boolean shouldCreateInitialMoldsList(DataTraining tech) {
+        return isMoldingTechnique(tech) && !hasListNamed(MOLDS_LIST);
+    }
+
+    private boolean isMoldingTechnique(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return false;
+        return tech.getName().trim().toLowerCase().endsWith(" molding");
+    }
+
+    private int resolveListMaxMembers(DataTraining listTech) {
+        if (listTech == null || character == null || character.getTraining() == null) return 0;
+        DataTraining parent = character.getTraining().getTrainingById(listTech.getListParentId());
+        if (parent == null) return 0;
+        return Math.max(0, parent.getRank() * parent.getEffectiveListMaxPerRank() + parent.getEffectiveListMaxBase());
+    }
+
+    private int countListMembers(String listName) {
+        if (character == null || character.getLists() == null || listName == null || listName.isBlank()) return 0;
+        int count = 0;
+        for (List<DataList> group : character.getLists()) {
+            if (group == null) continue;
+            for (DataList entry : group) {
+                if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+                if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+                if (entry.getName().trim().isBlank()) continue;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private ArrayList<String> promptForListEntries(String listName, int count) {
+        ArrayList<String> entries = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            String selected = promptForSingleListEntry(listName, entries, i + 1, count);
+            if (selected == null) return null;
+            entries.add(selected);
+        }
+        return entries;
+    }
+
+    private String promptForSingleListEntry(String listName, List<String> pendingEntries, int index, int total) {
+        while (true) {
+            String chosen = resolveListSelectionInput(listName, index, total);
+            if (chosen == null) return null;
+            String trimmed = chosen.trim();
+            if (trimmed.isBlank()) {
+                JOptionPane.showMessageDialog(this, "A list entry name is required.", "Missing Entry", JOptionPane.WARNING_MESSAGE);
+                continue;
+            }
+            if (isRestrictedShifterMoldEntry(listName, trimmed)) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Shifter slot molds are granted automatically by Shifter level and cannot be trained.",
+                        "Restricted Mold",
+                        JOptionPane.WARNING_MESSAGE);
+                continue;
+            }
+            if (hasListEntry(listName, trimmed) || containsIgnoreCase(pendingEntries, trimmed)) {
+                JOptionPane.showMessageDialog(this, "That list entry already exists.", "Duplicate Entry", JOptionPane.WARNING_MESSAGE);
+                continue;
+            }
+            return trimmed;
+        }
+    }
+
+    private boolean isRestrictedShifterMoldEntry(String listName, String entryName) {
+        if (!MOLDS_LIST.equalsIgnoreCase(safeLabel(listName))) return false;
+        return StoreCharData.isShifterSpecialMoldName(entryName);
+    }
+
+    private MoldEntrySelection promptForMoldEntrySelection(List<String> pendingEntries, int index, int total) {
+        ArrayList<String> weaponTypes = collectWeaponTypeOptions();
+        ArrayList<String> armorTypes = collectArmorTypeOptions();
+        ArrayList<String> armorSlots = collectArmorSlotOptions();
+        if (weaponTypes.isEmpty() && armorTypes.isEmpty() && armorSlots.isEmpty()) {
+            String itemName = JOptionPane.showInputDialog(this, "Enter new mold name:", "Select Molds", JOptionPane.PLAIN_MESSAGE);
+            if (itemName == null) return null;
+            String trimmed = itemName.trim();
+            if (trimmed.isBlank()) {
+                JOptionPane.showMessageDialog(this, "A mold name is required.", "Missing Entry", JOptionPane.WARNING_MESSAGE);
+                return promptForMoldEntrySelection(pendingEntries, index, total);
+            }
+            return new MoldEntrySelection(trimmed, buildMoldEntryDescription(MOLD_CATEGORY_ITEM, "", ""));
+        }
+
+        while (true) {
+            String title = total > 1 ? "Select Molds (" + index + " of " + total + ")" : "Select Molds";
+            JComboBox<String> categoryBox = new JComboBox<>(new String[] { MOLD_CATEGORY_WEAPON, MOLD_CATEGORY_ARMOR, MOLD_CATEGORY_ITEM });
+            JComboBox<String> weaponBox = new JComboBox<>(weaponTypes.toArray(new String[0]));
+            JComboBox<String> armorTypeBox = new JComboBox<>(armorTypes.toArray(new String[0]));
+            JComboBox<String> armorSlotBox = new JComboBox<>(armorSlots.toArray(new String[0]));
+            javax.swing.JTextField itemField = new javax.swing.JTextField(16);
+
+            JPanel panel = new JPanel(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(4, 6, 4, 6);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            panel.add(new JLabel("Category"), gbc);
+            gbc.gridx = 1;
+            panel.add(categoryBox, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            panel.add(new JLabel("Weapon Type"), gbc);
+            gbc.gridx = 1;
+            panel.add(weaponBox, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            panel.add(new JLabel("Armor Type"), gbc);
+            gbc.gridx = 1;
+            panel.add(armorTypeBox, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            panel.add(new JLabel("Armor Slot"), gbc);
+            gbc.gridx = 1;
+            panel.add(armorSlotBox, gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            panel.add(new JLabel("Item Name"), gbc);
+            gbc.gridx = 1;
+            panel.add(itemField, gbc);
+
+            Runnable syncFields = () -> {
+                String category = categoryBox.getSelectedItem() == null ? MOLD_CATEGORY_WEAPON : categoryBox.getSelectedItem().toString();
+                boolean weapon = MOLD_CATEGORY_WEAPON.equalsIgnoreCase(category);
+                boolean armor = MOLD_CATEGORY_ARMOR.equalsIgnoreCase(category);
+                boolean item = MOLD_CATEGORY_ITEM.equalsIgnoreCase(category);
+                weaponBox.setEnabled(weapon);
+                armorTypeBox.setEnabled(armor);
+                armorSlotBox.setEnabled(armor);
+                itemField.setEnabled(item);
+            };
+            syncFields.run();
+            ActionListener listener = e -> syncFields.run();
+            categoryBox.addActionListener(listener);
+
+            int result = JOptionPane.showConfirmDialog(this, panel, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            categoryBox.removeActionListener(listener);
+            if (result != JOptionPane.OK_OPTION) return null;
+
+            String category = categoryBox.getSelectedItem() == null ? "" : categoryBox.getSelectedItem().toString().trim();
+            MoldEntrySelection selection = buildMoldEntrySelection(category, weaponBox, armorTypeBox, armorSlotBox, itemField);
+            if (selection == null) {
+                continue;
+            }
+            String trimmed = selection.entryName().trim();
+            if (isRestrictedShifterMoldEntry(MOLDS_LIST, trimmed)) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Shifter slot molds are granted automatically by Shifter level and cannot be trained.",
+                        "Restricted Mold",
+                        JOptionPane.WARNING_MESSAGE);
+                continue;
+            }
+            if (hasListEntry(MOLDS_LIST, trimmed) || containsIgnoreCase(pendingEntries, trimmed)) {
+                JOptionPane.showMessageDialog(this, "That mold entry already exists.", "Duplicate Entry", JOptionPane.WARNING_MESSAGE);
+                continue;
+            }
+            return selection;
+        }
+    }
+
+    private MoldEntrySelection buildMoldEntrySelection(String category, JComboBox<String> weaponBox,
+            JComboBox<String> armorTypeBox, JComboBox<String> armorSlotBox, javax.swing.JTextField itemField) {
+        if (MOLD_CATEGORY_WEAPON.equalsIgnoreCase(category)) {
+            Object selected = weaponBox.getSelectedItem();
+            String weaponType = selected == null ? "" : selected.toString().trim();
+            if (weaponType.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Select a weapon type.", "Missing Weapon", JOptionPane.WARNING_MESSAGE);
+                return null;
+            }
+            return new MoldEntrySelection(weaponType, buildMoldEntryDescription(MOLD_CATEGORY_WEAPON, weaponType, ""));
+        }
+        if (MOLD_CATEGORY_ARMOR.equalsIgnoreCase(category)) {
+            String armorType = armorTypeBox.getSelectedItem() == null ? "" : armorTypeBox.getSelectedItem().toString().trim();
+            String armorSlot = armorSlotBox.getSelectedItem() == null ? "" : armorSlotBox.getSelectedItem().toString().trim();
+            if (armorType.isBlank() || armorSlot.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Select both an armor type and armor slot.", "Missing Armor", JOptionPane.WARNING_MESSAGE);
+                return null;
+            }
+            String displayName = armorType + " " + armorSlot;
+            return new MoldEntrySelection(displayName, buildMoldEntryDescription(MOLD_CATEGORY_ARMOR, armorType, armorSlot));
+        }
+
+        String itemName = itemField.getText() == null ? "" : itemField.getText().trim();
+        if (itemName.isBlank()) {
+            JOptionPane.showMessageDialog(this, "An item mold name is required.", "Missing Item", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        return new MoldEntrySelection(itemName, buildMoldEntryDescription(MOLD_CATEGORY_ITEM, "", ""));
+    }
+
+    private String buildMoldEntryDescription(String category, String type, String slot) {
+        return "CATEGORY=" + safeLabel(category)
+                + "|TYPE=" + safeLabel(type)
+                + "|SLOT=" + safeLabel(slot);
+    }
+
+    private ArrayList<String> collectWeaponTypeOptions() {
+        LinkedHashSet<String> options = new LinkedHashSet<>();
+        if (ruleManager == null) return new ArrayList<>(options);
+        for (DataItemWeapon weapon : ruleManager.getItemWeaponData()) {
+            if (weapon == null || weapon.getType() == null) continue;
+            String type = weapon.getType().trim();
+            if (!type.isBlank()) options.add(type);
+        }
+        ArrayList<String> sorted = new ArrayList<>(options);
+        sorted.sort(String.CASE_INSENSITIVE_ORDER);
+        return sorted;
+    }
+
+    private ArrayList<String> collectArmorTypeOptions() {
+        LinkedHashSet<String> options = new LinkedHashSet<>();
+        if (ruleManager == null) return new ArrayList<>(options);
+        for (DataItemEquipment armor : ruleManager.getItemEquipmentData()) {
+            if (armor == null || armor.getCategory() == null || armor.getType() == null) continue;
+            if (!"Armor".equalsIgnoreCase(armor.getCategory().trim())) continue;
+            String type = armor.getType().trim();
+            if (type.isBlank() || "Shifter".equalsIgnoreCase(type)) continue;
+            options.add(type);
+        }
+        ArrayList<String> sorted = new ArrayList<>(options);
+        sorted.sort(String.CASE_INSENSITIVE_ORDER);
+        return sorted;
+    }
+
+    private ArrayList<String> collectArmorSlotOptions() {
+        LinkedHashSet<String> options = new LinkedHashSet<>();
+        if (ruleManager == null) return new ArrayList<>(options);
+        for (DataItemEquipment armor : ruleManager.getItemEquipmentData()) {
+            if (armor == null || armor.getCategory() == null || armor.getSlot() == null) continue;
+            if (!"Armor".equalsIgnoreCase(armor.getCategory().trim())) continue;
+            String slot = armor.getSlot().trim();
+            if (!slot.isBlank()) options.add(slot);
+        }
+        ArrayList<String> sorted = new ArrayList<>(options);
+        sorted.sort(String.CASE_INSENSITIVE_ORDER);
+        return sorted;
+    }
+
+    private String resolveListSelectionInput(String listName, int index, int total) {
+        String[] options = resolveListEntryOptions(listName);
+        String title = total > 1 ? "Select " + listName + " (" + index + " of " + total + ")" : "Select " + listName;
+        if (options.length > 0) {
+            JComboBox<String> combo = new JComboBox<>(options);
+            combo.setEditable(true);
+            int result = JOptionPane.showConfirmDialog(this, combo, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (result != JOptionPane.OK_OPTION) return null;
+            Object selected = combo.getEditor().getItem();
+            if (selected == null) selected = combo.getSelectedItem();
+            return selected == null ? null : selected.toString();
+        }
+        return JOptionPane.showInputDialog(this, "Enter new " + listName + ":", title, JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private String[] resolveListEntryOptions(String listName) {
+        if (!ALTERI_SHAPESHIFT_LIST.equalsIgnoreCase(listName) || ruleManager == null) return new String[0];
+        ArrayList<String> names = new ArrayList<>();
+        String currentRace = character != null && character.getIdentity() != null ? safeLabel(character.getIdentity().getRace()) : "";
+        for (DataRace race : ruleManager.getRaceData()) {
+            if (race == null || race.getName() == null) continue;
+            String name = safeLabel(race.getName());
+            if (name.isBlank() || name.equalsIgnoreCase(currentRace)) continue;
+            names.add(name);
+        }
+        names.sort(String.CASE_INSENSITIVE_ORDER);
+        return names.toArray(new String[0]);
+    }
+
+    private boolean hasListEntry(String listName, String entryName) {
+        if (character == null || character.getLists() == null || listName == null || entryName == null) return false;
+        for (List<DataList> group : character.getLists()) {
+            if (group == null) continue;
+            for (DataList entry : group) {
+                if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+                if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+                if (entryName.equalsIgnoreCase(entry.getName().trim())) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasListNamed(String listName) {
+        if (character == null || character.getLists() == null || listName == null || listName.isBlank()) return false;
+        for (List<DataList> group : character.getLists()) {
+            if (group == null || group.isEmpty()) continue;
+            DataList first = group.get(0);
+            if (first == null || first.getList() == null) continue;
+            if (listName.equalsIgnoreCase(first.getList().trim())) return true;
+        }
+        return false;
+    }
+
+    private boolean containsIgnoreCase(List<String> values, String target) {
+        if (values == null || target == null) return false;
+        for (String value : values) {
+            if (value != null && value.equalsIgnoreCase(target)) return true;
+        }
+        return false;
+    }
+
+    private void addListEntry(String listName, String entryName, String description) {
+        if (character == null || listName == null || entryName == null) return;
+        List<List<DataList>> lists = character.getLists();
+        if (lists == null) {
+            lists = new ArrayList<>();
+            character.setLists(lists);
+        }
+        for (List<DataList> group : lists) {
+            if (group == null || group.isEmpty()) continue;
+            DataList first = group.get(0);
+            if (first == null || first.getList() == null) continue;
+            if (!listName.equalsIgnoreCase(first.getList().trim())) continue;
+            group.add(new DataList(listName, entryName, safeLabel(description)));
+            return;
+        }
+        ArrayList<DataList> newGroup = new ArrayList<>();
+        newGroup.add(new DataList(listName, entryName, safeLabel(description)));
+        lists.add(newGroup);
+    }
+
+    private void ensureListWithFirstEntry(String listName, String entryName, String description) {
+        if (listName == null || listName.isBlank() || entryName == null || entryName.isBlank()) return;
+        if (hasListNamed(listName)) return;
+        addListEntry(listName, entryName, description);
+    }
+
+    private boolean isAuraAffinityTech(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return false;
+        return tech.getName().trim().toLowerCase().startsWith("aura affinity");
+    }
+
+    private int getTypeOrder(String rawType) {
+        if ("Maintained".equalsIgnoreCase(rawType)) return 1;
+        if ("Passive".equalsIgnoreCase(rawType)) return 2;
+        return 0;
+    }
+
     private static final class TrainingCardControls {
         private JComboBox<String> affinityBox;
         private JComboBox<String> typeBox;
         private JComboBox<String> techniqueBox;
         private JFormattedTextField maxRankField;
         private JFormattedTextField curRankField;
-        private JFormattedTextField curXpField;
         private JFormattedTextField nextXpField;
         private JFormattedTextField auraXpField;
         private JFormattedTextField typedXpField;
-        private JFormattedTextField useXpField;
     }
 
 	private void gridHelper (GridBagConstraints gbc, int y, int x, int width) {

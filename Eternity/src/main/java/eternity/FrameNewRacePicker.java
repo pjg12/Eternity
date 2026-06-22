@@ -21,12 +21,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
  * Data-driven race picker with String keys, modeled after FrameNewClassPicker.
  */
 public class FrameNewRacePicker extends JFrame {
+    private static final String IRDON_RACE = "Irdon";
+    private static final String IRDON_ANGEL_NAME_LABEL = "Angel Name";
+    private static final String DEFAULT_GM_IRDON_ANGEL_NAME = "Unnamed Angel";
 
     // References
     private final StoreRuleManager ruleManager;
@@ -59,6 +63,7 @@ public class FrameNewRacePicker extends JFrame {
     private JLabel headerL;
     private JLabel[] optionLabels;
     private JComboBox<String>[] optionBoxes;
+    private JTextField irdonAngelNameField;
     private JButton cancelButton, confirmButton;
 
     // Maps
@@ -132,6 +137,26 @@ public class FrameNewRacePicker extends JFrame {
         int y;
         int x;
         int width;
+
+        if (requiresIrdonAngelName()) {
+            gridHelper(gbc, 0, 0, 1);
+            JPanel choicePanel = new JPanel();
+            choicePanel.setLayout(new BoxLayout(choicePanel, BoxLayout.Y_AXIS));
+            choicePanel.setBorder(CENTER_BORDER);
+
+            JLabel lbl = buildLabel(IRDON_ANGEL_NAME_LABEL);
+            choicePanel.add(lbl);
+
+            irdonAngelNameField = new JTextField(getInitialIrdonAngelName());
+            choicePanel.add(irdonAngelNameField);
+
+            centerPanel.add(choicePanel, gbc);
+        }
+
+        if (raceChoicesMap == null || raceChoicesMap.isEmpty()) {
+            add(centerPanel, BorderLayout.CENTER);
+            return;
+        }
  
         for (String label : raceChoicesMap.keySet()) {
             // Setup Grid
@@ -214,20 +239,24 @@ public class FrameNewRacePicker extends JFrame {
 
     public void onConfirmPressed() {
         List<String> raceChoices = java.util.List.of();
-        if (selectedRace.getRacePick()) {
+        if ((selectedRace.getRacePick() && raceChoicesMap != null && !raceChoicesMap.isEmpty()) || requiresIrdonAngelName()) {
             raceChoices = new ArrayList<>(raceChoicesMap.size());
-            for (String label : raceChoicesMap.keySet()) {
-                // Get choice
-                String choice = (String) fields.get(label).getSelectedItem();
-
-                // Force choice if required
-                if (choice == null || choice.equals(EMPTY_OPTION)) {
-                    JOptionPane.showMessageDialog(this, "Please complete all fields.");
+            if (raceChoicesMap != null) {
+                for (String label : raceChoicesMap.keySet()) {
+                    String choice = (String) fields.get(label).getSelectedItem();
+                    if (choice == null || choice.equals(EMPTY_OPTION)) {
+                        JOptionPane.showMessageDialog(this, "Please complete all fields.");
+                        return;
+                    }
+                    raceChoices.add(choice);
+                }
+            }
+            if (requiresIrdonAngelName()) {
+                String angelName = resolveInlineIrdonAngelName();
+                if (angelName == null) {
                     return;
                 }
-
-                // Save choice
-                raceChoices.add(choice);
+                raceChoices.add(angelName);
             }
 
             // Add choices to character
@@ -252,6 +281,7 @@ public class FrameNewRacePicker extends JFrame {
     private Map<String, String[]> makeChoiceMap(DataRace race) {
         // Generate new map
         Map<String, String[]> map = new LinkedHashMap<>();
+        if (race == null || race.getName() == null) return map;
         String name = race.getName();
 
         // Input options based on class name
@@ -259,7 +289,7 @@ public class FrameNewRacePicker extends JFrame {
             case "Alteri" -> {
                 map.put("Shapeshift", RACE_OPTIONS);
             }
-            default -> { return null; }
+            default -> { return map; }
         }
         return map;
     }
@@ -279,6 +309,34 @@ public class FrameNewRacePicker extends JFrame {
         int nonEmptyOptions = box.getItemCount() - 1;
         if (nonEmptyOptions <= 0) return 0;
         return ThreadLocalRandom.current().nextInt(nonEmptyOptions) + 1;
+    }
+
+    private boolean requiresIrdonAngelName() {
+        return selectedRace != null
+                && selectedRace.getName() != null
+                && IRDON_RACE.equalsIgnoreCase(selectedRace.getName().trim());
+    }
+
+    private String getInitialIrdonAngelName() {
+        if (character != null && character.getIdentity() != null) {
+            List<String> existing = character.getIdentity().getCharRacePick();
+            if (existing != null && !existing.isEmpty() && existing.get(existing.size() - 1) != null) {
+                return existing.get(existing.size() - 1).trim();
+            }
+        }
+        return gmMode ? DEFAULT_GM_IRDON_ANGEL_NAME : "";
+    }
+
+    private String resolveInlineIrdonAngelName() {
+        if (gmMode) {
+            return DEFAULT_GM_IRDON_ANGEL_NAME;
+        }
+        String angelName = irdonAngelNameField == null ? "" : irdonAngelNameField.getText().trim();
+        if (angelName.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Please enter an angel name.");
+            return null;
+        }
+        return angelName;
     }
 }
 

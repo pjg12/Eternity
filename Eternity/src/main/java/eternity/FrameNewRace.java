@@ -265,7 +265,7 @@ public class FrameNewRace extends JFrame {
 
     private void onNextPressed() {
         if (selectedRace == null) return;
-        if (!selectedRace.getRacePick()) {
+        if (!selectedRace.getRacePick() && !requiresRacePicker(selectedRace)) {
             commitRaceSelection(java.util.List.of());
             return;
         }
@@ -273,9 +273,13 @@ public class FrameNewRace extends JFrame {
         if (pickerFrame == null || !pickerFrame.isDisplayable()) {
             pickerFrame = new FrameNewRacePicker(ruleManager, character, selectedRace, this, gmMode);
         }
-        if (pickerFrame.isDisplayable()) {
-            pickerFrame.setVisible(true);
-        }
+        pickerFrame.setVisible(true);
+    }
+
+    private boolean requiresRacePicker(DataRace race) {
+        return race != null
+                && race.getName() != null
+                && "Irdon".equalsIgnoreCase(race.getName().trim());
     }
 
     public void onConfirmPressed(java.util.List<String> raceChoices) {
@@ -304,7 +308,7 @@ public class FrameNewRace extends JFrame {
     }
 
     private static ImageIcon scaleIcon(ImageIcon src, int width, int height) { return new ImageIcon(src.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)); }
-    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon("images/" + name + variant + ".png"); }
+    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon(AppPaths.imagesDir().resolve(name + variant + ".png").toString()); }
 
     /**
      * Loads icons asynchronously to avoid blocking UI creation.

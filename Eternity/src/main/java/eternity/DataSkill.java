@@ -3,6 +3,7 @@ package eternity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -15,19 +16,21 @@ public class DataSkill {
     @JsonProperty private String description;
     @JsonProperty private List<String> availAttributes;
     @JsonProperty private List<String> chosenAttributes;
+    @JsonProperty private String chosenSubtype;
 
     // --- Constructors ---
 
-    public DataSkill() { this(-1, "", "", "", new ArrayList<>(), new ArrayList<>()); }
-    public DataSkill(DataSkill src) { this(src.id, src.name, src.type, src.description, src.availAttributes, src.chosenAttributes); }
+    public DataSkill() { this(-1, "", "", "", new ArrayList<>(), new ArrayList<>(), ""); }
+    public DataSkill(DataSkill src) { this(src.id, src.name, src.type, src.description, src.availAttributes, src.chosenAttributes, src.chosenSubtype); }
     
-    public DataSkill(int id, String name, String type, String description, List<String> availAttributes, List<String> chosenAttributes) {
+    public DataSkill(int id, String name, String type, String description, List<String> availAttributes, List<String> chosenAttributes, String chosenSubtype) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.description = description;
         this.availAttributes = new ArrayList<>(availAttributes);
         this.chosenAttributes = new ArrayList<>(chosenAttributes);
+        this.chosenSubtype = safe(chosenSubtype);
     }
     
     // --- Getters & Setters ---
@@ -60,6 +63,9 @@ public class DataSkill {
             this.chosenAttributes = new ArrayList<>(chosenAttributes);
     }
 
+    public String getChosenSubtype() { return chosenSubtype; }
+    public void setChosenSubtype(String chosenSubtype) { this.chosenSubtype = safe(chosenSubtype).trim(); }
+
     // --- Helpers ---
     
     public void addChosenAttribute(String att) {
@@ -68,8 +74,19 @@ public class DataSkill {
     }
     public void removeChosenAttribute(String att) { chosenAttributes.remove(att); }
 
+    @JsonIgnore
+    public boolean requiresSubtype() {
+        if (availAttributes == null) return false;
+        for (String attribute : availAttributes) {
+            if (attribute != null && attribute.equalsIgnoreCase("ALL")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static String safe(String s) { return s == null ? "" : s; }
 
     @Override
-    public String toString() { return "DataSkill{" + "id=" + id + ", name='" + name + '\'' + ", type='" + type + '\'' + ", description='" + description + '\'' + '}'; }
+    public String toString() { return "DataSkill{" + "id=" + id + ", name='" + name + '\'' + ", type='" + type + '\'' + ", description='" + description + '\'' + ", chosenSubtype='" + chosenSubtype + '\'' + '}'; }
 }

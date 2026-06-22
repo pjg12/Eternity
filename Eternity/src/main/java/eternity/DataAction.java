@@ -117,12 +117,7 @@ public class DataAction {
 	}
 
 	public void setAtkType(String atkType) {
-		if ("AC".equalsIgnoreCase(atkType)
-				|| "FORT".equalsIgnoreCase(atkType)
-				|| "REF".equalsIgnoreCase(atkType)
-				|| "WILL".equalsIgnoreCase(atkType)
-				|| "SPELL".equalsIgnoreCase(atkType)
-				|| ATKTYPE_OTHER.equalsIgnoreCase(atkType)) {
+		if (isSupportedAttackType(atkType)) {
 			this.atkType = atkType.toUpperCase();
 			return;
 		}
@@ -235,7 +230,7 @@ public class DataAction {
 
 	public void update() {
 		DataAction sourceAction = null;
-		if (character != null && character.getCombat() != null && "AC".equalsIgnoreCase(atkType)) {
+		if (character != null && character.getCombat() != null && usesStandardAttackValues()) {
 			sourceAction = character.getCombat().getStandardAttackAction();
 		} else if (character != null && character.getCombat() != null && !ATKTYPE_OTHER.equalsIgnoreCase(atkType)) {
 			sourceAction = character.getCombat().getStandardSpellAction();
@@ -256,9 +251,58 @@ public class DataAction {
 		applyRacialCombatManeuverBonuses();
 	}
 
+	public boolean hasModifierAttribute(String attribute) {
+		if (attribute == null || attribute.isBlank() || modifierKey == null) return false;
+		String normalized = attribute.trim().toUpperCase();
+		for (ModifierKey entry : modifierKey) {
+			if (entry == null || entry.getAttribute() == null) continue;
+			if (normalized.equalsIgnoreCase(entry.getAttribute().trim())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public double evaluateModifierAttributeValue(String attribute) {
+		if (attribute == null || attribute.isBlank() || modifierKey == null) return 0.0;
+		String normalized = attribute.trim().toUpperCase();
+		double value = 0.0;
+		for (ModifierKey entry : modifierKey) {
+			if (entry == null || entry.getAttribute() == null) continue;
+			if (!normalized.equalsIgnoreCase(entry.getAttribute().trim())) continue;
+			String normalizedOperator = entry.getOperator() == null ? "+" : entry.getOperator().trim().toUpperCase();
+			char mathOperator = resolveMathOperator(normalizedOperator);
+			double operand = resolveOperand(normalizedOperator, mathOperator);
+			value = applyDoubleOperator(value, mathOperator, operand);
+		}
+		return value;
+	}
+
+	private boolean usesStandardAttackValues() {
+		return isAttackLayoutType(atkType);
+	}
+
+	private boolean isSupportedAttackType(String value) {
+		return isAttackLayoutType(value)
+				|| "FORT".equalsIgnoreCase(value)
+				|| "REF".equalsIgnoreCase(value)
+				|| "WILL".equalsIgnoreCase(value)
+				|| "SPELL".equalsIgnoreCase(value)
+				|| ATKTYPE_OTHER.equalsIgnoreCase(value);
+	}
+
+	private boolean isAttackLayoutType(String value) {
+		return "AC".equalsIgnoreCase(value)
+				|| "DODGE".equalsIgnoreCase(value)
+				|| "ARMOR".equalsIgnoreCase(value);
+	}
+
 	private void applyRacialCombatManeuverBonuses() {
 		if (!isChargeCombatManeuver() || !hasRacialSpecialty(JOUSTING_CHARGE_SPECIALTY)) return;
-		atk += getRaceTrainingRank();
+		int raceTrainingRank = getRaceTrainingRank();
+		atk += raceTrainingRank / 2;
+		bdmg += raceTrainingRank;
+		tdmg += raceTrainingRank;
 	}
 
 	private boolean isChargeCombatManeuver() {
@@ -350,17 +394,32 @@ public class DataAction {
 		if (token == null || token.isBlank()) return 0.0;
 		String normalized = token.trim().toUpperCase();
 		return switch (normalized) {
-			case "AL" -> al;
+			case "AL" -> character == null ? al : character.getEffectiveTechniqueAl(this);
+			case "CL" -> getClassLevel();
+			case "CMAN" -> getEffectiveCombatManeuverValue();
 			case "ATK" -> atk;
 			case "BDMG" -> bdmg;
 			case "TDMG" -> tdmg;
 			case "DMGMULTI" -> dmgMulti;
-			case "RANGED", "RANGE" -> ranged;
+			case "RANGE" -> character != null && character.getAttributes() != null
+					? character.getAttributes().calcStatusValue("RANGE")
+					: 0.0;
+			case "RANGED" -> ranged;
 			case "APP" -> character != null && character.getAttributes() != null
 					? character.getAttributes().calcStatusValue("APP")
 					: 0.0;
 			default -> resolveCharacterStatValue(normalized);
 		};
+	}
+
+	private double getEffectiveCombatManeuverValue() {
+		if (character == null) return 0.0;
+		return Math.max(0.0, character.getEffectiveCombatManeuverValue(name));
+	}
+
+	private double getClassLevel() {
+		if (character == null || character.getIdentity() == null) return 0.0;
+		return Math.max(0, character.getIdentity().getLevel());
 	}
 
 	private double resolveCharacterStatValue(String key) {
@@ -424,6 +483,10 @@ public class DataAction {
 		private double parse() {
 			double value = parseExpression();
 			skipWhitespace();
+			while (index < expression.length() && expression.charAt(index) == ')') {
+				index++;
+				skipWhitespace();
+			}
 			if (index < expression.length()) {
 				throw new IllegalArgumentException("Unexpected token in modifier expression");
 			}
@@ -503,7 +566,25 @@ public class DataAction {
 				index++;
 			}
 			String identifier = expression.substring(start, index);
+			skipWhitespace();
+			if (match('(')) {
+				double argument = parseExpression();
+				if (!match(')')) {
+					throw new IllegalArgumentException("Unclosed modifier function");
+				}
+				return applyFunction(identifier, argument);
+			}
 			return resolveExpressionIdentifier(identifier);
+		}
+
+		private double applyFunction(String identifier, double argument) {
+			if (identifier == null || identifier.isBlank()) {
+				throw new IllegalArgumentException("Missing modifier function");
+			}
+			if ("RT".equalsIgnoreCase(identifier.trim())) {
+				return Math.sqrt(Math.max(0.0, argument));
+			}
+			throw new IllegalArgumentException("Unsupported modifier function");
 		}
 
 		private boolean match(char expected) {

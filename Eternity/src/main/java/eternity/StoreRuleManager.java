@@ -5,6 +5,7 @@ package eternity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -105,6 +106,99 @@ public class StoreRuleManager {
     }
 
     // ---------------------------------------------------------
+    // DOMAIN SEARCH
+    // ---------------------------------------------------------
+
+    public DataDomain getDomainById(int id) {
+        return QUERY_INDEX.domainsById.get(id);
+    }
+
+    public DataDomain getDomainByName(String name) {
+        return QUERY_INDEX.domainsByName.get(normalizeKey(name));
+    }
+
+    public List<DataDomain> getDomainData() {
+        return RULE_DATA.getDomainData();
+    }
+
+    public List<DataTechnical> getTechnicalData() {
+        return RULE_DATA.getTechnicalData();
+    }
+
+    public DataTechnical getTechnicalByName(String name) {
+        if (name == null || name.isBlank()) return null;
+        String normalizedName = normalizeKey(name);
+        for (DataTechnical technical : RULE_DATA.getTechnicalData()) {
+            if (technical == null || technical.getName() == null) continue;
+            if (normalizedName.equals(normalizeKey(technical.getName()))) return technical;
+        }
+        for (DataTechnical technical : RULE_DATA.getTechnicalData()) {
+            if (technical == null || technical.getName() == null) continue;
+            String candidate = normalizeKey(technical.getName());
+            if (candidate != null && isBoundedEditDistance(normalizedName, candidate, 1)) {
+                return technical;
+            }
+        }
+        return null;
+    }
+
+    private boolean isBoundedEditDistance(String left, String right, int maxDistance) {
+        if (left == null || right == null) return false;
+        int leftLength = left.length();
+        int rightLength = right.length();
+        if (Math.abs(leftLength - rightLength) > maxDistance) return false;
+
+        int[] previous = new int[rightLength + 1];
+        int[] current = new int[rightLength + 1];
+        for (int j = 0; j <= rightLength; j++) {
+            previous[j] = j;
+        }
+
+        for (int i = 1; i <= leftLength; i++) {
+            current[0] = i;
+            int rowMin = current[0];
+            for (int j = 1; j <= rightLength; j++) {
+                int substitutionCost = left.charAt(i - 1) == right.charAt(j - 1) ? 0 : 1;
+                current[j] = Math.min(
+                        Math.min(current[j - 1] + 1, previous[j] + 1),
+                        previous[j - 1] + substitutionCost);
+                rowMin = Math.min(rowMin, current[j]);
+            }
+            if (rowMin > maxDistance) return false;
+
+            int[] swap = previous;
+            previous = current;
+            current = swap;
+        }
+        return previous[rightLength] <= maxDistance;
+    }
+
+    public List<DataVow> getVowData() {
+        return RULE_DATA.getVowData();
+    }
+
+    public DataVow getVowById(int id) {
+        for (DataVow vow : RULE_DATA.getVowData()) {
+            if (vow != null && vow.getId() == id) return vow;
+        }
+        return null;
+    }
+
+    public DataVow getVowByName(String name) {
+        if (name == null || name.isBlank()) return null;
+        String normalizedName = normalizeKey(name);
+        for (DataVow vow : RULE_DATA.getVowData()) {
+            if (vow == null || vow.getName() == null) continue;
+            if (normalizedName.equals(normalizeKey(vow.getName()))) return vow;
+        }
+        return null;
+    }
+
+    public List<DataDomain> searchDomains(String namePart) {
+        return searchByEntries(QUERY_INDEX.domainNameSearch, normalizeKey(namePart), QUERY_INDEX.domainSearchCache);
+    }
+
+    // ---------------------------------------------------------
     // SKILL SEARCH
     // ---------------------------------------------------------
 
@@ -122,8 +216,19 @@ public class StoreRuleManager {
 
     public List<DataSkill> getSkillsByAttribute(String attribute) {
         if (attribute == null || attribute.equals("***")) return List.of();
-        List<DataSkill> skills = QUERY_INDEX.skillsByAttribute.get(normalizeKey(attribute));
-        return skills != null ? skills : List.of();
+        String normalizedAttribute = normalizeKey(attribute);
+        List<DataSkill> directSkills = QUERY_INDEX.skillsByAttribute.get(normalizedAttribute);
+        List<DataSkill> allSkills = QUERY_INDEX.skillsByAttribute.get("all");
+        if ((allSkills == null || allSkills.isEmpty())) {
+            return directSkills != null ? directSkills : List.of();
+        }
+        if (directSkills == null || directSkills.isEmpty()) {
+            return allSkills;
+        }
+
+        LinkedHashSet<DataSkill> merged = new LinkedHashSet<>(directSkills);
+        merged.addAll(allSkills);
+        return List.copyOf(merged);
     }
 
     // ---------------------------------------------------------
@@ -273,6 +378,9 @@ public class StoreRuleManager {
         private final Map<Integer, DataDeity> deitiesById;
         private final Map<String, DataDeity> deitiesByName;
         private final List<SearchEntry<DataDeity>> deityNameSearch;
+        private final Map<Integer, DataDomain> domainsById;
+        private final Map<String, DataDomain> domainsByName;
+        private final List<SearchEntry<DataDomain>> domainNameSearch;
         private final Map<Integer, DataSkill> skillsById;
         private final Map<String, DataSkill> skillsByName;
         private final Map<String, List<DataSkill>> skillsByAttribute;
@@ -299,6 +407,7 @@ public class StoreRuleManager {
         private final Map<String, List<DataRace>> raceSearchCache;
         private final Map<String, List<DataClass>> classSearchCache;
         private final Map<String, List<DataDeity>> deitySearchCache;
+        private final Map<String, List<DataDomain>> domainSearchCache;
         private final Map<String, List<DataSkill>> skillSearchCache;
         private final Map<String, List<DataSpecialty>> specialtySearchCache;
         private final Map<String, List<DataItemEquipment>> itemSearchCache;
@@ -312,6 +421,7 @@ public class StoreRuleManager {
             List<DataRace> raceData = store.getRaceData();
             List<DataClass> classData = store.getClassData();
             List<DataDeity> deityData = store.getDeityData();
+            List<DataDomain> domainData = store.getDomainData();
             List<DataSkill> skillData = store.getSkillData();
             List<DataSpecialty> specialtyData = store.getSpecialtyData();
             List<DataTechPerm> techPermData = store.getTechPermData();
@@ -377,6 +487,20 @@ public class StoreRuleManager {
                     String normalizedName = normalizeKey(deity.getName());
                     deitiesByName.putIfAbsent(normalizedName, deity);
                     deityNameSearch.add(new SearchEntry<>(normalizedName, deity));
+                }
+            }
+
+            domainsById = new HashMap<>(Math.max(16, domainData.size() * 2));
+            domainsByName = new HashMap<>(Math.max(16, domainData.size() * 2));
+            domainNameSearch = new ArrayList<>(domainData.size());
+            domainSearchCache = new ConcurrentHashMap<>();
+            for (DataDomain domain : domainData) {
+                if (domain == null) continue;
+                domainsById.putIfAbsent(domain.getId(), domain);
+                if (domain.getName() != null) {
+                    String normalizedName = normalizeKey(domain.getName());
+                    domainsByName.putIfAbsent(normalizedName, domain);
+                    domainNameSearch.add(new SearchEntry<>(normalizedName, domain));
                 }
             }
 

@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -67,8 +68,8 @@ public class FrameNewClassPicker extends JFrame {
     // Maps
     private final Map<String, ChoiceConfig> classChoicesMap;
     private final Map<String, JComboBox<String>> fields = new LinkedHashMap<>();
+    private final Map<String, JTextField> textFields = new LinkedHashMap<>();
     private final Map<String, String[]> deityDomains = new HashMap<>();
-    private final Map<String, String[]> archerSelections = new HashMap<>();
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -160,12 +161,19 @@ public class FrameNewClassPicker extends JFrame {
 
             // Build Choice
             ChoiceConfig choice = classChoicesMap.get(label);
-            JComboBox<String> choiceBox = buildComboBox(choice);
-            choicePanel.add(choiceBox);
-            optionBoxes[tileIndex] = choiceBox;
+            if (choice.type == ChoiceType.TEXT) {
+                JTextField textField = buildTextField();
+                choicePanel.add(textField);
+                textFields.put(label, textField);
+            }
+            else {
+                JComboBox<String> choiceBox = buildComboBox(choice);
+                choicePanel.add(choiceBox);
+                optionBoxes[tileIndex] = choiceBox;
+                fields.put(label, choiceBox);
+            }
             
             centerPanel.add(choicePanel, gbc);
-            fields.put(label, choiceBox);
             tileIndex++;
         }
         add(centerPanel, BorderLayout.CENTER);
@@ -203,10 +211,6 @@ public class FrameNewClassPicker extends JFrame {
                 if (deityBox != null) deityBox.addActionListener(e -> updateDomainBox());
                 else                 System.out.println("HI");
             }
-            case FAVOR_DEPENDENT -> {
-                JComboBox<String> favorTypeBox = fields.get("Favor Type");
-                if (favorTypeBox != null) favorTypeBox.addActionListener(e -> updateFavoredBox());
-            }
         }
         return box;
     }
@@ -217,6 +221,14 @@ public class FrameNewClassPicker extends JFrame {
         lbl.setHorizontalAlignment(SwingConstants.CENTER);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         return lbl;
+    }
+
+    private JTextField buildTextField() {
+        JTextField textField = new JTextField();
+        textField.setFont(LABEL_FONT);
+        textField.setHorizontalAlignment(SwingConstants.CENTER);
+        textField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return textField;
     }
 
     // ---------------------------------------------------------
@@ -235,22 +247,29 @@ public class FrameNewClassPicker extends JFrame {
         for (String label : classChoicesMap.keySet()) {
             // Get choice
             ChoiceConfig choice = classChoicesMap.get(label);
-            String value = (String) fields.get(label).getSelectedItem();
+            String value = getSelectedValue(label, choice);
 
-            if (value == null || value.equals(EMPTY_OPTION)) {
+            if (value == null || value.isBlank() || value.equals(EMPTY_OPTION)) {
                 JOptionPane.showMessageDialog(this, "Please complete all fields.");
                 return;
             }
 
-            if (choice.type.isProficiency()) profs.add(value);
+            if (choice.type.isProficiency()) {
+                profs.add(value);
+                if (isStoredClassChoiceLabel(label)) {
+                    classChoices.add(value);
+                }
+            }
             else if (choice.type != ChoiceType.SUBCLASS) classChoices.add(value);
         }
 
         // Cleric deity bonus
         if (selectedClass.getName().equals("Cleric")) {
-            String deity = classChoices.get(0);
-            int idx = DEITY_OPTIONS.indexOf(deity);
-            if (idx >= 0) profs.add(DEITY_WEAPONS.get(idx));
+            String deity = classChoices.isEmpty() ? null : classChoices.get(0);
+            String deityWeapon = findDeityWeapon(deity);
+            if (deityWeapon != null && !deityWeapon.isBlank()) {
+                profs.add(deityWeapon);
+            }
         }
 
         // Finalize proficiencies
@@ -313,14 +332,14 @@ public class FrameNewClassPicker extends JFrame {
                 map.put("Subclass", makeChoiceSubclass(cls));
             }
             case "Monk" -> {
-                map.put("Discipline", makeChoiceFixed(DISCIPLINES));
+                map.put("Combat Discipline I", makeChoiceFixed(FrameSpecialsPicker.getMartialFocusOptions()));
                 map.put("Weapon Proficiency 1", makeChoiceWeapon(WeaponPools.RANGED));
                 map.put("Weapon Proficiency 2", makeChoiceWeapon(WeaponPools.AURA));
                 map.put("Subclass", makeChoiceSubclass(cls));
             }
             case "Archer" -> {
-                map.put("Favor Type", makeChoiceFixed(FAVOR_TYPES));
-                map.put("Favored Selection", makeChoice(ChoiceType.FAVOR_DEPENDENT));
+                map.put("Favored Enemy", makeChoiceFixed(ARCHER_ENEMY));
+                map.put("Favored Terrain", makeChoiceFixed(ARCHER_TERRAIN));
                 map.put("Weapon Proficiency", makeChoiceWeapon(WeaponPools.MELEE));
                 map.put("Subclass", makeChoiceSubclass(cls));
             }
@@ -341,6 +360,7 @@ public class FrameNewClassPicker extends JFrame {
             }
             case "Pilot" -> {
                 map.put("Primary Attribute", makeChoiceFixed(PRIM_ATTS));
+                map.put("Patron", makeChoice(ChoiceType.TEXT));
                 map.put("Subclass", makeChoiceSubclass(cls));
             }
         }
@@ -429,30 +449,32 @@ public class FrameNewClassPicker extends JFrame {
         addOptions(domain, deityDomains.computeIfAbsent(deityName, this::findDomainsByDeity));
     }
 
-    private void updateFavoredBox() {
-        // Get Combobox references
-        JComboBox<String> favorType = fields.get("Favor Type");
-        JComboBox<String> favoredSelection = fields.get("Favored Selection");
-        if (favoredSelection == null) return;
-
-        // Clear favored box
-        favoredSelection.removeAllItems();
-        favoredSelection.addItem(EMPTY_OPTION);
-
-        // Get favored type
-        String favorTypeName = favorType != null ? (String) favorType.getSelectedItem() : null;
-
-        // Update favored box per favored type
-        addOptions(favoredSelection, archerSelections.computeIfAbsent(favorTypeName, this::findFavoredByType));
-    }
-
     private void applyGmSelectionsAndConfirm() {
         for (String label : classChoicesMap.keySet()) {
+            ChoiceConfig choice = classChoicesMap.get(label);
+            if (choice != null && choice.type == ChoiceType.TEXT) {
+                JTextField textField = textFields.get(label);
+                if (textField != null) {
+                    textField.setText(label);
+                }
+                continue;
+            }
             JComboBox<String> box = fields.get(label);
             if (box == null || box.getItemCount() <= 1) continue;
             box.setSelectedIndex(randomChoiceIndex(box));
         }
         onConfirmPressed();
+    }
+
+    private String getSelectedValue(String label, ChoiceConfig choice) {
+        if (label == null || choice == null) return "";
+        if (choice.type == ChoiceType.TEXT) {
+            JTextField textField = textFields.get(label);
+            return textField == null || textField.getText() == null ? "" : textField.getText().trim();
+        }
+        JComboBox<String> comboBox = fields.get(label);
+        Object selectedItem = comboBox == null ? null : comboBox.getSelectedItem();
+        return selectedItem == null ? "" : selectedItem.toString().trim();
     }
 
     private int randomChoiceIndex(JComboBox<String> box) {
@@ -487,11 +509,18 @@ public class FrameNewClassPicker extends JFrame {
         return resolved.toArray(new String[0]);
     }
 
-    private String[] findFavoredByType(String favorTypeName) {
-        if (favorTypeName == null || EMPTY_OPTION.equals(favorTypeName)) return new String[0];
-        if ("Enemy".equalsIgnoreCase(favorTypeName)) return ARCHER_ENEMY;
-        if ("Terrain".equalsIgnoreCase(favorTypeName)) return ARCHER_TERRAIN;
-        return new String[0];
+    private boolean isStoredClassChoiceLabel(String label) {
+        if (label == null || selectedClass == null || selectedClass.getName() == null) return false;
+        if (!"Shifter".equalsIgnoreCase(selectedClass.getName())) return false;
+        return "Weapon Mold 1".equalsIgnoreCase(label) || "Weapon Mold 2".equalsIgnoreCase(label);
+    }
+
+    private String findDeityWeapon(String deityName) {
+        if (deityName == null || deityName.isBlank() || EMPTY_OPTION.equals(deityName) || ruleManager == null) {
+            return "";
+        }
+        DataDeity deity = ruleManager.getDeityByName(deityName);
+        return deity == null || deity.getWeapon() == null ? "" : deity.getWeapon().trim();
     }
 
     // -------------------------------------------------------------------------
@@ -502,9 +531,9 @@ public class FrameNewClassPicker extends JFrame {
         STATIC,
         DEITY,
         DOMAIN_DEPENDENT,
-        FAVOR_DEPENDENT,
         SPECIAL_LIST,
         SUBCLASS,
+        TEXT,
         WEAPON_PICK_1,
         WEAPON_PICK_2;
 
@@ -528,11 +557,8 @@ public class FrameNewClassPicker extends JFrame {
 
     private static final List<String> DEITY_OPTIONS = List.of("***","Creation","Honor","Justice","Courage","Progress","Providence","Grace","Hope","Mercy","*Custom");
     private static final String[] DEITY_OPTIONS_WITHOUT_EMPTY = DEITY_OPTIONS.stream().filter(option -> !EMPTY_OPTION.equals(option)).toArray(String[]::new);
-    private static final List<String> DEITY_WEAPONS = List.of("***","Sword","Whip","Axe","Fist","Polearm","Greatsword","Bow","Dagger","Battleaxe","*Custom");
     private static final String[] VOWOPTIONS = {"***","Honesty","Law","Justice","Faith","Courage","Wisdom","Charity","Hope","Mercy","Forgiveness","Humility","Gratitude","Patience","Duty","*Undecided"};
-    private static final String[] COMBAT_ACTIONS = {"***","Bull Rush","Shove","Overrun","Grapple","Trip","Disarm","Sunder","Charge","Feint"};
-    private static final String[] DISCIPLINES = {"***", "Mobility", "Avoidance", "Martial"};
-    private static final String[] FAVOR_TYPES = {"***", "Enemy", "Terrain"};
+    private static final String[] COMBAT_ACTIONS = {"***","Bull Rush","Shove","Overrun","Grapple","Trip","Disarm","Sunder","Charge","Push","Feint"};
     private static final String[] ARCHER_ENEMY = {"***","Animals (Land)", "Animalas (Sea)", "Animals (Air)", "Constructs (Mechanical)", "Constructs (Organic)", "Dragons", "Elementals", "Fey", "Outsiders", "Plants", "Undead", "Wardens", "Ardians..."};
     private static final String[] ARCHER_TERRAIN = {"***","Plains","Forest","Mountains","Hills","Swamp","Underground","Urban","Coastal","Arctic"};
     private static final String[] AURA_TYPES = {"***","Reinforcement","Body","Force","Metal","Fire","Water","Air","Earth","Electricity","Energy","Sound","Light","Nature","Poison","Darkness","Psionic","Spirit","Time"};

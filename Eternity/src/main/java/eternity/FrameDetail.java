@@ -1,5 +1,12 @@
 package eternity;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+import javax.imageio.ImageIO;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,12 +15,15 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Lightweight details editor for a character's identity.
@@ -21,6 +31,7 @@ import javax.swing.JTextField;
  */
 public class FrameDetail extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final String[] SUPPORTED_IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "gif", "bmp"};
     private static final int LABEL_COLUMN_WIDTH = 0;
     private static final int FIELD_COLUMN_WIDTH = 1;
     private static final int RIGHT_LABEL_COLUMN_WIDTH = 2;
@@ -77,14 +88,17 @@ public class FrameDetail extends JFrame {
 
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(e -> setVisible(false));
+        JButton image = new JButton("Image");
+        image.addActionListener(e -> chooseImageFile());
         JButton save = new JButton("Save");
         save.addActionListener(e -> confirmDetails());
 
-        JPanel footerPanel = new JPanel(new BorderLayout());
+        JPanel footerPanel = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 18, 0));
         footerPanel.setOpaque(false);
-        footerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 100, 0, 100));
-        footerPanel.add(cancel, BorderLayout.WEST);
-        footerPanel.add(save, BorderLayout.EAST);
+        footerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        footerPanel.add(cancel);
+        footerPanel.add(image);
+        footerPanel.add(save);
 
         gc.gridx = 0;
         gc.gridy = row;
@@ -186,6 +200,7 @@ public class FrameDetail extends JFrame {
             character.updateAll();
             //StoreMetaManager.saveCharacter(character);
             sheetFrame.refreshMainPanel();
+            sheetFrame.refreshInventoryPanel();
             sheetFrame.refreshImagePanel();
         }
         setVisible(false);
@@ -223,6 +238,96 @@ public class FrameDetail extends JFrame {
             subclassBox.setSelectedItem(currentSubclass);
         } else {
             subclassBox.setSelectedIndex(0);
+        }
+    }
+
+    private void chooseImageFile() {
+        if (character == null || character.getIdentity() == null) return;
+        int characterIndex = character.getIdentity().getIndex();
+        if (characterIndex < 1) {
+            JOptionPane.showMessageDialog(this,
+                    "Character index is not available yet, so the image cannot be imported.",
+                    "Image Import Unavailable",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Choose Character Image");
+        chooser.setFileFilter(new FileNameExtensionFilter(
+                "Image Files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)",
+                SUPPORTED_IMAGE_EXTENSIONS));
+        chooser.setAcceptAllFileFilterUsed(true);
+
+        int result = chooser.showOpenDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File selectedFile = chooser.getSelectedFile();
+        if (selectedFile == null || !selectedFile.isFile()) {
+            JOptionPane.showMessageDialog(this,
+                    "The selected file is not valid.",
+                    "Invalid Image",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String extension = resolveExtension(selectedFile.getName());
+            if (extension == null) {
+                throw new IllegalArgumentException("Unsupported image type.");
+            }
+
+            BufferedImage preview = ImageIO.read(selectedFile);
+            if (preview == null) {
+                throw new IllegalArgumentException("The selected file could not be read as an image.");
+            }
+
+            Path imagesDir = AppPaths.imagesDir();
+            Files.createDirectories(imagesDir);
+            deleteExistingPortraits(imagesDir, characterIndex);
+
+            Path targetPath = imagesDir.resolve(characterIndex + "." + extension);
+            Files.copy(selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+            if (sheetFrame != null) {
+                sheetFrame.invalidateCharacterPortrait(characterIndex);
+                sheetFrame.refreshImagePanel();
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    "Image imported for this character.",
+                    "Image Imported",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Unable to import the selected image.\n" + ex.getMessage(),
+                    "Image Import Failed",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String resolveExtension(String fileName) {
+        if (fileName == null) return null;
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex < 0 || dotIndex == fileName.length() - 1) return null;
+        String extension = fileName.substring(dotIndex + 1).toLowerCase();
+        for (String candidate : SUPPORTED_IMAGE_EXTENSIONS) {
+            if (candidate.equalsIgnoreCase(extension)) {
+                return extension;
+            }
+        }
+        return null;
+    }
+
+    private void deleteExistingPortraits(Path imagesDir, int characterIndex) {
+        for (String extension : SUPPORTED_IMAGE_EXTENSIONS) {
+            try {
+                Files.deleteIfExists(imagesDir.resolve(characterIndex + "." + extension));
+            } catch (Exception ignored) {
+                // Best effort; import can still proceed with overwrite on the chosen extension.
+            }
         }
     }
 }

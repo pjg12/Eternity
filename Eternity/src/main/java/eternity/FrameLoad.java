@@ -29,6 +29,7 @@ public class FrameLoad extends JFrame {
     // References
     private final FrameSheet sheetFrame;
     private ArrayList<StoreMetaChar> charStore;
+    private boolean openCombatHelperAfterLoad;
 
     // UI Constants
     private static final int FRAME_WIDTH = 480;
@@ -73,7 +74,7 @@ public class FrameLoad extends JFrame {
         setTitle(WINDOW_TITLE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(sheetFrame);
         setResizable(false);
         buildUI();
     }
@@ -134,7 +135,18 @@ public class FrameLoad extends JFrame {
         StoreCharData character = StoreCharManager.loadCharacter(index);
         
         if (character != null) {
-            sheetFrame.loadCharacter(character);
+            FrameSheet targetSheet;
+            if (sheetFrame != null && !sheetFrame.hasActiveCharacter()) {
+                targetSheet = sheetFrame;
+            } else {
+                targetSheet = sheetFrame != null ? sheetFrame.createSiblingSheet() : new FrameSheet();
+            }
+            targetSheet.loadCharacter(character);
+            targetSheet.setVisible(true);
+            if (openCombatHelperAfterLoad) {
+                targetSheet.enterPlayerMode();
+            }
+            openCombatHelperAfterLoad = false;
             dispose();
         } 
         else JOptionPane.showMessageDialog(this, LOAD_FAILED_MSG, LOAD_FAILED_TITLE, JOptionPane.ERROR_MESSAGE);
@@ -145,17 +157,46 @@ public class FrameLoad extends JFrame {
     // ---------------------------------------------------------
 
     private void refreshListModel() {
+        StoreMetaManager.loadCharStore();
         listModel.clear();
         charStore = StoreMetaManager.getCharStore();
 
-        for (StoreMetaChar store : StoreMetaManager.getCharStore()) {
+        for (StoreMetaChar store : charStore) {
             String updated = store.getUpdated() != null ? dateFormat.format(store.getUpdated()) : "unknown";
-            String entry = String.format("%s  -  %s  -  L%s  -  %s",
-                    store.getName(), store.getCampaign(), store.getLevel(), updated);
+            String race = safeDisplay(store.getRace());
+            String charClass = safeDisplay(store.getCharClass());
+            String entry = String.format("%s  -  %s %s  -  %s  -  L%s  -  %s",
+                    safeDisplay(store.getName()), race, charClass, safeDisplay(store.getCampaign()), store.getLevel(), updated);
             listModel.addElement(entry);
         }
         if (!listModel.isEmpty() && list.getSelectedIndex() < 0) {
             list.setSelectedIndex(0);
+        }
+    }
+
+    private String safeDisplay(String value) {
+        if (value == null) return "?";
+        String trimmed = value.trim();
+        return trimmed.isEmpty() ? "?" : trimmed;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            refreshListModel();
+        }
+        super.setVisible(visible);
+    }
+
+    public void setOpenCombatHelperAfterLoad(boolean openCombatHelperAfterLoad) {
+        this.openCombatHelperAfterLoad = openCombatHelperAfterLoad;
+    }
+
+    public void setAllowNewCharacter(boolean allowNewCharacter) {
+        if (newBtn != null) {
+            newBtn.setVisible(allowNewCharacter);
+            buttons.revalidate();
+            buttons.repaint();
         }
     }
 }

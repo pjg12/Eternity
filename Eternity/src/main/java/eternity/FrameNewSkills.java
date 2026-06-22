@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -36,8 +37,8 @@ public class FrameNewSkills extends JFrame {
     private static final EmptyBorder LEFT_BORDER = new EmptyBorder(10, 10, 10, 10);
     private static final EmptyBorder FOOTER_BORDER = new EmptyBorder(0, 10, 2, 10);
     private static final Insets RIGHT_GB_INSETS = new Insets(2, 5, 5, 5);
-    private static final int[] GB_COLUMN_WIDTHS = new int[] { 90, 90, 90, 90 };
-    private static final int FRAME_WIDTH = 560;
+    private static final int[] GB_COLUMN_WIDTHS = new int[] { 70, 95, 170, 130 };
+    private static final int FRAME_WIDTH = 640;
     private static final int FRAME_HEIGHT = 360;
     private static final Font HEADER_FONT = new Font(null, Font.BOLD, 20);
     private static final Font LABEL_FONT = new Font(null, Font.PLAIN, 14);
@@ -58,6 +59,7 @@ public class FrameNewSkills extends JFrame {
     private JButton cancelButton, confirmButton;
     private final JComboBox<String>[] attBoxes = new JComboBox[SKILL_COUNT];
     private final JComboBox<String>[] skillBoxes = new JComboBox[SKILL_COUNT];
+    private final JTextField[] subtypeFields = new JTextField[SKILL_COUNT];
     private boolean updatingSkillLists;
 
 
@@ -144,15 +146,22 @@ public class FrameNewSkills extends JFrame {
         x++;
         gridHelper(gbc, y, x, width);
 
-        // Value Label
-        lbl = buildLabel("Value");
+        // Attribute Label
+        lbl = buildLabel("Attribute");
         centerPanel.add(lbl, gbc);
 
         x++;
         gridHelper(gbc, y, x, width);
 
-        // Cost Label
-        lbl = buildLabel("Cost");
+        // Skill Label
+        lbl = buildLabel("Skill");
+        centerPanel.add(lbl, gbc);
+
+        x++;
+        gridHelper(gbc, y, x, width);
+
+        // Subtype Label
+        lbl = buildLabel("Subtype");
         centerPanel.add(lbl, gbc);
 
         for (int i = 0; i < SKILL_COUNT; i++) {
@@ -175,6 +184,12 @@ public class FrameNewSkills extends JFrame {
 
             skillBoxes[i] = buildSkillBox(index);
             centerPanel.add(skillBoxes[i], gbc);
+
+            x++;
+            gridHelper(gbc, y, x, width);
+
+            subtypeFields[i] = buildSubtypeField();
+            centerPanel.add(subtypeFields[i], gbc);
         }
 
         add(centerPanel, BorderLayout.CENTER);
@@ -223,6 +238,12 @@ public class FrameNewSkills extends JFrame {
         return box;
     }
 
+    private JTextField buildSubtypeField() {
+        JTextField field = new JTextField();
+        field.setVisible(false);
+        return field;
+    }
+
     // --------------------------------------------------------------------------
     // Helpers
     // --------------------------------------------------------------------------
@@ -259,6 +280,9 @@ public class FrameNewSkills extends JFrame {
             DataSkill newSkill = new DataSkill(baseSkill);
             newSkill.setChosenAttributes(new ArrayList<>());
             newSkill.addChosenAttribute((String) attBoxes[i].getSelectedItem());
+            if (baseSkill.requiresSubtype()) {
+                newSkill.setChosenSubtype(subtypeFields[i].getText());
+            }
             skills.add(newSkill);
         }
 
@@ -275,6 +299,7 @@ public class FrameNewSkills extends JFrame {
         for (int i = 0; i < SKILL_COUNT; i++) {
             skill1 = (String) skillBoxes[i].getSelectedItem();
             if (skill1.compareTo(EMPTY_OPTION) == 0) return false;
+            if (requiresSubtype(skill1) && subtypeFields[i].getText().trim().isEmpty()) return false;
         }
         
         // Validate each skill unique
@@ -320,12 +345,32 @@ public class FrameNewSkills extends JFrame {
         } finally {
             updatingSkillLists = false;
         }
+        refreshSubtypeFields();
     }
 
     private void onSelectionChanged(int index) {
         if (updatingSkillLists) return;
         refreshAllSkillLists();
-        updateSkillList(index);
+    }
+
+    private void refreshSubtypeFields() {
+        for (int i = 0; i < SKILL_COUNT; i++) {
+            updateSubtypeFieldVisibility(i);
+        }
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+
+    private void updateSubtypeFieldVisibility(int index) {
+        JTextField field = subtypeFields[index];
+        if (field == null) return;
+        boolean show = requiresSubtype((String) skillBoxes[index].getSelectedItem());
+        field.setVisible(show);
+    }
+
+    private boolean requiresSubtype(String skillName) {
+        DataSkill skill = ruleManager.getSkillByName(skillName);
+        return skill != null && skill.requiresSubtype();
     }
 
     private Set<String> updateFilter(int index) {

@@ -210,6 +210,7 @@ public class FrameInventoryRemove extends JFrame {
         character.updateAll();
         if (sheetFrame != null) {
             sheetFrame.refreshMainPanel();
+            sheetFrame.refreshInventoryPanel();
         }
 
         JOptionPane.showMessageDialog(this, "Removed: " + bestName(selected), "Remove Inventory", JOptionPane.INFORMATION_MESSAGE);

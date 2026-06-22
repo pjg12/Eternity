@@ -2,6 +2,9 @@ package eternity;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -12,8 +15,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,6 +27,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -50,15 +56,17 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private BufferedImage dollPic;
 	private JLabel dollLabel; 
+	private JPanel dollIconPanel;
 	private ArrayList<JLabel> equipL;  //headL, shoulderL, chestL, waistL, legsL, feetL, handsL, backL, fingerRL, fingerLL, neckL, trinkL, w1L, w2L, w3L, w4L;
 	private ArrayList<JComboBox<DataItemEquipment>> equipped; // equipHead, equipShoulder, equipChest, equipWaist, equipLegs, equipFeet, equipHands, equipBack, equipFingerR, equipFingerL, equipNeck, equipTrinket, equipW1, equipW2, equipW3, equipW4;
-	private boolean enforcingHeavy = false;
+	private ArrayList<JLabel> equippedIcons;
 	private boolean suppressEquipAutoSave = false;
 	
 	private JLabel equipmentL;
 	private ArrayList<JLabel> equipmentNameL, equipmentTierL, equipmentCatL, equipmentEquippedL, equipmentEnchL, equipmentGemL, equipmentStorL, equipmentOilL, equipmentModL, equipmentAugL;
 	private ArrayList<ArrayList<JTextField>> equipmentName, equipmentCat;
 	private ArrayList<ArrayList<JCheckBox>> equipmentEquipped;
+	private ArrayList<ArrayList<DataItemEquipment>> equipmentRowItems;
 	private ArrayList<ArrayList<JCheckBox>> equipmentEnch, equipmentGem, equipmentStor, equipmentOil, equipmentMod, equipmentAug;
 	private ArrayList<ArrayList<JFormattedTextField>> equipmentTier;
 	
@@ -93,9 +101,49 @@ public class PanelCharInventory extends PanelCharBase {
 	private final Timer equipSaveDebounceTimer;
 	private String loadedDollName = "";
 	private static final NumberFormat CURRENCY_FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
+	private static final int EQUIP_ICON_SIZE = 80;
+	private static final int DEFAULT_DOLL_IMAGE_WIDTH = 550;
+	private static final int DEFAULT_DOLL_IMAGE_HEIGHT = 550;
+	private static final int DOLL_ICON_GRID_COLUMNS = 6;
+	private static final int DOLL_ICON_GRID_ROWS = 6;
+	private static final int DOLL_ICON_CELL_WIDTH = 80;
+	private static final int DOLL_ICON_CELL_HEIGHT = 80;
+	private static final int DOLL_ICON_GRID_GAP = 10;
+	private static final int[] DOLL_ICON_PLACEHOLDER_COLUMNS = {2, 3};
+	private static final int DOLL_ICON_GRID_WIDTH = (DOLL_ICON_GRID_COLUMNS * DOLL_ICON_CELL_WIDTH) + ((DOLL_ICON_GRID_COLUMNS - 1) * DOLL_ICON_GRID_GAP);
+	private static final int DOLL_ICON_GRID_HEIGHT = (DOLL_ICON_GRID_ROWS * DOLL_ICON_CELL_HEIGHT) + ((DOLL_ICON_GRID_ROWS - 1) * DOLL_ICON_GRID_GAP);
 	private String cachedEquipmentSignature = "";
+	private boolean suppressEquipToggleEvents = false;
+	private final Map<String, ImageIcon> emptySlotIcons;
+	private final Map<String, ImageIcon> equippedItemIcons;
+	private int dollImageWidth = DEFAULT_DOLL_IMAGE_WIDTH;
+	private int dollImageHeight = DEFAULT_DOLL_IMAGE_HEIGHT;
 	
-	private final String[] SLOTS = {"Head", "Neck", "Shoulders", "Back", "Chest", "Trinket", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4"};
+	private static final int SLOT_HEAD = 0;
+	private static final int SLOT_HALO = 1;
+	private static final int SLOT_NECK = 2;
+	private static final int SLOT_SHOULDERS = 3;
+	private static final int SLOT_BACK = 4;
+	private static final int SLOT_CHEST = 5;
+	private static final int SLOT_TRINKET_1 = 6;
+	private static final int SLOT_HANDS = 7;
+	private static final int SLOT_WAIST = 8;
+	private static final int SLOT_RIGHT_FINGER = 9;
+	private static final int SLOT_LEFT_FINGER = 10;
+	private static final int SLOT_LEGS = 11;
+	private static final int SLOT_FEET = 12;
+	private static final int SLOT_TRINKET_2 = 13;
+	private static final int SLOT_TRINKET_3 = 14;
+	private static final int SLOT_TRINKET_4 = 15;
+	private static final int FIRST_WEAPON_SLOT = 16;
+	private static final int LAST_ACTIVE_WEAPON_SLOT = 19;
+	private static final int LAST_WEAPON_SLOT = 21;
+	private static final int SLOT_UNARMED_PROWESS_WEAPON = 20;
+	private static final int SLOT_COUNT = 22;
+	private static final String UNARMED_PROWESS_SPECIALTY = "Unarmed Prowess";
+	private static final int UNARMED_PROWESS_ITEM_IID = -5005;
+
+	private final String[] SLOTS = {"Head", "Halo", "Neck", "Shoulders", "Back", "Chest", "Trinket 1", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Trinket 2", "Trinket 3", "Trinket 4", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4", "Weapon 5", "Weapon 6"};
 
 	/*
 	 * 		DEFAULT CONSTRUCTOR
@@ -103,6 +151,8 @@ public class PanelCharInventory extends PanelCharBase {
 	PanelCharInventory (StoreRuleManager dataQuery, FrameSheet sheetFrame){
 		super (dataQuery, sheetFrame);
 		setBackground(new Color(255, 255, 204));
+		emptySlotIcons = new HashMap<>();
+		equippedItemIcons = new HashMap<>();
 		equipSaveDebounceTimer = new Timer(350, e -> {
 			if (character == null) return;
 			StoreCharData toSave = character;
@@ -141,34 +191,38 @@ public class PanelCharInventory extends PanelCharBase {
 		 */
 		equipL = new ArrayList<JLabel>(); 
 		JLabel tempLabel;
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < SLOT_COUNT; i++) {
 			tempLabel = buildLabel(SLOTS[i], null);
+			tempLabel.setVisible(false);
 			equipL.add(tempLabel);
 		}
 
 		equipped = new ArrayList<JComboBox<DataItemEquipment>>();
 		JComboBox<DataItemEquipment> tempBox;
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < SLOT_COUNT; i++) {
 			tempBox = buildEquipBox();
 			tempBox.addActionListener(e -> {
 				if (suppressEquipAutoSave) return;
 				autoSaveEquipmentSelection();
 			});
 			equipped.add(tempBox);
+			tempBox.setVisible(false);
 		}
-		// Weapon 1 change listener controls visibility of Weapon 4 when using Heavy weapons
-		equipped.get(12).addActionListener(e -> applyWeaponFourRule());
-		// Weapon 2 also participates in Heavy check
-		equipped.get(13).addActionListener(e -> applyWeaponFourRule());
-		// Keep heavy weapons in slots 1/2 when selections change
-		equipped.get(12).addActionListener(e -> enforceHeavyPlacement());
-		equipped.get(13).addActionListener(e -> enforceHeavyPlacement());
-		equipped.get(14).addActionListener(e -> enforceHeavyPlacement());
-		equipped.get(15).addActionListener(e -> enforceHeavyPlacement());
+		dollIconPanel = new JPanel(new GridBagLayout());
+		dollIconPanel.setOpaque(false);
+		dollIconPanel.setVisible(true);
+		equippedIcons = new ArrayList<JLabel>();
+		for (int i = 0; i < SLOT_COUNT; i++) {
+			JLabel equipIcon = buildEquipIconLabel();
+			equippedIcons.add(equipIcon);
+		}
+		rebuildDollIconGrid();
 
 		dollLabel = new JLabel("<html><center>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display.</center></html>", SwingConstants.CENTER);
     	add(dollLabel);
     	dollLabel.setHorizontalAlignment(JLabel.CENTER);
+		add(dollIconPanel);
+		setComponentZOrder(dollIconPanel, 0);
 
     	// Summary row at top
     	currencyLabel = buildLabel("Currency", null);
@@ -225,6 +279,7 @@ public class PanelCharInventory extends PanelCharBase {
     	equipmentTier = new ArrayList<ArrayList<JFormattedTextField>>();
     	equipmentCat = new ArrayList<ArrayList<JTextField>>();
     	equipmentEquipped = new ArrayList<ArrayList<JCheckBox>>();
+    	equipmentRowItems = new ArrayList<ArrayList<DataItemEquipment>>();
     	equipmentEnch = new ArrayList<ArrayList<JCheckBox>>();
     	equipmentGem = new ArrayList<ArrayList<JCheckBox>>();
     	equipmentStor = new ArrayList<ArrayList<JCheckBox>>();
@@ -237,6 +292,7 @@ public class PanelCharInventory extends PanelCharBase {
 	    	equipmentTier.add(new ArrayList<JFormattedTextField>());
 	    	equipmentCat.add(new ArrayList<JTextField>());
 	    	equipmentEquipped.add(new ArrayList<JCheckBox>());
+	    	equipmentRowItems.add(new ArrayList<DataItemEquipment>());
 	    	equipmentEnch.add(new ArrayList<JCheckBox>());
 	    	equipmentGem.add(new ArrayList<JCheckBox>());
 	    	equipmentStor.add(new ArrayList<JCheckBox>());
@@ -323,34 +379,14 @@ public class PanelCharInventory extends PanelCharBase {
 		saveButton.setBounds(235, pageHeight, 158, 30);
 		pageHeight += 27;
 		
-		dollLabel.setBounds(20, pageHeight + 10, 525, 500);
-		pageHeight += 20;
-		
-		for (int i = 0; i < 6; i++) {
-			int x = 0;
-			if (i == 1 || i == 4) {
-				x = -15;
-			}
-			else if (i == 2 || i == 3) {
-				x = -30;
-			}
-			equipL.get(2*i).setBounds(60+x, pageHeight, 175, 20);
-			equipL.get(2*i + 1).setBounds(330-x, pageHeight, 175, 20);
-			pageHeight += 20;
-			equipped.get(2*i).setBounds(60+x, pageHeight, 175, 20);
-			equipped.get(2*i + 1).setBounds(330-x, pageHeight, 175, 20);
-			pageHeight += 45;
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			equipL.get(2*i + 12).setBounds(60, pageHeight, 175, 20);
-			equipL.get(2*i + 13).setBounds(330, pageHeight, 175, 20);
-			pageHeight += 20;	
-			equipped.get(2*i + 12).setBounds(60, pageHeight, 175, 20);
-			equipped.get(2*i + 13).setBounds(330, pageHeight, 175, 20);
-			pageHeight += 30;
-		}
-		pageHeight += 5;	
+		int dollY = pageHeight + 10;
+		dollLabel.setBounds(7, dollY, dollImageWidth, dollImageHeight);
+		int iconGridX = dollLabel.getX() + Math.max(0, (dollImageWidth - DOLL_ICON_GRID_WIDTH) / 2);
+		int iconGridY = dollLabel.getY() + Math.max(0, (dollImageHeight - DOLL_ICON_GRID_HEIGHT) / 2);
+		dollIconPanel.setBounds(iconGridX, iconGridY, DOLL_ICON_GRID_WIDTH, DOLL_ICON_GRID_HEIGHT);
+		dollIconPanel.setVisible(true);
+		setComponentZOrder(dollIconPanel, 0);
+		pageHeight = dollY + Math.max(dollImageHeight, DOLL_ICON_GRID_HEIGHT) + 5;
 
 			//move buttons
 			pageHeight += 5;
@@ -512,7 +548,6 @@ public class PanelCharInventory extends PanelCharBase {
 		updateItems();
 		resizeSheet();
 		enforceReadOnlyChecks();
-		enforceHeavyPlacement();
 				updateDollLists();
 	}  /*--------------
 		END UPDATEALL
@@ -522,7 +557,6 @@ public class PanelCharInventory extends PanelCharBase {
 	public void updateCharacter(StoreCharData character) {
 		super.updateCharacter(character);
 		enforceReadOnlyChecks();
-		enforceHeavyPlacement();
 	}
 
 	private void updateSummary() {
@@ -584,10 +618,23 @@ public class PanelCharInventory extends PanelCharBase {
 	 * 		UPDATE DOLL LISTS
 	 */
 	public void updateDollLists() {
-		java.awt.Color BLUE = new java.awt.Color(0, 102, 204);
-		for (JComboBox<DataItemEquipment> tempBox : equipped) {
-			if (!((DataItemEquipment) tempBox.getSelectedItem()).getDname().equals("*** Empty ***")) tempBox.setForeground(BLUE);
-			else tempBox.setForeground(java.awt.Color.BLACK);
+		rebuildDollIconGrid();
+		for (int i = 0; i < equipped.size(); i++) {
+			DataItemEquipment selected = getSelectedEquipment(i);
+			JLabel equipIcon = equippedIcons.get(i);
+			boolean visible = shouldShowDollSlot(i);
+			equipIcon.setVisible(visible);
+			if (!visible) {
+				equipIcon.setIcon(null);
+				equipIcon.setToolTipText(null);
+				continue;
+			}
+			ImageIcon slotIcon = isEmptyEquipment(selected)
+					? resolveEmptySlotIcon(SLOTS[i])
+					: resolveEquippedItemIcon(i, selected);
+			equipIcon.setIcon(slotIcon != null ? slotIcon : resolveEmptySlotIcon(SLOTS[i]));
+			equipIcon.setText(null);
+			equipIcon.setToolTipText(isEmptyEquipment(selected) ? SLOTS[i] : selectedEquipmentDisplayName(selected));
 		}
 		
 		
@@ -608,19 +655,40 @@ public class PanelCharInventory extends PanelCharBase {
 		if (!dollName.equalsIgnoreCase(loadedDollName)) {
 			loadedDollName = dollName;
 			try {
-				dollPic = ImageIO.read(new File("images/" + dollName + ".jpg"));
-				dollLabel.setIcon(new ImageIcon(dollPic));
+				dollPic = ImageIO.read(AppPaths.imagesDir().resolve(dollName + ".jpg").toFile());
+				dollLabel.setIcon(buildScaledDollIcon());
 				dollLabel.setText(null);
 			} catch (Exception e) {
 				dollPic = null;
 				dollLabel.setIcon(null);
 				dollLabel.setText("<html><center><br><br><br><br>Image Not Found<br>If you are using a gender<br>that is neither 'Male' nor 'Female'<br>the doll image will not display<br>without a jpg file<br>in the Images folder<br>with the same name<br>as your chosen gender.</center></html>");
 			}
+		} else if (dollPic != null) {
+			dollLabel.setIcon(buildScaledDollIcon());
+			dollLabel.setText(null);
 		}
 		updateDollLists();
 	}  /*--------------
 		END UPDATEDOLL
 		--------------*/
+
+	public void setDollImageScale(int width, int height) {
+		if (width <= 0 || height <= 0) {
+			return;
+		}
+		dollImageWidth = width;
+		dollImageHeight = height;
+		if (dollLabel != null) {
+			dollLabel.setBounds(dollLabel.getX(), dollLabel.getY(), dollImageWidth, dollImageHeight);
+		}
+		if (dollPic != null) {
+			dollLabel.setIcon(buildScaledDollIcon());
+			dollLabel.setText(null);
+		}
+		resizeSheet();
+		revalidate();
+		repaint();
+	}
 	
 	/*
 	 * 		UPDATE EQUIPMENT
@@ -650,7 +718,6 @@ public class PanelCharInventory extends PanelCharBase {
 			} else {
 				refreshSelectedEquipFlags(groupedEquipment);
 			}
-			applyWeaponFourRule();
 		} finally {
 			suppressEquipAutoSave = false;
 		}
@@ -672,7 +739,6 @@ public class PanelCharInventory extends PanelCharBase {
 	
 	/** Ensures all flag checkboxes remain non-interactive for the user. */
 	public void enforceReadOnlyChecks() {
-		disableChecks(equipmentEquipped);
 		disableChecks(equipmentEnch);
 		disableChecks(equipmentGem);
 		disableChecks(equipmentStor);
@@ -776,7 +842,7 @@ public class PanelCharInventory extends PanelCharBase {
 		ArrayList<DataItemEquipment> tempArmor = groupedEquipment.get(1);
 		ArrayList<DataItemEquipment> tempAccessories = groupedEquipment.get(2);
 		
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < SLOT_COUNT; i++) {
 			tempList.add((DataItemEquipment)equipped.get(i).getSelectedItem());
 			equipped.get(i).removeAllItems();
 			
@@ -787,74 +853,91 @@ public class PanelCharInventory extends PanelCharBase {
 		
 		for (int i = 0; i < tempWeapons.size(); i++) {
 			if (!isItemEligibleByLevel(tempWeapons.get(i))) continue;
-			for (int j = 12; j < 16; j++) {
+			if (isLockedUnarmedProwessWeapon(tempWeapons.get(i))) continue;
+			for (int j = FIRST_WEAPON_SLOT; j <= LAST_ACTIVE_WEAPON_SLOT; j++) {
 				equipped.get(j).addItem(tempWeapons.get(i));
 			}
 		}
 		// Select equipped weapons into the first available weapon slots
-		int weaponSlot = 12;
+		int weaponSlot = FIRST_WEAPON_SLOT;
 		for (DataItemEquipment w : tempWeapons) {
-			if (w.isEquipped() && weaponSlot < 16) {
+			if (isLockedUnarmedProwessWeapon(w)) continue;
+			if (w.isEquipped() && weaponSlot <= LAST_ACTIVE_WEAPON_SLOT) {
 				equipped.get(weaponSlot).setSelectedItem(w);
 				weaponSlot++;
 			}
 		}
+		DataItemEquipment lockedUnarmedWeapon = findLockedUnarmedProwessWeapon(tempWeapons);
+		if (lockedUnarmedWeapon != null) {
+			equipped.get(SLOT_UNARMED_PROWESS_WEAPON).addItem(lockedUnarmedWeapon);
+			equipped.get(SLOT_UNARMED_PROWESS_WEAPON).setSelectedItem(lockedUnarmedWeapon);
+		}
 		
 		for (int i = 0; i < tempArmor.size(); i++) {
 			if (!isItemEligibleByLevel(tempArmor.get(i))) continue;
+			if (isMatrixEquipment(tempArmor.get(i))) {
+				addMatrixToArmorSlots(tempArmor.get(i), tempList);
+				continue;
+			}
 			String tempSlot = tempArmor.get(i).getSlot();
 			if (tempSlot.compareTo("Head") == 0) {
-				equipped.get(0).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(0).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_HEAD).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_HEAD).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Shoulders") == 0) {
-				equipped.get(2).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(2).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_SHOULDERS).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_SHOULDERS).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Chest") == 0) {
-				equipped.get(4).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(4).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_CHEST).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_CHEST).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Hands") == 0) {
-				equipped.get(6).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(6).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_HANDS).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_HANDS).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Waist") == 0) {
-				equipped.get(7).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(7).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_WAIST).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_WAIST).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Legs") == 0) {
-				equipped.get(10).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(10).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_LEGS).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_LEGS).setSelectedItem(tempArmor.get(i));
 			}
 			else if (tempSlot.compareTo("Feet") == 0) {
-				equipped.get(11).addItem(tempArmor.get(i));
-				if (tempArmor.get(i).isEquipped()) equipped.get(11).setSelectedItem(tempArmor.get(i));
+				equipped.get(SLOT_FEET).addItem(tempArmor.get(i));
+				if (tempArmor.get(i).isEquipped()) equipped.get(SLOT_FEET).setSelectedItem(tempArmor.get(i));
 			}
 		}
 		
 		for (int i = 0; i < tempAccessories.size(); i++) {
 			if (!isItemEligibleByLevel(tempAccessories.get(i))) continue;
 			String tempSlot = tempAccessories.get(i).getSlot();
-			if (tempSlot.compareTo("Neck") == 0) {
-				equipped.get(1).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(1).setSelectedItem(tempAccessories.get(i));
+			if (tempSlot.compareTo("Halo") == 0) {
+				equipped.get(SLOT_HALO).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_HALO).setSelectedItem(tempAccessories.get(i));
+			}
+			else if (tempSlot.compareTo("Neck") == 0) {
+				equipped.get(SLOT_NECK).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_NECK).setSelectedItem(tempAccessories.get(i));
 			}
 			else if (tempSlot.compareTo("Back") == 0) {
-				equipped.get(3).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(3).setSelectedItem(tempAccessories.get(i));
+				equipped.get(SLOT_BACK).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_BACK).setSelectedItem(tempAccessories.get(i));
 			}
-			else if (tempSlot.compareTo("Trinket") == 0) {
-				equipped.get(5).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(5).setSelectedItem(tempAccessories.get(i));
+			else if (isTrinketSlotName(tempSlot)) {
+				addItemToTrinketSlots(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) {
+					selectEquippedTrinket(tempAccessories.get(i));
+				}
 			}
 			else if (tempSlot.compareTo("Right Finger") == 0) {
-				equipped.get(8).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(8).setSelectedItem(tempAccessories.get(i));
+				equipped.get(SLOT_RIGHT_FINGER).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_RIGHT_FINGER).setSelectedItem(tempAccessories.get(i));
 			}
 			else if (tempSlot.compareTo("Left Finger") == 0) {
-				equipped.get(9).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(9).setSelectedItem(tempAccessories.get(i));
+				equipped.get(SLOT_LEFT_FINGER).addItem(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_LEFT_FINGER).setSelectedItem(tempAccessories.get(i));
 			}
 		}
 	}
@@ -863,110 +946,6 @@ public class PanelCharInventory extends PanelCharBase {
 		if (item == null) return false;
 		if (character == null || character.getIdentity() == null) return true;
 		return item.getLevelReq() <= character.getIdentity().getLevel();
-	}
-	
-	/** Hides/shows Weapon 3 and 4 based on whether Weapon 1 or 2 is Heavy. */
-	private void applyWeaponFourRule() {
-		if (equipped.size() < 16 || equipL.size() < 16) return;
-		var w1 = equipped.get(12).getSelectedItem();
-		var w2 = equipped.get(13).getSelectedItem();
-		boolean heavy1 = false;
-		boolean heavy2 = false;
-
-		if (w1 instanceof DataItemEquipment equip) {
-			String slot = equip.getSlot();
-			String cat = equip.getCategory();
-			if ((slot != null && slot.toLowerCase().contains("heavy")) ||
-				(cat != null && cat.toLowerCase().contains("heavy"))) {
-				heavy1 = true;
-			}
-		}
-		if (w2 instanceof DataItemEquipment equip2) {
-			String slot2 = equip2.getSlot();
-			String cat2 = equip2.getCategory();
-			if ((slot2 != null && slot2.toLowerCase().contains("heavy")) ||
-				(cat2 != null && cat2.toLowerCase().contains("heavy"))) {
-				heavy2 = true;
-			}
-		}
-
-		boolean anyHeavy = heavy1 || heavy2;
-		boolean bothHeavy = heavy1 && heavy2;
-
-		if (anyHeavy) {
-			if (equipped.get(15).getItemCount() > 0) {
-				equipped.get(15).setSelectedIndex(0); // empty selection
-			}
-			equipL.get(15).setVisible(false);
-			equipped.get(15).setVisible(false);
-		} else {
-			equipL.get(15).setVisible(true);
-			equipped.get(15).setVisible(true);
-		}
-
-		// Weapon 3 hides only when both weapons are heavy
-		if (bothHeavy) {
-			if (equipped.get(14).getItemCount() > 0) {
-				equipped.get(14).setSelectedIndex(0); // empty selection
-			}
-			equipL.get(14).setVisible(false);
-			equipped.get(14).setVisible(false);
-		} else {
-			equipL.get(14).setVisible(true);
-			equipped.get(14).setVisible(true);
-		}
-
-		// Ensure heavy weapons sit in slots 1 and 2 after visibility toggles
-		enforceHeavyPlacement();
-	}
-
-	/** Forces heavy weapons into slots 1/2 and reflows others. */
-	private void enforceHeavyPlacement() {
-		if (enforcingHeavy) return;
-		if (equipped.size() < 16) return;
-		enforcingHeavy = true;
-		try {
-			var slots = new ArrayList<DataItemEquipment>();
-			for (int i = 12; i < 16; i++) {
-				Object o = equipped.get(i).getSelectedItem();
-				if (o instanceof DataItemEquipment di) {
-					// treat the sentinel "*** Empty ***" as null
-					if (di.getDname() != null && di.getDname().equalsIgnoreCase("*** Empty ***")) continue;
-					slots.add(di);
-				}
-			}
-
-			ArrayList<DataItemEquipment> heavy = new ArrayList<>();
-			ArrayList<DataItemEquipment> light = new ArrayList<>();
-			for (DataItemEquipment di : slots) {
-				String slot = di.getSlot();
-				String cat = di.getCategory();
-				boolean isHeavy = (slot != null && slot.toLowerCase().contains("heavy")) ||
-				                  (cat != null && cat.toLowerCase().contains("heavy"));
-				if (isHeavy) heavy.add(di); else light.add(di);
-			}
-
-			// Reset selections to empty first
-			for (int i = 12; i < 16; i++) {
-				if (equipped.get(i).getItemCount() > 0) {
-					equipped.get(i).setSelectedIndex(0);
-				}
-			}
-
-			int idx = 12;
-			for (DataItemEquipment di : heavy) {
-				if (idx > 13) break; // only first two slots reserved for heavy
-				equipped.get(idx).setSelectedItem(di);
-				idx++;
-			}
-			for (DataItemEquipment di : light) {
-				if (idx > 15) break;
-				equipped.get(idx).setSelectedItem(di);
-				idx++;
-			}
-		} finally {
-			enforcingHeavy = false;
-		}
 	}
 	
 	/**
@@ -994,6 +973,13 @@ public class PanelCharInventory extends PanelCharBase {
 				DataItemEquipment eq = (DataItemEquipment) sel;
 				// Skip placeholder
 				if (eq.getDname() != null && eq.getDname().equalsIgnoreCase("*** Empty ***")) continue;
+				if (isMatrixEquipment(eq)) {
+					int slotIndex = equipped.indexOf(box);
+					String matrixSlotName = resolveMatrixArmorSlotName(slotIndex);
+					if (matrixSlotName != null) {
+						eq.setSlot(matrixSlotName);
+					}
+				}
 				eq.setEquipped(true);
 			}
 		}
@@ -1007,7 +993,6 @@ public class PanelCharInventory extends PanelCharBase {
 		applyEquipSelections();
 		refreshSelectedEquipFlags(buildEquipmentGroups());
 		updateDollLists();
-		applyWeaponFourRule();
 		// Refresh the full character sheet so PanelCharMain reflects AC/Armor changes immediately.
 		if (sheetFrame != null) {
 			sheetFrame.refreshMainPanel();
@@ -1057,7 +1042,7 @@ public class PanelCharInventory extends PanelCharBase {
 		for (DataItem item : inv.getEquipment()) {
 			if (!(item instanceof DataItemEquipment equip)) continue;
 			String cat = equip.getCategory() != null ? equip.getCategory() : "";
-			if ("Armor".equals(cat)) {
+			if ("Armor".equals(cat) || "Matrix".equals(cat)) {
 				armor.add(equip);
 			} else if ("Accessory".equals(cat)) {
 				accessories.add(equip);
@@ -1070,10 +1055,12 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private void ensureEquipmentCategoryCapacity(int category, int size) {
 		while (equipmentName.get(category).size() < size) {
+			int rowIndex = equipmentName.get(category).size();
 			equipmentName.get(category).add(buildTextField("-"));
 			equipmentTier.get(category).add(buildNumTextField(0));
 			equipmentCat.get(category).add(buildTextField("-"));
-			equipmentEquipped.get(category).add(buildFlagCheck(false));
+			equipmentEquipped.get(category).add(buildEquipToggleCheck(category, rowIndex));
+			equipmentRowItems.get(category).add(null);
 			equipmentEnch.get(category).add(buildFlagCheck(false));
 			equipmentGem.get(category).add(buildFlagCheck(false));
 			equipmentStor.get(category).add(buildFlagCheck(false));
@@ -1085,10 +1072,22 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private void bindEquipmentRow(int category, int row, DataItemEquipment item) {
 		boolean blank = item == null;
-		equipmentName.get(category).get(row).setText(blank ? "-" : item.getDname());
+		equipmentRowItems.get(category).set(row, item);
+		String displayName = "-";
+		if (!blank) {
+			displayName = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
+		}
+		equipmentName.get(category).get(row).setText(displayName);
 		equipmentTier.get(category).get(row).setValue(blank ? 0 : item.getTier());
 		equipmentCat.get(category).get(row).setText(blank ? "-" : item.getSlot() + " " + item.getCategory());
-		equipmentEquipped.get(category).get(row).setSelected(!blank && item.isEquipped());
+		JCheckBox equipToggle = equipmentEquipped.get(category).get(row);
+		suppressEquipToggleEvents = true;
+		try {
+			equipToggle.setSelected(!blank && item.isEquipped());
+		} finally {
+			suppressEquipToggleEvents = false;
+		}
+		equipToggle.setEnabled(!blank && !isLockedUnarmedProwessWeapon(item));
 		equipmentEnch.get(category).get(row).setSelected(!blank && item.getEnch() != 0);
 		equipmentGem.get(category).get(row).setSelected(!blank && item.getGem() != 0);
 		equipmentStor.get(category).get(row).setSelected(!blank && item.getStore() != 0);
@@ -1144,6 +1143,596 @@ public class PanelCharInventory extends PanelCharBase {
 				bindEquipmentRow(category, row, items.get(row));
 			}
 		}
+	}
+
+	private DataItemEquipment getSelectedEquipment(int slotIndex) {
+		if (slotIndex < 0 || slotIndex >= equipped.size()) return null;
+		Object selected = equipped.get(slotIndex).getSelectedItem();
+		return selected instanceof DataItemEquipment item ? item : null;
+	}
+
+	private boolean isEmptyEquipment(DataItemEquipment equipmentItem) {
+		return equipmentItem == null
+				|| equipmentItem.getDname() == null
+				|| equipmentItem.getDname().equalsIgnoreCase("*** Empty ***");
+	}
+
+	private String selectedEquipmentDisplayName(DataItemEquipment equipmentItem) {
+		if (isEmptyEquipment(equipmentItem)) return "-";
+		String inventoryName = equipmentItem.getIname();
+		if (inventoryName != null && !inventoryName.isBlank()) {
+			return inventoryName;
+		}
+		String displayName = equipmentItem.getDname();
+		return (displayName == null || displayName.isBlank()) ? "-" : displayName;
+	}
+
+	private JLabel buildEquipIconLabel() {
+		JLabel iconLabel = new JLabel();
+		iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		iconLabel.setVerticalAlignment(SwingConstants.CENTER);
+		iconLabel.setIcon(null);
+		iconLabel.setPreferredSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		iconLabel.setMinimumSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		iconLabel.setMaximumSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		return iconLabel;
+	}
+
+	private JLabel buildDollIconPlaceholder() {
+		JLabel placeholder = new JLabel();
+		placeholder.setOpaque(false);
+		placeholder.setPreferredSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		placeholder.setMinimumSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		placeholder.setMaximumSize(new Dimension(DOLL_ICON_CELL_WIDTH, DOLL_ICON_CELL_HEIGHT));
+		return placeholder;
+	}
+
+	private void rebuildDollIconGrid() {
+		if (dollIconPanel == null) return;
+		dollIconPanel.removeAll();
+		boolean[][] occupiedCells = new boolean[DOLL_ICON_GRID_ROWS][DOLL_ICON_GRID_COLUMNS];
+		addDollIconPlaceholders(occupiedCells);
+		for (int i = 0; i < equippedIcons.size(); i++) {
+			if (!shouldShowDollSlot(i)) {
+				equippedIcons.get(i).setVisible(false);
+				continue;
+			}
+			JLabel iconLabel = equippedIcons.get(i);
+			iconLabel.setVisible(true);
+			int[] preferredCell = resolvePreferredGridCell(i);
+			int gridX = preferredCell[0];
+			int gridY = preferredCell[1];
+			if (gridX < 0 || gridY < 0 || gridX >= DOLL_ICON_GRID_COLUMNS || gridY >= DOLL_ICON_GRID_ROWS || occupiedCells[gridY][gridX]) {
+				int[] fallbackCell = findNextAvailableGridCell(occupiedCells);
+				gridX = fallbackCell[0];
+				gridY = fallbackCell[1];
+			}
+			occupiedCells[gridY][gridX] = true;
+
+			GridBagConstraints gc = new GridBagConstraints();
+			gc.gridx = gridX;
+			gc.gridy = gridY;
+			gc.insets = new Insets(0, 0, gc.gridy < DOLL_ICON_GRID_ROWS - 1 ? DOLL_ICON_GRID_GAP : 0, gc.gridx < DOLL_ICON_GRID_COLUMNS - 1 ? DOLL_ICON_GRID_GAP : 0);
+			gc.anchor = GridBagConstraints.CENTER;
+			gc.fill = GridBagConstraints.NONE;
+			dollIconPanel.add(iconLabel, gc);
+		}
+		dollIconPanel.revalidate();
+		dollIconPanel.repaint();
+	}
+
+	private void addDollIconPlaceholders(boolean[][] occupiedCells) {
+		for (int row = 0; row < DOLL_ICON_GRID_ROWS; row++) {
+			for (int col : DOLL_ICON_PLACEHOLDER_COLUMNS) {
+				if (col < 0 || col >= DOLL_ICON_GRID_COLUMNS) continue;
+				occupiedCells[row][col] = true;
+
+				GridBagConstraints gc = new GridBagConstraints();
+				gc.gridx = col;
+				gc.gridy = row;
+				gc.insets = new Insets(0, 0, gc.gridy < DOLL_ICON_GRID_ROWS - 1 ? DOLL_ICON_GRID_GAP : 0, gc.gridx < DOLL_ICON_GRID_COLUMNS - 1 ? DOLL_ICON_GRID_GAP : 0);
+				gc.anchor = GridBagConstraints.CENTER;
+				gc.fill = GridBagConstraints.NONE;
+				dollIconPanel.add(buildDollIconPlaceholder(), gc);
+			}
+		}
+	}
+
+	private boolean shouldShowDollSlot(int slotIndex) {
+		if (slotIndex == SLOT_UNARMED_PROWESS_WEAPON) return false;
+		if (slotIndex > LAST_ACTIVE_WEAPON_SLOT && slotIndex <= LAST_WEAPON_SLOT) return false;
+		if (slotIndex != SLOT_HALO) return true;
+		return isPilotClass();
+	}
+
+	private boolean hasUnarmedProwess() {
+		return character != null
+				&& character.getSpecials() != null
+				&& character.getSpecials().hasSpecialty(UNARMED_PROWESS_SPECIALTY);
+	}
+
+	private boolean isPilotClass() {
+		if (character == null || character.getIdentity() == null) return false;
+		String className = character.getIdentity().getCharClass();
+		return className != null && className.equalsIgnoreCase("Pilot");
+	}
+
+	private int[] resolvePreferredGridCell(int slotIndex) {
+		return switch (slotIndex) {
+			case SLOT_TRINKET_1 -> new int[] {0, 0};
+			case SLOT_TRINKET_2 -> new int[] {1, 0};
+			case SLOT_TRINKET_3 -> new int[] {4, 0};
+			case SLOT_TRINKET_4 -> new int[] {5, 0};
+			case SLOT_CHEST -> new int[] {1, 2};
+			case SLOT_HALO -> new int[] {4, 2};
+			case SLOT_HANDS -> new int[] {0, 3};
+			case SLOT_LEFT_FINGER -> new int[] {1, 3};
+			case SLOT_RIGHT_FINGER -> new int[] {4, 3};
+			case SLOT_WAIST -> new int[] {5, 3};
+			case SLOT_SHOULDERS -> new int[] {0, 1};
+			case SLOT_HEAD -> new int[] {1, 1};
+			case SLOT_NECK -> new int[] {4, 1};
+			case SLOT_BACK -> new int[] {5, 1};
+			case FIRST_WEAPON_SLOT + 4 -> new int[] {0, 4};
+			case FIRST_WEAPON_SLOT -> new int[] {0, 5};
+			case FIRST_WEAPON_SLOT + 1 -> new int[] {1, 5};
+			case FIRST_WEAPON_SLOT + 5 -> new int[] {5, 4};
+			case FIRST_WEAPON_SLOT + 2 -> new int[] {4, 5};
+			case SLOT_LEGS -> new int[] {1, 4};
+			case SLOT_FEET -> new int[] {4, 4};
+			case FIRST_WEAPON_SLOT + 3 -> new int[] {5, 5};
+			default -> new int[] {-1, -1};
+		};
+	}
+
+	private int[] findNextAvailableGridCell(boolean[][] occupiedCells) {
+		for (int row = 0; row < DOLL_ICON_GRID_ROWS; row++) {
+			for (int col = 0; col < DOLL_ICON_GRID_COLUMNS; col++) {
+				if (!occupiedCells[row][col]) {
+					return new int[] {col, row};
+				}
+			}
+		}
+		return new int[] {0, 0};
+	}
+
+	private ImageIcon resolveEmptySlotIcon(String slotName) {
+		if (slotName == null || slotName.isBlank()) {
+			return null;
+		}
+		ImageIcon cached = emptySlotIcons.get(slotName);
+		if (cached != null || emptySlotIcons.containsKey(slotName)) {
+			return cached;
+		}
+
+		String normalizedSlotName = slotName.replaceAll("\\s+", "");
+		ImageIcon loaded = loadScaledIcon("no" + normalizedSlotName + ".png");
+		emptySlotIcons.put(slotName, loaded);
+		return loaded;
+	}
+
+	private ImageIcon resolveEquippedItemIcon(int slotIndex, DataItemEquipment item) {
+		String fileName = deriveEquippedItemIconFileName(slotIndex, item);
+		if (fileName == null || fileName.isBlank()) {
+			return null;
+		}
+		ImageIcon cached = equippedItemIcons.get(fileName);
+		if (cached != null || equippedItemIcons.containsKey(fileName)) {
+			return cached;
+		}
+
+		ImageIcon loaded = loadScaledIcon(fileName + ".png");
+		equippedItemIcons.put(fileName, loaded);
+		return loaded;
+	}
+
+	private String deriveEquippedItemIconFileName(int slotIndex, DataItemEquipment item) {
+		if (item == null) return null;
+		if (slotIndex == SLOT_TRINKET_1) {
+			return ("aba" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_TRINKET_2) {
+			return ("abr" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_TRINKET_3) {
+			return ("alo" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_TRINKET_4) {
+			return ("ame" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_LEFT_FINGER) {
+			return ("ari" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_RIGHT_FINGER) {
+			return ("arn" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		if (slotIndex == SLOT_HALO) {
+			return ("ehl" + item.getTier()).toLowerCase(Locale.ROOT);
+		}
+		String prefix = deriveEquippedItemIconPrefix(item);
+		String suffix = deriveEquippedItemIconSuffix(item);
+		String tier = deriveEquippedItemIconNumber(item);
+		if (prefix == null || suffix == null || suffix.length() < 2) {
+			return null;
+		}
+		return (prefix + suffix + tier).toLowerCase(Locale.ROOT);
+	}
+
+	private String deriveEquippedItemIconPrefix(DataItemEquipment item) {
+		if (item == null) return null;
+		if (isWeaponEquipment(item)) {
+			return "w";
+		}
+
+		String category = item.getCategory() == null ? "" : item.getCategory().trim();
+		String type = item.getType() == null ? "" : item.getType().trim();
+		if ("Accessory".equalsIgnoreCase(category)) {
+			return "a";
+		}
+		if ("Armor".equalsIgnoreCase(category)) {
+			if (type.regionMatches(true, 0, "Exo", 0, 4)) return "e";
+			if (type.regionMatches(true, 0, "Heavy", 0, 5)) return "h";
+			if (type.regionMatches(true, 0, "Medium", 0, 6)) return "m";
+			if (type.regionMatches(true, 0, "Light", 0, 5)) return "l";
+		}
+		return null;
+	}
+
+	private String deriveEquippedItemIconSuffix(DataItemEquipment item) {
+		if (item == null) return null;
+		String source = isWeaponEquipment(item) ? item.getType() : item.getSlot();
+		if (source == null) return null;
+		String normalized = source.trim().replaceAll("\\s+", "");
+		if (normalized.length() < 2) return null;
+		return normalized.substring(0, 2);
+	}
+
+	private String deriveEquippedItemIconNumber(DataItemEquipment item) {
+		String result = "";
+		if (item == null) return null;
+		if (isWeaponEquipment(item)) {
+			if (item.getDname().compareTo(item.getType()) == 0) {
+				result = "1";
+			} else {
+				result = "2";
+			}
+		}
+
+		result += "" + item.getTier();
+		return result;
+	}
+
+	private ImageIcon loadScaledIcon(String fileName) {
+		try {
+			File iconFile = AppPaths.imagesDir().resolve(fileName).toFile();
+			if (!iconFile.isFile()) {
+				return null;
+			}
+			ImageIcon rawIcon = new ImageIcon(iconFile.getAbsolutePath());
+			Image scaled = rawIcon.getImage().getScaledInstance(EQUIP_ICON_SIZE, EQUIP_ICON_SIZE, Image.SCALE_SMOOTH);
+			return new ImageIcon(scaled);
+		} catch (Exception ignored) {
+			return null;
+		}
+	}
+
+	private ImageIcon buildScaledDollIcon() {
+		if (dollPic == null || dollImageWidth <= 0 || dollImageHeight <= 0) {
+			return null;
+		}
+		Image scaled = dollPic.getScaledInstance(dollImageWidth, dollImageHeight, Image.SCALE_SMOOTH);
+		return new ImageIcon(scaled);
+	}
+
+	private JCheckBox buildEquipToggleCheck(int category, int row) {
+		JCheckBox box = new JCheckBox();
+		box.setFocusable(false);
+		box.setHorizontalAlignment(SwingConstants.CENTER);
+		box.setOpaque(true);
+		box.setBackground(alternate ? Color.WHITE : Color.LIGHT_GRAY);
+		box.addActionListener(e -> {
+			if (suppressEquipToggleEvents) return;
+			handleEquipmentToggle(category, row);
+		});
+		add(box);
+		return box;
+	}
+
+	private void handleEquipmentToggle(int category, int row) {
+		if (character == null || character.getInventory() == null) return;
+		if (category < 0 || category >= equipmentRowItems.size()) return;
+		if (row < 0 || row >= equipmentRowItems.get(category).size()) return;
+
+		DataItemEquipment item = equipmentRowItems.get(category).get(row);
+		JCheckBox toggle = equipmentEquipped.get(category).get(row);
+		if (item == null || toggle == null) return;
+
+		boolean shouldEquip = toggle.isSelected();
+		boolean success = shouldEquip ? equipItemFromRow(item) : unequipItemFromRow(item);
+		if (success) return;
+
+		suppressEquipToggleEvents = true;
+		try {
+			toggle.setSelected(!shouldEquip);
+		} finally {
+			suppressEquipToggleEvents = false;
+		}
+	}
+
+	private boolean equipItemFromRow(DataItemEquipment item) {
+		if (item == null) return false;
+		if (isLockedUnarmedProwessWeapon(item)) {
+			syncEquipmentUiAfterToggle();
+			return true;
+		}
+		if (!isItemEligibleByLevel(item)) {
+			JOptionPane.showMessageDialog(this,
+					selectedEquipmentDisplayName(item) + " cannot be equipped until the required level is met.",
+					"Equip Failed",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+
+		int existingSlot = findSelectedSlotIndexForItem(item);
+		if (existingSlot >= 0) {
+			syncEquipmentUiAfterToggle();
+			return true;
+		}
+
+		int slotIndex = resolveAvailableSlotIndex(item);
+		if (slotIndex < 0) {
+			showNoAvailableSlotMessage(item);
+			return false;
+		}
+
+		equipped.get(slotIndex).setSelectedItem(item);
+		syncEquipmentUiAfterToggle();
+		return true;
+	}
+
+	private boolean unequipItemFromRow(DataItemEquipment item) {
+		if (item == null) return false;
+		if (isLockedUnarmedProwessWeapon(item)) {
+			JOptionPane.showMessageDialog(this,
+					selectedEquipmentDisplayName(item) + " is locked by Unarmed Prowess and cannot be unequipped.",
+					"Equip Locked",
+					JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		int slotIndex = findSelectedSlotIndexForItem(item);
+		if (slotIndex >= 0 && equipped.get(slotIndex).getItemCount() > 0) {
+			equipped.get(slotIndex).setSelectedIndex(0);
+		} else {
+			item.setEquipped(false);
+		}
+		syncEquipmentUiAfterToggle();
+		return true;
+	}
+
+	private void syncEquipmentUiAfterToggle() {
+		if (character == null) return;
+		applyEquipSelections();
+		refreshSelectedEquipFlags(buildEquipmentGroups());
+		updateDollLists();
+		if (sheetFrame != null) {
+			sheetFrame.refreshMainPanel();
+			refreshHeaderState(character);
+		} else {
+			character.updateAll();
+			refreshHPAuraOnly();
+			repaint();
+		}
+		equipSaveDebounceTimer.restart();
+	}
+
+	private int resolveAvailableSlotIndex(DataItemEquipment item) {
+		if (item == null) return -1;
+		if (isMatrixEquipment(item)) {
+			String preferredSlot = item.getSlot();
+			int preferredIndex = resolveFixedSlotIndex(preferredSlot);
+			if (isMatrixArmorSlot(preferredIndex) && isEmptyEquipment(getSelectedEquipment(preferredIndex))) {
+				return preferredIndex;
+			}
+			for (int slotIndex : getMatrixArmorSlotIndexes()) {
+				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+					item.setSlot(resolveMatrixArmorSlotName(slotIndex));
+					return slotIndex;
+				}
+			}
+			return -1;
+		}
+		if (isWeaponEquipment(item)) {
+			for (int slotIndex = FIRST_WEAPON_SLOT; slotIndex <= LAST_ACTIVE_WEAPON_SLOT; slotIndex++) {
+				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+					return slotIndex;
+				}
+			}
+			return -1;
+		}
+		if (isTrinketSlotName(item.getSlot())) {
+			for (int slotIndex : getTrinketSlotIndexes()) {
+				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+					return slotIndex;
+				}
+			}
+			return -1;
+		}
+
+		int slotIndex = resolveFixedSlotIndex(item.getSlot());
+		if (slotIndex < 0) return -1;
+		return isEmptyEquipment(getSelectedEquipment(slotIndex)) ? slotIndex : -1;
+	}
+
+	private int findSelectedSlotIndexForItem(DataItemEquipment item) {
+		if (item == null) return -1;
+		for (int slotIndex = 0; slotIndex < equipped.size(); slotIndex++) {
+			DataItemEquipment selected = getSelectedEquipment(slotIndex);
+			if (selected == item) {
+				return slotIndex;
+			}
+		}
+		return -1;
+	}
+
+	private DataItemEquipment findLockedUnarmedProwessWeapon(List<DataItemEquipment> items) {
+		if (items == null) return null;
+		for (DataItemEquipment item : items) {
+			if (isLockedUnarmedProwessWeapon(item)) return item;
+		}
+		return null;
+	}
+
+	private boolean isLockedUnarmedProwessWeapon(DataItemEquipment item) {
+		return item instanceof DataItemWeapon
+				&& item.getIid() == UNARMED_PROWESS_ITEM_IID
+				&& "Unarmed".equalsIgnoreCase(item.getDname());
+	}
+
+	private int resolveFixedSlotIndex(String slotName) {
+		if (slotName == null) return -1;
+		return switch (slotName.trim()) {
+			case "Head" -> SLOT_HEAD;
+			case "Halo" -> SLOT_HALO;
+			case "Neck" -> SLOT_NECK;
+			case "Shoulders" -> SLOT_SHOULDERS;
+			case "Back" -> SLOT_BACK;
+			case "Chest" -> SLOT_CHEST;
+			case "Trinket", "Trinket 1" -> SLOT_TRINKET_1;
+			case "Hands" -> SLOT_HANDS;
+			case "Waist" -> SLOT_WAIST;
+			case "Right Finger" -> SLOT_RIGHT_FINGER;
+			case "Left Finger" -> SLOT_LEFT_FINGER;
+			case "Legs" -> SLOT_LEGS;
+			case "Feet" -> SLOT_FEET;
+			case "Trinket 2" -> SLOT_TRINKET_2;
+			case "Trinket 3" -> SLOT_TRINKET_3;
+			case "Trinket 4" -> SLOT_TRINKET_4;
+			default -> -1;
+		};
+	}
+
+	private boolean isWeaponEquipment(DataItemEquipment item) {
+		if (item == null) return false;
+		String slot = item.getSlot() == null ? "" : item.getSlot().toLowerCase();
+		String category = item.getCategory() == null ? "" : item.getCategory().toLowerCase();
+		String type = item.getType() == null ? "" : item.getType().toLowerCase();
+		if (category.contains("matrix")) return false;
+		return slot.contains("weapon")
+				|| slot.contains("hand")
+				|| category.contains("weapon")
+				|| category.contains("melee")
+				|| category.contains("ranged")
+				|| category.contains("aura")
+				|| type.contains("bow")
+				|| type.contains("crossbow")
+				|| type.contains("gun")
+				|| type.contains("rifle")
+				|| type.contains("pistol")
+				|| type.contains("sword")
+				|| type.contains("axe")
+				|| type.contains("spear")
+				|| type.contains("dagger")
+				|| type.contains("staff")
+				|| type.contains("mace")
+				|| type.contains("hammer");
+	}
+
+	private void showNoAvailableSlotMessage(DataItemEquipment item) {
+		String itemName = selectedEquipmentDisplayName(item);
+		String slotLabel = isMatrixEquipment(item)
+				? "armor slots"
+				: isWeaponEquipment(item)
+				? "weapon slots"
+				: isTrinketSlotName(item.getSlot())
+				? "trinket slots"
+				: ((item.getSlot() == null || item.getSlot().isBlank()) ? "matching slot" : item.getSlot() + " slot");
+		JOptionPane.showMessageDialog(this,
+				"No available " + slotLabel + " for " + itemName + ".",
+				"Equip Failed",
+				JOptionPane.WARNING_MESSAGE);
+	}
+
+	private boolean isTrinketSlotName(String slotName) {
+		if (slotName == null) return false;
+		String normalized = slotName.trim();
+		return normalized.equalsIgnoreCase("Trinket")
+				|| normalized.equalsIgnoreCase("Trinket 1")
+				|| normalized.equalsIgnoreCase("Trinket 2")
+				|| normalized.equalsIgnoreCase("Trinket 3")
+				|| normalized.equalsIgnoreCase("Trinket 4");
+	}
+
+	private int[] getTrinketSlotIndexes() {
+		return new int[] {SLOT_TRINKET_1, SLOT_TRINKET_2, SLOT_TRINKET_3, SLOT_TRINKET_4};
+	}
+
+	private void addItemToTrinketSlots(DataItemEquipment item) {
+		for (int slotIndex : getTrinketSlotIndexes()) {
+			equipped.get(slotIndex).addItem(item);
+		}
+	}
+
+	private void selectEquippedTrinket(DataItemEquipment item) {
+		for (int slotIndex : getTrinketSlotIndexes()) {
+			if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+				equipped.get(slotIndex).setSelectedItem(item);
+				return;
+			}
+		}
+	}
+
+	private boolean isMatrixEquipment(DataItemEquipment item) {
+		if (item == null || item.getCategory() == null) return false;
+		return "Matrix".equalsIgnoreCase(item.getCategory().trim());
+	}
+
+	private void addMatrixToArmorSlots(DataItemEquipment item, ArrayList<DataItemEquipment> previousSelections) {
+		if (item == null) return;
+		for (int slotIndex : getMatrixArmorSlotIndexes()) {
+			equipped.get(slotIndex).addItem(item);
+		}
+		int selectedSlotIndex = resolveMatrixSelectedSlot(item, previousSelections);
+		if (selectedSlotIndex >= 0) {
+			equipped.get(selectedSlotIndex).setSelectedItem(item);
+		}
+	}
+
+	private int resolveMatrixSelectedSlot(DataItemEquipment item, ArrayList<DataItemEquipment> previousSelections) {
+		if (item == null) return -1;
+		if (previousSelections != null) {
+			for (int slotIndex : getMatrixArmorSlotIndexes()) {
+				if (slotIndex < previousSelections.size() && previousSelections.get(slotIndex) == item) {
+					return slotIndex;
+				}
+			}
+		}
+		if (!item.isEquipped()) return -1;
+		int preferredIndex = resolveFixedSlotIndex(item.getSlot());
+		return isMatrixArmorSlot(preferredIndex) ? preferredIndex : SLOT_CHEST;
+	}
+
+	private int[] getMatrixArmorSlotIndexes() {
+		return new int[] { SLOT_HEAD, SLOT_SHOULDERS, SLOT_CHEST, SLOT_WAIST, SLOT_LEGS, SLOT_FEET, SLOT_HANDS };
+	}
+
+	private boolean isMatrixArmorSlot(int slotIndex) {
+		for (int armorSlot : getMatrixArmorSlotIndexes()) {
+			if (armorSlot == slotIndex) return true;
+		}
+		return false;
+	}
+
+	private String resolveMatrixArmorSlotName(int slotIndex) {
+		return switch (slotIndex) {
+			case SLOT_HEAD -> "Head";
+			case SLOT_SHOULDERS -> "Shoulders";
+			case SLOT_CHEST -> "Chest";
+			case SLOT_HANDS -> "Hands";
+			case SLOT_WAIST -> "Waist";
+			case SLOT_LEGS -> "Legs";
+			case SLOT_FEET -> "Feet";
+			default -> null;
+		};
 	}
 	
 	

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ToolTipManager;
+import java.util.List;
 
 /**
  * Main character sheet panel. Contains tabs for stats, inventory, training, etc.
@@ -11,6 +12,14 @@ import javax.swing.ToolTipManager;
 public class PanelChar extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final String TAB_TITLE_MAIN = "Main Stats";
+    private static final String TAB_TITLE_INVENTORY = "Inventory";
+    private static final String TAB_TITLE_TRAINING = "Training";
+    private static final String TAB_TITLE_MAINTAINED = "Maintained";
+    private static final String TAB_TITLE_GRANTED = "Granted";
+    private static final String TAB_TITLE_LISTS = "Lists";
+    private static final String TAB_TITLE_MINION = "Minion";
+    private static final String TAB_TITLE_NOTES = "Notes";
 
     private final StoreRuleManager dataQuery;
     private StoreCharData character;
@@ -25,7 +34,8 @@ public class PanelChar extends JPanel {
     private static final int TAB_MAINTAINED = 3;
     private static final int TAB_GRANTED = 4;
     private static final int TAB_LISTS = 5;
-    private static final int TAB_NOTES = 6;
+    private static final int TAB_MINION = 6;
+    private static final int TAB_NOTES = 7;
 
     // Panels
     private final PanelCharMain panelMain;
@@ -34,7 +44,9 @@ public class PanelChar extends JPanel {
     private final PanelCharList panelList;
     private final PanelCharMaintained panelMaintained;
     private final PanelCharGranted panelGranted;
+    private final PanelCharMinion panelMinion;
     private final PanelCharNotes panelNotes;
+    private final JScrollPane minionTabScroll;
 
     // Optional future panels
     // private final PanelCharBattle panelBattle;
@@ -53,40 +65,44 @@ public class PanelChar extends JPanel {
         tabbedPane = new JTabbedPane();
         add(tabbedPane);
         tabbedPane.setBounds(0, 0, 585, 965-230);
-        dirtyTabs = new boolean[7];
+        dirtyTabs = new boolean[8];
 
         // ==== Main Tab ====
         panelMain = new PanelCharMain(dataQuery, sheetFrame);
-        panelMain.setTabTitle("Main Stats");
-        tabbedPane.addTab("Main Stats", wrap(panelMain));
+        panelMain.setTabTitle(TAB_TITLE_MAIN);
+        tabbedPane.addTab(TAB_TITLE_MAIN, wrap(panelMain));
 
         // ==== Inventory Tab ====
         panelInventory = new PanelCharInventory(dataQuery, sheetFrame);
-        panelInventory.setTabTitle("Inventory");
-        tabbedPane.addTab("Inventory", wrap(panelInventory));
+        panelInventory.setTabTitle(TAB_TITLE_INVENTORY);
+        tabbedPane.addTab(TAB_TITLE_INVENTORY, wrap(panelInventory));
 
         // ==== Training Tab ====
         panelTraining = new PanelCharTraining(dataQuery, sheetFrame);
-        panelTraining.setTabTitle("Training");
-        tabbedPane.addTab("Training", wrap(panelTraining));
+        panelTraining.setTabTitle(TAB_TITLE_TRAINING);
+        tabbedPane.addTab(TAB_TITLE_TRAINING, wrap(panelTraining));
 
         panelMaintained = new PanelCharMaintained(dataQuery, sheetFrame);
-        panelMaintained.setTabTitle("Maintained");
-        tabbedPane.addTab("Maintained", wrap(panelMaintained));
+        panelMaintained.setTabTitle(TAB_TITLE_MAINTAINED);
+        tabbedPane.addTab(TAB_TITLE_MAINTAINED, wrap(panelMaintained));
         
         panelGranted = new PanelCharGranted(dataQuery, sheetFrame);
-        panelGranted.setTabTitle("Granted");
-        tabbedPane.addTab("Granted", wrap(panelGranted));
+        panelGranted.setTabTitle(TAB_TITLE_GRANTED);
+        tabbedPane.addTab(TAB_TITLE_GRANTED, wrap(panelGranted));
         
         // ==== List Tab ====
         panelList = new PanelCharList(dataQuery, sheetFrame);
-        panelList.setTabTitle("Lists");
-        tabbedPane.addTab("Lists", wrap(panelList));
+        panelList.setTabTitle(TAB_TITLE_LISTS);
+        tabbedPane.addTab(TAB_TITLE_LISTS, wrap(panelList));
+
+        panelMinion = new PanelCharMinion(dataQuery, sheetFrame);
+        panelMinion.setTabTitle(TAB_TITLE_MINION);
+        minionTabScroll = wrap(panelMinion);
 
         // ==== Notes Tab ====
         panelNotes = new PanelCharNotes(dataQuery, sheetFrame);
-        panelNotes.setTabTitle("Notes");
-        tabbedPane.addTab("Notes", wrap(panelNotes));
+        panelNotes.setTabTitle(TAB_TITLE_NOTES);
+        tabbedPane.addTab(TAB_TITLE_NOTES, wrap(panelNotes));
 
         tabbedPane.addChangeListener(e -> refreshSelectedTabIfNeeded());
 
@@ -129,6 +145,7 @@ public class PanelChar extends JPanel {
         setEnabledDeep(panelMaintained, enabled);
         setEnabledDeep(panelGranted, enabled);
         setEnabledDeep(panelList, enabled);
+        setEnabledDeep(panelMinion, enabled);
         setEnabledDeep(panelNotes, enabled);
         // Re-lock inventory checkboxes so they stay non-interactive even when panels are enabled
         if (panelInventory != null) {
@@ -152,6 +169,7 @@ public class PanelChar extends JPanel {
         character.syncLevelBaseResources(dataQuery);
         character.syncLevelCombatScalers(dataQuery);
         character.updateAll();
+        syncSpecialTabs();
         markAllTabsDirty();
         refreshSelectedTabIfNeeded();
     }
@@ -179,6 +197,36 @@ public class PanelChar extends JPanel {
         dirtyTabs[TAB_TRAINING] = false;
     }
 
+    public void refreshMaintainedOnly() {
+        if (character == null) return;
+        panelMaintained.updateCharacter(character);
+        dirtyTabs[TAB_MAINTAINED] = false;
+    }
+
+    public void refreshGrantedOnly() {
+        if (character == null) return;
+        panelGranted.updateCharacter(character);
+        dirtyTabs[TAB_GRANTED] = false;
+    }
+
+    public void refreshMinionOnly() {
+        if (character == null) return;
+        panelMinion.updateCharacter(character);
+        dirtyTabs[TAB_MINION] = false;
+    }
+
+    public void refreshAllPrimaryHeaders() {
+        if (character == null) return;
+        panelMain.refreshHeaderState(character);
+        panelInventory.refreshHeaderState(character);
+        panelTraining.refreshHeaderState(character);
+        panelMaintained.refreshHeaderState(character);
+        panelGranted.refreshHeaderState(character);
+        panelList.refreshHeaderState(character);
+        panelMinion.refreshHeaderState(character);
+        panelNotes.refreshHeaderState(character);
+    }
+
     /** Persist equip dropdown selections back into the character inventory. */
     public void saveEquipmentSelections() {
         panelInventory.applyEquipSelections();
@@ -193,24 +241,71 @@ public class PanelChar extends JPanel {
     private void refreshSelectedTabIfNeeded() {
         if (character == null) return;
         int selectedIndex = tabbedPane.getSelectedIndex();
-        if (selectedIndex < 0 || selectedIndex >= dirtyTabs.length || !dirtyTabs[selectedIndex]) {
+        if (selectedIndex < 0) {
             return;
         }
-        refreshTab(selectedIndex);
+        int tabSlot = resolveDirtyTabSlot(selectedIndex);
+        if (tabSlot < 0 || tabSlot >= dirtyTabs.length || !dirtyTabs[tabSlot]) return;
+        refreshTab(selectedIndex, tabSlot);
     }
 
-    private void refreshTab(int tabIndex) {
-        switch (tabIndex) {
-            case TAB_MAIN -> panelMain.updateCharacter(character);
-            case TAB_INVENTORY -> panelInventory.updateCharacter(character);
-            case TAB_TRAINING -> panelTraining.updateCharacter(character);
-            case TAB_MAINTAINED -> panelMaintained.updateCharacter(character);
-            case TAB_GRANTED -> panelGranted.updateCharacter(character);
-            case TAB_LISTS -> panelList.updateCharacter(character);
-            case TAB_NOTES -> panelNotes.updateCharacter(character);
-            default -> { return; }
+    private void refreshTab(int selectedIndex, int tabSlot) {
+        String title = tabbedPane.getTitleAt(selectedIndex);
+        switch (title) {
+            case TAB_TITLE_MAIN -> panelMain.updateCharacter(character);
+            case TAB_TITLE_INVENTORY -> panelInventory.updateCharacter(character);
+            case TAB_TITLE_TRAINING -> panelTraining.updateCharacter(character);
+            case TAB_TITLE_MAINTAINED -> panelMaintained.updateCharacter(character);
+            case TAB_TITLE_GRANTED -> panelGranted.updateCharacter(character);
+            case TAB_TITLE_LISTS -> panelList.updateCharacter(character);
+            case TAB_TITLE_MINION -> panelMinion.updateCharacter(character);
+            case TAB_TITLE_NOTES -> panelNotes.updateCharacter(character);
+            default -> {
+                return;
+            }
         }
-        dirtyTabs[tabIndex] = false;
+        dirtyTabs[tabSlot] = false;
+    }
+
+    private int resolveDirtyTabSlot(int selectedIndex) {
+        String title = tabbedPane.getTitleAt(selectedIndex);
+        return switch (title) {
+            case TAB_TITLE_MAIN -> TAB_MAIN;
+            case TAB_TITLE_INVENTORY -> TAB_INVENTORY;
+            case TAB_TITLE_TRAINING -> TAB_TRAINING;
+            case TAB_TITLE_MAINTAINED -> TAB_MAINTAINED;
+            case TAB_TITLE_GRANTED -> TAB_GRANTED;
+            case TAB_TITLE_LISTS -> TAB_LISTS;
+            case TAB_TITLE_MINION -> TAB_MINION;
+            case TAB_TITLE_NOTES -> TAB_NOTES;
+            default -> -1;
+        };
+    }
+
+    private void syncSpecialTabs() {
+        boolean shouldShowMinionTab = isLeaderCharacter();
+        int currentMinionIndex = tabbedPane.indexOfTab(TAB_TITLE_MINION);
+        if (shouldShowMinionTab && currentMinionIndex < 0) {
+            int notesIndex = tabbedPane.indexOfTab(TAB_TITLE_NOTES);
+            int insertIndex = notesIndex >= 0 ? notesIndex : tabbedPane.getTabCount();
+            tabbedPane.insertTab(TAB_TITLE_MINION, null, minionTabScroll, null, insertIndex);
+            dirtyTabs[TAB_MINION] = true;
+            return;
+        }
+        if (!shouldShowMinionTab && currentMinionIndex >= 0) {
+            tabbedPane.removeTabAt(currentMinionIndex);
+            dirtyTabs[TAB_MINION] = false;
+        }
+    }
+
+    private boolean isLeaderCharacter() {
+        if (character == null || character.getIdentity() == null) return false;
+        String charClass = character.getIdentity().getCharClass();
+        return charClass != null && charClass.equalsIgnoreCase("Leader");
+    }
+
+    public List<PanelCharMinion.MinionInitiativeInfo> getSummonedMinionInitiativeInfo() {
+        return panelMinion == null ? List.of() : panelMinion.getSummonedMinionInitiativeInfo();
     }
 }
 

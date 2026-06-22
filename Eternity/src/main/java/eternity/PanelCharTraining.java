@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,9 +21,12 @@ import javax.swing.UIManager;
  */
 public class PanelCharTraining extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
+    private static final String RACE_TRAINING_NAME = "Race Training";
+    private static final String ALTERI_RACIAL_SPECIALTY = "Shapeshifting (Alteri)";
+    private static final String ALTERI_SHAPESHIFT_LIST = "Shapeshift";
 
-	private record TrainingRow(String affinity, String displayName, int maxRank, int rank, double exp, int nextAt, String typeGroup, boolean auraAffinity) {}
-	private record TrainingRowModel(DataTraining tech, String affinity, String displayName, String typeGroup, boolean auraAffinity) {}
+	private record TrainingRow(String affinity, String displayName, int maxRank, int rank, int nextAt, String typeGroup, boolean auraAffinity, boolean listEntry) {}
+	private record TrainingRowModel(DataTraining tech, DataTraining template, String affinity, String displayName, String typeGroup, boolean auraAffinity) {}
 	
 	private JLabel naturalAffinityL;
 	private ArrayList<JTextField> natAffinity;
@@ -32,11 +36,12 @@ public class PanelCharTraining extends PanelCharBase {
 	private JLabel auraTrainingL, atTrainingXpL, atMaxTechL, atCurTechL, atRemTechL;
 	private JFormattedTextField atTrainingXp, atMaxTech, atCurTech, atRemTech;
 	
-	private ArrayList<JLabel> atAffinityL, atNameL, atMaxRankL, atCurRankL, atExpL, atNextAtL;
+	private ArrayList<JLabel> atAffinityL, atNameL, atMaxRankL, atCurRankL, atNextAtL;
 	private ArrayList<ArrayList<JTextField>> atName, atAffinity;
-	private ArrayList<ArrayList<JFormattedTextField>> atMaxRank, atCurRank, atExp, atNextAt;
+	private ArrayList<ArrayList<JFormattedTextField>> atMaxRank, atCurRank, atNextAt;
 	private ArrayList<ArrayList<String>> atTypeGroup;
 	private ArrayList<ArrayList<Boolean>> atAuraAffinityRow;
+	private ArrayList<ArrayList<Boolean>> atListEntryRow;
 	private ArrayList<JButton> atSectionToggleB;
 	private Map<String, Boolean> atSectionCollapsed;
 	
@@ -83,17 +88,16 @@ public class PanelCharTraining extends PanelCharBase {
 		atNameL = new ArrayList<JLabel>();
 		atMaxRankL = new ArrayList<JLabel>();
 		atCurRankL = new ArrayList<JLabel>();
-		atExpL = new ArrayList<JLabel>();
 		atNextAtL = new ArrayList<JLabel>();
 		
 		atAffinity = new ArrayList<ArrayList<JTextField>>();
 		atName = new ArrayList<ArrayList<JTextField>>();
 		atMaxRank = new ArrayList<ArrayList<JFormattedTextField>>();
 		atCurRank = new ArrayList<ArrayList<JFormattedTextField>>();
-		atExp = new ArrayList<ArrayList<JFormattedTextField>>();
 		atNextAt = new ArrayList<ArrayList<JFormattedTextField>>();
 		atTypeGroup = new ArrayList<ArrayList<String>>();
 		atAuraAffinityRow = new ArrayList<ArrayList<Boolean>>();
+		atListEntryRow = new ArrayList<ArrayList<Boolean>>();
 		atSectionToggleB = new ArrayList<JButton>();
 		atSectionCollapsed = new HashMap<String, Boolean>();
 		defaultToggleBack = UIManager.getColor("Button.background");
@@ -109,7 +113,6 @@ public class PanelCharTraining extends PanelCharBase {
 			atNameL.add(buildLabel("Name:", null));
 			atMaxRankL.add(buildLabel("Max:", null));
 			atCurRankL.add(buildLabel("Cur:", null));
-			atExpL.add(buildLabel("Exp:", null));
 			atNextAtL.add(buildLabel("Next:", null));
 			JButton toggleButton = buildButton("[-]");
 			toggleButton.addActionListener(e -> toggleSection(sectionIndex));
@@ -119,10 +122,10 @@ public class PanelCharTraining extends PanelCharBase {
 			atAffinity.add(new ArrayList<JTextField>());
 			atMaxRank.add(new ArrayList<JFormattedTextField>());
 			atCurRank.add(new ArrayList<JFormattedTextField>());
-			atExp.add(new ArrayList<JFormattedTextField>());
 			atNextAt.add(new ArrayList<JFormattedTextField>());
 			atTypeGroup.add(new ArrayList<String>());
 			atAuraAffinityRow.add(new ArrayList<Boolean>());
+			atListEntryRow.add(new ArrayList<Boolean>());
 		}
 	}  /*--------------
 		END DEFAULTCONSTRUCTOR
@@ -132,10 +135,10 @@ public class PanelCharTraining extends PanelCharBase {
 	 * 		UPDATE ALL
 	 */
 	public void updateAll() {
-		boolean structureChanged = updateTraining();
-		if (structureChanged) {
-			resizeSheet();
-		}
+		updateTraining();
+		resizeSheet();
+		revalidate();
+		repaint();
 	}  /*--------------
 		END UPDATEALL
 		--------------*/
@@ -152,6 +155,9 @@ public class PanelCharTraining extends PanelCharBase {
 		if (character.getIdentity() != null) {
 			DataLevel levelData = dataQuery.getLevel(character.getIdentity().getLevel());
 			if (levelData != null) maxTechs = Math.max(0, levelData.getBaseTechs());
+		}
+		if (character.hasAuraProficiencySpecialty()) {
+			maxTechs = (int) (maxTechs * character.getAuraProficiencyBonusMultiplier());
 		}
 
 		// update straight values
@@ -206,7 +212,6 @@ public class PanelCharTraining extends PanelCharBase {
 			atNameL.get(i).setVisible(false);
 			atMaxRankL.get(i).setVisible(false);
 			atCurRankL.get(i).setVisible(false);
-			atExpL.get(i).setVisible(false);
 			atNextAtL.get(i).setVisible(false);
 			atSectionToggleB.get(i).setVisible(false);
 			for (int j = 0; j < atName.get(i).size(); j++) {
@@ -214,7 +219,6 @@ public class PanelCharTraining extends PanelCharBase {
 				atName.get(i).get(j).setVisible(false);
 				atMaxRank.get(i).get(j).setVisible(false);
 				atCurRank.get(i).get(j).setVisible(false);
-				atExp.get(i).get(j).setVisible(false);
 				atNextAt.get(i).get(j).setVisible(false);
 			}
 		}
@@ -256,9 +260,10 @@ public class PanelCharTraining extends PanelCharBase {
 		pageHeight += 30;
 		
 		for (int i = 0; i < TRAINING.length; i++) {
-			if (!atName.get(i).isEmpty()) {
+			ArrayList<TrainingRow> rows = materializeTrainingRows(i);
+			if (!rows.isEmpty()) {
 				boolean collapsed = isSectionCollapsed(TRAINING[i]);
-				String title = (i < TRAININGTITLE.length ? TRAININGTITLE[i] : TRAINING[i]) + " (" + atName.get(i).size() + ")";
+				String title = (i < TRAININGTITLE.length ? TRAININGTITLE[i] : TRAINING[i]) + " (" + rows.size() + ")";
 				atSectionToggleB.get(i).setText((collapsed ? "[+] " : "[-] ") + title);
 				styleSectionToggleButton(atSectionToggleB.get(i), TRAINING[i]);
 				atSectionToggleB.get(i).setVisible(true);
@@ -284,19 +289,19 @@ public class PanelCharTraining extends PanelCharBase {
 				atCurRankL.get(i).setVisible(true);
 				atCurRankL.get(i).setBounds(400, pageHeight, 50, 20);
 
-				atExpL.get(i).setVisible(true);
-				atExpL.get(i).setBounds(455, pageHeight, 50, 20);
-
 				atNextAtL.get(i).setVisible(true);
-				atNextAtL.get(i).setBounds(510, pageHeight, 50, 20);
+				atNextAtL.get(i).setBounds(455, pageHeight, 100, 20);
 				pageHeight += 20;
 
-				for (int j = 0; j < atName.get(i).size(); j++) {
+				for (int j = 0; j < rows.size(); j++) {
 					String currGroup = (i < atTypeGroup.size() && j < atTypeGroup.get(i).size())
 							? atTypeGroup.get(i).get(j)
 							: "Active";
 					boolean currAuraAffinity = (i < atAuraAffinityRow.size() && j < atAuraAffinityRow.get(i).size())
 							? Boolean.TRUE.equals(atAuraAffinityRow.get(i).get(j))
+							: false;
+					boolean currListEntry = (i < atListEntryRow.size() && j < atListEntryRow.get(i).size())
+							? Boolean.TRUE.equals(atListEntryRow.get(i).get(j))
 							: false;
 					if (j > 0) {
 						String prevGroup = (i < atTypeGroup.size() && (j - 1) < atTypeGroup.get(i).size())
@@ -311,7 +316,7 @@ public class PanelCharTraining extends PanelCharBase {
 					}
 
 					if (!atAffinity.get(i).isEmpty()) {
-						atAffinity.get(i).get(j).setVisible(true);
+						atAffinity.get(i).get(j).setVisible(!currListEntry);
 						atAffinity.get(i).get(j).setBounds(5, pageHeight, 120, 20);
 					}
 					
@@ -323,12 +328,9 @@ public class PanelCharTraining extends PanelCharBase {
 				
 					atCurRank.get(i).get(j).setVisible(true);
 					atCurRank.get(i).get(j).setBounds(400, pageHeight, 50, 20);
-				
-					atExp.get(i).get(j).setVisible(true);
-					atExp.get(i).get(j).setBounds(455, pageHeight, 50, 20);
-				
+
 					atNextAt.get(i).get(j).setVisible(true);
-					atNextAt.get(i).get(j).setBounds(510, pageHeight, 50, 20);
+					atNextAt.get(i).get(j).setBounds(455, pageHeight, 100, 20);
 					pageHeight += 20;
 					if (i == 0 && j == 5) pageHeight += 8;
 				}
@@ -412,12 +414,8 @@ public class PanelCharTraining extends PanelCharBase {
 	private double calculateWeightedCurrentTechs(CharTraining training) {
 		if (training == null) return 0.0;
 		Set<String> excluded = Set.of("attribute", "misc", "affinity", "fundamental", "standard", "crafting");
-		Set<String> natural = new HashSet<>();
-		for (String affinity : training.getNaturalAffinities()) {
-			if (affinity != null) {
-				natural.add(affinity.toLowerCase());
-			}
-		}
+		Set<String> natural = normalizeAffinitySet(training.getNaturalAffinities());
+		Set<String> domain = normalizeAffinitySet(training.getDomainAffinities());
 		double total = 0.0;
 
 		for (String category : training.getTrainingCategories()) {
@@ -429,15 +427,28 @@ public class PanelCharTraining extends PanelCharBase {
 				String normalizedCategory = category.toLowerCase();
 				String normalizedAffinity = tech.getAffinity() == null ? "" : tech.getAffinity().toLowerCase();
 				boolean naturalMatch = natural.contains(normalizedCategory) || natural.contains(normalizedAffinity);
+				boolean domainMatch = domain.contains(normalizedCategory) || domain.contains(normalizedAffinity);
 				boolean spiritOrTime = ("Spirit".equalsIgnoreCase(category) || "Time".equalsIgnoreCase(category)) ||
 						("Spirit".equalsIgnoreCase(tech.getAffinity()) || "Time".equalsIgnoreCase(tech.getAffinity()));
 				double multiplier = 1.0;
 				if (naturalMatch) multiplier *= 0.5;
-				if (spiritOrTime) multiplier *= 2.0;
+				else if (domainMatch) multiplier *= 0.75;
+				if (spiritOrTime) multiplier *= 1.5;
 				total += tech.getRank() * multiplier;
 			}
 		}
 		return total;
+	}
+
+	private Set<String> normalizeAffinitySet(Iterable<String> affinities) {
+		Set<String> normalized = new HashSet<>();
+		if (affinities == null) return normalized;
+		for (String affinity : affinities) {
+			if (affinity != null) {
+				normalized.add(affinity.toLowerCase());
+			}
+		}
+		return normalized;
 	}
 
 	private boolean isAuraAffinityTech(DataTraining tech) {
@@ -464,10 +475,14 @@ public class PanelCharTraining extends PanelCharBase {
 					.thenComparing(t -> t == null || t.getName() == null ? "" : t.getName(), String.CASE_INSENSITIVE_ORDER));
 			for (DataTraining tech : list) {
 				if (tech == null) continue;
+				DataTraining template = resolveTrainingTemplate(tech);
 				signature.append(tech.getId()).append('|')
 						.append(tech.getName()).append('|')
 						.append(tech.getType()).append('|')
-						.append(tech.getAffinity()).append(';');
+						.append(tech.getAffinity()).append('|')
+						.append(resolveAssociatedListName(template, tech)).append('|')
+						.append(resolveListMaxPerRank(template, tech)).append('|')
+						.append(resolveListMaxBase(template, tech)).append(';');
 			}
 		}
 		return signature.toString();
@@ -485,8 +500,10 @@ public class PanelCharTraining extends PanelCharBase {
 			ArrayList<TrainingRowModel> categoryRows = new ArrayList<>();
 			for (DataTraining tech : list) {
 				if (tech == null) continue;
+				DataTraining template = resolveTrainingTemplate(tech);
 				categoryRows.add(new TrainingRowModel(
 						tech,
+						template,
 						tech.getAffinity(),
 						resolveTrainingDisplayName(tech),
 						getTypeGroup(tech.getType()),
@@ -508,10 +525,22 @@ public class PanelCharTraining extends PanelCharBase {
 					model.displayName(),
 					tech.getMaxRank(character),
 					tech.getRank(),
-					tech.getExp(),
 					tech.getNextAt(character),
 					model.typeGroup(),
-					model.auraAffinity()));
+					model.auraAffinity(),
+					false));
+			String listName = resolveAssociatedListName(model.template(), tech);
+			if (!listName.isBlank()) {
+				rows.add(new TrainingRow(
+						"",
+						"New " + listName,
+						resolveListMaxMembers(model.template(), tech),
+						countListMembers(listName),
+						10,
+						model.typeGroup(),
+						false,
+						true));
+			}
 		}
 		return rows;
 	}
@@ -526,6 +555,60 @@ public class PanelCharTraining extends PanelCharBase {
 			}
 		}
 		return displayName;
+	}
+
+	private DataTraining resolveTrainingTemplate(DataTraining tech) {
+		if (tech == null || dataQuery == null || tech.getId() <= 0) return tech;
+		DataTraining template = dataQuery.getTrainingById(tech.getId());
+		return template != null ? template : tech;
+	}
+
+	private String resolveAssociatedListName(DataTraining template, DataTraining tech) {
+		if (isAlteriRaceTraining(tech)) return ALTERI_SHAPESHIFT_LIST;
+		String fromTemplate = template != null ? template.getListName() : "";
+		if (fromTemplate != null && !fromTemplate.isBlank()) return fromTemplate.trim();
+		String fromTech = tech != null ? tech.getListName() : "";
+		return fromTech == null ? "" : fromTech.trim();
+	}
+
+	private int resolveListMaxPerRank(DataTraining template, DataTraining tech) {
+		if (template != null && template.hasAssociatedList()) return template.getEffectiveListMaxPerRank();
+		if (tech != null && tech.hasAssociatedList()) return tech.getEffectiveListMaxPerRank();
+		return 2;
+	}
+
+	private int resolveListMaxBase(DataTraining template, DataTraining tech) {
+		if (template != null && template.hasAssociatedList()) return template.getEffectiveListMaxBase();
+		if (tech != null && tech.hasAssociatedList()) return tech.getEffectiveListMaxBase();
+		return 1;
+	}
+
+	private int resolveListMaxMembers(DataTraining template, DataTraining tech) {
+		int coreSkillRank = tech == null ? 0 : Math.max(0, tech.getRank());
+		return Math.max(0, resolveListMaxPerRank(template, tech) * coreSkillRank + resolveListMaxBase(template, tech));
+	}
+
+	private int countListMembers(String listName) {
+		if (listName == null || listName.isBlank() || character == null || character.getLists() == null) return 0;
+		int count = 0;
+		for (List<DataList> group : character.getLists()) {
+			if (group == null) continue;
+			for (DataList entry : group) {
+				if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+				if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+				if (entry.getName().trim().isBlank()) continue;
+				count++;
+			}
+		}
+		return count;
+	}
+
+	private boolean isAlteriRaceTraining(DataTraining tech) {
+		if (tech == null || tech.getName() == null || !RACE_TRAINING_NAME.equalsIgnoreCase(tech.getName().trim())) return false;
+		if (character == null || character.getSpecials() == null) return false;
+		DataSpecialty racial = character.getSpecials().getRacialSpecialty();
+		if (racial == null || racial.getName() == null) return false;
+		return ALTERI_RACIAL_SPECIALTY.equalsIgnoreCase(racial.getName().trim());
 	}
 
 	private void ensureNaturalAffinityCapacity(int size) {
@@ -546,10 +629,10 @@ public class PanelCharTraining extends PanelCharBase {
 			atName.get(categoryIndex).add(buildTextField(""));
 			atMaxRank.get(categoryIndex).add(buildNumTextField(0));
 			atCurRank.get(categoryIndex).add(buildNumTextField(0));
-			atExp.get(categoryIndex).add(buildNumTextField(0));
 			atNextAt.get(categoryIndex).add(buildNumTextField(0));
 			atTypeGroup.get(categoryIndex).add("Active");
 			atAuraAffinityRow.get(categoryIndex).add(Boolean.FALSE);
+			atListEntryRow.get(categoryIndex).add(Boolean.FALSE);
 		}
 	}
 
@@ -557,7 +640,7 @@ public class PanelCharTraining extends PanelCharBase {
 		JTextField affinityField = atAffinity.get(categoryIndex).get(rowIndex);
 		String affinity = row.affinity();
 		affinityField.setText(affinity == null ? "" : affinity);
-		affinityField.setVisible(affinity != null && !affinity.isBlank());
+		affinityField.setVisible(!row.listEntry() && affinity != null && !affinity.isBlank());
 		affinityField.setBackground(Color.WHITE);
 		affinityField.setForeground(Color.BLACK);
 		if (affinity != null && !affinity.isBlank()) {
@@ -580,13 +663,12 @@ public class PanelCharTraining extends PanelCharBase {
 		maxField.setVisible(true);
 		curField.setVisible(true);
 
-		atExp.get(categoryIndex).get(rowIndex).setValue(row.exp());
-		atExp.get(categoryIndex).get(rowIndex).setVisible(true);
 		atNextAt.get(categoryIndex).get(rowIndex).setValue(row.nextAt());
 		atNextAt.get(categoryIndex).get(rowIndex).setVisible(true);
 
 		atTypeGroup.get(categoryIndex).set(rowIndex, row.typeGroup());
 		atAuraAffinityRow.get(categoryIndex).set(rowIndex, row.auraAffinity());
+		atListEntryRow.get(categoryIndex).set(rowIndex, row.listEntry());
 	}
 
 	private void hideUnusedTrainingRows(int categoryIndex, int usedCount) {
@@ -595,10 +677,10 @@ public class PanelCharTraining extends PanelCharBase {
 			atName.get(categoryIndex).get(i).setVisible(false);
 			atMaxRank.get(categoryIndex).get(i).setVisible(false);
 			atCurRank.get(categoryIndex).get(i).setVisible(false);
-			atExp.get(categoryIndex).get(i).setVisible(false);
 			atNextAt.get(categoryIndex).get(i).setVisible(false);
 			atTypeGroup.get(categoryIndex).set(i, "Active");
 			atAuraAffinityRow.get(categoryIndex).set(i, Boolean.FALSE);
+			atListEntryRow.get(categoryIndex).set(i, Boolean.FALSE);
 		}
 	}
 	

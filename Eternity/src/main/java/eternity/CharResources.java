@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 
 /**
- * Tracks HP, Aura, Reactions, and Class Resources
+ * Tracks HP, Aura, Reactions, Class Resources, and special race resources
  * using the modern StatBlock architecture.
  */
 public class CharResources {
@@ -24,6 +24,8 @@ public class CharResources {
     @JsonProperty("multiResource2") private ArrayList<DataStatus>[] multiResource2;       // List of Class Resource 2 multipliers
     @JsonProperty("baseResource3") private ArrayList<DataStatus>[] baseResource3;     // List of base Class Resource 3 modifiers (subclass resource)
     @JsonProperty("multiResource3") private ArrayList<DataStatus>[] multiResource3;       // List of Class Resource 3 multipliers (subclass resource)
+    @JsonProperty("baseAngelPoints") private ArrayList<DataStatus>[] baseAngelPoints; // List of base Angel Point modifiers
+    @JsonProperty("multiAngelPoints") private ArrayList<DataStatus>[] multiAngelPoints;   // List of Angel Point multipliers
     @JsonProperty("baseReactions") private ArrayList<DataStatus>[] baseReactions;     // List of base Reaction modifiers
     @JsonProperty("multiReactions") private ArrayList<DataStatus>[] multiReactions;       // List of Reaction multipliers
 
@@ -32,6 +34,7 @@ public class CharResources {
     @JsonProperty private double spentR1;                                           // Count of spent Class Resource 1  
     @JsonProperty private double spentR2;                                           // Count of spent Class Resource 2         
     @JsonProperty private double spentR3;                                           // Count of spent Class Resource 3 (subclass resource)
+    @JsonProperty private double spentAngelPoints;                                  // Count of spent Angel Points
     @JsonProperty private double spentReactions;                                    // Count of spent Reactions
 
     @JsonProperty private double mainOccupiedAura;                                  // Aura currently occupied by maintained abilities
@@ -50,6 +53,8 @@ public class CharResources {
         this.multiResource2 = initStatus("MULTIR2");
         this.baseResource3 = initStatus("BASER3");
         this.multiResource3 = initStatus("MULTIR3");
+        this.baseAngelPoints = initStatus("BASEANGEL");
+        this.multiAngelPoints = initStatus("MULTIANGEL");
         this.baseReactions = initStatus("BASEREACT");
         this.multiReactions = initStatus("MULTIREACT");
 
@@ -58,6 +63,7 @@ public class CharResources {
         this.spentR1 = 0.0;
         this.spentR2 = 0.0;
         this.spentR3 = 0.0;
+        this.spentAngelPoints = 0.0;
         this.spentReactions = 0.0;
 
         this.mainOccupiedAura = 0.0;
@@ -111,6 +117,7 @@ public class CharResources {
     @JsonIgnore public int calcMaxResource1() { return calcMaxValue(baseResource1, multiResource1); }
     @JsonIgnore public int calcMaxResource2() { return calcMaxValue(baseResource2, multiResource2); }
     @JsonIgnore public int calcMaxResource3() { return calcMaxValue(baseResource3, multiResource3); }
+    @JsonIgnore public int calcMaxAngelPoints() { return calcMaxValue(baseAngelPoints, multiAngelPoints); }
     @JsonIgnore public int calcMaxReactions() { return calcMaxValue(baseReactions, multiReactions); }
 
     // ---------------------------------------------------------
@@ -122,6 +129,7 @@ public class CharResources {
     @JsonIgnore public int calcCurrentResource1() { return (int)(calcMaxResource1() - spentR1); }
     @JsonIgnore public int calcCurrentResource2() { return (int)(calcMaxResource2() - spentR2); }
     @JsonIgnore public int calcCurrentResource3() { return (int)(calcMaxResource3() - spentR3); }
+    @JsonIgnore public int calcCurrentAngelPoints() { return (int)(calcMaxAngelPoints() - spentAngelPoints); }
     @JsonIgnore public int calcCurrentReactions() { return (int)(calcMaxReactions() - spentReactions); }
 
     public double calcOccupiedAura() { return mainOccupiedAura + grantOccupiedAura; }
@@ -161,6 +169,8 @@ public class CharResources {
     public ArrayList<DataStatus>[] getMultiResource2() { return multiResource2 != null ? multiResource2 : initStatus("MULTIR2"); }
     public ArrayList<DataStatus>[] getBaseResource3() { return baseResource3 != null ? baseResource3 : initStatus("BASER3"); }
     public ArrayList<DataStatus>[] getMultiResource3() { return multiResource3 != null ? multiResource3 : initStatus("MULTIR3"); }
+    public ArrayList<DataStatus>[] getBaseAngelPoints() { return baseAngelPoints != null ? baseAngelPoints : initStatus("BASEANGEL"); }
+    public ArrayList<DataStatus>[] getMultiAngelPoints() { return multiAngelPoints != null ? multiAngelPoints : initStatus("MULTIANGEL"); }
     public ArrayList<DataStatus>[] getBaseReactions() { return baseReactions != null ? baseReactions : initStatus("BASEREACT"); }
     public ArrayList<DataStatus>[] getMultiReactions() { return multiReactions != null ? multiReactions : initStatus("MULTIREACT"); }
     
@@ -174,6 +184,8 @@ public class CharResources {
     @JsonSetter("multiResource2") public void setMultiResource2(ArrayList<DataStatus>[] list) { this.multiResource2 = list != null ? list : initStatus("MULTIR2"); }
     @JsonSetter("baseResource3") public void setBaseResource3(ArrayList<DataStatus>[] list) { this.baseResource3 = list != null ? list : initStatus("BASER3"); }
     @JsonSetter("multiResource3") public void setMultiResource3(ArrayList<DataStatus>[] list) { this.multiResource3 = list != null ? list : initStatus("MULTIR3"); }
+    @JsonSetter("baseAngelPoints") public void setBaseAngelPoints(ArrayList<DataStatus>[] list) { this.baseAngelPoints = list != null ? list : initStatus("BASEANGEL"); }
+    @JsonSetter("multiAngelPoints") public void setMultiAngelPoints(ArrayList<DataStatus>[] list) { this.multiAngelPoints = list != null ? list : initStatus("MULTIANGEL"); }
     @JsonSetter("baseReactions") public void setBaseReactions(ArrayList<DataStatus>[] list) { this.baseReactions = list != null ? list : initStatus("BASEREACT"); }
     @JsonSetter("multiReactions") public void setMultiReactions(ArrayList<DataStatus>[] list) { this.multiReactions = list != null ? list : initStatus("MULTIREACT"); }
     
@@ -195,9 +207,11 @@ public class CharResources {
     public double getSpentR1() { return spentR1; }
     public double getSpentR2() { return spentR2; }
     public double getSpentR3() { return spentR3; }
+    public double getSpentAngelPoints() { return spentAngelPoints; }
     public void setSpentR1(double spent) { spentR1 = spent; }
     public void setSpentR2(double spent) { spentR2 = spent; }
     public void setSpentR3(double spent) { spentR3 = spent; }
+    public void setSpentAngelPoints(double spent) { spentAngelPoints = spent; }
 
     public double getSpentReactions() { return spentReactions; }
     public void setSpentReactions(double spentReactions) { this.spentReactions = spentReactions; }
@@ -243,6 +257,8 @@ public class CharResources {
             case "MULTIR2" -> multiResource2;
             case "BASER3" -> baseResource3;
             case "MULTIR3" -> multiResource3;
+            case "BASEANGEL" -> baseAngelPoints;
+            case "MULTIANGEL" -> multiAngelPoints;
             case "BASEREACT" -> baseReactions;
             case "MULTIREACT" -> multiReactions;
             default -> null;

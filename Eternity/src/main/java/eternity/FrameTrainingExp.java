@@ -157,6 +157,7 @@ public class FrameTrainingExp extends JFrame {
 
         double totalGainValue = parseField(activeTotalGain);
         double auraGainValue = parseField(activeAuraGain);
+        double appliedAuraGainValue = applyAuraTrainingXpBonus(auraGainValue);
         int auraIndex = activeAuraType.getSelectedIndex();
         boolean hasAuraType = auraIndex > 0;
         boolean isUntypedAuraGain = auraIndex == 0;
@@ -171,12 +172,12 @@ public class FrameTrainingExp extends JFrame {
         }
 
         CharTraining training = character.getTraining();
-        if (auraGainValue > 0.0 && isUntypedAuraGain) {
-            training.setTrainingXp(training.getTrainingXp() + auraGainValue);
-        } else if (auraGainValue > 0.0 && hasAuraType) {
+        if (appliedAuraGainValue > 0.0 && isUntypedAuraGain) {
+            training.setTrainingXp(training.getTrainingXp() + appliedAuraGainValue);
+        } else if (appliedAuraGainValue > 0.0 && hasAuraType) {
             int auraTypeIndex = auraIndex - 1;
             double currentAuraXp = training.getTrainingXpByAuraType(auraTypeIndex);
-            training.setTrainingXpByAuraType(auraTypeIndex, currentAuraXp + auraGainValue);
+            training.setTrainingXpByAuraType(auraTypeIndex, currentAuraXp + appliedAuraGainValue);
         }
 
         character.updateAll();
@@ -298,7 +299,15 @@ public class FrameTrainingExp extends JFrame {
         double multiplier = 2.0;
         if (masterSource.isSelected()) multiplier = 4.0;
         else if (referenceSource.isSelected()) multiplier = 3.0;
-        standardAuraGain.setValue(hours * multiplier);
+        standardAuraGain.setValue(hours * multiplier * getAuraTrainingXpGainMultiplier());
+    }
+
+    private double applyAuraTrainingXpBonus(double auraGainValue) {
+        return auraGainValue * getAuraTrainingXpGainMultiplier();
+    }
+
+    private double getAuraTrainingXpGainMultiplier() {
+        return character == null ? 1.0 : character.getAuraTrainingXpGainMultiplier();
     }
 
     private int parseLiveIntegerField(JFormattedTextField field) {

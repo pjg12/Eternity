@@ -91,6 +91,18 @@ public class DataSpecialty {
         this.permStatus.add(new DataStatus(status));
     }
 
+    @JsonIgnore
+    public int getGrantedSkillSelectionCount() {
+        int total = 0;
+        if (permStatus == null) return total;
+        for (DataStatus status : permStatus) {
+            if (status == null || status.getAttribute() == null) continue;
+            if (!"SKILL".equalsIgnoreCase(status.getAttribute().trim())) continue;
+            total += Math.max(0, (int)Math.round(status.getSeverity()));
+        }
+        return total;
+    }
+
     // --- Helpers ---
 
     private static String safe(String s) { return s == null ? "" : s; }

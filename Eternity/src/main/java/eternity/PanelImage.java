@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +19,13 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+
+import websocket.Roll20WebSocketServer;
 
 /**
  * Displays the character portrait, name, date, and load/save/combat controls.
@@ -28,10 +33,12 @@ import javax.swing.border.EmptyBorder;
 public class PanelImage extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final String MISSING_IMAGE_TEXT = "<html><center>Image Not Found<br>To utilize images,<br>place .jpg files in the 'Images' folder<br>named by character index.</center></html>";
+    private static final String[] SUPPORTED_IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "gif", "bmp"};
+    private static final String MISSING_IMAGE_TEXT = "<html><center>Image Not Found.</center></html>";
     private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("MMM dd, yyyy");
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
     private static final Color COMBAT_READY_COLOR = new Color(0, 180, 0);
+    private static final Color COMBAT_PENDING_COLOR = Color.YELLOW;
     private static final int PORTRAIT_MAX_WIDTH = 600;
     private static final int PORTRAIT_MAX_HEIGHT = 190;
 
@@ -48,6 +55,8 @@ public class PanelImage extends JPanel {
     private final JButton combatButton;
 
     private FrameCombat combatFrame; // reused for the session
+    private Roll20WebSocketServer roll20Server;
+    private Roll20WebSocketServer.ConnectionListener playerModeConnectionListener;
 
     private BufferedImage charPic;
     private final Map<Integer, ImageIcon> portraitCache = new HashMap<>();
@@ -57,6 +66,7 @@ public class PanelImage extends JPanel {
     private LocalDateTime renderedStartDate = null;
     private Duration renderedElapsed = null;
     private Boolean renderedCombatState = null;
+    private boolean playerModePendingConnection;
 
     // ---------------------------------------------------------
     // Constructor
@@ -80,7 +90,7 @@ public class PanelImage extends JPanel {
         add(picWrapper, BorderLayout.NORTH);
 
         // === Bottom Controls ===
-        JPanel controls = new JPanel(new GridLayout(2, 5, 10, 5));
+        JPanel controls = new JPanel(new GridLayout(1, 5, 10, 0));
         controls.setOpaque(false);
         controls.setBorder(new EmptyBorder(5, 5, 7, 20));
         add(controls, BorderLayout.SOUTH);
@@ -102,17 +112,10 @@ public class PanelImage extends JPanel {
         dateLine1 = createInfoLabel();
         dateLine2 = createInfoLabel();
 
-        controls.add(new JLabel()); // spacer under Load
-        controls.add(nameLine2);
-        controls.add(new JLabel()); // spacer under Combat
-        controls.add(dateLine2);
-        controls.add(new JLabel()); // spacer under Save
-
-        // Layout entries (row-major order)
         controls.add(loadButton);
-        controls.add(nameLine1);
+        controls.add(buildInfoPanel(nameLine1, nameLine2));
         controls.add(combatButton);
-        controls.add(dateLine1);
+        controls.add(buildInfoPanel(dateLine1, dateLine2));
         controls.add(saveButton);
 
         // Initial state
@@ -123,6 +126,14 @@ public class PanelImage extends JPanel {
         JLabel lbl = new JLabel("", SwingConstants.CENTER);
         lbl.setForeground(Color.WHITE);
         return lbl;
+    }
+
+    private JPanel buildInfoPanel(JLabel topLine, JLabel bottomLine) {
+        JPanel panel = new JPanel(new GridLayout(2, 1, 0, 0));
+        panel.setOpaque(false);
+        panel.add(topLine);
+        panel.add(bottomLine);
+        return panel;
     }
 
     // ---------------------------------------------------------
@@ -151,6 +162,13 @@ public class PanelImage extends JPanel {
         }
 
         repaint();
+    }
+
+    public void invalidatePortrait(int index) {
+        portraitCache.remove(index);
+        if (loadedPictureIndex == index) {
+            loadedPictureIndex = Integer.MIN_VALUE;
+        }
     }
 
     // ---------------------------------------------------------
@@ -255,12 +273,49 @@ public class PanelImage extends JPanel {
     // ---------------------------------------------------------
 
     private void combatPressed() {
+        combatPressed(false);
+    }
+
+    private void combatPressed(boolean playerMode) {
         if (sheetFrame == null || character == null) return;
-        ensureCombatFrame();
+        ensureCombatFrame(playerMode);
         // Reuse the same window; it hides on close so bring it back each time
         combatFrame.setVisible(true);
         combatFrame.toFront();
         combatFrame.requestFocus();
+    }
+
+    public void openCombatHelper() {
+        openCombatHelper(false);
+    }
+
+    public void openCombatHelper(boolean playerMode) {
+        combatPressed(playerMode);
+    }
+
+    public void disposeOwnedWindows() {
+        detachPlayerModeListener();
+        if (combatFrame != null) {
+            combatFrame.disposeOwnedWindows();
+            combatFrame.dispose();
+            combatFrame = null;
+            combatFrameCharacter = null;
+        }
+    }
+
+    public void enterPlayerMode() {
+        playerModePendingConnection = true;
+        renderedCombatState = null;
+        refreshCombatButtonColor();
+        try {
+            roll20Server = Roll20WebSocketServer.getSharedServer();
+            registerPlayerModeListener();
+            if (roll20Server.isServiceConnected()) {
+                onRoll20ServiceConnected();
+            }
+        } catch (Exception ex) {
+            // Leave the button in pending state until the user retries or the service becomes available.
+        }
     }
 
     // ---------------------------------------------------------
@@ -269,6 +324,12 @@ public class PanelImage extends JPanel {
 
     /** Refreshes the combat button color based on combat state. */
     public void refreshCombatButtonColor() {
+        if (playerModePendingConnection) {
+            combatButton.setText("Pending");
+            combatButton.setBackground(COMBAT_PENDING_COLOR);
+            return;
+        }
+        combatButton.setText("Combat");
         boolean inCombat = false;
         if (character != null && character.getCombat() != null) {
             inCombat = character.getCombat().isInCombat();
@@ -281,10 +342,10 @@ public class PanelImage extends JPanel {
     }
 
     /** Lazily create or refresh the shared combat window for this session. */
-    private void ensureCombatFrame() {
+    private void ensureCombatFrame(boolean playerMode) {
         if (sheetFrame == null || character == null) return;
         if (combatFrame == null) {
-            combatFrame = new FrameCombat(sheetFrame, character);
+            combatFrame = new FrameCombat(sheetFrame, character, playerMode);
             combatFrameCharacter = character;
         } else {
             combatFrame.updateCharacter(character);
@@ -292,11 +353,37 @@ public class PanelImage extends JPanel {
         }
     }
 
-    private ImageIcon loadPortrait(int index) throws Exception {
-        File file = new File("Images/" + index + ".jpg");
-        if (!file.exists()) {
-            throw new Exception("Missing image");
+    private void registerPlayerModeListener() {
+        if (roll20Server == null || playerModeConnectionListener != null) {
+            return;
         }
+        playerModeConnectionListener = () -> SwingUtilities.invokeLater(this::onRoll20ServiceConnected);
+        roll20Server.addConnectionListener(playerModeConnectionListener);
+    }
+
+    private void detachPlayerModeListener() {
+        if (roll20Server != null && playerModeConnectionListener != null) {
+            roll20Server.removeConnectionListener(playerModeConnectionListener);
+        }
+        playerModeConnectionListener = null;
+    }
+
+    private void onRoll20ServiceConnected() {
+        if (!playerModePendingConnection) {
+            return;
+        }
+        playerModePendingConnection = false;
+        detachPlayerModeListener();
+        renderedCombatState = null;
+        refreshCombatButtonColor();
+        JOptionPane.showMessageDialog(sheetFrame != null ? sheetFrame : this,
+                "Roll20 Service is Connected.",
+                "Player Mode",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private ImageIcon loadPortrait(int index) throws Exception {
+        File file = resolvePortraitFile(index);
 
         charPic = ImageIO.read(file);
         int srcW = charPic.getWidth();
@@ -307,6 +394,17 @@ public class PanelImage extends JPanel {
 
         Image scaled = charPic.getScaledInstance(tgtW, tgtH, Image.SCALE_SMOOTH);
         return new ImageIcon(scaled);
+    }
+
+    private File resolvePortraitFile(int index) throws Exception {
+        for (String extension : SUPPORTED_IMAGE_EXTENSIONS) {
+            Path imagePath = AppPaths.imagesDir().resolve(index + "." + extension);
+            File file = imagePath.toFile();
+            if (file.exists()) {
+                return file;
+            }
+        }
+        throw new Exception("Missing image");
     }
 }
 

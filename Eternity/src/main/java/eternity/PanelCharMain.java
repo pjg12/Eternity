@@ -42,7 +42,7 @@ public class PanelCharMain extends PanelCharBase {
 	private	JScrollPane physicalPane, personalityPane;
 	
 	//Buttons
-	private JButton addExpButton, editCharacterButton, restButton;
+	private JButton addExpButton, editCharacterButton, restButton, statusButton;
 	
 	//Attributes
 	private JLabel coreAttL, coreValueL, coreModL, coreRollL, charAttL, charValueL, charModL, charRollL;
@@ -66,8 +66,8 @@ public class PanelCharMain extends PanelCharBase {
 	private JTextField bhealRoll;
 	private JTextField supRoll;
 	private static final String[] RESIST_KEYS = { "ALL", "PHY", "BLUNT", "PIERCE", "SLASH", "FIRE", "FROST", "ELEC", "ENERGY", "SONIC", "LIGHT", "TOXIC", "DARK", "PSI", "SPIRIT", "TIME" };
-	private JTextField attackStatL, dcStatL, moveStatL, flyStatL, rangeStatL, initStatL;
-	private JFormattedTextField charAttack, charDC, charMove, charFly, charRange, charInit;
+	private JTextField attackStatL, dcStatL, moveStatL, flyStatL, rangeStatL, initStatL, powerStatL;
+	private JFormattedTextField charAttack, charDC, charMove, charFly, charRange, charInit, charPower;
 	private JTextField resistStatL, supStatL, dbStatL, grantStatL, exclStatL, maxattStatL, bdmgStatL, bhealStatL;
 	private JFormattedTextField charResist, charSup, charDb, charGrant, charExcl, charMaxatt, charBdmg, charBheal;
 	
@@ -137,17 +137,21 @@ public class PanelCharMain extends PanelCharBase {
 		charPersonality = buildTextArea("");
 		personalityPane = buildScrollPane(charPersonality);
 		
-		addExpButton = buildButton("Add Experience");
+		addExpButton = buildButton("Add Exp");
 		addExpButton.addActionListener (e -> sheetFrame.expPressed());
 			addExpButton.setToolTipText("Open a dialog to add or subtract experience."); 
 		
-		restButton = buildButton("Rest / Advance");
+		restButton = buildButton("Rest");
 		restButton.addActionListener (e -> sheetFrame.restPressed(character));
 			restButton.setToolTipText("Open a dialog to rest or advance time."); 
 		
 		editCharacterButton = buildButton("Edit Details");
 		editCharacterButton.addActionListener (e -> sheetFrame.editPressed());
 			editCharacterButton.setToolTipText("Open a dialog to edit the above character information."); 
+
+		statusButton = buildButton("Status");
+		statusButton.addActionListener(e -> sheetFrame.statusPressed());
+			statusButton.setToolTipText("Open the shorthand status preview/apply dialog.");
 		
 		coreAttL = buildLabel("Core Attribute", null);
 		coreValueL = buildLabel("Value", null);
@@ -266,6 +270,8 @@ public class PanelCharMain extends PanelCharBase {
 		flyStatL.setVisible(false); // removed from utility display order
 		rangeStatL = buildTextField("Range");
 		initStatL = buildTextField("Init");
+		powerStatL = buildTextField("Power");
+		powerStatL.setVisible(false);
 		
 		attackRoll = buildTextField("Other");
 		moveRoll = buildTextField("Other");
@@ -281,6 +287,8 @@ public class PanelCharMain extends PanelCharBase {
 		charFly.setVisible(false); // removed from utility display order
 		charRange = buildNumTextField(0.0);
 		charInit = buildNumTextField(0.0);
+		charPower = buildNumTextField(0.0);
+		charPower.setVisible(false);
 
 		initRoll = buildCheckButton("Initiative Roll", false, "INIT");
 					
@@ -367,9 +375,10 @@ public class PanelCharMain extends PanelCharBase {
 		
 
 		pageHeight += 5;
-		addExpButton.setBounds(25,pageHeight,136,19);
-		restButton.setBounds(211,pageHeight,136,19);
-		editCharacterButton.setBounds(397,pageHeight,136,19);
+		addExpButton.setBounds(25,pageHeight,116,19);
+		restButton.setBounds(160,pageHeight,116,19);
+		editCharacterButton.setBounds(295,pageHeight,116,19);
+		statusButton.setBounds(430,pageHeight,116,19);
 		pageHeight += 25;
 		
 
@@ -520,6 +529,15 @@ public class PanelCharMain extends PanelCharBase {
 		charBheal.setBounds(450, pageHeight, 40, 20);
 		bhealRoll.setBounds(495, pageHeight, 65, 19);
 		pageHeight += 20;
+
+		if (shouldShowLeaderPower()) {
+			powerStatL.setBounds(195, pageHeight, 60, 20);
+			charPower.setBounds(260, pageHeight, 40, 20);
+			pageHeight += 20;
+		} else {
+			powerStatL.setVisible(false);
+			charPower.setVisible(false);
+		}
 		
 
 		skillsL.setBounds(5, pageHeight, 275, 20);
@@ -748,11 +766,16 @@ public class PanelCharMain extends PanelCharBase {
 
 	private String resolveDisplayedClassName(CharIdentity id) {
 		if (id == null) return "";
+		String baseClass = id.getCharClass();
+		int level = Math.max(1, id.getLevel());
+		if (level <= 4) {
+			return baseClass == null ? "" : baseClass;
+		}
 		String subclass = id.getCharSubclass();
 		if (subclass != null && !subclass.isBlank() && !"?".equals(subclass.trim())) {
 			return subclass;
 		}
-		return id.getCharClass();
+		return baseClass == null ? "" : baseClass;
 	}
 
 	private String buildClassTooltip(CharIdentity id) {
@@ -832,7 +855,8 @@ public class PanelCharMain extends PanelCharBase {
 	}
 
 	private String buildAttributeTooltip(String name, String key, DataClass resolvedClass) {
-		double value = getDerivedStatusValue(character.getAttributes(), key);
+		CharAttributes displayedAttributes = getDisplayedAttributes();
+		double value = resolveDisplayedAttributeValue(displayedAttributes, key);
 		StringBuilder sb = new StringBuilder("<html>");
 		sb.append(name).append(": ").append(fmt1(value));
 		if (isPrimaryAttribute(key, resolvedClass)) sb.append(" <b>(Primary Attribute)</b>");
@@ -846,7 +870,7 @@ public class PanelCharMain extends PanelCharBase {
 	 * 		UPDATE ATTRIBUTES
 	 */
 	public void updateAttributes() {
-		CharAttributes attrs = character.getAttributes();
+		CharAttributes attrs = getDisplayedAttributes();
 		if (attrs == null) return;
 		DataClass resolvedClass = resolveClass();
 
@@ -856,7 +880,7 @@ public class PanelCharMain extends PanelCharBase {
 		JButton[] rollButtons = {strRoll, dexRoll, conRoll, focRoll, ctlRoll, capRoll, knowRoll, mechRoll, percRoll, intRoll, chaRoll, subRoll};
 
 		for (int i = 0; i < keys.length; i++) {
-			double val = getDerivedStatusValue(attrs, keys[i]);
+			double val = resolveDisplayedAttributeValue(attrs, keys[i]);
 			valFields[i].setValue(round1(val));
 
 			String tip = buildAttributeTooltip(ATTRIBUTES[i], ATTSHORT[i], resolvedClass);
@@ -872,7 +896,7 @@ public class PanelCharMain extends PanelCharBase {
 	 * 		UPDATE STATISTICS
 	 */
 	public void updateStatistics() {
-		CharAttributes attrs = character.getAttributes();
+		CharAttributes attrs = getDisplayedAttributes();
 		if (attrs == null) return;
 
 		// Defense values
@@ -915,15 +939,17 @@ public class PanelCharMain extends PanelCharBase {
 		double atk = getDerivedStatusValue(attrs, "ATK");
 		double dc = getDerivedStatusValue(attrs, "APP");
 		double move = getDerivedStatusValue(attrs, "MOVE");
+		double power = getDerivedStatusValue(attrs, "POWER");
 		double fly = getDerivedStatusValue(attrs, "FLY");
 		double range = getDerivedStatusValue(attrs, "RANGE");
-		double init = getDerivedStatusValue(attrs, "INIT");
+		double init = resolveDisplayedInitiativeValue(attrs);
 		double cman = getDerivedStatusValue(attrs, "CMAN");
 		double maxAtk = getDerivedStatusValue(attrs, "MAXATK");
 
 		charAttack.setValue(round1(atk));
 		charDC.setValue(round1(dc));
 		charMove.setValue(round1(move));
+		charPower.setValue(round1(power));
 		charFly.setValue(round1(fly));
 		charRange.setValue(round1(range));
 		charInit.setValue(round1(init));
@@ -936,12 +962,15 @@ public class PanelCharMain extends PanelCharBase {
 		charDC.setToolTipText(dcStatL.getToolTipText());
 		moveStatL.setToolTipText(buildStatTooltip("Move Speed", move, "MOVE"));
 		charMove.setToolTipText(moveStatL.getToolTipText());
+		powerStatL.setToolTipText(buildStatTooltip("Power", power, "POWER"));
+		charPower.setToolTipText(powerStatL.getToolTipText());
 		moveRoll.setToolTipText(buildStatTooltip("Fly Speed", fly, "FLY"));
 		rangeStatL.setToolTipText(buildStatTooltip("Range", range, "RANGE"));
 		charRange.setToolTipText(rangeStatL.getToolTipText());
 		initStatL.setToolTipText(buildStatTooltip("Initiative", init, "INIT"));
 		charInit.setToolTipText(initStatL.getToolTipText());
 		initRoll.setToolTipText("/roll d20 + " + fmt1(init));
+		initRoll.setVisible(shouldShowInitiativeRollButton());
 		maxattStatL.setToolTipText(buildStatTooltip("Max Attacks", maxAtk, "MAXATK"));
 		charMaxatt.setToolTipText(maxattStatL.getToolTipText());
 
@@ -999,9 +1028,35 @@ public class PanelCharMain extends PanelCharBase {
 		bhealStatL.setToolTipText(buildStatTooltip("Base Healing", baseHeal, "BHEAL"));
 		charBheal.setToolTipText(bhealStatL.getToolTipText());
 		bhealRoll.setToolTipText(buildStatTooltip("Total Healing", totalHeal, "THEAL"));
+
+		boolean showPower = shouldShowLeaderPower();
+		powerStatL.setVisible(showPower);
+		charPower.setVisible(showPower);
 	}  /*--------------
 		END UPDATESTATISTICS
 		--------------*/
+
+	protected boolean shouldShowLeaderPower() {
+		if (character == null || character.getIdentity() == null) return false;
+		String className = character.getIdentity().getCharClass();
+		return className != null && className.equalsIgnoreCase("Leader");
+	}
+
+	protected CharAttributes getDisplayedAttributes() {
+		return character == null ? null : character.getAttributes();
+	}
+
+	protected double resolveDisplayedAttributeValue(CharAttributes attrs, String key) {
+		return getDerivedStatusValue(attrs, key);
+	}
+
+	protected double resolveDisplayedInitiativeValue(CharAttributes attrs) {
+		return getDerivedStatusValue(attrs, "INIT");
+	}
+
+	protected boolean shouldShowInitiativeRollButton() {
+		return true;
+	}
 
 	private String html(String... lines) {
 		StringBuilder sb = new StringBuilder("<html>");
@@ -1089,6 +1144,10 @@ public class PanelCharMain extends PanelCharBase {
 			attField.setVisible(true);
 			
 			String tempName = tempSkill.getName();
+			String tempSubtype = tempSkill.getChosenSubtype();
+			if (tempSubtype != null && !tempSubtype.isBlank()) {
+				tempName += " (" + tempSubtype + ")";
+			}
 			JTextField nameField = skillsName.get(i);
 			nameField.setText(tempName);
 			nameField.setToolTipText(buildSkillDescriptionTooltip(tempSkill));
@@ -1128,6 +1187,26 @@ public class PanelCharMain extends PanelCharBase {
 		if (tipTemp.isEmpty()) {
 			tipTemp = "No chosen attribute<br>";
 		}
+		double intuitionBonus = getUniversalSkillBonus();
+		if (intuitionBonus != 0.0) {
+			value += intuitionBonus;
+			tipTemp += "+ Intuition: " + fmt1(intuitionBonus) + "<br>";
+		}
+		double dedicationBonus = getSkillDedicationBonus(skill);
+		if (dedicationBonus != 0.0) {
+			value += dedicationBonus;
+			tipTemp += "+ Skill Dedication: " + fmt1(dedicationBonus) + "<br>";
+		}
+		double divineVowBonus = getDivineVowSkillBonus(skill);
+		if (divineVowBonus != 0.0) {
+			value += divineVowBonus;
+			tipTemp += "+ Divine Vow: " + fmt1(divineVowBonus) + "<br>";
+		}
+		double statusSkillBonus = getStatusSkillBonus(skill);
+		if (statusSkillBonus != 0.0) {
+			value += statusSkillBonus;
+			tipTemp += "+ Skill Status: " + fmt1(statusSkillBonus) + "<br>";
+		}
 
 		tooltipFinal = "<html>Total Skill Value: " + fmt1(value) + "<br>-------(Attributes)-------<br>" + tipTemp;
 		tooltipFinal += "---Available Attributes---<br>";
@@ -1152,7 +1231,33 @@ public class PanelCharMain extends PanelCharBase {
 		if (skill == null || character == null || character.getAttributes() == null) return "Roll: unknown";
 		String att = (selectedAtt == null || selectedAtt.isBlank() || "-".equals(selectedAtt)) ? "INT" : selectedAtt.toUpperCase();
 		double mod = getDerivedStatusValue(character.getAttributes(), att) * 1.5;
+		mod += getUniversalSkillBonus();
+		mod += getSkillSpecialBonus(skill);
 		return "/roll d20 + " + fmt1(mod);
+	}
+
+	private double getUniversalSkillBonus() {
+		if (character == null) return 0.0;
+		return character.getUniversalSkillBonus();
+	}
+
+	private double getSkillSpecialBonus(DataSkill skill) {
+		return getSkillDedicationBonus(skill) + getDivineVowSkillBonus(skill) + getStatusSkillBonus(skill);
+	}
+
+	private double getSkillDedicationBonus(DataSkill skill) {
+		if (skill == null || character == null) return 0.0;
+		return character.getSkillDedicationBonusForDisplayName(CharSpecials.formatSkillDisplayName(skill));
+	}
+
+	private double getDivineVowSkillBonus(DataSkill skill) {
+		if (skill == null || character == null) return 0.0;
+		return character.getDivineVowSkillBonusForDisplayName(CharSpecials.formatSkillDisplayName(skill));
+	}
+
+	private double getStatusSkillBonus(DataSkill skill) {
+		if (skill == null || character == null) return 0.0;
+		return character.getStatusSkillBonusForDisplayName(CharSpecials.formatSkillDisplayName(skill));
 	}
 
 	private String fmt1(double val) {
@@ -1165,9 +1270,219 @@ public class PanelCharMain extends PanelCharBase {
 
 	private String buildSpecialtyTooltip(DataSpecialty spec) {
 		if (spec == null) return "Description: unknown";
+		String holyDomainTooltip = resolveHolyDomainTooltip(spec);
+		if (holyDomainTooltip != null && !holyDomainTooltip.isBlank()) {
+			return "<html>" + holyDomainTooltip.replace("\n", "<br>") + "</html>";
+		}
+		String vowTooltip = resolveDivineVowTooltip(spec);
+		if (vowTooltip != null && !vowTooltip.isBlank()) {
+			return "<html>" + vowTooltip.replace("\n", "<br>") + "</html>";
+		}
+		String divineAttunementTooltip = resolveDivineAttunementTooltip(spec);
+		if (divineAttunementTooltip != null && !divineAttunementTooltip.isBlank()) {
+			return "<html>" + divineAttunementTooltip.replace("\n", "<br>") + "</html>";
+		}
+		String combatDisciplineTooltip = resolveCombatDisciplineTooltip(spec);
+		if (combatDisciplineTooltip != null && !combatDisciplineTooltip.isBlank()) {
+			return "<html>" + combatDisciplineTooltip.replace("\n", "<br>") + "</html>";
+		}
+		String favoredTooltip = resolveFavoredSpecialtyTooltip(spec);
+		if (favoredTooltip != null && !favoredTooltip.isBlank()) {
+			return "<html>" + favoredTooltip.replace("\n", "<br>") + "</html>";
+		}
 		String desc = spec.getDescription();
 		if (desc == null || desc.isBlank()) desc = "No description available.";
 		return "<html>" + desc.replace("\n", "<br>") + "</html>";
+	}
+
+	private String resolveHolyDomainTooltip(DataSpecialty spec) {
+		if (spec == null || character == null || character.getIdentity() == null) return null;
+		if (!"Holy Domain".equalsIgnoreCase(spec.getName())) return null;
+
+		String deityName = resolveSelectedDeityName();
+		String domainName = resolveSelectedDomainName(spec);
+		if (deityName == null || deityName.isBlank() || domainName == null || domainName.isBlank()) return null;
+
+		StringBuilder tooltip = new StringBuilder();
+		tooltip.append("Deity: ").append(deityName.trim());
+		tooltip.append("<br>Domain: ").append(domainName.trim());
+
+		if ("Cleric".equalsIgnoreCase(character.getIdentity().getCharClass())) {
+			DataDomain domain = dataQuery.getDomainByName(domainName.trim());
+			String condition = domain == null || domain.getCondition() == null || domain.getCondition().isBlank()
+					? "-"
+					: domain.getCondition().trim();
+			tooltip.append("<br>Condition: ").append(condition);
+			tooltip.append("<br>Cleric Note: At the start of combat and each round, you apply your domain effects to yourself at 50% effectiveness until end of round.");
+		} else if ("Paladin".equalsIgnoreCase(character.getIdentity().getCharClass())) {
+			tooltip.append("<br>You may activate your emanation to provide domain effects to nearby allies.");
+		}
+
+		return tooltip.toString();
+	}
+
+	private String resolveDivineVowTooltip(DataSpecialty spec) {
+		if (spec == null || character == null) return null;
+		if (!"Divine Vow".equalsIgnoreCase(spec.getName())) return null;
+		String vowName = resolveSelectedVowName();
+		if (vowName == null || vowName.isBlank()) return null;
+		DataVow vow = dataQuery.getVowByName(vowName.trim());
+		if (vow == null) return null;
+		String vowText = vow.getVowText();
+		if ((vowText == null || vowText.isBlank()) && vow.getVowEffect() != null) {
+			vowText = vow.getVowEffect().trim();
+		}
+		if (vowText == null || vowText.isBlank()) return null;
+		return "Vow of " + vow.getName() + ": " + vowText;
+	}
+
+	private String resolveDivineAttunementTooltip(DataSpecialty spec) {
+		if (spec == null || character == null) return null;
+		if (!"Divine Attunement".equalsIgnoreCase(spec.getName())) return null;
+		String deityName = resolveSelectedDeityName();
+		if (deityName == null || deityName.isBlank()) return null;
+
+		DataDeity deity = dataQuery.getDeityByName(deityName.trim());
+		if (deity == null) {
+			return "Deity: " + deityName.trim();
+		}
+
+		String virtues = deity.getVirtues() == null || deity.getVirtues().isEmpty()
+				? "-"
+				: deity.getVirtues().stream()
+						.filter(value -> value != null && !value.isBlank())
+						.map(String::trim)
+						.reduce((left, right) -> left + ", " + right)
+						.orElse("-");
+		String weapon = deity.getWeapon() == null || deity.getWeapon().isBlank()
+				? "-"
+				: deity.getWeapon().trim();
+
+		return "Deity: " + deityName.trim()
+				+ "<br>Virtues: " + virtues
+				+ "<br>Granted Weapon Proficiency: " + weapon;
+	}
+
+	private String resolveCombatDisciplineTooltip(DataSpecialty spec) {
+		if (spec == null) return null;
+		if (!"Martial Focus".equalsIgnoreCase(spec.getName())
+				&& !"Combat Discipline".equalsIgnoreCase(spec.getName())) return null;
+
+		String focus = normalizeMartialFocusChoice(simplifySpecialtyRefName(spec.getRefName()));
+		if (focus == null || focus.isBlank()) return null;
+
+		if ("Mobility".equalsIgnoreCase(focus)) {
+			return "Mobility: Gain +2.5 MOVE per level.<br>Any time you would move exactly 5ft, you may move an additional 5ft.";
+		}
+		if ("Avoidance".equalsIgnoreCase(focus)) {
+			return "Avoidance: Gain +1 REF per level.";
+		}
+		if ("Harm".equalsIgnoreCase(focus)) {
+			return "Harm: Gain +(level^1.5) TDMG.";
+		}
+		return null;
+	}
+
+	private String normalizeMartialFocusChoice(String focus) {
+		if (focus == null) return null;
+		return "Martial".equalsIgnoreCase(focus.trim()) ? "Harm" : focus.trim();
+	}
+
+	private String resolveFavoredSpecialtyTooltip(DataSpecialty spec) {
+		if (spec == null || spec.getName() == null) return null;
+		if ("Favored Enemy and Terrain".equalsIgnoreCase(spec.getName())) {
+			String enemyEntries = String.join(", ", getListEntries("Favored Enemies"));
+			String terrainEntries = String.join(", ", getListEntries("Favored Terrain"));
+			String enemyText = enemyEntries.isBlank() ? "None" : enemyEntries;
+			String terrainText = terrainEntries.isBlank() ? "None" : terrainEntries;
+			String desc = spec.getDescription();
+			if (desc == null || desc.isBlank()) {
+				desc = "Gain + level to ATK and CRIT when fighting favored enemies.<br>"
+						+ "Gain + level to APPLY, SUP, and MAST when fighting in favored terrain.";
+			}
+			return desc + "<br><br>Favored Enemies: " + enemyText + "<br>Favored Terrain: " + terrainText;
+		}
+		if (!"Favored Enemy".equalsIgnoreCase(spec.getName()) && !"Favored Terrain".equalsIgnoreCase(spec.getName())) {
+			return null;
+		}
+
+		String desc = spec.getDescription();
+		if (desc == null || desc.isBlank()) return null;
+		String listName = "Favored Enemy".equalsIgnoreCase(spec.getName()) ? "Favored Enemies" : "Favored Terrain";
+		String entries = String.join(", ", getListEntries(listName));
+		String resolvedDesc = entries.isBlank() ? desc.replace("@ ", "") : desc.replace("@", entries);
+		String listText = entries.isBlank() ? "None" : entries;
+		return resolvedDesc + "<br><br>" + listName + ": " + listText;
+	}
+
+	private boolean shouldUnifyArcherFavoredSpecialties(CharSpecials specials) {
+		if (specials == null || character == null || character.getIdentity() == null) return false;
+		if (!"Archer".equalsIgnoreCase(character.getIdentity().getCharClass())) return false;
+		return specials.hasSpecialty("Favored Enemy") && specials.hasSpecialty("Favored Terrain");
+	}
+
+	private boolean isArcherFavoredSpecialty(DataSpecialty spec) {
+		if (spec == null || spec.getName() == null) return false;
+		return "Favored Enemy".equalsIgnoreCase(spec.getName())
+				|| "Favored Terrain".equalsIgnoreCase(spec.getName());
+	}
+
+	private DataSpecialty resolveUnifiedArcherFavoredSpecialty() {
+		DataSpecialty specialty = dataQuery.getSpecialtyByName("Favored Enemy and Terrain");
+		return specialty == null ? null : new DataSpecialty(specialty);
+	}
+
+	private List<String> getListEntries(String listName) {
+		ArrayList<String> entries = new ArrayList<>();
+		if (character == null || character.getLists() == null || listName == null || listName.isBlank()) return entries;
+		for (List<DataList> group : character.getLists()) {
+			if (group == null) continue;
+			for (DataList entry : group) {
+				if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+				if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+				String name = entry.getName().trim();
+				if (!name.isBlank()) {
+					entries.add(name);
+				}
+			}
+		}
+		return entries;
+	}
+
+	private String resolveSelectedVowName() {
+		if (character == null) return null;
+		if (character.getSpecials() != null) {
+			DataSpecialty divineVow = character.getSpecials().findSpecialty("Divine Vow");
+			if (divineVow != null && divineVow.getRefName() != null && !divineVow.getRefName().isBlank()) {
+				return divineVow.getRefName().trim();
+			}
+		}
+		if (character.getIdentity() == null || character.getIdentity().getCharClassPick() == null) return null;
+		List<String> classPicks = character.getIdentity().getCharClassPick();
+		if (classPicks.size() < 2) return null;
+		String vowName = classPicks.get(1);
+		return vowName == null || vowName.isBlank() ? null : vowName.trim();
+	}
+
+	private String resolveSelectedDeityName() {
+		if (character == null || character.getIdentity() == null || character.getIdentity().getCharClassPick() == null) return null;
+		List<String> classPicks = character.getIdentity().getCharClassPick();
+		if (classPicks.isEmpty()) return null;
+		String deityName = classPicks.get(0);
+		return deityName == null || deityName.isBlank() ? null : deityName.trim();
+	}
+
+	private String resolveSelectedDomainName(DataSpecialty spec) {
+		if (spec != null && spec.getRefName() != null && !spec.getRefName().isBlank()) {
+			return spec.getRefName().trim();
+		}
+		if (character == null || character.getIdentity() == null || character.getIdentity().getCharClassPick() == null) return null;
+		List<String> classPicks = character.getIdentity().getCharClassPick();
+		String className = character.getIdentity().getCharClass();
+		int domainIndex = "Paladin".equalsIgnoreCase(className) ? 2 : 1;
+		if (domainIndex < 0 || domainIndex >= classPicks.size()) return null;
+		String domainName = classPicks.get(domainIndex);
+		return domainName == null || domainName.isBlank() ? null : domainName.trim();
 	}
 
 	/** Checks if the provided attribute key matches the character class' primary attribute. */
@@ -1208,33 +1523,34 @@ public class PanelCharMain extends PanelCharBase {
 
 		ArrayList<DataSpecialty> visibleSpecialties = new ArrayList<>();
 		DataSpecialty racial = specials.getRacialSpecialty();
-		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
+		if (racial != null && racial.getName() != null && !isHiddenSpecialty(racial)) {
 			visibleSpecialties.add(racial);
 		}
 
-		for (DataSpecialty spec : specials.getClassSpecialties()) {
-			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+		List<DataSpecialty> visibleClassSpecialties = getVisibleClassSpecialties(specials);
+		for (DataSpecialty spec : visibleClassSpecialties) {
+			if (spec != null && spec.getName() != null && !isHiddenSpecialty(spec)) {
 				visibleSpecialties.add(spec);
 			}
 		}
 
 		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
-			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+			if (spec != null && spec.getName() != null && !isHiddenSpecialty(spec)) {
 				visibleSpecialties.add(spec);
 			}
 		}
 		ensureSpecialtyRowCapacity(visibleSpecialties.size());
 		int idx = 0;
-		if (racial != null && racial.getName() != null && !isProficiencySpecialty(racial)) {
+		if (racial != null && racial.getName() != null && !isHiddenSpecialty(racial)) {
 			bindSpecialtyRow(idx++, racial, RACIAL_SPECIALTY_COLOR, false);
 		}
-		for (DataSpecialty spec : specials.getClassSpecialties()) {
-			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+		for (DataSpecialty spec : visibleClassSpecialties) {
+			if (spec != null && spec.getName() != null && !isHiddenSpecialty(spec)) {
 				bindSpecialtyRow(idx++, spec, CLASS_SPECIALTY_COLOR, true);
 			}
 		}
 		for (DataSpecialty spec : specials.getTrainedSpecialties()) {
-			if (spec != null && spec.getName() != null && !isProficiencySpecialty(spec)) {
+			if (spec != null && spec.getName() != null && !isHiddenSpecialty(spec)) {
 				bindSpecialtyRow(idx++, spec, TRAINED_SPECIALTY_COLOR, false);
 			}
 		}
@@ -1242,6 +1558,28 @@ public class PanelCharMain extends PanelCharBase {
 	}  /*--------------
 		END UPDATESPECIALTIES
 		--------------*/
+
+	private List<DataSpecialty> getVisibleClassSpecialties(CharSpecials specials) {
+		ArrayList<DataSpecialty> visible = new ArrayList<>();
+		if (specials == null) return visible;
+		boolean unifyArcherFavoredSpecialties = shouldUnifyArcherFavoredSpecialties(specials);
+		boolean addedUnifiedFavoredSpecialty = false;
+		for (DataSpecialty spec : specials.getClassSpecialties()) {
+			if (spec == null || spec.getName() == null) continue;
+			if (unifyArcherFavoredSpecialties && isArcherFavoredSpecialty(spec)) {
+				if (!addedUnifiedFavoredSpecialty) {
+					DataSpecialty combined = resolveUnifiedArcherFavoredSpecialty();
+					if (combined != null) {
+						visible.add(combined);
+						addedUnifiedFavoredSpecialty = true;
+					}
+				}
+				continue;
+			}
+			visible.add(spec);
+		}
+		return visible;
+	}
 
 	private void ensureSkillRowCapacity(int size) {
 		while (skillsAtt.size() < size) {
@@ -1276,10 +1614,47 @@ public class PanelCharMain extends PanelCharBase {
 	private String formatSpecialtyName(DataSpecialty spec, boolean showChoiceRef) {
 		if (spec == null) return "";
 		String name = spec.getName();
-		String refName = spec.getRefName();
+		String refName = simplifySpecialtyRefName(spec.getRefName());
 		if (name == null) return "";
-		if (!showChoiceRef || refName == null || refName.isBlank()) return name;
+		if ("Martial Focus".equalsIgnoreCase(name) || "Combat Discipline".equalsIgnoreCase(name)) {
+			refName = normalizeMartialFocusChoice(refName);
+			name = "Combat Discipline I";
+		}
+		if (isWarriorMartialFeatureDisplay(spec, showChoiceRef)) {
+			return "Martial Feature (" + name + ")";
+		}
+		if (CharSpecials.SKILL_DEDICATION_SPECIALTY.equalsIgnoreCase(name)
+				&& refName != null && !refName.isBlank()) {
+			return name + " (" + refName + ")";
+		}
+		boolean showRef = showChoiceRef || spec.getPick();
+		if (!showRef || refName == null || refName.isBlank()) return name;
 		return name + ": " + refName;
+	}
+
+	private String simplifySpecialtyRefName(String refName) {
+		if (refName == null) return null;
+		String trimmed = refName.trim();
+		if (trimmed.isBlank() || trimmed.contains("|")) return trimmed;
+		int colonIndex = trimmed.indexOf(':');
+		if (colonIndex >= 0 && colonIndex + 1 < trimmed.length()) {
+			String suffix = trimmed.substring(colonIndex + 1).trim();
+			if (!suffix.isBlank()) {
+				return suffix;
+			}
+		}
+		return trimmed;
+	}
+
+	private boolean isWarriorMartialFeatureDisplay(DataSpecialty spec, boolean showChoiceRef) {
+		if (!showChoiceRef || spec == null || character == null || character.getIdentity() == null) return false;
+		if (!"Warrior".equalsIgnoreCase(character.getIdentity().getCharClass())) return false;
+		String specialtyName = spec.getName();
+		if (specialtyName == null || specialtyName.isBlank()) return false;
+		List<String> classPicks = character.getIdentity().getCharClassPick();
+		if (classPicks == null || classPicks.isEmpty()) return false;
+		String martialFeaturePick = classPicks.get(0);
+		return martialFeaturePick != null && martialFeaturePick.equalsIgnoreCase(specialtyName);
 	}
 
 	private void hideUnusedSpecialtyRows(int usedCount) {
@@ -1302,6 +1677,11 @@ public class PanelCharMain extends PanelCharBase {
 		if (category != null && (category.equalsIgnoreCase("Proficiency") || category.equalsIgnoreCase("Level"))) return true;
 		String type = spec.getType();
 		return type != null && (type.equalsIgnoreCase("Proficiency") || type.equalsIgnoreCase("Level"));
+	}
+
+	private boolean isHiddenSpecialty(DataSpecialty spec) {
+		return isProficiencySpecialty(spec)
+				|| (character != null && character.getSpecials() != null && character.getSpecials().shouldHideFromSpecialtyList(spec));
 	}
 
 	/*public int[] getAttData(String att) {

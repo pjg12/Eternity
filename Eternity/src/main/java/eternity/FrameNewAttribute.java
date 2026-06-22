@@ -8,6 +8,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JButton;
@@ -49,7 +52,7 @@ public class FrameNewAttribute extends JFrame {
     private static final String BUTTON_BACK = "Back";
     private static final String BUTTON_CONFIRM = "Confirm";
     private static final Integer[] ATTVALUES = {8, 9, 10, 11, 12, 13, 14, 15};
-    private static final String[] CORE_ATTRIBUTES = { "STR", "DEX", "CON", "FOC", "CAP", "CTL" };
+    private static final String[] CORE_ATTRIBUTES = { "STR", "DEX", "CON", "FOC", "CTL", "CAP" };
     private static final String[] CHAR_ATTRIBUTES = { "KNOW", "MECH", "PERC", "INT", "CHA", "SUB" };
 
     // UI Tracker
@@ -289,16 +292,7 @@ public class FrameNewAttribute extends JFrame {
 
     private void onNextPressed() {
         if (gmMode) {
-            ThreadLocalRandom rng = ThreadLocalRandom.current();
-            int value = 0;
-            for (int i = 0; i < 6; i++) {
-                value = rng.nextInt(0, 8);
-                coreBoxes[i].setSelectedIndex(value);
-
-                value = rng.nextInt(0, 8);
-                charBoxes[i].setSelectedIndex(value);
-            }
-
+            applyGmSelections();
             applyAttributes();
             parent.setStepConfirmed(2);
             dispose();
@@ -404,5 +398,64 @@ public class FrameNewAttribute extends JFrame {
             value = (int)charBoxes[i].getSelectedItem();
             character.getAttributes().addStatus(new DataStatus("Base", "None", "None", "B" + key, value, "Passive", -1));
         }
+    }
+
+    private void applyGmSelections() {
+        applyRandomAllocation(coreBoxes);
+        applyRandomAllocation(charBoxes);
+    }
+
+    private void applyRandomAllocation(JComboBox<Integer>[] boxes) {
+        if (boxes == null) return;
+        int[] allocation = generateRandomPointBuyAllocation();
+        for (int i = 0; i < boxes.length && i < allocation.length; i++) {
+            if (boxes[i] != null) {
+                boxes[i].setSelectedItem(allocation[i]);
+            }
+        }
+    }
+
+    private int[] generateRandomPointBuyAllocation() {
+        ArrayList<int[]> combinations = new ArrayList<>();
+        buildPointBuyAllocations(0, 25, new int[6], combinations);
+        if (combinations.isEmpty()) {
+            return new int[] {10, 10, 10, 10, 10, 10};
+        }
+        Collections.shuffle(combinations, ThreadLocalRandom.current());
+        return combinations.get(0);
+    }
+
+    private void buildPointBuyAllocations(int index, int remainingCost, int[] current, List<int[]> combinations) {
+        if (index == current.length) {
+            if (remainingCost == 0) {
+                combinations.add(current.clone());
+            }
+            return;
+        }
+
+        List<Integer> candidates = new ArrayList<>(List.of(ATTVALUES));
+        Collections.shuffle(candidates, ThreadLocalRandom.current());
+        for (Integer candidate : candidates) {
+            if (candidate == null) continue;
+            int cost = attributePointCost(candidate);
+            int nextRemaining = remainingCost - cost;
+            if (nextRemaining < 0) continue;
+            if (!canReachRemainingCost(index + 1, nextRemaining, current.length)) continue;
+            current[index] = candidate;
+            buildPointBuyAllocations(index + 1, nextRemaining, current, combinations);
+        }
+    }
+
+    private boolean canReachRemainingCost(int nextIndex, int remainingCost, int totalLength) {
+        int slotsRemaining = totalLength - nextIndex;
+        int minCost = slotsRemaining * attributePointCost(8);
+        int maxCost = slotsRemaining * attributePointCost(15);
+        return remainingCost >= minCost && remainingCost <= maxCost;
+    }
+
+    private int attributePointCost(int attributeValue) {
+        int attMod = attributeValue - 10;
+        int attVariant = Math.abs(attMod) + 1;
+        return (attVariant * attMod) / 2;
     }
 }

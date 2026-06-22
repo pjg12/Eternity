@@ -105,6 +105,7 @@ public class FrameRest extends JFrame {
             res.setSpentR1(0);
             res.setSpentR2(0);
             res.setSpentR3(0);
+            res.setSpentAngelPoints(0);
             res.setSpentReactions(0);
         } else if (shortRest.isSelected()) {
 

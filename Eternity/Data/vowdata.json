@@ -1,0 +1,106 @@
+[ {
+  "id" : 1,
+  "name" : "Honesty",
+  "vowText" : "You cannot lie.<br>Increases Judge Skill by (0.5 x PRIM).",
+  "vowEffect" : "You cannot lie.",
+  "bonusType" : "passive",
+  "bonusEffect" : "SkillJudge: +0.5*PRIM"
+}, {
+  "id" : 2,
+  "name" : "Law",
+  "vowText" : "reminder",
+  "vowEffect" : "You must obey local laws.",
+  "bonusType" : "passive",
+  "bonusEffect" : "SkillAwareness: +0.5*PRIM"
+}, {
+  "id" : 3,
+  "name" : "Justice",
+  "vowText" : "reminder",
+  "vowEffect" : "You must apprehend criminals.",
+  "bonusType" : "passive",
+  "bonusEffect" : "SkillDiplomacy: +0.5*PRIM"
+}, {
+  "id" : 4,
+  "name" : "Faith",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 5,
+  "name" : "Courage",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 6,
+  "name" : "Wisdom",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 7,
+  "name" : "Charity",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 8,
+  "name" : "Hope",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 9,
+  "name" : "Mercy",
+  "vowText" : "reminder",
+  "vowEffect" : "You must never harm a surrenduring opponent.",
+  "bonusType" : "passive",
+  "bonusEffect" : "SkillMedical: +0.5*PRIM"
+}, {
+  "id" : 10,
+  "name" : "Forgiveness",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 11,
+  "name" : "Humility",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 12,
+  "name" : "Gratitude",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 13,
+  "name" : "Patience",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 14,
+  "name" : "Duty",
+  "vowText" : "",
+  "vowEffect" : "",
+  "bonusType" : "",
+  "bonusEffect" : ""
+}, {
+  "id" : 15,
+  "name" : "Knowledge",
+  "vowText" : "reminder",
+  "vowEffect" : "You must spend a minimum of 1 hour per day learning.",
+  "bonusType" : "passive",
+  "bonusEffect" : "SkillAll: +0.25*KNOW"
+} ]

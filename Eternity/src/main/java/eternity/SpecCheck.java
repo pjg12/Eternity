@@ -54,17 +54,41 @@ public class SpecCheck {
     private void remindCheck(DataSpecialty special) {
         if (panelReminderSetter == null) return;
         String refName = special.getRefName();
-        String label = (refName != null && !refName.isBlank()) ? special.getName() + ": " + refName : special.getName();
+        String specialName = special.getName() == null ? "" : special.getName();
+        if ("Domain Emanation".equalsIgnoreCase(specialName)) {
+            panelReminderSetter.accept("Domain Emanation::On|Off");
+            return;
+        }
+        if ("Nimble Feet".equalsIgnoreCase(specialName)) {
+            panelReminderSetter.accept("Negate All Displacement Damage");
+            return;
+        }
+        if (specialName.toLowerCase().startsWith("fighting form")) {
+            String fightingFormReminder = (refName != null && !refName.isBlank()) ? refName.trim() : specialName;
+            if (!fightingFormReminder.isBlank()) {
+                panelReminderSetter.accept(fightingFormReminder);
+            }
+            return;
+        }
+        String label;
+        if (special.getName() != null
+                && special.getName().equalsIgnoreCase(CharSpecials.SKILL_DEDICATION_SPECIALTY)
+                && refName != null && !refName.isBlank()) {
+            label = special.getName() + " (" + refName + ")";
+        } else {
+            label = (refName != null && !refName.isBlank()) ? special.getName() + ": " + refName : special.getName();
+        }
         String description = special.getDescription();
+        boolean suppressDescriptionLine = "Shapeshifting (Alteri)".equalsIgnoreCase(specialName)
+                || "Felshify (Felsh Cat)".equalsIgnoreCase(specialName);
 
         if (special.getPick()) {
             if (label == null || label.isBlank()) return;
             List<String> options;
-            String specialName = special.getName() == null ? "" : special.getName();
             if (specialName.toLowerCase().contains("felshify")) {
                 options = new ArrayList<>();
                 options.add("Cat");
-                options.add("Human");
+                options.add("Felsh");
             } else {
                 options = extractOptions(refName);
                 if (options.isEmpty()) {
@@ -77,7 +101,7 @@ public class SpecCheck {
             }
             panelReminderSetter.accept(label + "::" + String.join("|", options));
         }
-        if (description != null && !description.isBlank()) {
+        if (!suppressDescriptionLine && description != null && !description.isBlank()) {
             panelReminderSetter.accept(description.trim());
         } else if (!special.getPick() && label != null && !label.isBlank()) {
             panelReminderSetter.accept(label);

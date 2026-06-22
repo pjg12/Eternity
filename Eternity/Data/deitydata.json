@@ -2,54 +2,81 @@
   "id" : 1,
   "name" : "Creation",
   "description" : "1",
+  "weapon" : "Sword",
+  "coreAtt" : "CAP",
+  "charAtt" : "",
   "virtues" : [ "Temperance:Prudence:Growth" ],
   "domains" : [ "Time:Spirit:Space:Life" ]
 }, {
   "id" : 2,
   "name" : "Honor",
   "description" : "2",
+  "weapon" : "Whip",
+  "coreAtt" : "STR",
+  "charAtt" : "",
   "virtues" : [ "Honor:Integrity:Duty" ],
   "domains" : [ "Fire:Enhancement:Honor" ]
 }, {
   "id" : 3,
   "name" : "Justice",
   "description" : "3",
+  "weapon" : "Axe",
+  "coreAtt" : "STR",
+  "charAtt" : "",
   "virtues" : [ "Justice:Law:Equality" ],
   "domains" : [ "Energy:Light:Law" ]
 }, {
   "id" : 4,
   "name" : "Courage",
   "description" : "4",
+  "weapon" : "Fist",
+  "coreAtt" : "CON",
+  "charAtt" : "",
   "virtues" : [ "Courage:Solidarity:Charity" ],
   "domains" : [ "Earth:Sound:Valor" ]
 }, {
   "id" : 5,
   "name" : "Progress",
   "description" : "5",
+  "weapon" : "Polearm",
+  "coreAtt" : "CTL",
+  "charAtt" : "",
   "virtues" : [ "Wisdom:Technology:Imagination" ],
   "domains" : [ "Darkness:Poison:Wisdom" ]
 }, {
   "id" : 6,
   "name" : "Providence",
   "description" : "6",
+  "weapon" : "Greatsword",
+  "coreAtt" : "CAP",
+  "charAtt" : "",
   "virtues" : [ "Empathy:Diplomacy:Honesty" ],
   "domains" : [ "Water:Force:Empathy" ]
 }, {
   "id" : 7,
   "name" : "Grace",
   "description" : "7",
+  "weapon" : "Thrown",
+  "coreAtt" : "DEX",
+  "charAtt" : "",
   "virtues" : [ "Gratitude:Peace:Patience" ],
   "domains" : [ "Metal:Electricity:Peace" ]
 }, {
   "id" : 8,
   "name" : "Hope",
   "description" : "8",
+  "weapon" : "Bow",
+  "coreAtt" : "FOC",
+  "charAtt" : "",
   "virtues" : [ "Hope:Redemption:Fortitude" ],
   "domains" : [ "Air:Nature:Fortitude" ]
 }, {
   "id" : 9,
   "name" : "Mercy",
   "description" : "9",
+  "weapon" : "Greataxe",
+  "coreAtt" : "CON",
+  "charAtt" : "",
   "virtues" : [ "Humility:Legacy:Acceptance" ],
   "domains" : [ "Psionic:Body:Death" ]
 } ]

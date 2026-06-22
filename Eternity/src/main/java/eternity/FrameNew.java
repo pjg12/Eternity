@@ -265,7 +265,7 @@ public class FrameNew extends JFrame {
     }
 
     private static ImageIcon scaleIcon(ImageIcon src, int width, int height) { return new ImageIcon(src.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)); }
-    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon("images/" + name + variant + ".png"); }
+    private static ImageIcon loadIcon(String name, String variant) { return new ImageIcon(AppPaths.imagesDir().resolve(name + variant + ".png").toString()); }
 
     /**
      * Loads icons asynchronously to avoid blocking UI creation.
@@ -327,6 +327,7 @@ public class FrameNew extends JFrame {
 
     private void onFinalizePressed() {
         List<DataItemEquipment> grantedArmor = giveStarterArmor();
+        giveShifterStarterMoldWeapons();
         giveStarterTechs();
         equipStarterLoadout(grantedArmor);
         if (finalFrame == null) finalFrame = new FrameNewFinal(sheetFrame, character, this);
@@ -400,6 +401,9 @@ public class FrameNew extends JFrame {
      private void saveCharacter() { StoreCharManager.saveCharacterNew(character); }
 
      public void finalConfirmed() {
+        if (character != null) {
+            character.initializeNewCharacter();
+        }
         saveCharacter();
         if (sheetFrame != null && character != null) sheetFrame.loadCharacter(character); 
         dispose();
@@ -500,10 +504,13 @@ public class FrameNew extends JFrame {
         StoreRuleManager ruleManager = sheetFrame.getStoreRuleManager();
         if (ruleManager == null) return;
 
+        character.updateAll();
         CharTraining training = character.getTraining();
         addStarterTechs(training, ruleManager, STARTING_TECHS, 0);
         addStarterTechs(training, ruleManager, STARTING_TECHS_1, 1);
         addNaturalAffinityStarterTechs(training, ruleManager);
+        addShifterNaturalAffinityMoldingStarterTechs(training, ruleManager);
+        addDomainAffinityStarterTechs(training, ruleManager);
     }
 
     private void addStarterTechs(CharTraining training, StoreRuleManager ruleManager, String[] techNames, int startingRank) {
@@ -549,6 +556,46 @@ public class FrameNew extends JFrame {
         }
     }
 
+    private void addShifterNaturalAffinityMoldingStarterTechs(CharTraining training, StoreRuleManager ruleManager) {
+        if (training == null || ruleManager == null || !isShifterClass(character)) return;
+        for (String affinity : training.getNaturalAffinities()) {
+            if (affinity == null || affinity.isBlank()) continue;
+            DataTraining template = findMoldingTechniqueTemplate(ruleManager, affinity);
+            if (template == null) continue;
+
+            DataTraining existing = training.getTrainingById(template.getId());
+            if (existing != null) {
+                existing.setRank(Math.max(2, existing.getRank()));
+                existing.setExp(0.0);
+                existing.setAl(0);
+                continue;
+            }
+
+            DataTraining tech = new DataTraining(template);
+            tech.setRank(2);
+            tech.setExp(0.0);
+            tech.setAl(0);
+            training.addTraining(tech);
+        }
+    }
+
+    private void addDomainAffinityStarterTechs(CharTraining training, StoreRuleManager ruleManager) {
+        if (training == null || ruleManager == null) return;
+        for (String affinity : training.getDomainAffinities()) {
+            if (affinity == null || affinity.isBlank()) continue;
+            for (DataTraining template : ruleManager.getTrainingData()) {
+                if (!isMatchingAuraAffinityTechnique(template, affinity)) continue;
+                if (training.getTrainingById(template.getId()) != null) continue;
+
+                DataTraining tech = new DataTraining(template);
+                tech.setRank(1);
+                tech.setExp(0.0);
+                tech.setAl(0);
+                training.addTraining(tech);
+            }
+        }
+    }
+
     private boolean isMatchingAuraAffinityTechnique(DataTraining tech, String affinity) {
         if (tech == null || affinity == null) return false;
         String name = tech.getName();
@@ -558,6 +605,41 @@ public class FrameNew extends JFrame {
                 && techAffinity.equalsIgnoreCase(affinity);
     }
 
+    private boolean isMatchingMoldingTechnique(DataTraining tech, String affinity) {
+        if (tech == null || affinity == null) return false;
+        String name = tech.getName();
+        String techAffinity = tech.getAffinity();
+        if (name == null || techAffinity == null) return false;
+        return name.trim().toLowerCase().endsWith("molding")
+                && techAffinity.equalsIgnoreCase(affinity);
+    }
+
+    private DataTraining findMoldingTechniqueTemplate(StoreRuleManager ruleManager, String affinity) {
+        if (ruleManager == null || affinity == null || affinity.isBlank()) return null;
+        String moldingName = resolveMoldingTechniqueName(affinity);
+        if (moldingName != null && !moldingName.isBlank()) {
+            DataTraining byName = findTrainingTemplateByName(ruleManager, moldingName);
+            if (byName != null) {
+                return byName;
+            }
+        }
+        for (DataTraining template : ruleManager.getTrainingData()) {
+            if (isMatchingMoldingTechnique(template, affinity)) {
+                return template;
+            }
+        }
+        return null;
+    }
+
+    private String resolveMoldingTechniqueName(String affinity) {
+        if (affinity == null || affinity.isBlank()) return null;
+        return switch (affinity.trim().toUpperCase()) {
+            case "ELECTRICITY" -> "Electric Molding";
+            case "DARKNESS" -> "Dark Molding";
+            default -> affinity.trim() + " Molding";
+        };
+    }
+
     /**
      * Grants tier 0 chest and leg armor that match the class armor type (Light/Medium/Heavy).
      * Items are only added if found in data and not already present.
@@ -565,6 +647,7 @@ public class FrameNew extends JFrame {
     private List<DataItemEquipment> giveStarterArmor() {
         ArrayList<DataItemEquipment> granted = new ArrayList<>();
         if (character == null || sheetFrame == null || character.getIdentity() == null) return granted;
+        if (isShifterClass(character)) return granted;
         DataClass charClass = sheetFrame.getStoreRuleManager().getClassByName(character.getIdentity().getCharClass());
         if (charClass == null) return granted;
         
@@ -577,6 +660,12 @@ public class FrameNew extends JFrame {
     
         addStarterPieces(inv, armorType, granted);
         return granted;
+    }
+
+    private boolean isShifterClass(StoreCharData targetCharacter) {
+        if (targetCharacter == null || targetCharacter.getIdentity() == null) return false;
+        String className = targetCharacter.getIdentity().getCharClass();
+        return className != null && className.equalsIgnoreCase("Shifter");
     }
 
     private void addStarterPieces(CharInventory inv, String armorType, List<DataItemEquipment> granted) {
@@ -621,6 +710,7 @@ public class FrameNew extends JFrame {
             if (baseName != null && existingNames.contains(baseName.toLowerCase())) continue;
             
             DataItemEquipment added = new DataItemEquipment(base);
+            added.setEquipped(true);
             inv.addEquipment(added);
             if (granted != null) {
                 granted.add(added);
@@ -644,9 +734,9 @@ public class FrameNew extends JFrame {
             }
         }
 
-        for (DataItemWeapon weapon : inventory.getWeapons()) {
-            if (weapon != null && isStarterWeapon(weapon, starterWeapons)) {
-                weapon.setEquipped(true);
+        for (DataItemEquipment item : inventory.getEquipment()) {
+            if (item != null && isStarterEquipment(item, starterWeapons)) {
+                item.setEquipped(true);
             }
         }
         for (DataItemEquipment item : inventory.getEquipment()) {
@@ -656,7 +746,71 @@ public class FrameNew extends JFrame {
         }
     }
 
-    private boolean isStarterWeapon(DataItemWeapon item, Set<String> starterWeapons) {
+    private void giveShifterStarterMoldWeapons() {
+        if (!isShifterClass(character) || character == null || character.getInventory() == null || sheetFrame == null) return;
+        StoreRuleManager ruleManager = sheetFrame.getStoreRuleManager();
+        if (ruleManager == null) return;
+
+        for (String moldType : getShifterWeaponMoldSelections()) {
+            if (moldType == null || moldType.isBlank()) continue;
+
+            DataItemWeapon existing = findExistingWeaponByType(moldType);
+            if (existing != null) {
+                existing.setEquipped(true);
+                continue;
+            }
+
+            DataItemWeapon template = findTierZeroWeaponTemplateByType(ruleManager, moldType);
+            if (template == null) continue;
+
+            DataItemWeapon granted = new DataItemWeapon(template);
+            granted.setEquipped(true);
+            character.getInventory().addWeapon(granted);
+        }
+    }
+
+    private List<String> getShifterWeaponMoldSelections() {
+        if (character == null || character.getIdentity() == null) return List.of();
+        List<String> picks = character.getIdentity().getCharClassPick();
+        if (picks == null || picks.size() < 4) return List.of();
+        ArrayList<String> values = new ArrayList<>(2);
+        values.add(picks.get(2));
+        values.add(picks.get(3));
+        return values;
+    }
+
+    private DataItemWeapon findExistingWeaponByType(String moldType) {
+        if (character == null || character.getInventory() == null || moldType == null || moldType.isBlank()) return null;
+        for (DataItemEquipment item : character.getInventory().getEquipment()) {
+            if (!(item instanceof DataItemWeapon weapon)) continue;
+            String category = weapon.getCategory();
+            String type = weapon.getType();
+            if (type == null || !type.equalsIgnoreCase(moldType.trim())) continue;
+            if (weapon.getTier() != 0) continue;
+            if (category != null && category.equalsIgnoreCase("Matrix")) continue;
+            return weapon;
+        }
+        return null;
+    }
+
+    private DataItemWeapon findTierZeroWeaponTemplateByType(StoreRuleManager ruleManager, String moldType) {
+        if (ruleManager == null || moldType == null || moldType.isBlank()) return null;
+        DataItemWeapon best = null;
+        for (DataItemWeapon weapon : ruleManager.getItemWeaponData()) {
+            if (weapon == null) continue;
+            String type = weapon.getType();
+            String category = weapon.getCategory();
+            if (type == null || !type.equalsIgnoreCase(moldType.trim())) continue;
+            if (weapon.getTier() != 0) continue;
+            if (category != null && category.equalsIgnoreCase("Matrix")) continue;
+            if (best == null || weapon.getDid() < best.getDid()) {
+                best = weapon;
+            }
+        }
+        return best;
+    }
+
+    private boolean isStarterEquipment(DataItemEquipment item, Set<String> starterWeapons) {
         if (item == null || starterWeapons == null || starterWeapons.isEmpty()) return false;
         String displayName = item.getDname();
         String inventoryName = item.getIname();

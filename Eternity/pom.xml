@@ -6,11 +6,18 @@
 
 	<groupId>Eternity</groupId>
     <artifactId>EternityTTRPG</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <windows.jpackage.input.dir>${project.build.directory}/jpackage-input-${maven.build.timestamp}</windows.jpackage.input.dir>
+        <windows.appimage.dir>${project.build.directory}/dist-${maven.build.timestamp}</windows.appimage.dir>
+        <windows.installer.dir>${project.build.directory}/installer-${maven.build.timestamp}</windows.installer.dir>
+        <macos.jpackage.input.dir>${project.build.directory}/mac-jpackage-input-${maven.build.timestamp}</macos.jpackage.input.dir>
+        <macos.appimage.dir>${project.build.directory}/mac-dist-${maven.build.timestamp}</macos.appimage.dir>
+        <macos.installer.dir>${project.build.directory}/mac-installer-${maven.build.timestamp}</macos.installer.dir>
     </properties>
 
     <dependencies>	
@@ -24,10 +31,21 @@
     		<artifactId>jackson-datatype-jsr310</artifactId>
     		<version>2.9.0.pr2</version>
 		</dependency>
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.5.6</version>
+        </dependency>
 	</dependencies>
 
     <build>
         <finalName>EternityTTRPG</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,15 +53,33 @@
                 <version>3.5.1</version>
                 <executions>
                     <execution>
+                        <id>shade-app</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <outputFile>${project.build.directory}/EternityTTRPG.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>eternity.EternityMain</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>shade-launcher</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/EternityLauncher.jar</outputFile>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>launcher.EternityLauncherMain</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -68,16 +104,15 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <target>
-                                        <mkdir dir="${project.build.directory}/jpackage-input"/>
+                                        <mkdir dir="${windows.jpackage.input.dir}"/>
+                                        <copy file="${project.build.directory}/EternityLauncher.jar"
+                                              tofile="${windows.jpackage.input.dir}/EternityLauncher.jar"/>
                                         <copy file="${project.build.directory}/EternityTTRPG.jar"
-                                              tofile="${project.build.directory}/jpackage-input/EternityTTRPG.jar"/>
-                                        <copy todir="${project.build.directory}/jpackage-input/Data">
+                                              tofile="${windows.jpackage.input.dir}/EternityTTRPG.jar"/>
+                                        <copy todir="${windows.jpackage.input.dir}/Data">
                                             <fileset dir="${project.basedir}/Data"/>
                                         </copy>
-                                        <copy todir="${project.build.directory}/jpackage-input/Characters">
-                                            <fileset dir="${project.basedir}/Characters"/>
-                                        </copy>
-                                        <copy todir="${project.build.directory}/jpackage-input/Images">
+                                        <copy todir="${windows.jpackage.input.dir}/Images">
                                             <fileset dir="${project.basedir}/Images"/>
                                         </copy>
                                     </target>
@@ -106,15 +141,243 @@
                                         <argument>--type</argument>
                                         <argument>app-image</argument>
                                         <argument>--name</argument>
-                                        <argument>EternityTTRPG</argument>
+                                        <argument>EternityLauncher</argument>
                                         <argument>--input</argument>
-                                        <argument>${project.build.directory}/jpackage-input</argument>
+                                        <argument>${windows.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
-                                        <argument>EternityTTRPG.jar</argument>
+                                        <argument>EternityLauncher.jar</argument>
                                         <argument>--main-class</argument>
-                                        <argument>eternity.EternityMain</argument>
+                                        <argument>launcher.EternityLauncherMain</argument>
+                                        <argument>--add-launcher</argument>
+                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
                                         <argument>--dest</argument>
-                                        <argument>${project.build.directory}/dist</argument>
+                                        <argument>${windows.appimage.dir}</argument>
+                                        <argument>--vendor</argument>
+                                        <argument>Eternity</argument>
+                                        <argument>--app-version</argument>
+                                        <argument>${project.version}</argument>
+                                        <argument>--install-dir</argument>
+                                        <argument>EternityLauncher</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>windows-installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-installer-input</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${windows.jpackage.input.dir}"/>
+                                        <copy file="${project.build.directory}/EternityLauncher.jar"
+                                              tofile="${windows.jpackage.input.dir}/EternityLauncher.jar"/>
+                                        <copy file="${project.build.directory}/EternityTTRPG.jar"
+                                              tofile="${windows.jpackage.input.dir}/EternityTTRPG.jar"/>
+                                        <copy todir="${windows.jpackage.input.dir}/Data">
+                                            <fileset dir="${project.basedir}/Data"/>
+                                        </copy>
+                                        <copy todir="${windows.jpackage.input.dir}/Images">
+                                            <fileset dir="${project.basedir}/Images"/>
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage-windows-installer</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <arguments>
+                                        <argument>--type</argument>
+                                        <argument>exe</argument>
+                                        <argument>--name</argument>
+                                        <argument>EternityLauncher</argument>
+                                        <argument>--input</argument>
+                                        <argument>${windows.jpackage.input.dir}</argument>
+                                        <argument>--main-jar</argument>
+                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>--main-class</argument>
+                                        <argument>launcher.EternityLauncherMain</argument>
+                                        <argument>--add-launcher</argument>
+                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
+                                        <argument>--dest</argument>
+                                        <argument>${windows.installer.dir}</argument>
+                                        <argument>--vendor</argument>
+                                        <argument>Eternity</argument>
+                                        <argument>--app-version</argument>
+                                        <argument>${project.version}</argument>
+                                        <argument>--win-dir-chooser</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>macos-app</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-macos-app-input</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${macos.jpackage.input.dir}"/>
+                                        <copy file="${project.build.directory}/EternityLauncher.jar"
+                                              tofile="${macos.jpackage.input.dir}/EternityLauncher.jar"/>
+                                        <copy file="${project.build.directory}/EternityTTRPG.jar"
+                                              tofile="${macos.jpackage.input.dir}/EternityTTRPG.jar"/>
+                                        <copy todir="${macos.jpackage.input.dir}/Data">
+                                            <fileset dir="${project.basedir}/Data"/>
+                                        </copy>
+                                        <copy todir="${macos.jpackage.input.dir}/Images">
+                                            <fileset dir="${project.basedir}/Images"/>
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage-macos-app-image</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <arguments>
+                                        <argument>--type</argument>
+                                        <argument>app-image</argument>
+                                        <argument>--name</argument>
+                                        <argument>EternityLauncher</argument>
+                                        <argument>--input</argument>
+                                        <argument>${macos.jpackage.input.dir}</argument>
+                                        <argument>--main-jar</argument>
+                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>--main-class</argument>
+                                        <argument>launcher.EternityLauncherMain</argument>
+                                        <argument>--add-launcher</argument>
+                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
+                                        <argument>--dest</argument>
+                                        <argument>${macos.appimage.dir}</argument>
+                                        <argument>--vendor</argument>
+                                        <argument>Eternity</argument>
+                                        <argument>--app-version</argument>
+                                        <argument>${project.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>macos-installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-macos-installer-input</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${macos.jpackage.input.dir}"/>
+                                        <copy file="${project.build.directory}/EternityLauncher.jar"
+                                              tofile="${macos.jpackage.input.dir}/EternityLauncher.jar"/>
+                                        <copy file="${project.build.directory}/EternityTTRPG.jar"
+                                              tofile="${macos.jpackage.input.dir}/EternityTTRPG.jar"/>
+                                        <copy todir="${macos.jpackage.input.dir}/Data">
+                                            <fileset dir="${project.basedir}/Data"/>
+                                        </copy>
+                                        <copy todir="${macos.jpackage.input.dir}/Images">
+                                            <fileset dir="${project.basedir}/Images"/>
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage-macos-installer</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <arguments>
+                                        <argument>--type</argument>
+                                        <argument>dmg</argument>
+                                        <argument>--name</argument>
+                                        <argument>EternityLauncher</argument>
+                                        <argument>--input</argument>
+                                        <argument>${macos.jpackage.input.dir}</argument>
+                                        <argument>--main-jar</argument>
+                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>--main-class</argument>
+                                        <argument>launcher.EternityLauncherMain</argument>
+                                        <argument>--add-launcher</argument>
+                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
+                                        <argument>--dest</argument>
+                                        <argument>${macos.installer.dir}</argument>
                                         <argument>--vendor</argument>
                                         <argument>Eternity</argument>
                                         <argument>--app-version</argument>

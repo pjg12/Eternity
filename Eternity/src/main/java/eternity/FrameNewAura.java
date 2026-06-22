@@ -26,12 +26,15 @@ public class FrameNewAura extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int FRAME_WIDTH = 540;
     private static final int FRAME_HEIGHT = 320;
+    private static final int PILOT_FRAME_HEIGHT = 400;
 
     private final StoreRuleManager dataQuery;
     private final StoreCharData character;
     private final FrameNew parent;
     private final boolean gmMode;
     private final boolean casterSelected;
+    private final boolean shifterSelected;
+    private final boolean pilotSelected;
 
     private static final String[] AURATYPE = {
             "***", "Enhancement", "Body", "Nature", "Metal", "Earth", "Water", "Air", "Fire", "Electricity",
@@ -41,8 +44,9 @@ public class FrameNewAura extends JFrame {
 
     private JComboBox<String> auraPick;
     private JComboBox<String> bonusAuraPick;
-    private final JComboBox<String>[] weaponPick = new JComboBox[2];
+    private final JComboBox<String>[] weaponPick;
     private final Map<String, List<String>> starterWeaponsByProfile = new HashMap<>();
+    private final Map<String, String> starterMatrixTypesByName = new HashMap<>();
     private boolean updatingAffinityChoices;
 
     public FrameNewAura(FrameSheet sheetFrame, StoreRuleManager dataQuery, StoreCharData character, FrameNew parent, boolean gmMode) {
@@ -52,11 +56,14 @@ public class FrameNewAura extends JFrame {
         this.parent = parent;
         this.gmMode = gmMode;
         this.casterSelected = isCasterSelected();
+        this.shifterSelected = isShifterSelected();
+        this.pilotSelected = isPilotSelected();
+        this.weaponPick = new JComboBox[getStarterWeaponPickCount()];
 
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
         setLayout(null);
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        setSize(FRAME_WIDTH, pilotSelected ? PILOT_FRAME_HEIGHT : FRAME_HEIGHT);
         setLocationRelativeTo(sheetFrame);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -74,9 +81,11 @@ public class FrameNewAura extends JFrame {
     }
 
     private void buildLabels() {
-        JLabel affinityLabel = new JLabel("Natural Affinity");
-        affinityLabel.setBounds(25, 60, 140, 20);
-        add(affinityLabel);
+        if (!pilotSelected) {
+            JLabel affinityLabel = new JLabel("Natural Affinity");
+            affinityLabel.setBounds(25, 60, 140, 20);
+            add(affinityLabel);
+        }
 
         if (casterSelected) {
             JLabel bonusAffinityLabel = new JLabel("Bonus Affinity");
@@ -84,15 +93,17 @@ public class FrameNewAura extends JFrame {
             add(bonusAffinityLabel);
         }
 
-        JLabel weaponLabel = new JLabel("Starter Weapons");
+        JLabel weaponLabel = new JLabel(shifterSelected ? "Starter Matrices" : "Starter Weapons");
         weaponLabel.setBounds(225, 60, 200, 20);
         add(weaponLabel);
     }
 
     private void buildPickers() {
-        auraPick = new JComboBox<>(AURATYPE);
-        auraPick.setBounds(25, 90, 160, 22);
-        add(auraPick);
+        if (!pilotSelected) {
+            auraPick = new JComboBox<>(AURATYPE);
+            auraPick.setBounds(25, 90, 160, 22);
+            add(auraPick);
+        }
 
         if (casterSelected) {
             bonusAuraPick = new JComboBox<>(AURATYPE);
@@ -104,25 +115,32 @@ public class FrameNewAura extends JFrame {
             refreshAffinityPickers();
         }
 
-        List<String> profs = character.getInventory().getWeaponProficiencies();
-        if ((profs == null || profs.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
-            String cls = character.getIdentity().getCharClass();
-            if (cls != null && !cls.isBlank()) {
-                DataClass dc = dataQuery.getClassByName(cls);
-                if (dc != null && dc.getProfAuto() != null && !dc.getProfAuto().isEmpty()) {
-                    profs = new ArrayList<>(dc.getProfAuto());
-                    character.getInventory().setWeaponProficiencies(profs); // hydrate inventory so downstream stays consistent
+        List<String> starterWeapons;
+        boolean hasProfs;
+        if (shifterSelected) {
+            starterWeapons = getStarterMatrixOptions();
+            hasProfs = !starterWeapons.isEmpty();
+        } else {
+            List<String> profs = character.getInventory().getWeaponProficiencies();
+            if ((profs == null || profs.isEmpty()) && dataQuery != null && character != null && character.getIdentity() != null) {
+                String cls = character.getIdentity().getCharClass();
+                if (cls != null && !cls.isBlank()) {
+                    DataClass dc = dataQuery.getClassByName(cls);
+                    if (dc != null && dc.getProfAuto() != null && !dc.getProfAuto().isEmpty()) {
+                        profs = new ArrayList<>(dc.getProfAuto());
+                        character.getInventory().setWeaponProficiencies(profs); // hydrate inventory so downstream stays consistent
+                    }
                 }
             }
+            starterWeapons = getStarterWeaponOptions(profs);
+            hasProfs = !starterWeapons.isEmpty();
         }
-        List<String> starterWeapons = getStarterWeaponOptions(profs);
-        boolean hasProfs = !starterWeapons.isEmpty();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < weaponPick.length; i++) {
             JComboBox<String> box = new JComboBox<>();
             box.addItem(EMPTY_OPTION);
             for (String weapon : starterWeapons) box.addItem(weapon);
-            box.setBounds(225, 100 + 60 * i, 250, 22);
+            box.setBounds(225, 100 + 40 * i, 250, 22);
             box.setEnabled(hasProfs);
             weaponPick[i] = box;
             add(box);
@@ -131,12 +149,13 @@ public class FrameNewAura extends JFrame {
 
     private void buildButtons() {
         JButton back = new JButton("Back");
-        back.setBounds(150, 240, 100, 28);
+        int buttonY = pilotSelected ? 320 : 240;
+        back.setBounds(150, buttonY, 100, 28);
         back.addActionListener(e -> dispose());
         add(back);
 
         JButton confirm = new JButton("Confirm");
-        confirm.setBounds(290, 240, 120, 28);
+        confirm.setBounds(290, buttonY, 120, 28);
         confirm.addActionListener(e -> auraConfirm());
         add(confirm);
     }
@@ -147,10 +166,13 @@ public class FrameNewAura extends JFrame {
             randomizeWeaponSelections();
         }
 
-        String affinity = (String) auraPick.getSelectedItem();
-        if (affinity == null || EMPTY_OPTION.equals(affinity)) {
-            JOptionPane.showMessageDialog(this, "Select a Natural Affinity to proceed.");
-            return;
+        String affinity = EMPTY_OPTION;
+        if (!pilotSelected) {
+            affinity = (String) auraPick.getSelectedItem();
+            if (affinity == null || EMPTY_OPTION.equals(affinity)) {
+                JOptionPane.showMessageDialog(this, "Select a Natural Affinity to proceed.");
+                return;
+            }
         }
 
         String bonusAffinity = EMPTY_OPTION;
@@ -169,23 +191,38 @@ public class FrameNewAura extends JFrame {
         // Validate weapon picks only if profs exist
         boolean requireWeapons = false;
         for (JComboBox<String> wp : weaponPick) {
-            if (wp.isEnabled()) {
+            if (wp != null && wp.isEnabled()) {
                 requireWeapons = true;
                 break;
             }
         }
         if (requireWeapons) {
             for (JComboBox<String> wp : weaponPick) {
+                if (wp == null) continue;
                 String val = (String) wp.getSelectedItem();
                 if (val == null || EMPTY_OPTION.equals(val)) {
-                    JOptionPane.showMessageDialog(this, "Select 2 starter weapons to proceed.");
+                    JOptionPane.showMessageDialog(this, shifterSelected
+                            ? "Select 2 starter matrices to proceed."
+                            : "Select " + weaponPick.length + " starter weapons to proceed.");
+                    return;
+                }
+            }
+            if (shifterSelected) {
+                String firstMatrix = (String) weaponPick[0].getSelectedItem();
+                String secondMatrix = (String) weaponPick[1].getSelectedItem();
+                String firstType = getStarterMatrixType(firstMatrix);
+                String secondType = getStarterMatrixType(secondMatrix);
+                if (firstType.isBlank() || secondType.isBlank() || firstType.equalsIgnoreCase(secondType)) {
+                    JOptionPane.showMessageDialog(this, "Select 2 starter matrices of differing types.");
                     return;
                 }
             }
         }
 
         ArrayList<String> selectedAffinities = new ArrayList<>();
-        selectedAffinities.add(affinity);
+        if (!pilotSelected && affinity != null && !EMPTY_OPTION.equals(affinity)) {
+            selectedAffinities.add(affinity);
+        }
         if (casterSelected && bonusAuraPick != null && bonusAffinity != null && !EMPTY_OPTION.equals(bonusAffinity)) {
             selectedAffinities.add(bonusAffinity);
         }
@@ -194,12 +231,15 @@ public class FrameNewAura extends JFrame {
         if (requireWeapons) {
             ArrayList<String> selectedWeapons = new ArrayList<>();
             for (JComboBox<String> wp : weaponPick) {
+                if (wp == null) continue;
                 String weaponName = (String) wp.getSelectedItem();
                 if (weaponName == null || EMPTY_OPTION.equals(weaponName)) continue;
                 selectedWeapons.add(weaponName);
                 DataItemWeapon item = dataQuery.getWeaponByName(weaponName);
                 if (item != null) {
-                    character.getInventory().addWeapon(new DataItemWeapon(item));
+                    DataItemWeapon granted = new DataItemWeapon(item);
+                    granted.setEquipped(true);
+                    character.getInventory().addWeapon(granted);
                 }
             }
             parent.setStarterWeaponSelections(selectedWeapons);
@@ -217,7 +257,24 @@ public class FrameNewAura extends JFrame {
         return cls != null && cls.equalsIgnoreCase("Caster");
     }
 
+    private boolean isShifterSelected() {
+        if (character == null || character.getIdentity() == null) return false;
+        String cls = character.getIdentity().getCharClass();
+        return cls != null && cls.equalsIgnoreCase("Shifter");
+    }
+
+    private boolean isPilotSelected() {
+        if (character == null || character.getIdentity() == null) return false;
+        String cls = character.getIdentity().getCharClass();
+        return cls != null && cls.equalsIgnoreCase("Pilot");
+    }
+
+    private int getStarterWeaponPickCount() {
+        return pilotSelected ? 4 : 2;
+    }
+
     private void randomizeAffinitySelections() {
+        if (pilotSelected || auraPick == null) return;
         int naturalIndex = ThreadLocalRandom.current().nextInt(1, AURATYPE.length);
         auraPick.setSelectedItem(AURATYPE[naturalIndex]);
         if (casterSelected && bonusAuraPick != null) {
@@ -237,6 +294,10 @@ public class FrameNewAura extends JFrame {
     }
 
     private void randomizeWeaponSelections() {
+        if (shifterSelected) {
+            randomizeMatrixSelections();
+            return;
+        }
         ArrayList<String> options = new ArrayList<>();
         JComboBox<String> sourceBox = weaponPick[0];
         if (sourceBox != null && sourceBox.isEnabled()) {
@@ -249,16 +310,46 @@ public class FrameNewAura extends JFrame {
         }
         if (options.isEmpty()) return;
 
+        ArrayList<String> remaining = new ArrayList<>(options);
+        for (int i = 0; i < weaponPick.length; i++) {
+            JComboBox<String> box = weaponPick[i];
+            if (box == null || !box.isEnabled()) continue;
+            if (remaining.isEmpty()) {
+                remaining = new ArrayList<>(options);
+            }
+            String selection = remaining.get(ThreadLocalRandom.current().nextInt(remaining.size()));
+            box.setSelectedItem(selection);
+            if (options.size() > 1) {
+                remaining.removeIf(option -> option.equalsIgnoreCase(selection));
+            }
+        }
+    }
+
+    private void randomizeMatrixSelections() {
+        ArrayList<String> options = new ArrayList<>();
+        if (weaponPick[0] != null && weaponPick[0].isEnabled()) {
+            for (int i = 1; i < weaponPick[0].getItemCount(); i++) {
+                String item = weaponPick[0].getItemAt(i);
+                if (item != null && !EMPTY_OPTION.equals(item) && !options.contains(item)) {
+                    options.add(item);
+                }
+            }
+        }
+        if (options.isEmpty()) return;
+
         String firstPick = options.get(ThreadLocalRandom.current().nextInt(options.size()));
+        String firstType = getStarterMatrixType(firstPick);
         weaponPick[0].setSelectedItem(firstPick);
 
-        String secondPick = firstPick;
-        if (options.size() > 1) {
-            ArrayList<String> remaining = new ArrayList<>(options);
-            remaining.removeIf(option -> option.equalsIgnoreCase(firstPick));
-            secondPick = remaining.get(ThreadLocalRandom.current().nextInt(remaining.size()));
+        ArrayList<String> remaining = new ArrayList<>();
+        for (String option : options) {
+            String optionType = getStarterMatrixType(option);
+            if (!option.equalsIgnoreCase(firstPick) && !optionType.equalsIgnoreCase(firstType)) {
+                remaining.add(option);
+            }
         }
-        if (weaponPick[1] != null && weaponPick[1].isEnabled()) {
+        if (!remaining.isEmpty() && weaponPick[1] != null && weaponPick[1].isEnabled()) {
+            String secondPick = remaining.get(ThreadLocalRandom.current().nextInt(remaining.size()));
             weaponPick[1].setSelectedItem(secondPick);
         }
     }
@@ -327,7 +418,8 @@ public class FrameNewAura extends JFrame {
             String category = item.getCategory() == null ? "" : item.getCategory();
             if (!category.equalsIgnoreCase("Melee") &&
                     !category.equalsIgnoreCase("Ranged") &&
-                    !category.equalsIgnoreCase("Aura")) {
+                    !category.equalsIgnoreCase("Aura") &&
+                    !category.toLowerCase().startsWith("exo")) {
                 continue;
             }
 
@@ -347,6 +439,31 @@ public class FrameNewAura extends JFrame {
         return out;
     }
 
+    private List<String> getStarterMatrixOptions() {
+        starterMatrixTypesByName.clear();
+        if (dataQuery == null) return new ArrayList<>();
+
+        Set<String> names = new LinkedHashSet<>();
+        for (DataItemWeapon item : dataQuery.getItemWeaponData()) {
+            if (item == null || item.getTier() != 0) continue;
+            if (!"Matrix".equalsIgnoreCase(item.getCategory())) continue;
+            String name = item.getDname();
+            if (name == null || name.isBlank()) continue;
+            names.add(name);
+            starterMatrixTypesByName.put(name, item.getType() == null ? "" : item.getType().trim());
+        }
+
+        ArrayList<String> out = new ArrayList<>(names);
+        out.sort(Comparator.naturalOrder());
+        return out;
+    }
+
+    private String getStarterMatrixType(String matrixName) {
+        if (matrixName == null || matrixName.isBlank()) return "";
+        String type = starterMatrixTypesByName.get(matrixName);
+        return type == null ? "" : type.trim();
+    }
+
     private boolean matchesProficiency(DataItemWeapon item, String prof) {
         if (item == null || prof == null) return false;
         String p = prof.trim();
@@ -356,15 +473,54 @@ public class FrameNewAura extends JFrame {
         String slot = item.getSlot() == null ? "" : item.getSlot();
         String type = item.getType() == null ? "" : item.getType();
         String name = item.getDname() == null ? "" : item.getDname();
+        String normalizedProf = normalizeWeaponFamily(p);
+        String normalizedType = normalizeWeaponFamily(type);
+        String normalizedName = normalizeWeaponFamily(name);
 
         if ("Any".equalsIgnoreCase(p)) return true;
         if ("Melee".equalsIgnoreCase(p) && "Melee".equalsIgnoreCase(category)) return true;
         if ("Ranged".equalsIgnoreCase(p) && "Ranged".equalsIgnoreCase(category)) return true;
         if ("Aura".equalsIgnoreCase(p) && "Aura".equalsIgnoreCase(category)) return true;
+        if ("Exo".equalsIgnoreCase(p) && category.toLowerCase().startsWith("exo")) return true;
         if ("Light".equalsIgnoreCase(p) && slot.toLowerCase().contains("light")) return true;
         if ("Heavy".equalsIgnoreCase(p) && slot.toLowerCase().contains("heavy")) return true;
         if (p.equalsIgnoreCase(type)) return true;
-        return p.equalsIgnoreCase(name);
+        if (p.equalsIgnoreCase(name)) return true;
+        if (!normalizedProf.isBlank() && normalizedProf.equalsIgnoreCase(normalizedType)) return true;
+        if (!normalizedProf.isBlank() && normalizedProf.equalsIgnoreCase(normalizedName)) return true;
+        return normalizedType.contains(normalizedProf) || normalizedName.contains(normalizedProf);
+    }
+
+    private String normalizeWeaponFamily(String value) {
+        if (value == null) return "";
+        String normalized = value.trim().toLowerCase();
+        if (normalized.isBlank()) return "";
+        if (normalized.contains("axe")) return "axe";
+        if (normalized.contains("sword")) return "sword";
+        if (normalized.contains("bow")) return "bow";
+        if (normalized.contains("crossbow")) return "crossbow";
+        if (normalized.contains("fist") || normalized.contains("knuckle")) return "fist";
+        if (normalized.contains("polearm")) return "polearm";
+        if (normalized.contains("whip")) return "whip";
+        if (normalized.contains("thrown")) return "thrown";
+        if (normalized.contains("dagger")) return "dagger";
+        if (normalized.contains("mace")) return "mace";
+        if (normalized.contains("shield")) return "shield";
+        if (normalized.contains("staff")) return "staff";
+        if (normalized.contains("tome")) return "tome";
+        if (normalized.contains("relic")) return "relic";
+        if (normalized.contains("symbol")) return "symbol";
+        if (normalized.contains("ring")) return "ring";
+        if (normalized.contains("orb")) return "orb";
+        if (normalized.contains("wand")) return "wand";
+        if (normalized.contains("talisman")) return "talisman";
+        if (normalized.contains("rifle")) return "rifle";
+        if (normalized.contains("cannon")) return "cannon";
+        if (normalized.contains("sling")) return "sling";
+        if (normalized.contains("handbow")) return "handbow";
+        if (normalized.contains("pistol")) return "pistol";
+        if (normalized.contains("blade")) return "blade";
+        return normalized;
     }
 
     private String buildProfileKey(List<String> profs) {
