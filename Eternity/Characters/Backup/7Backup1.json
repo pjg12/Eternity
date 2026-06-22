@@ -1,22 +1,22 @@
 {
   "identity" : {
     "index" : 7,
-    "name" : "linn",
+    "name" : "Zidane",
     "nickname" : "",
     "campaign" : "",
     "campaignStartDate" : "0065-01-01T00:00:00",
     "campaignElapsedTime" : "PT0S",
-    "birthday" : "0046-01-30",
+    "birthday" : "0046-01-17",
     "birthdayManual" : true,
     "race" : "Alteri",
-    "charRacePick" : [ "Ardian" ],
-    "charClass" : "Warrior",
-    "charSubclass" : "Fighter",
-    "charClassPick" : [ "Combat Medic" ],
+    "charRacePick" : [ "Vyrek" ],
+    "charClass" : "Rogue",
+    "charSubclass" : "Spy",
+    "charClassPick" : [ ],
     "level" : 1,
     "exp" : 0.0,
-    "gender" : "",
-    "size" : "Medium",
+    "gender" : "Male",
+    "size" : "?",
     "height" : "",
     "weight" : "",
     "eyes" : "",
@@ -24,9 +24,9 @@
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-05-16T02:26:54.097+0000",
-    "createdAt" : "2026-05-16T02:26:38.576+0000",
-    "lastLevelUp" : "2026-05-16T02:26:38.576+0000",
+    "updated" : "2026-06-01T16:17:16.430+0000",
+    "createdAt" : "2026-06-01T16:14:41.152+0000",
+    "lastLevelUp" : "2026-06-01T16:14:41.152+0000",
     "timeSinceLastLevel" : "PT0S"
   },
   "resources" : {
@@ -45,7 +45,15 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 70.0,
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Tough (S301)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEHP",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -78,7 +86,7 @@
       "affinity" : "None",
       "description" : "Derived from Constitution",
       "attribute" : "MULTIHP",
-      "severity" : 0.4,
+      "severity" : 0.7,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -103,7 +111,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 12.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -136,7 +144,7 @@
       "affinity" : "None",
       "description" : "Derived from Capacity",
       "attribute" : "MULTIAURA",
-      "severity" : 0.7,
+      "severity" : 0.6,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -363,7 +371,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BSTR",
-      "severity" : 13.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -411,17 +419,9 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCON",
-      "severity" : 9.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
-    }, {
-      "name" : "Base Racial",
-      "affinity" : "None",
-      "description" : "Racial base status",
-      "attribute" : "BCON",
-      "severity" : -1.0,
-      "durationType" : "Passive",
-      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -443,7 +443,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BFOC",
-      "severity" : 14.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -467,7 +467,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCTL",
-      "severity" : 12.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -491,7 +491,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCAP",
-      "severity" : 13.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -515,7 +515,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BKNOW",
-      "severity" : 11.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -539,7 +539,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMECH",
-      "severity" : 11.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -563,7 +563,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BPERC",
-      "severity" : 11.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -611,7 +611,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCHA",
-      "severity" : 13.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -952,22 +952,6 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
-    }, {
-      "name" : "Equip Passive: Breastplate #2",
-      "affinity" : "None",
-      "description" : "Equipment passive bonus",
-      "attribute" : "BARMOR",
-      "severity" : 3.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Equip Passive: Greaves #3",
-      "affinity" : "None",
-      "description" : "Equipment passive bonus",
-      "attribute" : "BARMOR",
-      "severity" : 3.0,
-      "durationType" : "Passive",
-      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -1043,9 +1027,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Fortitude base",
+      "description" : "None",
       "attribute" : "BFORT",
-      "severity" : 13.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1053,38 +1037,6 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 5.25,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BFORT",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BFORT",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "Class-based Reflex base",
-      "attribute" : "BREF",
-      "severity" : 10.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Control / Capacity",
-      "attribute" : "BREF",
       "severity" : 6.25,
       "durationType" : "Passive",
       "duration" : 0
@@ -1092,6 +1044,38 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
+      "attribute" : "BFORT",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BFORT",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BREF",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Attribute",
+      "affinity" : "None",
+      "description" : "Derived from Control / Capacity",
+      "attribute" : "BREF",
+      "severity" : 5.55,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
       "attribute" : "BREF",
       "severity" : 0.0,
       "durationType" : "Maintained",
@@ -1107,9 +1091,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Will base",
+      "description" : "None",
       "attribute" : "BWILL",
-      "severity" : 10.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1117,7 +1101,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 6.5,
+      "severity" : 5.75,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1343,7 +1327,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BALL",
-      "severity" : 6.5,
+      "severity" : 5.5,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1680,14 +1664,6 @@
       "description" : "None",
       "attribute" : "BSPIRIT",
       "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Training Passive: TechPerm 371 [SPIRIT] (T49000)",
-      "affinity" : "None",
-      "description" : "Tech permission grant",
-      "attribute" : "BSPIRIT",
-      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2119,9 +2095,9 @@
     "bCombat" : [ [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Attack base",
+      "description" : "None",
       "attribute" : "BATK",
-      "severity" : 10.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2129,7 +2105,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BATK",
-      "severity" : 3.3,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2137,7 +2113,7 @@
       "affinity" : "None",
       "description" : "Derived from Focus",
       "attribute" : "BATK",
-      "severity" : 3.5,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2159,9 +2135,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Application base",
+      "description" : "None",
       "attribute" : "BAPP",
-      "severity" : 10.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2169,7 +2145,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BAPP",
-      "severity" : 3.3,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2177,7 +2153,7 @@
       "affinity" : "None",
       "description" : "Derived from Focus",
       "attribute" : "BAPP",
-      "severity" : 3.5,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2247,9 +2223,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Range base",
+      "description" : "None",
       "attribute" : "BRANGE",
-      "severity" : 10.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2273,7 +2249,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BINIT",
-      "severity" : 10.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2885,7 +2861,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBDMG",
-      "severity" : 3.3,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2893,15 +2869,7 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBDMG",
-      "severity" : 3.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "LevelBaseDamage",
-      "affinity" : "None",
-      "description" : "Level-based base damage",
-      "attribute" : "BBDMG",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2926,14 +2894,6 @@
       "description" : "None",
       "attribute" : "BTDMG",
       "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Primary Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Primary Attribute",
-      "attribute" : "BTDMG",
-      "severity" : 3.3,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2941,15 +2901,15 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BTDMG",
-      "severity" : 6.5,
+      "severity" : 5.5,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Equip Passive: Axe #0",
+      "name" : "Primary Attribute",
       "affinity" : "None",
-      "description" : "Equipment passive bonus",
+      "description" : "Derived from Primary Attribute",
       "attribute" : "BTDMG",
-      "severity" : 3.0,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2981,7 +2941,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBHEAL",
-      "severity" : 3.3,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2989,15 +2949,7 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
-      "severity" : 3.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "LevelBaseDamage",
-      "affinity" : "None",
-      "description" : "Level-based base healing",
-      "attribute" : "BBHEAL",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3029,7 +2981,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTHEAL",
-      "severity" : 3.3,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3244,110 +3196,81 @@
     } ] ] ]
   },
   "specials" : {
-    "racialSpecialty" : {
-      "id" : 101,
-      "name" : "Shapeshifting (Alteri)",
-      "refName" : "",
-      "category" : "Racial",
-      "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
-      "type" : "reminder",
-      "prereq" : -1,
-      "pick" : true,
-      "permStatus" : [ ]
-    },
+    "racialSpecialty" : null,
     "skills" : [ {
-      "id" : 309,
-      "name" : "Climb",
+      "id" : 330,
+      "name" : "Sneak",
       "type" : "Gen",
-      "description" : "Allows the user to ascend surfaces.",
-      "availAttributes" : [ "STR" ],
-      "chosenAttributes" : [ "STR" ]
+      "description" : "Allows the user to remain unnoticed.",
+      "availAttributes" : [ "DEX", "SUB" ],
+      "chosenAttributes" : [ "DEX" ],
+      "chosenSubtype" : ""
+    }, {
+      "id" : 312,
+      "name" : "Disarm",
+      "type" : "Spec",
+      "description" : "Allows the user to disable the functionality of a mechanical device.",
+      "availAttributes" : [ "MECH" ],
+      "chosenAttributes" : [ "MECH" ],
+      "chosenSubtype" : ""
     }, {
       "id" : 301,
       "name" : "Acrobatics",
       "type" : "Gen",
       "description" : "Allows the user to perform feats of agility.",
       "availAttributes" : [ "DEX" ],
-      "chosenAttributes" : [ "DEX" ]
-    }, {
-      "id" : 302,
-      "name" : "Analyze",
-      "type" : "Gen",
-      "description" : "Allows the user to gain more information by Examining Aura.",
-      "availAttributes" : [ "CTL", "PERC" ],
-      "chosenAttributes" : [ "CTL" ]
+      "chosenAttributes" : [ "DEX" ],
+      "chosenSubtype" : ""
     } ],
-    "classSpecialties" : [ {
-      "id" : 1011,
-      "name" : "Martial Feature",
-      "refName" : "Combat Medic",
-      "category" : "Class",
-      "description" : "Gain a Martial type Feature of your choice.",
-      "type" : "F",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
-    }, {
-      "id" : 1012,
-      "name" : "War Charge",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "When performing a charge, increase your move speed by (5 x 1/2 char level)ft. (round up to nearest 5ft)",
-      "type" : "F",
-      "prereq" : 0,
-      "pick" : false,
-      "permStatus" : [ ]
-    } ],
+    "classSpecialties" : [ ],
     "trainedSpecialties" : [ {
-      "id" : 6011,
-      "name" : "Summon Minion (Minor + General + Melee)",
-      "refName" : "",
+      "id" : 4012,
+      "name" : "Martial Focus",
+      "refName" : "Focus: Mobility",
       "category" : "Class",
       "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
-      "pick" : false,
+      "pick" : true,
       "permStatus" : [ ]
     }, {
-      "id" : 5012,
-      "name" : "Preferred Environment",
+      "id" : 301,
+      "name" : "Tough",
       "refName" : "",
-      "category" : "Class",
-      "description" : "Stuff",
-      "type" : "F",
+      "category" : "Martial",
+      "description" : "",
+      "type" : "passive",
       "prereq" : 0,
       "pick" : false,
-      "permStatus" : [ ]
-    }, {
-      "id" : 1,
-      "name" : "Level 1",
-      "refName" : "",
-      "category" : "Level",
-      "description" : "Level 1",
-      "type" : "level",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
+      "permStatus" : [ {
+        "name" : "Tough",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEHPM",
+        "severity" : 0.1,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
     } ]
   },
   "inventory" : {
-    "credits" : 0.0,
+    "credits" : 1000.0,
     "armor" : "",
-    "weaponProf" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Handbow" ],
+    "weaponProf" : [ "Sword", "Axe", "Mace", "Blade", "Dagger", "Knuckle", "Whip", "Pistol", "Orb" ],
     "equipment" : [ {
-      "did" : 7005,
+      "did" : 6003,
       "iid" : -1,
-      "dname" : "Axe",
+      "dname" : "Dagger",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
       "quantity" : 0.0,
-      "slot" : "Standard Weapon",
+      "slot" : "Light Weapon",
       "tier" : 0,
       "category" : "Melee",
-      "type" : "Axe",
-      "bonusAtt" : "TDMG",
-      "bonusAmount" : 3.0,
+      "type" : "Dagger",
+      "bonusAtt" : "CRITDMG",
+      "bonusAmount" : 0.1,
       "levelReq" : 1,
       "value" : 0,
       "equipped" : true,
@@ -3356,21 +3279,23 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0
+      "aug" : 0,
+      "damage" : "PIERCE",
+      "attack" : "AC"
     }, {
-      "did" : 8002,
+      "did" : 6003,
       "iid" : -1,
-      "dname" : "Claymore",
+      "dname" : "Dagger",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
       "quantity" : 0.0,
-      "slot" : "Heavy Weapon",
+      "slot" : "Light Weapon",
       "tier" : 0,
       "category" : "Melee",
-      "type" : "Greatsword",
-      "bonusAtt" : "BEN",
-      "bonusAmount" : 1.0,
+      "type" : "Dagger",
+      "bonusAtt" : "CRITDMG",
+      "bonusAmount" : 0.1,
       "levelReq" : 1,
       "value" : 0,
       "equipped" : true,
@@ -3379,11 +3304,13 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0
+      "aug" : 0,
+      "damage" : "PIERCE",
+      "attack" : "AC"
     }, {
-      "did" : 3001,
+      "did" : 2001,
       "iid" : -1,
-      "dname" : "Breastplate",
+      "dname" : "Cuirass",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
@@ -3391,11 +3318,11 @@
       "slot" : "Chest",
       "tier" : 0,
       "category" : "Armor",
-      "type" : "Heavy",
+      "type" : "Medium",
       "bonusAtt" : "ARMOR",
-      "bonusAmount" : 3.0,
+      "bonusAmount" : 2.0,
       "levelReq" : 1,
-      "value" : 600,
+      "value" : 400,
       "equipped" : true,
       "ench" : 0,
       "gem" : 0,
@@ -3404,9 +3331,9 @@
       "mod" : 0,
       "aug" : 0
     }, {
-      "did" : 3002,
+      "did" : 2002,
       "iid" : -1,
-      "dname" : "Greaves",
+      "dname" : "Legguards",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
@@ -3414,11 +3341,11 @@
       "slot" : "Legs",
       "tier" : 0,
       "category" : "Armor",
-      "type" : "Heavy",
+      "type" : "Medium",
       "bonusAtt" : "ARMOR",
-      "bonusAmount" : 3.0,
+      "bonusAmount" : 2.0,
       "levelReq" : 1,
-      "value" : 600,
+      "value" : 400,
       "equipped" : true,
       "ench" : 0,
       "gem" : 0,
@@ -3430,11 +3357,12 @@
     "consumables" : [ ],
     "goods" : [ ],
     "items" : [ ],
-    "weaponProficiencies" : [ "Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Handbow" ]
+    "weaponProficiencies" : [ "Sword", "Axe", "Mace", "Blade", "Dagger", "Knuckle", "Whip", "Pistol", "Orb" ]
   },
   "training" : {
-    "naturalAffinities" : [ "Spirit" ],
+    "naturalAffinities" : [ "Electricity" ],
     "domains" : [ ],
+    "domainStatusEffects" : [ ],
     "isDeviant" : false,
     "classTrainingRank" : 1,
     "trainingXp" : 0.0,
@@ -3599,29 +3527,6 @@
           "duration" : 0
         } ]
       } ],
-      "spirit" : [ {
-        "id" : 49000,
-        "name" : "Aura Affinity (Spirit)",
-        "type" : "Passive",
-        "affinity" : "Spirit",
-        "description" : "+2 RESISTSPIRIT per level",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 371 ],
-        "rank" : 2,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 371",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESSPIRIT",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ]
-      } ],
       "fundamental" : [ {
         "id" : 51,
         "name" : "Benefaction",
@@ -3769,6 +3674,29 @@
           "description" : "Tech permission grant",
           "attribute" : "ARMOR",
           "severity" : 0.5,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
+      "electricity" : [ {
+        "id" : 25000,
+        "name" : "Aura Affinity (Electricity)",
+        "type" : "Passive",
+        "affinity" : "Electricity",
+        "description" : "+2 RESISTELEC per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 291 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 291",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESELEC",
+          "severity" : 2.0,
           "durationType" : "Permanent",
           "duration" : 0
         } ]
@@ -4085,34 +4013,49 @@
     "deviant" : false
   },
   "combat" : {
-    "inCombat" : true,
-    "round" : 1,
+    "inCombat" : false,
+    "round" : 0,
     "initiative" : 0,
-    "showInitiativePopup" : false,
+    "showInitiativePopup" : true,
     "critDamage" : 2.0,
     "invade" : false,
     "reach" : 0,
+    "stunTokens" : 0,
     "combatStatus" : [ ],
     "standardSpellAction" : {
-      "id" : 0,
-      "name" : "Standard Spell",
-      "category" : "",
-      "source" : "Spell",
+      "id" : 102,
+      "name" : "Standard Cast",
+      "category" : "Attack",
+      "source" : "Standard",
       "affinity" : "None",
-      "atkType" : "OTHER",
-      "atk" : 17,
-      "bdmg" : 8,
-      "tdmg" : 13,
+      "atkType" : "SPELL",
+      "atk" : 7,
+      "bdmg" : 7,
+      "tdmg" : 9,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,
       "actionType" : "Standard",
-      "weapon" : "",
-      "costs" : [ ],
+      "weapon" : null,
+      "costs" : [ {
+        "type" : "None",
+        "value" : 0.0
+      } ],
       "modifierKey" : [ ]
     }
   },
-  "reminderSelections" : { },
+  "reminderSelections" : {
+    "Domain Emanation" : "Off"
+  },
+  "domainEmanationEnabled" : false,
   "panelReminder" : "",
-  "lists" : [ ]
+  "lists" : [ [ {
+    "list" : "Shapeshifts",
+    "name" : "Alteri",
+    "description" : ""
+  }, {
+    "list" : "Shapeshifts",
+    "name" : "Vyrek",
+    "description" : ""
+  } ] ]
 }

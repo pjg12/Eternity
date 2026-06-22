@@ -16,7 +16,7 @@
     "level" : 1,
     "exp" : 0.0,
     "gender" : "",
-    "size" : "?",
+    "size" : "Medium",
     "height" : "",
     "weight" : "",
     "eyes" : "",
@@ -45,7 +45,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 0.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -103,7 +103,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 0.0,
+      "severity" : 26.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -462,6 +462,14 @@
       "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Base Racial",
+      "affinity" : "None",
+      "description" : "Racial base status",
+      "attribute" : "BCTL",
+      "severity" : -1.0,
+      "durationType" : "Passive",
+      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -944,6 +952,22 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Equip Passive: Tunic #2",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BARMOR",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Pants #3",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BARMOR",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -1019,9 +1043,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Fortitude base",
       "attribute" : "BFORT",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1051,9 +1075,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Reflex base",
       "attribute" : "BREF",
-      "severity" : 0.0,
+      "severity" : 8.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1061,7 +1085,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BREF",
-      "severity" : 5.0,
+      "severity" : 4.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1083,9 +1107,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Will base",
       "attribute" : "BWILL",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1093,7 +1117,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 2.5,
+      "severity" : 4.75,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1394,6 +1418,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 251 [PIERCE] (T7000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPIERCE",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -1416,6 +1448,14 @@
       "description" : "None",
       "attribute" : "BSLASH",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 271 [SLASH] (T19000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSLASH",
+      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2087,9 +2127,9 @@
     "bCombat" : [ [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Attack base",
       "attribute" : "BATK",
-      "severity" : 0.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2105,7 +2145,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BATK",
-      "severity" : 2.5,
+      "severity" : 2.3,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2127,9 +2167,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Application base",
       "attribute" : "BAPP",
-      "severity" : 0.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2145,7 +2185,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BAPP",
-      "severity" : 2.5,
+      "severity" : 2.3,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2215,9 +2255,17 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Range base",
       "attribute" : "BRANGE",
-      "severity" : 0.0,
+      "severity" : 13.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Cane #1",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BRANGE",
+      "severity" : 5.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2853,7 +2901,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBDMG",
-      "severity" : 2.5,
+      "severity" : 2.3,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2861,7 +2909,15 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBDMG",
-      "severity" : 2.5,
+      "severity" : 2.3,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base damage",
+      "attribute" : "BBDMG",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2901,7 +2957,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTDMG",
-      "severity" : 2.5,
+      "severity" : 2.3,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2933,7 +2989,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBHEAL",
-      "severity" : 2.5,
+      "severity" : 2.3,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2941,7 +2997,15 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
-      "severity" : 2.5,
+      "severity" : 2.3,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base healing",
+      "attribute" : "BBHEAL",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2973,7 +3037,15 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTHEAL",
-      "severity" : 2.5,
+      "severity" : 2.3,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Mallet #0",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BTHEAL",
+      "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3188,7 +3260,17 @@
     } ] ] ]
   },
   "specials" : {
-    "racialSpecialty" : null,
+    "racialSpecialty" : {
+      "id" : 102,
+      "name" : "Waveborne (Aquios)",
+      "refName" : "",
+      "category" : "Racial",
+      "description" : "Aquata can survive under water indefinitely. Aquata move twice their move speed when swimming.",
+      "type" : "reminder",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    },
     "skills" : [ {
       "id" : 306,
       "name" : "Balance",
@@ -3211,7 +3293,27 @@
       "availAttributes" : [ "PERC", "KNOW" ],
       "chosenAttributes" : [ "PERC" ]
     } ],
-    "classSpecialties" : [ ],
+    "classSpecialties" : [ {
+      "id" : 8011,
+      "name" : "Astral Proficiency",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Stuff",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 8012,
+      "name" : "Advanced Affinity",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Stuff",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    } ],
     "trainedSpecialties" : [ {
       "id" : 301,
       "name" : "Tough",
@@ -3238,6 +3340,16 @@
       "description" : "More Aura",
       "type" : "passive",
       "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 1,
+      "name" : "Level 1",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 1",
+      "type" : "level",
+      "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
     } ]
@@ -3268,9 +3380,7 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "BLUNT",
-      "attack" : "AC"
+      "aug" : 0
     }, {
       "did" : 12002,
       "iid" : -1,
@@ -3293,9 +3403,7 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "Aura",
-      "attack" : "SPELL"
+      "aug" : 0
     }, {
       "did" : 1001,
       "iid" : -1,
@@ -3537,6 +3645,20 @@
           "durationType" : "Permanent",
           "duration" : 0
         } ]
+      }, {
+        "id" : 7007,
+        "name" : "Nature Smash (Weak)",
+        "type" : "Active",
+        "affinity" : "Nature",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : 7000,
+        "grant" : [ -1 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
       } ],
       "fundamental" : [ {
         "id" : 51,
@@ -3688,6 +3810,43 @@
           "durationType" : "Permanent",
           "duration" : 0
         } ]
+      } ],
+      "air" : [ {
+        "id" : 19000,
+        "name" : "Aura Affinity (Air)",
+        "type" : "Passive",
+        "affinity" : "Air",
+        "description" : "+2 RESISTSLASH per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 271 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 271",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESSLASH",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 19013,
+        "name" : "Air Blast (Weak)",
+        "type" : "Active",
+        "affinity" : "Air",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : 19000,
+        "grant" : [ -1 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ ]
       } ],
       "attribute" : [ {
         "id" : 1,
@@ -3954,29 +4113,6 @@
           "duration" : 0
         } ]
       } ],
-      "air" : [ {
-        "id" : 19000,
-        "name" : "Aura Affinity (Air)",
-        "type" : "Passive",
-        "affinity" : "Air",
-        "description" : "+2 RESISTSLASH per level",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 271 ],
-        "rank" : 2,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 271",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESSLASH",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ]
-      } ],
       "misc" : [ {
         "id" : 21,
         "name" : "Skill Training",
@@ -4039,9 +4175,9 @@
       "source" : "Spell",
       "affinity" : "None",
       "atkType" : "OTHER",
-      "atk" : 0,
-      "bdmg" : 0,
-      "tdmg" : 0,
+      "atk" : 18,
+      "bdmg" : 7,
+      "tdmg" : 7,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,

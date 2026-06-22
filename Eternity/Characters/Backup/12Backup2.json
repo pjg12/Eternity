@@ -1,32 +1,32 @@
 {
   "identity" : {
-    "index" : 10,
-    "name" : "pilot",
-    "nickname" : "",
-    "campaign" : "",
+    "index" : 12,
+    "name" : "Benjamin Oscar Cadwall",
+    "nickname" : "Benjamin",
+    "campaign" : "Divine Sin",
     "campaignStartDate" : "0065-01-01T00:00:00",
     "campaignElapsedTime" : "PT0S",
-    "birthday" : "0046-07-21",
+    "birthday" : "0046-06-30",
     "birthdayManual" : true,
-    "race" : "Construct",
+    "race" : "Kenti",
     "charRacePick" : [ ],
-    "charClass" : "Pilot",
-    "charSubclass" : "Infantry",
-    "charClassPick" : [ "FOC", "Patron" ],
-    "level" : 1,
+    "charClass" : "Monk",
+    "charSubclass" : "Brawler",
+    "charClassPick" : [ "Mobility" ],
+    "level" : 6,
     "exp" : 0.0,
-    "gender" : "",
+    "gender" : "Male",
     "size" : "Medium",
-    "height" : "",
-    "weight" : "",
-    "eyes" : "",
-    "hair" : "",
+    "height" : "6'0\"",
+    "weight" : "170lbs",
+    "eyes" : "Blue",
+    "hair" : "Black",
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-06-07T01:49:58.655+0000",
-    "createdAt" : "2026-06-07T01:49:33.744+0000",
-    "lastLevelUp" : "2026-06-07T01:49:33.744+0000",
+    "updated" : "2026-06-17T06:01:52.386+0000",
+    "createdAt" : "2026-06-10T07:00:05.737+0000",
+    "lastLevelUp" : "2026-06-12T00:24:18.009+0000",
     "timeSinceLastLevel" : "PT0S"
   },
   "resources" : {
@@ -37,7 +37,7 @@
     "spentR3" : 0.0,
     "spentAngelPoints" : 0.0,
     "spentReactions" : 0.0,
-    "mainOccupiedAura" : 0.0,
+    "mainOccupiedAura" : 1012.0,
     "grantOccupiedAura" : 0.0,
     "shield" : 0.0,
     "stagger" : 0.0,
@@ -46,7 +46,23 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 80.0,
+      "severity" : 435.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 531 [MAXHP] (T52)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BASEHP",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Tough (S301)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEHP",
+      "severity" : 14.5,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -79,7 +95,31 @@
       "affinity" : "None",
       "description" : "Derived from Constitution",
       "attribute" : "MULTIHP",
-      "severity" : 0.7,
+      "severity" : 1.5,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 542 [HPMULTI] (T27212)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MULTIHP",
+      "severity" : 0.16,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 542 [HPMULTI] (T24210)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MULTIHP",
+      "severity" : 0.12,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 542 [HPMULTI] (T48211)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MULTIHP",
+      "severity" : 0.12,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -104,7 +144,31 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 0.0,
+      "severity" : 180.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Soulful (S311)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEAURA",
+      "severity" : 9.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Spiritual (S312)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEAURA",
+      "severity" : 9.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Attuned (S313)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEAURA",
+      "severity" : 18.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -137,7 +201,31 @@
       "affinity" : "None",
       "description" : "Derived from Capacity",
       "attribute" : "MULTIAURA",
-      "severity" : 0.7,
+      "severity" : 1.6,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 561 [AURAMULTI] (T53)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.12,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Spiritual (S312)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.02,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Attuned (S313)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.03,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -146,6 +234,78 @@
       "description" : "None",
       "attribute" : "MULTIAURA",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2261.auramulti",
+      "affinity" : "None",
+      "description" : "Improved Reserves (Lesser) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.15600000000000003,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2262.auramulti",
+      "affinity" : "None",
+      "description" : "Improved Reserves (Standard) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.20800000000000002,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2263.auramulti",
+      "affinity" : "None",
+      "description" : "Improved Reserves (Greater) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.234,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.23219.auramulti",
+      "affinity" : "None",
+      "description" : "Thermal Reserves (Lesser) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.1257,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.23220.auramulti",
+      "affinity" : "None",
+      "description" : "Thermal Reserves (Greater) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.2514,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26223.auramulti",
+      "affinity" : "None",
+      "description" : "Voltaic Reserves (Lesser) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.29400000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26224.auramulti",
+      "affinity" : "None",
+      "description" : "Voltaic Reserves (Greater) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.756,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47221.auramulti",
+      "affinity" : "None",
+      "description" : "Empowered Reserves (Lesser) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.1332,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47222.auramulti",
+      "affinity" : "None",
+      "description" : "Empowered Reserves (Greater) maintained effect",
+      "attribute" : "MULTIAURA",
+      "severity" : 0.2664,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -170,7 +330,15 @@
       "affinity" : "None",
       "description" : "Level-based base value for Resource 1",
       "attribute" : "BASER1",
-      "severity" : 0.0,
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 422 [R1] (T27206)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BASER1",
+      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -271,6 +439,14 @@
       "description" : "None",
       "attribute" : "BASER3",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 442 [R3] (T27207)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BASER3",
+      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -381,6 +557,14 @@
       "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 412 [REACT] (T27205)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BASEREACT",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -430,335 +614,695 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BSTR",
-      "severity" : 12.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BSTR",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BSTR",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BSTR",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BDEX",
-      "severity" : 13.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BDEX",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BDEX",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BDEX",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCON",
-      "severity" : 12.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BCON",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCON",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCON",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BFOC",
-      "severity" : 14.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BFOC",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BFOC",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BFOC",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCTL",
-      "severity" : 10.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BCTL",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCTL",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCTL",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCAP",
-      "severity" : 12.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BCAP",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCAP",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCAP",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BKNOW",
-      "severity" : 13.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BKNOW",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BKNOW",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BKNOW",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMECH",
-      "severity" : 14.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BMECH",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMECH",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMECH",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPERC",
-      "severity" : 9.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BPERC",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPERC",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPERC",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BINT",
-      "severity" : 12.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
-      "attribute" : "BINT",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BINT",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BINT",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCHA",
       "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 12 [STR] (T1)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
+      "description" : "Tech permission grant",
+      "attribute" : "BSTR",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BSTR",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSTR",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.61.str",
+      "affinity" : "None",
+      "description" : "Boost (STR) maintained effect",
+      "attribute" : "BSTR",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2001.str",
+      "affinity" : "None",
+      "description" : "Improved Strength (Lesser) maintained effect",
+      "attribute" : "BSTR",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2002.str",
+      "affinity" : "None",
+      "description" : "Improved Strength (Standard) maintained effect",
+      "attribute" : "BSTR",
+      "severity" : 5.2,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2003.str",
+      "affinity" : "None",
+      "description" : "Improved Strength (Greater) maintained effect",
+      "attribute" : "BSTR",
+      "severity" : 1.9500000000000002,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSTR",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDEX",
+      "severity" : 15.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 22 [DEX] (T27001)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BDEX",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 22 [DEX] (T2)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BDEX",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 22 [DEX] (T48001)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BDEX",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDEX",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.61.dex",
+      "affinity" : "None",
+      "description" : "Boost (DEX) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2004.dex",
+      "affinity" : "None",
+      "description" : "Improved Dexterity (Lesser) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2005.dex",
+      "affinity" : "None",
+      "description" : "Improved Dexterity (Standard) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 5.2,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26001.dex",
+      "affinity" : "None",
+      "description" : "Voltaic Dexterity (Lesser) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26002.dex",
+      "affinity" : "None",
+      "description" : "Voltaic Dexterity (Greater) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 18.900000000000002,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47001.dex",
+      "affinity" : "None",
+      "description" : "Empowered Dexterity (Lesser) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 3.33,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47002.dex",
+      "affinity" : "None",
+      "description" : "Empowered Dexterity (Greater) maintained effect",
+      "attribute" : "BDEX",
+      "severity" : 6.66,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDEX",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCON",
+      "severity" : 11.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 32 [CON] (T3)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCON",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BCON",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCON",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2007.con",
+      "affinity" : "None",
+      "description" : "Improved Constitution (Lesser) maintained effect",
+      "attribute" : "BCON",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2008.con",
+      "affinity" : "None",
+      "description" : "Improved Constitution (Standard) maintained effect",
+      "attribute" : "BCON",
+      "severity" : 5.2,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2009.con",
+      "affinity" : "None",
+      "description" : "Improved Constitution (Greater) maintained effect",
+      "attribute" : "BCON",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCON",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BFOC",
+      "severity" : 11.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 42 [FOC] (T27002)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BFOC",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 42 [FOC] (T4)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BFOC",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BFOC",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BFOC",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.61.foc",
+      "affinity" : "None",
+      "description" : "Boost (FOC) maintained effect",
+      "attribute" : "BFOC",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26003.foc",
+      "affinity" : "None",
+      "description" : "Voltaic Focus (Lesser) maintained effect",
+      "attribute" : "BFOC",
+      "severity" : 6.300000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BFOC",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCTL",
+      "severity" : 11.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 52 [CTL] (T27003)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCTL",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 52 [CTL] (T5)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCTL",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BCTL",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCTL",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.61.ctl",
+      "affinity" : "None",
+      "description" : "Boost (CTL) maintained effect",
+      "attribute" : "BCTL",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26005.ctl",
+      "affinity" : "None",
+      "description" : "Voltaic Control (Lesser) maintained effect",
+      "attribute" : "BCTL",
+      "severity" : 6.300000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCTL",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCAP",
+      "severity" : 13.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Base Racial",
+      "affinity" : "None",
+      "description" : "Racial base status",
+      "attribute" : "BCAP",
+      "severity" : -1.0,
+      "durationType" : "Passive",
+      "duration" : -1
+    }, {
+      "name" : "Training Passive: TechPerm 62 [CAP] (T27004)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCAP",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 62 [CAP] (T6)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCAP",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BCAP",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCAP",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26007.cap",
+      "affinity" : "None",
+      "description" : "Voltaic Capacity (Lesser) maintained effect",
+      "attribute" : "BCAP",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26008.cap",
+      "affinity" : "None",
+      "description" : "Voltaic Capacity (Greater) maintained effect",
+      "attribute" : "BCAP",
+      "severity" : 3.1500000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BCAP",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BKNOW",
+      "severity" : 13.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 72 [KNOW] (T27005)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BKNOW",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 72 [KNOW] (T7)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BKNOW",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BKNOW",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BKNOW",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26009.know",
+      "affinity" : "None",
+      "description" : "Voltaic Knowledge (Lesser) maintained effect",
+      "attribute" : "BKNOW",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BKNOW",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMECH",
+      "severity" : 13.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 82 [MECH] (T27006)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BMECH",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 82 [MECH] (T8)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BMECH",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BMECH",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMECH",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26011.mech",
+      "affinity" : "None",
+      "description" : "Voltaic Mechanics (Lesser) maintained effect",
+      "attribute" : "BMECH",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMECH",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPERC",
+      "severity" : 11.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 92 [PERC] (T27007)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPERC",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 92 [PERC] (T9)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPERC",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BPERC",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPERC",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.63.perc",
+      "affinity" : "None",
+      "description" : "Prism (PERC) maintained effect",
+      "attribute" : "BPERC",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26013.perc",
+      "affinity" : "None",
+      "description" : "Voltaic Perception (Lesser) maintained effect",
+      "attribute" : "BPERC",
+      "severity" : 6.300000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPERC",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BINT",
+      "severity" : 13.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 102 [INT] (T27008)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BINT",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 102 [INT] (T10)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BINT",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BINT",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BINT",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26015.int",
+      "affinity" : "None",
+      "description" : "Voltaic Intuition (Lesser) maintained effect",
+      "attribute" : "BINT",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BINT",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
       "attribute" : "BCHA",
-      "severity" : 1.0,
+      "severity" : 12.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 112 [CHA] (T11)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCHA",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BCHA",
+      "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -767,6 +1311,38 @@
       "description" : "None",
       "attribute" : "BCHA",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.64.cha",
+      "affinity" : "None",
+      "description" : "Shape (CHA) maintained effect",
+      "attribute" : "BCHA",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2031.cha",
+      "affinity" : "None",
+      "description" : "Improved Charisma (Lesser) maintained effect",
+      "attribute" : "BCHA",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2032.cha",
+      "affinity" : "None",
+      "description" : "Improved Charisma (Standard) maintained effect",
+      "attribute" : "BCHA",
+      "severity" : 5.2,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2033.cha",
+      "affinity" : "None",
+      "description" : "Improved Charisma (Greater) maintained effect",
+      "attribute" : "BCHA",
+      "severity" : 1.9500000000000002,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -782,15 +1358,23 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BSUB",
-      "severity" : 13.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 122 [SUB] (T12)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based attribute bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BSUB",
-      "severity" : 1.0,
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Balance in All Things (Kenti) (S116)",
+      "affinity" : "None",
+      "description" : "Balance in All Things level-based non-primary attribute bonus",
+      "attribute" : "BSUB",
+      "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -799,6 +1383,38 @@
       "description" : "None",
       "attribute" : "BSUB",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.64.sub",
+      "affinity" : "None",
+      "description" : "Shape (SUB) maintained effect",
+      "attribute" : "BSUB",
+      "severity" : 3.2249999999999996,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2034.sub",
+      "affinity" : "None",
+      "description" : "Improved Subtlety (Lesser) maintained effect",
+      "attribute" : "BSUB",
+      "severity" : 3.9000000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2035.sub",
+      "affinity" : "None",
+      "description" : "Improved Subtlety (Standard) maintained effect",
+      "attribute" : "BSUB",
+      "severity" : 5.2,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2036.sub",
+      "affinity" : "None",
+      "description" : "Improved Subtlety (Greater) maintained effect",
+      "attribute" : "BSUB",
+      "severity" : 1.9500000000000002,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1108,19 +1724,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Equip Passive: Exo-Chest #4",
+      "name" : "Training Passive: TechPerm 131 [ARMOR] (T55)",
       "affinity" : "None",
-      "description" : "Equipment passive bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BARMOR",
-      "severity" : 5.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Equip Passive: Exo-Legs #5",
-      "affinity" : "None",
-      "description" : "Equipment passive bonus",
-      "attribute" : "BARMOR",
-      "severity" : 5.0,
+      "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1152,7 +1760,15 @@
       "affinity" : "None",
       "description" : "Derived from Dexterity",
       "attribute" : "BDODGE",
-      "severity" : 7.0,
+      "severity" : 36.8,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Size Modifier (DODGE)",
+      "affinity" : "None",
+      "description" : "Size-based Dodge modifier",
+      "attribute" : "BDODGE",
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1179,12 +1795,36 @@
       "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 152 [DEF] (T27102)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BDEF",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BDEF",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26103.def",
+      "affinity" : "None",
+      "description" : "Voltaic Defense (Lesser) maintained effect",
+      "attribute" : "BDEF",
+      "severity" : 7.3500000000000005,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26104.def",
+      "affinity" : "None",
+      "description" : "Voltaic Defense (Greater) maintained effect",
+      "attribute" : "BDEF",
+      "severity" : 18.900000000000002,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1200,7 +1840,7 @@
       "affinity" : "None",
       "description" : "Class-based Fortitude base",
       "attribute" : "BFORT",
-      "severity" : 13.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1208,15 +1848,15 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 6.75,
+      "severity" : 15.35,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Size Modifier (FORT)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based Fortitude bonus",
+      "description" : "Size-based Fortitude modifier",
       "attribute" : "BFORT",
-      "severity" : 1.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1225,6 +1865,14 @@
       "description" : "None",
       "attribute" : "BFORT",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.65.fort",
+      "affinity" : "None",
+      "description" : "Zone (FORT) maintained effect",
+      "attribute" : "BFORT",
+      "severity" : 6.449999999999999,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1240,7 +1888,7 @@
       "affinity" : "None",
       "description" : "Class-based Reflex base",
       "attribute" : "BREF",
-      "severity" : 13.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1248,15 +1896,23 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BREF",
-      "severity" : 6.05,
+      "severity" : 15.75,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Size Modifier (REF)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based Reflex bonus",
+      "description" : "Size-based Reflex modifier",
       "attribute" : "BREF",
-      "severity" : 1.0,
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 172 [REF] (T27103)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BREF",
+      "severity" : 8.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1265,6 +1921,30 @@
       "description" : "None",
       "attribute" : "BREF",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.65.ref",
+      "affinity" : "None",
+      "description" : "Zone (REF) maintained effect",
+      "attribute" : "BREF",
+      "severity" : 6.449999999999999,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26105.ref",
+      "affinity" : "None",
+      "description" : "Voltaic Reflexes (Lesser) maintained effect",
+      "attribute" : "BREF",
+      "severity" : 14.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26106.ref",
+      "affinity" : "None",
+      "description" : "Voltaic Reflexes (Greater) maintained effect",
+      "attribute" : "BREF",
+      "severity" : 37.800000000000004,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1280,7 +1960,7 @@
       "affinity" : "None",
       "description" : "Class-based Will base",
       "attribute" : "BWILL",
-      "severity" : 13.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1288,15 +1968,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 6.25,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based Will bonus",
-      "attribute" : "BWILL",
-      "severity" : 1.0,
+      "severity" : 15.65,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1305,6 +1977,14 @@
       "description" : "None",
       "attribute" : "BWILL",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.65.will",
+      "affinity" : "None",
+      "description" : "Zone (WILL) maintained effect",
+      "attribute" : "BWILL",
+      "severity" : 6.449999999999999,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1323,12 +2003,36 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 192 [AVOID] (T27104)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BAVOID",
+      "severity" : 16.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BAVOID",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26107.avoid",
+      "affinity" : "None",
+      "description" : "Voltaic Avoidance (Lesser) maintained effect",
+      "attribute" : "BAVOID",
+      "severity" : 29.400000000000002,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26108.avoid",
+      "affinity" : "None",
+      "description" : "Voltaic Avoidance (Greater) maintained effect",
+      "attribute" : "BAVOID",
+      "severity" : 75.60000000000001,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -1522,151 +2226,215 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BALL",
-      "severity" : 6.5,
+      "severity" : 15.7,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Equip Passive: Signet #1",
+      "name" : "Training Passive: TechPerm 202 [ALL] (T27101)",
       "affinity" : "None",
-      "description" : "Equipment passive bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BALL",
+      "severity" : 8.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 201 [ALL] (T27301)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BALL",
+      "severity" : 7.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BALL",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.62.resall",
+      "affinity" : "None",
+      "description" : "Harden maintained effect",
+      "attribute" : "BALL",
+      "severity" : 6.449999999999999,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26101.resall",
+      "affinity" : "None",
+      "description" : "Voltaic Resistance (Lesser) maintained effect",
+      "attribute" : "BALL",
+      "severity" : 14.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26102.resall",
+      "affinity" : "None",
+      "description" : "Voltaic Resistance (Greater) maintained effect",
+      "attribute" : "BALL",
+      "severity" : 37.800000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BALL",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPHY",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPHY",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPHY",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BBLUNT",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 234 [BLUNT] (T1000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBLUNT",
+      "severity" : 1.5,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 231 [BLUNT] (T13000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBLUNT",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 231 [BLUNT] (T28000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBLUNT",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BBLUNT",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BBLUNT",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPIERCE",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 221 [PIERCE] (T7000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPIERCE",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 224 [PIERCE] (T1000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPIERCE",
+      "severity" : 1.5,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 221 [PIERCE] (T4000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BPIERCE",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPIERCE",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BPIERCE",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSLASH",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 211 [SLASH] (T10000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSLASH",
+      "severity" : 1.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 211 [SLASH] (T19000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSLASH",
       "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 214 [SLASH] (T1000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based Resist All bonus",
-      "attribute" : "BALL",
-      "severity" : 2.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BALL",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BALL",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPHY",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
-      "attribute" : "BPHY",
-      "severity" : 0.5,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPHY",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPHY",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BBLUNT",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
-      "attribute" : "BBLUNT",
-      "severity" : 0.5,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BBLUNT",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BBLUNT",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPIERCE",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
-      "attribute" : "BPIERCE",
-      "severity" : 0.5,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPIERCE",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BPIERCE",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
+      "description" : "Tech permission grant",
       "attribute" : "BSLASH",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
-      "attribute" : "BSLASH",
-      "severity" : 0.5,
+      "severity" : 1.5,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1694,11 +2462,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 241 [FIRE] (T22000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BFIRE",
-      "severity" : 0.5,
+      "severity" : 6.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1726,11 +2494,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 251 [FROST] (T16000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BFROST",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1758,11 +2526,27 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 261 [ELEC] (T25000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BELEC",
-      "severity" : 0.5,
+      "severity" : 7.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 262 [ELEC] (T27101)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BELEC",
+      "severity" : 8.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 261 [ELEC] (T27301)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BELEC",
+      "severity" : 7.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1790,11 +2574,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 321 [ENERGY] (T46000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BENERGY",
-      "severity" : 0.5,
+      "severity" : 6.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1822,11 +2606,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 291 [SONIC] (T31000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BSONIC",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1854,11 +2638,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 271 [LIGHT] (T34000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BLIGHT",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1886,11 +2670,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 301 [TOXIC] (T40000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BTOXIC",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1918,11 +2702,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 281 [DARK] (T37000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BDARK",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1950,11 +2734,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 311 [PSI] (T43000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BPSI",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1982,11 +2766,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 331 [SPIRIT] (T49000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BSPIRIT",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2014,11 +2798,11 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 341 [TIME] (T52000)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based specific resistance bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BTIME",
-      "severity" : 0.5,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2428,15 +3212,7 @@
       "affinity" : "None",
       "description" : "Class-based Attack base",
       "attribute" : "BATK",
-      "severity" : 13.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Focus",
-      "attribute" : "BATK",
-      "severity" : 3.8,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2444,15 +3220,23 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BATK",
-      "severity" : 3.3,
+      "severity" : 18.4,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Attribute",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based attack bonus",
+      "description" : "Derived from Focus",
       "attribute" : "BATK",
-      "severity" : 0.5,
+      "severity" : 7.6,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 472 [ATK] (T27209)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BATK",
+      "severity" : 8.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2461,6 +3245,46 @@
       "description" : "None",
       "attribute" : "BATK",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2240.atk",
+      "affinity" : "None",
+      "description" : "Improved Accuracy (Lesser) maintained effect",
+      "attribute" : "BATK",
+      "severity" : 7.800000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2241.atk",
+      "affinity" : "None",
+      "description" : "Improved Accuracy (Standard) maintained effect",
+      "attribute" : "BATK",
+      "severity" : 10.4,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2242.atk",
+      "affinity" : "None",
+      "description" : "Improved Accuracy (Greater) maintained effect",
+      "attribute" : "BATK",
+      "severity" : 11.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26217.atk",
+      "affinity" : "None",
+      "description" : "Voltaic Accuracy (Lesser) maintained effect",
+      "attribute" : "BATK",
+      "severity" : 14.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26218.atk",
+      "affinity" : "None",
+      "description" : "Voltaic Accuracy (Greater) maintained effect",
+      "attribute" : "BATK",
+      "severity" : 37.800000000000004,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -2476,15 +3300,7 @@
       "affinity" : "None",
       "description" : "Class-based Application base",
       "attribute" : "BAPP",
-      "severity" : 13.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Focus",
-      "attribute" : "BAPP",
-      "severity" : 3.8,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2492,23 +3308,15 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BAPP",
-      "severity" : 3.3,
+      "severity" : 18.4,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Equip Passive: Knife #2",
+      "name" : "Attribute",
       "affinity" : "None",
-      "description" : "Equipment passive bonus",
+      "description" : "Derived from Focus",
       "attribute" : "BAPP",
-      "severity" : 1.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
-      "affinity" : "None",
-      "description" : "Armor Dependency level-based apply bonus",
-      "attribute" : "BAPP",
-      "severity" : 0.5,
+      "severity" : 7.6,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2535,12 +3343,36 @@
       "severity" : 25.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 492 [MOVE] (T27210)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BMOVE",
+      "severity" : 20.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMOVE",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26219.move",
+      "affinity" : "None",
+      "description" : "Voltaic Movement (Lesser) maintained effect",
+      "attribute" : "BMOVE",
+      "severity" : 36.75,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26220.move",
+      "affinity" : "None",
+      "description" : "Voltaic Movement (Greater) maintained effect",
+      "attribute" : "BMOVE",
+      "severity" : 94.50000000000001,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -2580,15 +3412,7 @@
       "affinity" : "None",
       "description" : "Class-based Range base",
       "attribute" : "BRANGE",
-      "severity" : 13.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Equip Passive: Cane #3",
-      "affinity" : "None",
-      "description" : "Equipment passive bonus",
-      "attribute" : "BRANGE",
-      "severity" : 5.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2615,12 +3439,60 @@
       "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 402 [INIT] (T27204)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BINIT",
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BINIT",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2219.init",
+      "affinity" : "None",
+      "description" : "Improved Initiative (Lesser) maintained effect",
+      "attribute" : "BINIT",
+      "severity" : 1.9500000000000002,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2220.init",
+      "affinity" : "None",
+      "description" : "Improved Initiative (Standard) maintained effect",
+      "attribute" : "BINIT",
+      "severity" : 2.6,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2221.init",
+      "affinity" : "None",
+      "description" : "Improved Initiative (Greater) maintained effect",
+      "attribute" : "BINIT",
+      "severity" : 2.9250000000000003,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26207.init",
+      "affinity" : "None",
+      "description" : "Voltaic Initiative (Lesser) maintained effect",
+      "attribute" : "BINIT",
+      "severity" : 3.6750000000000003,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26208.init",
+      "affinity" : "None",
+      "description" : "Voltaic Initiative (Greater) maintained effect",
+      "attribute" : "BINIT",
+      "severity" : 9.450000000000001,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -2663,12 +3535,36 @@
       "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 392 [MAXATK] (T27203)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BMAXATK",
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMAXATK",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26205.maxatk",
+      "affinity" : "None",
+      "description" : "Voltaic Rapidity (Lesser) maintained effect",
+      "attribute" : "BMAXATK",
+      "severity" : 3.6750000000000003,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26206.maxatk",
+      "affinity" : "None",
+      "description" : "Voltaic Rapidity (Greater) maintained effect",
+      "attribute" : "BMAXATK",
+      "severity" : 9.450000000000001,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -2881,6 +3777,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 351 [SUP] (T54)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSUP",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2902,111 +3806,127 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BIMP",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BIMP",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BIMP",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMAST",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMAST",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BMAST",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BEXCL",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BEXCL",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BEXCL",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BGRANT",
-      "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BGRANT",
-      "severity" : 0.0,
-      "durationType" : "Maintained",
-      "duration" : 0
-    } ], [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BGRANT",
-      "severity" : 0.0,
-      "durationType" : "Temporary",
-      "duration" : 0
-    } ] ], [ [ {
-      "name" : "Base",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BCRUSH",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Equip Passive: Relic #0",
+      "name" : "Training Passive: TechPerm 371 [IMP] (T52)",
       "affinity" : "None",
-      "description" : "Equipment passive bonus",
+      "description" : "Tech permission grant",
+      "attribute" : "BIMP",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BIMP",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BIMP",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMAST",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 381 [MAST] (T55)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BMAST",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMAST",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BMAST",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BEXCL",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BEXCL",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BEXCL",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BGRANT",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 361 [GRANT] (T51)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BGRANT",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BGRANT",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BGRANT",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
       "attribute" : "BCRUSH",
-      "severity" : 3.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3284,19 +4204,19 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Control",
-      "attribute" : "BBDMG",
-      "severity" : 2.8,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
       "name" : "Primary Attribute",
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBDMG",
-      "severity" : 3.3,
+      "severity" : 18.4,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Attribute",
+      "affinity" : "None",
+      "description" : "Derived from Control",
+      "attribute" : "BBDMG",
+      "severity" : 7.6,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3304,15 +4224,31 @@
       "affinity" : "None",
       "description" : "Level-based base damage",
       "attribute" : "BBDMG",
-      "severity" : 2.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
-      "name" : "Specialty Passive: Armor Dependency (S10011)",
+      "name" : "Training Passive: TechPerm 632 [BDMG] (T27201)",
       "affinity" : "None",
-      "description" : "Armor Dependency level-based base damage bonus",
+      "description" : "Tech permission grant",
       "attribute" : "BBDMG",
-      "severity" : 1.0,
+      "severity" : 8.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 632 [BDMG] (T27214)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBDMG",
+      "severity" : 8.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 632 [BDMG] (T48201)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBDMG",
+      "severity" : 6.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3321,6 +4257,22 @@
       "description" : "None",
       "attribute" : "BBDMG",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26227.bdmg",
+      "affinity" : "None",
+      "description" : "Voltaic Injury (Lesser) maintained effect",
+      "attribute" : "BBDMG",
+      "severity" : 14.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26228.bdmg",
+      "affinity" : "None",
+      "description" : "Voltaic Injury (Greater) maintained effect",
+      "attribute" : "BBDMG",
+      "severity" : 37.800000000000004,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -3344,7 +4296,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BTDMG",
-      "severity" : 6.5,
+      "severity" : 15.7,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3352,7 +4304,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTDMG",
-      "severity" : 3.3,
+      "severity" : 18.4,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3377,6 +4329,14 @@
       "description" : "None",
       "attribute" : "BBHEAL",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Primary Attribute",
+      "affinity" : "None",
+      "description" : "Derived from Primary Attribute",
+      "attribute" : "BBHEAL",
+      "severity" : 18.4,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3384,15 +4344,7 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
-      "severity" : 2.8,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Primary Attribute",
-      "affinity" : "None",
-      "description" : "Derived from Primary Attribute",
-      "attribute" : "BBHEAL",
-      "severity" : 3.3,
+      "severity" : 7.6,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3400,7 +4352,31 @@
       "affinity" : "None",
       "description" : "Level-based base healing",
       "attribute" : "BBHEAL",
-      "severity" : 2.0,
+      "severity" : 12.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 651 [BHEAL] (T54)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBHEAL",
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 652 [BHEAL] (T27201)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBHEAL",
+      "severity" : 8.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 652 [BHEAL] (T48201)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BBHEAL",
+      "severity" : 6.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3409,6 +4385,62 @@
       "description" : "None",
       "attribute" : "BBHEAL",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2201.bheal",
+      "affinity" : "None",
+      "description" : "Improved Weapon (Lesser) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 7.800000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2202.bheal",
+      "affinity" : "None",
+      "description" : "Improved Weapon (Standard) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 10.4,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.2203.bheal",
+      "affinity" : "None",
+      "description" : "Improved Weapon (Greater) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 11.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26201.bheal",
+      "affinity" : "None",
+      "description" : "Voltaic Weapon (Lesser) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 14.700000000000001,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.26202.bheal",
+      "affinity" : "None",
+      "description" : "Voltaic Weapon (Greater) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 37.800000000000004,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47201.bheal",
+      "affinity" : "None",
+      "description" : "Empowered Weapon (Lesser) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 6.66,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "Panel Maintained: maintained.al.47202.bheal",
+      "affinity" : "None",
+      "description" : "Empowered Weapon (Greater) maintained effect",
+      "attribute" : "BBHEAL",
+      "severity" : 9.99,
       "durationType" : "Maintained",
       "duration" : 0
     } ], [ {
@@ -3432,7 +4464,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTHEAL",
-      "severity" : 3.3,
+      "severity" : 18.4,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3481,6 +4513,14 @@
       "description" : "None",
       "attribute" : "BCRITDMG",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 581 [CRITDMG] (T53)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BCRITDMG",
+      "severity" : 0.6000000000000001,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3508,6 +4548,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 671 [DMGMULTI] (T51) (BDMG)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MBDMG",
+      "severity" : 0.12,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -3532,6 +4580,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 671 [DMGMULTI] (T51) (TDMG)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "MTDMG",
+      "severity" : 0.12,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -3644,27 +4700,85 @@
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
-    } ] ] ]
+    } ] ] ],
+    "bSkill" : [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSKILL",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSKILL",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSKILL",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ],
+    "mSkill" : [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSKILL",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSKILL",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSKILL",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ]
   },
   "specials" : {
     "racialSpecialty" : {
-      "id" : 107,
-      "name" : "Catalytic Converter (Construct)",
+      "id" : 116,
+      "name" : "Balance in All Things (Kenti)",
       "refName" : "",
       "category" : "Racial",
-      "description" : "A construct may install, assimilate, or otherwise use catalysts. Acclimation to a new catalyst will be treated as a 'list' addition and be subject to the same time requirements. Removing a catalyst requires one hour.",
-      "type" : "T",
+      "description" : "Kenti who are in Balance receive a +1 bonus to all attributes aside from their primary attribute. A Kenti is in balance if all of their attributes aside from their primary attribute are within 1.5 of the average of those attributes.",
+      "type" : "specCheck",
       "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
     },
     "skills" : [ {
-      "id" : 309,
-      "name" : "Climb",
+      "id" : 320,
+      "name" : "Medical",
       "type" : "Gen",
-      "description" : "Allows the user to ascend surfaces.",
-      "availAttributes" : [ "STR" ],
-      "chosenAttributes" : [ "STR" ],
+      "description" : "Allows the user to assess a creature's health.",
+      "availAttributes" : [ "KNOW", "PERC" ],
+      "chosenAttributes" : [ "KNOW", "-", "PERC" ],
+      "chosenSubtype" : ""
+    }, {
+      "id" : 330,
+      "name" : "Sneak",
+      "type" : "Gen",
+      "description" : "Allows the user to remain unnoticed.",
+      "availAttributes" : [ "DEX", "SUB" ],
+      "chosenAttributes" : [ "DEX", "-", "SUB" ],
       "chosenSubtype" : ""
     }, {
       "id" : 301,
@@ -3675,54 +4789,57 @@
       "chosenAttributes" : [ "DEX" ],
       "chosenSubtype" : ""
     }, {
-      "id" : 302,
-      "name" : "Analyze",
+      "id" : 334,
+      "name" : "Perform",
       "type" : "Gen",
-      "description" : "Allows the user to gain more information by Examining Aura.",
-      "availAttributes" : [ "CTL", "PERC" ],
-      "chosenAttributes" : [ "CTL" ],
+      "description" : "Allows the user to put on a show for the entertainment of others.",
+      "availAttributes" : [ "CHA" ],
+      "chosenAttributes" : [ "-", "CHA" ],
+      "chosenSubtype" : "Bass Guitar"
+    }, {
+      "id" : 305,
+      "name" : "Awareness",
+      "type" : "Gen",
+      "description" : "Allows the user to notice motion and sounds in their vacinity.",
+      "availAttributes" : [ "PERC" ],
+      "chosenAttributes" : [ "-", "PERC" ],
+      "chosenSubtype" : ""
+    }, {
+      "id" : 323,
+      "name" : "Investigation",
+      "type" : "Gen",
+      "description" : "Allows the user to obtain clues and piece together prior events.",
+      "availAttributes" : [ "PERC", "KNOW" ],
+      "chosenAttributes" : [ "-", "PERC" ],
+      "chosenSubtype" : ""
+    }, {
+      "id" : 335,
+      "name" : "Judge",
+      "type" : "Spec",
+      "description" : "Allows the user to gain information about the personality of a humanoid target.",
+      "availAttributes" : [ "FOC", "PERC" ],
+      "chosenAttributes" : [ "-", "FOC" ],
       "chosenSubtype" : ""
     } ],
-    "classSpecialties" : [ {
-      "id" : 10011,
-      "name" : "Armor Dependency",
+    "trainedSpecialties" : [ {
+      "id" : 8011,
+      "name" : "Astral Proficiency",
       "refName" : "",
       "category" : "Class",
-      "description" : "You are unable to utilize your aura directly.<br>You are unable to learn aura techniques and require your exo armor to engage in battle.<br.>Your armor grants you +1 to all attributes per level.<br>Your armor grants you + (0.5 * level * level) to ATK and APPLY.<br>Your armor grants you + (level * level) to BDMG and all SAVES.<br>Your armor grants you + ( level * level) RESALL and + ( 0.5 * level * level ) to all sub resists.<br>When armor is unequipped, your MAXHP is reduced by 90%.",
-      "type" : "passive",
-      "prereq" : -1,
+      "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+      "type" : "F",
+      "prereq" : 0,
       "pick" : false,
       "permStatus" : [ ]
     }, {
-      "id" : 10012,
-      "name" : "Patronage",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "Your gear is prohibitively expensive.<br>A patron will reduce upgrade costs to the pilot by 90%.<br>Gain engineering schematics for new tier of Exo Armor at level up.<br>Your patron may call you to service. If you do not answer the call, you may lose funding.",
-      "type" : "specCheck",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
-    } ],
-    "trainedSpecialties" : [ {
-      "id" : 4012,
-      "name" : "Martial Focus",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "Stuff",
+      "id" : 331,
+      "name" : "Skill Dedication",
+      "refName" : "Medical",
+      "category" : "Skill",
+      "description" : "Improve a skill",
       "type" : "passive",
       "prereq" : 0,
       "pick" : true,
-      "permStatus" : [ ]
-    }, {
-      "id" : 6011,
-      "name" : "Summon Minion (Minor + General + Melee)",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "Summon a small minion to do your bidding.",
-      "type" : "specCheck",
-      "prereq" : 0,
-      "pick" : false,
       "permStatus" : [ ]
     }, {
       "id" : 1,
@@ -3734,66 +4851,187 @@
       "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
+    }, {
+      "id" : 2,
+      "name" : "Level 2",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 2",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 311,
+      "name" : "Soulful",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases your base aura by 10%.",
+      "type" : "passive",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Soulful",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEAURAM",
+        "severity" : 0.1,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
+    }, {
+      "id" : 3,
+      "name" : "Level 3",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 3",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 312,
+      "name" : "Spiritual",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases your base aura by 10% and your aura multiplier by 2%.",
+      "type" : "passive",
+      "prereq" : 311,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Spiritual",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEAURAM",
+        "severity" : 0.1,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Spiritual",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AURAMULTI",
+        "severity" : 0.02,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
+    }, {
+      "id" : 4,
+      "name" : "Level 4",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 4",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 313,
+      "name" : "Attuned",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases your base aura by 20% and your aura multiplier by 3%.",
+      "type" : "passive",
+      "prereq" : 312,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Attuned",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEAURAM",
+        "severity" : 0.2,
+        "durationType" : "Permanent",
+        "duration" : 0
+      }, {
+        "name" : "Attuned",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "AURAMULTI",
+        "severity" : 0.03,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
+    }, {
+      "id" : 5,
+      "name" : "Level 5",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 5",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 6,
+      "name" : "Level 6",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 6",
+      "type" : "level",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 301,
+      "name" : "Tough",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "Increases your base HP by 10%.",
+      "type" : "passive",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Tough",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEHPM",
+        "severity" : 0.1,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
+    }, {
+      "id" : 8041,
+      "name" : "Astral Proficiency II",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+      "type" : "specCheck",
+      "prereq" : 4,
+      "pick" : false,
+      "permStatus" : [ ]
     } ]
   },
   "inventory" : {
     "credits" : 1000.0,
     "armor" : "",
-    "weaponProf" : [ "Exo" ],
+    "weaponProf" : [ "Blade", "Dagger", "Knuckle", "Whip", "Mace", "Polearm", "Thrown", "Symbol" ],
     "equipment" : [ {
-      "did" : 12005,
+      "did" : 9001,
       "iid" : -1,
-      "dname" : "Relic",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Heavy Weapon",
-      "tier" : 0,
-      "category" : "Aura",
-      "type" : "Relic",
-      "bonusAtt" : "CRUSH",
-      "bonusAmount" : 3.0,
-      "levelReq" : 1,
-      "value" : 0,
-      "equipped" : true,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0,
-      "damage" : "",
-      "attack" : "SPELL"
-    }, {
-      "did" : 11002,
-      "iid" : -1,
-      "dname" : "Signet",
+      "dname" : "Kunai",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
       "quantity" : 0.0,
       "slot" : "Light Weapon",
       "tier" : 0,
-      "category" : "Aura",
-      "type" : "Ring",
-      "bonusAtt" : "RESISTALL",
-      "bonusAmount" : 3.0,
+      "category" : "Ranged",
+      "type" : "Thrown",
+      "bonusAtt" : "BDMG",
+      "bonusAmount" : 1.0,
       "levelReq" : 1,
       "value" : 0,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "",
-      "attack" : "SPELL"
+      "aug" : 0
     }, {
-      "did" : 6004,
+      "did" : 6003,
       "iid" : -1,
-      "dname" : "Knife",
+      "dname" : "Dagger",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
@@ -3802,61 +5040,11 @@
       "tier" : 0,
       "category" : "Melee",
       "type" : "Dagger",
-      "bonusAtt" : "DC",
-      "bonusAmount" : 1.0,
+      "bonusAtt" : "CRITDMG",
+      "bonusAmount" : 0.1,
       "levelReq" : 1,
       "value" : 0,
-      "equipped" : true,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0,
-      "damage" : "PIERCE",
-      "attack" : "AC"
-    }, {
-      "did" : 12002,
-      "iid" : -1,
-      "dname" : "Cane",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Heavy Weapon",
-      "tier" : 0,
-      "category" : "Aura",
-      "type" : "Staff",
-      "bonusAtt" : "RANGE",
-      "bonusAmount" : 5.0,
-      "levelReq" : 1,
-      "value" : 0,
-      "equipped" : true,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0,
-      "damage" : "",
-      "attack" : "SPELL"
-    }, {
-      "did" : 4001,
-      "iid" : -1,
-      "dname" : "Exo-Chest",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Chest",
-      "tier" : 0,
-      "category" : "Armor",
-      "type" : "Exo",
-      "bonusAtt" : "ARMOR",
-      "bonusAmount" : 5.0,
-      "levelReq" : 1,
-      "value" : 25000,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
@@ -3864,9 +5052,32 @@
       "mod" : 0,
       "aug" : 0
     }, {
-      "did" : 4002,
+      "did" : 1001,
       "iid" : -1,
-      "dname" : "Exo-Legs",
+      "dname" : "Tunic",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Chest",
+      "tier" : 0,
+      "category" : "Armor",
+      "type" : "Light",
+      "bonusAtt" : "ARMOR",
+      "bonusAmount" : 1.0,
+      "levelReq" : 1,
+      "value" : 200,
+      "equipped" : false,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0
+    }, {
+      "did" : 1002,
+      "iid" : -1,
+      "dname" : "Pants",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
@@ -3874,12 +5085,12 @@
       "slot" : "Legs",
       "tier" : 0,
       "category" : "Armor",
-      "type" : "Exo",
+      "type" : "Light",
       "bonusAtt" : "ARMOR",
-      "bonusAmount" : 5.0,
+      "bonusAmount" : 1.0,
       "levelReq" : 1,
-      "value" : 25000,
-      "equipped" : true,
+      "value" : 200,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
@@ -3890,723 +5101,532 @@
     "consumables" : [ ],
     "goods" : [ ],
     "items" : [ ],
-    "weaponProficiencies" : [ "Exo" ]
+    "weaponProficiencies" : [ "Blade", "Dagger", "Knuckle", "Whip", "Mace", "Polearm", "Thrown", "Symbol" ]
   },
   "training" : {
-    "naturalAffinities" : [ ],
+    "naturalAffinities" : [ "Electricity" ],
     "domains" : [ ],
     "domainStatusEffects" : [ ],
     "isDeviant" : false,
-    "classTrainingRank" : 1,
-    "trainingXp" : 0.0,
+    "classTrainingRank" : 6,
+    "trainingXp" : 770.0,
     "trainingXpByAuraType" : [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+    "deviant" : false,
     "trainingByCategory" : {
       "standard" : [ {
         "id" : 61,
-        "name" : "Boost",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 11, 21, 41, 51 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 11",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "STR",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 21",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "DEX",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 41",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FOC",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 51",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CTL",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 62,
-        "name" : "Harden",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 231 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 231",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESALL",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 63,
-        "name" : "Prism",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 90 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 90",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "PERC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 64,
-        "name" : "Shape",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 110, 120 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 110",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CHA",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 120",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUB",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 65,
-        "name" : "Zone",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 200, 210, 220 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 200",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FORT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 210",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "REF",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 220",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "WILL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
+      } ],
+      "poison" : [ {
+        "id" : 40000,
+        "rank" : 1
+      } ],
+      "nature" : [ {
+        "id" : 7000,
+        "rank" : 1
+      } ],
+      "sound" : [ {
+        "id" : 31000,
+        "rank" : 1
+      } ],
+      "spirit" : [ {
+        "id" : 49000,
+        "rank" : 1
+      } ],
+      "metal" : [ {
+        "id" : 10000,
+        "rank" : 1
       } ],
       "fundamental" : [ {
         "id" : 51,
-        "name" : "Benefaction",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 510, 600 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 510",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "GRANT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 600",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "BHEAL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 52,
-        "name" : "Emission",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 451, 520 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 451",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RANGE",
-          "severity" : 2.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 520",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "IMPAIR",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 53,
-        "name" : "Manifestation",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 141, 161 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 141",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "HPMULTI",
-          "severity" : 0.02,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 161",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "AURAMULTI",
-          "severity" : 0.02,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 54,
-        "name" : "Potency",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 570, 500 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 570",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "BDMG",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 500",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUP",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
       }, {
         "id" : 55,
-        "name" : "Transmutation",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 530, 171 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 530",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "MAST",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 171",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "ARMOR",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 6
+      } ],
+      "electricity" : [ {
+        "id" : 25000,
+        "rank" : 7
+      }, {
+        "id" : 25001,
+        "rank" : 7
+      }, {
+        "id" : 25010,
+        "rank" : 7
+      }, {
+        "id" : 25031,
+        "rank" : 7
+      }, {
+        "id" : 26001,
+        "rank" : 7
+      }, {
+        "id" : 26002,
+        "rank" : 6
+      }, {
+        "id" : 26003,
+        "rank" : 7
+      }, {
+        "id" : 26004,
+        "rank" : 6
+      }, {
+        "id" : 26005,
+        "rank" : 7
+      }, {
+        "id" : 26006,
+        "rank" : 6
+      }, {
+        "id" : 26007,
+        "rank" : 7
+      }, {
+        "id" : 26008,
+        "rank" : 6
+      }, {
+        "id" : 26009,
+        "rank" : 7
+      }, {
+        "id" : 26010,
+        "rank" : 6
+      }, {
+        "id" : 26011,
+        "rank" : 7
+      }, {
+        "id" : 26012,
+        "rank" : 6
+      }, {
+        "id" : 26013,
+        "rank" : 7
+      }, {
+        "id" : 26014,
+        "rank" : 6
+      }, {
+        "id" : 26015,
+        "rank" : 7
+      }, {
+        "id" : 26016,
+        "rank" : 6
+      }, {
+        "id" : 26101,
+        "rank" : 7
+      }, {
+        "id" : 26102,
+        "rank" : 6
+      }, {
+        "id" : 26103,
+        "rank" : 7
+      }, {
+        "id" : 26104,
+        "rank" : 6
+      }, {
+        "id" : 26105,
+        "rank" : 7
+      }, {
+        "id" : 26106,
+        "rank" : 6
+      }, {
+        "id" : 26107,
+        "rank" : 7
+      }, {
+        "id" : 26108,
+        "rank" : 6
+      }, {
+        "id" : 26201,
+        "rank" : 7
+      }, {
+        "id" : 26202,
+        "rank" : 6
+      }, {
+        "id" : 26205,
+        "rank" : 7
+      }, {
+        "id" : 26206,
+        "rank" : 6
+      }, {
+        "id" : 26207,
+        "rank" : 7
+      }, {
+        "id" : 26208,
+        "rank" : 6
+      }, {
+        "id" : 26209,
+        "rank" : 7
+      }, {
+        "id" : 26210,
+        "rank" : 6
+      }, {
+        "id" : 26211,
+        "rank" : 7
+      }, {
+        "id" : 26212,
+        "rank" : 6
+      }, {
+        "id" : 26213,
+        "rank" : 7
+      }, {
+        "id" : 26214,
+        "rank" : 6
+      }, {
+        "id" : 26217,
+        "rank" : 7
+      }, {
+        "id" : 26218,
+        "rank" : 6
+      }, {
+        "id" : 26219,
+        "rank" : 7
+      }, {
+        "id" : 26220,
+        "rank" : 6
+      }, {
+        "id" : 26223,
+        "rank" : 7
+      }, {
+        "id" : 26224,
+        "rank" : 6
+      }, {
+        "id" : 26225,
+        "rank" : 7
+      }, {
+        "id" : 26226,
+        "rank" : 6
+      }, {
+        "id" : 26227,
+        "rank" : 7
+      }, {
+        "id" : 26228,
+        "rank" : 6
+      }, {
+        "id" : 26301,
+        "rank" : 7
+      }, {
+        "id" : 26302,
+        "rank" : 7
+      }, {
+        "id" : 27001,
+        "rank" : 4
+      }, {
+        "id" : 27002,
+        "rank" : 4
+      }, {
+        "id" : 27003,
+        "rank" : 4
+      }, {
+        "id" : 27004,
+        "rank" : 4
+      }, {
+        "id" : 27005,
+        "rank" : 4
+      }, {
+        "id" : 27006,
+        "rank" : 4
+      }, {
+        "id" : 27007,
+        "rank" : 4
+      }, {
+        "id" : 27008,
+        "rank" : 4
+      }, {
+        "id" : 27101,
+        "rank" : 4
+      }, {
+        "id" : 27102,
+        "rank" : 4
+      }, {
+        "id" : 27103,
+        "rank" : 4
+      }, {
+        "id" : 27104,
+        "rank" : 4
+      }, {
+        "id" : 27201,
+        "rank" : 4
+      }, {
+        "id" : 27203,
+        "rank" : 4
+      }, {
+        "id" : 27204,
+        "rank" : 4
+      }, {
+        "id" : 27205,
+        "rank" : 4
+      }, {
+        "id" : 27206,
+        "rank" : 4
+      }, {
+        "id" : 27207,
+        "rank" : 4
+      }, {
+        "id" : 27209,
+        "rank" : 4
+      }, {
+        "id" : 27210,
+        "rank" : 4
+      }, {
+        "id" : 27212,
+        "rank" : 4
+      }, {
+        "id" : 27213,
+        "rank" : 4
+      }, {
+        "id" : 27214,
+        "rank" : 4
+      }, {
+        "id" : 27301,
+        "rank" : 7
+      } ],
+      "air" : [ {
+        "id" : 19000,
+        "rank" : 3
+      } ],
+      "enhancement" : [ {
+        "id" : 1000,
+        "rank" : 6
+      }, {
+        "id" : 2001,
+        "rank" : 6
+      }, {
+        "id" : 2002,
+        "rank" : 4
+      }, {
+        "id" : 2003,
+        "rank" : 3
+      }, {
+        "id" : 2004,
+        "rank" : 6
+      }, {
+        "id" : 2005,
+        "rank" : 4
+      }, {
+        "id" : 2007,
+        "rank" : 6
+      }, {
+        "id" : 2008,
+        "rank" : 4
+      }, {
+        "id" : 2009,
+        "rank" : 3
+      }, {
+        "id" : 2031,
+        "rank" : 6
+      }, {
+        "id" : 2032,
+        "rank" : 4
+      }, {
+        "id" : 2033,
+        "rank" : 3
+      }, {
+        "id" : 2034,
+        "rank" : 6
+      }, {
+        "id" : 2035,
+        "rank" : 4
+      }, {
+        "id" : 2036,
+        "rank" : 3
+      }, {
+        "id" : 2201,
+        "rank" : 6
+      }, {
+        "id" : 2202,
+        "rank" : 4
+      }, {
+        "id" : 2203,
+        "rank" : 3
+      }, {
+        "id" : 2219,
+        "rank" : 6
+      }, {
+        "id" : 2220,
+        "rank" : 4
+      }, {
+        "id" : 2221,
+        "rank" : 3
+      }, {
+        "id" : 2240,
+        "rank" : 6
+      }, {
+        "id" : 2241,
+        "rank" : 4
+      }, {
+        "id" : 2242,
+        "rank" : 3
+      }, {
+        "id" : 2261,
+        "rank" : 6
+      }, {
+        "id" : 2262,
+        "rank" : 4
+      }, {
+        "id" : 2263,
+        "rank" : 3
+      } ],
+      "body" : [ {
+        "id" : 4000,
+        "rank" : 1
+      } ],
+      "psionic" : [ {
+        "id" : 43000,
+        "rank" : 1
+      } ],
+      "water" : [ {
+        "id" : 16000,
+        "rank" : 1
+      } ],
+      "light" : [ {
+        "id" : 34000,
+        "rank" : 1
+      } ],
+      "crafting" : [ {
+        "id" : 101,
+        "rank" : 6
+      }, {
+        "id" : 111,
+        "rank" : 1
+      } ],
+      "earth" : [ {
+        "id" : 13000,
+        "rank" : 1
+      } ],
+      "fire" : [ {
+        "id" : 22000,
+        "rank" : 6
+      }, {
+        "id" : 23219,
+        "rank" : 6
+      }, {
+        "id" : 23220,
+        "rank" : 4
+      }, {
+        "id" : 24210,
+        "rank" : 3
+      } ],
+      "force" : [ {
+        "id" : 28000,
+        "rank" : 1
+      } ],
+      "time" : [ {
+        "id" : 52000,
+        "rank" : 1
       } ],
       "attribute" : [ {
         "id" : 1,
-        "name" : "Strength Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 STR per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 10 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 10",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "STR",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 2,
-        "name" : "Dexterity Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 DEX per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 20 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 20",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "DEX",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 3,
-        "name" : "Constitution Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CON per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 30 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 30",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CON",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 4,
-        "name" : "Focus Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 FOC per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 40 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 40",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FOC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 5,
-        "name" : "Control Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CTL per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 50 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 50",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CTL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 6,
-        "name" : "Capacity Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CAP per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 60 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 60",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CAP",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 7,
-        "name" : "Knowledge Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 KNOW per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 70 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 70",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "KNOW",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 8,
-        "name" : "Mechanical Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 MECH per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 80 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 80",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "MECH",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 9,
-        "name" : "Perception Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 PERC per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 90 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 90",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "PERC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 10,
-        "name" : "Intuition Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 INT per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 100 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 100",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "INT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 11,
-        "name" : "Charisma Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CHA per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 110 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 110",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CHA",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 12,
-        "name" : "Subtlety Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 SUB per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 120 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 120",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUB",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
+      } ],
+      "darkness" : [ {
+        "id" : 37000,
+        "rank" : 1
+      } ],
+      "energy" : [ {
+        "id" : 46000,
+        "rank" : 6
+      }, {
+        "id" : 47001,
+        "rank" : 6
+      }, {
+        "id" : 47002,
+        "rank" : 4
+      }, {
+        "id" : 47201,
+        "rank" : 6
+      }, {
+        "id" : 47202,
+        "rank" : 3
+      }, {
+        "id" : 47221,
+        "rank" : 6
+      }, {
+        "id" : 47222,
+        "rank" : 4
+      }, {
+        "id" : 48001,
+        "rank" : 3
+      }, {
+        "id" : 48201,
+        "rank" : 3
+      }, {
+        "id" : 48211,
+        "rank" : 3
       } ],
       "misc" : [ {
         "id" : 21,
-        "name" : "Skill Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Skill per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 22,
-        "name" : "Specialty Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Specialty per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
-        "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       }, {
         "id" : 24,
-        "name" : "Race Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Racial Bonus Level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "rank" : 3
       } ]
-    },
-    "deviant" : false
+    }
   },
   "combat" : {
     "inCombat" : false,
     "round" : 0,
     "initiative" : 0,
     "showInitiativePopup" : true,
+    "showStillMindPopup" : true,
     "critDamage" : 2.0,
     "invade" : false,
     "reach" : 0,
     "stunTokens" : 0,
     "heavyTokens" : 0,
+    "incapacitateTokens" : 0,
+    "rootTokens" : 0,
+    "damageDealtThisTurn" : 0.0,
+    "shufflePool" : 0.0,
     "combatStatus" : [ ],
     "standardSpellAction" : {
       "id" : 102,
@@ -4615,9 +5635,9 @@
       "source" : "Standard",
       "affinity" : "None",
       "atkType" : "SPELL",
-      "atk" : 22,
-      "bdmg" : 9,
-      "tdmg" : 10,
+      "atk" : 46,
+      "bdmg" : 124,
+      "tdmg" : 38,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,
@@ -4631,10 +5651,125 @@
     }
   },
   "reminderSelections" : {
-    "Domain Emanation" : "Off"
+    "Domain Emanation" : "Off",
+    "maintained.loadout.default.maintained.al.61.str" : "6",
+    "maintained.loadout.default.maintained.al.61.dex" : "6",
+    "maintained.loadout.default.maintained.al.61.foc" : "6",
+    "maintained.loadout.default.maintained.al.61.ctl" : "6",
+    "maintained.loadout.default.maintained.al.62.resall" : "6",
+    "maintained.loadout.default.maintained.al.63.perc" : "6",
+    "maintained.loadout.default.maintained.al.64.cha" : "6",
+    "maintained.loadout.default.maintained.al.64.sub" : "6",
+    "maintained.loadout.default.maintained.al.65.fort" : "6",
+    "maintained.loadout.default.maintained.al.65.ref" : "6",
+    "maintained.loadout.default.maintained.al.65.will" : "6",
+    "maintained.loadout.default.maintained.al.26001.dex" : "7",
+    "maintained.loadout.default.maintained.al.26002.dex" : "6",
+    "maintained.loadout.default.maintained.al.26003.foc" : "6",
+    "maintained.loadout.default.maintained.al.26004.foc" : "0",
+    "maintained.loadout.default.maintained.al.26005.ctl" : "6",
+    "maintained.loadout.default.maintained.al.26006.ctl" : "0",
+    "maintained.loadout.default.maintained.al.26007.cap" : "7",
+    "maintained.loadout.default.maintained.al.26008.cap" : "1",
+    "maintained.loadout.default.maintained.al.26009.know" : "7",
+    "maintained.loadout.default.maintained.al.26010.know" : "0",
+    "maintained.loadout.default.maintained.al.26011.mech" : "7",
+    "maintained.loadout.default.maintained.al.26012.mech" : "0",
+    "maintained.loadout.default.maintained.al.26013.perc" : "6",
+    "maintained.loadout.default.maintained.al.26014.perc" : "0",
+    "maintained.loadout.default.maintained.al.26015.int" : "7",
+    "maintained.loadout.default.maintained.al.26016.int" : "0",
+    "maintained.loadout.default.maintained.al.26101.resall" : "7",
+    "maintained.loadout.default.maintained.al.26102.resall" : "6",
+    "maintained.loadout.default.maintained.al.26103.def" : "7",
+    "maintained.loadout.default.maintained.al.26104.def" : "6",
+    "maintained.loadout.default.maintained.al.26105.ref" : "7",
+    "maintained.loadout.default.maintained.al.26106.ref" : "6",
+    "maintained.loadout.default.maintained.al.26107.avoid" : "7",
+    "maintained.loadout.default.maintained.al.26108.avoid" : "6",
+    "maintained.loadout.default.maintained.al.26201.bheal" : "7",
+    "maintained.loadout.default.maintained.al.26202.bheal" : "6",
+    "maintained.loadout.default.maintained.al.26205.maxatk" : "7",
+    "maintained.loadout.default.maintained.al.26206.maxatk" : "6",
+    "maintained.loadout.default.maintained.al.26207.init" : "7",
+    "maintained.loadout.default.maintained.al.26208.init" : "6",
+    "maintained.loadout.default.maintained.al.26209.react" : "0",
+    "maintained.loadout.default.maintained.al.26210.react" : "0",
+    "maintained.loadout.default.maintained.al.26211.r1" : "0",
+    "maintained.loadout.default.maintained.al.26212.r1" : "0",
+    "maintained.loadout.default.maintained.al.26213.r3" : "0",
+    "maintained.loadout.default.maintained.al.26214.r3" : "0",
+    "maintained.loadout.default.maintained.al.26217.atk" : "7",
+    "maintained.loadout.default.maintained.al.26218.atk" : "6",
+    "maintained.loadout.default.maintained.al.26219.move" : "7",
+    "maintained.loadout.default.maintained.al.26220.move" : "6",
+    "maintained.loadout.default.maintained.al.26223.auramulti" : "7",
+    "maintained.loadout.default.maintained.al.26224.auramulti" : "6",
+    "maintained.loadout.default.maintained.al.26225.break" : "0",
+    "maintained.loadout.default.maintained.al.26226.break" : "0",
+    "maintained.loadout.default.maintained.al.26227.bdmg" : "7",
+    "maintained.loadout.default.maintained.al.26228.bdmg" : "6",
+    "maintained.loadout.default.maintained.al.26301.base" : "0",
+    "maintained.loadout.default.maintained.al.2001.str" : "6",
+    "maintained.loadout.default.maintained.al.2007.con" : "6",
+    "maintained.loadout.default.maintained.al.2008.con" : "4",
+    "maintained.loadout.default.maintained.al.2004.dex" : "6",
+    "maintained.loadout.default.maintained.al.2005.dex" : "4",
+    "class.specialty.choice.4012" : "Mobility",
+    "class.specialty.choice.4043" : "Discipline: Mobility",
+    "training.collapse.Body" : "true",
+    "training.collapse.Nature" : "true",
+    "training.collapse.Metal" : "true",
+    "training.collapse.Earth" : "true",
+    "training.collapse.Water" : "true",
+    "training.collapse.Air" : "true",
+    "training.collapse.Fire" : "true",
+    "training.collapse.Energy" : "false",
+    "training.collapse.Force" : "true",
+    "training.collapse.Light" : "true",
+    "training.collapse.Darkness" : "true",
+    "training.collapse.Poison" : "true",
+    "training.collapse.Sound" : "true",
+    "training.collapse.Psionic" : "true",
+    "training.collapse.Spirit" : "true",
+    "training.collapse.Time" : "true",
+    "maintained.loadout.default.maintained.al.2261.auramulti" : "6",
+    "maintained.loadout.default.maintained.al.2262.auramulti" : "4",
+    "maintained.loadout.default.maintained.al.2263.auramulti" : "3",
+    "maintained.loadout.default.maintained.al.2219.init" : "6",
+    "maintained.loadout.default.maintained.al.2220.init" : "4",
+    "maintained.loadout.default.maintained.al.2221.init" : "3",
+    "maintained.loadout.default.maintained.al.2240.atk" : "6",
+    "maintained.loadout.default.maintained.al.2241.atk" : "4",
+    "maintained.loadout.default.maintained.al.2242.atk" : "3",
+    "maintained.loadout.default.maintained.al.47221.auramulti" : "6",
+    "maintained.loadout.default.maintained.al.47222.auramulti" : "4",
+    "maintained.loadout.default.maintained.al.47001.dex" : "6",
+    "maintained.loadout.default.maintained.al.47002.dex" : "4",
+    "maintained.loadout.default.maintained.al.2201.bheal" : "6",
+    "maintained.loadout.default.maintained.al.2202.bheal" : "4",
+    "maintained.loadout.default.maintained.al.2203.bheal" : "3",
+    "maintained.loadout.default.maintained.al.23219.auramulti" : "6",
+    "maintained.loadout.default.maintained.al.23220.auramulti" : "4",
+    "maintained.loadout.default.maintained.al.47201.bheal" : "6",
+    "maintained.loadout.default.maintained.al.47202.bheal" : "3",
+    "maintained.loadout.default.maintained.al.2031.cha" : "6",
+    "maintained.loadout.default.maintained.al.2034.sub" : "6",
+    "maintained.loadout.default.maintained.al.26302.skillmedical" : "0",
+    "maintained.loadout.default.maintained.al.2002.str" : "4",
+    "maintained.loadout.default.maintained.al.2032.cha" : "4",
+    "maintained.loadout.default.maintained.al.2035.sub" : "4",
+    "maintained.loadout.default.maintained.al.2009.con" : "2",
+    "maintained.loadout.default.maintained.al.2003.str" : "1",
+    "maintained.loadout.default.maintained.al.2033.cha" : "1",
+    "maintained.loadout.default.maintained.al.2036.sub" : "1"
   },
   "domainEmanationEnabled" : false,
-  "panelReminder" : "",
+  "panelReminder" : "Kenti: In Balance\nNegate All Displacement Damage\nYou may use movement abilities between your full-attack actions",
   "enhancedEngineeringRankGranted" : false,
-  "lists" : [ ]
+  "lists" : [ [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ {
+    "list" : "Molds",
+    "name" : "Fist",
+    "description" : ""
+  } ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ], [ ] ]
 }

@@ -1,32 +1,32 @@
 {
   "identity" : {
-    "index" : 4,
-    "name" : "monk",
+    "index" : 13,
+    "name" : "Katti Naunka",
     "nickname" : "",
-    "campaign" : "",
+    "campaign" : "Amberlight",
     "campaignStartDate" : "0065-01-01T00:00:00",
     "campaignElapsedTime" : "PT0S",
-    "birthday" : "0046-11-02",
+    "birthday" : "0046-03-02",
     "birthdayManual" : true,
-    "race" : "Aquata",
+    "race" : "Felsh Cat",
     "charRacePick" : [ ],
-    "charClass" : "Monk",
-    "charSubclass" : "Agent",
-    "charClassPick" : [ "Martial" ],
-    "level" : 2,
+    "charClass" : "Shifter",
+    "charSubclass" : "Medic",
+    "charClassPick" : [ "DEX", "FOC", "Knuckle", "Thrown" ],
+    "level" : 1,
     "exp" : 0.0,
-    "gender" : "",
-    "size" : "Medium",
-    "height" : "",
-    "weight" : "",
-    "eyes" : "",
-    "hair" : "",
-    "physical" : "",
-    "personality" : "",
+    "gender" : "Female",
+    "size" : "Tiny",
+    "height" : "5'6\"",
+    "weight" : "120 lbs",
+    "eyes" : "Gray",
+    "hair" : "Light Blond",
+    "physical" : "-",
+    "personality" : "Curious, Affectionate",
     "notes" : "",
-    "updated" : "2026-06-07T19:05:41.524+0000",
-    "createdAt" : "2026-06-04T22:13:37.638+0000",
-    "lastLevelUp" : "2026-06-07T19:03:18.432+0000",
+    "updated" : "2026-06-15T03:42:12.535+0000",
+    "createdAt" : "2026-06-15T03:39:12.647+0000",
+    "lastLevelUp" : "2026-06-15T03:39:12.647+0000",
     "timeSinceLastLevel" : "PT0S"
   },
   "resources" : {
@@ -46,15 +46,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 105.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Tough (S301)",
-      "affinity" : "None",
-      "description" : "None",
-      "attribute" : "BASEHP",
-      "severity" : 3.5,
+      "severity" : 50.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -112,7 +104,15 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 40.0,
+      "severity" : 18.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Soulful (S311)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEAURA",
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -145,7 +145,7 @@
       "affinity" : "None",
       "description" : "Derived from Capacity",
       "attribute" : "MULTIAURA",
-      "severity" : 0.8,
+      "severity" : 0.6,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -178,7 +178,7 @@
       "affinity" : "None",
       "description" : "Level-based base value for Resource 1",
       "attribute" : "BASER1",
-      "severity" : 2.0,
+      "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -438,7 +438,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BSTR",
-      "severity" : 13.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -462,7 +462,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BDEX",
-      "severity" : 8.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -489,6 +489,14 @@
       "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Base Racial",
+      "affinity" : "None",
+      "description" : "Racial base status",
+      "attribute" : "BCON",
+      "severity" : -1.0,
+      "durationType" : "Passive",
+      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -510,7 +518,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BFOC",
-      "severity" : 12.0,
+      "severity" : 15.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -537,14 +545,6 @@
       "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
-    }, {
-      "name" : "Base Racial",
-      "affinity" : "None",
-      "description" : "Racial base status",
-      "attribute" : "BCTL",
-      "severity" : -1.0,
-      "durationType" : "Passive",
-      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -566,7 +566,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCAP",
-      "severity" : 15.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -590,7 +590,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BKNOW",
-      "severity" : 10.0,
+      "severity" : 14.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -614,7 +614,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMECH",
-      "severity" : 10.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -638,7 +638,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BPERC",
-      "severity" : 15.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -662,7 +662,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BINT",
-      "severity" : 9.0,
+      "severity" : 11.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -686,7 +686,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BCHA",
-      "severity" : 14.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1056,7 +1056,15 @@
       "affinity" : "None",
       "description" : "Derived from Dexterity",
       "attribute" : "BDODGE",
-      "severity" : 4.0,
+      "severity" : 6.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Size Modifier (DODGE)",
+      "affinity" : "None",
+      "description" : "Size-based Dodge modifier",
+      "attribute" : "BDODGE",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1104,7 +1112,7 @@
       "affinity" : "None",
       "description" : "Class-based Fortitude base",
       "attribute" : "BFORT",
-      "severity" : 12.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1112,7 +1120,15 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 6.25,
+      "severity" : 5.5,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Size Modifier (FORT)",
+      "affinity" : "None",
+      "description" : "Size-based Fortitude modifier",
+      "attribute" : "BFORT",
+      "severity" : -4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1136,7 +1152,7 @@
       "affinity" : "None",
       "description" : "Class-based Reflex base",
       "attribute" : "BREF",
-      "severity" : 12.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1144,7 +1160,15 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BREF",
-      "severity" : 6.25,
+      "severity" : 5.8,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Size Modifier (REF)",
+      "affinity" : "None",
+      "description" : "Size-based Reflex modifier",
+      "attribute" : "BREF",
+      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1168,7 +1192,7 @@
       "affinity" : "None",
       "description" : "Class-based Will base",
       "attribute" : "BWILL",
-      "severity" : 12.0,
+      "severity" : 8.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1176,7 +1200,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 6.5,
+      "severity" : 5.75,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1402,7 +1426,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BALL",
-      "severity" : 6.5,
+      "severity" : 5.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1595,14 +1619,6 @@
       "description" : "None",
       "attribute" : "BENERGY",
       "severity" : 0.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Training Passive: TechPerm 361 [ENERGY] (T46000)",
-      "affinity" : "None",
-      "description" : "Tech permission grant",
-      "attribute" : "BENERGY",
-      "severity" : 4.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2180,7 +2196,7 @@
       "affinity" : "None",
       "description" : "Class-based Attack base",
       "attribute" : "BATK",
-      "severity" : 12.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2188,7 +2204,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BATK",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2196,7 +2212,7 @@
       "affinity" : "None",
       "description" : "Derived from Focus",
       "attribute" : "BATK",
-      "severity" : 3.0,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2220,7 +2236,7 @@
       "affinity" : "None",
       "description" : "Class-based Application base",
       "attribute" : "BAPP",
-      "severity" : 12.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2228,7 +2244,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BAPP",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2236,7 +2252,7 @@
       "affinity" : "None",
       "description" : "Derived from Focus",
       "attribute" : "BAPP",
-      "severity" : 3.0,
+      "severity" : 3.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2261,14 +2277,6 @@
       "description" : "None",
       "attribute" : "BMOVE",
       "severity" : 25.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Equip Passive: Unarmed #0",
-      "affinity" : "None",
-      "description" : "Equipment passive bonus",
-      "attribute" : "BMOVE",
-      "severity" : 5.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2316,7 +2324,15 @@
       "affinity" : "None",
       "description" : "Class-based Range base",
       "attribute" : "BRANGE",
-      "severity" : 12.0,
+      "severity" : 10.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Iteration #1",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BRANGE",
+      "severity" : 5.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2750,7 +2766,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BAREA",
-      "severity" : 0.0,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3008,7 +3024,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBDMG",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3016,7 +3032,7 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBDMG",
-      "severity" : 2.5,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3024,7 +3040,15 @@
       "affinity" : "None",
       "description" : "Level-based base damage",
       "attribute" : "BBDMG",
-      "severity" : 4.0,
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Kunai #2",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BBDMG",
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3056,7 +3080,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength",
       "attribute" : "BTDMG",
-      "severity" : 6.5,
+      "severity" : 5.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3064,15 +3088,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTDMG",
-      "severity" : 2.0,
-      "durationType" : "Passive",
-      "duration" : 0
-    }, {
-      "name" : "Specialty Passive: Martial Focus (S4012)",
-      "affinity" : "None",
-      "description" : "Martial Focus (Harm) level-based total damage bonus",
-      "attribute" : "BTDMG",
-      "severity" : 2.8284271247461903,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3104,7 +3120,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BBHEAL",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3112,7 +3128,7 @@
       "affinity" : "None",
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
-      "severity" : 2.5,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -3120,7 +3136,7 @@
       "affinity" : "None",
       "description" : "Level-based base healing",
       "attribute" : "BBHEAL",
-      "severity" : 4.0,
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3152,7 +3168,7 @@
       "affinity" : "None",
       "description" : "Derived from Primary Attribute",
       "attribute" : "BTHEAL",
-      "severity" : 2.0,
+      "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3201,6 +3217,14 @@
       "description" : "None",
       "attribute" : "BCRITDMG",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Geometry #0",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BCRITDMG",
+      "severity" : 0.1,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3368,115 +3392,66 @@
   },
   "specials" : {
     "racialSpecialty" : {
-      "id" : 102,
-      "name" : "Waveborne (Aquios)",
-      "refName" : "",
+      "id" : 112,
+      "name" : "Felshify (Felsh Cat)",
+      "refName" : "Form",
       "category" : "Racial",
-      "description" : "<html><center>Aquata can survive under water indefinitely and move twice their move speed when swimming.</center></html>",
+      "description" : "Felsh Cats can turn into their humanoid forms or revert to their cat forms once per turn as a free action.",
       "type" : "reminder",
       "prereq" : -1,
-      "pick" : false,
+      "pick" : true,
       "permStatus" : [ ]
     },
     "skills" : [ {
-      "id" : 309,
-      "name" : "Climb",
+      "id" : 305,
+      "name" : "Awareness",
       "type" : "Gen",
-      "description" : "Allows the user to ascend surfaces.",
-      "availAttributes" : [ "STR" ],
-      "chosenAttributes" : [ "STR" ],
+      "description" : "Allows the user to notice motion and sounds in their vacinity.",
+      "availAttributes" : [ "PERC" ],
+      "chosenAttributes" : [ "PERC" ],
       "chosenSubtype" : ""
     }, {
-      "id" : 301,
-      "name" : "Acrobatics",
+      "id" : 319,
+      "name" : "Handle Animal",
       "type" : "Gen",
-      "description" : "Allows the user to perform feats of agility.",
-      "availAttributes" : [ "DEX" ],
-      "chosenAttributes" : [ "DEX" ],
+      "description" : "Allows the user to improve their relationship with and command animals.",
+      "availAttributes" : [ "STR", "CHA" ],
+      "chosenAttributes" : [ "CHA" ],
       "chosenSubtype" : ""
     }, {
-      "id" : 302,
-      "name" : "Analyze",
+      "id" : 320,
+      "name" : "Medical",
       "type" : "Gen",
-      "description" : "Allows the user to gain more information by Examining Aura.",
-      "availAttributes" : [ "CTL", "PERC" ],
-      "chosenAttributes" : [ "CTL" ],
+      "description" : "Allows the user to assess a creature's health.",
+      "availAttributes" : [ "KNOW", "PERC" ],
+      "chosenAttributes" : [ "KNOW" ],
       "chosenSubtype" : ""
-    }, {
-      "id" : 336,
-      "name" : "Construction",
-      "type" : "Gen",
-      "description" : "Allows the user to physically build things using a schematic.",
-      "availAttributes" : [ "STR", "MECH" ],
-      "chosenAttributes" : [ "-", "STR" ],
-      "chosenSubtype" : ""
-    } ],
-    "classSpecialties" : [ {
-      "id" : 4011,
-      "name" : "Unarmed Prowess",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "You are proficient with unarmed attacks.<br>Once per turn, gain an advantage over an unaware, flanked, or exposed target.<br>Increases ATK against that target by (level x level x 0.5)",
-      "type" : "specCheck",
-      "prereq" : 0,
-      "pick" : false,
-      "permStatus" : [ ]
-    }, {
-      "id" : 4012,
-      "name" : "Martial Focus",
-      "refName" : "Martial",
-      "category" : "Class",
-      "description" : "Stuff",
-      "type" : "passive",
-      "prereq" : 0,
-      "pick" : true,
-      "permStatus" : [ ]
-    }, {
-      "id" : 4021,
-      "name" : "Preparation",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "Grants access to your first class resource, Preparation.",
-      "type" : "resource1",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
-    }, {
-      "id" : 4022,
-      "name" : "Resonant Strike",
-      "refName" : "",
-      "category" : "Class",
-      "description" : "Grants access to the following:<br>Grants access to Resonant Strike (Ebb) - Your next attack applies heavy tokens to your target.<br>Grants access to Resonant Strike (Flow) - Your next attack grants you Shield.",
-      "type" : "grantSpec",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
     } ],
     "trainedSpecialties" : [ {
-      "id" : 301,
-      "name" : "Tough",
+      "id" : 311,
+      "name" : "Soulful",
       "refName" : "",
       "category" : "Martial",
-      "description" : "",
+      "description" : "Increases your base aura by 10%.",
       "type" : "passive",
       "prereq" : 0,
       "pick" : false,
       "permStatus" : [ {
-        "name" : "Tough",
+        "name" : "Soulful",
         "affinity" : "None",
         "description" : "None",
-        "attribute" : "BASEHPM",
+        "attribute" : "BASEAURAM",
         "severity" : 0.1,
         "durationType" : "Permanent",
         "duration" : 0
       } ]
     }, {
-      "id" : 7012,
-      "name" : "Holy Domain",
+      "id" : 321,
+      "name" : "Combat Medic",
       "refName" : "",
-      "category" : "Class",
-      "description" : "Stuff",
-      "type" : "F",
+      "category" : "Martial",
+      "description" : "Your heals do not provoke an attack of opportunity.",
+      "type" : "reminder",
       "prereq" : 0,
       "pick" : false,
       "permStatus" : [ ]
@@ -3490,152 +3465,27 @@
       "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
-    }, {
-      "id" : 2,
-      "name" : "Level 2",
-      "refName" : "",
-      "category" : "Level",
-      "description" : "Level 2",
-      "type" : "level",
-      "prereq" : -1,
-      "pick" : false,
-      "permStatus" : [ ]
     } ]
   },
   "inventory" : {
     "credits" : 1000.0,
     "armor" : "",
-    "weaponProf" : [ "Blade", "Dagger", "Knuckle", "Whip", "Mace", "Polearm", "Sling", "Staff" ],
+    "weaponProf" : [ "Prismatic", "Radial", "Geometric", "Exponential", "Hybrid", "Iterative", "Recursive", "Symbiotic", "Knuckle", "Thrown" ],
     "equipment" : [ {
-      "did" : 6006,
+      "did" : 13005,
       "iid" : -1,
-      "dname" : "Knuckle",
+      "dname" : "Geometry",
       "iname" : "",
       "dnote" : "",
       "inote" : "",
       "quantity" : 0.0,
-      "slot" : "Light Weapon",
+      "slot" : "Heavy Weapon",
       "tier" : 0,
-      "category" : "Melee",
-      "type" : "Fist",
-      "bonusAtt" : "DODGE",
-      "bonusAmount" : 1.0,
-      "levelReq" : 1,
-      "value" : 0,
-      "equipped" : false,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
-      "did" : 6003,
-      "iid" : -1,
-      "dname" : "Dagger",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Light Weapon",
-      "tier" : 0,
-      "category" : "Melee",
-      "type" : "Dagger",
+      "category" : "Matrix",
+      "type" : "Geometric",
       "bonusAtt" : "CRITDMG",
       "bonusAmount" : 0.1,
       "levelReq" : 1,
-      "value" : 0,
-      "equipped" : false,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
-      "did" : 1001,
-      "iid" : -1,
-      "dname" : "Tunic",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Chest",
-      "tier" : 0,
-      "category" : "Armor",
-      "type" : "Light",
-      "bonusAtt" : "ARMOR",
-      "bonusAmount" : 1.0,
-      "levelReq" : 1,
-      "value" : 200,
-      "equipped" : false,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
-      "did" : 1002,
-      "iid" : -1,
-      "dname" : "Pants",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Legs",
-      "tier" : 0,
-      "category" : "Armor",
-      "type" : "Light",
-      "bonusAtt" : "ARMOR",
-      "bonusAmount" : 1.0,
-      "levelReq" : 1,
-      "value" : 200,
-      "equipped" : false,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
-      "did" : 6009,
-      "iid" : -5005,
-      "dname" : "Unarmed",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Light Weapon",
-      "tier" : 0,
-      "category" : "Melee",
-      "type" : "Unarmed",
-      "bonusAtt" : "MOVE",
-      "bonusAmount" : 2.5,
-      "levelReq" : 1,
-      "value" : 0,
-      "equipped" : false,
-      "ench" : 0,
-      "gem" : 0,
-      "store" : 0,
-      "oil" : 0,
-      "mod" : 0,
-      "aug" : 0
-    }, {
-      "did" : 6019,
-      "iid" : -5005,
-      "dname" : "Unarmed",
-      "iname" : "",
-      "dnote" : "",
-      "inote" : "",
-      "quantity" : 0.0,
-      "slot" : "Light Weapon",
-      "tier" : 1,
-      "category" : "Melee",
-      "type" : "Unarmed",
-      "bonusAtt" : "MOVE",
-      "bonusAmount" : 5.0,
-      "levelReq" : 2,
       "value" : 0,
       "equipped" : true,
       "ench" : 0,
@@ -3644,755 +3494,204 @@
       "oil" : 0,
       "mod" : 0,
       "aug" : 0,
-      "damage" : "BLUNT",
+      "damage" : "",
+      "attack" : ""
+    }, {
+      "did" : 13002,
+      "iid" : -1,
+      "dname" : "Iteration",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Light Weapon",
+      "tier" : 0,
+      "category" : "Matrix",
+      "type" : "Iterative",
+      "bonusAtt" : "RANGE",
+      "bonusAmount" : 5.0,
+      "levelReq" : 1,
+      "value" : 0,
+      "equipped" : true,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0,
+      "damage" : "",
+      "attack" : ""
+    }, {
+      "did" : 9001,
+      "iid" : -1,
+      "dname" : "Kunai",
+      "iname" : "",
+      "dnote" : "",
+      "inote" : "",
+      "quantity" : 0.0,
+      "slot" : "Light Weapon",
+      "tier" : 0,
+      "category" : "Ranged",
+      "type" : "Thrown",
+      "bonusAtt" : "BDMG",
+      "bonusAmount" : 1.0,
+      "levelReq" : 1,
+      "value" : 0,
+      "equipped" : true,
+      "ench" : 0,
+      "gem" : 0,
+      "store" : 0,
+      "oil" : 0,
+      "mod" : 0,
+      "aug" : 0,
+      "damage" : "PIERCE",
       "attack" : "AC"
     } ],
     "consumables" : [ ],
     "goods" : [ ],
     "items" : [ ],
-    "weaponProficiencies" : [ "Blade", "Dagger", "Knuckle", "Whip", "Mace", "Polearm", "Sling", "Staff" ]
+    "weaponProficiencies" : [ "Prismatic", "Radial", "Geometric", "Exponential", "Hybrid", "Iterative", "Recursive", "Symbiotic", "Knuckle", "Thrown" ]
   },
   "training" : {
-    "naturalAffinities" : [ "Energy" ],
+    "naturalAffinities" : [ "Nature" ],
     "domains" : [ ],
     "domainStatusEffects" : [ ],
     "isDeviant" : false,
-    "classTrainingRank" : 2,
+    "classTrainingRank" : 1,
     "trainingXp" : 0.0,
     "trainingXpByAuraType" : [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+    "deviant" : false,
     "trainingByCategory" : {
       "standard" : [ {
         "id" : 61,
-        "name" : "Boost",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 11, 21, 41, 51 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 11",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "STR",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 21",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "DEX",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 41",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FOC",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 51",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CTL",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 62,
-        "name" : "Harden",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 231 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 231",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESALL",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 63,
-        "name" : "Prism",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 90 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 90",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "PERC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 64,
-        "name" : "Shape",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 110, 120 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 110",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CHA",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 120",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUB",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 65,
-        "name" : "Zone",
-        "type" : "Maintained",
-        "affinity" : "Standard",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 200, 210, 220 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 200",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FORT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 210",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "REF",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 220",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "WILL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
+      } ],
+      "nature" : [ {
+        "id" : 7000,
+        "rank" : 2,
+        "exp" : 0.0
+      }, {
+        "id" : 8301,
+        "rank" : 2,
+        "exp" : 0.0
       } ],
       "fundamental" : [ {
         "id" : 51,
-        "name" : "Benefaction",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 510, 600 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 510",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "GRANT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 600",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "BHEAL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 52,
-        "name" : "Emission",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 451, 520 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 451",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RANGE",
-          "severity" : 2.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 520",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "IMPAIR",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 53,
-        "name" : "Manifestation",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 141, 161 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 141",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "HPMULTI",
-          "severity" : 0.02,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 161",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "AURAMULTI",
-          "severity" : 0.02,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 54,
-        "name" : "Potency",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 570, 500 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 570",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "BDMG",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 500",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUP",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 55,
-        "name" : "Transmutation",
-        "type" : "Passive",
-        "affinity" : "Fundamental",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 530, 171 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 530",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "MAST",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        }, {
-          "name" : "TechPerm 171",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "ARMOR",
-          "severity" : 0.5,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       } ],
       "attribute" : [ {
         "id" : 1,
-        "name" : "Strength Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 STR per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 10 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 10",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "STR",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 2,
-        "name" : "Dexterity Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 DEX per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 20 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 20",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "DEX",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 3,
-        "name" : "Constitution Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CON per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 30 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 30",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CON",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 4,
-        "name" : "Focus Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 FOC per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 40 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 40",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "FOC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 5,
-        "name" : "Control Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CTL per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 50 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 50",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CTL",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 6,
-        "name" : "Capacity Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CAP per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 60 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 60",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CAP",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 7,
-        "name" : "Knowledge Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 KNOW per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 70 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 70",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "KNOW",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 8,
-        "name" : "Mechanical Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 MECH per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 80 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 80",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "MECH",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 9,
-        "name" : "Perception Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 PERC per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 90 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 90",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "PERC",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 10,
-        "name" : "Intuition Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 INT per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 100 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 100",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "INT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 11,
-        "name" : "Charisma Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 CHA per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 110 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 110",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "CHA",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 12,
-        "name" : "Subtlety Training",
-        "type" : "Passive",
-        "affinity" : "Attribute",
-        "description" : "+1 SUB per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ 120 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 120",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "SUB",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
-      } ],
-      "energy" : [ {
-        "id" : 46000,
-        "name" : "Aura Affinity (Energy)",
-        "type" : "Passive",
-        "affinity" : "Energy",
-        "description" : "+2 RESISTENERGY per level",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 361 ],
-        "rank" : 2,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 361",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESENERGY",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       } ],
       "misc" : [ {
         "id" : 21,
-        "name" : "Skill Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Skill per level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 22,
-        "name" : "Specialty Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Specialty per level",
-        "levelCoef" : 0.5,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
         "rank" : 0,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       }, {
         "id" : 24,
-        "name" : "Race Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "+1 Racial Bonus Level",
-        "levelCoef" : 0.5,
-        "levelMod" : -1.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
         "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ],
-        "listName" : "",
-        "listMaxPerRank" : 0,
-        "listMaxBase" : 0
+        "exp" : 0.0
       } ]
-    },
-    "deviant" : false
+    }
   },
   "combat" : {
-    "inCombat" : true,
-    "round" : 1,
+    "inCombat" : false,
+    "round" : 0,
     "initiative" : 0,
-    "showInitiativePopup" : false,
+    "showInitiativePopup" : true,
+    "showStillMindPopup" : true,
     "critDamage" : 2.0,
-    "invade" : false,
+    "invade" : true,
     "reach" : 0,
     "stunTokens" : 0,
     "heavyTokens" : 0,
+    "incapacitateTokens" : 0,
+    "rootTokens" : 0,
+    "damageDealtThisTurn" : 0.0,
+    "shufflePool" : 0.0,
     "combatStatus" : [ ],
     "standardSpellAction" : {
       "id" : 102,
@@ -4403,7 +3702,7 @@
       "atkType" : "SPELL",
       "atk" : 17,
       "bdmg" : 9,
-      "tdmg" : 11,
+      "tdmg" : 8,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,
@@ -4417,10 +3716,35 @@
     }
   },
   "reminderSelections" : {
-    "Domain Emanation" : "Off"
+    "Domain Emanation" : "Off",
+    "Current Form:" : "Heavy (DEX)"
   },
   "domainEmanationEnabled" : false,
-  "panelReminder" : "Aquata can survive under water indefinitely and move twice their move speed when swimming.",
+  "panelReminder" : "Felshify (Felsh Cat): Form::Cat|Felsh\nCurrent Form:\nYour heals do not provoke an attack of opportunity.",
   "enhancedEngineeringRankGranted" : false,
-  "lists" : [ ]
+  "lists" : [ [ ], [ {
+    "list" : "Molds",
+    "name" : "Shifter Chestpiece",
+    "description" : ""
+  }, {
+    "list" : "Molds",
+    "name" : "Shifter Leggings",
+    "description" : ""
+  }, {
+    "list" : "Molds",
+    "name" : "Knuckle",
+    "description" : ""
+  }, {
+    "list" : "Molds",
+    "name" : "Thrown",
+    "description" : ""
+  } ], [ {
+    "list" : "Forms",
+    "name" : "Heavy (DEX)",
+    "description" : ""
+  }, {
+    "list" : "Forms",
+    "name" : "Light (FOC)",
+    "description" : ""
+  } ] ]
 }

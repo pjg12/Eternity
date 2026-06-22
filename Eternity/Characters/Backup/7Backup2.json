@@ -16,7 +16,7 @@
     "level" : 1,
     "exp" : 0.0,
     "gender" : "",
-    "size" : "?",
+    "size" : "Medium",
     "height" : "",
     "weight" : "",
     "eyes" : "",
@@ -45,7 +45,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 0.0,
+      "severity" : 70.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -78,7 +78,7 @@
       "affinity" : "None",
       "description" : "Derived from Constitution",
       "attribute" : "MULTIHP",
-      "severity" : 0.5,
+      "severity" : 0.4,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -103,7 +103,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 0.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -414,6 +414,14 @@
       "severity" : 9.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Base Racial",
+      "affinity" : "None",
+      "description" : "Racial base status",
+      "attribute" : "BCON",
+      "severity" : -1.0,
+      "durationType" : "Passive",
+      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -944,6 +952,22 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Equip Passive: Breastplate #2",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BARMOR",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Equip Passive: Greaves #3",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BARMOR",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -1019,9 +1043,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Fortitude base",
       "attribute" : "BFORT",
-      "severity" : 0.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1029,7 +1053,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 5.75,
+      "severity" : 5.25,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1051,9 +1075,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Reflex base",
       "attribute" : "BREF",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1083,9 +1107,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Will base",
       "attribute" : "BWILL",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1093,7 +1117,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 3.5,
+      "severity" : 6.5,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1658,6 +1682,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 371 [SPIRIT] (T49000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSPIRIT",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2087,9 +2119,9 @@
     "bCombat" : [ [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Attack base",
       "attribute" : "BATK",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2127,9 +2159,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Application base",
       "attribute" : "BAPP",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2215,9 +2247,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Range base",
       "attribute" : "BRANGE",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2864,6 +2896,14 @@
       "severity" : 3.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base damage",
+      "attribute" : "BBDMG",
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2904,6 +2944,14 @@
       "severity" : 6.5,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Equip Passive: Axe #0",
+      "affinity" : "None",
+      "description" : "Equipment passive bonus",
+      "attribute" : "BTDMG",
+      "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2942,6 +2990,14 @@
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
       "severity" : 3.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base healing",
+      "attribute" : "BBHEAL",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3188,7 +3244,17 @@
     } ] ] ]
   },
   "specials" : {
-    "racialSpecialty" : null,
+    "racialSpecialty" : {
+      "id" : 101,
+      "name" : "Shapeshifting (Alteri)",
+      "refName" : "",
+      "category" : "Racial",
+      "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
+      "type" : "reminder",
+      "prereq" : -1,
+      "pick" : true,
+      "permStatus" : [ ]
+    },
     "skills" : [ {
       "id" : 309,
       "name" : "Climb",
@@ -3211,7 +3277,27 @@
       "availAttributes" : [ "CTL", "PERC" ],
       "chosenAttributes" : [ "CTL" ]
     } ],
-    "classSpecialties" : [ ],
+    "classSpecialties" : [ {
+      "id" : 1011,
+      "name" : "Martial Feature",
+      "refName" : "Combat Medic",
+      "category" : "Class",
+      "description" : "Gain a Martial type Feature of your choice.",
+      "type" : "F",
+      "prereq" : -1,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 1012,
+      "name" : "War Charge",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "When performing a charge, increase your move speed by (5 x 1/2 char level)ft. (round up to nearest 5ft)",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    } ],
     "trainedSpecialties" : [ {
       "id" : 6011,
       "name" : "Summon Minion (Minor + General + Melee)",
@@ -3230,6 +3316,16 @@
       "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 1,
+      "name" : "Level 1",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 1",
+      "type" : "level",
+      "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
     } ]
@@ -3341,6 +3437,8 @@
     "domains" : [ ],
     "isDeviant" : false,
     "classTrainingRank" : 1,
+    "trainingXp" : 0.0,
+    "trainingXpByAuraType" : [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
     "trainingByCategory" : {
       "standard" : [ {
         "id" : 61,
@@ -3969,20 +4067,6 @@
         "exp" : 0.0,
         "permStatus" : [ ]
       }, {
-        "id" : 23,
-        "name" : "Class Training",
-        "type" : "Passive",
-        "affinity" : "Misc",
-        "description" : "Gain Class Abilities",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ -1 ],
-        "rank" : 1,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ ]
-      }, {
         "id" : 24,
         "name" : "Race Training",
         "type" : "Passive",
@@ -4001,10 +4085,10 @@
     "deviant" : false
   },
   "combat" : {
-    "inCombat" : false,
-    "round" : 0,
+    "inCombat" : true,
+    "round" : 1,
     "initiative" : 0,
-    "showInitiativePopup" : true,
+    "showInitiativePopup" : false,
     "critDamage" : 2.0,
     "invade" : false,
     "reach" : 0,
@@ -4016,9 +4100,9 @@
       "source" : "Spell",
       "affinity" : "None",
       "atkType" : "OTHER",
-      "atk" : 0,
-      "bdmg" : 0,
-      "tdmg" : 0,
+      "atk" : 17,
+      "bdmg" : 8,
+      "tdmg" : 13,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,
