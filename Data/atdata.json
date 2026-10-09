@@ -6,8 +6,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 1
     },
     {
@@ -17,8 +16,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 2
     },
     {
@@ -28,8 +26,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 3
     },
     {
@@ -39,8 +36,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 4
     },
     {
@@ -50,8 +46,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 5
     },
     {
@@ -61,8 +56,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 6
     },
     {
@@ -72,8 +66,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7
     },
     {
@@ -83,8 +76,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8
     },
     {
@@ -94,8 +86,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9
     },
     {
@@ -105,8 +96,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10
     },
     {
@@ -116,8 +106,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11
     },
     {
@@ -127,8 +116,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12
     },
     {
@@ -138,8 +126,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21
     },
     {
@@ -149,8 +136,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22
     },
     {
@@ -160,8 +146,7 @@
         "rank": 1,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23
     },
     {
@@ -171,8 +156,7 @@
         "rank": 1,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24
     },
     {
@@ -182,8 +166,7 @@
         "rank": 1,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31
     },
     {
@@ -193,8 +176,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32
     },
     {
@@ -204,8 +186,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33
     },
     {
@@ -215,8 +196,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34
     },
     {
@@ -226,8 +206,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35
     },
     {
@@ -237,8 +216,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36
     },
     {
@@ -248,8 +226,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37
     },
     {
@@ -259,8 +236,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38
     },
     {
@@ -270,8 +246,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39
     },
     {
@@ -281,8 +256,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40
     },
     {
@@ -292,8 +266,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41
     },
     {
@@ -303,8 +276,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42
     },
     {
@@ -314,8 +286,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43
     },
     {
@@ -325,8 +296,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44
     },
     {
@@ -336,8 +306,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45
     },
     {
@@ -347,8 +316,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46
     },
     {
@@ -358,8 +326,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47
     },
     {
@@ -369,8 +336,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48
     },
     {
@@ -380,8 +346,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49
     },
     {
@@ -391,8 +356,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51
     },
     {
@@ -402,8 +366,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52
     },
     {
@@ -413,8 +376,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53
     },
     {
@@ -424,8 +386,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54
     },
     {
@@ -435,8 +396,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 55
     },
     {
@@ -446,8 +406,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 61
     },
     {
@@ -457,8 +416,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 62
     },
     {
@@ -468,8 +426,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 63
     },
     {
@@ -479,8 +436,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 64
     },
     {
@@ -490,8 +446,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 65
     },
     {
@@ -501,8 +456,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 101
     },
     {
@@ -572,10 +526,9 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 201
-    },    
+    },
     {
         "name": "Ritual Storing",
         "affinity": "None",
@@ -587,7 +540,7 @@
             201
         ],
         "id": 211
-    },    
+    },
     {
         "name": "Ritual Alchemy",
         "affinity": "None",
@@ -599,7 +552,7 @@
             201
         ],
         "id": 221
-    },    
+    },
     {
         "name": "Ritual Foodcraft",
         "affinity": "None",
@@ -611,7 +564,7 @@
             201
         ],
         "id": 231
-    },    
+    },
     {
         "name": "Aura Engineering",
         "affinity": "None",
@@ -619,8 +572,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 301
     },
     {
@@ -1068,18 +1020,6 @@
         "id": 4001
     },
     {
-        "name": "Muscle Shot (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4001
-        ],
-        "id": 4002
-    },
-    {
         "name": "Muscle Shot (Strong)",
         "affinity": "Body",
         "description": "-",
@@ -1102,18 +1042,6 @@
             32
         ],
         "id": 4006
-    },
-    {
-        "name": "Limber Shot (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4006
-        ],
-        "id": 4007
     },
     {
         "name": "Limber Shot (Strong)",
@@ -1140,18 +1068,6 @@
         "id": 4011
     },
     {
-        "name": "Body Smash (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4011
-        ],
-        "id": 4012
-    },
-    {
         "name": "Body Smash (Strong)",
         "affinity": "Body",
         "description": "-",
@@ -1174,18 +1090,6 @@
             32
         ],
         "id": 4016
-    },
-    {
-        "name": "Body Jab (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4016
-        ],
-        "id": 4017
     },
     {
         "name": "Body Jab (Strong)",
@@ -1212,18 +1116,6 @@
         "id": 4021
     },
     {
-        "name": "Body Blast (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4021
-        ],
-        "id": 4022
-    },
-    {
         "name": "Body Blast (Strong)",
         "affinity": "Body",
         "description": "-",
@@ -1246,18 +1138,6 @@
             32
         ],
         "id": 4026
-    },
-    {
-        "name": "Body Bolt (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4026
-        ],
-        "id": 4027
     },
     {
         "name": "Body Bolt (Strong)",
@@ -1284,18 +1164,6 @@
         "id": 4031
     },
     {
-        "name": "Body Heal (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4031
-        ],
-        "id": 4032
-    },
-    {
         "name": "Body Heal (Strong)",
         "affinity": "Body",
         "description": "-",
@@ -1318,18 +1186,6 @@
             32
         ],
         "id": 4036
-    },
-    {
-        "name": "Body Mend (Medium)",
-        "affinity": "Body",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            4036
-        ],
-        "id": 4037
     },
     {
         "name": "Body Mend (Strong)",
@@ -1638,21 +1494,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7001
-    },
-    {
-        "name": "Feral Shot (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7001
-        ],
-        "id": 7002
     },
     {
         "name": "Feral Shot (Strong)",
@@ -1673,21 +1516,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7006
-    },
-    {
-        "name": "Wild Shot (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7006
-        ],
-        "id": 7007
     },
     {
         "name": "Wild Shot (Strong)",
@@ -1708,21 +1538,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7011
-    },
-    {
-        "name": "Nature Smash (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7011
-        ],
-        "id": 7012
     },
     {
         "name": "Nature Smash (Strong)",
@@ -1743,21 +1560,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7016
-    },
-    {
-        "name": "Nature Jab (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7016
-        ],
-        "id": 7017
     },
     {
         "name": "Nature Jab (Strong)",
@@ -1778,21 +1582,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7021
-    },
-    {
-        "name": "Nature Blast (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7021
-        ],
-        "id": 7022
     },
     {
         "name": "Nature Blast (Strong)",
@@ -1813,21 +1604,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7026
-    },
-    {
-        "name": "Nature Bolt (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7026
-        ],
-        "id": 7027
     },
     {
         "name": "Nature Bolt (Strong)",
@@ -1848,21 +1626,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7031
-    },
-    {
-        "name": "Nature Heal (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7031
-        ],
-        "id": 7032
     },
     {
         "name": "Nature Heal (Strong)",
@@ -1883,21 +1648,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 7036
-    },
-    {
-        "name": "Nature Mend (Medium)",
-        "affinity": "Nature",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            7036
-        ],
-        "id": 7037
     },
     {
         "name": "Nature Mend (Strong)",
@@ -1918,8 +1670,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8001
     },
     {
@@ -1941,8 +1692,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8006
     },
     {
@@ -1964,8 +1714,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8011
     },
     {
@@ -1975,8 +1724,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8016
     },
     {
@@ -2010,8 +1758,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8026
     },
     {
@@ -2033,8 +1780,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8031
     },
     {
@@ -2056,8 +1802,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8036
     },
     {
@@ -2067,8 +1812,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 8041
     },
     {
@@ -2078,8 +1822,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9001
     },
     {
@@ -2089,8 +1832,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9006
     },
     {
@@ -2100,8 +1842,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9011
     },
     {
@@ -2111,8 +1852,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9016
     },
     {
@@ -2122,8 +1862,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9021
     },
     {
@@ -2133,8 +1872,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 9026
     },
     {
@@ -2144,21 +1882,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10001
-    },
-    {
-        "name": "Steel Shot (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10001
-        ],
-        "id": 10002
     },
     {
         "name": "Steel Shot (Strong)",
@@ -2179,21 +1904,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10006
-    },
-    {
-        "name": "Sharp Shot (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10006
-        ],
-        "id": 10007
     },
     {
         "name": "Sharp Shot (Strong)",
@@ -2214,21 +1926,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10011
-    },
-    {
-        "name": "Metal Smash (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10011
-        ],
-        "id": 10012
     },
     {
         "name": "Metal Smash (Strong)",
@@ -2249,21 +1948,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10016
-    },
-    {
-        "name": "Metal Jab (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10016
-        ],
-        "id": 10017
     },
     {
         "name": "Metal Jab (Strong)",
@@ -2284,21 +1970,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10021
-    },
-    {
-        "name": "Metal Blast (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10021
-        ],
-        "id": 10022
     },
     {
         "name": "Metal Blast (Strong)",
@@ -2319,21 +1992,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10026
-    },
-    {
-        "name": "Metal Bolt (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10026
-        ],
-        "id": 10027
     },
     {
         "name": "Metal Bolt (Strong)",
@@ -2354,21 +2014,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10031
-    },
-    {
-        "name": "Metal Heal (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10031
-        ],
-        "id": 10032
     },
     {
         "name": "Metal Heal (Strong)",
@@ -2389,21 +2036,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 10036
-    },
-    {
-        "name": "Metal Mend (Medium)",
-        "affinity": "Metal",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            10036
-        ],
-        "id": 10037
     },
     {
         "name": "Metal Mend (Strong)",
@@ -2424,8 +2058,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11001
     },
     {
@@ -2447,8 +2080,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11006
     },
     {
@@ -2470,8 +2102,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11011
     },
     {
@@ -2493,8 +2124,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11016
     },
     {
@@ -2504,8 +2134,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11021
     },
     {
@@ -2515,8 +2144,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11026
     },
     {
@@ -2538,8 +2166,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11031
     },
     {
@@ -2561,8 +2188,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11036
     },
     {
@@ -2584,8 +2210,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11041
     },
     {
@@ -2595,8 +2220,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 11046
     },
     {
@@ -2606,8 +2230,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12001
     },
     {
@@ -2617,8 +2240,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12006
     },
     {
@@ -2628,8 +2250,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12011
     },
     {
@@ -2639,8 +2260,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12021
     },
     {
@@ -2650,8 +2270,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12026
     },
     {
@@ -2661,8 +2280,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 12031
     },
     {
@@ -2672,21 +2290,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13001
-    },
-    {
-        "name": "Stone Shot (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13001
-        ],
-        "id": 13002
     },
     {
         "name": "Stone Shot (Strong)",
@@ -2707,21 +2312,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13006
-    },
-    {
-        "name": "Litho Shot (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13006
-        ],
-        "id": 13007
     },
     {
         "name": "Litho Shot (Strong)",
@@ -2742,21 +2334,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13011
-    },
-    {
-        "name": "Earth Smash (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13011
-        ],
-        "id": 13012
     },
     {
         "name": "Earth Smash (Strong)",
@@ -2777,21 +2356,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13016
-    },
-    {
-        "name": "Earth Jab (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13016
-        ],
-        "id": 13017
     },
     {
         "name": "Earth Jab (Strong)",
@@ -2812,21 +2378,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13021
-    },
-    {
-        "name": "Earth Blast (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13021
-        ],
-        "id": 13022
     },
     {
         "name": "Earth Blast (Strong)",
@@ -2847,21 +2400,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13026
-    },
-    {
-        "name": "Earth Bolt (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13026
-        ],
-        "id": 13027
     },
     {
         "name": "Earth Bolt (Strong)",
@@ -2882,21 +2422,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13031
-    },
-    {
-        "name": "Earth Heal (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13031
-        ],
-        "id": 13032
     },
     {
         "name": "Earth Heal (Strong)",
@@ -2917,21 +2444,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 13036
-    },
-    {
-        "name": "Earth Mend (Medium)",
-        "affinity": "Earth",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            13036
-        ],
-        "id": 13037
     },
     {
         "name": "Earth Mend (Strong)",
@@ -2952,8 +2466,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14001
     },
     {
@@ -2975,8 +2488,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14006
     },
     {
@@ -2998,8 +2510,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14011
     },
     {
@@ -3021,8 +2532,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14016
     },
     {
@@ -3032,8 +2542,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14021
     },
     {
@@ -3043,8 +2552,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14026
     },
     {
@@ -3066,8 +2574,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14031
     },
     {
@@ -3089,8 +2596,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14036
     },
     {
@@ -3112,8 +2618,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14041
     },
     {
@@ -3123,8 +2628,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14046
     },
     {
@@ -3134,8 +2638,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14051
     },
     {
@@ -3145,8 +2648,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 14056
     },
     {
@@ -3156,8 +2658,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15001
     },
     {
@@ -3167,8 +2668,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15006
     },
     {
@@ -3178,8 +2678,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15011
     },
     {
@@ -3189,8 +2688,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15016
     },
     {
@@ -3200,8 +2698,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15021
     },
     {
@@ -3211,8 +2708,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 15026
     },
     {
@@ -3222,21 +2718,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16001
-    },
-    {
-        "name": "Tidal Shot (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16001
-        ],
-        "id": 16002
     },
     {
         "name": "Tidal Shot (Strong)",
@@ -3257,21 +2740,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16006
-    },
-    {
-        "name": "Frost Shot (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16006
-        ],
-        "id": 16007
     },
     {
         "name": "Frost Shot (Strong)",
@@ -3292,21 +2762,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16011
-    },
-    {
-        "name": "Water Smash (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16011
-        ],
-        "id": 16012
     },
     {
         "name": "Water Smash (Strong)",
@@ -3327,21 +2784,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16016
-    },
-    {
-        "name": "Water Jab (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16016
-        ],
-        "id": 16017
     },
     {
         "name": "Water Jab (Strong)",
@@ -3362,21 +2806,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16021
-    },
-    {
-        "name": "Water Blast (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16021
-        ],
-        "id": 16022
     },
     {
         "name": "Water Blast (Strong)",
@@ -3397,21 +2828,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16026
-    },
-    {
-        "name": "Water Bolt (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16026
-        ],
-        "id": 16027
     },
     {
         "name": "Water Bolt (Strong)",
@@ -3432,21 +2850,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16031
-    },
-    {
-        "name": "Water Heal (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16031
-        ],
-        "id": 16032
     },
     {
         "name": "Water Heal (Strong)",
@@ -3467,21 +2872,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 16036
-    },
-    {
-        "name": "Water Mend (Medium)",
-        "affinity": "Water",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            16036
-        ],
-        "id": 16037
     },
     {
         "name": "Water Mend (Strong)",
@@ -3502,8 +2894,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17001
     },
     {
@@ -3525,8 +2916,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17006
     },
     {
@@ -3548,8 +2938,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17011
     },
     {
@@ -3571,8 +2960,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17016
     },
     {
@@ -3582,8 +2970,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17021
     },
     {
@@ -3593,8 +2980,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17026
     },
     {
@@ -3616,8 +3002,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17031
     },
     {
@@ -3639,8 +3024,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17036
     },
     {
@@ -3662,8 +3046,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17041
     },
     {
@@ -3673,8 +3056,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 17046
     },
     {
@@ -3684,8 +3066,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18001
     },
     {
@@ -3695,8 +3076,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18006
     },
     {
@@ -3706,8 +3086,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18011
     },
     {
@@ -3717,8 +3096,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18016
     },
     {
@@ -3728,8 +3106,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18021
     },
     {
@@ -3739,8 +3116,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 18026
     },
     {
@@ -3750,21 +3126,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19001
-    },
-    {
-        "name": "Aerial Shot (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19001
-        ],
-        "id": 19002
     },
     {
         "name": "Aerial Shot (Strong)",
@@ -3785,21 +3148,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19006
-    },
-    {
-        "name": "Gale Shot (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19006
-        ],
-        "id": 19007
     },
     {
         "name": "Gale Shot (Strong)",
@@ -3820,21 +3170,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19011
-    },
-    {
-        "name": "Air Smash (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19011
-        ],
-        "id": 19012
     },
     {
         "name": "Air Smash (Strong)",
@@ -3855,21 +3192,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19016
-    },
-    {
-        "name": "Air Jab (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19016
-        ],
-        "id": 19017
     },
     {
         "name": "Air Jab (Strong)",
@@ -3890,21 +3214,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19021
-    },
-    {
-        "name": "Air Blast (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19021
-        ],
-        "id": 19022
     },
     {
         "name": "Air Blast (Strong)",
@@ -3925,21 +3236,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19026
-    },
-    {
-        "name": "Air Bolt (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19026
-        ],
-        "id": 19027
     },
     {
         "name": "Air Bolt (Strong)",
@@ -3960,21 +3258,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19031
-    },
-    {
-        "name": "Air Heal (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19031
-        ],
-        "id": 19032
     },
     {
         "name": "Air Heal (Strong)",
@@ -3995,21 +3280,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 19036
-    },
-    {
-        "name": "Air Mend (Medium)",
-        "affinity": "Air",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            19036
-        ],
-        "id": 19037
     },
     {
         "name": "Air Mend (Strong)",
@@ -4030,8 +3302,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20001
     },
     {
@@ -4053,8 +3324,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20006
     },
     {
@@ -4076,8 +3346,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20011
     },
     {
@@ -4087,8 +3356,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20016
     },
     {
@@ -4098,8 +3366,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20021
     },
     {
@@ -4121,8 +3388,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20026
     },
     {
@@ -4144,8 +3410,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20031
     },
     {
@@ -4167,8 +3432,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20036
     },
     {
@@ -4178,8 +3442,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 20041
     },
     {
@@ -4189,8 +3452,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21001
     },
     {
@@ -4200,8 +3462,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21006
     },
     {
@@ -4211,8 +3472,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21011
     },
     {
@@ -4222,8 +3482,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21016
     },
     {
@@ -4233,8 +3492,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21021
     },
     {
@@ -4244,8 +3502,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 21026
     },
     {
@@ -4255,21 +3512,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22001
-    },
-    {
-        "name": "Scorching Shot (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22001
-        ],
-        "id": 22002
     },
     {
         "name": "Scorching Shot (Strong)",
@@ -4290,21 +3534,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22006
-    },
-    {
-        "name": "Inferno Shot (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22006
-        ],
-        "id": 22007
     },
     {
         "name": "Inferno Shot (Strong)",
@@ -4325,21 +3556,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22011
-    },
-    {
-        "name": "Fire Smash (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22011
-        ],
-        "id": 22012
     },
     {
         "name": "Fire Smash (Strong)",
@@ -4360,21 +3578,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22016
-    },
-    {
-        "name": "Fire Jab (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22016
-        ],
-        "id": 22017
     },
     {
         "name": "Fire Jab (Strong)",
@@ -4395,21 +3600,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22021
-    },
-    {
-        "name": "Fire Blast (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22021
-        ],
-        "id": 22022
     },
     {
         "name": "Fire Blast (Strong)",
@@ -4430,21 +3622,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22026
-    },
-    {
-        "name": "Fire Bolt (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22026
-        ],
-        "id": 22027
     },
     {
         "name": "Fire Bolt (Strong)",
@@ -4465,21 +3644,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22031
-    },
-    {
-        "name": "Fire Heal (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22031
-        ],
-        "id": 22032
     },
     {
         "name": "Fire Heal (Strong)",
@@ -4500,21 +3666,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 22036
-    },
-    {
-        "name": "Fire Mend (Medium)",
-        "affinity": "Fire",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            22036
-        ],
-        "id": 22037
     },
     {
         "name": "Fire Mend (Strong)",
@@ -4535,8 +3688,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23001
     },
     {
@@ -4558,8 +3710,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23006
     },
     {
@@ -4581,8 +3732,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23011
     },
     {
@@ -4592,8 +3742,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23016
     },
     {
@@ -4603,8 +3752,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23021
     },
     {
@@ -4626,8 +3774,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23026
     },
     {
@@ -4649,8 +3796,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23031
     },
     {
@@ -4672,8 +3818,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23036
     },
     {
@@ -4683,8 +3828,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 23041
     },
     {
@@ -4694,8 +3838,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24001
     },
     {
@@ -4705,8 +3848,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24006
     },
     {
@@ -4716,8 +3858,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24011
     },
     {
@@ -4727,8 +3868,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24016
     },
     {
@@ -4738,8 +3878,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24021
     },
     {
@@ -4749,8 +3888,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 24026
     },
     {
@@ -4760,21 +3898,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25001
-    },
-    {
-        "name": "Static Shot (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25001
-        ],
-        "id": 25002
     },
     {
         "name": "Static Shot (Strong)",
@@ -4795,21 +3920,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25006
-    },
-    {
-        "name": "Voltaic Shot (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25006
-        ],
-        "id": 25007
     },
     {
         "name": "Voltaic Shot (Strong)",
@@ -4830,21 +3942,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25011
-    },
-    {
-        "name": "Electric Smash (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25011
-        ],
-        "id": 25012
     },
     {
         "name": "Electric Smash (Strong)",
@@ -4865,21 +3964,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25016
-    },
-    {
-        "name": "Electric Jab (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25016
-        ],
-        "id": 25017
     },
     {
         "name": "Electric Jab (Strong)",
@@ -4900,21 +3986,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25021
-    },
-    {
-        "name": "Electric Blast (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25021
-        ],
-        "id": 25022
     },
     {
         "name": "Electric Blast (Strong)",
@@ -4935,21 +4008,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25026
-    },
-    {
-        "name": "Electric Bolt (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25026
-        ],
-        "id": 25027
     },
     {
         "name": "Electric Bolt (Strong)",
@@ -4970,21 +4030,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25031
-    },
-    {
-        "name": "Electric Heal (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25031
-        ],
-        "id": 25032
     },
     {
         "name": "Electric Heal (Strong)",
@@ -5005,21 +4052,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 25036
-    },
-    {
-        "name": "Electric Mend (Medium)",
-        "affinity": "Electricity",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            25036
-        ],
-        "id": 25037
     },
     {
         "name": "Electric Mend (Strong)",
@@ -5040,8 +4074,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26001
     },
     {
@@ -5063,8 +4096,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26006
     },
     {
@@ -5086,8 +4118,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26011
     },
     {
@@ -5097,8 +4128,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26016
     },
     {
@@ -5132,8 +4162,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26026
     },
     {
@@ -5155,8 +4184,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26031
     },
     {
@@ -5178,8 +4206,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26036
     },
     {
@@ -5189,8 +4216,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 26041
     },
     {
@@ -5200,8 +4226,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27001
     },
     {
@@ -5211,8 +4236,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27006
     },
     {
@@ -5222,8 +4246,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27011
     },
     {
@@ -5233,8 +4256,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27016
     },
     {
@@ -5244,8 +4266,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27021
     },
     {
@@ -5255,8 +4276,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 27026
     },
     {
@@ -5266,21 +4286,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28001
-    },
-    {
-        "name": "Kinetic Shot (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28001
-        ],
-        "id": 28002
     },
     {
         "name": "Kinetic Shot (Strong)",
@@ -5301,21 +4308,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28006
-    },
-    {
-        "name": "Impact Shot (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28006
-        ],
-        "id": 28007
     },
     {
         "name": "Impact Shot (Strong)",
@@ -5336,21 +4330,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28011
-    },
-    {
-        "name": "Force Smash (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28011
-        ],
-        "id": 28012
     },
     {
         "name": "Force Smash (Strong)",
@@ -5371,21 +4352,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28016
-    },
-    {
-        "name": "Force Jab (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28016
-        ],
-        "id": 28017
     },
     {
         "name": "Force Jab (Strong)",
@@ -5406,21 +4374,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28021
-    },
-    {
-        "name": "Force Blast (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28021
-        ],
-        "id": 28022
     },
     {
         "name": "Force Blast (Strong)",
@@ -5433,7 +4388,7 @@
             28022
         ],
         "id": 28023
-    },    
+    },
     {
         "name": "Force Bolt (Weak)",
         "affinity": "Force",
@@ -5441,21 +4396,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28026
-    },
-    {
-        "name": "Force Bolt (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28026
-        ],
-        "id": 28027
     },
     {
         "name": "Force Bolt (Strong)",
@@ -5476,21 +4418,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28031
-    },
-    {
-        "name": "Force Heal (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28031
-        ],
-        "id": 28032
     },
     {
         "name": "Force Heal (Strong)",
@@ -5511,21 +4440,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 28036
-    },
-    {
-        "name": "Force Mend (Medium)",
-        "affinity": "Force",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            28036
-        ],
-        "id": 28037
     },
     {
         "name": "Force Mend (Strong)",
@@ -5546,8 +4462,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29001
     },
     {
@@ -5569,8 +4484,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29006
     },
     {
@@ -5592,8 +4506,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29011
     },
     {
@@ -5615,8 +4528,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29016
     },
     {
@@ -5626,8 +4538,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29021
     },
     {
@@ -5637,8 +4548,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29026
     },
     {
@@ -5660,8 +4570,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29031
     },
     {
@@ -5683,8 +4592,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29036
     },
     {
@@ -5706,8 +4614,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29041
     },
     {
@@ -5717,8 +4624,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 29046
     },
     {
@@ -5728,8 +4634,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30001
     },
     {
@@ -5739,10 +4644,9 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30006
-    },    
+    },
     {
         "name": "Force Control",
         "affinity": "Force",
@@ -5750,8 +4654,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30011
     },
     {
@@ -5761,8 +4664,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30016
     },
     {
@@ -5772,8 +4674,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30021
     },
     {
@@ -5783,8 +4684,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 30026
     },
     {
@@ -5794,21 +4694,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31001
-    },
-    {
-        "name": "Thunder Shot (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31001
-        ],
-        "id": 31002
     },
     {
         "name": "Thunder Shot (Strong)",
@@ -5829,21 +4716,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31006
-    },
-    {
-        "name": "Sonic Shot (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31006
-        ],
-        "id": 31007
     },
     {
         "name": "Sonic Shot (Strong)",
@@ -5864,21 +4738,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31011
-    },
-    {
-        "name": "Sound Smash (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31011
-        ],
-        "id": 31012
     },
     {
         "name": "Sound Smash (Strong)",
@@ -5899,21 +4760,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31016
-    },
-    {
-        "name": "Sound Jab (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31016
-        ],
-        "id": 31017
     },
     {
         "name": "Sound Jab (Strong)",
@@ -5934,21 +4782,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31021
-    },
-    {
-        "name": "Sound Blast (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31021
-        ],
-        "id": 31022
     },
     {
         "name": "Sound Blast (Strong)",
@@ -5969,21 +4804,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31026
-    },
-    {
-        "name": "Sound Bolt (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31026
-        ],
-        "id": 31027
     },
     {
         "name": "Sound Bolt (Strong)",
@@ -6004,21 +4826,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31031
-    },
-    {
-        "name": "Sound Heal (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31031
-        ],
-        "id": 31032
     },
     {
         "name": "Sound Heal (Strong)",
@@ -6039,21 +4848,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 31036
-    },
-    {
-        "name": "Sound Mend (Medium)",
-        "affinity": "Sound",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            31036
-        ],
-        "id": 31037
     },
     {
         "name": "Sound Mend (Strong)",
@@ -6074,8 +4870,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32001
     },
     {
@@ -6097,8 +4892,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32006
     },
     {
@@ -6120,8 +4914,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32011
     },
     {
@@ -6131,8 +4924,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32011
     },
     {
@@ -6142,8 +4934,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32021
     },
     {
@@ -6165,8 +4956,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32026
     },
     {
@@ -6188,8 +4978,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32031
     },
     {
@@ -6211,8 +5000,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32036
     },
     {
@@ -6222,8 +5010,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 32041
     },
     {
@@ -6233,8 +5020,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33001
     },
     {
@@ -6244,8 +5030,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33006
     },
     {
@@ -6255,8 +5040,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33011
     },
     {
@@ -6266,8 +5050,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33016
     },
     {
@@ -6277,8 +5060,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33021
     },
     {
@@ -6288,8 +5070,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 33026
     },
     {
@@ -6299,21 +5080,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34001
-    },
-    {
-        "name": "Luminous Shot (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34001
-        ],
-        "id": 34002
     },
     {
         "name": "Luminous Shot (Strong)",
@@ -6334,21 +5102,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34006
-    },
-    {
-        "name": "Light Smash (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34006
-        ],
-        "id": 34007
     },
     {
         "name": "Light Smash (Strong)",
@@ -6369,21 +5124,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34011
-    },
-    {
-        "name": "Light Jab (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34011
-        ],
-        "id": 34012
     },
     {
         "name": "Light Jab (Strong)",
@@ -6404,21 +5146,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34016
-    },
-    {
-        "name": "Light Blast (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34016
-        ],
-        "id": 34017
     },
     {
         "name": "Light Blast (Strong)",
@@ -6439,21 +5168,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34021
-    },
-    {
-        "name": "Light Bolt (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34021
-        ],
-        "id": 34022
     },
     {
         "name": "Light Bolt (Strong)",
@@ -6474,21 +5190,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34026
-    },
-    {
-        "name": "Light Heal (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34026
-        ],
-        "id": 34027
     },
     {
         "name": "Light Heal (Strong)",
@@ -6509,21 +5212,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 34031
-    },
-    {
-        "name": "Light Mend (Medium)",
-        "affinity": "Light",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            34031
-        ],
-        "id": 34032
     },
     {
         "name": "Light Mend (Strong)",
@@ -6544,8 +5234,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35001
     },
     {
@@ -6567,8 +5256,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35006
     },
     {
@@ -6590,8 +5278,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35011
     },
     {
@@ -6601,8 +5288,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35016
     },
     {
@@ -6636,8 +5322,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35026
     },
     {
@@ -6659,8 +5344,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35031
     },
     {
@@ -6682,8 +5366,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35036
     },
     {
@@ -6693,8 +5376,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 35041
     },
     {
@@ -6704,8 +5386,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36001
     },
     {
@@ -6715,8 +5396,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36006
     },
     {
@@ -6726,8 +5406,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36011
     },
     {
@@ -6737,8 +5416,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36016
     },
     {
@@ -6748,8 +5426,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36021
     },
     {
@@ -6759,8 +5436,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 36026
     },
     {
@@ -6770,21 +5446,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37001
-    },
-    {
-        "name": "Night Shot (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37001
-        ],
-        "id": 37002
     },
     {
         "name": "Night Shot (Strong)",
@@ -6805,21 +5468,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37006
-    },
-    {
-        "name": "Twilight Shot (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37006
-        ],
-        "id": 37007
     },
     {
         "name": "Twilight Shot (Strong)",
@@ -6840,21 +5490,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37011
-    },
-    {
-        "name": "Shadow Shot (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37011
-        ],
-        "id": 37012
     },
     {
         "name": "Shadow Shot (Strong)",
@@ -6875,21 +5512,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37016
-    },
-    {
-        "name": "Dark Smash (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37016
-        ],
-        "id": 37017
     },
     {
         "name": "Dark Smash (Strong)",
@@ -6910,21 +5534,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37021
-    },
-    {
-        "name": "Dark Jab (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37021
-        ],
-        "id": 37022
     },
     {
         "name": "Dark Jab (Strong)",
@@ -6945,21 +5556,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37026
-    },
-    {
-        "name": "Dark Blast (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37026
-        ],
-        "id": 37027
     },
     {
         "name": "Dark Blast (Strong)",
@@ -6980,21 +5578,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37031
-    },
-    {
-        "name": "Dark Bolt (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37031
-        ],
-        "id": 37032
     },
     {
         "name": "Dark Bolt (Strong)",
@@ -7015,21 +5600,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37036
-    },
-    {
-        "name": "Dark Heal (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37036
-        ],
-        "id": 37037
     },
     {
         "name": "Dark Heal (Strong)",
@@ -7050,21 +5622,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 37041
-    },
-    {
-        "name": "Dark Mend (Medium)",
-        "affinity": "Darkness",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            37041
-        ],
-        "id": 37042
     },
     {
         "name": "Dark Mend (Strong)",
@@ -7085,8 +5644,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38001
     },
     {
@@ -7108,8 +5666,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38006
     },
     {
@@ -7131,8 +5688,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38011
     },
     {
@@ -7154,8 +5710,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38016
     },
     {
@@ -7165,8 +5720,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38021
     },
     {
@@ -7176,8 +5730,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38026
     },
     {
@@ -7199,8 +5752,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38031
     },
     {
@@ -7222,8 +5774,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38036
     },
     {
@@ -7245,8 +5796,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38041
     },
     {
@@ -7256,8 +5806,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 38046
     },
     {
@@ -7267,8 +5816,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39001
     },
     {
@@ -7278,8 +5826,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39006
     },
     {
@@ -7289,8 +5836,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39011
     },
     {
@@ -7300,8 +5846,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39016
     },
     {
@@ -7311,8 +5856,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39021
     },
     {
@@ -7322,8 +5866,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 39026
     },
     {
@@ -7333,21 +5876,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40001
-    },
-    {
-        "name": "Venom Shot (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40001
-        ],
-        "id": 40002
     },
     {
         "name": "Venom Shot (Strong)",
@@ -7368,21 +5898,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40006
-    },
-    {
-        "name": "Toxic Shot (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40006
-        ],
-        "id": 40007
     },
     {
         "name": "Toxic Shot (Strong)",
@@ -7403,21 +5920,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40011
-    },
-    {
-        "name": "Poison Smash (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40011
-        ],
-        "id": 40012
     },
     {
         "name": "Poison Smash (Strong)",
@@ -7438,21 +5942,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40016
-    },
-    {
-        "name": "Poison Jab (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40016
-        ],
-        "id": 40017
     },
     {
         "name": "Poison Jab (Strong)",
@@ -7473,21 +5964,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40021
-    },
-    {
-        "name": "Poison Blast (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40021
-        ],
-        "id": 40022
     },
     {
         "name": "Poison Blast (Strong)",
@@ -7508,21 +5986,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40026
-    },
-    {
-        "name": "Poison Bolt (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40026
-        ],
-        "id": 40027
     },
     {
         "name": "Poison Bolt (Strong)",
@@ -7543,21 +6008,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40031
-    },
-    {
-        "name": "Poison Heal (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40031
-        ],
-        "id": 40032
     },
     {
         "name": "Poison Heal (Strong)",
@@ -7578,21 +6030,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 40036
-    },
-    {
-        "name": "Poison Mend (Medium)",
-        "affinity": "Poison",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            40036
-        ],
-        "id": 40037
     },
     {
         "name": "Poison Mend (Strong)",
@@ -7613,8 +6052,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41001
     },
     {
@@ -7636,8 +6074,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41006
     },
     {
@@ -7659,8 +6096,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41011
     },
     {
@@ -7682,8 +6118,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41016
     },
     {
@@ -7693,8 +6128,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41021
     },
     {
@@ -7728,8 +6162,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41031
     },
     {
@@ -7751,8 +6184,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41036
     },
     {
@@ -7774,8 +6206,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41041
     },
     {
@@ -7785,8 +6216,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 41046
     },
     {
@@ -7796,8 +6226,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42001
     },
     {
@@ -7807,8 +6236,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42006
     },
     {
@@ -7818,8 +6246,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42011
     },
     {
@@ -7829,8 +6256,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42016
     },
     {
@@ -7840,8 +6266,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42021
     },
     {
@@ -7851,8 +6276,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 42026
     },
     {
@@ -7862,21 +6286,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43001
-    },
-    {
-        "name": "Cerebral Shot (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43001
-        ],
-        "id": 43002
     },
     {
         "name": "Cerebral Shot (Strong)",
@@ -7897,21 +6308,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43006
-    },
-    {
-        "name": "Mind Shot (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43006
-        ],
-        "id": 43007
     },
     {
         "name": "Mind Shot (Strong)",
@@ -7932,21 +6330,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43011
-    },
-    {
-        "name": "Psionic Smash (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43011
-        ],
-        "id": 43012
     },
     {
         "name": "Psionic Smash (Strong)",
@@ -7967,21 +6352,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43016
-    },
-    {
-        "name": "Psionic Jab (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43016
-        ],
-        "id": 43017
     },
     {
         "name": "Psionic Jab (Strong)",
@@ -8002,21 +6374,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43021
-    },
-    {
-        "name": "Psionic Blast (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43021
-        ],
-        "id": 43022
     },
     {
         "name": "Psionic Blast (Strong)",
@@ -8037,21 +6396,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43026
-    },
-    {
-        "name": "Psionic Bolt (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43026
-        ],
-        "id": 43027
     },
     {
         "name": "Psionic Bolt (Strong)",
@@ -8072,21 +6418,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43031
-    },
-    {
-        "name": "Psionic Heal (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43031
-        ],
-        "id": 43032
     },
     {
         "name": "Psionic Heal (Strong)",
@@ -8107,21 +6440,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 43036
-    },
-    {
-        "name": "Psionic Mend (Medium)",
-        "affinity": "Psionic",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            43036
-        ],
-        "id": 43037
     },
     {
         "name": "Psionic Mend (Strong)",
@@ -8142,8 +6462,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44001
     },
     {
@@ -8165,8 +6484,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44006
     },
     {
@@ -8188,8 +6506,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44011
     },
     {
@@ -8199,8 +6516,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44016
     },
     {
@@ -8210,8 +6526,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44021
     },
     {
@@ -8233,8 +6548,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44026
     },
     {
@@ -8256,8 +6570,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44031
     },
     {
@@ -8279,8 +6592,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44036
     },
     {
@@ -8290,8 +6602,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 44041
     },
     {
@@ -8301,8 +6612,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45001
     },
     {
@@ -8312,8 +6622,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45006
     },
     {
@@ -8323,8 +6632,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45011
     },
     {
@@ -8334,8 +6642,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45016
     },
     {
@@ -8345,8 +6652,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45021
     },
     {
@@ -8356,8 +6662,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 45026
     },
     {
@@ -8367,21 +6672,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46001
-    },
-    {
-        "name": "Controlled Shot (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46001
-        ],
-        "id": 46002
     },
     {
         "name": "Controlled Shot (Strong)",
@@ -8402,21 +6694,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46006
-    },
-    {
-        "name": "Energy Smash (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46006
-        ],
-        "id": 46007
     },
     {
         "name": "Energy Smash (Strong)",
@@ -8437,21 +6716,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46011
-    },
-    {
-        "name": "Energy Jab (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46011
-        ],
-        "id": 46012
     },
     {
         "name": "Energy Jab (Strong)",
@@ -8472,21 +6738,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46016
-    },
-    {
-        "name": "Energy Blast (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46016
-        ],
-        "id": 46017
     },
     {
         "name": "Energy Blast (Strong)",
@@ -8507,21 +6760,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46021
-    },
-    {
-        "name": "Energy Bolt (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46021
-        ],
-        "id": 46022
     },
     {
         "name": "Energy Bolt (Strong)",
@@ -8542,21 +6782,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46026
-    },
-    {
-        "name": "Energy Heal (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46026
-        ],
-        "id": 46027
     },
     {
         "name": "Energy Heal (Strong)",
@@ -8577,21 +6804,8 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 46031
-    },
-    {
-        "name": "Energy Mend (Medium)",
-        "affinity": "Energy",
-        "description": "-",
-        "rank": 0,
-        "exp": 0.0,
-        "levelMod": 0.75,
-        "prereqs": [
-            46031
-        ],
-        "id": 46032
     },
     {
         "name": "Energy Mend (Strong)",
@@ -8612,8 +6826,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47001
     },
     {
@@ -8635,8 +6848,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47006
     },
     {
@@ -8658,8 +6870,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47011
     },
     {
@@ -8669,8 +6880,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47016
     },
     {
@@ -8680,8 +6890,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47021
     },
     {
@@ -8703,8 +6912,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47026
     },
     {
@@ -8726,8 +6934,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47031
     },
     {
@@ -8749,8 +6956,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47036
     },
     {
@@ -8760,8 +6966,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 47041
     },
     {
@@ -8771,8 +6976,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48001
     },
     {
@@ -8782,8 +6986,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48006
     },
     {
@@ -8793,8 +6996,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48011
     },
     {
@@ -8804,8 +7006,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48016
     },
     {
@@ -8815,8 +7016,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48021
     },
     {
@@ -8826,8 +7026,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 48026
     },
     {
@@ -8837,8 +7036,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49001
     },
     {
@@ -8872,8 +7070,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49006
     },
     {
@@ -8907,8 +7104,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49011
     },
     {
@@ -8942,8 +7138,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49016
     },
     {
@@ -8977,8 +7172,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49021
     },
     {
@@ -9012,8 +7206,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49026
     },
     {
@@ -9047,8 +7240,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49031
     },
     {
@@ -9082,8 +7274,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49036
     },
     {
@@ -9117,8 +7308,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49041
     },
     {
@@ -9152,8 +7342,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 49046
     },
     {
@@ -9187,8 +7376,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50001
     },
     {
@@ -9210,8 +7398,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50006
     },
     {
@@ -9233,8 +7420,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50011
     },
     {
@@ -9256,8 +7442,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50016
     },
     {
@@ -9279,8 +7464,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50021
     },
     {
@@ -9290,8 +7474,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50026
     },
     {
@@ -9301,8 +7484,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50031
     },
     {
@@ -9312,8 +7494,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50036
     },
     {
@@ -9323,8 +7504,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50041
     },
     {
@@ -9346,8 +7526,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50046
     },
     {
@@ -9369,8 +7548,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50051
     },
     {
@@ -9392,8 +7570,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50056
     },
     {
@@ -9403,8 +7580,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50061
     },
     {
@@ -9438,8 +7614,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50066
     },
     {
@@ -9449,8 +7624,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 50071
     },
     {
@@ -9460,8 +7634,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51001
     },
     {
@@ -9471,8 +7644,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51006
     },
     {
@@ -9482,8 +7654,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51011
     },
     {
@@ -9493,8 +7664,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51016
     },
     {
@@ -9504,8 +7674,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51021
     },
     {
@@ -9515,8 +7684,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51026
     },
     {
@@ -9526,8 +7694,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51031
     },
     {
@@ -9537,8 +7704,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51036
     },
     {
@@ -9548,8 +7714,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 51041
     },
     {
@@ -9559,8 +7724,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52001
     },
     {
@@ -9594,8 +7758,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52006
     },
     {
@@ -9629,8 +7792,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52011
     },
     {
@@ -9664,8 +7826,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52016
     },
     {
@@ -9699,8 +7860,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52021
     },
     {
@@ -9734,8 +7894,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52026
     },
     {
@@ -9769,8 +7928,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52031
     },
     {
@@ -9804,8 +7962,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52036
     },
     {
@@ -9839,8 +7996,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52041
     },
     {
@@ -9874,8 +8030,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 52046
     },
     {
@@ -9909,8 +8064,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53001
     },
     {
@@ -9932,8 +8086,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53006
     },
     {
@@ -9955,8 +8108,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53011
     },
     {
@@ -9978,8 +8130,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53016
     },
     {
@@ -10001,8 +8152,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53021
     },
     {
@@ -10024,8 +8174,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53026
     },
     {
@@ -10035,8 +8184,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53031
     },
     {
@@ -10046,8 +8194,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53036
     },
     {
@@ -10057,8 +8204,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53041
     },
     {
@@ -10068,8 +8214,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53046
     },
     {
@@ -10091,8 +8236,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53051
     },
     {
@@ -10114,8 +8258,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 1.0,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53056
     },
     {
@@ -10137,8 +8280,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53061
     },
     {
@@ -10148,8 +8290,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 53066
     },
     {
@@ -10159,8 +8300,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54001
     },
     {
@@ -10170,8 +8310,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54006
     },
     {
@@ -10181,8 +8320,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54011
     },
     {
@@ -10192,8 +8330,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54016
     },
     {
@@ -10203,8 +8340,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54021
     },
     {
@@ -10214,8 +8350,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54026
     },
     {
@@ -10225,8 +8360,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54031
     },
     {
@@ -10236,8 +8370,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54036
     },
     {
@@ -10247,8 +8380,7 @@
         "rank": 0,
         "exp": 0.0,
         "levelMod": 0.5,
-        "prereqs": [
-        ],
+        "prereqs": [],
         "id": 54041
     }
 ]

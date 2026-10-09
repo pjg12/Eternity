@@ -841,17 +841,17 @@
 }, {
   "id" : 541,
   "attribute" : "HPMULTI",
-  "ratio" : 0.02,
+  "ratio" : 0.01,
   "cost" : 1
 }, {
   "id" : 542,
   "attribute" : "HPMULTI",
-  "ratio" : 0.04,
+  "ratio" : 0.02,
   "cost" : 3
 }, {
   "id" : 543,
   "attribute" : "HPMULTI",
-  "ratio" : 0.06,
+  "ratio" : 0.03,
   "cost" : 6
 }, {
   "id" : 551,
@@ -871,17 +871,17 @@
 }, {
   "id" : 561,
   "attribute" : "AURAMULTI",
-  "ratio" : 0.02,
+  "ratio" : 0.01,
   "cost" : 1
 }, {
   "id" : 562,
   "attribute" : "AURAMULTI",
-  "ratio" : 0.04,
+  "ratio" : 0.02,
   "cost" : 3
 }, {
   "id" : 563,
   "attribute" : "AURAMULTI",
-  "ratio" : 0.06,
+  "ratio" : 0.03,
   "cost" : 6
 }, {
   "id" : 571,
