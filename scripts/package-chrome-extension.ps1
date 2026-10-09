@@ -42,6 +42,8 @@ Install:
 3. Enable Developer mode.
 4. Click Load unpacked.
 5. Select this extracted folder.
+
+The bridge connects only on Roll20 campaigns that have a journal handout titled Eternity.
 "@ | Set-Content -LiteralPath (Join-Path $stagingDir "INSTALL.txt")
 
 Compress-Archive -Path (Join-Path $stagingDir "*") -DestinationPath $zipPath -Force

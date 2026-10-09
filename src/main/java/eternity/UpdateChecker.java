@@ -87,7 +87,9 @@ final class UpdateChecker {
                     firstNonBlank(manifest.artifactUrl, manifest.jarUrl),
                     safeTrim(manifest.downloadUrl),
                     safeTrim(manifest.sha256),
-                    safeTrim(manifest.notes));
+                    safeTrim(manifest.notes),
+                    safeTrim(manifest.imagesUrl),
+                    safeTrim(manifest.imagesSha256));
         } catch (Exception ex) {
             throw new IllegalStateException(ex.getMessage(), ex);
         }
@@ -137,13 +139,35 @@ final class UpdateChecker {
                 }
             }
 
+            String imagesUrl = "";
+            String imagesSha256 = "";
+            String imagesAssetName = AppVersion.getConfiguredGitHubImagesAssetName();
+            GitHubReleaseAsset imagesAsset = findAssetByName(release.assets, imagesAssetName);
+            if (imagesAsset != null && imagesAsset.browser_download_url != null && !imagesAsset.browser_download_url.isBlank()) {
+                imagesUrl = imagesAsset.browser_download_url.trim();
+                if (imagesAsset.digest != null && imagesAsset.digest.toLowerCase(Locale.ROOT).startsWith("sha256:")) {
+                    imagesSha256 = imagesAsset.digest.substring("sha256:".length()).trim();
+                }
+                if (imagesSha256.isBlank()) {
+                    String imagesShaAssetName = AppVersion.getConfiguredGitHubImagesSha256AssetName();
+                    GitHubReleaseAsset imagesChecksumAsset = findAssetByName(release.assets, imagesShaAssetName);
+                    if (imagesChecksumAsset != null
+                            && imagesChecksumAsset.browser_download_url != null
+                            && !imagesChecksumAsset.browser_download_url.isBlank()) {
+                        imagesSha256 = downloadChecksumAsset(imagesChecksumAsset.browser_download_url, currentVersion);
+                    }
+                }
+            }
+
             return new UpdateInfo(
                     currentVersion,
                     stripLeadingV(latestVersion.trim()),
                     safeTrim(artifact.browser_download_url),
                     safeTrim(release.html_url),
                     safeTrim(sha256),
-                    safeTrim(release.body));
+                    safeTrim(release.body),
+                    safeTrim(imagesUrl),
+                    safeTrim(imagesSha256));
         } catch (Exception ex) {
             throw new IllegalStateException(ex.getMessage(), ex);
         }
@@ -273,9 +297,15 @@ final class UpdateChecker {
             String artifactUrl,
             String downloadUrl,
             String sha256,
-            String notes) {
+            String notes,
+            String imagesUrl,
+            String imagesSha256) {
         boolean hasArtifact() {
             return artifactUrl != null && !artifactUrl.isBlank();
+        }
+
+        boolean hasImagesAsset() {
+            return imagesUrl != null && !imagesUrl.isBlank();
         }
     }
 
@@ -286,6 +316,8 @@ final class UpdateChecker {
         public String downloadUrl;
         public String sha256;
         public String notes;
+        public String imagesUrl;
+        public String imagesSha256;
     }
 
     private static final class GitHubRelease {

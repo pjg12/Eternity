@@ -99,20 +99,28 @@ public class FrameRest extends JFrame {
         }
 
         var res = character.getResources();
+        character.recallAllDrones();
         if (longRest.isSelected()) {
             res.setLostHP(0);
             res.setSpentAura(0);
             res.setSpentR1(0);
             res.setSpentR2(0);
             res.setSpentR3(0);
+            res.setSpentAggressiveTactics(0);
+            res.setSpentDefensiveTactics(0);
+            res.setSpentStrategicTactics(0);
             res.setSpentAngelPoints(0);
             res.setSpentReactions(0);
+            clearLongRestReminderStatuses();
         } else if (shortRest.isSelected()) {
 
 
             res.setSpentR1(0);
             res.setSpentR2(0);
             res.setSpentR3(0);
+            res.setSpentAggressiveTactics(0);
+            res.setSpentDefensiveTactics(0);
+            res.setSpentStrategicTactics(0);
             res.setSpentReactions(0);
         } 
 
@@ -135,6 +143,18 @@ public class FrameRest extends JFrame {
         System.out.println(character.getIdentity().getCurrentCampaignDateTime());
 
         setVisible(false);
+    }
+
+    private void clearLongRestReminderStatuses() {
+        if (character == null || character.getCombat() == null || character.getCombat().getCombatStatus() == null) {
+            return;
+        }
+        character.getCombat().getCombatStatus().removeIf(status ->
+                status != null
+                        && status.getAttribute() != null
+                        && "REMINDER".equalsIgnoreCase(status.getAttribute().trim())
+                        && status.getName() != null
+                        && status.getName().trim().regionMatches(true, 0, "Inspire (", 0, "Inspire (".length()));
     }
 }
 

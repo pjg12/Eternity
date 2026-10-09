@@ -8,5 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class TokenSnapshotEvent {
     public String type;
     public int count;
+    public Double pixelsPerSquare;
+    public Double scaleNumber;
+    public String scaleUnits;
     public List<Roll20Token> tokens;
 }

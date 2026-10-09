@@ -6,15 +6,17 @@
 
 	<groupId>Eternity</groupId>
     <artifactId>EternityTTRPG</artifactId>
-    <version>0.2</version>
+    <version>0.5.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <app.display.name>EternityLauncher</app.display.name>
+        <app.display.name>Eternity</app.display.name>
         <app.vendor>Eternity</app.vendor>
-        <windows.install.dir>EternityLauncher</windows.install.dir>
+        <app.payload.binary.name>EternityTTRPG.bin</app.payload.binary.name>
+        <windows.install.dir>Eternity</windows.install.dir>
+        <windows.upgrade.uuid>d4e8a91c-2f7b-4c06-9e53-1a8b7c4d2e90</windows.upgrade.uuid>
         <windows.jpackage.input.dir>${project.build.directory}/jpackage-input-${maven.build.timestamp}</windows.jpackage.input.dir>
         <windows.appimage.dir>${project.build.directory}/dist-${maven.build.timestamp}</windows.appimage.dir>
         <windows.installer.dir>${project.build.directory}/installer-${maven.build.timestamp}</windows.installer.dir>
@@ -47,6 +49,11 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>Data</directory>
+                <targetPath>Data</targetPath>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <plugins>
@@ -108,16 +115,14 @@
                                 <configuration>
                                     <target>
                                         <mkdir dir="${windows.jpackage.input.dir}"/>
+                                        <mkdir dir="${windows.jpackage.input.dir}/launcher"/>
+                                        <mkdir dir="${windows.jpackage.input.dir}/app"/>
                                         <copy file="${project.build.directory}/EternityLauncher.jar"
-                                              tofile="${windows.jpackage.input.dir}/EternityLauncher.jar"/>
+                                              tofile="${windows.jpackage.input.dir}/launcher/EternityLauncher.jar"/>
                                         <copy file="${project.build.directory}/EternityTTRPG.jar"
-                                              tofile="${windows.jpackage.input.dir}/EternityTTRPG.jar"/>
-                                        <copy todir="${windows.jpackage.input.dir}/Data">
-                                            <fileset dir="${project.basedir}/Data"/>
-                                        </copy>
-                                        <copy todir="${windows.jpackage.input.dir}/Images">
-                                            <fileset dir="${project.basedir}/Images"/>
-                                        </copy>
+                                              tofile="${windows.jpackage.input.dir}/app/${app.payload.binary.name}"/>
+                                        <zip destfile="${windows.jpackage.input.dir}/Images.zip"
+                                             basedir="${project.basedir}/Images"/>
                                     </target>
                                 </configuration>
                                 <goals>
@@ -148,19 +153,31 @@
                                         <argument>--input</argument>
                                         <argument>${windows.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
-                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>launcher/EternityLauncher.jar</argument>
                                         <argument>--main-class</argument>
                                         <argument>launcher.EternityLauncherMain</argument>
                                         <argument>--add-launcher</argument>
-                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
+                                        <argument>EternityGame=${project.build.outputDirectory}/eternity-game-launcher.properties</argument>
                                         <argument>--dest</argument>
                                         <argument>${windows.appimage.dir}</argument>
                                         <argument>--vendor</argument>
                                         <argument>${app.vendor}</argument>
                                         <argument>--app-version</argument>
                                         <argument>${project.version}</argument>
-                                        <argument>--install-dir</argument>
-                                        <argument>${windows.install.dir}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>rename-windows-app-payload</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>powershell.exe</executable>
+                                    <arguments>
+                                        <argument>-Command</argument>
+                                        <argument>Move-Item -LiteralPath '${windows.appimage.dir}/${app.display.name}/app/app/${app.payload.binary.name}' -Destination '${windows.appimage.dir}/${app.display.name}/app/app/EternityTTRPG.jar' -Force</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -185,16 +202,14 @@
                                 <configuration>
                                     <target>
                                         <mkdir dir="${windows.jpackage.input.dir}"/>
+                                        <mkdir dir="${windows.jpackage.input.dir}/launcher"/>
+                                        <mkdir dir="${windows.jpackage.input.dir}/app"/>
                                         <copy file="${project.build.directory}/EternityLauncher.jar"
-                                              tofile="${windows.jpackage.input.dir}/EternityLauncher.jar"/>
+                                              tofile="${windows.jpackage.input.dir}/launcher/EternityLauncher.jar"/>
                                         <copy file="${project.build.directory}/EternityTTRPG.jar"
-                                              tofile="${windows.jpackage.input.dir}/EternityTTRPG.jar"/>
-                                        <copy todir="${windows.jpackage.input.dir}/Data">
-                                            <fileset dir="${project.basedir}/Data"/>
-                                        </copy>
-                                        <copy todir="${windows.jpackage.input.dir}/Images">
-                                            <fileset dir="${project.basedir}/Images"/>
-                                        </copy>
+                                              tofile="${windows.jpackage.input.dir}/app/${app.payload.binary.name}"/>
+                                        <zip destfile="${windows.jpackage.input.dir}/Images.zip"
+                                             basedir="${project.basedir}/Images"/>
                                     </target>
                                 </configuration>
                                 <goals>
@@ -210,6 +225,50 @@
                         <version>3.3.0</version>
                         <executions>
                             <execution>
+                                <id>jpackage-windows-installer-app-image</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <arguments>
+                                        <argument>--type</argument>
+                                        <argument>app-image</argument>
+                                        <argument>--name</argument>
+                                        <argument>${app.display.name}</argument>
+                                        <argument>--input</argument>
+                                        <argument>${windows.jpackage.input.dir}</argument>
+                                        <argument>--main-jar</argument>
+                                        <argument>launcher/EternityLauncher.jar</argument>
+                                        <argument>--main-class</argument>
+                                        <argument>launcher.EternityLauncherMain</argument>
+                                        <argument>--add-launcher</argument>
+                                        <argument>EternityGame=${project.build.outputDirectory}/eternity-game-launcher.properties</argument>
+                                        <argument>--dest</argument>
+                                        <argument>${windows.appimage.dir}</argument>
+                                        <argument>--vendor</argument>
+                                        <argument>${app.vendor}</argument>
+                                        <argument>--app-version</argument>
+                                        <argument>${project.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>rename-installer-app-payload</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>powershell.exe</executable>
+                                    <arguments>
+                                        <argument>-Command</argument>
+                                        <argument>Move-Item -LiteralPath '${windows.appimage.dir}/${app.display.name}/app/app/${app.payload.binary.name}' -Destination '${windows.appimage.dir}/${app.display.name}/app/app/EternityTTRPG.jar' -Force</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>jpackage-windows-installer</id>
                                 <phase>package</phase>
                                 <goals>
@@ -222,14 +281,8 @@
                                         <argument>exe</argument>
                                         <argument>--name</argument>
                                         <argument>${app.display.name}</argument>
-                                        <argument>--input</argument>
-                                        <argument>${windows.jpackage.input.dir}</argument>
-                                        <argument>--main-jar</argument>
-                                        <argument>EternityLauncher.jar</argument>
-                                        <argument>--main-class</argument>
-                                        <argument>launcher.EternityLauncherMain</argument>
-                                        <argument>--add-launcher</argument>
-                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
+                                        <argument>--app-image</argument>
+                                        <argument>${windows.appimage.dir}/${app.display.name}</argument>
                                         <argument>--dest</argument>
                                         <argument>${windows.installer.dir}</argument>
                                         <argument>--vendor</argument>
@@ -239,6 +292,31 @@
                                         <argument>--install-dir</argument>
                                         <argument>${windows.install.dir}</argument>
                                         <argument>--win-dir-chooser</argument>
+                                        <argument>--win-upgrade-uuid</argument>
+                                        <argument>${windows.upgrade.uuid}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>wrap-windows-installer</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>powershell.exe</executable>
+                                    <arguments>
+                                        <argument>-NoProfile</argument>
+                                        <argument>-ExecutionPolicy</argument>
+                                        <argument>Bypass</argument>
+                                        <argument>-File</argument>
+                                        <argument>${project.basedir}/scripts/windows/Wrap-EternityInstaller.ps1</argument>
+                                        <argument>-InstallerDir</argument>
+                                        <argument>${windows.installer.dir}</argument>
+                                        <argument>-ProjectVersion</argument>
+                                        <argument>${project.version}</argument>
+                                        <argument>-ScriptsDir</argument>
+                                        <argument>${project.basedir}/scripts/windows</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -262,13 +340,12 @@
                                 <configuration>
                                     <target>
                                         <mkdir dir="${macos.jpackage.input.dir}"/>
+                                        <mkdir dir="${macos.jpackage.input.dir}/launcher"/>
+                                        <mkdir dir="${macos.jpackage.input.dir}/app"/>
                                         <copy file="${project.build.directory}/EternityLauncher.jar"
-                                              tofile="${macos.jpackage.input.dir}/EternityLauncher.jar"/>
+                                              tofile="${macos.jpackage.input.dir}/launcher/EternityLauncher.jar"/>
                                         <copy file="${project.build.directory}/EternityTTRPG.jar"
-                                              tofile="${macos.jpackage.input.dir}/EternityTTRPG.jar"/>
-                                        <copy todir="${macos.jpackage.input.dir}/Data">
-                                            <fileset dir="${project.basedir}/Data"/>
-                                        </copy>
+                                              tofile="${macos.jpackage.input.dir}/app/EternityTTRPG.jar"/>
                                         <copy todir="${macos.jpackage.input.dir}/Images">
                                             <fileset dir="${project.basedir}/Images"/>
                                         </copy>
@@ -298,19 +375,17 @@
                                         <argument>--type</argument>
                                         <argument>app-image</argument>
                                         <argument>--name</argument>
-                                        <argument>EternityLauncher</argument>
+                                        <argument>${app.display.name}</argument>
                                         <argument>--input</argument>
                                         <argument>${macos.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
-                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>launcher/EternityLauncher.jar</argument>
                                         <argument>--main-class</argument>
                                         <argument>launcher.EternityLauncherMain</argument>
-                                        <argument>--add-launcher</argument>
-                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
                                         <argument>--dest</argument>
                                         <argument>${macos.appimage.dir}</argument>
                                         <argument>--vendor</argument>
-                                        <argument>Eternity</argument>
+                                        <argument>${app.vendor}</argument>
                                         <argument>--app-version</argument>
                                         <argument>${project.version}</argument>
                                     </arguments>
@@ -336,13 +411,12 @@
                                 <configuration>
                                     <target>
                                         <mkdir dir="${macos.jpackage.input.dir}"/>
+                                        <mkdir dir="${macos.jpackage.input.dir}/launcher"/>
+                                        <mkdir dir="${macos.jpackage.input.dir}/app"/>
                                         <copy file="${project.build.directory}/EternityLauncher.jar"
-                                              tofile="${macos.jpackage.input.dir}/EternityLauncher.jar"/>
+                                              tofile="${macos.jpackage.input.dir}/launcher/EternityLauncher.jar"/>
                                         <copy file="${project.build.directory}/EternityTTRPG.jar"
-                                              tofile="${macos.jpackage.input.dir}/EternityTTRPG.jar"/>
-                                        <copy todir="${macos.jpackage.input.dir}/Data">
-                                            <fileset dir="${project.basedir}/Data"/>
-                                        </copy>
+                                              tofile="${macos.jpackage.input.dir}/app/EternityTTRPG.jar"/>
                                         <copy todir="${macos.jpackage.input.dir}/Images">
                                             <fileset dir="${project.basedir}/Images"/>
                                         </copy>
@@ -372,19 +446,17 @@
                                         <argument>--type</argument>
                                         <argument>dmg</argument>
                                         <argument>--name</argument>
-                                        <argument>EternityLauncher</argument>
+                                        <argument>${app.display.name}</argument>
                                         <argument>--input</argument>
                                         <argument>${macos.jpackage.input.dir}</argument>
                                         <argument>--main-jar</argument>
-                                        <argument>EternityLauncher.jar</argument>
+                                        <argument>launcher/EternityLauncher.jar</argument>
                                         <argument>--main-class</argument>
                                         <argument>launcher.EternityLauncherMain</argument>
-                                        <argument>--add-launcher</argument>
-                                        <argument>EternityTTRPG=${project.build.outputDirectory}/eternity-main-launcher.properties</argument>
                                         <argument>--dest</argument>
                                         <argument>${macos.installer.dir}</argument>
                                         <argument>--vendor</argument>
-                                        <argument>Eternity</argument>
+                                        <argument>${app.vendor}</argument>
                                         <argument>--app-version</argument>
                                         <argument>${project.version}</argument>
                                     </arguments>

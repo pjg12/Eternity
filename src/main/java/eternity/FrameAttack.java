@@ -2,8 +2,11 @@ package eternity;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -15,18 +18,28 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+
+import websocket.Roll20WebSocketServer;
+import websocket.events.Roll20Token;
 
 public class FrameAttack extends JFrame {
 	private static final long serialVersionUID = 1;
@@ -38,6 +51,15 @@ public class FrameAttack extends JFrame {
 	private static final String STEALTH_STRIKE_SNEAK_STATUS = "Stealth Strike: Sneak Attack";
 	private static final String STEALTH_STRIKE_STEALTH_STATUS = "Stealth Strike: Enter Stealth";
 	private static final String STEALTH_STRIKE_FLANKING_STATUS = "Stealth Strike: Flanking";
+	private static final String CROSSFIRE_MARKER = "CROSSFIRE";
+	private static final String CROSSFIRE_REMINDER_STATUS = "Crossfire";
+	private static final String MIGHTY_KICK_SPECIALTY = "Mighty Kick";
+	private static final String MIGHTY_KICK_ATTACK_ACTION = "Mighty Kick (Attack)";
+	private static final String MIGHTY_KICK_SPELL_ACTION = "Mighty Kick (Spell)";
+	private static final String ARCANE_MISSILES_SPECIALTY = "Arcane Missiles";
+	private static final String ARCANE_MISSILES_VARIABLE_LABEL = "Varies";
+	private static final String SPELLSTEAL_SPECIALTY = "Spellsteal";
+	private static final String SPELLSTEAL_STATUS_PREFIX = "Spellsteal: ";
 
 	private final FrameSheet sheetFrame;
 	private final FrameCombat combatFrame;
@@ -54,6 +76,7 @@ public class FrameAttack extends JFrame {
 	private final boolean technicalAttackSelected;
 	private final boolean smiteAttackSelected;
 	private final boolean stealthStrikeAttackSelected;
+	private final boolean crossfireAttackSelected;
 	private final DataTechnical activeTechnical;
 	private final boolean consumeActionUseOnResolve;
 	private boolean actionResolved;
@@ -63,6 +86,7 @@ public class FrameAttack extends JFrame {
 	private boolean smiteTargetAlliedToDeity;
 	private boolean angelReplicationSelected;
 	private boolean angelReplicationPromptHandled;
+	private final ArrayList<ArcaneMissileSelection> arcaneMissileSelections;
 	
 	private double attackBonus, result;
 	private CardLayout cardLayout;
@@ -75,6 +99,12 @@ public class FrameAttack extends JFrame {
 	private JCheckBox flankingCheckBox;
 	private JLabel costLabel;
 	private JTextField costField;
+	private JLabel targetHeaderL;
+	private JList<Roll20Token> targetList;
+	private JScrollPane targetPane;
+	private DefaultListModel<Roll20Token> sourceTargetModel;
+	private final DefaultListModel<Roll20Token> visibleTargetModel = new DefaultListModel<>();
+	private String selectedTargetId;
 	private static final String CARD_ATTACK = "attack";
 	private static final String CARD_CAST = "cast";
 	
@@ -125,6 +155,8 @@ public class FrameAttack extends JFrame {
 		this.smiteAttackSelected = combatFrame != null && combatFrame.hasPendingNextAttackStatusAttribute("SMITE");
 		this.stealthStrikeAttackSelected = combatFrame != null
 				&& combatFrame.hasPendingNextAttackStatusAttribute(STEALTH_STRIKE_MARKER);
+		this.crossfireAttackSelected = combatFrame != null
+				&& combatFrame.hasPendingNextAttackStatusAttribute(CROSSFIRE_MARKER);
 		this.actionResolved = false;
 		this.attackRollUsed = false;
 		this.smiteReminderShown = false;
@@ -132,15 +164,17 @@ public class FrameAttack extends JFrame {
 		this.smiteTargetAlliedToDeity = false;
 		this.angelReplicationSelected = false;
 		this.angelReplicationPromptHandled = false;
+		this.arcaneMissileSelections = new ArrayList<>();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
-		setSize(550, 420);
-		setLocationRelativeTo(null);
+		setSize(810, 420);
+		setLocationRelativeTo(combatFrame);
 		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
+				unlockCombatHelper();
 				if (!actionResolved && combatFrame != null) {
 					combatFrame.cancelSalvoSequenceIfPending();
 				}
@@ -149,6 +183,22 @@ public class FrameAttack extends JFrame {
 
 		initComponents();
 		showInitialStage();
+		lockCombatHelper();
+	}
+
+	private void lockCombatHelper() {
+		if (combatFrame == null) {
+			return;
+		}
+		combatFrame.setEnabled(false);
+	}
+
+	private void unlockCombatHelper() {
+		if (combatFrame == null) {
+			return;
+		}
+		combatFrame.setEnabled(true);
+		combatFrame.toFront();
 	}
 
 	/** Builds base UI components used by the legacy layout. */
@@ -160,6 +210,7 @@ public class FrameAttack extends JFrame {
 		cardHolderPanel.add(attackCardPanel, CARD_ATTACK);
 		cardHolderPanel.add(castCardPanel, CARD_CAST);
 		add(cardHolderPanel, BorderLayout.CENTER);
+		add(buildTargetPanel(), BorderLayout.EAST);
 		activeCardPanel = attackCardPanel;
 
 		headerL.setFont(headerL.getFont().deriveFont(Font.BOLD, 14f));
@@ -220,6 +271,156 @@ public class FrameAttack extends JFrame {
 	private JPanel buildCardPanel() {
 		JPanel panel = new JPanel(null);
 		return panel;
+	}
+
+	private JPanel buildTargetPanel() {
+		JPanel panel = new JPanel(new BorderLayout(0, 6));
+		panel.setBorder(BorderFactory.createEmptyBorder(12, 8, 12, 12));
+		panel.setPreferredSize(new Dimension(250, 420));
+
+		targetHeaderL = new JLabel("Enemy Targets");
+		targetHeaderL.setFont(targetHeaderL.getFont().deriveFont(Font.BOLD, 14f));
+		panel.add(targetHeaderL, BorderLayout.NORTH);
+
+		try {
+			Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+			sourceTargetModel = server.getTargetModel();
+			if (character != null && character.getIdentity() != null) {
+				server.setLoadedCharacter(
+						character.getIdentity().getName(),
+						character.getIdentity().getNickname());
+			}
+			if (server.getSelectedTarget() != null) {
+				selectedTargetId = server.getSelectedTarget().id;
+			}
+			server.requestTokenSnapshot();
+		} catch (Exception ex) {
+			sourceTargetModel = new DefaultListModel<>();
+			targetHeaderL.setText("Roll20 Targets Unavailable");
+			targetHeaderL.setToolTipText(ex.getMessage());
+		}
+
+		targetList = new JList<>(visibleTargetModel);
+		targetList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		targetList.setCellRenderer(new DefaultListCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (component instanceof JLabel && value instanceof Roll20Token token) {
+					JLabel label = (JLabel) component;
+					String displayName = token.name == null || token.name.isBlank() ? token.id : token.name;
+					if (token.loadedCharacter) {
+						label.setText(displayName + " (You)");
+						label.setFont(label.getFont().deriveFont(Font.BOLD));
+					} else {
+						label.setText(displayName);
+					}
+				}
+				return component;
+			}
+		});
+		targetList.addListSelectionListener(e -> {
+			if (e.getValueIsAdjusting()) return;
+			Roll20Token selected = targetList.getSelectedValue();
+			selectedTargetId = selected == null ? null : selected.id;
+			try {
+				Roll20WebSocketServer.getSharedServer().setSelectedTarget(selected);
+			} catch (Exception ignored) {
+				// Keep the local selection even if the bridge is unavailable.
+			}
+		});
+		sourceTargetModel.addListDataListener(new ListDataListener() {
+			@Override public void intervalAdded(ListDataEvent e) { refreshVisibleTargets(); }
+			@Override public void intervalRemoved(ListDataEvent e) { refreshVisibleTargets(); }
+			@Override public void contentsChanged(ListDataEvent e) { refreshVisibleTargets(); }
+		});
+		refreshVisibleTargets();
+
+		targetPane = new JScrollPane(targetList);
+		targetPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		targetPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panel.add(targetPane, BorderLayout.CENTER);
+		return panel;
+	}
+
+	private void refreshVisibleTargets() {
+		if (visibleTargetModel == null || sourceTargetModel == null) {
+			return;
+		}
+		boolean melee = getRange() <= 0;
+		Roll20WebSocketServer server = null;
+		try {
+			server = Roll20WebSocketServer.getSharedServer();
+		} catch (Exception ignored) {
+			server = null;
+		}
+		Roll20Token self = server == null ? null : server.getLoadedCharacterToken();
+		boolean canFilterMelee = melee && self != null && self.left != null && self.top != null;
+
+		if (canFilterMelee) {
+			targetHeaderL.setText("Adjacent Enemies");
+			targetHeaderL.setToolTipText("Enemy tokens adjacent to the loaded character.");
+		} else {
+			targetHeaderL.setText("Enemy Targets");
+			targetHeaderL.setToolTipText(melee
+					? "The loaded character token was not found, so adjacency cannot be applied."
+					: "Tokens assigned to a player in Roll20 are hidden as allies.");
+		}
+
+		visibleTargetModel.clear();
+		for (int i = 0; i < sourceTargetModel.size(); i++) {
+			Roll20Token token = sourceTargetModel.get(i);
+			if (token == null || token.loadedCharacter || token.isAlly()) {
+				continue;
+			}
+			if (canFilterMelee && !server.isAdjacentToLoadedCharacter(token)) {
+				continue;
+			}
+			visibleTargetModel.addElement(token);
+		}
+		restoreTargetSelection();
+	}
+
+	private void restoreTargetSelection() {
+		if (targetList == null || selectedTargetId == null || selectedTargetId.isBlank()) return;
+		DefaultListModel<Roll20Token> model = (DefaultListModel<Roll20Token>) targetList.getModel();
+		for (int i = 0; i < model.size(); i++) {
+			Roll20Token token = model.get(i);
+			if (token != null && selectedTargetId.equals(token.id)) {
+				if (targetList.getSelectedIndex() != i) {
+					targetList.setSelectedIndex(i);
+				}
+				return;
+			}
+		}
+	}
+
+	private Roll20Token getSelectedRoll20Target() {
+		if (targetList != null && targetList.getSelectedValue() != null) {
+			Roll20Token selected = targetList.getSelectedValue();
+			if (selected != null && selected.isEnemy()) {
+				return selected;
+			}
+		}
+		try {
+			Roll20Token selected = Roll20WebSocketServer.getSharedServer().getSelectedTarget();
+			if (selected != null && selected.isEnemy()) {
+				return selected;
+			}
+		} catch (Exception ignored) {
+			return null;
+		}
+		return null;
+	}
+
+	private String formatSelectedTargetName() {
+		Roll20Token target = getSelectedRoll20Target();
+		if (target == null) return "";
+		if (target.name != null && !target.name.isBlank()) return target.name.trim();
+		return target.id == null ? "" : target.id;
 	}
 	
 	public void attackStage() {
@@ -379,6 +580,7 @@ public class FrameAttack extends JFrame {
 			}
 			b.setVisible(false);
 			b.setText("");
+			resetButtonStyle(b);
 		}
 		if (select1 != null) {
 			for (ActionListener al : select1.getActionListeners()) {
@@ -611,17 +813,23 @@ public class FrameAttack extends JFrame {
 		numFields[0].setBounds(220, 355, 100, 20);
 		numFields[0].setValue(0.0);
 		
-		buttons[2].setBounds(195, 350, 145, 20);
+		buttons[2].setBounds(145, 350, 120, 20);
 		buttons[2].setText("Roll");
 		buttons[2].setVisible(true);
 		buttons[2].setEnabled(true);
 		buttons[2].addActionListener(e -> copyRollToClipboard());
 		
-		buttons[0].setBounds(25, 350, 145, 20);
+		buttons[0].setBounds(15, 350, 120, 20);
 		buttons[0].setText("Cancel");
 		buttons[0].setVisible(true);
 		buttons[0].addActionListener(e -> cancelPressed());
-		buttons[3].setBounds(365, 350, 145, 20);
+		styleAutoButton(buttons[1]);
+		buttons[1].setBounds(275, 350, 120, 20);
+		buttons[1].setText("Auto");
+		buttons[1].setVisible(true);
+		buttons[1].setEnabled(true);
+		buttons[1].addActionListener(e -> autoSendToRoll20());
+		buttons[3].setBounds(405, 350, 120, 20);
 		buttons[3].setText("Confirm");
 		buttons[3].setVisible(true);
 		buttons[3].addActionListener(e -> confirmPressed());
@@ -668,7 +876,7 @@ public class FrameAttack extends JFrame {
 		tempString += " --=SkillCheck|" + textFields[0].getText() + "*" + trimDisplayDouble(getDisplayedDamageMultiplier())
 				+ "+" + getBaseDamage() + "*" + trimDisplayDouble(getDisplayedDamageMultiplier())
 				+ "+" + trimDisplayDouble(getDisplayedTotalDamage()) + " [DieRoll] --+| Damage: [$SkillCheck]";
-		tempString += " [br]&nbsp;&nbsp;Damage Code:[br]&nbsp;&nbsp;" + buildDamageCodeMacroExpression("[$SkillCheck]") + "}}";
+		tempString += " }}";
 		StringSelection stringSelection = new StringSelection(tempString);
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection, null);
@@ -685,6 +893,9 @@ public class FrameAttack extends JFrame {
 			if (choice != JOptionPane.YES_OPTION) {
 				return;
 			}
+		}
+		if (isArcaneMissilesAction() && !hasCompleteArcaneMissilePlan() && !promptForArcaneMissilePlan()) {
+			return;
 		}
 		if (!resolveSmiteTargetDispositionIfNeeded()) {
 			return;
@@ -713,12 +924,85 @@ public class FrameAttack extends JFrame {
 		return true;
 	}
 
-	private void copyRollToClipboard() {
-		if (character == null) return;
-		if (!resolveSmiteTargetDispositionIfNeeded()) return;
+	private void resetButtonStyle(JButton button) {
+		if (button == null) return;
+		button.setBackground(UIManager.getColor("Button.background"));
+		button.setForeground(UIManager.getColor("Button.foreground"));
+		button.setOpaque(false);
+		button.setContentAreaFilled(true);
+		button.setBorderPainted(true);
+	}
+
+	private void styleAutoButton(JButton button) {
+		if (button == null) return;
+		button.setBackground(new Color(0, 180, 0));
+		button.setForeground(Color.BLACK);
+		button.setOpaque(true);
+		button.setContentAreaFilled(true);
+		button.setBorderPainted(true);
+	}
+
+	private String prepareAttackMacro() {
+		if (character == null) return null;
+		if (!resolveSmiteTargetDispositionIfNeeded()) return null;
+		if (isArcaneMissilesAction() && !promptForArcaneMissilePlan()) return null;
 		if (buttons[3] != null && buttons[3].isVisible()) {
 			attackRollUsed = true;
 		}
+		return buildAttackScriptCardMacro();
+	}
+
+	private void copyMacroToClipboard(String macro) {
+		if (macro == null || macro.isBlank()) return;
+		StringSelection stringSelection = new StringSelection(macro);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
+	}
+
+	private void copyRollToClipboard() {
+		copyMacroToClipboard(prepareAttackMacro());
+	}
+
+	private void autoSendToRoll20() {
+		if (getSelectedRoll20Target() == null) {
+			int choice = JOptionPane.showConfirmDialog(
+					this,
+					"No target selected. Continue anyway?",
+					"Auto",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE);
+			if (choice != JOptionPane.YES_OPTION) {
+				return;
+			}
+		}
+		String macro = prepareAttackMacro();
+		if (macro == null || macro.isBlank()) return;
+		copyMacroToClipboard(macro);
+		Roll20Token target = getSelectedRoll20Target();
+		new Thread(() -> {
+			boolean sent = false;
+			try {
+				Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+				server.notifyNarratorOfPlayerAttack();
+				sent = server.sendChatMessage(macro);
+				if (sent && target != null && target.id != null && !target.id.isBlank()) {
+					server.sendSelectToken(target.id);
+				}
+			} catch (Exception ex) {
+				sent = false;
+			}
+			if (!sent) {
+				javax.swing.SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+						this,
+						"The Roll20 extension is not connected.",
+						"Auto",
+						JOptionPane.WARNING_MESSAGE));
+			}
+		}, "auto-send-roll20").start();
+	}
+
+	private String buildAttackScriptCardMacro() {
+		if (character == null) return "";
 		// Safe color lookup with sensible fallback
 		DataColor raceColor = null;
 		StoreRuleManager dataQuery = new StoreRuleManager();
@@ -753,21 +1037,37 @@ public class FrameAttack extends JFrame {
 			tdmgMod = getDisplayedTotalDamage();
 			dmgMulti = getDisplayedDamageMultiplier();
 		}
-		tempString += " --+|Range: " + (getRange() <= 0 ? "Melee" : (getRange() + " ft"));
+		String targetName = formatSelectedTargetName();
+		if (!targetName.isBlank()) {
+			tempString += " --+|Target: " + sanitizeMacroText(targetName);
+		}
+		if (isFullAttackAction()) {
+			tempString += " --+|Additional Attacks: " + getExtraAttacks();
+		}
 		if (isEruptionAction()) {
 			tempString += " [br]&nbsp;&nbsp;Radius: " + trimDisplayDouble(getSelectedEruptionRadius()) + " ft";
+		}
+		if (isArcaneMissilesAction()) {
+			tempString += " [br]&nbsp;&nbsp;Arcane Missiles: " + getArcaneMissileCount() + " missiles share attack and damage rolls.";
+			tempString += buildArcaneMissileMacroSummary();
+		}
+		if (isShieldTechniqueAction()) {
+			tempString += " --+|Shield: " + trimDisplayDouble(getShieldAmount())
+					+ " [br]&nbsp;&nbsp;Temporary HP = Base HP (level data) x AL"
+					+ getShieldTierMultiplierText().replace(" × ", " x ")
+					+ ".";
+			tempString += " }}";
+			return tempString;
 		}
 		
 		tempString += buildPrimaryRollMacroBlock();
 
-		tempString += "[br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vs " + textFields[7].getText();
-		tempString += " --=RawPercentRoll2|1d21 + 9";
-		tempString += " --=DamagePercentCount|1";
-		tempString += " --=PercentRoll2|[$RawPercentRoll2] * 5 / 100";
-		tempString += " --=BaseDamageRoll|[$PercentRoll2] * " + bdmgMod + " * " + dmgMulti + " + " + tdmgMod + " {FLOOR}";
-		tempString += " --=DamageRoll|[$BaseDamageRoll]";
-		tempString += " --+|Dmg Percent Roll: [$RawPercentRoll2] x 5% = [$PercentRoll2] [br]&nbsp;&nbsp;";
-		tempString += "Damage Roll: [$DamageRoll] = [br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ([$PercentRoll2] x " +  bdmgMod + ") x " + dmgMulti + " + " + tdmgMod;
+		if (isArcaneMissilesAction()) {
+			tempString += "[br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compare the shared roll against each missile target separately.";
+		} else if (!isSpellSaveAuraTechnique()) {
+			tempString += "[br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vs " + textFields[7].getText();
+		}
+		tempString += buildDamageMacroBlock(bdmgMod, dmgMulti, tdmgMod);
 		tempString += "[br]&nbsp;&nbsp;";
 		if (isSneakAttackActive()) {
 			tempString += "Sneak Attack: +0.25 damage multiplier, +" + getSneakAttackTotalDamageBonus() + " total damage[br]&nbsp;&nbsp;";
@@ -799,125 +1099,232 @@ public class FrameAttack extends JFrame {
 			tempString += "Eruption: successful save halves damage; save by more than "
 					+ trimDisplayDouble(getEruptionNoDamageMargin()) + " deals no damage.[br]&nbsp;&nbsp;";
 		}
-		tempString += "Damage Type: " + damageType.getSelectedItem().toString();
-		tempString += "[br]&nbsp;&nbsp;Damage Code:[br]&nbsp;&nbsp;" + buildDamageCodeMacroExpression("[$DamageRoll]");
-		
-		if (!isSunderAction()) {
-			tempString += "--=Critx1|" + trimDisplayDouble(2.0 + getCritIncrement())
-					+ " --=Critx2|" + trimDisplayDouble(3.0 + getCritIncrement())
-					+ " --=Critx3|" + trimDisplayDouble(4.0 + getCritIncrement())
-					+ " --=Critx4|" + trimDisplayDouble(5.0 + getCritIncrement())
-					+ " --=Crit1|[$BaseAttackRoll]/[$Critx1] {FLOOR} + " + getFlankingBonus()
-					+ " --=Crit2|[$BaseAttackRoll]/[$Critx2] {FLOOR} + " + getFlankingBonus()
-					+ " --=Crit3|[$BaseAttackRoll]/[$Critx3] {FLOOR} + " + getFlankingBonus()
-					+ " --=Crit4|[$BaseAttackRoll]/[$Critx4] {FLOOR} + " + getFlankingBonus()
-					+ " --=Critd1|[$DamageRoll]*[$Critx1]*" + getCritDamage()
-					+ " --=Critd2|[$DamageRoll]*[$Critx2]*" + getCritDamage()
-					+ " --=Critd3|[$DamageRoll]*[$Critx3]*" + getCritDamage()
-					+ " --=Critd4|[$DamageRoll]*[$Critx4]*" + getCritDamage();
-			tempString += " --+|Critical Threat [br]&nbsp;&nbsp;"; 
-			tempString += "  Crit Multi: [$Critx1] [$Critx2] [$Critx3] [$Critx4] [br]&nbsp;&nbsp; Crit AC #: [$Crit1] [$Crit2] [$Crit3] [$Crit4] [br]&nbsp;&nbsp; Crit DMG [$Critd1] [$Critd2] [$Critd3] [$Critd4]";
+		if (isArcaneMissilesAction()) {
+			tempString += "Damage Types: variable per missile.";
+			tempString += buildArcaneMissileMacroSummary();
+		} else {
+			tempString += "Damage Type: " + damageType.getSelectedItem().toString();
 		}
-		
-		tempString += " --=Crush|" + getCrush() + " --+|Crush:  [$Crush]";
+
+		tempString += " --=Crush|" + getCrush()
+				+ " --=CritThreat|" + trimDisplayDouble(getCritIncrement())
+				+ " --=CritDmgStat|" + trimDisplayDouble(getCritDamageBonus())
+				+ " --+|Crush: [$Crush]"
+				+ " [br]&nbsp;&nbsp;Critical Bonus: [$CritThreat]"
+				+ " [br]&nbsp;&nbsp;Critical Damage: [$CritDmgStat]";
 		tempString += buildTechnicalSaveMacroSuffix();
 		tempString += " }}";
-
-		StringSelection stringSelection = new StringSelection(tempString);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(stringSelection, null);
-	}
-
-	private String buildDamageCodeMacroExpression(String amountExpression) {
-		String selectedDamageType = getSelectedDamageType();
-		String normalizedType = selectedDamageType == null || selectedDamageType.isBlank()
-				? "PHY"
-				: selectedDamageType.trim().toUpperCase(java.util.Locale.ROOT);
-		String damageAmount;
-		if (isSmiteAttackActive() && isSmiteTargetAlliedToDeity()) {
-			damageAmount = "0";
-		} else {
-			damageAmount = amountExpression == null || amountExpression.isBlank() ? "0" : amountExpression;
-		}
-		StringBuilder code = new StringBuilder();
-		code.append("DMG_TYPE:").append(normalizedType);
-		code.append("_AMT:").append(damageAmount);
-		code.append("_CRUSH:").append(trimDisplayDouble(getCrush()));
-		if (isSmiteAttackActive()) {
-			code.append("_SMITE:1");
-		}
-		return code.toString();
+		return tempString;
 	}
 
 	private String buildPercentRollBlock(String labelPrefix, String rawVar, String bonusVar, String countVar,
 			String rolledPercentVar, String finalRawVar, String percentVar) {
 		String block = "";
-		block += " --=" + rawVar + "|1d21 + 9";
+		block += " --=" + rawVar + "|1d21";
 		block += " --=" + bonusVar + "|0";
 		block += " --=" + countVar + "|1";
-		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
+		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] + 9";
+		block += " --=" + rolledPercentVar + "|[$" + rolledPercentVar + "] * 5 / 100 {ROUND:2}";
 		block += buildAttackPercentRollDisplayBlock(labelPrefix, "Initial", rawVar, countVar, rolledPercentVar, false);
-		block += " --%" + labelPrefix + "Explode|while;[$" + rawVar + ".Total] -eq 30 -or [$" + rawVar + ".Total] -eq 10";
+		block += " --%" + labelPrefix + "Explode|while;[$" + rawVar + ".Total] -eq 21 -or [$" + rawVar + ".Total] -eq 1";
 		block += buildPercentRollAdjustmentBlock(labelPrefix, rawVar, bonusVar);
-		block += " --=" + rawVar + "|1d21 + 9";
+		block += " --=" + rawVar + "|1d21";
 		block += " --=" + countVar + "|[$" + countVar + "] + 1";
-		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
+		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] + 9";
+		block += " --=" + rolledPercentVar + "|[$" + rolledPercentVar + "] * 5 / 100 {ROUND:2}";
 		block += buildAttackPercentRollDisplayBlock(labelPrefix, "Loop", rawVar, countVar, rolledPercentVar, true);
 		block += " --%|";
-		block += " --=" + finalRawVar + "|[$" + rawVar + "] + [$" + bonusVar + "]";
-		block += " --=" + percentVar + "|[$" + finalRawVar + "] * 5 / 100";
+		block += " --=" + finalRawVar + "|[$" + rawVar + "] + 9 + [$" + bonusVar + "]";
+		block += " --=" + percentVar + "|[$" + finalRawVar + "] * 5 / 100 {ROUND:2}";
 		return block;
 	}
 
 	private String buildAttackPercentRollDisplayBlock(String labelPrefix, String labelSuffix, String rawVar, String countVar, String rolledPercentVar, boolean showNormalRow) {
 		String baseLabel = labelPrefix + "AttackPercentDisplay" + labelSuffix;
 		String block = "";
-		block += " --?[$" + rawVar + ".Total] -eq 30|>" + baseLabel + "Green|>" + baseLabel + "CheckRed";
+		block += " --?[$" + rawVar + ".Total] -eq 21|>" + baseLabel + "Green|>" + baseLabel + "CheckRed";
 		block += " --^" + baseLabel + "After|";
 		block += " --:" + baseLabel + "CheckRed|";
-		block += " --?[$" + rawVar + ".Total] -eq 10|>" + baseLabel + "Red|>" + baseLabel + (showNormalRow ? "Normal" : "After");
+		block += " --?[$" + rawVar + ".Total] -eq 1|>" + baseLabel + "Red|>" + baseLabel + (showNormalRow ? "Normal" : "After");
 		block += " --^" + baseLabel + "After|";
 		block += " --:" + baseLabel + "Green|";
-		block += " --+|[#0a7a0a]" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; +0.5[/#]";
+		String lineLabel = percentRollLineLabel(labelPrefix);
+		block += " --+|[#0a7a0a]" + lineLabel + " [$" + countVar + "]: [$" + rawVar + "][/#]";
 		block += " --<|";
 		block += " --:" + baseLabel + "Red|";
-		block += " --+|[#aa2222]" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; -0.5[/#]";
+		block += " --+|[#aa2222]" + lineLabel + " [$" + countVar + "]: [$" + rawVar + "][/#]";
 		block += " --<|";
 		if (showNormalRow) {
 			block += " --:" + baseLabel + "Normal|";
-			block += " --+|" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [br]&nbsp;&nbsp; [$" + rolledPercentVar + "]";
+			block += " --+|" + lineLabel + " [$" + countVar + "]: [$" + rawVar + "]";
 			block += " --<|";
 		}
 		block += " --:" + baseLabel + "After|";
 		return block;
 	}
 
+	private String percentRollLineLabel(String labelPrefix) {
+		if (labelPrefix != null && (labelPrefix.startsWith("Damage") || labelPrefix.startsWith("ExtendDamage"))) {
+			return "DMG Roll";
+		}
+		return "ATK Roll";
+	}
+
 	private String buildPrimaryRollMacroBlock() {
 		int flankingBonus = getFlankingBonus();
+		if (isSpellSaveAuraTechnique()) {
+			String vs = getAttackVs();
+			String applyLine = " --+|Apply: " + getApplication();
+			if (vs != null && !vs.isBlank()) {
+				applyLine += " vs " + vs;
+			}
+			return " --=BaseAttackRoll|" + getApplication()
+					+ " --=AttackRoll|[$BaseAttackRoll]"
+					+ applyLine;
+		}
 		if (isStandardCastAction()) {
 			return " --=BaseAttackRoll|" + getApplication()
 					+ " --=AttackRoll|[$BaseAttackRoll] + " + flankingBonus
 					+ " --+|Application: [$AttackRoll]";
 		}
+		if (isExtendAttackAction()) {
+			return buildExtendAttackMacroBlock(flankingBonus);
+		}
 		String block = "";
 		block += buildPercentRollBlock("Attack", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "AttackPercentRoll", "FinalRawPercentRoll", "PercentRoll");
 		block += " --=BaseAttackRoll|[$PercentRoll] * " + getPrimaryRollValue() + " {FLOOR}";
 		block += " --=AttackRoll|[$BaseAttackRoll] + " + flankingBonus;
-		block += " --+|Atk Percent Roll: [$FinalRawPercentRoll] x 5% = [$PercentRoll] [br]&nbsp;&nbsp; ";
-		block += " " + getPrimaryRollLabel() + " Roll: [$AttackRoll] = [$PercentRoll] x " + getPrimaryRollValue();
+		block += " --+|ATK Roll: [$PercentRoll] = [$RawPercentRoll] + 9 x 5% [br]&nbsp;&nbsp; ";
+		block += " Attack: [$AttackRoll] = " + getPrimaryRollValue() + " x [$PercentRoll]";
 		if (flankingBonus > 0) {
 			block += " + " + flankingBonus;
 		}
 		return block;
 	}
 
+	private String buildDamageMacroBlock(int baseDamage, double damageMultiplier, double totalDamage) {
+		if (isExtendAttackAction()) {
+			return buildExtendAttackDamageMacroBlock(baseDamage, damageMultiplier, totalDamage);
+		}
+		String block = "";
+		block += buildPercentRollBlock("Damage", "RawPercentRoll2", "RawPercentBonus2", "DamagePercentCount", "DamagePercentRoll", "FinalRawPercentRoll2", "PercentRoll2");
+		block += " --=BaseDamageRoll|[$PercentRoll2] * " + baseDamage + " * " + damageMultiplier + " + " + totalDamage + " {FLOOR}";
+		block += " --=DamageRoll|[$BaseDamageRoll]";
+		block += " --+|DMG Roll: [$PercentRoll2] = [$RawPercentRoll2] + 9 x 5% [br]&nbsp;&nbsp;";
+		block += "Damage: [$DamageRoll] = [br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" + baseDamage + " x [$PercentRoll2]) x " + damageMultiplier + " + " + totalDamage;
+		return block;
+	}
+
+	private String buildExtendAttackDamageMacroBlock(int baseDamage, double damageMultiplier, double totalDamage) {
+		int additionalAttacks = Math.max(0, getExtraAttacks());
+		if (additionalAttacks <= 0) {
+			String block = "";
+			block += buildPercentRollBlock("Damage", "RawPercentRoll2", "RawPercentBonus2", "DamagePercentCount", "DamagePercentRoll", "FinalRawPercentRoll2", "PercentRoll2");
+			block += " --=BaseDamageRoll|[$PercentRoll2] * " + baseDamage + " * " + damageMultiplier + " + " + totalDamage + " {FLOOR}";
+			block += " --=DamageRoll|[$BaseDamageRoll]";
+			block += " --+|DMG Roll: [$PercentRoll2] = [$RawPercentRoll2] + 9 x 5% [br]&nbsp;&nbsp;";
+			block += "Damage: [$DamageRoll] = [br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" + baseDamage + " x [$PercentRoll2]) x " + damageMultiplier + " + " + totalDamage;
+			return block;
+		}
+
+		double partialFinalMultiplier = getExtendAttackFinalMultiplier();
+		boolean applyPartialFinalMultiplier = partialFinalMultiplier > 0.0 && partialFinalMultiplier < 1.0;
+		StringBuilder block = new StringBuilder();
+		for (int attackNumber = 1; attackNumber <= additionalAttacks; attackNumber++) {
+			String suffix = Integer.toString(attackNumber);
+			String rawVar = "ExtendDamageRawPercentRoll" + suffix;
+			String bonusVar = "ExtendDamageRawPercentBonus" + suffix;
+			String countVar = "ExtendDamagePercentCount" + suffix;
+			String rolledPercentVar = "ExtendDamagePercentRoll" + suffix;
+			String finalRawVar = "ExtendDamageFinalRawPercentRoll" + suffix;
+			String percentVar = "ExtendDamagePercent" + suffix;
+			String baseVar = "ExtendBaseDamageRoll" + suffix;
+			String damageVar = "ExtendDamageRoll" + suffix;
+			boolean isFinalAttack = attackNumber == additionalAttacks;
+			boolean usePartialMultiplier = isFinalAttack && applyPartialFinalMultiplier;
+			String effectiveBaseVar = usePartialMultiplier ? "ExtendEffectiveBaseDamageRoll" + suffix : baseVar;
+
+			block.append(buildPercentRollBlock("ExtendDamage" + attackNumber, rawVar, bonusVar, countVar, rolledPercentVar, finalRawVar, percentVar));
+			block.append(" --=").append(baseVar).append("|[$").append(percentVar).append("] * ")
+					.append(baseDamage).append(" * ").append(damageMultiplier).append(" + ").append(totalDamage).append(" {FLOOR}");
+			if (usePartialMultiplier) {
+				block.append(" --=").append(effectiveBaseVar).append("|[$").append(baseVar).append("] * ")
+						.append(trimDisplayDouble(partialFinalMultiplier)).append(" {FLOOR}");
+			}
+			block.append(" --=").append(damageVar).append("|[$").append(effectiveBaseVar).append("]");
+			if (attackNumber == 1) {
+				block.append(" --=BaseDamageRoll|[$").append(effectiveBaseVar).append("]");
+				block.append(" --=DamageRoll|[$").append(damageVar).append("]");
+			}
+			block.append(" --+|Damage: [$").append(damageVar).append("] = [br]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(").append(baseDamage)
+					.append(" x [$").append(percentVar).append("]) x ").append(damageMultiplier)
+					.append(" + ").append(totalDamage);
+			if (usePartialMultiplier) {
+				block.append(" x ").append(trimDisplayDouble(partialFinalMultiplier));
+			}
+		}
+		return block.toString();
+	}
+
+	private String buildExtendAttackMacroBlock(int flankingBonus) {
+		int additionalAttacks = Math.max(0, getExtraAttacks());
+		if (additionalAttacks <= 0) {
+			String block = "";
+			block += buildPercentRollBlock("Attack", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "AttackPercentRoll", "FinalRawPercentRoll", "PercentRoll");
+			block += " --=BaseAttackRoll|[$PercentRoll] * " + getPrimaryRollValue() + " {FLOOR}";
+			block += " --=AttackRoll|[$BaseAttackRoll] + " + flankingBonus;
+			block += " --+|Attack: [$AttackRoll] = " + getPrimaryRollValue() + " x [$PercentRoll]";
+			if (flankingBonus > 0) {
+				block += " + " + flankingBonus;
+			}
+			return block;
+		}
+
+		StringBuilder block = new StringBuilder();
+		for (int attackNumber = 1; attackNumber <= additionalAttacks; attackNumber++) {
+			String suffix = Integer.toString(attackNumber);
+			String rawVar = "ExtendRawPercentRoll" + suffix;
+			String bonusVar = "ExtendRawPercentBonus" + suffix;
+			String countVar = "ExtendRawPercentCount" + suffix;
+			String rolledPercentVar = "ExtendAttackPercentRoll" + suffix;
+			String finalRawVar = "ExtendFinalRawPercentRoll" + suffix;
+			String percentVar = "ExtendPercentRoll" + suffix;
+			String baseVar = "ExtendBaseAttackRoll" + suffix;
+			String attackVar = "ExtendAttackRoll" + suffix;
+			int penalty = Math.max(0, (attackNumber - 1) * 5);
+
+			String labelPrefix = "ExtendAttack" + attackNumber;
+			block.append(buildPercentRollBlock(labelPrefix, rawVar, bonusVar, countVar, rolledPercentVar, finalRawVar, percentVar));
+			block.append(" --=").append(baseVar).append("|[$").append(percentVar).append("] * ")
+					.append(getPrimaryRollValue()).append(" {FLOOR}");
+			block.append(" --=").append(attackVar).append("|[$").append(baseVar).append("] + ")
+					.append(flankingBonus);
+			if (penalty > 0) {
+				block.append(" - ").append(penalty);
+			}
+			if (attackNumber == 1) {
+				block.append(" --=BaseAttackRoll|[$").append(baseVar).append("]");
+				block.append(" --=AttackRoll|[$").append(attackVar).append("]");
+			}
+			block.append(" --+|Attack: [$").append(attackVar).append("] = ").append(getPrimaryRollValue())
+					.append(" x [$").append(percentVar).append("]");
+			if (flankingBonus > 0) {
+				block.append(" + ").append(flankingBonus);
+			}
+			if (penalty > 0) {
+				block.append(" - ").append(penalty);
+			}
+		}
+		return block.toString();
+	}
+
 	private String buildPercentRollDisplayBlock(String labelPrefix, String labelSuffix, String rawVar, String countVar, String rolledPercentVar) {
 		String baseLabel = labelPrefix + "PercentDisplay" + labelSuffix;
 		String block = "";
-		block += " --?[$" + rawVar + ".Total] -eq 30|>" + baseLabel + "Green|>" + baseLabel + "CheckRed";
+		block += " --?[$" + rawVar + ".Total] -eq 21|>" + baseLabel + "Green|>" + baseLabel + "CheckRed";
 		block += " --^" + baseLabel + "After|";
 		block += " --:" + baseLabel + "CheckRed|";
-		block += " --?[$" + rawVar + ".Total] -eq 10|>" + baseLabel + "Red|>" + baseLabel + "Normal";
+		block += " --?[$" + rawVar + ".Total] -eq 1|>" + baseLabel + "Red|>" + baseLabel + "Normal";
 		block += " --^" + baseLabel + "After|";
 		block += " --:" + baseLabel + "Green|";
 		block += " --+|[#0a7a0a]" + labelPrefix + " Percent Roll [$" + countVar + "]: [$" + rawVar + "] x 5% = [$" + rolledPercentVar + "][/#]";
@@ -935,7 +1342,7 @@ public class FrameAttack extends JFrame {
 	private String buildPercentRollAdjustmentBlock(String labelPrefix, String rawVar, String bonusVar) {
 		String baseLabel = labelPrefix + "PercentAdjust";
 		String block = "";
-		block += " --?[$" + rawVar + ".Total] -eq 30|>" + baseLabel + "Up|>" + baseLabel + "Down";
+		block += " --?[$" + rawVar + ".Total] -eq 21|>" + baseLabel + "Up|>" + baseLabel + "Down";
 		block += " --^" + baseLabel + "After|";
 		block += " --:" + baseLabel + "Up|";
 		block += " --=" + bonusVar + "|[$" + bonusVar + "] + 10";
@@ -970,6 +1377,23 @@ public class FrameAttack extends JFrame {
 
 	private boolean isEruptionAction() {
 		return action != null && action.hasModifierAttribute("RADIUS");
+	}
+
+	private boolean isShieldTechniqueAction() {
+		return action != null && action.hasModifierAttribute("SHIELD");
+	}
+
+	private double getShieldAmount() {
+		if (!isShieldTechniqueAction() || action == null) return 0.0;
+		return Math.max(0.0, action.evaluateModifierAttributeValue("SHIELD"));
+	}
+
+	private String getShieldTierMultiplierText() {
+		if (action == null || action.getName() == null) return "";
+		String name = action.getName().toLowerCase(java.util.Locale.ROOT);
+		if (name.contains("(strong)")) return " × 3";
+		if (name.contains("(medium)")) return " × 2";
+		return "";
 	}
 
 	private double getEruptionMaxRadius() {
@@ -1017,6 +1441,9 @@ public class FrameAttack extends JFrame {
 	}
 
 	private String getAttackVs() {
+		if (isArcaneMissilesAction()) {
+			return ARCANE_MISSILES_VARIABLE_LABEL.toUpperCase(java.util.Locale.ROOT);
+		}
 		if (isSmiteAttackActive()) {
 			return "DODGE";
 		}
@@ -1052,6 +1479,12 @@ public class FrameAttack extends JFrame {
 
 	private void applyDamageTypeSelection() {
 		if (damageType == null) return;
+		if (isArcaneMissilesAction()) {
+			resetDamageTypeOptions(new String[] {ARCANE_MISSILES_VARIABLE_LABEL.toUpperCase(java.util.Locale.ROOT)});
+			selectDamageType(ARCANE_MISSILES_VARIABLE_LABEL);
+			damageType.setEnabled(false);
+			return;
+		}
 		if (isSmiteAttackActive()) {
 			resetDamageTypeOptions(DMGTYPE);
 			selectDamageType("DIVINE");
@@ -1180,6 +1613,174 @@ public class FrameAttack extends JFrame {
 				&& FOLLOW_UP_SPECIALTY.equalsIgnoreCase(action.getName().trim());
 	}
 
+	private boolean isMightyKickAction() {
+		if (action == null || action.getName() == null) return false;
+		String actionName = action.getName().trim();
+		return MIGHTY_KICK_ATTACK_ACTION.equalsIgnoreCase(actionName)
+				|| MIGHTY_KICK_SPELL_ACTION.equalsIgnoreCase(actionName)
+				|| actionName.regionMatches(true, 0, MIGHTY_KICK_SPECIALTY + " (", 0, MIGHTY_KICK_SPECIALTY.length() + 2);
+	}
+
+	private boolean isArcaneMissilesAction() {
+		return action != null
+				&& action.getName() != null
+				&& ARCANE_MISSILES_SPECIALTY.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private int getArcaneMissileCount() {
+		return Math.max(1, (int)Math.ceil(getLevel() / 3.0));
+	}
+
+	private ArrayList<String> getArcaneMissileDamageTypeOptions() {
+		ArrayList<String> options = new ArrayList<>();
+		if (combatFrame != null) {
+			for (String damageTypeOption : combatFrame.getStandardDamageTypeOptions()) {
+				if (damageTypeOption != null && !damageTypeOption.isBlank()) {
+					options.add(damageTypeOption.trim().toUpperCase(java.util.Locale.ROOT));
+				}
+			}
+		}
+		return options;
+	}
+
+	private boolean hasCompleteArcaneMissilePlan() {
+		if (!isArcaneMissilesAction()) return true;
+		if (arcaneMissileSelections.size() != getArcaneMissileCount()) return false;
+		for (ArcaneMissileSelection selection : arcaneMissileSelections) {
+			if (selection == null
+					|| selection.targetName == null
+					|| selection.targetName.isBlank()
+					|| selection.damageType == null
+					|| selection.damageType.isBlank()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean promptForArcaneMissilePlan() {
+		if (!isArcaneMissilesAction()) return true;
+		ArrayList<String> damageTypeOptions = getArcaneMissileDamageTypeOptions();
+		if (damageTypeOptions.isEmpty()) {
+			JOptionPane.showMessageDialog(
+					this,
+					"Arcane Missiles requires at least one available aura damage type.",
+					ARCANE_MISSILES_SPECIALTY,
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+
+		int missileCount = getArcaneMissileCount();
+		JTextField[] targetFields = new JTextField[missileCount];
+		@SuppressWarnings("unchecked")
+		JComboBox<String>[] typeBoxes = new JComboBox[missileCount];
+		JPanel grid = new JPanel(new GridLayout(missileCount + 1, 3, 8, 6));
+		grid.add(new JLabel("Missile"));
+		grid.add(new JLabel("Target"));
+		grid.add(new JLabel("Damage Type"));
+
+		for (int i = 0; i < missileCount; i++) {
+			ArcaneMissileSelection existing = i < arcaneMissileSelections.size() ? arcaneMissileSelections.get(i) : null;
+			targetFields[i] = new JTextField(existing != null && existing.targetName != null ? existing.targetName : "");
+			typeBoxes[i] = new JComboBox<>(damageTypeOptions.toArray(new String[0]));
+			if (existing != null && existing.damageType != null && damageTypeOptions.contains(existing.damageType.toUpperCase(java.util.Locale.ROOT))) {
+				typeBoxes[i].setSelectedItem(existing.damageType.toUpperCase(java.util.Locale.ROOT));
+			}
+			grid.add(new JLabel("Missile " + (i + 1)));
+			grid.add(targetFields[i]);
+			grid.add(typeBoxes[i]);
+		}
+
+		JPanel content = new JPanel(new BorderLayout(0, 8));
+		content.add(new JLabel("Designate all Arcane Missiles targets and damage types before the attack roll."), BorderLayout.NORTH);
+		content.add(new JScrollPane(grid), BorderLayout.CENTER);
+
+		int choice = JOptionPane.showConfirmDialog(
+				this,
+				content,
+				ARCANE_MISSILES_SPECIALTY,
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		if (choice != JOptionPane.OK_OPTION) {
+			return false;
+		}
+
+		ArrayList<ArcaneMissileSelection> updatedSelections = new ArrayList<>();
+		for (int i = 0; i < missileCount; i++) {
+			String targetName = targetFields[i].getText() == null ? "" : targetFields[i].getText().trim();
+			if (targetName.isBlank()) {
+				JOptionPane.showMessageDialog(
+						this,
+						"Each Arcane Missile must have a target.",
+						ARCANE_MISSILES_SPECIALTY,
+						JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			Object selectedItem = typeBoxes[i].getSelectedItem();
+			String selectedDamageType = selectedItem == null ? "" : selectedItem.toString().trim().toUpperCase(java.util.Locale.ROOT);
+			if (selectedDamageType.isBlank()) {
+				JOptionPane.showMessageDialog(
+						this,
+						"Each Arcane Missile must have a damage type.",
+						ARCANE_MISSILES_SPECIALTY,
+						JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+			updatedSelections.add(new ArcaneMissileSelection(targetName, selectedDamageType));
+		}
+		arcaneMissileSelections.clear();
+		arcaneMissileSelections.addAll(updatedSelections);
+		refreshDisplayedCombatValues();
+		return true;
+	}
+
+	private String buildArcaneMissileMacroSummary() {
+		if (!hasCompleteArcaneMissilePlan()) return "";
+		StringBuilder text = new StringBuilder();
+		for (int i = 0; i < arcaneMissileSelections.size(); i++) {
+			ArcaneMissileSelection selection = arcaneMissileSelections.get(i);
+			if (selection == null) continue;
+			String attackVs = resolveAttackVsForArcaneMissile(selection.damageType);
+			text.append("[br]&nbsp;&nbsp;Missile ")
+					.append(i + 1)
+					.append(": ")
+					.append(selection.targetName)
+					.append(" vs ")
+					.append(attackVs)
+					.append(" (")
+					.append(selection.damageType)
+					.append(")");
+		}
+		return text.toString();
+	}
+
+	private String resolveAttackVsForArcaneMissile(String damageTypeValue) {
+		if (combatFrame == null || damageTypeValue == null || damageTypeValue.isBlank()) {
+			return ARCANE_MISSILES_VARIABLE_LABEL.toUpperCase(java.util.Locale.ROOT);
+		}
+		String attackVs = combatFrame.getAttackVsForDamageType(damageTypeValue);
+		return attackVs == null || attackVs.isBlank()
+				? ARCANE_MISSILES_VARIABLE_LABEL.toUpperCase(java.util.Locale.ROOT)
+				: attackVs.toUpperCase(java.util.Locale.ROOT);
+	}
+
+	private double getMightyKickDisplacementDistance() {
+		return Math.max(0.0, getLevel() + getSecondaryAttributeValue());
+	}
+
+	private double getSecondaryAttributeValue() {
+		CharAttributes attributes = attrs();
+		CharIdentity identity = id();
+		if (attributes == null || identity == null) return 0.0;
+		String className = identity.getCharClass();
+		if (className == null || className.isBlank()) return 0.0;
+		DataClass dataClass = new StoreRuleManager().getClassByName(className.trim());
+		if (dataClass == null || dataClass.getSecondaryAtt() == null || dataClass.getSecondaryAtt().isBlank()) {
+			return 0.0;
+		}
+		return Math.max(0.0, attributes.calcStatusValue(dataClass.getSecondaryAtt().trim()));
+	}
+
 	private int getBaselineWeaponAttackRange() {
 		if (combatFrame == null) {
 			return action != null ? action.getRanged() : 0;
@@ -1212,8 +1813,17 @@ public class FrameAttack extends JFrame {
 	}
 
 	private int getExtraAttacks() {
-		int maxAtk = getDerivedCombatValue("MAXATK");
-		return Math.max(0, maxAtk - 1);
+		double maxAtk = getDerivedCombatValueExact("MAXATK");
+		return Math.max(0, (int) Math.ceil(maxAtk - 1.0));
+	}
+
+	private double getExtendAttackFinalMultiplier() {
+		double maxAtk = getDerivedCombatValueExact("MAXATK");
+		double fractionalPortion = maxAtk - Math.floor(maxAtk);
+		if (fractionalPortion <= 0.0001 || fractionalPortion >= 0.9999) {
+			return 1.0;
+		}
+		return fractionalPortion;
 	}
 
 	private int getBaseDamage() {
@@ -1295,7 +1905,10 @@ public class FrameAttack extends JFrame {
 
 	private double getCharDmgMulti() {
 		double actionMulti = action == null ? 0.0 : action.getDmgMulti();
-		return 1.0 + actionMulti;
+		double overchargeBonus = character != null && character.isOverchargeClassAbility(action)
+				? character.getOverchargeDamageMultiplierBonus()
+				: 0.0;
+		return 1.0 + actionMulti + overchargeBonus;
 	}
 
 	private int getPrimaryAttributeMod() {
@@ -1328,12 +1941,26 @@ public class FrameAttack extends JFrame {
 		return identity == null ? 1 : identity.getLevel();
 	}
 
-	private double getCritDamage() {
+	private double getCritDamageBonus() {
 		if (character != null && character.getAttributes() != null) {
-			double val = character.getAttributes().calcStatusValue("CRITDMG");
-			return val > 0 ? val : 1.0;
+			return character.getAttributes().calcStatusValue("CRITDMG")
+					+ getPendingCriticalMassCritDamageBonus();
 		}
-		return 1.0;
+		return 0.0;
+	}
+
+	private double getPendingCriticalMassCritDamageBonus() {
+		if (character == null || !character.hasCriticalMassSpecialty() || actionResolved || !consumeActionUseOnResolve || action == null) {
+			return 0.0;
+		}
+		double pendingAuraCost = 0.0;
+		for (DataAction.CostPair cost : action.getCosts()) {
+			if (cost == null || cost.getType() == null) continue;
+			if (!"Aura".equalsIgnoreCase(cost.getType().trim())) continue;
+			pendingAuraCost += Math.max(0.0,
+					character.getEffectiveActionCostValue(action, cost.getType(), cost.getValue()));
+		}
+		return pendingAuraCost * 0.01;
 	}
 
 	private double getCritIncrement() {
@@ -1361,7 +1988,16 @@ public class FrameAttack extends JFrame {
 	}
 
 	private boolean isFullAttackAction() {
-		return action != null && "Full Attack".equalsIgnoreCase(action.getName());
+		if (action == null || action.getName() == null) return false;
+		String actionName = action.getName().trim();
+		return "Full Attack".equalsIgnoreCase(actionName)
+				|| "Extend Attack".equalsIgnoreCase(actionName);
+	}
+
+	private boolean isExtendAttackAction() {
+		return action != null
+				&& action.getName() != null
+				&& "Extend Attack".equalsIgnoreCase(action.getName().trim());
 	}
 
 	private boolean isSunderAction() {
@@ -1380,6 +2016,17 @@ public class FrameAttack extends JFrame {
 		return action != null
 				&& action.getSource() != null
 				&& "Aura".equalsIgnoreCase(action.getSource());
+	}
+
+	/** Aura techniques resolved as saves (REF/FORT/WILL/SPELL) publish APPLY, not an attack roll. */
+	private boolean isSpellSaveAuraTechnique() {
+		if (!isAuraTechniqueAction() || action == null) return false;
+		String attackType = action.getAtkType();
+		if (attackType == null || attackType.isBlank()) return false;
+		return "REF".equalsIgnoreCase(attackType)
+				|| "FORT".equalsIgnoreCase(attackType)
+				|| "WILL".equalsIgnoreCase(attackType)
+				|| "SPELL".equalsIgnoreCase(attackType);
 	}
 
 	private void ensureYesNoSelect() {
@@ -1547,15 +2194,64 @@ public class FrameAttack extends JFrame {
 	}
 
 	private int getTechniqueRank() {
-		if (character == null || character.getTraining() == null || action == null) return 0;
-		DataTraining training = character.getTraining().getTrainingById(action.getId());
+		DataTraining training = resolveTechniqueForAction();
 		return training == null ? 0 : Math.max(0, training.getRank());
+	}
+
+	private DataTraining resolveTechniqueForAction() {
+		if (character == null || character.getTraining() == null || action == null) return null;
+
+		DataTraining directTraining = character.getTraining().getTrainingById(action.getId());
+		if (directTraining != null) {
+			return directTraining;
+		}
+
+		StoreRuleManager ruleManager = new StoreRuleManager();
+		for (DataTraining learnedTechnique : character.getTraining().getAllTraining()) {
+			if (learnedTechnique == null) continue;
+			if (containsGrantedActionId(learnedTechnique, action.getId())) {
+				return learnedTechnique;
+			}
+
+			DataTraining ruleTemplate = learnedTechnique.getId() > 0
+					? ruleManager.getTrainingById(learnedTechnique.getId())
+					: null;
+			if (containsGrantedActionId(ruleTemplate, action.getId())) {
+				return learnedTechnique;
+			}
+
+			if (action.getName() != null && learnedTechnique.getName() != null
+					&& action.getName().equalsIgnoreCase(learnedTechnique.getName())) {
+				return learnedTechnique;
+			}
+			if (ruleTemplate != null && action.getName() != null && ruleTemplate.getName() != null
+					&& action.getName().equalsIgnoreCase(ruleTemplate.getName())) {
+				return learnedTechnique;
+			}
+		}
+		return null;
+	}
+
+	private boolean containsGrantedActionId(DataTraining technique, int actionId) {
+		if (technique == null || actionId <= 0) return false;
+		for (Integer grantId : technique.getGrant()) {
+			if (grantId != null && grantId == actionId) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private int getDerivedCombatValue(String key) {
 		CharAttributes a = attrs();
 		if (a == null || key == null) return 0;
 		return (int)Math.round(Math.max(0.0, a.calcStatusValue(key)));
+	}
+
+	private double getDerivedCombatValueExact(String key) {
+		CharAttributes a = attrs();
+		if (a == null || key == null) return 0.0;
+		return Math.max(0.0, a.calcStatusValue(key));
 	}
 
 	private String formatAttackDisplay(int value) {
@@ -1572,6 +2268,42 @@ public class FrameAttack extends JFrame {
 
 	private String buildAttackDescription() {
 		StringBuilder text = new StringBuilder();
+		if (isArcaneMissilesAction()) {
+			text.append("Arcane Missiles fires ")
+					.append(getArcaneMissileCount())
+					.append(" simultaneous missile")
+					.append(getArcaneMissileCount() == 1 ? "" : "s")
+					.append(". Each missile shares the same attack/application and damage rolls.")
+					.append(System.lineSeparator());
+			if (hasCompleteArcaneMissilePlan()) {
+				for (int i = 0; i < arcaneMissileSelections.size(); i++) {
+					ArcaneMissileSelection selection = arcaneMissileSelections.get(i);
+					if (selection == null) continue;
+					text.append("Missile ")
+							.append(i + 1)
+							.append(": ")
+							.append(selection.targetName)
+							.append(" [")
+							.append(selection.damageType)
+							.append(" vs ")
+							.append(resolveAttackVsForArcaneMissile(selection.damageType))
+							.append("]")
+							.append(System.lineSeparator());
+				}
+			} else {
+				text.append("Click Roll to designate missile targets and damage types.")
+						.append(System.lineSeparator());
+			}
+			text.append(System.lineSeparator());
+		}
+		if (isShieldTechniqueAction()) {
+			text.append("Shield: ")
+					.append(trimDisplayDouble(getShieldAmount()))
+					.append(" temporary HP (Base HP from level data × AL")
+					.append(getShieldTierMultiplierText())
+					.append(").")
+					.append(System.lineSeparator());
+		}
 		if (isEruptionAction()) {
 			text.append("Eruption radius: ")
 					.append(trimDisplayDouble(getSelectedEruptionRadius()))
@@ -1621,6 +2353,12 @@ public class FrameAttack extends JFrame {
 			text.append("Flanking active: target has a penalty to DEF of ")
 					.append(getFlankingBonus())
 					.append(".")
+					.append(System.lineSeparator());
+		}
+		if (isMightyKickAction()) {
+			text.append("Mighty Kick success displaces the target ")
+					.append(trimDisplayDouble(getMightyKickDisplacementDistance()))
+					.append(" ft.")
 					.append(System.lineSeparator());
 		}
 		if (getSnipersDomainTotalDamageBonus() > 0) {
@@ -1867,7 +2605,10 @@ public class FrameAttack extends JFrame {
 		ArrayList<String> values = new ArrayList<>();
 		for (DataAction.CostPair cost : dataAction.getCosts()) {
 			if (cost == null || cost.getType() == null) continue;
-			values.add(cost.getType() + " " + trimDisplayDouble(cost.getValue()));
+			double costValue = character == null
+					? cost.getValue()
+					: character.getEffectiveActionCostValue(dataAction, cost.getType(), cost.getValue());
+			values.add(cost.getType() + " " + trimDisplayDouble(costValue));
 		}
 		return values.isEmpty() ? "None" : String.join(", ", values);
 	}
@@ -1918,8 +2659,11 @@ public class FrameAttack extends JFrame {
 	private void completeResolvedAttackFlow() {
 		showSmiteReminderIfNeeded();
 		resolveStealthStrikeIfNeeded();
+		resolveCrossfireIfNeeded();
 		maybeOfferClericDomainShare();
 		promptFollowUpDamageDealtIfNeeded();
+		resolveMightyKickIfNeeded();
+		resolveSpellstealIfNeeded();
 		if (handleAngelReplicationChoiceAfterResolution()) {
 			return;
 		}
@@ -1995,6 +2739,250 @@ public class FrameAttack extends JFrame {
 			remaining--;
 		}
 		character.updateAll();
+	}
+
+	private void resolveCrossfireIfNeeded() {
+		if (!crossfireAttackSelected || character == null || character.getCombat() == null) {
+			return;
+		}
+		removeCombatStatusByName(CROSSFIRE_REMINDER_STATUS);
+		character.getCombat().addStatus(buildReminderStatus(
+				CROSSFIRE_REMINDER_STATUS,
+				"Crossfire: The target is subject to an attack of opportunity from all allies. Each ally must spend 1 Reaction, and these attacks are not limited to melee."));
+		JOptionPane.showMessageDialog(
+				this,
+				"<html><center>Crossfire: the target of this attack is subject to an attack of opportunity from all allies.<br>Each ally must spend 1 Reaction, and these attacks are not limited to melee.</center></html>",
+				CROSSFIRE_REMINDER_STATUS,
+				JOptionPane.INFORMATION_MESSAGE);
+		character.updateAll();
+	}
+
+	private void resolveMightyKickIfNeeded() {
+		if (!isMightyKickAction()) {
+			return;
+		}
+
+		int successChoice = JOptionPane.showConfirmDialog(
+				this,
+				"Did Mighty Kick hit or did the target fail its save?",
+				MIGHTY_KICK_SPECIALTY,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (successChoice != JOptionPane.YES_OPTION) {
+			return;
+		}
+
+		String[] directions = {"Horizontal", "Straight Up", "Straight Down"};
+		Object selection = JOptionPane.showInputDialog(
+				this,
+				"Choose displacement direction.",
+				MIGHTY_KICK_SPECIALTY,
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				directions,
+				directions[0]);
+		if (!(selection instanceof String direction) || direction.isBlank()) {
+			return;
+		}
+
+		double displacement = getMightyKickDisplacementDistance();
+		StringBuilder message = new StringBuilder("<html><center>");
+		message.append("Mighty Kick displaces the target ")
+				.append(trimDisplayDouble(displacement))
+				.append(" ft ")
+				.append(direction.toLowerCase())
+				.append(".");
+
+		if ("Straight Up".equalsIgnoreCase(direction) && displacement > 25.0) {
+			message.append("<br>If the target cannot fly, it is suspended at the apex and spends its move action landing at the beginning of its next turn.");
+		}
+
+		int collisionChoice = JOptionPane.showConfirmDialog(
+				this,
+				"Did the target collide with an object before completing the displacement?",
+				MIGHTY_KICK_SPECIALTY,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (collisionChoice == JOptionPane.YES_OPTION) {
+			Double remaining = promptForNonNegativeDouble(
+					"Enter remaining displacement in ft at the point of collision:",
+					displacement);
+			if (remaining != null && remaining > 0.0) {
+				double clampedRemaining = Math.min(displacement, remaining);
+				double collisionDamage = Math.max(0.0, getLevel()) * clampedRemaining;
+				message.append("<br>Collision damage: ")
+						.append(trimDisplayDouble(collisionDamage))
+						.append(" from ")
+						.append(getLevel())
+						.append(" x ")
+						.append(trimDisplayDouble(clampedRemaining))
+						.append(" remaining displacement.");
+			}
+		}
+
+		message.append("</center></html>");
+		JOptionPane.showMessageDialog(
+				this,
+				message.toString(),
+				MIGHTY_KICK_SPECIALTY,
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void resolveSpellstealIfNeeded() {
+		if (!hasSpellstealSpecialty() || character == null || character.getCombat() == null) {
+			return;
+		}
+
+		int damageChoice = JOptionPane.showConfirmDialog(
+				this,
+				"Spellsteal: Did you deal damage to an enemy?",
+				SPELLSTEAL_SPECIALTY,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (damageChoice != JOptionPane.YES_OPTION) {
+			return;
+		}
+
+		double applyValue = getApplication();
+		int durationTurns = getSpellstealDurationTurns();
+		int saveChoice = JOptionPane.showConfirmDialog(
+				this,
+				"Spellsteal: The target must make a WILL save.\n"
+						+ "Your APPLY value is " + trimDisplayDouble(applyValue) + ".\n\n"
+						+ "Did the target fail its WILL save?",
+				SPELLSTEAL_SPECIALTY,
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (saveChoice != JOptionPane.YES_OPTION) {
+			return;
+		}
+
+		String effectName = promptSpellstealEffectName();
+		if (effectName == null || effectName.isBlank()) {
+			return;
+		}
+
+		String stolenStatusName = SPELLSTEAL_STATUS_PREFIX + effectName;
+		String stolenDescription = "Spellsteal: You have obtained \"" + effectName + "\" for "
+				+ durationTurns + (durationTurns == 1 ? " turn" : " turns")
+				+ ". The enemy may not reactivate this effect until the duration expires.";
+		removeCombatStatusByName(stolenStatusName);
+		DataStatus stolenStatus = buildReminderStatus(stolenStatusName, stolenDescription);
+		stolenStatus.setDuration(durationTurns);
+		character.getCombat().addStatus(stolenStatus);
+
+		String enemyLockoutName = SPELLSTEAL_STATUS_PREFIX + "Lockout (" + effectName + ")";
+		String enemyLockoutDescription = "Spellsteal: Enemy cannot reactivate \"" + effectName + "\" for "
+				+ durationTurns + (durationTurns == 1 ? " turn" : " turns") + ".";
+		removeCombatStatusByName(enemyLockoutName);
+		DataStatus lockoutStatus = buildReminderStatus(enemyLockoutName, enemyLockoutDescription);
+		lockoutStatus.setDuration(durationTurns);
+		character.getCombat().addStatus(lockoutStatus);
+
+		String statusMacro = buildSpellstealStatusMacro(effectName, durationTurns);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(new StringSelection(statusMacro), null);
+
+		JOptionPane.showMessageDialog(
+				this,
+				"<html><center>Spellsteal succeeded.<br>"
+						+ "Obtained <b>" + escapeHtml(effectName) + "</b> for "
+						+ durationTurns + (durationTurns == 1 ? " turn" : " turns") + ".<br>"
+						+ "The enemy may not reactivate this effect until the duration expires.<br><br>"
+						+ "Share macros were copied to the clipboard.</center></html>",
+				SPELLSTEAL_SPECIALTY,
+				JOptionPane.INFORMATION_MESSAGE);
+		character.updateAll();
+	}
+
+	private boolean hasSpellstealSpecialty() {
+		return character != null
+				&& character.getSpecials() != null
+				&& character.getSpecials().hasSpecialty(SPELLSTEAL_SPECIALTY);
+	}
+
+	private int getSpellstealDurationTurns() {
+		if (character != null) {
+			return character.getSpellstealDurationTurns();
+		}
+		double dexValue = attrs() == null ? 0.0 : Math.max(0.0, attrs().calcStatusValue("DEX"));
+		return Math.max(1, (int) Math.ceil(dexValue * 0.1));
+	}
+
+	private String promptSpellstealEffectName() {
+		while (true) {
+			String response = JOptionPane.showInputDialog(
+					this,
+					"Enter the name of the beneficial effect to obtain:",
+					SPELLSTEAL_SPECIALTY,
+					JOptionPane.QUESTION_MESSAGE);
+			if (response == null) {
+				return null;
+			}
+			String trimmed = response.trim();
+			if (!trimmed.isBlank()) {
+				return trimmed;
+			}
+			JOptionPane.showMessageDialog(
+					this,
+					"Please enter an effect name.",
+					SPELLSTEAL_SPECIALTY,
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	private String buildSpellstealStatusMacro(String effectName, int durationTurns) {
+		String safeEffect = sanitizeMacroText(effectName);
+		String turnLabel = durationTurns + (durationTurns == 1 ? " turn" : " turns");
+		StringBuilder macro = new StringBuilder();
+		macro.append("&{template:default} {{name=Spellsteal}}")
+				.append(" {{Stolen Effect=").append(safeEffect).append("}}")
+				.append(" {{Duration=").append(turnLabel).append("}}")
+				.append(" {{Note=Enemy may not reactivate until duration expires}}");
+		return macro.toString();
+	}
+
+	private String sanitizeMacroText(String value) {
+		if (value == null) return "";
+		return value.replace("|", "/").replace("_", " ").replace("{", "(").replace("}", ")").trim();
+	}
+
+	private String escapeHtml(String value) {
+		if (value == null) return "";
+		return value
+				.replace("&", "&amp;")
+				.replace("<", "&lt;")
+				.replace(">", "&gt;");
+	}
+
+	private Double promptForNonNegativeDouble(String prompt, double initialValue) {
+		while (true) {
+			String input = JOptionPane.showInputDialog(
+					this,
+					prompt,
+					trimDisplayDouble(Math.max(0.0, initialValue)));
+			if (input == null) {
+				return null;
+			}
+			try {
+				double value = Double.parseDouble(input.trim());
+				if (value < 0.0) {
+					JOptionPane.showMessageDialog(
+							this,
+							"Please enter a non-negative number.",
+							MIGHTY_KICK_SPECIALTY,
+							JOptionPane.WARNING_MESSAGE);
+					continue;
+				}
+				return value;
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(
+						this,
+						"Please enter a valid number.",
+						MIGHTY_KICK_SPECIALTY,
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
 	}
 
 	private void applyStealthStrikeChoice(String choice) {
@@ -2227,6 +3215,16 @@ public class FrameAttack extends JFrame {
 			return;
 		}
 		damageType.setSelectedItem(selectedDamageType);
+	}
+
+	private static final class ArcaneMissileSelection {
+		private final String targetName;
+		private final String damageType;
+
+		private ArcaneMissileSelection(String targetName, String damageType) {
+			this.targetName = targetName == null ? "" : targetName.trim();
+			this.damageType = damageType == null ? "" : damageType.trim().toUpperCase(java.util.Locale.ROOT);
+		}
 	}
 
 	private String resolveDomainDamageType(String domainName) {

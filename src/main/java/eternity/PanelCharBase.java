@@ -365,8 +365,32 @@ public class PanelCharBase extends JPanel {
 		if (att2 != null && att2.compareTo("") != 0) {
 			mod += safeAttribute(character.getAttributes(), att2);
 		}
-		
-		// Safe color lookup with sensible fallback
+
+		copyCheckScriptToClipboard(checkName, mod, "INIT".equalsIgnoreCase(att));
+	}
+
+	/** Copies a check script using a precomputed modifier (e.g. full multi-attribute skill value). */
+	public void checkPressed(String checkName, double mod) {
+		if (character == null) return;
+		copyCheckScriptToClipboard(checkName, mod, false);
+	}
+
+	public String buildInitiativeRollMacro() {
+		if (character == null || character.getAttributes() == null) return null;
+		double mod = safeAttribute(character.getAttributes(), "INIT");
+		return buildCheckScript("Initiative Roll", mod, true);
+	}
+
+	private void copyCheckScriptToClipboard(String checkName, double mod, boolean initiative) {
+		String tempString = buildCheckScript(checkName, mod, initiative);
+		if (tempString == null || tempString.isBlank()) return;
+		StringSelection stringSelection = new StringSelection(tempString);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
+	}
+
+	private String buildCheckScript(String checkName, double mod, boolean initiative) {
+		if (character == null) return null;
 		DataColor raceColor = null;
 		if (dataQuery != null && character.getIdentity() != null) {
 			raceColor = dataQuery.getColorByTitle(character.getIdentity().getRace());
@@ -384,9 +408,9 @@ public class PanelCharBase extends JPanel {
 		tempString += charName + " --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|" + colorString2 + " --#leftSub|";
 		tempString += checkName + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em  --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
-		tempString += buildPercentRollBlock("Check", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "CheckPercentRoll", "FinalRawPercentRoll", "PercentRoll");
+		tempString += buildPercentRollBlock("Check", "RawPercentRoll", "RawPercentBonus", "RawPercentCount", "CheckPercentRoll", "FinalRawPercentRoll", "PercentRoll", !initiative);
 		tempString += " --=SkillCheck|[$PercentRoll] * " + fmt(mod) + " {FLOOR}";
-		if (att.compareTo("INIT") != 0) {
+		if (!initiative) {
 			tempString += " --+|Percent Roll: [$FinalRawPercentRoll] x 5% = [$PercentRoll] [br]&nbsp;&nbsp; ";
 			tempString += checkName + ": [$SkillCheck] = [$PercentRoll] x " + fmt(mod) + "}}";
 		}
@@ -398,10 +422,7 @@ public class PanelCharBase extends JPanel {
 			tempString += buildSummonedMinionInitiativeLines();
 			tempString += " --~|turnorder;replacetoken;@{selected|token_id};[$InitTotal]}}";
 		}
-		
-		StringSelection stringSelection = new StringSelection(tempString);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(stringSelection, null);
+		return tempString;
 	}
 
 	private String buildSummonedMinionInitiativeLines() {
@@ -441,19 +462,26 @@ public class PanelCharBase extends JPanel {
 
 	private String buildPercentRollBlock(String labelPrefix, String rawVar, String bonusVar, String countVar,
 			String rolledPercentVar, String finalRawVar, String percentVar) {
+		return buildPercentRollBlock(labelPrefix, rawVar, bonusVar, countVar, rolledPercentVar, finalRawVar, percentVar, true);
+	}
+
+	private String buildPercentRollBlock(String labelPrefix, String rawVar, String bonusVar, String countVar,
+			String rolledPercentVar, String finalRawVar, String percentVar, boolean explode) {
 		String block = "";
 		block += " --=" + rawVar + "|1d21 + 9";
 		block += " --=" + bonusVar + "|0";
 		block += " --=" + countVar + "|1";
 		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
-		block += buildPercentRollDisplayBlock(labelPrefix, "Initial", rawVar, countVar, rolledPercentVar, false);
-		block += " --%" + labelPrefix + "Explode|while;[$" + rawVar + ".Total] -eq 30 -or [$" + rawVar + ".Total] -eq 10";
-		block += buildPercentRollAdjustmentBlock(labelPrefix, rawVar, bonusVar);
-		block += " --=" + rawVar + "|1d21 + 9";
-		block += " --=" + countVar + "|[$" + countVar + "] + 1";
-		block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
-		block += buildPercentRollDisplayBlock(labelPrefix, "Loop", rawVar, countVar, rolledPercentVar, true);
-		block += " --%|";
+		if (explode) {
+			block += buildPercentRollDisplayBlock(labelPrefix, "Initial", rawVar, countVar, rolledPercentVar, false);
+			block += " --%" + labelPrefix + "Explode|while;[$" + rawVar + ".Total] -eq 30 -or [$" + rawVar + ".Total] -eq 10";
+			block += buildPercentRollAdjustmentBlock(labelPrefix, rawVar, bonusVar);
+			block += " --=" + rawVar + "|1d21 + 9";
+			block += " --=" + countVar + "|[$" + countVar + "] + 1";
+			block += " --=" + rolledPercentVar + "|[$" + rawVar + "] * 5 / 100";
+			block += buildPercentRollDisplayBlock(labelPrefix, "Loop", rawVar, countVar, rolledPercentVar, true);
+			block += " --%|";
+		}
 		block += " --=" + finalRawVar + "|[$" + rawVar + "] + [$" + bonusVar + "]";
 		block += " --=" + percentVar + "|[$" + finalRawVar + "] * 5 / 100";
 		return block;
@@ -507,7 +535,11 @@ public class PanelCharBase extends JPanel {
 		String upper = key.toUpperCase();
 		ArrayList<DataStatus>[] baseBlock = resolveStatusBlock(attrs, upper, true);
 		ArrayList<DataStatus>[] multiBlock = resolveStatusBlock(attrs, upper, false);
-		return computeStatusValue(baseBlock, multiBlock);
+		double value = computeStatusValue(baseBlock, multiBlock);
+		if (StoreCharData.RESDISP_ATTRIBUTE.equalsIgnoreCase(upper)) {
+			return CharAttributes.clampUnitInterval(value);
+		}
+		return value;
 	}
 
 	protected ArrayList<DataStatus>[] getBaseStatusBlock(CharAttributes attrs, String key) {
@@ -638,6 +670,68 @@ public class PanelCharBase extends JPanel {
 	protected void refreshReminderOnly() {
 		updateReminder();
 	}
+
+	protected String buildMaxHpTooltip(CharResources res, int maxHp) {
+		if (res == null) {
+			return "<html>Maximum HP: " + maxHp + "</html>";
+		}
+		return buildMaxResourceTooltip("Maximum HP", maxHp, res.getBaseHP(), res.getMultiHP());
+	}
+
+	protected String buildMaxAuraTooltip(CharResources res, int maxAura) {
+		if (res == null) {
+			return "<html>Maximum Aura: " + maxAura + "</html>";
+		}
+		return buildMaxResourceTooltip("Maximum Aura", maxAura, res.getBaseAura(), res.getMultiAura());
+	}
+
+	private String buildMaxResourceTooltip(String label, int displayedMax, ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
+		double baseValue = sumResourceStatusValue(base);
+		double multiValue = 1.0 + sumResourceStatusValue(multi);
+		double rawTotal = baseValue * multiValue;
+
+		StringBuilder sb = new StringBuilder("<html>");
+		sb.append(label).append(": ").append(displayedMax);
+		sb.append("<br>Formula: ").append(fmt(baseValue)).append(" × ").append(fmt(multiValue))
+				.append(" = ").append(fmt(rawTotal));
+		appendResourceStatusLines(sb, "-------(Base)-------", base, false);
+		appendResourceStatusLines(sb, "------(Multi)-----", multi, true);
+		sb.append("</html>");
+		return sb.toString();
+	}
+
+	private double sumResourceStatusValue(ArrayList<DataStatus>[] block) {
+		if (block == null) return 0.0;
+		double total = 0.0;
+		for (ArrayList<DataStatus> list : block) {
+			if (list == null) continue;
+			double listTotal = 0.0;
+			for (DataStatus status : list) {
+				if (status != null) listTotal += status.getSeverity();
+			}
+			total += Math.max(0.0, listTotal);
+		}
+		return total;
+	}
+
+	private void appendResourceStatusLines(StringBuilder sb, String header, ArrayList<DataStatus>[] block, boolean multiplier) {
+		if (block == null) return;
+		sb.append("<br>").append(header).append("<br>");
+		if (multiplier) {
+			sb.append("+ Base: ").append(fmt(1.0)).append("<br>");
+		}
+		for (ArrayList<DataStatus> list : block) {
+			if (list == null) continue;
+			for (DataStatus status : list) {
+				if (status == null) continue;
+				if ("Base".equalsIgnoreCase(status.getName()) && Math.abs(status.getSeverity()) < 0.0001) {
+					continue;
+				}
+				String name = status.getName() == null || status.getName().isBlank() ? "Unknown" : status.getName();
+				sb.append("+ ").append(name).append(": ").append(fmt(status.getSeverity())).append("<br>");
+			}
+		}
+	}
 	
 	/*
 	 * 		UPDATE HP & AURA
@@ -693,11 +787,11 @@ public class PanelCharBase extends JPanel {
 		charCurrHPL.setToolTipText(tempString);
 		charCurrHP.setToolTipText(tempString);
 		
-		tempString = "<html>Maximum HP: " + maxHp + "</html>";
+		tempString = buildMaxHpTooltip(res, maxHp);
 		charMaxHPL.setToolTipText(tempString);
 		charMaxHP.setToolTipText(tempString);
 		
-		tempString = "<html>Maximum Aura: " + maxAura + "</html>";
+		tempString = buildMaxAuraTooltip(res, maxAura);
 		charMaxAuraL.setToolTipText(tempString);
 		charMaxAura.setToolTipText(tempString);
 
@@ -908,8 +1002,12 @@ public class PanelCharBase extends JPanel {
 	/*
 	 * 		UPDATE REMINDER
 	 */
+	protected String getDisplayedPanelReminder() {
+		return character == null ? null : character.getPanelReminder();
+	}
+
 	public void updateReminder() {
-		String reminder = (character != null) ? character.getPanelReminder() : null;
+		String reminder = getDisplayedPanelReminder();
 		suppressReminderEvents = true;
 		try {
 			resetReminderRows();
@@ -1299,7 +1397,7 @@ public class PanelCharBase extends JPanel {
 					"BSTR", "BDEX", "BCON", "BFOC", "BCTL", "BCAP", "BKNOW", "BMECH", "BPERC", "BINT", "BCHA", "BSUB",
 					"BARMOR", "BDODGE", "BDEF", "BFORT", "BREF", "BWILL", "BAVOID",
 					"BATK", "BAPP", "BMOVE", "BFLY", "BRANGE", "BINIT", "BCMAN", "BMAXATK",
-					"BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BAREA", "BPOWER",
+					"BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BAREA", "BPOWER", "BDUR",
 					"BBDMG", "BTDMG", "BBHEAL", "BTHEAL",
 					"MBDMG", "MTDMG", "MBHEAL", "MTHEAL",
 					"BALL", "BPHY", "BBLUNT", "BPIERCE", "BSLASH", "BFIRE", "BFROST", "BELEC", "BENERGY", "BSONIC",
@@ -1338,7 +1436,7 @@ public class PanelCharBase extends JPanel {
 
 	private int getReminderRowCount() {
 		if (character == null) return 0;
-		String reminder = StoreCharData.normalizeReminderText(character.getPanelReminder());
+		String reminder = StoreCharData.normalizeReminderText(getDisplayedPanelReminder());
 		if (reminder.isBlank()) return 0;
 		return countReminderRows(reminder.split("\n"));
 	}

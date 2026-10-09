@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 public class FrameMold extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String MOLDS_LIST = "Molds";
+    private static final String MOLDING_SELECTIONS_KEY = "molding.selection.rows";
     private static final String EMPTY_OPTION = "";
     private static final String CATEGORY_ALL = "All";
     private static final String CATEGORY_WEAPON = "Weapon";
@@ -34,10 +35,15 @@ public class FrameMold extends JFrame {
     private static final String MOLDING_WEAPON_BONUS_KEY = "TDMG";
     private static final String MOLDING_ARMOR_BONUS_KEY = "ARMOR";
     private static final int SHIFTER_SPECIAL_MOLD_DID = -9001;
-    private static final int ACTIVE_WEAPON_SLOT_COUNT = 4;
+    private static final int STANDARD_WEAPON_SLOT_COUNT = 4;
     private static final int FRAME_WIDTH = 420;
     private static final int FRAME_HEIGHT = 360;
-    private static final int ROW_WIDTH = 360;
+    /** Leave room for the vertical scrollbar inside the scroll pane viewport. */
+    private static final int ROW_WIDTH = 340;
+    private static final int COL_TYPE_WIDTH = 82;
+    private static final int COL_MOLD_WIDTH = 168;
+    private static final int COL_AL_WIDTH = 66;
+    private static final int ROW_HGAP = 6;
     private static final int HEADER_ROW_HEIGHT = 28;
     private static final int BODY_ROW_HEIGHT = 34;
 
@@ -146,7 +152,7 @@ public class FrameMold extends JFrame {
     }
 
     private void refreshMoldChoices() {
-        ArrayList<MoldRowState> previousStates = captureRowStates();
+        ArrayList<MoldRowState> previousStates = moldRows.isEmpty() ? loadPersistedRowStates() : captureRowStates();
         availableMolds = collectMoldEntries();
         totalActiveMoldingLevels = getTotalActiveMoldingLevels();
         highestActiveMoldingLevel = getHighestActiveMoldingLevel();
@@ -218,6 +224,23 @@ public class FrameMold extends JFrame {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
+        if (getAssignedLevels() > totalActiveMoldingLevels) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Assigned mold AL exceeds currently active molding AL.",
+                    "Mold Selection",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (hasAssignedLevelAboveCurrentCap()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "One or more mold AL values exceed the current molding AL cap.",
+                    "Mold Selection",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        persistRowStates(captureRowStates());
         applySelectedMoldsToInventory();
         if (sheetFrame != null) {
             sheetFrame.loadCharacter(character);
@@ -256,29 +279,32 @@ public class FrameMold extends JFrame {
     }
 
     private JPanel buildHeaderRow() {
-        JPanel header = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        JPanel header = new JPanel(new FlowLayout(FlowLayout.LEFT, ROW_HGAP, 4));
         configureRowPanel(header, HEADER_ROW_HEIGHT);
-        header.add(buildColumnLabel("Type", 90));
-        header.add(buildColumnLabel("Mold", 180));
-        header.add(buildColumnLabel("AL", 80));
+        header.add(buildColumnLabel("Type", COL_TYPE_WIDTH));
+        header.add(buildColumnLabel("Mold", COL_MOLD_WIDTH));
+        header.add(buildColumnLabel("AL", COL_AL_WIDTH));
         return header;
     }
 
     private JLabel buildColumnLabel(String text, int width) {
         JLabel label = new JLabel(text);
-        label.setPreferredSize(new Dimension(width, 20));
+        Dimension size = new Dimension(width, 20);
+        label.setPreferredSize(size);
+        label.setMinimumSize(size);
+        label.setMaximumSize(size);
         return label;
     }
 
     private MoldRow createMoldRow(MoldRowState state) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, ROW_HGAP, 4));
         configureRowPanel(panel, BODY_ROW_HEIGHT);
         JComboBox<String> typeBox = new JComboBox<>(new String[] { EMPTY_OPTION, CATEGORY_ALL, CATEGORY_WEAPON, CATEGORY_ARMOR, CATEGORY_ITEM });
-        typeBox.setPreferredSize(new Dimension(90, 24));
+        configureFixedWidth(typeBox, COL_TYPE_WIDTH, 24);
         JComboBox<String> moldBox = new JComboBox<>();
-        moldBox.setPreferredSize(new Dimension(180, 24));
+        configureFixedWidth(moldBox, COL_MOLD_WIDTH, 24);
         JComboBox<Integer> alBox = new JComboBox<>();
-        alBox.setPreferredSize(new Dimension(80, 24));
+        configureFixedWidth(alBox, COL_AL_WIDTH, 24);
 
         MoldRow row = new MoldRow(panel, typeBox, moldBox, alBox);
         panel.add(typeBox);
@@ -326,7 +352,15 @@ public class FrameMold extends JFrame {
         panel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         panel.setPreferredSize(size);
         panel.setMinimumSize(size);
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, rowHeight));
+        panel.setMaximumSize(size);
+    }
+
+    private void configureFixedWidth(JComboBox<?> comboBox, int width, int height) {
+        if (comboBox == null) return;
+        Dimension size = new Dimension(width, height);
+        comboBox.setPreferredSize(size);
+        comboBox.setMinimumSize(size);
+        comboBox.setMaximumSize(size);
     }
 
     private void refreshMoldOptions(MoldRow row) {
@@ -376,10 +410,11 @@ public class FrameMold extends JFrame {
     private void populateAlChoices(JComboBox<Integer> alBox, int maxAl, int preferredValue) {
         if (alBox == null) return;
         alBox.removeAllItems();
-        for (int i = 0; i <= Math.max(0, maxAl); i++) {
+        int upperBound = Math.max(Math.max(0, maxAl), Math.max(0, preferredValue));
+        for (int i = 0; i <= upperBound; i++) {
             alBox.addItem(i);
         }
-        int selected = preferredValue >= 0 && preferredValue <= Math.max(0, maxAl) ? preferredValue : 0;
+        int selected = Math.max(0, preferredValue);
         alBox.setSelectedItem(selected);
     }
 
@@ -389,7 +424,12 @@ public class FrameMold extends JFrame {
             statusLabel.setText("No entries are available in the Molds list.");
             return;
         }
-        statusLabel.setText("Available Levels: " + Math.max(0, totalActiveMoldingLevels - getAssignedLevels()));
+        int remaining = totalActiveMoldingLevels - getAssignedLevels();
+        if (remaining >= 0) {
+            statusLabel.setText("Available Levels: " + remaining);
+        } else {
+            statusLabel.setText("Over-assigned by " + Math.abs(remaining) + " AL.");
+        }
     }
 
     private int getAssignedLevels() {
@@ -429,6 +469,19 @@ public class FrameMold extends JFrame {
         }
         states.add(new MoldRowState(EMPTY_OPTION, EMPTY_OPTION, 0));
         return states;
+    }
+
+    private boolean hasAssignedLevelAboveCurrentCap() {
+        if (highestActiveMoldingLevel <= 0) return getAssignedLevels() > 0;
+        for (MoldRow row : moldRows) {
+            if (row == null || row.alBox() == null) continue;
+            Object selected = row.alBox().getSelectedItem();
+            int al = selected instanceof Integer ? (Integer) selected : 0;
+            if (al > highestActiveMoldingLevel) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void rebalanceRows() {
@@ -531,11 +584,16 @@ public class FrameMold extends JFrame {
             if (weapon == null || !weapon.isEquipped()) continue;
             if (!isWeaponEquipment(weapon)) continue;
             equippedWeapons++;
-            if (equippedWeapons >= ACTIVE_WEAPON_SLOT_COUNT) {
+            if (equippedWeapons >= getWeaponSlotCount()) {
                 return false;
             }
         }
         return true;
+    }
+
+    private int getWeaponSlotCount() {
+        if (character == null) return STANDARD_WEAPON_SLOT_COUNT;
+        return Math.max(STANDARD_WEAPON_SLOT_COUNT, character.getWeaponSlotCount());
     }
 
     private boolean assignArmorSlotIfAvailable(DataItemEquipment armor) {
@@ -586,7 +644,6 @@ public class FrameMold extends JFrame {
         String type = item.getType() == null ? "" : item.getType().toLowerCase();
         if (category.contains("matrix")) return false;
         return slot.contains("weapon")
-                || slot.contains("hand")
                 || category.contains("weapon")
                 || category.contains("melee")
                 || category.contains("ranged")
@@ -735,27 +792,8 @@ public class FrameMold extends JFrame {
     }
 
     private void clearExistingMoldingManifestItems() {
-        if (character == null || character.getInventory() == null) return;
-        CharInventory inventory = character.getInventory();
-        ArrayList<DataItemEquipment> equipmentToRemove = new ArrayList<>();
-        for (DataItemEquipment item : inventory.getEquipment()) {
-            if (item != null && isMoldingManifestItem(item.getInote())) {
-                equipmentToRemove.add(item);
-            }
-        }
-        for (DataItemEquipment item : equipmentToRemove) {
-            inventory.removeEquipment(item);
-        }
-
-        ArrayList<DataItem> itemsToRemove = new ArrayList<>();
-        for (DataItem item : inventory.getItems()) {
-            if (item != null && isMoldingManifestItem(item.getInote())) {
-                itemsToRemove.add(item);
-            }
-        }
-        for (DataItem item : itemsToRemove) {
-            inventory.removeItem(item);
-        }
+        if (character == null) return;
+        character.clearMoldingManifestItems();
     }
 
     private boolean isMoldingManifestItem(String note) {
@@ -787,6 +825,52 @@ public class FrameMold extends JFrame {
 
     private String safe(String value) {
         return value == null ? "" : value.trim();
+    }
+
+    private ArrayList<MoldRowState> loadPersistedRowStates() {
+        ArrayList<MoldRowState> states = new ArrayList<>();
+        if (character == null) return states;
+        String raw = character.getReminderSelection(MOLDING_SELECTIONS_KEY);
+        if (raw == null || raw.isBlank()) return states;
+        for (String row : raw.split("\\R")) {
+            if (row == null || row.isBlank()) continue;
+            String[] parts = row.split("\\t", -1);
+            String type = parts.length > 0 ? safe(parts[0]) : EMPTY_OPTION;
+            String mold = parts.length > 1 ? safe(parts[1]) : EMPTY_OPTION;
+            int al = 0;
+            if (parts.length > 2) {
+                try {
+                    al = Math.max(0, Integer.parseInt(parts[2].trim()));
+                } catch (NumberFormatException ignored) {
+                    al = 0;
+                }
+            }
+            if (type.isBlank() && mold.isBlank() && al <= 0) continue;
+            states.add(new MoldRowState(type, mold, al));
+        }
+        return states;
+    }
+
+    private void persistRowStates(List<MoldRowState> states) {
+        if (character == null) return;
+        StringBuilder serialized = new StringBuilder();
+        if (states != null) {
+            for (MoldRowState state : states) {
+                if (state == null) continue;
+                String type = safe(state.type());
+                String mold = safe(state.mold());
+                int al = Math.max(0, state.al());
+                if (type.isBlank() || mold.isBlank()) continue;
+                if (serialized.length() > 0) serialized.append('\n');
+                serialized.append(type).append('\t').append(mold).append('\t').append(al);
+            }
+        }
+        character.setReminderSelection(MOLDING_SELECTIONS_KEY, serialized.toString());
+    }
+
+    public static void clearPersistedSelection(StoreCharData character) {
+        if (character == null) return;
+        character.setReminderSelection(MOLDING_SELECTIONS_KEY, "");
     }
 
     private record MoldOption(String name, String category) {}

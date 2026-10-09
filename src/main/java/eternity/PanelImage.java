@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.OverlayLayout;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -39,6 +40,7 @@ public class PanelImage extends JPanel {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
     private static final Color COMBAT_READY_COLOR = new Color(0, 180, 0);
     private static final Color COMBAT_PENDING_COLOR = Color.YELLOW;
+    private static final Color GM_MODE_COLOR = new Color(255, 225, 90);
     private static final int PORTRAIT_MAX_WIDTH = 600;
     private static final int PORTRAIT_MAX_HEIGHT = 190;
 
@@ -47,6 +49,7 @@ public class PanelImage extends JPanel {
 
     // UI components
     private final JLabel picLabel;
+    private final JLabel gmModeLabel;
     private final JLabel nameLine1, nameLine2;
     private final JLabel dateLine1, dateLine2;
 
@@ -67,6 +70,7 @@ public class PanelImage extends JPanel {
     private Duration renderedElapsed = null;
     private Boolean renderedCombatState = null;
     private boolean playerModePendingConnection;
+    private boolean playerMode;
 
     // ---------------------------------------------------------
     // Constructor
@@ -83,10 +87,27 @@ public class PanelImage extends JPanel {
         picLabel = new JLabel(MISSING_IMAGE_TEXT, SwingConstants.CENTER);
         picLabel.setForeground(Color.WHITE);
         picLabel.setPreferredSize(new Dimension(600, 190));
-        JPanel picWrapper = new JPanel(new BorderLayout());
+        picLabel.setAlignmentX(0.5f);
+        picLabel.setAlignmentY(0.5f);
+
+        gmModeLabel = new JLabel("GM MODE");
+        gmModeLabel.setForeground(GM_MODE_COLOR);
+        gmModeLabel.setFont(gmModeLabel.getFont().deriveFont(java.awt.Font.BOLD, 28f));
+        gmModeLabel.setBorder(new EmptyBorder(10, 14, 0, 0));
+        gmModeLabel.setVisible(false);
+
+        JPanel gmModeOverlay = new JPanel(new BorderLayout());
+        gmModeOverlay.setOpaque(false);
+        gmModeOverlay.add(gmModeLabel, BorderLayout.NORTH);
+        gmModeOverlay.setAlignmentX(0.5f);
+        gmModeOverlay.setAlignmentY(0.5f);
+
+        JPanel picWrapper = new JPanel();
+        picWrapper.setLayout(new OverlayLayout(picWrapper));
         picWrapper.setOpaque(false);
         picWrapper.setBorder(new EmptyBorder(0, 0, 0, 13)); // nudge image 13px left
-        picWrapper.add(picLabel, BorderLayout.CENTER);
+        picWrapper.add(gmModeOverlay);
+        picWrapper.add(picLabel);
         add(picWrapper, BorderLayout.NORTH);
 
         // === Bottom Controls ===
@@ -176,6 +197,7 @@ public class PanelImage extends JPanel {
     // ---------------------------------------------------------
 
     public void updateCharacter(StoreCharData character) {
+        gmModeLabel.setVisible(sheetFrame != null && sheetFrame.isGmModeActive());
         if (character == null) return;
         this.character = character;
 
@@ -293,6 +315,38 @@ public class PanelImage extends JPanel {
         combatPressed(playerMode);
     }
 
+    public void refreshCombatActorSelectorIfOpen() {
+        if (combatFrame != null && combatFrame.isDisplayable()) {
+            combatFrame.refreshActorSelector();
+        }
+    }
+
+    void applyNarratorCombatStart() {
+        if (character == null) return;
+        ensureCombatFrame(playerMode);
+        if (combatFrame == null) return;
+        combatFrame.setVisible(true);
+        combatFrame.toFront();
+        combatFrame.reenterCombatFromNarrator();
+        refreshCombatButtonColor();
+    }
+
+    void applyNarratorCombatEnd() {
+        if (combatFrame == null || character == null || character.getCombat() == null) return;
+        if (character.getCombat().isInCombat()) {
+            combatFrame.exitCombat();
+        }
+        refreshCombatButtonColor();
+    }
+
+    void applyNarratorNewRound() {
+        if (combatFrame == null || character == null || character.getCombat() == null) return;
+        if (!character.getCombat().isInCombat()) return;
+        combatFrame.setVisible(true);
+        combatFrame.toFront();
+        combatFrame.endRoundFromNarrator();
+    }
+
     public void disposeOwnedWindows() {
         detachPlayerModeListener();
         if (combatFrame != null) {
@@ -304,6 +358,7 @@ public class PanelImage extends JPanel {
     }
 
     public void enterPlayerMode() {
+        playerMode = true;
         playerModePendingConnection = true;
         renderedCombatState = null;
         refreshCombatButtonColor();
@@ -339,6 +394,11 @@ public class PanelImage extends JPanel {
         }
         combatButton.setBackground(inCombat ? Color.RED : COMBAT_READY_COLOR);
         renderedCombatState = inCombat;
+    }
+
+    FrameCombat ensureCombatFrameReady() {
+        ensureCombatFrame(false);
+        return combatFrame;
     }
 
     /** Lazily create or refresh the shared combat window for this session. */

@@ -10,6 +10,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,10 +35,18 @@ public class FrameTechnical extends JFrame {
     private static final String COMMAND_SOUND_TECHNICAL = "Command (Sound)";
     private static final String CHASTISE_NIGHT_TECHNICAL = "Chastise (Night)";
     private static final String CHASTISE_DAY_TECHNICAL = "Chastise (Day)";
+    private static final String CALM_STRIKE_TECHNICAL = "Calm Strike";
+    private static final String ANGER_STRIKE_TECHNICAL = "Anger Strike";
+    private static final String ORDER_STRIKE_TECHNICAL = "Order Strike";
+    private static final String CHAOS_STRIKE_TECHNICAL = "Chaos Strike";
     private static final String EFFLUX_RISE_TECHNICAL = "Efflux (Rise)";
     private static final String EFFLUX_FALL_TECHNICAL = "Efflux (Fall)";
     private static final String IONIZE_SUPPLY_TECHNICAL = "Ionize (Supply)";
     private static final String MISDIRECTION_TURN_TECHNICAL = "Misdirection (Turn)";
+    private static final String ADVANTAGE_SPECIALTY = "Advantage";
+    private static final String AFFLICTION_SPECIALTY = "Affliction";
+    private static final String INCANT_MARKER = "INCANT";
+    private static final String CHAIN_MARKER = "CHAIN";
     private static final String PULSE_SLOW_MELEE_TECHNICAL = "Pulse (Slow) Melee";
     private static final String PULSE_SLOW_RANGED_TECHNICAL = "Pulse (Slow) Ranged";
     private static final String PULSE_STEADY_MELEE_TECHNICAL = "Pulse (Steady) Melee";
@@ -43,6 +54,7 @@ public class FrameTechnical extends JFrame {
     private static final String RESONANT_STRIKE_EBB_TECHNICAL = "Resonant Strike (Ebb)";
     private static final String SHIV_OVER_TECHNICAL = "Shiv (Over)";
     private static final String SHIV_UNDER_TECHNICAL = "Shiv (Under)";
+    private static final String SHIVER_TECHNICAL = "Shiver";
     private static final String[] RESOURCE_KEYS = {
             "BASEHP", "MULTIHP", "BASEAURA", "MULTIAURA",
             "BASER1", "MULTIR1", "BASER2", "MULTIR2", "BASER3", "MULTIR3",
@@ -78,6 +90,11 @@ public class FrameTechnical extends JFrame {
     private int techPoints;
     private boolean promptSequenceShown;
     private boolean confirmed;
+    private boolean incantPending;
+    private boolean incantSaveFailed;
+    private boolean chainPending;
+    private int chainApplyPenalty;
+    private int chainHopCount;
 
     public FrameTechnical(JFrame parent, StoreCharData character, DataTechnical technical) {
         this(parent, character, technical, null, null);
@@ -89,9 +106,14 @@ public class FrameTechnical extends JFrame {
         this.technical = technical == null ? new DataTechnical() : new DataTechnical(technical);
         this.confirmAction = confirmAction;
         this.cancelAction = cancelAction;
-        this.techPoints = 0;
+        this.techPoints = resolveBaseTechPoints();
         this.promptSequenceShown = false;
         this.confirmed = false;
+        this.incantPending = hasPendingIncantMarker();
+        this.incantSaveFailed = false;
+        this.chainPending = hasPendingChainMarker();
+        this.chainApplyPenalty = 0;
+        this.chainHopCount = 0;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -138,6 +160,16 @@ public class FrameTechnical extends JFrame {
 
     public DataTechnical getTechnical() {
         return new DataTechnical(technical);
+    }
+
+    private int resolveBaseTechPoints() {
+        if (technical == null || technical.getCategory() == null || character == null || character.getSpecials() == null) {
+            return 0;
+        }
+        if (!"Support".equalsIgnoreCase(technical.getCategory().trim())) {
+            return 0;
+        }
+        return character.getSpecials().hasSpecialty(ADVANTAGE_SPECIALTY) ? 1 : 0;
     }
 
     private void buildUi() {
@@ -224,6 +256,8 @@ public class FrameTechnical extends JFrame {
         confirmButton.addActionListener(e -> {
             confirmed = true;
             applyTechnicalEffect();
+            consumePendingIncantMarkerIfNeeded();
+            consumePendingChainMarkerIfNeeded();
             if (confirmAction != null) {
                 confirmAction.run();
             }
@@ -239,6 +273,14 @@ public class FrameTechnical extends JFrame {
 
         if (requiresSavePrompt() && !promptForTargetMadeSave()) {
             techPoints++;
+        }
+
+        if (shouldPromptIncantSave()) {
+            incantSaveFailed = !promptForIncantWillSave();
+        }
+
+        if (shouldPromptChainSave()) {
+            resolveChainSequence();
         }
 
         refreshComputedValues();
@@ -295,7 +337,7 @@ public class FrameTechnical extends JFrame {
             return;
         }
         try {
-            numberValueLabel.setText(trimNumber(resolveDisplayedNumberValue(evaluateFormula(formula))));
+            numberValueLabel.setText(trimNumber(buildResolvedNumberValue()));
         } catch (IllegalArgumentException ignored) {
             numberValueLabel.setText(formula.trim());
         }
@@ -306,9 +348,18 @@ public class FrameTechnical extends JFrame {
             durationValueLabel.setText("Instant");
             return;
         }
+        if (isCenteredResource3GainTechnical()) {
+            durationValueLabel.setText("Instant");
+            return;
+        }
         if (isPulseSlowRangedTechnical()) {
             int durationTurns = getPulseSlowRangedDurationTurns();
             durationValueLabel.setText(durationTurns + (durationTurns == 1 ? " round" : " rounds"));
+            return;
+        }
+        if (isShiverTechnical()) {
+            int durationRounds = evaluateDurationTurns();
+            durationValueLabel.setText(durationRounds + (durationRounds == 1 ? " round" : " rounds"));
             return;
         }
         String formula = technical.getDuration();
@@ -316,15 +367,20 @@ public class FrameTechnical extends JFrame {
             durationValueLabel.setText("-");
             return;
         }
-        try {
-            durationValueLabel.setText(trimNumber(evaluateDurationValue()) + " turns");
-        } catch (IllegalArgumentException ignored) {
-            durationValueLabel.setText(formula.trim() + " turns");
+        if (!isNumericDurationFormula(formula)) {
+            durationValueLabel.setText(formula.trim());
+            return;
         }
+        int durationTurns = evaluateDurationTurns();
+        durationValueLabel.setText(trimNumber(durationTurns) + " turns");
     }
 
     private void applyTechnicalEffect() {
         if (character == null || technical == null) return;
+        if (isFlashMobTechnical()) {
+            applyFlashMobTechPointEffects();
+            return;
+        }
         if (isSelfTechnical()) {
             applySelfTechnicalEffect();
             return;
@@ -345,6 +401,126 @@ public class FrameTechnical extends JFrame {
         character.getCombat().addStatus(reminderStatus);
     }
 
+    private boolean isFlashMobTechnical() {
+        return technical != null
+                && technical.getName() != null
+                && "Flash Mob".equalsIgnoreCase(technical.getName().trim());
+    }
+
+    private void applyFlashMobTechPointEffects() {
+        if (character == null || character.getMinions() == null || techPoints <= 0) {
+            markFlashMobConsumed();
+            return;
+        }
+        ArrayList<PanelCharMinion.SummonedMinionCombatInfo> available = new ArrayList<>();
+        for (CharMinions.SummonedMinionActor actor : character.getSummonedMinionActors()) {
+            if (actor == null || actor.slotTitle() == null || actor.slotTitle().isBlank()) continue;
+            MinionSlotState slot = character.getMinions().findSlot(actor.slotTitle());
+            if (slot != null && slot.isFlashMobCopy()) continue;
+            available.add(new PanelCharMinion.SummonedMinionCombatInfo(
+                    actor.slotTitle(), actor.displayName(), actor.attackBonus()));
+        }
+        int placements = Math.min(techPoints, available.size());
+        if (placements <= 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Flash Mob had " + techPoints + " TP, but no eligible summoned minions were available.",
+                    "Flash Mob",
+                    JOptionPane.INFORMATION_MESSAGE);
+            markFlashMobConsumed();
+            return;
+        }
+
+        ArrayList<String> usedSlots = new ArrayList<>();
+        for (int i = 0; i < placements; i++) {
+            ArrayList<PanelCharMinion.SummonedMinionCombatInfo> remaining = new ArrayList<>();
+            for (PanelCharMinion.SummonedMinionCombatInfo option : available) {
+                if (option == null || usedSlots.contains(option.slotTitle())) continue;
+                remaining.add(option);
+            }
+            if (remaining.isEmpty()) break;
+
+            String[] labels = new String[remaining.size()];
+            for (int j = 0; j < remaining.size(); j++) {
+                labels[j] = remaining.get(j).displayName();
+            }
+            Object selected = JOptionPane.showInputDialog(
+                    this,
+                    "Flash Mob TP " + (i + 1) + "/" + placements + ": choose a unique minion.",
+                    "Flash Mob",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    labels,
+                    labels[0]);
+            if (selected == null) break;
+            PanelCharMinion.SummonedMinionCombatInfo minion = null;
+            for (PanelCharMinion.SummonedMinionCombatInfo option : remaining) {
+                if (selected.toString().equals(option.displayName())) {
+                    minion = option;
+                    break;
+                }
+            }
+            if (minion == null) break;
+            usedSlots.add(minion.slotTitle());
+
+            String tile = JOptionPane.showInputDialog(
+                    this,
+                    "Choose an unoccupied tile adjacent to " + minion.displayName() + ":",
+                    "Adjacent Tile");
+            if (tile == null || tile.trim().isBlank()) {
+                tile = "unspecified adjacent tile";
+            } else {
+                tile = tile.trim();
+            }
+
+            int moveChoice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Does " + minion.displayName() + " move to " + tile + " without cost or AoO?\n"
+                            + "Yes = minion moves, copy appears in original tile.\n"
+                            + "No = minion stays, copy appears in " + tile + ".",
+                    "Flash Mob",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            boolean minionMoved = moveChoice == JOptionPane.YES_OPTION;
+            String copyTitle = character.getMinions().createFlashMobCopy(
+                    minion.slotTitle(),
+                    minionMoved,
+                    tile);
+            if (character.getCombat() != null) {
+                DataStatus reminder = new DataStatus();
+                reminder.setName("Flash Mob Copy [" + minion.slotTitle() + "]");
+                reminder.setAffinity("None");
+                reminder.setAttribute("REMINDER");
+                reminder.setSeverity(0.0);
+                reminder.setDurationType("Combat");
+                reminder.setDuration(-1);
+                reminder.setDescription(minionMoved
+                        ? minion.displayName() + " moved to " + tile
+                        + ". Copy (" + copyTitle + ") created in the original tile with 1 HP."
+                        : minion.displayName() + " stayed. Copy (" + copyTitle + ") created at "
+                        + tile + " with 1 HP.");
+                character.getCombat().addStatus(reminder);
+            }
+        }
+        markFlashMobConsumed();
+        character.updateAll();
+        if (getParent() instanceof FrameSheet parentSheet) {
+            parentSheet.refreshMainPanel();
+            parentSheet.refreshImagePanel();
+            parentSheet.refreshCombatActorSelectorIfOpen();
+        } else if (getOwner() instanceof FrameSheet ownerSheet) {
+            ownerSheet.refreshMainPanel();
+            ownerSheet.refreshImagePanel();
+            ownerSheet.refreshCombatActorSelectorIfOpen();
+        }
+    }
+
+    private void markFlashMobConsumed() {
+        if (character != null && character.getCombat() != null) {
+            character.getCombat().setFlashMobPendingRefund(false);
+        }
+    }
+
     private boolean isReminderTechnical() {
         String effect = technical.getEffect();
         return effect != null && "reminder".equalsIgnoreCase(effect.trim());
@@ -363,17 +539,198 @@ public class FrameTechnical extends JFrame {
     private void applySelfTechnicalEffect() {
         if (CRUSHING_BLOW_BEND_TECHNICAL.equalsIgnoreCase(safeDisplay(technical.getName(), ""))) {
             applySelfStatus("BALL", buildResolvedNumberValue(), evaluateDurationTurns(), buildSelfTechnicalDescription());
+            return;
         }
+        if (isCenteredResource3GainTechnical()) {
+            applyCenteredResource3GainTechnicalEffect();
+            return;
+        }
+        if (isCenteredResource3DamageTechnical()) {
+            applyCenteredResource3DamageTechnicalEffect();
+        }
+    }
+
+    private boolean isCenteredResource3GainTechnical() {
+        String name = safeDisplay(technical.getName(), "");
+        return CALM_STRIKE_TECHNICAL.equalsIgnoreCase(name)
+                || ORDER_STRIKE_TECHNICAL.equalsIgnoreCase(name);
+    }
+
+    private boolean isCenteredResource3DamageTechnical() {
+        String name = safeDisplay(technical.getName(), "");
+        return ANGER_STRIKE_TECHNICAL.equalsIgnoreCase(name)
+                || CHAOS_STRIKE_TECHNICAL.equalsIgnoreCase(name);
+    }
+
+    private void applyCenteredResource3GainTechnicalEffect() {
+        int resourceGain = Math.max(0, techPoints);
+        if (resourceGain <= 0 || character == null) return;
+        character.increaseResource3WithOverflow(resourceGain);
+        character.updateAll();
+    }
+
+    private void applyCenteredResource3DamageTechnicalEffect() {
+        double bonusMulti = buildResolvedNumberValue();
+        if (Math.abs(bonusMulti) <= 0.0001 || character == null) return;
+        applySelfStatus("MBDMG", bonusMulti, Math.max(1, evaluateDurationTurns()), buildSelfTechnicalDescription());
     }
 
     private double buildResolvedNumberValue() {
         String formula = technical.getNumber();
         if (formula == null || formula.isBlank()) return 0.0;
+        double value;
         try {
-            return resolveDisplayedNumberValue(evaluateFormula(formula));
+            value = resolveDisplayedNumberValue(evaluateFormula(formula)) + getIncantSeverityBonus();
         } catch (IllegalArgumentException ignored) {
-            return 0.0;
+            value = getIncantSeverityBonus();
         }
+        if (isSupportTechnical() && character != null) {
+            value = character.scaleSupportEffect(value);
+        }
+        return value;
+    }
+
+    private boolean isSupportTechnical() {
+        return technical != null
+                && technical.getCategory() != null
+                && "Support".equalsIgnoreCase(technical.getCategory().trim());
+    }
+
+    private boolean isImpairmentTechnical() {
+        return technical != null
+                && technical.getCategory() != null
+                && "Impairment".equalsIgnoreCase(technical.getCategory().trim());
+    }
+
+    private boolean shouldPromptIncantSave() {
+        return incantPending && isImpairmentTechnical();
+    }
+
+    private boolean promptForIncantWillSave() {
+        double severityBonus = Math.max(0.0, resolveDexterityValue() * 0.1);
+        String message = "Incant: The target must make a WILL save.\n"
+                + "Your APPLY value is " + trimNumber(getApplyValue()) + ".\n"
+                + "On a failed save, base effect severity increases by "
+                + trimNumber(severityBonus) + " (10% of DEX).\n\n"
+                + "Did the target make its WILL save?";
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                message,
+                "Incant",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        return choice == JOptionPane.YES_OPTION;
+    }
+
+    private double getIncantSeverityBonus() {
+        if (!incantPending || !incantSaveFailed || !isImpairmentTechnical()) return 0.0;
+        return Math.max(0.0, resolveDexterityValue() * 0.1);
+    }
+
+    private double resolveDexterityValue() {
+        if (character == null || character.getAttributes() == null) return 0.0;
+        return Math.max(0.0, character.getAttributes().calcStatusValue("DEX"));
+    }
+
+    private boolean hasPendingIncantMarker() {
+        if (character == null || character.getCombat() == null) return false;
+        List<DataStatus> statuses = character.getCombat().getCombatStatus();
+        if (statuses == null) return false;
+        for (DataStatus status : statuses) {
+            if (status == null || status.getAttribute() == null || status.getDurationType() == null) continue;
+            if (!"Next Attack".equalsIgnoreCase(status.getDurationType().trim())) continue;
+            if (INCANT_MARKER.equalsIgnoreCase(status.getAttribute().trim())) return true;
+        }
+        return false;
+    }
+
+    private void consumePendingIncantMarkerIfNeeded() {
+        if (!incantPending || !isImpairmentTechnical() || character == null || character.getCombat() == null) return;
+        List<DataStatus> statuses = character.getCombat().getCombatStatus();
+        if (statuses == null) return;
+        for (int i = statuses.size() - 1; i >= 0; i--) {
+            DataStatus status = statuses.get(i);
+            if (status == null || status.getAttribute() == null || status.getDurationType() == null) continue;
+            if (!"Next Attack".equalsIgnoreCase(status.getDurationType().trim())) continue;
+            if (!INCANT_MARKER.equalsIgnoreCase(status.getAttribute().trim())) continue;
+            statuses.remove(i);
+        }
+        character.updateAll();
+    }
+
+    private boolean shouldPromptChainSave() {
+        return chainPending && isImpairmentTechnical();
+    }
+
+    private void resolveChainSequence() {
+        while (true) {
+            boolean targetMadeFort = promptForChainFortSave();
+            if (targetMadeFort) break;
+
+            chainHopCount++;
+            chainApplyPenalty += 10;
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Chain triggered.\n"
+                            + "Replicate this technique against an unaffected creature within RANGE "
+                            + trimNumber(resolveRangeValue()) + "ft.\n"
+                            + "The replica uses APPLY " + trimNumber(getApplyValue() - chainApplyPenalty)
+                            + " (base APPLY - " + chainApplyPenalty + ") and also has Chain.\n\n"
+                            + "Resolve Chain's FORT save against the new target?",
+                    "Chain",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (choice != JOptionPane.YES_OPTION) break;
+        }
+    }
+
+    private boolean promptForChainFortSave() {
+        String targetLabel = chainHopCount == 0 ? "The primary target" : "The Chain target";
+        String message = "Chain: " + targetLabel + " must make a FORT save.\n"
+                + "Your APPLY value is " + trimNumber(getApplyValue() - chainApplyPenalty)
+                + (chainApplyPenalty > 0 ? " (includes Chain APPLY penalty of -" + chainApplyPenalty + ")" : "")
+                + ".\n"
+                + "On a failed save, the technique is replicated with APPLY -10 against an unaffected creature within RANGE.\n"
+                + "The replicated technique also has this Chain effect.\n\n"
+                + "Did the target make its FORT save?";
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                message,
+                "Chain",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        return choice == JOptionPane.YES_OPTION;
+    }
+
+    private double resolveRangeValue() {
+        if (character == null || character.getAttributes() == null) return 0.0;
+        return Math.max(0.0, character.getAttributes().calcStatusValue("RANGE"));
+    }
+
+    private boolean hasPendingChainMarker() {
+        if (character == null || character.getCombat() == null) return false;
+        List<DataStatus> statuses = character.getCombat().getCombatStatus();
+        if (statuses == null) return false;
+        for (DataStatus status : statuses) {
+            if (status == null || status.getAttribute() == null || status.getDurationType() == null) continue;
+            if (!"Next Attack".equalsIgnoreCase(status.getDurationType().trim())) continue;
+            if (CHAIN_MARKER.equalsIgnoreCase(status.getAttribute().trim())) return true;
+        }
+        return false;
+    }
+
+    private void consumePendingChainMarkerIfNeeded() {
+        if (!chainPending || !isImpairmentTechnical() || character == null || character.getCombat() == null) return;
+        List<DataStatus> statuses = character.getCombat().getCombatStatus();
+        if (statuses == null) return;
+        for (int i = statuses.size() - 1; i >= 0; i--) {
+            DataStatus status = statuses.get(i);
+            if (status == null || status.getAttribute() == null || status.getDurationType() == null) continue;
+            if (!"Next Attack".equalsIgnoreCase(status.getDurationType().trim())) continue;
+            if (!CHAIN_MARKER.equalsIgnoreCase(status.getAttribute().trim())) continue;
+            statuses.remove(i);
+        }
+        character.updateAll();
     }
 
     private String buildSelfTechnicalDescription() {
@@ -570,7 +927,30 @@ public class FrameTechnical extends JFrame {
         if (SHIV_UNDER_TECHNICAL.equalsIgnoreCase(technicalName)) {
             return buildShivUnderStatusCode();
         }
+        if (SHIVER_TECHNICAL.equalsIgnoreCase(technicalName)) {
+            return buildShiverStatusCode();
+        }
         return "";
+    }
+
+    private String buildShiverStatusCode() {
+        double dodgePenalty = buildResolvedNumberValue();
+        if (Math.abs(dodgePenalty) <= 0.0001) {
+            dodgePenalty = 10.0;
+        }
+
+        int durationRounds = evaluateDurationTurns();
+        if (durationRounds <= 0) return "";
+
+        StringBuilder code = new StringBuilder();
+        code.append("NAME:").append(sanitizeStatusCodeText(SHIVER_TECHNICAL));
+        code.append("_DUR:Round:").append(durationRounds);
+        code.append("_MMOVE:-0.5");
+        code.append("_DG:").append(formatStatusSeverityValue(-dodgePenalty));
+        code.append("_DESC:")
+                .append(sanitizeStatusCodeText(
+                        "Reduce the target's MOVE by 50% and Dodge by " + trimNumber(dodgePenalty) + "."));
+        return code.toString();
     }
 
     private String buildCommandSafeStatusCode() {
@@ -581,8 +961,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(COMMAND_SAFE_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(COMMAND_SAFE_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_DF:").append(formatStatusSeverityValue(numberValue));
         code.append("_DESC:")
@@ -598,8 +977,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(COMMAND_SOUND_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(COMMAND_SOUND_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_HOTHP:").append(formatStatusSeverityValue(numberValue));
         code.append("_DESC:")
@@ -615,8 +993,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(CHASTISE_NIGHT_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(CHASTISE_NIGHT_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_TAKEN:").append(formatStatusSeverityValue(numberValue));
         code.append("_DESC:")
@@ -628,11 +1005,11 @@ public class FrameTechnical extends JFrame {
         double numberValue = buildResolvedNumberValue();
         if (Math.abs(numberValue) <= 0.0001) return "";
 
-        int repeatCount = Math.max(1, techPoints);
+        int repeatCount = scaleTechniqueDurationTurns(Math.max(1, techPoints));
+        if (repeatCount <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(CHASTISE_DAY_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(CHASTISE_DAY_TECHNICAL));
         code.append("_DUR:Turn:").append(repeatCount);
         code.append("_HOTHP:").append(formatStatusSeverityValue(numberValue));
         code.append("_HOTSHIELD:").append(formatStatusSeverityValue(numberValue));
@@ -651,8 +1028,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(EFFLUX_RISE_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(EFFLUX_RISE_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_TD:").append(formatStatusSeverityValue(numberValue));
         code.append("_DESC:")
@@ -668,8 +1044,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(EFFLUX_FALL_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(EFFLUX_FALL_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_TD:").append(formatStatusSeverityValue(-numberValue));
         code.append("_DESC:")
@@ -685,8 +1060,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(IONIZE_SUPPLY_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(IONIZE_SUPPLY_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_BALL:").append(formatStatusSeverityValue(numberValue));
         code.append("_DESC:")
@@ -700,8 +1074,7 @@ public class FrameTechnical extends JFrame {
 
         double severity = -numberValue;
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(CRUSHING_BLOW_BREAK_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(CRUSHING_BLOW_BREAK_TECHNICAL));
 
         int durationTurns = evaluateDurationTurns();
         if (durationTurns > 0) {
@@ -729,8 +1102,7 @@ public class FrameTechnical extends JFrame {
         if (stunTokens <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(SHIV_OVER_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(SHIV_OVER_TECHNICAL));
         code.append("_STUN:").append(stunTokens);
         code.append("_DESC:")
                 .append(sanitizeStatusCodeText("Apply " + stunTokens + " stun tokens to the target."));
@@ -742,8 +1114,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(MISDIRECTION_TURN_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(MISDIRECTION_TURN_TECHNICAL));
         code.append("_DUR:Turn:").append(durationTurns);
         code.append("_FLANK:1");
         code.append("_DESC:")
@@ -760,8 +1131,7 @@ public class FrameTechnical extends JFrame {
         double totalHealing = numberValue * repeatCount;
 
         StringBuilder code = new StringBuilder();
-        code.append("ALLY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(technicalName));
+        code.append("NAME:").append(sanitizeStatusCodeText(technicalName));
         code.append("_HP:").append(formatStatusSeverityValue(totalHealing));
         code.append("_DESC:")
                 .append(sanitizeStatusCodeText((melee ? "Heal a target ally within melee range for " : "Heal a target ally for ")
@@ -777,8 +1147,7 @@ public class FrameTechnical extends JFrame {
         if (incapacitateTokens <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(PULSE_SLOW_MELEE_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(PULSE_SLOW_MELEE_TECHNICAL));
         code.append("_INCAP:").append(incapacitateTokens);
         code.append("_DESC:")
                 .append(sanitizeStatusCodeText("Apply " + incapacitateTokens + " incapacitate tokens to the target."));
@@ -793,8 +1162,7 @@ public class FrameTechnical extends JFrame {
         if (durationTurns <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(PULSE_SLOW_RANGED_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(PULSE_SLOW_RANGED_TECHNICAL));
         code.append("_DUR:Round:").append(durationTurns);
         code.append("_MV:").append(formatStatusSeverityValue(-numberValue));
         code.append("_DESC:")
@@ -818,8 +1186,7 @@ public class FrameTechnical extends JFrame {
         if (heavyTokens <= 0) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(RESONANT_STRIKE_EBB_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(RESONANT_STRIKE_EBB_TECHNICAL));
         code.append("_HEAVY:").append(heavyTokens);
         code.append("_DESC:")
                 .append(sanitizeStatusCodeText("Apply " + heavyTokens + " heavy tokens to the target."));
@@ -841,8 +1208,7 @@ public class FrameTechnical extends JFrame {
         if (Math.abs(severity) <= 0.0001) return "";
 
         StringBuilder code = new StringBuilder();
-        code.append("ENEMY_SINGLE");
-        code.append("_NAME:").append(sanitizeStatusCodeText(SHIV_UNDER_TECHNICAL));
+        code.append("NAME:").append(sanitizeStatusCodeText(SHIV_UNDER_TECHNICAL));
 
         int durationTurns = evaluateDurationTurns();
         if (durationTurns > 0) {
@@ -884,13 +1250,81 @@ public class FrameTechnical extends JFrame {
         if (isPulseSlowRangedTechnical()) {
             return getPulseSlowRangedDurationTurns();
         }
+        String formula = technical == null ? null : technical.getDuration();
+        if (!isNumericDurationFormula(formula)) {
+            return 0;
+        }
         double durationValue;
         try {
             durationValue = evaluateDurationValue();
         } catch (IllegalArgumentException ignored) {
             return 0;
         }
-        return Math.max(0, (int) Math.ceil(durationValue));
+        if (durationValue > 0.0 && character != null) {
+            durationValue = character.scaleDurationEffect(durationValue);
+        }
+        int turns = Math.max(0, (int) Math.ceil(durationValue));
+        if (turns > 0) {
+            turns += getSupportOrImpairmentDurationBonus();
+        }
+        return turns;
+    }
+
+    private boolean isNumericDurationFormula(String formula) {
+        if (formula == null || formula.isBlank()) return false;
+        String trimmed = formula.trim();
+        if ("Combat".equalsIgnoreCase(trimmed)
+                || "Instant".equalsIgnoreCase(trimmed)
+                || "Permanent".equalsIgnoreCase(trimmed)
+                || "Maintained".equalsIgnoreCase(trimmed)
+                || "Temporary".equalsIgnoreCase(trimmed)) {
+            return false;
+        }
+        try {
+            evaluateFormula(trimmed);
+            return true;
+        } catch (IllegalArgumentException ignored) {
+            return false;
+        }
+    }
+
+    private int scaleTechniqueDurationTurns(int turns) {
+        if (turns <= 0 || character == null) return turns;
+        return Math.max(0, (int) Math.ceil(character.scaleDurationEffect(turns)));
+    }
+
+    private int getSupportOrImpairmentDurationBonus() {
+        return getAdvantageSupportDurationBonus() + getAfflictionImpairmentDurationBonus();
+    }
+
+    private int getAdvantageSupportDurationBonus() {
+        if (technical == null || technical.getCategory() == null
+                || !"Support".equalsIgnoreCase(technical.getCategory().trim())) {
+            return 0;
+        }
+        if (character == null || character.getSpecials() == null
+                || !character.getSpecials().hasSpecialty(ADVANTAGE_SPECIALTY)) {
+            return 0;
+        }
+        return getCharacterLevel() / 2;
+    }
+
+    private int getAfflictionImpairmentDurationBonus() {
+        if (technical == null || technical.getCategory() == null
+                || !"Impairment".equalsIgnoreCase(technical.getCategory().trim())) {
+            return 0;
+        }
+        if (character == null || character.getSpecials() == null
+                || !character.getSpecials().hasSpecialty(AFFLICTION_SPECIALTY)) {
+            return 0;
+        }
+        return getCharacterLevel() / 2;
+    }
+
+    private boolean isShiverTechnical() {
+        return technical != null
+                && technical.getName() != null
+                && SHIVER_TECHNICAL.equalsIgnoreCase(technical.getName().trim());
     }
 
     private boolean isPulseSlowMeleeTechnical() {
@@ -911,7 +1345,7 @@ public class FrameTechnical extends JFrame {
     }
 
     private int getPulseSlowRangedDurationTurns() {
-        return techPoints > 0 ? 2 : 1;
+        return scaleTechniqueDurationTurns(techPoints > 0 ? 2 : 1);
     }
 
     private void updateDetailsText() {
@@ -920,7 +1354,30 @@ public class FrameTechnical extends JFrame {
             details = technical.getDescription();
         }
         String display = safeDisplay(details, "No description available.");
-        descriptionArea.setText(resolveTechnicalDescriptionText(display));
+        StringBuilder text = new StringBuilder(resolveTechnicalDescriptionText(display));
+        if (shouldPromptIncantSave()) {
+            text.append(System.lineSeparator()).append(System.lineSeparator())
+                    .append("Incant: Provoke a WILL save. If the target fails this save, the severity of the base effect is increased by ")
+                    .append(trimNumber(Math.max(0.0, resolveDexterityValue() * 0.1)))
+                    .append(" (10% of DEX).");
+            if (incantSaveFailed) {
+                text.append(System.lineSeparator())
+                        .append("Incant save failed: severity bonus applied.");
+            }
+        }
+        if (shouldPromptChainSave()) {
+            text.append(System.lineSeparator()).append(System.lineSeparator())
+                    .append("Chain: Provoke a FORT save. If the target fails this save, the technique is replicated with a -10 penalty to APPLY ")
+                    .append("and targets an unaffected creature within RANGE ")
+                    .append(trimNumber(resolveRangeValue()))
+                    .append("ft. The replicated technique also has this effect.");
+            if (chainHopCount > 0) {
+                text.append(System.lineSeparator())
+                        .append("Chain replications resolved: ").append(chainHopCount)
+                        .append(" (current APPLY penalty for further hops: -").append(chainApplyPenalty).append(").");
+            }
+        }
+        descriptionArea.setText(text.toString());
         descriptionArea.setCaretPosition(0);
     }
 

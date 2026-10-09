@@ -33,6 +33,8 @@ public class CharIdentity implements Serializable {
     @JsonProperty private boolean birthdayManual;
     @JsonProperty private String race;
     @JsonProperty private List<String> charRacePick;
+    @JsonProperty private List<String> gaianTrainingAttributes;
+    @JsonProperty private List<String> gaianTrainingSpecialties;
     @JsonProperty private String charClass;
     @JsonProperty private String charSubclass;
     @JsonProperty private List<String> charClassPick;
@@ -64,6 +66,8 @@ public class CharIdentity implements Serializable {
         this.birthdayManual = false;
         this.race = "?";
         this.charRacePick = new ArrayList<>();
+        this.gaianTrainingAttributes = new ArrayList<>();
+        this.gaianTrainingSpecialties = new ArrayList<>();
         this.charClass = "?";
         this.charSubclass = "?";
         this.charClassPick = new ArrayList<>();
@@ -95,6 +99,8 @@ public class CharIdentity implements Serializable {
         this.birthday = other.birthday;
         this.race = other.race;
         this.charRacePick = new ArrayList<>(other.charRacePick);
+        this.gaianTrainingAttributes = new ArrayList<>(other.gaianTrainingAttributes == null ? List.of() : other.gaianTrainingAttributes);
+        this.gaianTrainingSpecialties = new ArrayList<>(other.gaianTrainingSpecialties == null ? List.of() : other.gaianTrainingSpecialties);
         this.charClass = other.charClass;
         this.charSubclass = other.charSubclass;
         this.charClassPick = new ArrayList<>(other.charClassPick);
@@ -154,6 +160,28 @@ public class CharIdentity implements Serializable {
     public List<String> getCharRacePick() { return Collections.unmodifiableList(charRacePick); }
     public void setCharRacePick(List<String> charRacePick) { this.charRacePick = safeList(charRacePick); }
     public void addRacePick(String pick) { this.charRacePick.add(safeString(pick)); }
+
+    public List<String> getGaianTrainingAttributes() {
+        return Collections.unmodifiableList(gaianTrainingAttributes == null ? List.of() : gaianTrainingAttributes);
+    }
+    public void setGaianTrainingAttributes(List<String> gaianTrainingAttributes) {
+        this.gaianTrainingAttributes = safeList(gaianTrainingAttributes);
+    }
+    public void addGaianTrainingAttribute(String attribute) {
+        if (this.gaianTrainingAttributes == null) this.gaianTrainingAttributes = new ArrayList<>();
+        this.gaianTrainingAttributes.add(safeString(attribute));
+    }
+
+    public List<String> getGaianTrainingSpecialties() {
+        return Collections.unmodifiableList(gaianTrainingSpecialties == null ? List.of() : gaianTrainingSpecialties);
+    }
+    public void setGaianTrainingSpecialties(List<String> gaianTrainingSpecialties) {
+        this.gaianTrainingSpecialties = safeList(gaianTrainingSpecialties);
+    }
+    public void addGaianTrainingSpecialty(String specialty) {
+        if (this.gaianTrainingSpecialties == null) this.gaianTrainingSpecialties = new ArrayList<>();
+        this.gaianTrainingSpecialties.add(safeString(specialty));
+    }
 
     public String getCharClass() { return charClass; }
     public void setCharClass(String charClass) { this.charClass = safeString(charClass); }

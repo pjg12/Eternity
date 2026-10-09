@@ -24,7 +24,7 @@
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-05-23T02:35:51.244+0000",
+    "updated" : "2026-05-23T03:54:12.811+0000",
     "createdAt" : "2026-05-21T17:18:50.861+0000",
     "lastLevelUp" : "2026-05-21T17:18:50.861+0000",
     "timeSinceLastLevel" : "PT0S"
@@ -36,7 +36,7 @@
     "spentR2" : 0.0,
     "spentR3" : 0.0,
     "spentReactions" : 0.0,
-    "mainOccupiedAura" : 13.0,
+    "mainOccupiedAura" : 0.0,
     "grantOccupiedAura" : 2.0,
     "shield" : 0.0,
     "stagger" : 0.0,
@@ -660,6 +660,14 @@
       "description" : "None",
       "attribute" : "BCHA",
       "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    }, {
+      "name" : "MASGRANT [BCHA]",
+      "affinity" : "None",
+      "description" : "Decoded from shorthand effect code.",
+      "attribute" : "BCHA",
+      "severity" : 1.0,
       "durationType" : "Maintained",
       "duration" : 0
     }, {
@@ -2368,7 +2376,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2376,7 +2384,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2384,7 +2392,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -2561,7 +2569,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2569,7 +2577,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2577,7 +2585,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -3825,6 +3833,51 @@
           "duration" : 0
         } ]
       } ],
+      "enhancement" : [ {
+        "id" : 1000,
+        "name" : "Aura Affinity (Enhancement)",
+        "type" : "Passive",
+        "affinity" : "Enhancement",
+        "description" : "+2 RESISTPHY per level",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : -1,
+        "grant" : [ 241 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 241",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "RESPHY",
+          "severity" : 2.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      }, {
+        "id" : 2070,
+        "name" : "Improved Granting (Lesser)",
+        "type" : "Maintained",
+        "affinity" : "Enhancement",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : 1000,
+        "grant" : [ 510 ],
+        "rank" : 2,
+        "al" : 2,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 510",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "GRANT",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
+      } ],
       "attribute" : [ {
         "id" : 1,
         "name" : "Strength Training",
@@ -4090,51 +4143,6 @@
           "duration" : 0
         } ]
       } ],
-      "enhancement" : [ {
-        "id" : 1000,
-        "name" : "Aura Affinity (Enhancement)",
-        "type" : "Passive",
-        "affinity" : "Enhancement",
-        "description" : "+2 RESISTPHY per level",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : -1,
-        "grant" : [ 241 ],
-        "rank" : 2,
-        "al" : 0,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 241",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "RESPHY",
-          "severity" : 2.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ]
-      }, {
-        "id" : 2070,
-        "name" : "Improved Granting (Lesser)",
-        "type" : "Maintained",
-        "affinity" : "Enhancement",
-        "description" : "-",
-        "levelCoef" : 1.0,
-        "levelMod" : 0.0,
-        "prereq" : 1000,
-        "grant" : [ 510 ],
-        "rank" : 2,
-        "al" : 2,
-        "exp" : 0.0,
-        "permStatus" : [ {
-          "name" : "TechPerm 510",
-          "affinity" : "None",
-          "description" : "Tech permission grant",
-          "attribute" : "GRANT",
-          "severity" : 1.0,
-          "durationType" : "Permanent",
-          "duration" : 0
-        } ]
-      } ],
       "misc" : [ {
         "id" : 21,
         "name" : "Skill Training",
@@ -4182,10 +4190,10 @@
     "deviant" : false
   },
   "combat" : {
-    "inCombat" : false,
-    "round" : 0,
+    "inCombat" : true,
+    "round" : 1,
     "initiative" : 0,
-    "showInitiativePopup" : true,
+    "showInitiativePopup" : false,
     "critDamage" : 2.0,
     "invade" : false,
     "reach" : 0,
@@ -4251,7 +4259,7 @@
     "maintained.loadout.billy.maintained.al.65.ref" : "0",
     "maintained.loadout.billy.maintained.al.65.will" : "0",
     "maintained.loadout.billy.maintained.al.2070.grant" : "0",
-    "maintained.loadout.active" : "Default",
+    "maintained.loadout.active" : "Benjamin",
     "maintained.loadout.benjamin.maintained.al.61.str" : "0",
     "maintained.loadout.benjamin.maintained.al.61.dex" : "0",
     "maintained.loadout.benjamin.maintained.al.61.foc" : "0",
@@ -4269,29 +4277,30 @@
     "granted.loadout.billy.granted.al.61.dex" : "0",
     "granted.loadout.billy.granted.al.61.foc" : "0",
     "granted.loadout.billy.granted.al.61.ctl" : "0",
-    "granted.loadout.billy.granted.al.62.resall" : "1",
+    "granted.loadout.billy.granted.al.62.resall" : "0",
     "granted.loadout.billy.granted.al.63.perc" : "0",
     "granted.loadout.billy.granted.al.64.cha" : "0",
     "granted.loadout.billy.granted.al.64.sub" : "0",
-    "granted.loadout.billy.granted.al.65.fort" : "0",
+    "granted.loadout.billy.granted.al.65.fort" : "1",
     "granted.loadout.billy.granted.al.65.ref" : "0",
     "granted.loadout.billy.granted.al.65.will" : "0",
     "granted.loadout.billy.granted.al.2070.base" : "0",
     "granted.loadout.active" : "Billy",
     "granted.loadout.benjamin.granted.al.61.str" : "0",
-    "granted.loadout.benjamin.granted.al.61.dex" : "1",
+    "granted.loadout.benjamin.granted.al.61.dex" : "0",
     "granted.loadout.benjamin.granted.al.61.foc" : "0",
     "granted.loadout.benjamin.granted.al.61.ctl" : "0",
     "granted.loadout.benjamin.granted.al.62.resall" : "0",
     "granted.loadout.benjamin.granted.al.63.perc" : "0",
-    "granted.loadout.benjamin.granted.al.64.cha" : "0",
+    "granted.loadout.benjamin.granted.al.64.cha" : "1",
     "granted.loadout.benjamin.granted.al.64.sub" : "0",
     "granted.loadout.benjamin.granted.al.65.fort" : "0",
     "granted.loadout.benjamin.granted.al.65.ref" : "0",
     "granted.loadout.benjamin.granted.al.65.will" : "0",
     "granted.loadout.benjamin.granted.al.2070.base" : "0",
     "granted.loadout.enabled.benjamin" : "true",
-    "granted.loadout.enabled.billy" : "true"
+    "granted.loadout.enabled.billy" : "true",
+    "Shapeshifting (Alteri)" : ""
   },
   "panelReminder" : "Aquata can survive under water indefinitely.\nAquata move twice their move speed when swimming.\nYour heals do not provoke an attack of opportunity.",
   "lists" : [ ]

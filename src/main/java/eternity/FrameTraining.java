@@ -39,6 +39,14 @@ public class FrameTraining extends JFrame {
     private static final String ALTERI_RACIAL_SPECIALTY = "Shapeshifting (Alteri)";
     private static final String ALTERI_SHAPESHIFT_LIST = "Shapeshift";
     private static final String MOLDS_LIST = "Molds";
+    private static final String KNOWN_CHANNELS_LIST = "Known Channels";
+    private static final String KNOWN_ARRAYS_LIST = "Known Arrays";
+    private static final String KNOWN_ATTUNEMENTS_LIST = "Known Attunements";
+    private static final String KNOWN_METALS_LIST = "Known Metals";
+    private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
+    private static final String AURA_RUNOLOGY_TECHNIQUE = "Aura Runology";
+    private static final String ETHEREAL_ATTUNEMENT_TECHNIQUE = "Ethereal Attunement";
+    private static final String METAL_MANIFESTATION_TECHNIQUE = "Metal Manifestation";
     private static final String MOLD_CATEGORY_WEAPON = "Weapon";
     private static final String MOLD_CATEGORY_ARMOR = "Armor";
     private static final String MOLD_CATEGORY_ITEM = "Item";
@@ -574,11 +582,11 @@ public class FrameTraining extends JFrame {
         if (!newView && tech.isListEntry()) {
             controls.maxRankField.setValue(resolveListMaxMembers(tech));
             controls.curRankField.setValue(countListMembers(tech.getListName()));
-            controls.nextXpField.setValue(10);
+            controls.nextXpField.setValue(resolveListEntryXpCost());
         } else {
             controls.maxRankField.setValue(displayTech.getMaxRank(character));
             controls.curRankField.setValue(displayTech.getRank());
-            controls.nextXpField.setValue(displayTech.getNextAt(character));
+            controls.nextXpField.setValue(resolveTechniqueXpCost(displayTech));
         }
         updateTrainingXpFields(controls, displayTech);
     }
@@ -677,7 +685,7 @@ public class FrameTraining extends JFrame {
         added.setRank(0);
         added.setAl(0);
 
-        int xpCost = added.getNextAt(character);
+        int xpCost = resolveTechniqueXpCost(added);
         double availableAuraXp = getCharacterTrainingXp();
         double availableTypedXp = getTypedTrainingXp(template.getAffinity());
         double totalAvailableXp = availableAuraXp + availableTypedXp;
@@ -691,10 +699,34 @@ public class FrameTraining extends JFrame {
         }
 
         boolean createInitialMoldsList = shouldCreateInitialMoldsList(added);
+        boolean createInitialKnownChannelsList = shouldCreateInitialKnownChannelsList(added);
+        boolean createInitialKnownArraysList = shouldCreateInitialKnownArraysList(added);
+        boolean createInitialKnownAttunementsList = shouldCreateInitialKnownAttunementsList(added);
+        boolean createInitialKnownMetalsList = shouldCreateInitialKnownMetalsList(added);
         MoldEntrySelection firstMoldEntry = null;
         if (createInitialMoldsList) {
             firstMoldEntry = promptForMoldEntrySelection(List.of(), 1, 1);
             if (firstMoldEntry == null) return;
+        }
+        String firstKnownChannelEntry = null;
+        if (createInitialKnownChannelsList) {
+            firstKnownChannelEntry = promptForSingleListEntry(KNOWN_CHANNELS_LIST, List.of(), 1, 1);
+            if (firstKnownChannelEntry == null) return;
+        }
+        String firstKnownArrayEntry = null;
+        if (createInitialKnownArraysList) {
+            firstKnownArrayEntry = promptForSingleListEntry(KNOWN_ARRAYS_LIST, List.of(), 1, 1);
+            if (firstKnownArrayEntry == null) return;
+        }
+        String firstKnownAttunementEntry = null;
+        if (createInitialKnownAttunementsList) {
+            firstKnownAttunementEntry = promptForSingleListEntry(KNOWN_ATTUNEMENTS_LIST, List.of(), 1, 1);
+            if (firstKnownAttunementEntry == null) return;
+        }
+        String firstKnownMetalEntry = null;
+        if (createInitialKnownMetalsList) {
+            firstKnownMetalEntry = promptForSingleListEntry(KNOWN_METALS_LIST, List.of(), 1, 1);
+            if (firstKnownMetalEntry == null) return;
         }
 
         DataTraining preview = new DataTraining(added);
@@ -712,6 +744,17 @@ public class FrameTraining extends JFrame {
         if (grantedSkills == null) return;
         List<FrameSpecial.SpecialtyGrant> grantedSpecialties = promptForSpecialtiesFromTrainingRankGain(preview, oldRank, preview.getRank(), grantedSkills);
         if (grantedSpecialties == null) return;
+        ArrayList<String> selectedManifestedMetals = null;
+        if (isMetalManifestationTechnique(preview)) {
+            ArrayList<String> knownMetals = getDistinctListEntries(KNOWN_METALS_LIST);
+            if (createInitialKnownMetalsList && firstKnownMetalEntry != null && !firstKnownMetalEntry.isBlank()) {
+                knownMetals.add(firstKnownMetalEntry.trim());
+            }
+            selectedManifestedMetals = promptForMetalManifestationSelection(knownMetals, preview.getRank(),
+                    character == null ? List.of() : character.getActiveMetalManifestations());
+            if (selectedManifestedMetals == null) return;
+        }
+        if (!promptForGaianVersatilityFromTrainingRankGain(preview, oldRank, preview.getRank())) return;
 
         consumeTrainingXp(template.getAffinity(), availableAuraXp, availableTypedXp, xpCost);
         added.setRank(preview.getRank());
@@ -722,10 +765,26 @@ public class FrameTraining extends JFrame {
         if (createInitialMoldsList) {
             ensureListWithFirstEntry(MOLDS_LIST, firstMoldEntry.entryName(), firstMoldEntry.description());
         }
+        if (createInitialKnownChannelsList) {
+            ensureListWithFirstEntry(KNOWN_CHANNELS_LIST, firstKnownChannelEntry, "");
+        }
+        if (createInitialKnownArraysList) {
+            ensureListWithFirstEntry(KNOWN_ARRAYS_LIST, firstKnownArrayEntry, "");
+        }
+        if (createInitialKnownAttunementsList) {
+            ensureListWithFirstEntry(KNOWN_ATTUNEMENTS_LIST, firstKnownAttunementEntry, "");
+        }
+        if (createInitialKnownMetalsList) {
+            ensureListWithFirstEntry(KNOWN_METALS_LIST, firstKnownMetalEntry, "");
+        }
+        if (selectedManifestedMetals != null && character != null) {
+            character.setActiveMetalManifestations(selectedManifestedMetals);
+        }
         character.updateAll();
 
         if (sheetFrame != null) {
             sheetFrame.refreshTrainingPanel();
+            sheetFrame.refreshListPanel();
             sheetFrame.refreshMainPanel();
             sheetFrame.refreshImagePanel();
         }
@@ -832,7 +891,7 @@ public class FrameTraining extends JFrame {
             confirmExistingListTechnique(existing);
             return;
         }
-        int xpCost = existing.getNextAt(character);
+        int xpCost = resolveTechniqueXpCost(existing);
         double availableAuraXp = getCharacterTrainingXp();
         double availableTypedXp = getTypedTrainingXp(existing.getAffinity());
         double totalAvailableXp = availableAuraXp + availableTypedXp;
@@ -852,16 +911,29 @@ public class FrameTraining extends JFrame {
         if (grantedSkills == null) return;
         List<FrameSpecial.SpecialtyGrant> grantedSpecialties = promptForSpecialtiesFromTrainingRankGain(preview, oldRank, preview.getRank(), grantedSkills);
         if (grantedSpecialties == null) return;
+        ArrayList<String> selectedManifestedMetals = null;
+        if (isMetalManifestationTechnique(preview)) {
+            selectedManifestedMetals = promptForMetalManifestationSelection(
+                    getDistinctListEntries(KNOWN_METALS_LIST),
+                    preview.getRank(),
+                    character == null ? List.of() : character.getActiveMetalManifestations());
+            if (selectedManifestedMetals == null) return;
+        }
+        if (!promptForGaianVersatilityFromTrainingRankGain(preview, oldRank, preview.getRank())) return;
 
         consumeTrainingXp(existing.getAffinity(), availableAuraXp, availableTypedXp, xpCost);
         existing.setRank(preview.getRank());
         grantTrainingSkills(grantedSkills);
         grantTrainingSpecialties(grantedSpecialties);
+        if (selectedManifestedMetals != null && character != null) {
+            character.setActiveMetalManifestations(selectedManifestedMetals);
+        }
 
         character.updateAll();
 
         if (sheetFrame != null) {
             sheetFrame.refreshTrainingPanel();
+            sheetFrame.refreshListPanel();
             sheetFrame.refreshMainPanel();
             sheetFrame.refreshImagePanel();
         }
@@ -894,10 +966,11 @@ public class FrameTraining extends JFrame {
             return;
         }
 
+        int listEntryCost = resolveListEntryXpCost();
         double availableAuraXp = getCharacterTrainingXp();
         double availableTypedXp = getTypedTrainingXp(listTech.getAffinity());
         double totalAvailableXp = availableAuraXp + availableTypedXp;
-        if (remainingRanks <= 0 || totalAvailableXp + 0.0001 < 10.0) {
+        if (remainingRanks <= 0 || totalAvailableXp + 0.0001 < listEntryCost) {
             JOptionPane.showMessageDialog(this, "List training requires 10 XP per new list entry.", "Insufficient XP", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -917,13 +990,14 @@ public class FrameTraining extends JFrame {
             chosenEntry = new MoldEntrySelection(genericEntry, "");
         }
 
-        consumeTrainingXp(listTech.getAffinity(), availableAuraXp, availableTypedXp, 10.0);
+        consumeTrainingXp(listTech.getAffinity(), availableAuraXp, availableTypedXp, listEntryCost);
         addListEntry(listTech.getListName(), chosenEntry.entryName(), chosenEntry.description());
 
         character.updateAll();
 
         if (sheetFrame != null) {
             sheetFrame.refreshTrainingPanel();
+            sheetFrame.refreshListPanel();
             sheetFrame.refreshMainPanel();
             sheetFrame.refreshImagePanel();
         }
@@ -931,6 +1005,68 @@ public class FrameTraining extends JFrame {
         refreshExistingTechniqueChoices();
         refreshNewTechniqueChoices();
         restoreSelection(existingControls, existingTechniques, listTech.getAffinity(), listTech.getType(), listTech.getName());
+    }
+
+    private boolean promptForGaianVersatilityFromTrainingRankGain(DataTraining tech, int oldRank, int newRank) {
+        return promptForGaianVersatilityRankGains(this, ruleManager, character, tech, oldRank, newRank);
+    }
+
+    static boolean promptForGaianVersatilityRankGains(Component parent, StoreRuleManager ruleManager, StoreCharData character,
+            DataTraining tech, int oldRank, int newRank) {
+        if (character == null || !character.isGaianRace() || !isRaceTrainingTechnique(tech) || newRank <= oldRank) {
+            return true;
+        }
+        ArrayList<String> addedAttributes = new ArrayList<>();
+        ArrayList<FrameSpecial.SpecialtyGrant> specialtyGrants = new ArrayList<>();
+        ArrayList<DataSpecialty> reservedSpecialties = new ArrayList<>();
+        for (int rank = oldRank + 1; rank <= newRank; rank++) {
+            List<String> available = character.getGaianAvailableTrainingAttributes();
+            if (!available.isEmpty()) {
+                JComboBox<String> box = new JComboBox<>(available.toArray(new String[0]));
+                int choice = JOptionPane.showConfirmDialog(
+                        parent,
+                        box,
+                        "Gaian Versatility: choose an attribute",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (choice != JOptionPane.OK_OPTION) {
+                    character.removeGaianTrainingAttributes(addedAttributes);
+                    return false;
+                }
+                String selected = (String) box.getSelectedItem();
+                if (selected == null || !character.addGaianTrainingAttribute(selected)) {
+                    character.removeGaianTrainingAttributes(addedAttributes);
+                    return false;
+                }
+                addedAttributes.add(selected);
+            }
+            if (rank != 5 && rank != 10) continue;
+            List<FrameSpecial.SpecialtyGrant> grants = FrameSpecial.promptForTrainingSpecialtyGrants(
+                    parent, ruleManager, character, 1, reservedSpecialties, null,
+                    "Gaian Versatility: choose a specialty");
+            if (grants == null) {
+                character.removeGaianTrainingAttributes(addedAttributes);
+                return false;
+            }
+            specialtyGrants.addAll(grants);
+            for (FrameSpecial.SpecialtyGrant grant : grants) {
+                if (grant != null && grant.specialty() != null) {
+                    reservedSpecialties.add(new DataSpecialty(grant.specialty()));
+                }
+            }
+        }
+        for (FrameSpecial.SpecialtyGrant grant : specialtyGrants) {
+            if (grant == null || grant.specialty() == null) continue;
+            FrameSpecial.applyResolvedSpecialtyGrant(character, grant.specialty(), grant.grantedSkills());
+            character.addGaianTrainingSpecialty(grant.specialty().getName());
+        }
+        return true;
+    }
+
+    private static boolean isRaceTrainingTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && RACE_TRAINING_NAME.equalsIgnoreCase(tech.getName().trim());
     }
 
     private List<DataSkill> promptForSkillsFromTrainingRankGain(DataTraining tech, int oldRank, int newRank) {
@@ -992,7 +1128,7 @@ public class FrameTraining extends JFrame {
 
     private DataTraining buildListTrainingEntry(DataTraining parent, String listName) {
         DataTraining listEntry = new DataTraining(parent);
-        listEntry.setName("New " + listName);
+        listEntry.setName(resolveListTrainingEntryDisplayName(listName));
         listEntry.setListName(listName);
         listEntry.setListEntry(true);
         listEntry.setListParentId(parent.getId());
@@ -1001,9 +1137,37 @@ public class FrameTraining extends JFrame {
         return listEntry;
     }
 
+    private String resolveListTrainingEntryDisplayName(String listName) {
+        if (KNOWN_ATTUNEMENTS_LIST.equalsIgnoreCase(safeLabel(listName))) {
+            return "New Attunement";
+        }
+        if (KNOWN_METALS_LIST.equalsIgnoreCase(safeLabel(listName))) {
+            return "New Metal";
+        }
+        return "New " + listName;
+    }
+
+    private int resolveTechniqueXpCost(DataTraining tech) {
+        if (tech == null) return 0;
+        return isTrainingCostDisabled() ? 0 : tech.getNextAt(character);
+    }
+
+    private int resolveListEntryXpCost() {
+        return isTrainingCostDisabled() ? 0 : 10;
+    }
+
+    private boolean isTrainingCostDisabled() {
+        return sheetFrame != null && sheetFrame.isTrainingCostDisabled();
+    }
+
     private String resolveAssociatedListName(DataTraining tech) {
         if (tech == null) return "";
         if (isAlteriRaceTraining(tech)) return ALTERI_SHAPESHIFT_LIST;
+        if (isMoldingTechnique(tech)) return MOLDS_LIST;
+        if (isMentalNetworkTechnique(tech)) return KNOWN_CHANNELS_LIST;
+        if (isAuraRunologyTechnique(tech)) return KNOWN_ARRAYS_LIST;
+        if (isEtherealAttunementTechnique(tech)) return KNOWN_ATTUNEMENTS_LIST;
+        if (isMetalManifestationTechnique(tech)) return KNOWN_METALS_LIST;
         String listName = tech.getListName();
         return listName == null ? "" : listName.trim();
     }
@@ -1017,7 +1181,23 @@ public class FrameTraining extends JFrame {
     }
 
     private boolean shouldCreateInitialMoldsList(DataTraining tech) {
-        return isMoldingTechnique(tech) && !hasListNamed(MOLDS_LIST);
+        return isMoldingTechnique(tech) && !isShifterCharacter() && !hasListNamed(MOLDS_LIST);
+    }
+
+    private boolean shouldCreateInitialKnownChannelsList(DataTraining tech) {
+        return isMentalNetworkTechnique(tech) && !hasListNamed(KNOWN_CHANNELS_LIST);
+    }
+
+    private boolean shouldCreateInitialKnownArraysList(DataTraining tech) {
+        return isAuraRunologyTechnique(tech) && !hasListNamed(KNOWN_ARRAYS_LIST);
+    }
+
+    private boolean shouldCreateInitialKnownAttunementsList(DataTraining tech) {
+        return isEtherealAttunementTechnique(tech) && !hasListNamed(KNOWN_ATTUNEMENTS_LIST);
+    }
+
+    private boolean shouldCreateInitialKnownMetalsList(DataTraining tech) {
+        return isMetalManifestationTechnique(tech) && !hasListNamed(KNOWN_METALS_LIST);
     }
 
     private boolean isMoldingTechnique(DataTraining tech) {
@@ -1025,10 +1205,45 @@ public class FrameTraining extends JFrame {
         return tech.getName().trim().toLowerCase().endsWith(" molding");
     }
 
+    private boolean isShifterCharacter() {
+        return character != null
+                && character.getIdentity() != null
+                && character.getIdentity().getCharClass() != null
+                && character.getIdentity().getCharClass().equalsIgnoreCase("Shifter");
+    }
+
+    private boolean isMentalNetworkTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && MENTAL_NETWORK_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private boolean isAuraRunologyTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && AURA_RUNOLOGY_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private boolean isEtherealAttunementTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && ETHEREAL_ATTUNEMENT_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private boolean isMetalManifestationTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && METAL_MANIFESTATION_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
     private int resolveListMaxMembers(DataTraining listTech) {
         if (listTech == null || character == null || character.getTraining() == null) return 0;
         DataTraining parent = character.getTraining().getTrainingById(listTech.getListParentId());
         if (parent == null) return 0;
+        if (isMentalNetworkTechnique(parent)) return Math.max(0, parent.getRank());
+        if (isAuraRunologyTechnique(parent)) return Math.max(0, parent.getRank() * 4);
+        if (isEtherealAttunementTechnique(parent)) return Math.max(0, parent.getRank());
+        if (isMetalManifestationTechnique(parent)) return Math.max(0, parent.getRank());
         return Math.max(0, parent.getRank() * parent.getEffectiveListMaxPerRank() + parent.getEffectiveListMaxBase());
     }
 
@@ -1045,6 +1260,23 @@ public class FrameTraining extends JFrame {
             }
         }
         return count;
+    }
+
+    private ArrayList<String> getDistinctListEntries(String listName) {
+        ArrayList<String> entries = new ArrayList<>();
+        if (character == null || character.getLists() == null || listName == null || listName.isBlank()) return entries;
+        LinkedHashSet<String> deduped = new LinkedHashSet<>();
+        for (List<DataList> group : character.getLists()) {
+            if (group == null) continue;
+            for (DataList entry : group) {
+                if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+                if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+                String name = entry.getName().trim();
+                if (!name.isBlank()) deduped.add(name);
+            }
+        }
+        entries.addAll(deduped);
+        return entries;
     }
 
     private ArrayList<String> promptForListEntries(String listName, int count) {
@@ -1080,6 +1312,76 @@ public class FrameTraining extends JFrame {
             }
             return trimmed;
         }
+    }
+
+    private ArrayList<String> promptForMetalManifestationSelection(List<String> knownMetals, int currentRank, List<String> selectedMetals) {
+        ArrayList<String> availableMetals = new ArrayList<>();
+        if (knownMetals != null) {
+            for (String knownMetal : knownMetals) {
+                String trimmed = safeLabel(knownMetal);
+                if (!trimmed.isBlank() && !containsIgnoreCase(availableMetals, trimmed)) {
+                    availableMetals.add(trimmed);
+                }
+            }
+        }
+        if (availableMetals.isEmpty()) {
+            if (character != null) {
+                character.clearActiveMetalManifestations();
+            }
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Metal Manifestation has no Known Metals to manifest.",
+                    "No Known Metals",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return new ArrayList<>();
+        }
+
+        LinkedHashSet<String> selectedSet = new LinkedHashSet<>();
+        if (selectedMetals != null) {
+            for (String selectedMetal : selectedMetals) {
+                String trimmed = safeLabel(selectedMetal);
+                if (!trimmed.isBlank()) {
+                    selectedSet.add(trimmed);
+                }
+            }
+        }
+
+        JPanel metalPanel = new JPanel();
+        metalPanel.setLayout(new javax.swing.BoxLayout(metalPanel, javax.swing.BoxLayout.Y_AXIS));
+        ArrayList<JCheckBox> metalBoxes = new ArrayList<>();
+        for (String metal : availableMetals) {
+            JCheckBox box = new JCheckBox(metal);
+            box.setSelected(containsIgnoreCase(selectedSet, metal));
+            metalBoxes.add(box);
+            metalPanel.add(box);
+        }
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new javax.swing.BoxLayout(infoPanel, javax.swing.BoxLayout.Y_AXIS));
+        infoPanel.add(new JLabel("Select Known Metals for Metal Manifestation."));
+        infoPanel.add(new JLabel("Current Rank: " + Math.max(0, currentRank)));
+
+        JPanel promptPanel = new JPanel(new BorderLayout(0, 8));
+        promptPanel.add(infoPanel, BorderLayout.NORTH);
+        promptPanel.add(new javax.swing.JScrollPane(metalPanel), BorderLayout.CENTER);
+
+        int result = JOptionPane.showConfirmDialog(
+                this,
+                promptPanel,
+                "Metal Manifestation",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+        if (result != JOptionPane.OK_OPTION) {
+            return null;
+        }
+
+        ArrayList<String> activeMetals = new ArrayList<>();
+        for (JCheckBox box : metalBoxes) {
+            if (box != null && box.isSelected()) {
+                activeMetals.add(box.getText());
+            }
+        }
+        return activeMetals;
     }
 
     private boolean isRestrictedShifterMoldEntry(String listName, String entryName) {

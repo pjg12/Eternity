@@ -24,7 +24,7 @@
     "physical" : "Tall, Slender, Wild",
     "personality" : "Chill, Simple, Optimistic",
     "notes" : "",
-    "updated" : "2026-06-17T20:05:26.274+0000",
+    "updated" : "2026-06-17T20:06:18.935+0000",
     "createdAt" : "2026-06-17T19:45:54.983+0000",
     "lastLevelUp" : "2026-06-17T19:45:54.983+0000",
     "timeSinceLastLevel" : "PT0S"
@@ -336,7 +336,7 @@
       "affinity" : "None",
       "description" : "Irdon Angel Points",
       "attribute" : "BASEANGEL",
-      "severity" : 0.0,
+      "severity" : 1.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1685,6 +1685,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 291 [SONIC] (T31000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BSONIC",
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2419,7 +2427,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2427,7 +2435,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2435,7 +2443,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -2612,7 +2620,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2620,7 +2628,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2628,7 +2636,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -3824,7 +3832,7 @@
     "Domain Emanation" : "Off"
   },
   "domainEmanationEnabled" : false,
-  "panelReminder" : "Raphael is watching. Angel Points: 0 / 0",
+  "panelReminder" : "Raphael is watching. Angel Points: 1 / 1",
   "enhancedEngineeringRankGranted" : false,
   "lists" : [ [ ], [ {
     "list" : "Minion Form",
@@ -3834,5 +3842,5 @@
     "list" : "Minion Type",
     "name" : "Melee",
     "description" : ""
-  } ] ]
+  } ], [ ], [ ], [ ], [ ], [ ], [ ] ]
 }

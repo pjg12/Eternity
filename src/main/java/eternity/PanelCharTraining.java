@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -24,15 +28,27 @@ public class PanelCharTraining extends PanelCharBase {
     private static final String RACE_TRAINING_NAME = "Race Training";
     private static final String ALTERI_RACIAL_SPECIALTY = "Shapeshifting (Alteri)";
     private static final String ALTERI_SHAPESHIFT_LIST = "Shapeshift";
+    private static final String MOLDS_LIST = "Molds";
+    private static final String KNOWN_CHANNELS_LIST = "Known Channels";
+    private static final String KNOWN_ARRAYS_LIST = "Known Arrays";
+    private static final String KNOWN_ATTUNEMENTS_LIST = "Known Attunements";
+    private static final String KNOWN_METALS_LIST = "Known Metals";
+    private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
+	private static final String AURA_RUNOLOGY_TECHNIQUE = "Aura Runology";
+    private static final String ETHEREAL_ATTUNEMENT_TECHNIQUE = "Ethereal Attunement";
+    private static final String METAL_MANIFESTATION_TECHNIQUE = "Metal Manifestation";
 
 	private record TrainingRow(String affinity, String displayName, int maxRank, int rank, int nextAt, String typeGroup, boolean auraAffinity, boolean listEntry) {}
 	private record TrainingRowModel(DataTraining tech, DataTraining template, String affinity, String displayName, String typeGroup, boolean auraAffinity) {}
+	private record RemovableTechniqueOption(String label, String category, DataTraining tech, String listName) {}
 	
 	private JLabel naturalAffinityL;
 	private ArrayList<JTextField> natAffinity;
 	
 	//aura training
 	private JButton gainTrainingXpButton, trainNewButton, trainExistingButton;
+    private JCheckBox disableCostCheckBox;
+    private JButton removeTechniqueButton, maxRanksButton;
 	private JLabel auraTrainingL, atTrainingXpL, atMaxTechL, atCurTechL, atRemTechL;
 	private JFormattedTextField atTrainingXp, atMaxTech, atCurTech, atRemTech;
 	
@@ -50,6 +66,7 @@ public class PanelCharTraining extends PanelCharBase {
 	private Color defaultToggleBack, defaultToggleFore;
 	private ArrayList<ArrayList<TrainingRowModel>> cachedTrainingRows;
 	private String cachedTrainingStructureSignature;
+    private boolean suppressDisableCostEvents;
 
 	/*
 	 * PARAMETERIZED CONSTRUCTOR
@@ -83,6 +100,25 @@ public class PanelCharTraining extends PanelCharBase {
 		trainExistingButton = buildButton("Train Existing");
 		trainExistingButton.addActionListener (e -> sheetFrame.trainExistingPressed());
 		trainExistingButton.setToolTipText("Open a dialog to select a technique to improve."); 
+
+        disableCostCheckBox = new JCheckBox("Disable Cost");
+        disableCostCheckBox.setOpaque(false);
+        disableCostCheckBox.setVisible(false);
+        disableCostCheckBox.addActionListener(e -> {
+            if (suppressDisableCostEvents || sheetFrame == null) return;
+            sheetFrame.setTrainingCostDisabled(disableCostCheckBox.isSelected());
+        });
+        add(disableCostCheckBox);
+
+        removeTechniqueButton = buildButton("Remove Technique");
+        removeTechniqueButton.setVisible(false);
+        removeTechniqueButton.addActionListener(e -> promptRemoveTechnique());
+        removeTechniqueButton.setToolTipText("Remove a learned technique manually while GM mode is active.");
+
+        maxRanksButton = buildButton("Max");
+        maxRanksButton.setVisible(false);
+        maxRanksButton.addActionListener(e -> maxExistingTechniqueRanks());
+        maxRanksButton.setToolTipText("Raise all known training techniques to their current maximum rank.");
 			
 		atAffinityL = new ArrayList<JLabel>();
 		atNameL = new ArrayList<JLabel>();
@@ -150,6 +186,16 @@ public class PanelCharTraining extends PanelCharBase {
 		CharTraining training = character.getTraining();
 		if (training == null) return false;
 
+        suppressDisableCostEvents = true;
+        boolean gmMode = sheetFrame != null && sheetFrame.isGmModeActive();
+        disableCostCheckBox.setVisible(gmMode);
+        disableCostCheckBox.setSelected(gmMode && sheetFrame.isTrainingCostDisabled());
+        suppressDisableCostEvents = false;
+        removeTechniqueButton.setVisible(gmMode);
+        removeTechniqueButton.setEnabled(gmMode && hasRemovableTechniques(training));
+        maxRanksButton.setVisible(gmMode);
+        maxRanksButton.setEnabled(gmMode && hasRaisableTechniques(training));
+
 		// compute max techs from the character's current level
 		int maxTechs = 0;
 		if (character.getIdentity() != null) {
@@ -206,6 +252,20 @@ public class PanelCharTraining extends PanelCharBase {
 	
 	public void resizeSheet() {
 		pageHeight = resizeHeader();
+
+        if (maxRanksButton.isVisible()) {
+            maxRanksButton.setBounds(480, pageHeight - 25, 80, 20);
+        } else {
+            maxRanksButton.setVisible(false);
+        }
+
+        if (disableCostCheckBox.isVisible()) {
+            disableCostCheckBox.setBounds(5, pageHeight, 140, 20);
+            removeTechniqueButton.setBounds(150, pageHeight, 150, 20);
+            pageHeight += 25;
+        } else {
+            removeTechniqueButton.setVisible(false);
+        }
 
 		for (int i = 0; i < TRAINING.length; i++) {
 			atAffinityL.get(i).setVisible(false);
@@ -533,7 +593,7 @@ public class PanelCharTraining extends PanelCharBase {
 			if (!listName.isBlank()) {
 				rows.add(new TrainingRow(
 						"",
-						"New " + listName,
+						resolveListTrainingEntryDisplayName(listName),
 						resolveListMaxMembers(model.template(), tech),
 						countListMembers(listName),
 						10,
@@ -565,19 +625,42 @@ public class PanelCharTraining extends PanelCharBase {
 
 	private String resolveAssociatedListName(DataTraining template, DataTraining tech) {
 		if (isAlteriRaceTraining(tech)) return ALTERI_SHAPESHIFT_LIST;
+		if (isMoldingTechnique(template) || isMoldingTechnique(tech)) return MOLDS_LIST;
+		if (isMentalNetworkTechnique(template) || isMentalNetworkTechnique(tech)) return KNOWN_CHANNELS_LIST;
+		if (isAuraRunologyTechnique(template) || isAuraRunologyTechnique(tech)) return KNOWN_ARRAYS_LIST;
+		if (isEtherealAttunementTechnique(template) || isEtherealAttunementTechnique(tech)) return KNOWN_ATTUNEMENTS_LIST;
+		if (isMetalManifestationTechnique(template) || isMetalManifestationTechnique(tech)) return KNOWN_METALS_LIST;
 		String fromTemplate = template != null ? template.getListName() : "";
 		if (fromTemplate != null && !fromTemplate.isBlank()) return fromTemplate.trim();
 		String fromTech = tech != null ? tech.getListName() : "";
 		return fromTech == null ? "" : fromTech.trim();
 	}
 
+	private String resolveListTrainingEntryDisplayName(String listName) {
+		if (KNOWN_ATTUNEMENTS_LIST.equalsIgnoreCase(listName == null ? "" : listName.trim())) {
+			return "New Attunement";
+		}
+		if (KNOWN_METALS_LIST.equalsIgnoreCase(listName == null ? "" : listName.trim())) {
+			return "New Metal";
+		}
+		return "New " + listName;
+	}
+
 	private int resolveListMaxPerRank(DataTraining template, DataTraining tech) {
+		if (isMentalNetworkTechnique(template) || isMentalNetworkTechnique(tech)) return 1;
+		if (isAuraRunologyTechnique(template) || isAuraRunologyTechnique(tech)) return 4;
+		if (isEtherealAttunementTechnique(template) || isEtherealAttunementTechnique(tech)) return 1;
+		if (isMetalManifestationTechnique(template) || isMetalManifestationTechnique(tech)) return 1;
 		if (template != null && template.hasAssociatedList()) return template.getEffectiveListMaxPerRank();
 		if (tech != null && tech.hasAssociatedList()) return tech.getEffectiveListMaxPerRank();
 		return 2;
 	}
 
 	private int resolveListMaxBase(DataTraining template, DataTraining tech) {
+		if (isMentalNetworkTechnique(template) || isMentalNetworkTechnique(tech)) return 0;
+		if (isAuraRunologyTechnique(template) || isAuraRunologyTechnique(tech)) return 0;
+		if (isEtherealAttunementTechnique(template) || isEtherealAttunementTechnique(tech)) return 0;
+		if (isMetalManifestationTechnique(template) || isMetalManifestationTechnique(tech)) return 0;
 		if (template != null && template.hasAssociatedList()) return template.getEffectiveListMaxBase();
 		if (tech != null && tech.hasAssociatedList()) return tech.getEffectiveListMaxBase();
 		return 1;
@@ -609,6 +692,34 @@ public class PanelCharTraining extends PanelCharBase {
 		DataSpecialty racial = character.getSpecials().getRacialSpecialty();
 		if (racial == null || racial.getName() == null) return false;
 		return ALTERI_RACIAL_SPECIALTY.equalsIgnoreCase(racial.getName().trim());
+	}
+
+	private boolean isMoldingTechnique(DataTraining tech) {
+		return tech != null && tech.isMoldingTechnique();
+	}
+
+	private boolean isMentalNetworkTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& MENTAL_NETWORK_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isAuraRunologyTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& AURA_RUNOLOGY_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isEtherealAttunementTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& ETHEREAL_ATTUNEMENT_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isMetalManifestationTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& METAL_MANIFESTATION_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
 	}
 
 	private void ensureNaturalAffinityCapacity(int size) {
@@ -683,6 +794,145 @@ public class PanelCharTraining extends PanelCharBase {
 			atListEntryRow.get(categoryIndex).set(i, Boolean.FALSE);
 		}
 	}
+
+    private boolean hasRemovableTechniques(CharTraining training) {
+        if (training == null) return false;
+        for (String category : TRAINING) {
+            if (!training.getTrainingList(category).isEmpty()) return true;
+        }
+        return false;
+    }
+
+    private boolean hasRaisableTechniques(CharTraining training) {
+        if (training == null) return false;
+        for (DataTraining tech : training.getAllTraining()) {
+            if (canRaiseTechniqueRank(tech)) return true;
+        }
+        return false;
+    }
+
+    private boolean canRaiseTechniqueRank(DataTraining tech) {
+        if (tech == null || tech.isListEntry()) return false;
+        return tech.getRank() < Math.max(0, tech.getMaxRank(character));
+    }
+
+    private void maxExistingTechniqueRanks() {
+        if (sheetFrame == null || !sheetFrame.isGmModeActive() || character == null) return;
+        CharTraining training = character.getTraining();
+        if (training == null) return;
+
+        boolean raisedAny = false;
+        boolean raisedThisPass;
+        int safety = 0;
+        do {
+            raisedThisPass = false;
+            for (DataTraining tech : training.getAllTraining()) {
+                if (!canRaiseTechniqueRank(tech)) continue;
+                int oldRank = tech.getRank();
+                int newRank = Math.max(0, tech.getMaxRank(character));
+                if (!FrameTraining.promptForGaianVersatilityRankGains(this, dataQuery, character, tech, oldRank, newRank)) {
+                    continue;
+                }
+                tech.setRank(newRank);
+                raisedThisPass = true;
+                raisedAny = true;
+            }
+            safety++;
+        } while (raisedThisPass && safety < 64);
+
+        if (!raisedAny) return;
+
+        sheetFrame.refreshTrainingPanel();
+        sheetFrame.refreshMainPanel();
+    }
+
+    private void promptRemoveTechnique() {
+        if (sheetFrame == null || !sheetFrame.isGmModeActive() || character == null) return;
+        CharTraining training = character.getTraining();
+        if (training == null) return;
+
+        ArrayList<RemovableTechniqueOption> options = collectRemovableTechniqueOptions(training);
+        if (options.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "This character has no techniques to remove.", "No Techniques", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        LinkedHashMap<String, RemovableTechniqueOption> optionsByLabel = new LinkedHashMap<>();
+        for (RemovableTechniqueOption option : options) {
+            optionsByLabel.put(option.label(), option);
+        }
+
+        JComboBox<String> techniqueBox = new JComboBox<>(optionsByLabel.keySet().toArray(new String[0]));
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                techniqueBox,
+                "Remove Technique",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (choice != JOptionPane.OK_OPTION) return;
+
+        String selectedLabel = (String) techniqueBox.getSelectedItem();
+        RemovableTechniqueOption selected = optionsByLabel.get(selectedLabel);
+        if (selected == null || selected.tech() == null) return;
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Remove " + selected.tech().getName() + " and all " + Math.max(0, selected.tech().getRank()) + " current ranks from the character?",
+                "Confirm Remove Technique",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (confirm != JOptionPane.OK_OPTION) return;
+
+        training.removeTraining(selected.category(), selected.tech());
+        removeAssociatedListGroup(selected.listName());
+        character.updateAll();
+        sheetFrame.loadCharacter(character, sheetFrame.isGmModeActive());
+    }
+
+    private ArrayList<RemovableTechniqueOption> collectRemovableTechniqueOptions(CharTraining training) {
+        ArrayList<RemovableTechniqueOption> options = new ArrayList<>();
+        for (String category : TRAINING) {
+            for (DataTraining tech : training.getTrainingList(category)) {
+                if (tech == null || tech.getName() == null || tech.getName().isBlank()) continue;
+                String label = buildTechniqueRemovalLabel(tech, category, options);
+                String listName = resolveAssociatedListName(resolveTrainingTemplate(tech), tech);
+                options.add(new RemovableTechniqueOption(label, category, tech, listName));
+            }
+        }
+        return options;
+    }
+
+    private String buildTechniqueRemovalLabel(DataTraining tech, String category, List<RemovableTechniqueOption> existing) {
+        String baseLabel = tech.getName() + " [" + category + "] Rank " + Math.max(0, tech.getRank());
+        String label = baseLabel;
+        int suffix = 2;
+        while (containsTechniqueRemovalLabel(existing, label)) {
+            label = baseLabel + " #" + suffix;
+            suffix++;
+        }
+        return label;
+    }
+
+    private boolean containsTechniqueRemovalLabel(List<RemovableTechniqueOption> options, String label) {
+        for (RemovableTechniqueOption option : options) {
+            if (option != null && label.equals(option.label())) return true;
+        }
+        return false;
+    }
+
+    private void removeAssociatedListGroup(String listName) {
+        if (listName == null || listName.isBlank() || character == null || character.getLists() == null) return;
+        character.getLists().removeIf(group -> {
+            if (group == null || group.isEmpty()) return false;
+            for (DataList entry : group) {
+                if (entry == null || entry.getList() == null) continue;
+                if (listName.equalsIgnoreCase(entry.getList().trim())) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
 	
 	/*
 	 * 

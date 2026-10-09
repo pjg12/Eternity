@@ -24,6 +24,11 @@ public class PanelCharGranted extends PanelCharBase {
 	private static final String LOADOUT_NAMES_KEY = "granted.loadouts";
 	private static final String ACTIVE_LOADOUT_KEY = "granted.loadout.active";
 	private static final String LOADOUT_ENABLED_PREFIX = "granted.loadout.enabled.";
+	private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
+	private static final String ETHEREAL_POCKET_TECHNIQUE = "Ethereal Pocket";
+	private static final double MENTAL_NETWORK_COST_PER_AL = 3.0;
+	private static final double ETHEREAL_POCKET_COST_PER_AL = 5.0;
+	private static final double PLACEHOLDER_GRANT_COST_PER_AL = 1.0;
 	
 	// granted techniques (maintained-style presentation)
 	private JLabel grantedTechsL, mtNameL, mtMaxL, mtActLevelL, mtCostPerALL, mtCostL, mtAffinityL;
@@ -890,6 +895,7 @@ public class PanelCharGranted extends PanelCharBase {
 				mergeStatusSeverity(totals, "MBHEAL", severity);
 				mergeStatusSeverity(totals, "MTHEAL", severity);
 			}
+			case "SIZE" -> mergeStatusSeverity(totals, StoreCharData.SIZE_ATTRIBUTE, severity);
 			default -> mergeStatusSeverity(totals, "B" + normalized, severity);
 		}
 	}
@@ -908,6 +914,7 @@ public class PanelCharGranted extends PanelCharBase {
 			case "IMPAIR" -> "IMP";
 			case "RESPHY" -> "PHY";
 			default -> {
+				if ("RESDISP".equals(upper) || "RD".equals(upper) || "DISPRES".equals(upper)) yield "RESDISP";
 				if (upper.startsWith("RESIST")) yield upper.substring("RESIST".length());
 				if (upper.startsWith("RES") && upper.length() > 3) yield upper.substring(3);
 				yield upper;
@@ -969,7 +976,7 @@ public class PanelCharGranted extends PanelCharBase {
 			if (isStandardAffinity && dataQuery != null) {
 				boolean addedAny = false;
 				for (Integer gid : tech.getGrant()) {
-					if (gid == null) continue;
+					if (gid == null || gid <= 0) continue;
 					DataTechPerm perm = dataQuery.getTechPermById(gid);
 					String attr = (perm != null && perm.getAttribute() != null) ? perm.getAttribute() : "None";
 					String rowName = "Boost".equalsIgnoreCase(tech.getName()) ? "Boost (" + attr + ")" : tech.getName() + " (" + attr + ")";
@@ -1045,15 +1052,32 @@ public class PanelCharGranted extends PanelCharBase {
 	}
 
 	private double resolveCostPer(DataTraining tech) {
-		if (tech == null || tech.getGrant() == null || dataQuery == null) return 0.0;
-		for (Integer gid : tech.getGrant()) {
-			if (gid == null) continue;
-			DataTechPerm perm = dataQuery.getTechPermById(gid);
-			if (perm == null) continue;
-			if (perm.getCost() != 0) return perm.getCost();
-			if (perm.getRatio() != 0) return perm.getRatio();
+		if (tech == null) return 0.0;
+		if (isMentalNetworkTechnique(tech)) return MENTAL_NETWORK_COST_PER_AL;
+		if (isEtherealPocketTechnique(tech)) return ETHEREAL_POCKET_COST_PER_AL;
+		if (tech.getGrant() != null && dataQuery != null) {
+			for (Integer gid : tech.getGrant()) {
+				if (gid == null || gid <= 0) continue;
+				DataTechPerm perm = dataQuery.getTechPermById(gid);
+				if (perm == null) continue;
+				if (perm.getCost() != 0) return perm.getCost();
+				if (perm.getRatio() != 0) return perm.getRatio();
+			}
 		}
+		if (tech.hasPlaceholderGrant()) return PLACEHOLDER_GRANT_COST_PER_AL;
 		return 0.0;
+	}
+
+	private boolean isMentalNetworkTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& MENTAL_NETWORK_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isEtherealPocketTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& ETHEREAL_POCKET_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
 	}
 
 	private DataTechPerm resolveFirstPerm(DataTraining tech) {

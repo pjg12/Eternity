@@ -7,8 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -329,6 +333,7 @@ public class FrameExp extends JFrame {
     }
 
     public void levelUpCon() {
+        Set<String> priorClassSpecialties = collectClassSpecialtyNames();
         if (skillLevel) {
             CharSpecials specials = character.getSpecials();
             DataSkill picked = dataQuery.getSkillByName((String) skillList.getSelectedItem());
@@ -354,6 +359,9 @@ public class FrameExp extends JFrame {
         character.syncLevelBaseResources(dataQuery);
         character.syncLevelCombatScalers(dataQuery);
         character.updateAll();
+        if (!applyNewClassSpecialtySkillGrants(priorClassSpecialties)) {
+            return;
+        }
 
         if (sheetFrame != null) {
             sheetFrame.refreshMainPanel();
@@ -361,6 +369,39 @@ public class FrameExp extends JFrame {
             sheetFrame.refreshTrainingPanel();
         }
         dispose();
+    }
+
+    private Set<String> collectClassSpecialtyNames() {
+        HashSet<String> specialtyNames = new HashSet<>();
+        if (character == null || character.getSpecials() == null) return specialtyNames;
+        for (DataSpecialty specialty : character.getSpecials().getClassSpecialties()) {
+            if (specialty == null || specialty.getName() == null || specialty.getName().isBlank()) continue;
+            specialtyNames.add(specialty.getName().trim().toLowerCase());
+        }
+        return specialtyNames;
+    }
+
+    private boolean applyNewClassSpecialtySkillGrants(Set<String> priorClassSpecialties) {
+        if (character == null || character.getSpecials() == null) return true;
+        ArrayList<DataSkill> reservedSkills = new ArrayList<>();
+        for (DataSpecialty specialty : character.getSpecials().getClassSpecialties()) {
+            if (specialty == null || specialty.getName() == null || specialty.getName().isBlank()) continue;
+            String specialtyKey = specialty.getName().trim().toLowerCase();
+            if (priorClassSpecialties != null && priorClassSpecialties.contains(specialtyKey)) continue;
+            List<DataSkill> grantedSkills = FrameSpecial.resolveGrantedSkills(this, dataQuery, character, specialty, reservedSkills);
+            if (grantedSkills == null) {
+                return false;
+            }
+            for (DataSkill grantedSkill : grantedSkills) {
+                if (grantedSkill == null) continue;
+                character.getSpecials().addSkill(grantedSkill);
+                reservedSkills.add(new DataSkill(grantedSkill));
+            }
+        }
+        if (!reservedSkills.isEmpty()) {
+            character.updateAll();
+        }
+        return true;
     }
 
     private void attachChoiceListeners() {
@@ -416,16 +457,7 @@ public class FrameExp extends JFrame {
 
     private boolean lacksRequiredSpecialty(DataSpecialty specialty) {
         if (specialty == null || character == null || character.getSpecials() == null) return false;
-        int prereqId = specialty.getPrereq();
-        if (prereqId <= 0) return false;
-
-        DataSpecialty prereqSpecialty = dataQuery.getSpecialtyById(prereqId);
-        if (prereqSpecialty == null) return false;
-
-        String prereqName = prereqSpecialty.getName();
-        return prereqName != null
-                && !prereqName.isBlank()
-                && !character.getSpecials().hasSpecialty(prereqName);
+        return character.getSpecials().lacksRequiredSpecialty(specialty, dataQuery);
     }
 
     private double parseExpField(JFormattedTextField field) {

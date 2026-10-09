@@ -29,8 +29,12 @@ import javax.swing.border.EmptyBorder;
  */
 public class FrameNewRacePicker extends JFrame {
     private static final String IRDON_RACE = "Irdon";
+    private static final String GAIAN_RACE = "Gaian";
     private static final String IRDON_ANGEL_NAME_LABEL = "Angel Name";
     private static final String DEFAULT_GM_IRDON_ANGEL_NAME = "Unnamed Angel";
+    private static final String[] CORE_ATTRIBUTES = { "STR", "DEX", "CON", "FOC", "CTL", "CAP" };
+    private static final String[] CHAR_ATTRIBUTES = { "KNOW", "MECH", "PERC", "INT", "CHA", "SUB" };
+    private static final String[] SPECIALTY_TYPES = { "Martial", "Skill", "Class" };
 
     // References
     private final StoreRuleManager ruleManager;
@@ -259,6 +263,10 @@ public class FrameNewRacePicker extends JFrame {
                 raceChoices.add(angelName);
             }
 
+            if (!finalizeGaianSpecialtyChoice(raceChoices)) {
+                return;
+            }
+
             // Add choices to character
             character.getIdentity().setCharRacePick(raceChoices);
         }
@@ -289,9 +297,74 @@ public class FrameNewRacePicker extends JFrame {
             case "Alteri" -> {
                 map.put("Shapeshift", RACE_OPTIONS);
             }
+            case "Gaian" -> {
+                map.put("Core Attribute", CORE_ATTRIBUTES);
+                map.put("Character Attribute", CHAR_ATTRIBUTES);
+                map.put("Specialty", buildGaianSpecialtyOptions());
+            }
             default -> { return map; }
         }
         return map;
+    }
+
+    private String[] buildGaianSpecialtyOptions() {
+        if (ruleManager == null) return new String[0];
+        LinkedHashMap<String, String> uniqueByName = new LinkedHashMap<>();
+        for (String type : SPECIALTY_TYPES) {
+            List<DataSpecialty> options = ruleManager.getSpecialtiesByType(type);
+            if (options == null) continue;
+            for (DataSpecialty specialty : options) {
+                if (!isAvailableGaianSpecialty(specialty)) continue;
+                uniqueByName.putIfAbsent(specialty.getName().trim().toLowerCase(), specialty.getName().trim());
+            }
+        }
+        return uniqueByName.values().toArray(new String[0]);
+    }
+
+    private boolean isAvailableGaianSpecialty(DataSpecialty specialty) {
+        if (specialty == null || specialty.getName() == null || specialty.getName().isBlank()) return false;
+        if (specialty.getPrereq() < 0) return false;
+        if (character != null && character.getSpecials() != null) {
+            if (character.getSpecials().lacksRequiredSpecialty(specialty, ruleManager)) {
+                return false;
+            }
+            if (!CharSpecials.isRepeatableSpecialty(specialty)
+                    && character.getSpecials().hasSpecialty(specialty.getName())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean finalizeGaianSpecialtyChoice(List<String> raceChoices) {
+        if (!isGaianRace() || raceChoices == null || raceChoices.size() < 3) return true;
+        String specialtyName = raceChoices.get(2);
+        if (specialtyName == null || specialtyName.isBlank()) return false;
+        DataSpecialty base = ruleManager == null ? null : ruleManager.getSpecialtyByName(specialtyName);
+        if (base == null) {
+            JOptionPane.showMessageDialog(this, "Please select a valid specialty.");
+            return false;
+        }
+        DataSpecialty resolved = base;
+        if (!gmMode) {
+            resolved = FrameSpecialsPicker.resolveSpecialtyChoice(this, ruleManager, character, base);
+            if (resolved == null) return false;
+        }
+        raceChoices.set(2, resolved.getName());
+        if (resolved.getRefName() != null && !resolved.getRefName().isBlank()) {
+            if (raceChoices.size() > 3) {
+                raceChoices.set(3, resolved.getRefName().trim());
+            } else {
+                raceChoices.add(resolved.getRefName().trim());
+            }
+        }
+        return true;
+    }
+
+    private boolean isGaianRace() {
+        return selectedRace != null
+                && selectedRace.getName() != null
+                && GAIAN_RACE.equalsIgnoreCase(selectedRace.getName().trim());
     }
 
     private void applyGmSelectionsAndConfirm() {

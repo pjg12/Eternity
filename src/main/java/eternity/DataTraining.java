@@ -100,6 +100,18 @@ public class DataTraining {
         if (!this.grant.contains(grantId)) this.grant.add(grantId);
     }
 
+    @JsonIgnore
+    public boolean hasPlaceholderGrant() {
+        if (grant == null || grant.isEmpty()) return false;
+        boolean sawPlaceholder = false;
+        for (Integer grantId : grant) {
+            if (grantId == null) continue;
+            if (grantId > 0) return false;
+            if (grantId == -1) sawPlaceholder = true;
+        }
+        return sawPlaceholder;
+    }
+
     public int getRank() { return rank; }
     public void setRank(int rank) { this.rank = rank; }
 
@@ -125,6 +137,9 @@ public class DataTraining {
     public double scaleStatusSeverity(StoreCharData character, double baseSeverity) {
         if ("Maintained".equalsIgnoreCase(type) && character != null) {
             return baseSeverity * character.getEffectiveTechniqueAl(this);
+        }
+        if ("Passive".equalsIgnoreCase(type) && character != null) {
+            return baseSeverity * character.getEffectiveTechniqueRank(this);
         }
         return scaleStatusSeverity(baseSeverity);
     }
@@ -189,6 +204,9 @@ public class DataTraining {
         if (character.getTraining().hasAffinity(affinity)) {
             max++;
         }
+        if (character.getTraining().hasNaturalAffinity(affinity)) {
+            max += character.getInherentUnderstandingMaxRankBonus();
+        }
         
         // Prereq cap
         if (prereq != -1) {
@@ -205,9 +223,6 @@ public class DataTraining {
         }
         if (max > 0 && isKnownMoldingTechnique(character) && character.hasEquipmentEvocationSpecialty()) {
             max += 0.5 * level;
-        }
-        if (max > 0 && character.hasAuraProficiencySpecialty()) {
-            max *= character.getAuraProficiencyBonusMultiplier();
         }
         if (isAuraEngineeringTechnique() && character.hasEnhancedEngineeringSpecialty()) {
             max += 1.0;

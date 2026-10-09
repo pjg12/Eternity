@@ -42,6 +42,38 @@ final class LauncherConfig {
             "EternityTTRPG.jar.sha256");
     }
 
+    static String getConfiguredGitHubImagesAssetName() {
+        return readOverride(
+            "eternity.update.github.imagesAssetName",
+            "ETERNITY_UPDATE_GITHUB_IMAGES_ASSET_NAME",
+            "update.github.imagesAssetName",
+            "Images.zip");
+    }
+
+    static String getConfiguredGitHubImagesSha256AssetName() {
+        return readOverride(
+            "eternity.update.github.imagesSha256AssetName",
+            "ETERNITY_UPDATE_GITHUB_IMAGES_SHA256_ASSET_NAME",
+            "update.github.imagesSha256AssetName",
+            "Images.zip.sha256");
+    }
+
+    static String getConfiguredGitHubChromeExtensionAssetName() {
+        return readOverride(
+            "eternity.update.github.chromeExtensionAssetName",
+            "ETERNITY_UPDATE_GITHUB_CHROME_EXTENSION_ASSET_NAME",
+            "update.github.chromeExtensionAssetName",
+            "roll20-bridge-v{version}.zip");
+    }
+
+    static String getConfiguredGitHubFirefoxExtensionAssetName() {
+        return readOverride(
+            "eternity.update.github.firefoxExtensionAssetName",
+            "ETERNITY_UPDATE_GITHUB_FIREFOX_EXTENSION_ASSET_NAME",
+            "update.github.firefoxExtensionAssetName",
+            "roll20-bridge-firefox-v{version}.zip");
+    }
+
     static String getConfiguredUpdateSource() {
         String githubLatestReleaseUrl = getConfiguredGitHubLatestReleaseUrl();
         if (!githubLatestReleaseUrl.isBlank()) {

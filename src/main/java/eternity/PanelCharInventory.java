@@ -136,14 +136,15 @@ public class PanelCharInventory extends PanelCharBase {
 	private static final int SLOT_TRINKET_3 = 14;
 	private static final int SLOT_TRINKET_4 = 15;
 	private static final int FIRST_WEAPON_SLOT = 16;
-	private static final int LAST_ACTIVE_WEAPON_SLOT = 19;
-	private static final int LAST_WEAPON_SLOT = 21;
-	private static final int SLOT_UNARMED_PROWESS_WEAPON = 20;
-	private static final int SLOT_COUNT = 22;
+	private static final int STANDARD_WEAPON_SLOT_COUNT = 4;
+	private static final int MAX_WEAPON_SLOT_COUNT = 13;
+	private static final int LAST_WEAPON_SLOT = FIRST_WEAPON_SLOT + MAX_WEAPON_SLOT_COUNT - 1;
+	private static final int SLOT_UNARMED_PROWESS_WEAPON = LAST_WEAPON_SLOT + 1;
+	private static final int SLOT_COUNT = SLOT_UNARMED_PROWESS_WEAPON + 1;
 	private static final String UNARMED_PROWESS_SPECIALTY = "Unarmed Prowess";
 	private static final int UNARMED_PROWESS_ITEM_IID = -5005;
 
-	private final String[] SLOTS = {"Head", "Halo", "Neck", "Shoulders", "Back", "Chest", "Trinket 1", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Trinket 2", "Trinket 3", "Trinket 4", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4", "Weapon 5", "Weapon 6"};
+	private final String[] SLOTS = {"Head", "Halo", "Neck", "Shoulders", "Back", "Chest", "Trinket 1", "Hands", "Waist", "Right Finger", "Left Finger", "Legs", "Feet", "Trinket 2", "Trinket 3", "Trinket 4", "Weapon 1", "Weapon 2", "Weapon 3", "Weapon 4", "Weapon 5", "Weapon 6", "Weapon 7", "Weapon 8", "Weapon 9", "Weapon 10", "Weapon 11", "Weapon 12", "Weapon 13", "Unarmed"};
 
 	/*
 	 * 		DEFAULT CONSTRUCTOR
@@ -854,15 +855,16 @@ public class PanelCharInventory extends PanelCharBase {
 		for (int i = 0; i < tempWeapons.size(); i++) {
 			if (!isItemEligibleByLevel(tempWeapons.get(i))) continue;
 			if (isLockedUnarmedProwessWeapon(tempWeapons.get(i))) continue;
-			for (int j = FIRST_WEAPON_SLOT; j <= LAST_ACTIVE_WEAPON_SLOT; j++) {
+			for (int j = FIRST_WEAPON_SLOT; j <= getLastActiveWeaponSlot(); j++) {
 				equipped.get(j).addItem(tempWeapons.get(i));
 			}
 		}
 		// Select equipped weapons into the first available weapon slots
 		int weaponSlot = FIRST_WEAPON_SLOT;
+		int lastActiveWeaponSlot = getLastActiveWeaponSlot();
 		for (DataItemEquipment w : tempWeapons) {
 			if (isLockedUnarmedProwessWeapon(w)) continue;
-			if (w.isEquipped() && weaponSlot <= LAST_ACTIVE_WEAPON_SLOT) {
+			if (w.isEquipped() && weaponSlot <= lastActiveWeaponSlot) {
 				equipped.get(weaponSlot).setSelectedItem(w);
 				weaponSlot++;
 			}
@@ -931,13 +933,11 @@ public class PanelCharInventory extends PanelCharBase {
 					selectEquippedTrinket(tempAccessories.get(i));
 				}
 			}
-			else if (tempSlot.compareTo("Right Finger") == 0) {
-				equipped.get(SLOT_RIGHT_FINGER).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_RIGHT_FINGER).setSelectedItem(tempAccessories.get(i));
-			}
-			else if (tempSlot.compareTo("Left Finger") == 0) {
-				equipped.get(SLOT_LEFT_FINGER).addItem(tempAccessories.get(i));
-				if (tempAccessories.get(i).isEquipped()) equipped.get(SLOT_LEFT_FINGER).setSelectedItem(tempAccessories.get(i));
+			else if (isFingerSlotName(tempSlot)) {
+				addItemToFingerSlots(tempAccessories.get(i));
+				if (tempAccessories.get(i).isEquipped()) {
+					selectEquippedFinger(tempAccessories.get(i));
+				}
 			}
 		}
 	}
@@ -1078,7 +1078,14 @@ public class PanelCharInventory extends PanelCharBase {
 			displayName = (item.getIname() != null && !item.getIname().isBlank()) ? item.getIname() : item.getDname();
 		}
 		equipmentName.get(category).get(row).setText(displayName);
-		equipmentTier.get(category).get(row).setValue(blank ? 0 : item.getTier());
+		JFormattedTextField tierField = equipmentTier.get(category).get(row);
+		tierField.setValue(blank ? 0 : item.getTier());
+		if (blank || character == null || !character.hasCustomRigSpecialty()) {
+			tierField.setToolTipText(null);
+		} else {
+			int enhancementTier = character.getEnhancementTargetTier(item);
+			tierField.setToolTipText("Enhancement target: " + enhancementTier + " ((Tier × 2) + 1)");
+		}
 		equipmentCat.get(category).get(row).setText(blank ? "-" : item.getSlot() + " " + item.getCategory());
 		JCheckBox equipToggle = equipmentEquipped.get(category).get(row);
 		suppressEquipToggleEvents = true;
@@ -1240,9 +1247,20 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private boolean shouldShowDollSlot(int slotIndex) {
 		if (slotIndex == SLOT_UNARMED_PROWESS_WEAPON) return false;
-		if (slotIndex > LAST_ACTIVE_WEAPON_SLOT && slotIndex <= LAST_WEAPON_SLOT) return false;
+		if (slotIndex >= FIRST_WEAPON_SLOT && slotIndex <= LAST_WEAPON_SLOT) {
+			return slotIndex <= getLastActiveWeaponSlot();
+		}
 		if (slotIndex != SLOT_HALO) return true;
 		return isPilotClass();
+	}
+
+	private int getLastActiveWeaponSlot() {
+		int count = STANDARD_WEAPON_SLOT_COUNT;
+		if (character != null) {
+			count = character.getWeaponSlotCount();
+		}
+		count = Math.max(STANDARD_WEAPON_SLOT_COUNT, Math.min(count, MAX_WEAPON_SLOT_COUNT));
+		return FIRST_WEAPON_SLOT + count - 1;
 	}
 
 	private boolean hasUnarmedProwess() {
@@ -1307,6 +1325,9 @@ public class PanelCharInventory extends PanelCharBase {
 
 		String normalizedSlotName = slotName.replaceAll("\\s+", "");
 		ImageIcon loaded = loadScaledIcon("no" + normalizedSlotName + ".png");
+		if (loaded == null && slotName.regionMatches(true, 0, "Weapon", 0, 6)) {
+			loaded = loadScaledIcon("noWeapon1.png");
+		}
 		emptySlotIcons.put(slotName, loaded);
 		return loaded;
 	}
@@ -1542,7 +1563,7 @@ public class PanelCharInventory extends PanelCharBase {
 			return -1;
 		}
 		if (isWeaponEquipment(item)) {
-			for (int slotIndex = FIRST_WEAPON_SLOT; slotIndex <= LAST_ACTIVE_WEAPON_SLOT; slotIndex++) {
+			for (int slotIndex = FIRST_WEAPON_SLOT; slotIndex <= getLastActiveWeaponSlot(); slotIndex++) {
 				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
 					return slotIndex;
 				}
@@ -1551,6 +1572,14 @@ public class PanelCharInventory extends PanelCharBase {
 		}
 		if (isTrinketSlotName(item.getSlot())) {
 			for (int slotIndex : getTrinketSlotIndexes()) {
+				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+					return slotIndex;
+				}
+			}
+			return -1;
+		}
+		if (isFingerSlotName(item.getSlot())) {
+			for (int slotIndex : getFingerSlotIndexes()) {
 				if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
 					return slotIndex;
 				}
@@ -1618,7 +1647,6 @@ public class PanelCharInventory extends PanelCharBase {
 		String type = item.getType() == null ? "" : item.getType().toLowerCase();
 		if (category.contains("matrix")) return false;
 		return slot.contains("weapon")
-				|| slot.contains("hand")
 				|| category.contains("weapon")
 				|| category.contains("melee")
 				|| category.contains("ranged")
@@ -1645,6 +1673,8 @@ public class PanelCharInventory extends PanelCharBase {
 				? "weapon slots"
 				: isTrinketSlotName(item.getSlot())
 				? "trinket slots"
+				: isFingerSlotName(item.getSlot())
+				? "finger slots"
 				: ((item.getSlot() == null || item.getSlot().isBlank()) ? "matching slot" : item.getSlot() + " slot");
 		JOptionPane.showMessageDialog(this,
 				"No available " + slotLabel + " for " + itemName + ".",
@@ -1674,6 +1704,35 @@ public class PanelCharInventory extends PanelCharBase {
 
 	private void selectEquippedTrinket(DataItemEquipment item) {
 		for (int slotIndex : getTrinketSlotIndexes()) {
+			if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
+				equipped.get(slotIndex).setSelectedItem(item);
+				return;
+			}
+		}
+	}
+
+	private boolean isFingerSlotName(String slotName) {
+		if (slotName == null) return false;
+		String normalized = slotName.trim();
+		return normalized.equalsIgnoreCase("Finger")
+				|| normalized.equalsIgnoreCase("Left Finger")
+				|| normalized.equalsIgnoreCase("Right Finger")
+				|| normalized.equalsIgnoreCase("L Finger")
+				|| normalized.equalsIgnoreCase("R Finger");
+	}
+
+	private int[] getFingerSlotIndexes() {
+		return new int[] {SLOT_RIGHT_FINGER, SLOT_LEFT_FINGER};
+	}
+
+	private void addItemToFingerSlots(DataItemEquipment item) {
+		for (int slotIndex : getFingerSlotIndexes()) {
+			equipped.get(slotIndex).addItem(item);
+		}
+	}
+
+	private void selectEquippedFinger(DataItemEquipment item) {
+		for (int slotIndex : getFingerSlotIndexes()) {
 			if (isEmptyEquipment(getSelectedEquipment(slotIndex))) {
 				equipped.get(slotIndex).setSelectedItem(item);
 				return;

@@ -141,7 +141,7 @@ public class FrameSkill {
 	/**
 	 * Prompts the user to select a new, unlearned skill using FrameSkill controls.
 	 */
-	public static boolean promptForTrainingSkill(JFrame parent, StoreRuleManager dataQuery, StoreCharData character) {
+	public static boolean promptForTrainingSkill(Component parent, StoreRuleManager dataQuery, StoreCharData character) {
 		List<DataSkill> skills = promptForTrainingSkills(parent, dataQuery, character, 1);
 		if (skills == null) return false;
 		for (DataSkill skill : skills) {

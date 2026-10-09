@@ -1,13 +1,16 @@
 package eternity;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * Main character container, orchestrating all character subsystems.
@@ -23,15 +26,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * StoreCharData is the root of the character sheet object graph.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StoreCharData {
     private static final String EQUIP_PASSIVE_PREFIX = "Equip Passive: ";
     private static final String SPECIALTY_PASSIVE_PREFIX = "Specialty Passive: ";
     private static final String TRAINING_STATUS_PREFIX = "Training Passive: ";
     private static final String SIZE_STATUS_PREFIX = "Size Modifier";
+    public static final String SIZE_ATTRIBUTE = "SIZE";
+    public static final String RESDISP_ATTRIBUTE = "RESDISP";
+    public static final String[] SIZE_CATEGORIES = { "Tiny", "Small", "Medium", "Large", "Huge" };
     private static final String DOMAIN_EMANATION_PREFIX = "Domain Emanation: ";
     private static final String[] STATUS_CATEGORY_ORDER = { "attribute", "defense", "resist", "combat", "secondary", "damage" };
     private static final String[] REMINDER_ATTRIBUTE_KEYS = { "REMINDER", "PANELREMINDER", "NOTE", "NOTES" };
     private static final String DIVINE_VOW_SPECIALTY = "Divine Vow";
+    private static final String DIVINE_ATTUNEMENT_SPECIALTY = "Divine Attunement";
     private static final String DIVINE_GRACE_SPECIALTY = "Divine Grace";
     private static final String DIVINE_ENLIGHTENMENT_SPECIALTY = "Divine Enlightenment";
     private static final String DIVINE_DEDICATION_SPECIALTY = "Divine Dedication";
@@ -44,18 +52,50 @@ public class StoreCharData {
     private static final String COMBAT_DISCIPLINE_I_DISPLAY = "Combat Discipline I";
     private static final String COMBAT_DISCIPLINE_II_SPECIALTY = "Combat Discipline II";
     private static final String COMBAT_SPECIALIST_SPECIALTY = "Combat Specialist";
+    private static final String SHARP_SENSES_SPECIALTY = "Sharp Senses";
     private static final String STANCE_SPECIALTY = "Stance";
     private static final String SNIPERS_DOMAIN_SPECIALTY = "Sniper's Domain";
     private static final String JAGGED_EDGES_SPECIALTY = "Jagged Edges";
     private static final String INDOMITABLE_PREDISPOSITION_SPECIALTY = "Indomitable Predisposition";
     private static final String ESCAPE_ARTISAN_SPECIALTY = "Escape Artisan";
     private static final String EVASION_SPECIALTY = "Evasion";
+    private static final String BREAKER_COMBO_SPECIALTY = "Breaker Combo";
+    private static final String ADAPTIVE_TECHNIQUE_SPECIALTY = "Adaptive Technique";
     private static final String ARMOR_DEPENDENCY_SPECIALTY = "Armor Dependency";
+    private static final String HAND_SLOTS_SPECIALTY = "Hand Slots";
+    private static final String HAND_ABILITIES_SPECIALTY = "Hand Abilities";
+    private static final String FULLMETAL_MECHANIC_SPECIALTY = "Fullmetal Mechanic";
+    private static final String CUSTOM_RIG_SPECIALTY = "Custom Rig";
+    private static final String SHOULDER_HARDPOINT_SPECIALTY = "Shoulder Hardpoint";
+    private static final String CHARGE_UP_SPECIALTY = "Charge-Up";
+    private static final String DRONES_SPECIALTY = "Drones";
+    private static final String POSITIONING_JETS_SPECIALTY = "Positioning Jets";
+    private static final String OVERCHARGE_SPECIALTY = "Overcharge";
+    private static final String DRONE_PASSIVE_PREFIX = "Drone: ";
+    private static final String REPAIR_SKILL = "Repair";
+    private static final int REPAIR_SKILL_ID = 328;
+    private static final String HAND_ABILITY_GRANT_TYPE = "handAbility";
+    private static final int STANDARD_WEAPON_SLOT_COUNT = 4;
+    private static final String TOLERANCE_SPECIALTY = "Tolerance";
+    private static final String ADVANTAGE_SPECIALTY = "Advantage";
+    private static final String AFFLICTION_SPECIALTY = "Affliction";
+    private static final String TACTICS_SPECIALTY = "Tactics";
+    private static final String TEMPERANCE_SPECIALTY = "Temperance";
+    private static final String ENTROPY_SPECIALTY = "Entropy";
     private static final String AURA_PROFICIENCY_SPECIALTY = "Aura Proficiency";
     private static final String ASTRAL_PROFICIENCY_SPECIALTY = "Astral Proficiency";
-    private static final String ASTRAL_PROFICIENCY_II_SPECIALTY = "Astral Proficiency II";
+    private static final String DEEPENING_POOLS_SPECIALTY = "Deepening Pools";
+    private static final String ARCANE_ANALYSIS_SPECIALTY = "Arcane Analysis";
+    private static final String CRITICAL_MASS_SPECIALTY = "Critical Mass";
+    private static final String ARCANE_ANALYSIS_ATTRIBUTE = "CTL";
+    private static final String ANALYZE_SKILL = "Analyze";
+    private static final String IDENTIFY_SKILL = "Identify";
+    private static final String INHERENT_UNDERSTANDING_SPECIALTY = "Inherent Understanding";
+    private static final String IMMERSIVE_UNDERSTANDING_SPECIALTY = "Immersive Understanding";
+    private static final String STREAM_SPECIALTY = "Stream";
     private static final String EQUIPMENT_EVOCATION_SPECIALTY = "Equipment Evocation";
     private static final String BOND_SPECIALTY = "Bond";
+    private static final String SPELLSTEAL_SPECIALTY = "Spellsteal";
     private static final String MODULAR_FORM_SPECIALTY = "Modular Form";
     private static final String MARTIAL_FOCUS_MOBILITY = "Mobility";
     private static final String MARTIAL_FOCUS_AVOIDANCE = "Avoidance";
@@ -66,16 +106,35 @@ public class StoreCharData {
     private static final String BOND_REMINDER = "Bond: bonded allies gain +20% direct-target range per level, ignore line of sight, reduce aura cost by 2% per level to a minimum of 1, and may receive maintained techniques without benefaction.";
     private static final String MODULAR_FORMS_PLACEHOLDER = "No Modular Forms Learned";
     private static final String HOLY_DOMAIN_SPECIALTY = "Holy Domain";
+    private static final String HOLY_DOMAIN_EMANATION_SPECIALTY = "Holy Domain Emanation";
     private static final String DOMAIN_EMANATION_SPECIALTY = "Domain Emanation";
     private static final String DOMAIN_EMANATION_REMINDER_KEY = "Domain Emanation";
     private static final String MOLDING_REMINDER_KEY = "Molding";
+    private static final String KNOWN_CHANNELS_LIST = "Known Channels";
+    private static final String KNOWN_ATTUNEMENTS_LIST = "Known Attunements";
+    private static final String KNOWN_METALS_LIST = "Known Metals";
+    private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
+    private static final String ETHEREAL_ATTUNEMENT_TECHNIQUE = "Ethereal Attunement";
+    private static final String SOUL_CAGE_TECHNIQUE = "Soul Cage";
+    private static final String ETHEREAL_REPOSITORY_TECHNIQUE = "Ethereal Repository";
+    private static final String ETHEREAL_POCKET_TECHNIQUE = "Ethereal Pocket";
+    private static final String METAL_MANIFESTATION_TECHNIQUE = "Metal Manifestation";
     private static final String IRDON_RACE = "Irdon";
+    private static final String GAIAN_RACE = "Gaian";
+    private static final String GAIAN_VERSATILITY_STATUS = "Gaian Versatility";
+    private static final String[] GAIAN_ATTRIBUTE_KEYS = {
+            "STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB"
+    };
     private static final String UNARMED_PROWESS_SPECIALTY = "Unarmed Prowess";
     private static final int UNARMED_PROWESS_ITEM_IID = -5005;
     private static final String CLASS_LEVEL_RESOURCE1_STATUS = "ClassLevelR1";
+    private static final String CLASS_LEVEL_RESOURCE2_STATUS = "ClassLevelR2";
+    private static final String CLASS_LEVEL_RESOURCE3_STATUS = "ClassLevelR3";
     private static final String RACE_TRAINING_NAME = "Race Training";
     private static final String ANGEL_POINTS_RESOURCE_STATUS = "IrdonAngelPoints";
     private static final String ALTERI_RACE = "Alteri";
+    private static final String CASTER_CLASS = "Caster";
+    private static final String ADVANCED_AFFINITY_SPECIALTY = "Advanced Affinity";
     private static final String ALTERI_SHAPESHIFT_LIST = "Shapeshift";
     private static final String MOLDS_LIST = "Molds";
     private static final String MOLD_CATEGORY_WEAPON = "Weapon";
@@ -92,6 +151,14 @@ public class StoreCharData {
     private static final String DEFAULT_MAINTAINED_LOADOUT = "Default";
     private static final String MAINTAINED_LOADOUT_PREFIX = "maintained.loadout.";
     private static final String MAINTAINED_ROW_PREFIX = "maintained.al.";
+    private static final String PANEL_MAINTAINED_STATUS_PREFIX = "Panel Maintained: ";
+    private static final String GRANTED_LOADOUT_NAMES_KEY = "granted.loadouts";
+    private static final String GRANTED_LOADOUT_ENABLED_PREFIX = "granted.loadout.enabled.";
+    private static final String GRANTED_LOADOUT_PREFIX = "granted.loadout.";
+    private static final String GRANTED_ROW_PREFIX = "granted.al.";
+    private static final double MENTAL_NETWORK_COST_PER_AL = 3.0;
+    private static final double ETHEREAL_POCKET_COST_PER_AL = 5.0;
+    private static final double PLACEHOLDER_GRANT_COST_PER_AL = 1.0;
     private static final String VOW_STATUS_REMINDER_KEY = "Vow Status";
     private static final String VOW_STATUS_INTACT = "Intact";
     private static final String VOW_STATUS_BROKEN = "Broken";
@@ -102,6 +169,25 @@ public class StoreCharData {
     private static final String MINION_TYPE_LIST = "Minion Type";
     private static final String DEFAULT_MINION_FORM = "Generalized";
     private static final String DEFAULT_MINION_TYPE = "Melee";
+    private static final String SUMMON_MINION_MINOR_GENERAL_MELEE_SPECIALTY = "Summon Minion (Minor + General + Melee)";
+    private static final String SUMMON_MINION_MINOR_II_SPECIALTY = "Summon Minion (Minor) II";
+    private static final String MINION_DAMAGING_RANGED_SPECIALTY = "Minion (Damaging + Ranged)";
+    private static final String MINION_DURABLE_SPECIALTY = "Minion (Durable)";
+    private static final String MINION_HEAL_SPECIALTY = "Minion (Heal)";
+    private static final String MINION_SUPPORT_SPECIALTY = "Minion (Support)";
+    private static final String MINION_AURA_SPECIALTY = "Minion (Aura)";
+    private static final String MINION_DAMAGING_FORM = "Damaging";
+    private static final String MINION_DURABLE_FORM = "Durable";
+    private static final String MINION_RANGED_TYPE = "Ranged";
+    private static final String MINION_HEAL_TYPE = "Heal";
+    private static final String MINION_SUPPORT_TYPE = "Support";
+    private static final String MINION_AURA_TYPE = "Aura";
+    private static final String MINION_SLOT_MINOR_1 = "Minor 1";
+    private static final String MINION_SLOT_MINOR_2 = "Minor 2";
+    private static final String MINION_SLOT_MEDIUM_1 = "Medium 1";
+    private static final String MINION_SLOT_MINOR_3 = "Minor 3";
+    private static final String MINION_SLOT_MEDIUM_2 = "Medium 2";
+    private static final String MINION_SLOT_MAJOR = "Major";
     private static final String CLASS_SPECIALTY_CHOICE_PREFIX = "class.specialty.choice.";
     private static final String SHIFTER_CHESTPIECE_MOLD = "Shifter Chestpiece";
     private static final String SHIFTER_LEGGINGS_MOLD = "Shifter Leggings";
@@ -126,6 +212,7 @@ public class StoreCharData {
     private final CharInventory inventory;
     private final CharTraining training;
     private final CharCombat combat;
+    private final CharMinions minions;
     private List<List<DataList>> Lists;
     private Map<String, String> reminderSelections;
     @JsonProperty
@@ -135,8 +222,20 @@ public class StoreCharData {
     private List<String> classReminderLines;
     private List<String> otherSpecialtyReminderLines;
     private List<String> otherReminderLines;
+    @JsonIgnore
+    private List<String> activeMentalNetworkChannels;
+    @JsonIgnore
+    private List<String> activeEtherealAttunements;
+    @JsonIgnore
+    private List<String> activeMetalManifestations;
     @JsonProperty
     private boolean enhancedEngineeringRankGranted;
+    @JsonProperty
+    private List<CharDrone> drones;
+    @JsonProperty
+    private List<String> divineAttunementGrantedAffinities;
+    @JsonProperty
+    private String divineAttunementGrantedWeaponProficiency;
     private String cachedClassSpecialtyKey;
     private List<DataSpecialty> cachedClassSpecialtyTemplates;
 
@@ -152,6 +251,7 @@ public class StoreCharData {
         this.inventory = new CharInventory();
         this.training = new CharTraining();
         this.combat = new CharCombat();
+        this.minions = new CharMinions();
         this.Lists = new ArrayList<>();
         this.reminderSelections = new LinkedHashMap<>();
         this.domainEmanationEnabled = false;
@@ -160,7 +260,13 @@ public class StoreCharData {
         this.classReminderLines = new ArrayList<>();
         this.otherSpecialtyReminderLines = new ArrayList<>();
         this.otherReminderLines = new ArrayList<>();
+        this.activeMentalNetworkChannels = new ArrayList<>();
+        this.activeEtherealAttunements = new ArrayList<>();
+        this.activeMetalManifestations = new ArrayList<>();
+        this.drones = new ArrayList<>();
         this.enhancedEngineeringRankGranted = false;
+        this.divineAttunementGrantedAffinities = new ArrayList<>();
+        this.divineAttunementGrantedWeaponProficiency = "";
         this.cachedClassSpecialtyKey = "";
         this.cachedClassSpecialtyTemplates = List.of();
         this.identity.setOwner(this);
@@ -170,6 +276,7 @@ public class StoreCharData {
         this.inventory.setOwner(this);
         this.training.setParent(this);
         this.combat.setOwner(this);
+        this.minions.setOwner(this);
         syncDomainEmanationReminderSelection();
     }
 
@@ -189,6 +296,7 @@ public class StoreCharData {
         this.inventory.setOwner(this);
         this.training.setParent(this);
         this.combat.setOwner(this);
+        this.minions.setOwner(this);
         syncDomainEmanationReminderSelection();
         setPanelReminder("");
         resetReminderBuckets();
@@ -202,14 +310,23 @@ public class StoreCharData {
             }
 
             refreshIdentityDerivedState();
+            normalizeClassResource2State();
+            normalizeClassResource3State();
+            normalizeTacticsResourceState();
             syncSpecialtyChoiceLists();
+            syncArcaneAnalysisSkills();
+            syncFullmetalMechanicSkill();
             syncShifterSpecialMoldsList();
+            syncMinionUnlockedSlots();
+            syncDronesState();
         } catch (Exception e) {
             System.err.println("Failed to update tech caps / resources: " + e.getMessage());
         }
 
         refreshTrainingDerivedBonuses();
+        syncOccupiedAuraFromActiveTechniques(new StoreRuleManager());
         refreshClassDomainEffects();
+        syncDivineAttunementGrants();
         syncUnarmedProwessWeapon();
         applyEquipmentPassiveBonuses();
         refreshSpecialtyPassiveBonuses();
@@ -419,7 +536,7 @@ public class StoreCharData {
         double willSeverity = getTieredScalerSeverity(statScale, 2, levelScalers);
         double atkSeverity = getTieredScalerSeverity(statScale, 3, levelScalers);
         double appSeverity = getTieredScalerSeverity(statScale, 4, levelScalers, 3);
-        double rangeSeverity = getTieredScalerSeverity(statScale, 5, levelScalers, 3);
+        double rangeSeverity = 20.0;
         double baseDamageSeverity = parseLevelDamageValue(dataLevel.getDamage());
 
         setBasePassiveSeverity(attributes.getBDefense(), "BFORT", fortSeverity, "Class-based Fortitude base");
@@ -432,7 +549,7 @@ public class StoreCharData {
         removePassiveStatusByName(attributes.getBCombat(), "BATK", "ClassLevelATK");
         setBasePassiveSeverity(attributes.getBCombat(), "BAPP", appSeverity, "Class-based Application base");
         removePassiveStatusByName(attributes.getBCombat(), "BAPP", "ClassLevelAPP");
-        setBasePassiveSeverity(attributes.getBCombat(), "BRANGE", rangeSeverity, "Class-based Range base");
+        setBasePassiveSeverity(attributes.getBCombat(), "BRANGE", rangeSeverity, "Generalized Range base");
         removePassiveStatusByName(attributes.getBCombat(), "BRANGE", "ClassLevelRange");
         upsertLevelScalerStatus(attributes.getBDamage(), "BBDMG", "LevelBaseDamage", baseDamageSeverity, "Level-based base damage");
         upsertLevelScalerStatus(attributes.getBDamage(), "BBHEAL", "LevelBaseDamage", baseDamageSeverity, "Level-based base healing");
@@ -456,6 +573,7 @@ public class StoreCharData {
 
     public void refreshTrainingDerivedBonuses() {
         clearTrainingDerivedBonuses();
+        clearPanelMaintainedStatuses();
         applyTrainingPermStatuses(new StoreRuleManager());
     }
 
@@ -677,6 +795,8 @@ public class StoreCharData {
         }
 
         appendIrdonAngelReminder(race);
+        applyGaianVersatilityBonuses();
+        appendGaianVersatilityReminder();
 
         if (attributes == null) return;
         DataStatus[] racialStatuses = race.getBaseDataStatus();
@@ -690,6 +810,180 @@ public class StoreCharData {
             attributes.removeStatusByStatus(racialStatus);
             attributes.addStatus(new DataStatus(racialStatus));
         }
+    }
+
+    private void applyGaianVersatilityBonuses() {
+        if (attributes == null) return;
+        LinkedHashSet<String> selectedAttributes = new LinkedHashSet<>();
+        if (isGaianRace()) {
+            selectedAttributes.addAll(getGaianChosenAttributeKeys());
+        }
+        for (String attributeKey : GAIAN_ATTRIBUTE_KEYS) {
+            String blockAttribute = "B" + attributeKey;
+            if (selectedAttributes.contains(attributeKey)) {
+                upsertLevelScalerStatus(attributes.getBAttributes(), blockAttribute, GAIAN_VERSATILITY_STATUS, 1.0,
+                        "Gaian Versatility bonus");
+            } else {
+                removePassiveStatusByName(attributes.getBAttributes(), blockAttribute, GAIAN_VERSATILITY_STATUS);
+            }
+        }
+    }
+
+    private void appendGaianVersatilityReminder() {
+        if (!isGaianRace() || identity == null) return;
+        List<String> chosenAttributes = getGaianChosenAttributeKeys();
+        if (chosenAttributes.isEmpty()) return;
+        List<String> racePicks = identity.getCharRacePick();
+        String specialtyName = racePicks != null && racePicks.size() > 2 && racePicks.get(2) != null
+                ? racePicks.get(2).trim() : "";
+        StringBuilder reminder = new StringBuilder("Versatility:");
+        for (String attributeKey : chosenAttributes) {
+            reminder.append(" +1 ").append(attributeKey);
+        }
+        if (!specialtyName.isBlank()) {
+            reminder.append(", ").append(specialtyName);
+        }
+        for (String trainingSpecialty : getGaianTrainingSpecialtyNames()) {
+            if (trainingSpecialty != null && !trainingSpecialty.isBlank()) {
+                reminder.append(", ").append(trainingSpecialty);
+            }
+        }
+        appendReminderLine(raceReminderLines, reminder.toString());
+    }
+
+    public List<String> getGaianChosenAttributeKeys() {
+        LinkedHashSet<String> chosen = new LinkedHashSet<>();
+        if (identity == null) return new ArrayList<>();
+        List<String> racePicks = identity.getCharRacePick();
+        if (racePicks != null && racePicks.size() >= 2) {
+            addNormalizedGaianAttribute(chosen, racePicks.get(0));
+            addNormalizedGaianAttribute(chosen, racePicks.get(1));
+        }
+        for (String trainingAttribute : identity.getGaianTrainingAttributes()) {
+            addNormalizedGaianAttribute(chosen, trainingAttribute);
+        }
+        return new ArrayList<>(chosen);
+    }
+
+    public List<String> getGaianAvailableTrainingAttributes() {
+        LinkedHashSet<String> available = new LinkedHashSet<>();
+        List<String> chosen = getGaianChosenAttributeKeys();
+        for (String attributeKey : GAIAN_ATTRIBUTE_KEYS) {
+            if (!chosen.contains(attributeKey)) {
+                available.add(attributeKey);
+            }
+        }
+        return new ArrayList<>(available);
+    }
+
+    public boolean addGaianTrainingAttribute(String attributeKey) {
+        if (!isGaianRace() || identity == null) return false;
+        String normalized = normalizeGaianAttributeKey(attributeKey);
+        if (normalized == null) return false;
+        if (getGaianChosenAttributeKeys().contains(normalized)) return false;
+        identity.addGaianTrainingAttribute(normalized);
+        return true;
+    }
+
+    public List<String> getGaianTrainingSpecialtyNames() {
+        if (identity == null) return new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        for (String specialtyName : identity.getGaianTrainingSpecialties()) {
+            if (specialtyName != null && !specialtyName.isBlank()) {
+                names.add(specialtyName.trim());
+            }
+        }
+        return names;
+    }
+
+    public void addGaianTrainingSpecialty(String specialtyName) {
+        if (!isGaianRace() || identity == null || specialtyName == null || specialtyName.isBlank()) return;
+        identity.addGaianTrainingSpecialty(specialtyName.trim());
+    }
+
+    public void removeGaianTrainingSpecialties(List<String> specialtyNames) {
+        if (identity == null || specialtyNames == null || specialtyNames.isEmpty()) return;
+        ArrayList<String> remaining = new ArrayList<>();
+        for (String existing : identity.getGaianTrainingSpecialties()) {
+            if (existing == null || existing.isBlank()) continue;
+            boolean remove = false;
+            for (String specialtyName : specialtyNames) {
+                if (specialtyName != null && existing.trim().equalsIgnoreCase(specialtyName.trim())) {
+                    remove = true;
+                    break;
+                }
+            }
+            if (!remove) remaining.add(existing.trim());
+        }
+        identity.setGaianTrainingSpecialties(remaining);
+    }
+
+    public void removeGaianTrainingAttributes(List<String> attributeKeys) {
+        if (identity == null || attributeKeys == null || attributeKeys.isEmpty()) return;
+        ArrayList<String> remaining = new ArrayList<>();
+        for (String existing : identity.getGaianTrainingAttributes()) {
+            String normalized = normalizeGaianAttributeKey(existing);
+            if (normalized == null) continue;
+            boolean remove = false;
+            for (String attributeKey : attributeKeys) {
+                if (normalized.equalsIgnoreCase(attributeKey)) {
+                    remove = true;
+                    break;
+                }
+            }
+            if (!remove) remaining.add(normalized);
+        }
+        identity.setGaianTrainingAttributes(remaining);
+    }
+
+    private void addNormalizedGaianAttribute(LinkedHashSet<String> destination, String value) {
+        String normalized = normalizeGaianAttributeKey(value);
+        if (normalized != null) destination.add(normalized);
+    }
+
+    private String normalizeGaianAttributeKey(String value) {
+        if (value == null || value.isBlank()) return null;
+        String normalized = value.trim().toUpperCase();
+        for (String attributeKey : GAIAN_ATTRIBUTE_KEYS) {
+            if (attributeKey.equals(normalized)) return normalized;
+        }
+        return null;
+    }
+
+    private String normalizeGaianAttributeKey(String value, boolean core) {
+        if (value == null || value.isBlank()) return null;
+        String normalized = value.trim().toUpperCase();
+        boolean isCore = normalized.equals("STR") || normalized.equals("DEX") || normalized.equals("CON")
+                || normalized.equals("FOC") || normalized.equals("CTL") || normalized.equals("CAP");
+        boolean isCharacter = normalized.equals("KNOW") || normalized.equals("MECH") || normalized.equals("PERC")
+                || normalized.equals("INT") || normalized.equals("CHA") || normalized.equals("SUB");
+        if (core && isCore) return normalized;
+        if (!core && isCharacter) return normalized;
+        return null;
+    }
+
+    public DataSpecialty resolveGaianBonusSpecialty(StoreRuleManager dq) {
+        if (!isGaianRace() || identity == null || dq == null) return null;
+        List<String> racePicks = identity.getCharRacePick();
+        if (racePicks == null || racePicks.size() < 3) return null;
+        String specialtyName = racePicks.get(2);
+        if (specialtyName == null || specialtyName.isBlank()) return null;
+        DataSpecialty template = dq.getSpecialtyByName(specialtyName.trim());
+        if (template == null) return null;
+        DataSpecialty resolved = new DataSpecialty(template);
+        if (racePicks.size() > 3 && racePicks.get(3) != null && !racePicks.get(3).isBlank()) {
+            resolved.setRefName(racePicks.get(3).trim());
+        }
+        return resolved;
+    }
+
+    public boolean grantGaianBonusSpecialty(StoreRuleManager dq) {
+        if (specials == null) return false;
+        DataSpecialty specialty = resolveGaianBonusSpecialty(dq);
+        if (specialty == null || specialty.getName() == null) return false;
+        if (specials.hasSpecialty(specialty.getName())) return false;
+        specials.addTrainedSpecialty(specialty);
+        return true;
     }
 
     private void appendIrdonAngelReminder(DataRace race) {
@@ -730,6 +1024,21 @@ public class StoreCharData {
                 addClassSpecialtyByName(classSpecs, dq, "Patronage");
                 addClassSpecialtyByName(classSpecs, dq, "Enhanced Engineering");
                 addClassSpecialtyByName(classSpecs, dq, "Salvo");
+                addClassSpecialtyByName(classSpecs, dq, HAND_SLOTS_SPECIALTY);
+            }
+            if (i == 2 && classFamily == 10) {
+                addClassSpecialtyByName(classSpecs, dq, HAND_ABILITIES_SPECIALTY);
+            }
+            if (i == 3 && classFamily == 10) {
+                addClassSpecialtyByName(classSpecs, dq, FULLMETAL_MECHANIC_SPECIALTY);
+                addClassSpecialtyByName(classSpecs, dq, CUSTOM_RIG_SPECIALTY);
+                addClassSpecialtyByName(classSpecs, dq, SHOULDER_HARDPOINT_SPECIALTY);
+                addClassSpecialtyByName(classSpecs, dq, CHARGE_UP_SPECIALTY);
+            }
+            if (i == 4 && classFamily == 10) {
+                addClassSpecialtyByName(classSpecs, dq, DRONES_SPECIALTY);
+                addClassSpecialtyByName(classSpecs, dq, POSITIONING_JETS_SPECIALTY);
+                addClassSpecialtyByName(classSpecs, dq, OVERCHARGE_SPECIALTY);
             }
             if (i == 4 && classFamily == 4) {
                 addClassSpecialtyByName(classSpecs, dq, "Sharp Senses");
@@ -740,6 +1049,17 @@ public class StoreCharData {
                 addClassSpecialtyByName(classSpecs, dq, "Tolerance");
                 addClassSpecialtyByName(classSpecs, dq, "Clash");
                 addClassSpecialtyByName(classSpecs, dq, "Shuffle");
+            }
+            if (i == 5 && dataClass != null && "Mage".equalsIgnoreCase(dataClass.getName())) {
+                addClassSpecialtyByName(classSpecs, dq, "Affliction");
+                addClassSpecialtyByName(classSpecs, dq, "Incant");
+                addClassSpecialtyByName(classSpecs, dq, "Chain");
+            }
+            if (i == 8 && classFamily == 6) {
+                addClassSpecialtyByName(classSpecs, dq, "Tactics");
+                addClassSpecialtyByName(classSpecs, dq, "Transpose");
+                addClassSpecialtyByName(classSpecs, dq, "Flash Mob");
+                addClassSpecialtyByName(classSpecs, dq, "Inspire II");
             }
             for (int j = 0; j < specCount; j++) {
                 addClassSpecialty(classSpecs, dq, levelBaseId + subclassSpecStart + j);
@@ -778,13 +1098,20 @@ public class StoreCharData {
         mergeExistingClassSpecialtyChoices(resolved);
         applyStoredClassSpecialtyChoices(resolved);
         replaceClassFeatureChoicePlaceholders(resolved, dq);
-        if (identity == null) return resolved;
+        if (identity == null) {
+            appendHandAbilitySpecialties(resolved, dq);
+            return resolved;
+        }
 
         List<String> picks = identity.getCharClassPick();
-        if (picks == null || picks.isEmpty()) return resolved;
+        if (picks == null || picks.isEmpty()) {
+            appendHandAbilitySpecialties(resolved, dq);
+            return resolved;
+        }
 
         if ("Archer".equalsIgnoreCase(identity.getCharClass())) {
             applyArcherFavoredSelections(resolved, dq);
+            appendHandAbilitySpecialties(resolved, dq);
             return resolved;
         }
 
@@ -807,6 +1134,7 @@ public class StoreCharData {
                 resolved.add(new DataSpecialty(pickedSpecialty));
             }
         }
+        appendHandAbilitySpecialties(resolved, dq);
         return resolved;
     }
 
@@ -848,10 +1176,31 @@ public class StoreCharData {
             if (specialty == null) continue;
             if (specialty.getRefName() != null && !specialty.getRefName().isBlank()) continue;
             String storedChoice = getStoredClassSpecialtyChoice(specialty);
+            if (storedChoice == null || storedChoice.isBlank()) {
+                storedChoice = resolveDerivedClassSpecialtyChoice(specialty);
+            }
             if (storedChoice != null && !storedChoice.isBlank()) {
                 specialty.setRefName(storedChoice);
             }
         }
+    }
+
+    private String resolveDerivedClassSpecialtyChoice(DataSpecialty specialty) {
+        if (specialty == null || specialty.getName() == null || identity == null || training == null) {
+            return "";
+        }
+        if (!CASTER_CLASS.equalsIgnoreCase(identity.getCharClass())
+                || !ADVANCED_AFFINITY_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())) {
+            return "";
+        }
+
+        List<String> naturalAffinities = training.getNaturalAffinities();
+        if (naturalAffinities.size() < 2) {
+            return "";
+        }
+
+        String bonusAffinity = naturalAffinities.get(1);
+        return bonusAffinity == null ? "" : bonusAffinity.trim();
     }
 
     private void storeClassSpecialtyChoice(DataSpecialty specialty) {
@@ -909,6 +1258,9 @@ public class StoreCharData {
         String leftName = left.getName();
         String rightName = right.getName();
         if (isCombatDisciplineAliasName(leftName) && isCombatDisciplineAliasName(rightName)) {
+            return true;
+        }
+        if (isHolyDomainAliasName(leftName) && isHolyDomainAliasName(rightName)) {
             return true;
         }
         return leftName != null && rightName != null && leftName.equalsIgnoreCase(rightName);
@@ -1153,7 +1505,7 @@ public class StoreCharData {
     }
 
     public double getEffectiveCombatManeuverValue(String maneuverName) {
-        double baseValue = attributes == null ? 0.0 : Math.max(0.0, attributes.calcStatusValue("CMAN"));
+        double baseValue = attributes == null ? 0.0 : Math.max(0.0, attributes.calcStatusValue("MAN"));
         return baseValue + getCombatSpecialistBonusForManeuver(maneuverName);
     }
 
@@ -1181,12 +1533,35 @@ public class StoreCharData {
         if (effectiveClass == null || resources == null) return;
         int level = identity != null ? Math.max(0, identity.getLevel()) : 0;
         double resource1Base = hasUnlockedResourceSpecialtyType("resource1") ? level : 0.0;
+        double resource2Base = hasUnlockedResourceSpecialtyType("resource2") ? level : 0.0;
+        double resource3Base;
+        if (hasTacticsResourceSpecialty()) {
+            resource3Base = getAggressiveTacticsMax() + getDefensiveTacticsMax() + getStrategicTacticsMax();
+        } else if (usesCenteredClassResource3()) {
+            resource3Base = level;
+        } else {
+            resource3Base = 0.0;
+        }
         upsertResourcePassiveStatus(
                 resources.getBaseResource1(),
                 "BASER1",
                 CLASS_LEVEL_RESOURCE1_STATUS,
                 resource1Base,
                 "Level-based base value for Resource 1");
+        upsertResourcePassiveStatus(
+                resources.getBaseResource2(),
+                "BASER2",
+                CLASS_LEVEL_RESOURCE2_STATUS,
+                resource2Base,
+                "Level-based base value for Resource 2");
+        upsertResourcePassiveStatus(
+                resources.getBaseResource3(),
+                "BASER3",
+                CLASS_LEVEL_RESOURCE3_STATUS,
+                resource3Base,
+                hasTacticsResourceSpecialty()
+                        ? "Combined maximum for Aggressive, Defensive, and Strategic Tactics"
+                        : "Level-based base value for centered Class Resource 3 (Temperance/Entropy)");
     }
 
     private void applyIrdonAngelPointScaling() {
@@ -1214,6 +1589,72 @@ public class StoreCharData {
             if (candidateType != null && specialtyType.equalsIgnoreCase(candidateType.trim())) return true;
         }
         return false;
+    }
+
+    private void normalizeClassResource2State() {
+        if (resources == null) return;
+        int maxResource2 = Math.max(0, resources.calcMaxResource2());
+        if (!hasAdvantageResourceSpecialty()) {
+            resources.setSpentR2(clamp(resources.getSpentR2(), 0.0, maxResource2));
+            return;
+        }
+        if (maxResource2 <= 0) {
+            resources.setSpentR2(0.0);
+            return;
+        }
+        if (combat == null || !combat.isInCombat()) {
+            resources.setSpentR2(maxResource2);
+            return;
+        }
+        resources.setSpentR2(clamp(resources.getSpentR2(), 0.0, maxResource2));
+    }
+
+    private void normalizeClassResource3State() {
+        if (resources == null) return;
+        if (hasTacticsResourceSpecialty()) {
+            // Tactics pools are normalized separately; keep aggregate spentR3 in sync.
+            syncSpentR3FromTacticsPools();
+            return;
+        }
+        int maxResource3 = Math.max(0, resources.calcMaxResource3());
+        if (!usesCenteredClassResource3()) {
+            resources.setSpentR3(clamp(resources.getSpentR3(), 0.0, maxResource3));
+            return;
+        }
+        if (maxResource3 <= 0) {
+            resources.setSpentR3(0.0);
+            return;
+        }
+        if (combat == null || !combat.isInCombat()) {
+            resources.setSpentR3(maxResource3);
+            return;
+        }
+        resources.setSpentR3(clamp(resources.getSpentR3(), 0.0, maxResource3 * 2.0));
+    }
+
+    private void normalizeTacticsResourceState() {
+        if (resources == null || !hasTacticsResourceSpecialty()) return;
+        int aggressiveMax = getAggressiveTacticsMax();
+        int defensiveMax = getDefensiveTacticsMax();
+        int strategicMax = getStrategicTacticsMax();
+        if (combat == null || !combat.isInCombat()) {
+            resources.setSpentAggressiveTactics(0.0);
+            resources.setSpentDefensiveTactics(0.0);
+            resources.setSpentStrategicTactics(0.0);
+        } else {
+            resources.setSpentAggressiveTactics(clamp(resources.getSpentAggressiveTactics(), 0.0, aggressiveMax));
+            resources.setSpentDefensiveTactics(clamp(resources.getSpentDefensiveTactics(), 0.0, defensiveMax));
+            resources.setSpentStrategicTactics(clamp(resources.getSpentStrategicTactics(), 0.0, strategicMax));
+        }
+        syncSpentR3FromTacticsPools();
+    }
+
+    private void syncSpentR3FromTacticsPools() {
+        if (resources == null) return;
+        resources.setSpentR3(
+                resources.getSpentAggressiveTactics()
+                        + resources.getSpentDefensiveTactics()
+                        + resources.getSpentStrategicTactics());
     }
 
     private void applyClassLevelScalers(DataClass dataClass, DataLevel currentLevelData) {
@@ -1302,6 +1743,7 @@ public class StoreCharData {
         }
 
         initializeAlteriShapeshiftList();
+        grantGaianBonusSpecialty(new StoreRuleManager());
         initializeShifterFormsList();
         syncModularFormsList();
         initializeShifterMoldsList();
@@ -1529,15 +1971,25 @@ public class StoreCharData {
     }
 
     private void initializeLeaderMinionLists() {
-        if (identity == null || identity.getCharClass() == null || !identity.getCharClass().equalsIgnoreCase("Leader")) {
-            return;
+        syncLeaderMinionSpecialtyLists();
+    }
+
+    public List<String> getUnlockedMinionSlotTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        if (specials == null) {
+            return titles;
         }
+        if (specials.hasSpecialty(SUMMON_MINION_MINOR_GENERAL_MELEE_SPECIALTY)) {
+            titles.add(MINION_SLOT_MINOR_1);
+        }
+        if (specials.hasSpecialty(SUMMON_MINION_MINOR_II_SPECIALTY)) {
+            titles.add(MINION_SLOT_MINOR_2);
+        }
+        return titles;
+    }
 
-        List<DataList> minionFormGroup = findOrCreateListGroup(MINION_FORM_LIST);
-        addListEntryIfMissing(minionFormGroup, MINION_FORM_LIST, DEFAULT_MINION_FORM);
-
-        List<DataList> minionTypeGroup = findOrCreateListGroup(MINION_TYPE_LIST);
-        addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, DEFAULT_MINION_TYPE);
+    public boolean hasUnlockedMinionSlots() {
+        return !getUnlockedMinionSlotTitles().isEmpty();
     }
 
     private void initializeFavoredSpecialtyLists() {
@@ -1568,7 +2020,56 @@ public class StoreCharData {
     public void syncSpecialtyChoiceLists() {
         initializeFavoredSpecialtyLists();
         initializeStanceSpecialtyList();
+        syncLeaderMinionSpecialtyLists();
         syncModularFormsList();
+    }
+
+    private void syncLeaderMinionSpecialtyLists() {
+        if (Lists == null) {
+            Lists = new ArrayList<>();
+        }
+        if (specials == null) {
+            return;
+        }
+
+        boolean hasBaseSummon = specials.hasSpecialty(SUMMON_MINION_MINOR_GENERAL_MELEE_SPECIALTY);
+        boolean hasDamagingRanged = specials.hasSpecialty(MINION_DAMAGING_RANGED_SPECIALTY);
+        boolean hasDurable = specials.hasSpecialty(MINION_DURABLE_SPECIALTY);
+        boolean hasHeal = specials.hasSpecialty(MINION_HEAL_SPECIALTY);
+        boolean hasSupport = specials.hasSpecialty(MINION_SUPPORT_SPECIALTY);
+        boolean hasAura = specials.hasSpecialty(MINION_AURA_SPECIALTY);
+
+        if (hasBaseSummon || hasDamagingRanged || hasDurable) {
+            List<DataList> minionFormGroup = findOrCreateListGroup(MINION_FORM_LIST);
+            if (hasBaseSummon) {
+                addListEntryIfMissing(minionFormGroup, MINION_FORM_LIST, DEFAULT_MINION_FORM);
+            }
+            if (hasDamagingRanged) {
+                addListEntryIfMissing(minionFormGroup, MINION_FORM_LIST, MINION_DAMAGING_FORM);
+            }
+            if (hasDurable) {
+                addListEntryIfMissing(minionFormGroup, MINION_FORM_LIST, MINION_DURABLE_FORM);
+            }
+        }
+
+        if (hasBaseSummon || hasDamagingRanged || hasHeal || hasSupport || hasAura) {
+            List<DataList> minionTypeGroup = findOrCreateListGroup(MINION_TYPE_LIST);
+            if (hasBaseSummon) {
+                addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, DEFAULT_MINION_TYPE);
+            }
+            if (hasDamagingRanged) {
+                addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, MINION_RANGED_TYPE);
+            }
+            if (hasHeal) {
+                addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, MINION_HEAL_TYPE);
+            }
+            if (hasSupport) {
+                addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, MINION_SUPPORT_TYPE);
+            }
+            if (hasAura) {
+                addListEntryIfMissing(minionTypeGroup, MINION_TYPE_LIST, MINION_AURA_TYPE);
+            }
+        }
     }
 
     private void initializeStanceSpecialtyList() {
@@ -1949,13 +2450,192 @@ public class StoreCharData {
     // ---------------------------------------------------------
 
     public CharIdentity getIdentity()    { return identity; }
+
+    public static boolean isSizeAttribute(String attribute) {
+        return attribute != null && SIZE_ATTRIBUTE.equalsIgnoreCase(attribute.trim());
+    }
+
+    public static int indexOfSizeCategory(String size) {
+        if (size == null || size.isBlank()) return -1;
+        String trimmed = size.trim();
+        for (int i = 0; i < SIZE_CATEGORIES.length; i++) {
+            if (SIZE_CATEGORIES[i].equalsIgnoreCase(trimmed)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static String sizeCategoryAt(int index) {
+        int clamped = Math.max(0, Math.min(SIZE_CATEGORIES.length - 1, index));
+        return SIZE_CATEGORIES[clamped];
+    }
+
+    public String getBaseSize() {
+        String size = identity == null ? null : identity.getSize();
+        int index = indexOfSizeCategory(size);
+        return index >= 0 ? SIZE_CATEGORIES[index] : "Medium";
+    }
+
+    public int getSizeShift() {
+        int shift = 0;
+        if (combat == null || combat.getCombatStatus() == null) return shift;
+        for (DataStatus status : combat.getCombatStatus()) {
+            if (status == null || !isSizeAttribute(status.getAttribute())) continue;
+            shift += (int) Math.round(status.getSeverity());
+        }
+        return shift;
+    }
+
+    public String getEffectiveSize() {
+        return sizeCategoryAt(indexOfSizeCategory(getBaseSize()) + getSizeShift());
+    }
+
+    public double getDisplacementResistance() {
+        if (attributes == null) return 0.0;
+        return CharAttributes.clampUnitInterval(attributes.calcStatusValue(RESDISP_ATTRIBUTE));
+    }
+
+    public double getMinimumDisplacementDistance(double originalDistance) {
+        if (originalDistance <= 0.0) return 0.0;
+        return originalDistance * (1.0 - getDisplacementResistance());
+    }
+
+    public void upsertCombatSizeStatus(String name, double severity, String description, String durationType) {
+        if (combat == null || name == null || name.isBlank()) return;
+        clearCombatSizeStatusesByName(name);
+        DataStatus status = new DataStatus();
+        status.setName(name.trim());
+        status.setAttribute(SIZE_ATTRIBUTE);
+        status.setSeverity(Math.round(severity));
+        status.setDurationType(durationType == null || durationType.isBlank() ? "Maintained" : durationType);
+        status.setAffinity("None");
+        status.setDescription(description == null ? "" : description);
+        combat.addStatus(status);
+    }
+
+    public void clearCombatSizeStatusesByPrefix(String prefix) {
+        if (combat == null || combat.getCombatStatus() == null || prefix == null || prefix.isBlank()) return;
+        combat.getCombatStatus().removeIf(status ->
+                status != null
+                        && isSizeAttribute(status.getAttribute())
+                        && status.getName() != null
+                        && status.getName().startsWith(prefix));
+    }
+
+    public void clearCombatSizeStatusesByName(String name) {
+        if (combat == null || combat.getCombatStatus() == null || name == null || name.isBlank()) return;
+        combat.getCombatStatus().removeIf(status ->
+                status != null
+                        && isSizeAttribute(status.getAttribute())
+                        && name.equalsIgnoreCase(status.getName()));
+    }
+
     public CharAttributes getAttributes() { return attributes; }
     public CharResources getResources()  { return resources; }
     public CharSpecials getSpecials()    { return specials; }
     public CharInventory getInventory()  { return inventory; }
     public CharTraining getTraining()    { return training; }
     public CharCombat getCombat()        { return combat; }
+
+    @JsonProperty("minions")
+    public CharMinions getMinions()      { return minions; }
+
+    public List<CharDrone> getDrones() {
+        if (drones == null) drones = new ArrayList<>();
+        return drones;
+    }
+
+    @JsonSetter("drones")
+    public void setDrones(List<CharDrone> incoming) {
+        if (drones == null) drones = new ArrayList<>();
+        drones.clear();
+        if (incoming == null) return;
+        for (CharDrone drone : incoming) {
+            if (drone != null) drones.add(drone);
+        }
+    }
+
+    @JsonSetter("minions")
+    public void setMinionsState(CharMinions incoming) {
+        if (incoming == null || minions == null) return;
+        minions.setSlots(incoming.getSlots());
+        minions.setOwner(this);
+    }
+
     public List<List<DataList>> getLists() { return Lists; }
+
+    @JsonIgnore
+    public List<CharMinions.SummonedMinionActor> getSummonedMinionActors() {
+        return minions == null ? List.of() : minions.getSummonedMinionActors();
+    }
+
+    @JsonIgnore
+    public List<DataAction> resolveMinionGrantedActions(String minionType, String minionForm) {
+        return minions == null ? List.of() : minions.resolveMinionGrantedActions(minionType, minionForm);
+    }
+
+    private void syncMinionUnlockedSlots() {
+        if (minions == null) return;
+        minions.syncUnlockedSlots(getUnlockedMinionSlotTitles());
+        if (combat != null && combat.isInCombat()) {
+            minions.rebuildAllSummonedActions();
+        }
+    }
+
+    private void syncArcaneAnalysisSkills() {
+        if (specials == null || !specials.hasSpecialty(ARCANE_ANALYSIS_SPECIALTY)) return;
+        StoreRuleManager ruleManager = new StoreRuleManager();
+        addArcaneAnalysisSkillIfMissing(ruleManager, ANALYZE_SKILL);
+        addArcaneAnalysisSkillIfMissing(ruleManager, IDENTIFY_SKILL);
+    }
+
+    private void addArcaneAnalysisSkillIfMissing(StoreRuleManager ruleManager, String skillName) {
+        if (ruleManager == null || specials == null || skillName == null || skillName.isBlank()) return;
+        if (specials.getSkillByName(skillName) != null) return;
+        DataSkill template = ruleManager.getSkillByName(skillName);
+        if (template == null) return;
+        DataSkill grantedSkill = new DataSkill(template);
+        grantedSkill.addChosenAttribute(ARCANE_ANALYSIS_ATTRIBUTE);
+        specials.addSkill(grantedSkill);
+    }
+
+    private void syncFullmetalMechanicSkill() {
+        if (specials == null || !hasFullmetalMechanicSpecialty()) return;
+        if (hasRepairSkill()) return;
+        StoreRuleManager ruleManager = new StoreRuleManager();
+        DataSkill template = resolveRepairSkillTemplate(ruleManager);
+        if (template == null) return;
+        DataSkill grantedSkill = new DataSkill(template);
+        if (grantedSkill.getName() != null) {
+            grantedSkill.setName(grantedSkill.getName().trim());
+        }
+        grantedSkill.addChosenAttribute("MECH");
+        specials.addSkill(grantedSkill);
+    }
+
+    private DataSkill resolveRepairSkillTemplate(StoreRuleManager ruleManager) {
+        if (ruleManager == null) return null;
+        DataSkill skill = ruleManager.getSkillById(REPAIR_SKILL_ID);
+        if (skill != null) return skill;
+        skill = ruleManager.getSkillByName(REPAIR_SKILL);
+        if (skill != null) return skill;
+        return ruleManager.getSkillByName(REPAIR_SKILL + " ");
+    }
+
+    private boolean hasRepairSkill() {
+        if (specials == null) return false;
+        if (specials.getSkillByName(REPAIR_SKILL) != null) return true;
+        if (specials.getSkillByName(REPAIR_SKILL + " ") != null) return true;
+        for (DataSkill skill : specials.getSkills()) {
+            if (isRepairSkill(skill)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isRepairSkill(DataSkill skill) {
+        return skill != null && skill.getName() != null && REPAIR_SKILL.equalsIgnoreCase(skill.getName().trim());
+    }
 
     @JsonIgnore
     public boolean hasAuraProficiencySpecialty() {
@@ -1966,16 +2646,22 @@ public class StoreCharData {
     public int getAuraProficiencySpecialtyRank() {
         if (specials == null) return 0;
         int rank = 0;
-        if (specials.hasSpecialty(AURA_PROFICIENCY_SPECIALTY)) {
-            rank++;
-        }
-        if (specials.hasSpecialty(ASTRAL_PROFICIENCY_SPECIALTY)) {
-            rank++;
-        }
-        if (specials.hasSpecialty(ASTRAL_PROFICIENCY_II_SPECIALTY)) {
-            rank++;
+        for (DataSpecialty specialty : specials.getAllSpecialties()) {
+            if (specialty == null || specialty.getName() == null) continue;
+            String specialtyName = specialty.getName().trim();
+            if (AURA_PROFICIENCY_SPECIALTY.equalsIgnoreCase(specialtyName)
+                    || isAstralProficiencyVariant(specialtyName)) {
+                rank++;
+            }
         }
         return rank;
+    }
+
+    private boolean isAstralProficiencyVariant(String specialtyName) {
+        if (specialtyName == null || specialtyName.isBlank()) return false;
+        if (ASTRAL_PROFICIENCY_SPECIALTY.equalsIgnoreCase(specialtyName)) return true;
+        String prefix = ASTRAL_PROFICIENCY_SPECIALTY + " ";
+        return specialtyName.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     @JsonIgnore
@@ -2013,9 +2699,23 @@ public class StoreCharData {
     }
 
     @JsonIgnore
+    public double getEffectiveTechniqueRank(String affinity, int rawRank) {
+        double safeRank = Math.max(0, rawRank);
+        if (safeRank <= 0.0) return 0.0;
+        int synergy = getAuraTypeSynergy(affinity);
+        return safeRank * (1.0 + (0.001 * synergy));
+    }
+
+    @JsonIgnore
     public double getEffectiveTechniqueAl(DataTraining tech) {
         if (tech == null) return 0.0;
         return getEffectiveTechniqueAl(tech.getAffinity(), tech.getAl());
+    }
+
+    @JsonIgnore
+    public double getEffectiveTechniqueRank(DataTraining tech) {
+        if (tech == null) return 0.0;
+        return getEffectiveTechniqueRank(tech.getAffinity(), tech.getRank());
     }
 
     @JsonIgnore
@@ -2051,6 +2751,361 @@ public class StoreCharData {
     @JsonIgnore
     public boolean hasEnhancedEngineeringSpecialty() {
         return specials != null && specials.hasSpecialty("Enhanced Engineering");
+    }
+
+    @JsonIgnore
+    public boolean hasHandSlotsSpecialty() {
+        return specials != null && specials.hasSpecialty(HAND_SLOTS_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public int getWeaponSlotCount() {
+        int slots = STANDARD_WEAPON_SLOT_COUNT;
+        if (hasHandSlotsSpecialty()) {
+            int level = Math.max(0, getLevel());
+            if (level >= 5) {
+                slots += 1 + ((level - 5) / 4);
+            }
+        }
+        slots += getShoulderHardpointCount();
+        return slots;
+    }
+
+    @JsonIgnore
+    public boolean hasShoulderHardpointSpecialty() {
+        return specials != null && specials.hasSpecialty(SHOULDER_HARDPOINT_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public int getShoulderHardpointCount() {
+        if (!hasShoulderHardpointSpecialty()) return 0;
+        return Math.max(0, getLevel()) >= 13 ? 2 : 1;
+    }
+
+    @JsonIgnore
+    public boolean hasChargeUpSpecialty() {
+        return specials != null && specials.hasSpecialty(CHARGE_UP_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public int getChargeUpRestoreAmount() {
+        return Math.max(0, getLevel());
+    }
+
+    public int restoreCharge(int amount) {
+        if (resources == null || amount <= 0) return 0;
+        return resources.restoreResource1(amount);
+    }
+
+    @JsonIgnore
+    public boolean hasOverchargeSpecialty() {
+        return specials != null && specials.hasSpecialty(OVERCHARGE_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public boolean isOverchargeActive() {
+        return combat != null && combat.isOverchargeActiveThisTurn();
+    }
+
+    public void setOverchargeActive(boolean active) {
+        if (combat != null) {
+            combat.setOverchargeActiveThisTurn(active);
+        }
+    }
+
+    @JsonIgnore
+    public double getOverchargeDamageMultiplierBonus() {
+        if (!hasOverchargeSpecialty()) return 0.0;
+        return Math.max(0, getLevel()) * 0.5;
+    }
+
+    public boolean isOverchargeClassAbility(DataAction action) {
+        if (action == null || !isOverchargeActive()) return false;
+        if (OVERCHARGE_SPECIALTY.equalsIgnoreCase(action.getName())) return false;
+        return action.getSource() != null && "Class".equalsIgnoreCase(action.getSource().trim());
+    }
+
+    public double getEffectiveActionCostValue(DataAction action, String costType, double value) {
+        double effective = value;
+        // Aura-source technique costs in data are per activation level (e.g. 1/3/6).
+        if (action != null
+                && costType != null
+                && "Aura".equalsIgnoreCase(costType.trim())
+                && action.getSource() != null
+                && "Aura".equalsIgnoreCase(action.getSource().trim())) {
+            effective = value * Math.max(1, action.getAl());
+        }
+        if (!isOverchargeClassAbility(action) || costType == null) return effective;
+        String type = costType.trim();
+        if (type.isBlank() || "None".equalsIgnoreCase(type)) return effective;
+        if ("StandardAction".equalsIgnoreCase(type)
+                || "MoveAction".equalsIgnoreCase(type)
+                || "AuraAction".equalsIgnoreCase(type)) {
+            return effective;
+        }
+        return effective * 2.0;
+    }
+
+    @JsonIgnore
+    public boolean hasDronesSpecialty() {
+        return specials != null && specials.hasSpecialty(DRONES_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public int getMaxDroneCount() {
+        return Math.max(0, getLevel());
+    }
+
+    @JsonIgnore
+    public double getDroneBonusAmount() {
+        return Math.max(0.0, getPrimaryAttributeValue()) / 4.0;
+    }
+
+    @JsonIgnore
+    public double getPrimaryAttributeValue() {
+        if (attributes == null) return 0.0;
+        String primaryAttribute = resolveDomainPrimaryAttribute();
+        if (primaryAttribute == null || primaryAttribute.isBlank() || "PRIM".equalsIgnoreCase(primaryAttribute)) {
+            return 0.0;
+        }
+        return Math.max(0.0, attributes.calcStatusValue(primaryAttribute));
+    }
+
+    public String normalizeDroneTarget(String target) {
+        if (isSelfDroneTarget(target)) return "Yourself";
+        return target == null ? "" : target.trim();
+    }
+
+    public boolean isSelfDroneTarget(String target) {
+        if (target == null || target.isBlank()) return true;
+        String trimmed = target.trim();
+        if ("yourself".equalsIgnoreCase(trimmed) || "self".equalsIgnoreCase(trimmed)) return true;
+        String name = identity == null ? null : identity.getName();
+        return name != null && !name.isBlank() && name.equalsIgnoreCase(trimmed);
+    }
+
+    public CharDrone findActiveDroneOnTarget(String target) {
+        String normalized = normalizeDroneTarget(target);
+        for (CharDrone drone : getDrones()) {
+            if (drone != null && drone.isActive() && normalized.equalsIgnoreCase(normalizeDroneTarget(drone.getTarget()))) {
+                return drone;
+            }
+        }
+        return null;
+    }
+
+    public String validateDroneDeploy(String type, String target) {
+        if (!hasDronesSpecialty()) return "This character does not have Drones.";
+        String droneType = normalizeDroneType(type);
+        if (droneType == null) return "Select an available drone type.";
+        String normalizedTarget = normalizeDroneTarget(target);
+        if (normalizedTarget.isBlank()) return "Enter a target within Range.";
+        if (findActiveDroneOnTarget(normalizedTarget) != null) {
+            return "That target already has a drone attached.";
+        }
+        CharDrone reusable = findReturnedReadyDrone(droneType);
+        if (reusable != null) return null;
+        if (getDrones().size() >= getMaxDroneCount()) {
+            if (findReturnedUnreadyDrone(droneType) != null) {
+                return "A " + droneType + " drone returned this turn and can be redeployed on your next turn.";
+            }
+            return "You already control the maximum number of drones (" + getMaxDroneCount() + ").";
+        }
+        if (resources == null || resources.calcCurrentResource1() < 1) {
+            return "Deploying a drone occupies 1 Charge.";
+        }
+        return null;
+    }
+
+    public String deployDrone(String type, String target) {
+        String error = validateDroneDeploy(type, target);
+        if (error != null) return error;
+        String droneType = normalizeDroneType(type);
+        String normalizedTarget = normalizeDroneTarget(target);
+        CharDrone reusable = findReturnedReadyDrone(droneType);
+        if (reusable != null) {
+            reusable.setType(droneType);
+            reusable.setTarget(normalizedTarget);
+            reusable.setState(CharDrone.STATE_ACTIVE);
+            reusable.setCanRedeploy(false);
+        } else {
+            getDrones().add(new CharDrone(droneType, normalizedTarget));
+        }
+        syncOccupiedChargeFromDrones();
+        return null;
+    }
+
+    public void recallDrone(CharDrone drone) {
+        if (drone == null) return;
+        getDrones().remove(drone);
+        syncOccupiedChargeFromDrones();
+    }
+
+    public void returnDroneOutOfRange(CharDrone drone) {
+        if (drone == null) return;
+        drone.setState(CharDrone.STATE_RETURNED);
+        drone.setCanRedeploy(false);
+    }
+
+    public void prepareDronesForNextTurn() {
+        for (CharDrone drone : getDrones()) {
+            if (drone != null && drone.isReturned()) {
+                drone.setCanRedeploy(true);
+            }
+        }
+    }
+
+    public void recallAllDrones() {
+        getDrones().clear();
+        syncOccupiedChargeFromDrones();
+    }
+
+    private void syncDronesState() {
+        if (!hasDronesSpecialty()) {
+            if (drones != null && !drones.isEmpty()) {
+                drones.clear();
+            }
+        }
+        syncOccupiedChargeFromDrones();
+    }
+
+    private void syncOccupiedChargeFromDrones() {
+        if (resources == null) return;
+        resources.setOccupiedR1(hasDronesSpecialty() ? getDrones().size() : 0);
+    }
+
+    private CharDrone findReturnedReadyDrone(String type) {
+        for (CharDrone drone : getDrones()) {
+            if (drone != null && drone.isReturned() && drone.isCanRedeploy()
+                    && type.equalsIgnoreCase(drone.getType())) {
+                return drone;
+            }
+        }
+        return null;
+    }
+
+    private CharDrone findReturnedUnreadyDrone(String type) {
+        for (CharDrone drone : getDrones()) {
+            if (drone != null && drone.isReturned() && !drone.isCanRedeploy()
+                    && type.equalsIgnoreCase(drone.getType())) {
+                return drone;
+            }
+        }
+        return null;
+    }
+
+    private String normalizeDroneType(String type) {
+        if (type == null) return null;
+        if (CharDrone.TYPE_ATTACK.equalsIgnoreCase(type.trim())) return CharDrone.TYPE_ATTACK;
+        if (CharDrone.TYPE_DEFENSE.equalsIgnoreCase(type.trim())) return CharDrone.TYPE_DEFENSE;
+        return null;
+    }
+
+    @JsonIgnore
+    public boolean hasHandAbilitiesSpecialty() {
+        return specials != null && specials.hasSpecialty(HAND_ABILITIES_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public boolean hasFullmetalMechanicSpecialty() {
+        return specials != null && specials.hasSpecialty(FULLMETAL_MECHANIC_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public boolean hasCustomRigSpecialty() {
+        return specials != null && specials.hasSpecialty(CUSTOM_RIG_SPECIALTY);
+    }
+
+    /**
+     * Effective item tier used for enhancement targets (enchanting, gemwork, and similar aura enhancement).
+     * Custom Rig treats each piece of the pilot's equipment as {@code (Tier * 2) + 1}.
+     */
+    @JsonIgnore
+    public int getEnhancementTargetTier(DataItemEquipment item) {
+        int tier = item == null ? 0 : Math.max(0, item.getTier());
+        return getEnhancementTargetTier(tier);
+    }
+
+    @JsonIgnore
+    public int getEnhancementTargetTier(int itemTier) {
+        int tier = Math.max(0, itemTier);
+        if (!hasCustomRigSpecialty()) return tier;
+        return (tier * 2) + 1;
+    }
+
+    public double getSkillAttributeMultiplier(DataSkill skill, boolean ownExosuit) {
+        if (ownExosuit && hasFullmetalMechanicSpecialty() && isRepairSkill(skill)) {
+            return 2.5;
+        }
+        return 1.5;
+    }
+
+    private void syncHandAbilitySpecialties() {
+        if (specials == null) return;
+        specials.removeClassSpecialtiesByType(HAND_ABILITY_GRANT_TYPE);
+        specials.removeClassSpecialtiesByRefName(HAND_ABILITIES_SPECIALTY);
+        if (!hasHandAbilitiesSpecialty()) return;
+        for (DataSpecialty granted : resolveEquippedHandAbilitySpecialties(new StoreRuleManager())) {
+            specials.addClassSpecialty(granted);
+        }
+    }
+
+    private void appendHandAbilitySpecialties(List<DataSpecialty> resolved, StoreRuleManager dq) {
+        if (resolved == null || dq == null) return;
+        boolean hasHandAbilities = false;
+        for (DataSpecialty specialty : resolved) {
+            if (specialty != null && HAND_ABILITIES_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+                hasHandAbilities = true;
+                break;
+            }
+        }
+        if (!hasHandAbilities) return;
+        for (DataSpecialty granted : resolveEquippedHandAbilitySpecialties(dq)) {
+            if (granted == null || granted.getName() == null || granted.getName().isBlank()) continue;
+            boolean exists = false;
+            for (DataSpecialty existing : resolved) {
+                if (existing == null) continue;
+                if (granted.getId() > 0 && existing.getId() == granted.getId()) {
+                    exists = true;
+                    break;
+                }
+                if (granted.getName().equalsIgnoreCase(existing.getName())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) resolved.add(granted);
+        }
+    }
+
+    private List<DataSpecialty> resolveEquippedHandAbilitySpecialties(StoreRuleManager dq) {
+        ArrayList<DataSpecialty> granted = new ArrayList<>();
+        if (dq == null || inventory == null) return granted;
+        LinkedHashSet<Integer> grantedIds = new LinkedHashSet<>();
+        for (DataItemWeapon weapon : inventory.getWeapons()) {
+            if (!isHandAbilitySourceWeapon(weapon)) continue;
+            DataExo exo = dq.getExoForWeapon(weapon);
+            DataSpecialty specialty = createHandAbilitySpecialty(dq, exo);
+            if (specialty == null || specialty.getName() == null || specialty.getName().isBlank()) continue;
+            if (specialty.getId() > 0 && !grantedIds.add(specialty.getId())) continue;
+            granted.add(specialty);
+        }
+        return granted;
+    }
+
+    private boolean isHandAbilitySourceWeapon(DataItemEquipment weapon) {
+        return weapon != null
+                && weapon.isEquipped()
+                && weapon.getIid() != UNARMED_PROWESS_ITEM_IID;
+    }
+
+    private DataSpecialty createHandAbilitySpecialty(StoreRuleManager dq, DataExo exo) {
+        if (exo == null || dq == null || exo.getSpecialty() <= 0) return null;
+        DataSpecialty existing = dq.getSpecialtyById(exo.getSpecialty());
+        if (existing == null || existing.getName() == null || existing.getName().isBlank()) return null;
+        DataSpecialty specialty = new DataSpecialty(existing);
+        specialty.setRefName(HAND_ABILITIES_SPECIALTY);
+        return specialty;
     }
 
     /** Rebuilds equipment passive statuses from currently equipped inventory items. */
@@ -2091,6 +3146,126 @@ public class StoreCharData {
             }
         }
         return null;
+    }
+
+    private void syncDivineAttunementGrants() {
+        if (training == null || inventory == null) return;
+        if (divineAttunementGrantedAffinities == null) {
+            divineAttunementGrantedAffinities = new ArrayList<>();
+        }
+        if (divineAttunementGrantedWeaponProficiency == null) {
+            divineAttunementGrantedWeaponProficiency = "";
+        }
+
+        LinkedHashSet<String> previousAffinityGrants = new LinkedHashSet<>();
+        for (String affinity : divineAttunementGrantedAffinities) {
+            String normalizedAffinity = normalizeDivineAttunementAffinity(affinity);
+            if (normalizedAffinity != null) {
+                previousAffinityGrants.add(normalizedAffinity);
+            }
+        }
+
+        LinkedHashSet<String> currentAffinityGrants = new LinkedHashSet<>();
+        String currentWeaponGrant = "";
+        if (hasSpecialty(DIVINE_ATTUNEMENT_SPECIALTY)) {
+            DataDeity deity = resolveSelectedDeity();
+            if (deity != null) {
+                for (String domainName : resolveDeityDomains(deity)) {
+                    String affinityName = normalizeDivineAttunementAffinity(domainName);
+                    if (affinityName != null) {
+                        currentAffinityGrants.add(affinityName);
+                    }
+                }
+                if (deity.getWeapon() != null && !deity.getWeapon().isBlank()) {
+                    currentWeaponGrant = deity.getWeapon().trim();
+                }
+            }
+        }
+
+        for (String affinity : previousAffinityGrants) {
+            if (!containsIgnoreCase(currentAffinityGrants, affinity)) {
+                adjustAuraAffinityTrainingRank(affinity, -1);
+            }
+        }
+        for (String affinity : currentAffinityGrants) {
+            if (!containsIgnoreCase(previousAffinityGrants, affinity)) {
+                adjustAuraAffinityTrainingRank(affinity, 1);
+            }
+        }
+
+        divineAttunementGrantedAffinities.clear();
+        divineAttunementGrantedAffinities.addAll(currentAffinityGrants);
+
+        if (!currentWeaponGrant.isBlank() && !hasWeaponProficiencyIgnoreCase(currentWeaponGrant)) {
+            inventory.addWeaponProficiency(currentWeaponGrant);
+        }
+        divineAttunementGrantedWeaponProficiency = currentWeaponGrant;
+    }
+
+    private void adjustAuraAffinityTrainingRank(String affinity, int delta) {
+        if (training == null || affinity == null || affinity.isBlank() || delta == 0) return;
+
+        String trainingName = "Aura Affinity (" + affinity.trim() + ")";
+        DataTraining auraAffinity = training.getTrainingByName(trainingName);
+        if (auraAffinity == null && delta > 0) {
+            DataTraining template = findRuleTrainingByName(trainingName);
+            if (template == null) return;
+            auraAffinity = new DataTraining(template);
+            auraAffinity.setRank(0);
+            auraAffinity.setExp(0.0);
+            auraAffinity.setAl(0);
+            training.addTraining(auraAffinity);
+        }
+        if (auraAffinity == null) return;
+
+        int newRank = Math.max(0, auraAffinity.getRank() + delta);
+        auraAffinity.setRank(newRank);
+        if (newRank <= 0 && auraAffinity.getExp() <= 0.0 && auraAffinity.getAl() <= 0) {
+            training.removeTraining(auraAffinity.getAffinity(), auraAffinity);
+        }
+    }
+
+    private String normalizeDivineAttunementAffinity(String domainName) {
+        if (domainName == null || domainName.isBlank()) return null;
+        String trimmed = domainName.trim();
+        return isNamedAffinity(trimmed) ? trimmed : null;
+    }
+
+    private List<String> resolveDeityDomains(DataDeity deity) {
+        ArrayList<String> resolved = new ArrayList<>();
+        if (deity == null) return resolved;
+        for (String entry : deity.getDomains()) {
+            if (entry == null || entry.isBlank()) continue;
+            String[] split = entry.split(":");
+            for (String token : split) {
+                if (token == null) continue;
+                String trimmed = token.trim();
+                if (!trimmed.isBlank()) {
+                    resolved.add(trimmed);
+                }
+            }
+        }
+        return resolved;
+    }
+
+    private boolean containsIgnoreCase(Iterable<String> values, String target) {
+        if (values == null || target == null) return false;
+        for (String value : values) {
+            if (value != null && value.equalsIgnoreCase(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasWeaponProficiencyIgnoreCase(String proficiency) {
+        if (inventory == null || proficiency == null || proficiency.isBlank()) return false;
+        for (String entry : inventory.getWeaponProficiencies()) {
+            if (entry != null && entry.equalsIgnoreCase(proficiency.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Rebuilds passive specialty statuses from the currently owned specialties. */
@@ -2223,13 +3398,118 @@ public class StoreCharData {
         syncDomainEmanationReminderSelection();
     }
     @JsonIgnore
+    public double getDomainEmanationRange() {
+        if (attributes == null) return 5.0;
+        double range = Math.max(0.0, attributes.calcStatusValue("RANGE"));
+        double area = Math.max(0.0, attributes.calcStatusValue("AREA"));
+        return 5.0 + Math.sqrt(range) * area;
+    }
+
+    @JsonIgnore
+    public String getDomainEmanationReminderText() {
+        return DOMAIN_EMANATION_PREFIX + formatSenseRadius(getDomainEmanationRange()) + "ft";
+    }
+
+    @JsonIgnore
     public boolean hasPaladinDomainEmanationAccess() {
         if (identity == null || specials == null) return false;
         if (!"Paladin".equalsIgnoreCase(identity.getCharClass())) return false;
-        return specials.hasSpecialty(HOLY_DOMAIN_SPECIALTY) || specials.hasSpecialty(DOMAIN_EMANATION_SPECIALTY);
+        return specials.hasSpecialty(HOLY_DOMAIN_SPECIALTY)
+                || specials.hasSpecialty(HOLY_DOMAIN_EMANATION_SPECIALTY)
+                || specials.hasSpecialty(DOMAIN_EMANATION_SPECIALTY);
     }
     public String getPanelReminder()     { return panelReminder; }
     public void setPanelReminder(String panelReminder) { this.panelReminder = panelReminder == null ? "" : panelReminder; }
+    @JsonIgnore
+    public List<String> getActiveMentalNetworkChannels() {
+        if (activeMentalNetworkChannels == null) return List.of();
+        return List.copyOf(activeMentalNetworkChannels);
+    }
+    @JsonIgnore
+    public void setActiveMentalNetworkChannels(List<String> channels) {
+        if (activeMentalNetworkChannels == null) {
+            activeMentalNetworkChannels = new ArrayList<>();
+        } else {
+            activeMentalNetworkChannels.clear();
+        }
+        if (channels == null) return;
+        LinkedHashSet<String> uniqueChannels = new LinkedHashSet<>();
+        for (String channel : channels) {
+            String trimmed = safeTrim(channel);
+            if (!trimmed.isBlank()) {
+                uniqueChannels.add(trimmed);
+            }
+        }
+        activeMentalNetworkChannels.addAll(uniqueChannels);
+    }
+    @JsonIgnore
+    public void clearActiveMentalNetworkChannels() {
+        if (activeMentalNetworkChannels == null) {
+            activeMentalNetworkChannels = new ArrayList<>();
+            return;
+        }
+        activeMentalNetworkChannels.clear();
+    }
+    @JsonIgnore
+    public List<String> getActiveEtherealAttunements() {
+        if (activeEtherealAttunements == null) return List.of();
+        return List.copyOf(activeEtherealAttunements);
+    }
+    @JsonIgnore
+    public void setActiveEtherealAttunements(List<String> attunements) {
+        if (activeEtherealAttunements == null) {
+            activeEtherealAttunements = new ArrayList<>();
+        } else {
+            activeEtherealAttunements.clear();
+        }
+        if (attunements == null) return;
+        LinkedHashSet<String> uniqueAttunements = new LinkedHashSet<>();
+        for (String attunement : attunements) {
+            String trimmed = safeTrim(attunement);
+            if (!trimmed.isBlank()) {
+                uniqueAttunements.add(trimmed);
+            }
+        }
+        activeEtherealAttunements.addAll(uniqueAttunements);
+    }
+    @JsonIgnore
+    public void clearActiveEtherealAttunements() {
+        if (activeEtherealAttunements == null) {
+            activeEtherealAttunements = new ArrayList<>();
+            return;
+        }
+        activeEtherealAttunements.clear();
+    }
+    @JsonIgnore
+    public List<String> getActiveMetalManifestations() {
+        if (activeMetalManifestations == null) return List.of();
+        return List.copyOf(activeMetalManifestations);
+    }
+    @JsonIgnore
+    public void setActiveMetalManifestations(List<String> metals) {
+        if (activeMetalManifestations == null) {
+            activeMetalManifestations = new ArrayList<>();
+        } else {
+            activeMetalManifestations.clear();
+        }
+        if (metals == null) return;
+        LinkedHashSet<String> uniqueMetals = new LinkedHashSet<>();
+        for (String metal : metals) {
+            String trimmed = safeTrim(metal);
+            if (!trimmed.isBlank()) {
+                uniqueMetals.add(trimmed);
+            }
+        }
+        activeMetalManifestations.addAll(uniqueMetals);
+    }
+    @JsonIgnore
+    public void clearActiveMetalManifestations() {
+        if (activeMetalManifestations == null) {
+            activeMetalManifestations = new ArrayList<>();
+            return;
+        }
+        activeMetalManifestations.clear();
+    }
     private void resetReminderBuckets() {
         raceReminderLines = new ArrayList<>();
         classReminderLines = new ArrayList<>();
@@ -2304,7 +3584,10 @@ public class StoreCharData {
         clearEquipmentPassiveBonuses();
 
         List<DataItemEquipment> equippedItems = inventory.getEquipment();
-        if (equippedItems == null || equippedItems.isEmpty()) return;
+        if (equippedItems == null || equippedItems.isEmpty()) {
+            syncHandAbilitySpecialties();
+            return;
+        }
         boolean equipmentEvocation = hasEquipmentEvocationSpecialty();
 
         int idx = 0;
@@ -2336,6 +3619,7 @@ public class StoreCharData {
         if (equipmentEvocation) {
             applyEquipmentEvocationArmorBonuses();
         }
+        syncHandAbilitySpecialties();
     }
 
     private void applyEquipmentEvocationArmorBonuses() {
@@ -2452,6 +3736,34 @@ public class StoreCharData {
         return trimmed;
     }
 
+    public void clearMoldingManifestItems() {
+        if (inventory == null) return;
+
+        ArrayList<DataItemEquipment> equipmentToRemove = new ArrayList<>();
+        for (DataItemEquipment item : inventory.getEquipment()) {
+            if (item != null && isMoldingManifestItem(item.getInote())) {
+                equipmentToRemove.add(item);
+            }
+        }
+        for (DataItemEquipment item : equipmentToRemove) {
+            inventory.removeEquipment(item);
+        }
+
+        ArrayList<DataItem> itemsToRemove = new ArrayList<>();
+        for (DataItem item : inventory.getItems()) {
+            if (item != null && isMoldingManifestItem(item.getInote())) {
+                itemsToRemove.add(item);
+            }
+        }
+        for (DataItem item : itemsToRemove) {
+            inventory.removeItem(item);
+        }
+    }
+
+    public boolean isMoldingManifestItem(String note) {
+        return note != null && note.startsWith(MOLDING_MANIFEST_NOTE_PREFIX);
+    }
+
     /** Clears previously applied equipment passive statuses so updateAll can re-apply from current equip state. */
     private void clearEquipmentPassiveBonuses() {
         if (attributes != null) {
@@ -2535,11 +3847,21 @@ public class StoreCharData {
     private boolean hasLegacyDerivedPassiveSpecialty(DataSpecialty specialty) {
         return specialty != null
                 && specialty.getName() != null
-                && (DIVINE_GRACE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                && (DIVINE_ATTUNEMENT_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || DIVINE_GRACE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
                 || DIVINE_ENLIGHTENMENT_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
                 || DIVINE_DEDICATION_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
                 || MARTIAL_FOCUS_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
-                || BALANCE_IN_ALL_THINGS_SPECIALTY.equalsIgnoreCase(specialty.getName().trim()));
+                || BALANCE_IN_ALL_THINGS_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || BREAKER_COMBO_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || ADAPTIVE_TECHNIQUE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || ADVANTAGE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || AFFLICTION_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || isDeepeningPoolsSpecialty(specialty)
+                || TOLERANCE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || SPELLSTEAL_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || DRONES_SPECIALTY.equalsIgnoreCase(specialty.getName().trim())
+                || OVERCHARGE_SPECIALTY.equalsIgnoreCase(specialty.getName().trim()));
     }
 
     private void clearSpecialtyPassiveBonuses() {
@@ -2575,6 +3897,7 @@ public class StoreCharData {
             clearStatusPrefix(resources.getBaseReactions(), SPECIALTY_PASSIVE_PREFIX);
             clearStatusPrefix(resources.getMultiReactions(), SPECIALTY_PASSIVE_PREFIX);
         }
+        clearCombatSizeStatusesByPrefix(SPECIALTY_PASSIVE_PREFIX);
     }
 
     private List<DataStatus> collectSpecialtyPermStatuses(StoreRuleManager dq, DataSpecialty specialty) {
@@ -2622,6 +3945,8 @@ public class StoreCharData {
 
         if (DIVINE_VOW_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildDivineVowStatuses(specialty));
+        } else if (DIVINE_ATTUNEMENT_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildDivineAttunementStatuses(specialty));
         } else if (DIVINE_GRACE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildDivineGraceStatuses(specialty));
         } else if (DIVINE_ENLIGHTENMENT_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
@@ -2635,6 +3960,8 @@ public class StoreCharData {
             legacyStatuses.addAll(buildCombatDisciplineOneStatuses(specialty));
         } else if (COMBAT_DISCIPLINE_II_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildCombatDisciplineTwoStatuses(specialty));
+        } else if (SHARP_SENSES_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildSharpSensesStatuses(specialty));
         } else if (STANCE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildStanceStatuses(specialty));
         } else if (SNIPERS_DOMAIN_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
@@ -2647,10 +3974,36 @@ public class StoreCharData {
             legacyStatuses.addAll(buildEscapeArtisanStatuses(specialty));
         } else if (EVASION_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildEvasionStatuses(specialty));
+        } else if (BREAKER_COMBO_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildBreakerComboStatuses(specialty));
+        } else if (ADAPTIVE_TECHNIQUE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildAdaptiveTechniqueStatuses(specialty));
+        } else if (ADVANTAGE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildAdvantageStatuses(specialty));
+        } else if (AFFLICTION_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildAfflictionStatuses(specialty));
+        } else if (isDeepeningPoolsSpecialty(specialty)) {
+            legacyStatuses.addAll(buildDeepeningPoolsStatuses(specialty));
+        } else if (CRITICAL_MASS_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildCriticalMassStatuses(specialty));
+        } else if (TOLERANCE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildToleranceStatuses(specialty));
         } else if (ARMOR_DEPENDENCY_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildArmorDependencyStatuses(specialty));
+        } else if (FULLMETAL_MECHANIC_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildFullmetalMechanicStatuses(specialty));
+        } else if (CUSTOM_RIG_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildCustomRigStatuses(specialty));
+        } else if (SHOULDER_HARDPOINT_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildShoulderHardpointStatuses(specialty));
+        } else if (DRONES_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildDronesStatuses(specialty));
+        } else if (OVERCHARGE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildOverchargeStatuses(specialty));
         } else if (BOND_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildBondStatuses(specialty));
+        } else if (SPELLSTEAL_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            legacyStatuses.addAll(buildSpellstealStatuses(specialty));
         } else if (MODULAR_FORM_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
             legacyStatuses.addAll(buildModularFormStatuses(specialty));
         }
@@ -2658,6 +4011,36 @@ public class StoreCharData {
         // TODO: add explicit legacy mappings for passive specialties whose effects are still
         // only documented in description text instead of encoded as permStatus payloads.
         return legacyStatuses;
+    }
+
+    private boolean isDeepeningPoolsSpecialty(DataSpecialty specialty) {
+        if (specialty == null || specialty.getName() == null || specialty.getName().isBlank()) return false;
+        String specialtyName = specialty.getName().trim();
+        if (DEEPENING_POOLS_SPECIALTY.equalsIgnoreCase(specialtyName)) return true;
+        String prefix = DEEPENING_POOLS_SPECIALTY + " ";
+        return specialtyName.regionMatches(true, 0, prefix, 0, prefix.length());
+    }
+
+    private List<DataStatus> buildDeepeningPoolsStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+
+        // AURAMULTI specialty statuses apply as MULTIAURA += CAP * severity (0.25% per CAP).
+        statuses.add(buildLegacyPassiveStatus(specialty, "AURAMULTI", 0.0025,
+                "Increases Aura per CAP by 0.25%"));
+        return statuses;
+    }
+
+    private List<DataStatus> buildCriticalMassStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || combat == null) return statuses;
+
+        double auraSpentThisTurn = Math.max(0.0, combat.getAuraSpentThisTurn());
+        if (auraSpentThisTurn <= 0.0) return statuses;
+
+        statuses.add(buildLegacyPassiveStatus(specialty, "CRITDMG", auraSpentThisTurn * 0.01,
+                "Critical Mass increases critical damage by 1% per aura spent this turn."));
+        return statuses;
     }
 
     private List<DataStatus> buildDivineVowStatuses(DataSpecialty specialty) {
@@ -2698,6 +4081,29 @@ public class StoreCharData {
         statuses.add(buildLegacyPassiveStatus(specialty, "DEF", severity, "Divine Grace level-based Defense bonus"));
         statuses.add(buildLegacyPassiveStatus(specialty, "ATK", severity, "Divine Grace level-based Attack bonus"));
         statuses.add(buildLegacyPassiveStatus(specialty, "APPLY", severity, "Divine Grace level-based Apply bonus"));
+        return statuses;
+    }
+
+    private List<DataStatus> buildDivineAttunementStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+
+        DataDeity deity = resolveSelectedDeity();
+        if (deity == null) return statuses;
+
+        LinkedHashSet<String> uniqueDomains = new LinkedHashSet<>(resolveDeityDomains(deity));
+        for (String domainName : uniqueDomains) {
+            if (domainName == null || domainName.isBlank() || isNamedAffinity(domainName)) continue;
+            if ("Life".equalsIgnoreCase(domainName)) {
+                statuses.add(buildLegacyPassiveStatus(specialty, "HPMULTI", 0.05,
+                        "Divine Attunement Life domain HP multiplier bonus"));
+            } else if ("Space".equalsIgnoreCase(domainName)) {
+                statuses.add(buildLegacyPassiveStatus(specialty, "MOVE", 5.0,
+                        "Divine Attunement Space domain movement bonus"));
+                statuses.add(buildLegacyPassiveStatus(specialty, "RANGE", 5.0,
+                        "Divine Attunement Space domain range bonus"));
+            }
+        }
         return statuses;
     }
 
@@ -2859,6 +4265,19 @@ public class StoreCharData {
         return buildCombatDisciplineOneStatuses(specialty);
     }
 
+    private List<DataStatus> buildSharpSensesStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || attributes == null) return statuses;
+
+        double focusValue = Math.max(0.0, attributes.calcStatusValue("FOC"));
+        double reactBonus = focusValue * 0.10;
+        if (reactBonus <= 0.0) return statuses;
+
+        statuses.add(buildLegacyPassiveStatus(specialty, "REACT", reactBonus,
+                "Sharp Senses reaction bonus based on Focus"));
+        return statuses;
+    }
+
     private List<DataStatus> buildSnipersDomainStatuses(DataSpecialty specialty) {
         ArrayList<DataStatus> statuses = new ArrayList<>();
         if (specialty == null || identity == null) return statuses;
@@ -2896,6 +4315,25 @@ public class StoreCharData {
         return statuses;
     }
 
+    private List<DataStatus> buildSpellstealStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+        int durationTurns = getSpellstealDurationTurns();
+        statuses.add(buildLegacyReminderStatus(specialty,
+                "Spellsteal: Whenever you deal damage to an enemy, provoke a WILL save. If the target fails, "
+                        + "obtain one of their beneficial effects for "
+                        + durationTurns + (durationTurns == 1 ? " turn" : " turns")
+                        + " (10% of DEX). The enemy may not reactivate the effect until the duration expires."));
+        return statuses;
+    }
+
+    @JsonIgnore
+    public int getSpellstealDurationTurns() {
+        if (attributes == null) return 1;
+        double dexValue = Math.max(0.0, attributes.calcStatusValue("DEX"));
+        return Math.max(1, (int) Math.ceil(dexValue * 0.1));
+    }
+
     private List<DataStatus> buildModularFormStatuses(DataSpecialty specialty) {
         ArrayList<DataStatus> statuses = new ArrayList<>();
         if (specialty == null || identity == null) return statuses;
@@ -2925,6 +4363,74 @@ public class StoreCharData {
         if (specialty == null) return statuses;
         statuses.add(buildLegacyReminderStatus(specialty,
                 "Evasion: When you succeed on a save that would reduce damage, that damage is negated instead."));
+        return statuses;
+    }
+
+    private List<DataStatus> buildBreakerComboStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || identity == null) return statuses;
+
+        double level = Math.max(0, identity.getLevel());
+        int attackCount = combat == null ? 0 : Math.max(0, combat.getBreakerComboAttacksThisTurn());
+        double severity = 0.5 * level * (1.0 + attackCount);
+        if (severity <= 0.0) return statuses;
+
+        statuses.add(buildLegacyPassiveStatus(specialty, "CRUSH", severity,
+                "Breaker Combo level-based crush bonus plus per-attack stacks until end of turn"));
+        return statuses;
+    }
+
+    private List<DataStatus> buildAdaptiveTechniqueStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || combat == null) return statuses;
+
+        String[] defenseKeys = {"DEF", "DODGE", "FORT", "REF", "WILL"};
+        for (String defenseKey : defenseKeys) {
+            int severity = Math.max(0, combat.getAdaptiveTechniqueBonus(defenseKey));
+            if (severity <= 0) continue;
+            statuses.add(buildLegacyPassiveStatus(specialty, defenseKey, severity,
+                    "Adaptive Technique runtime bonus from prior incoming attacks and saves"));
+        }
+        return statuses;
+    }
+
+    private List<DataStatus> buildToleranceStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || identity == null || attributes == null) return statuses;
+        if (identity.getLevel() < 5) return statuses;
+
+        String subclassName = identity.getCharSubclass();
+        if (subclassName == null || !subclassName.trim().equalsIgnoreCase("Brawler")) {
+            return statuses;
+        }
+
+        double strength = Math.max(0.0, attributes.calcStatusValue("STR"));
+        statuses.add(buildLegacyPassiveStatus(specialty, "DEF", strength * 0.1,
+                "Tolerance Brawler defense bonus based on Strength"));
+        return statuses;
+    }
+
+    private List<DataStatus> buildAdvantageStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || attributes == null) return statuses;
+
+        double strength = Math.max(0.0, attributes.calcStatusValue("STR"));
+        statuses.add(buildLegacyPassiveStatus(specialty, "SUP", strength * 0.2,
+                "Advantage Support bonus based on Strength"));
+        statuses.add(buildLegacyPassiveStatus(specialty, "GRANT", strength * 0.1,
+                "Advantage Grant bonus based on Strength"));
+        return statuses;
+    }
+
+    private List<DataStatus> buildAfflictionStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || attributes == null) return statuses;
+
+        double dexterity = Math.max(0.0, attributes.calcStatusValue("DEX"));
+        statuses.add(buildLegacyPassiveStatus(specialty, "IMP", dexterity * 0.2,
+                "Affliction Impairment bonus based on Dexterity"));
+        statuses.add(buildLegacyPassiveStatus(specialty, "APPLY", dexterity * 0.1,
+                "Affliction Apply bonus based on Dexterity"));
         return statuses;
     }
 
@@ -3011,6 +4517,97 @@ public class StoreCharData {
         return statuses;
     }
 
+    private List<DataStatus> buildFullmetalMechanicStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null || identity == null) return statuses;
+        double mechBonus = Math.max(0, identity.getLevel() / 3);
+        if (mechBonus > 0.0) {
+            statuses.add(buildLegacyPassiveStatus(specialty, "MECH", mechBonus,
+                    "Fullmetal Mechanic level-based MECH bonus"));
+        }
+        statuses.add(buildLegacyReminderStatus(specialty,
+                "Fullmetal Mechanic: Repair attribute modifier is x2.5 when repairing your own Exosuit."));
+        return statuses;
+    }
+
+    private List<DataStatus> buildCustomRigStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+        statuses.add(buildLegacyReminderStatus(specialty,
+                "Custom Rig: Equipment used by this pilot is treated as tier ((Tier × 2) + 1) for enhancement targets, including aura enhancement such as enchanting and gemwork."));
+        return statuses;
+    }
+
+    private List<DataStatus> buildOverchargeStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+        double bonus = getOverchargeDamageMultiplierBonus();
+        String bonusText = formatPassiveReminderNumber(bonus);
+        if (isOverchargeActive()) {
+            statuses.add(buildLegacyReminderStatus(specialty,
+                    "Overcharge is active until end of turn: class ability costs are doubled, and associated attacks gain +"
+                            + bonusText + " damage multiplier."));
+        } else {
+            statuses.add(buildLegacyReminderStatus(specialty,
+                    "Overcharge: Aura Action. Until end of turn, class ability costs are doubled and associated attacks gain +"
+                            + bonusText + " damage multiplier (+0.5 per class level)."));
+        }
+        return statuses;
+    }
+
+    private List<DataStatus> buildDronesStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+        double bonus = getDroneBonusAmount();
+        String bonusText = formatPassiveReminderNumber(bonus);
+        int current = getDrones().size();
+        int max = getMaxDroneCount();
+        StringBuilder reminder = new StringBuilder();
+        reminder.append("Drones: ").append(current).append(" / ").append(max)
+                .append(" controlled. Deploy as an Aura Action (occupies 1 Charge). ");
+        reminder.append("Attack +").append(bonusText).append(" ATK, Defense +")
+                .append(bonusText).append(" AC (1/4 PRIM).");
+        if (current > 0) {
+            reminder.append(" Active:");
+            for (CharDrone drone : getDrones()) {
+                if (drone == null) continue;
+                reminder.append(" [").append(drone.getType()).append(" on ")
+                        .append(drone.getTarget() == null ? "?" : drone.getTarget())
+                        .append(" — ").append(drone.isActive() ? "applying" : "returned");
+                if (drone.isReturned() && !drone.isCanRedeploy()) {
+                    reminder.append(", next turn");
+                }
+                reminder.append("]");
+            }
+        }
+        statuses.add(buildLegacyReminderStatus(specialty, reminder.toString()));
+
+        for (CharDrone drone : getDrones()) {
+            if (drone == null || !drone.isActive() || !isSelfDroneTarget(drone.getTarget())) continue;
+            if (drone.isAttack() && bonus > 0.0) {
+                statuses.add(buildLegacyPassiveStatus(specialty, "ATK", bonus,
+                        DRONE_PASSIVE_PREFIX + "Attack drone bonus to hit"));
+            } else if (drone.isDefense() && bonus > 0.0) {
+                statuses.add(buildLegacyPassiveStatus(specialty, "DEF", bonus,
+                        DRONE_PASSIVE_PREFIX + "Defense drone bonus to AC"));
+            }
+        }
+        return statuses;
+    }
+
+    private List<DataStatus> buildShoulderHardpointStatuses(DataSpecialty specialty) {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        if (specialty == null) return statuses;
+        int hardpoints = getShoulderHardpointCount();
+        statuses.add(buildLegacyReminderStatus(specialty,
+                "Shoulder Hardpoint: " + hardpoints + " shoulder-mounted weapon slot"
+                        + (hardpoints == 1 ? "" : "s")
+                        + " on your Exosuit"
+                        + (hardpoints < 2 ? " (a second hardpoint at level 13)" : "")
+                        + "."));
+        return statuses;
+    }
+
     private String extractSpecialtyChoiceValue(String refName) {
         if (refName == null) return "";
         String trimmed = refName.trim();
@@ -3051,7 +4648,16 @@ public class StoreCharData {
     private boolean matchesFeatureName(String featureName, String specialtyName) {
         if (featureName == null || specialtyName == null) return false;
         if (featureName.equalsIgnoreCase(specialtyName)) return true;
-        return isCombatDisciplineAliasName(featureName) && isCombatDisciplineAliasName(specialtyName);
+        return (isCombatDisciplineAliasName(featureName) && isCombatDisciplineAliasName(specialtyName))
+                || (isHolyDomainAliasName(featureName) && isHolyDomainAliasName(specialtyName));
+    }
+
+    private boolean isHolyDomainAliasName(String name) {
+        if (name == null || name.isBlank()) return false;
+        String trimmed = name.trim();
+        return HOLY_DOMAIN_SPECIALTY.equalsIgnoreCase(trimmed)
+                || HOLY_DOMAIN_EMANATION_SPECIALTY.equalsIgnoreCase(trimmed)
+                || DOMAIN_EMANATION_SPECIALTY.equalsIgnoreCase(trimmed);
     }
 
     private boolean isCombatDisciplineAliasName(String name) {
@@ -3170,6 +4776,10 @@ public class StoreCharData {
         if (applySpecialtyMultiplierAliases(uniqueName, attr, permStatus.getSeverity(), description)) {
             return;
         }
+        if (isSizeAttribute(attr) || isSizeAttribute(normalizeAttrKey(attr))) {
+            upsertCombatSizeStatus(uniqueName, permStatus.getSeverity(), description, "Passive");
+            return;
+        }
 
         String normalizedAttr = normalizeAttrKey(attr);
         String category = resolveCategory(normalizedAttr);
@@ -3188,9 +4798,9 @@ public class StoreCharData {
     private boolean applySpecialtyResourceStatus(StoreRuleManager dq, String uniqueName, String attribute, double severity, String description) {
         String normalizedAttribute = attribute == null ? "" : attribute.trim().toUpperCase();
         String resourceAttribute = switch (normalizedAttribute) {
-            case "BASEHPM", "MAXHP" -> "BASEHP";
+            case "BASEHP", "BASEHPM", "MAXHP" -> "BASEHP";
             case "HPMULTI" -> "MULTIHP";
-            case "BASEAURAM", "MAXAURA" -> "BASEAURA";
+            case "BASEAURA", "BASEAURAM", "MAXAURA" -> "BASEAURA";
             case "AURAMULTI" -> "MULTIAURA";
             case "REACT" -> "BASEREACT";
             case "R1" -> "BASER1";
@@ -3206,16 +4816,24 @@ public class StoreCharData {
         if (resourceAttribute == null) return false;
 
         double computedSeverity = severity;
-        if ("BASEHPM".equals(normalizedAttribute)) {
-            if (dq == null || identity == null) return false;
-            DataLevel dataLevel = dq.getLevel(identity.getLevel());
-            if (dataLevel == null) return false;
-            computedSeverity = dataLevel.getBaseHP() * severity;
-        } else if ("BASEAURAM".equals(normalizedAttribute)) {
-            if (dq == null || identity == null) return false;
-            DataLevel dataLevel = dq.getLevel(identity.getLevel());
-            if (dataLevel == null) return false;
-            computedSeverity = dataLevel.getBaseAura() * severity;
+        if ("BASEHP".equals(normalizedAttribute)
+                || "BASEHPM".equals(normalizedAttribute)
+                || "MAXHP".equals(normalizedAttribute)) {
+            double levelBase = resolveLevelScaledBaseResource(dq, resourceAttribute);
+            if (levelBase <= 0.0) return false;
+            computedSeverity = levelBase * severity;
+        } else if ("HPMULTI".equals(normalizedAttribute)) {
+            if (attributes == null) return false;
+            computedSeverity = attributes.calcStatusValue("CON") * severity;
+        } else if ("BASEAURA".equals(normalizedAttribute)
+                || "BASEAURAM".equals(normalizedAttribute)
+                || "MAXAURA".equals(normalizedAttribute)) {
+            double levelBase = resolveLevelScaledBaseResource(dq, resourceAttribute);
+            if (levelBase <= 0.0) return false;
+            computedSeverity = levelBase * severity;
+        } else if ("AURAMULTI".equals(normalizedAttribute)) {
+            if (attributes == null) return false;
+            computedSeverity = attributes.calcStatusValue("CAP") * severity;
         }
 
         DataStatus copy = new DataStatus();
@@ -3471,12 +5089,13 @@ public class StoreCharData {
             boolean passiveTech = "Passive".equalsIgnoreCase(tech.getType());
             boolean maintainedTech = "Maintained".equalsIgnoreCase(tech.getType());
             if (!passiveTech && !maintainedTech) continue;
-            if (maintainedTech) continue;
+            // Maintained techniques scale from active level (AL), restored from the active loadout
+            // before this runs, so every character-sheet tab shows the same HP/Aura totals.
             if (tech.getStatusScaleLevel() <= 0) continue;
             List<DataStatus> perms = collectTrainingPermStatuses(dq, tech);
             if (perms.isEmpty()) continue;
             for (DataStatus ps : perms) {
-                applyTrainingPermStatus(tech, ps);
+                applyTrainingPermStatus(dq, tech, ps);
             }
         }
     }
@@ -3532,7 +5151,7 @@ public class StoreCharData {
         return copies;
     }
 
-    private void applyTrainingPermStatus(DataTraining tech, DataStatus permStatus) {
+    private void applyTrainingPermStatus(StoreRuleManager dq, DataTraining tech, DataStatus permStatus) {
         if (tech == null || permStatus == null || permStatus.getAttribute() == null) return;
         if (isReminderStatus(permStatus)) {
             appendOtherReminderStatus(permStatus);
@@ -3547,10 +5166,14 @@ public class StoreCharData {
         String description = permStatus.getDescription() == null || permStatus.getDescription().isBlank()
                 ? "Training passive bonus"
                 : permStatus.getDescription();
-        if (applyTrainingResourceStatus(uniqueName, attr, severity, durationType, description)) {
+        if (applyTrainingResourceStatus(dq, uniqueName, attr, severity, durationType, description)) {
             return;
         }
         if (applyTrainingMultiplierAliases(uniqueName, attr, severity, durationType, description)) {
+            return;
+        }
+        if (isSizeAttribute(attr) || isSizeAttribute(permStatus.getAttribute())) {
+            upsertCombatSizeStatus(uniqueName, severity, description, durationType);
             return;
         }
 
@@ -3566,8 +5189,9 @@ public class StoreCharData {
         attributes.addStatus(copy);
     }
 
-    private boolean applyTrainingResourceStatus(String uniqueName, String attribute, double severity, String durationType, String description) {
-        String resourceAttribute = switch (attribute) {
+    private boolean applyTrainingResourceStatus(StoreRuleManager dq, String uniqueName, String attribute, double severity, String durationType, String description) {
+        String normalizedAttribute = attribute == null ? "" : attribute.trim().toUpperCase(Locale.ROOT);
+        String resourceAttribute = switch (normalizedAttribute) {
             case "MAXHP" -> "BASEHP";
             case "HPMULTI" -> "MULTIHP";
             case "MAXAURA" -> "BASEAURA";
@@ -3580,15 +5204,41 @@ public class StoreCharData {
         };
         if (resourceAttribute == null) return false;
 
+        double computedSeverity = severity;
+        if ("MAXHP".equals(normalizedAttribute) || "MAXAURA".equals(normalizedAttribute)) {
+            double levelBase = resolveLevelScaledBaseResource(dq, resourceAttribute);
+            if (levelBase <= 0.0) return false;
+            computedSeverity = levelBase * severity;
+        }
+
         DataStatus copy = new DataStatus();
         copy.setName(uniqueName);
         copy.setAttribute(resourceAttribute);
         copy.setDurationType(durationType);
-        copy.setSeverity(severity);
+        copy.setSeverity(computedSeverity);
         copy.setAffinity("None");
         copy.setDescription(description);
         resources.addStatus(copy);
         return true;
+    }
+
+    private double resolveLevelScaledBaseResource(StoreRuleManager dq, String resourceAttribute) {
+        if (dq == null || identity == null || resourceAttribute == null || resourceAttribute.isBlank()) return 0.0;
+        DataLevel dataLevel = dq.getLevel(identity.getLevel());
+        if (dataLevel == null) return 0.0;
+
+        DataClass effectiveClass = resolveEffectiveClass(dq);
+        double scaling = switch (resourceAttribute.toUpperCase(Locale.ROOT)) {
+            case "BASEHP" -> effectiveClass != null ? effectiveClass.getHpScaling() : 1.0;
+            case "BASEAURA" -> effectiveClass != null ? effectiveClass.getAuraScaling() : 1.0;
+            default -> 1.0;
+        };
+
+        return switch (resourceAttribute.toUpperCase(Locale.ROOT)) {
+            case "BASEHP" -> dataLevel.getBaseHP() * scaling;
+            case "BASEAURA" -> dataLevel.getBaseAura() * scaling;
+            default -> 0.0;
+        };
     }
 
     private boolean applyTrainingMultiplierAliases(String uniqueName, String attribute, double severity, String durationType, String description) {
@@ -3639,6 +5289,7 @@ public class StoreCharData {
         if ("APPLY".equals(upper)) return "APP";
         if ("IMPAIR".equals(upper)) return "IMP";
         if ("RESPHY".equals(upper)) return "PHY";
+        if ("RESDISP".equals(upper) || "RD".equals(upper) || "DISPRES".equals(upper)) return RESDISP_ATTRIBUTE;
         // Strip common "RES" or "RESIST" prefixes so resist tech attributes map correctly
         if (upper.startsWith("RESIST")) {
             return upper.substring("RESIST".length());
@@ -3690,6 +5341,174 @@ public class StoreCharData {
             clearStatusPrefix(resources.getBaseReactions(), TRAINING_STATUS_PREFIX);
             clearStatusPrefix(resources.getMultiReactions(), TRAINING_STATUS_PREFIX);
         }
+        clearCombatSizeStatusesByPrefix(TRAINING_STATUS_PREFIX);
+    }
+
+    /** Clears legacy Maintained-tab-only statuses so they cannot double-stack with updateAll. */
+    private void clearPanelMaintainedStatuses() {
+        if (attributes != null) {
+            clearStatusPrefix(attributes.getBAttributes(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMAttributes(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBDefense(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMDefense(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBResist(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMResist(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBCombat(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMCombat(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBSecondary(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMSecondary(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBDamage(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMDamage(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getBSkill(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(attributes.getMSkill(), PANEL_MAINTAINED_STATUS_PREFIX);
+        }
+        if (resources != null) {
+            clearStatusPrefix(resources.getBaseHP(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiHP(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseAura(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiAura(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource1(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource1(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource2(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource2(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseResource3(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiResource3(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseAngelPoints(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiAngelPoints(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getBaseReactions(), PANEL_MAINTAINED_STATUS_PREFIX);
+            clearStatusPrefix(resources.getMultiReactions(), PANEL_MAINTAINED_STATUS_PREFIX);
+        }
+        clearCombatSizeStatusesByPrefix(PANEL_MAINTAINED_STATUS_PREFIX);
+    }
+
+    /**
+     * Keeps Occupied / Available Aura identical across tabs by deriving occupied aura from
+     * active Maintained ALs and activated Granted loadouts instead of whichever tab last wrote it.
+     */
+    private void syncOccupiedAuraFromActiveTechniques(StoreRuleManager dq) {
+        if (resources == null) return;
+        resources.setMainOccupiedAura(calculateMaintainedOccupiedAura(dq));
+        resources.setGrantOccupiedAura(calculateGrantedOccupiedAura(dq));
+    }
+
+    private double calculateMaintainedOccupiedAura(StoreRuleManager dq) {
+        if (training == null) return 0.0;
+        String activeLoadout = getReminderSelection(MAINTAINED_ACTIVE_LOADOUT_KEY);
+        String normalizedLoadout = sanitizeMaintainedSelectionSegment(
+                activeLoadout == null || activeLoadout.isBlank()
+                        ? DEFAULT_MAINTAINED_LOADOUT.toLowerCase(Locale.ROOT)
+                        : activeLoadout.trim().toLowerCase(Locale.ROOT));
+        double total = 0.0;
+        for (DataTraining tech : training.getAllTraining()) {
+            if (tech == null || !"Maintained".equalsIgnoreCase(tech.getType())) continue;
+            total += calculateTechniqueOccupiedAura(dq, tech, MAINTAINED_LOADOUT_PREFIX, normalizedLoadout, MAINTAINED_ROW_PREFIX);
+        }
+        return Math.max(0.0, total);
+    }
+
+    private double calculateGrantedOccupiedAura(StoreRuleManager dq) {
+        if (training == null) return 0.0;
+        double total = 0.0;
+        for (String loadoutName : getGrantedLoadoutNames()) {
+            if (!isGrantedLoadoutActivated(loadoutName)) continue;
+            String normalizedLoadout = sanitizeMaintainedSelectionSegment(
+                    loadoutName == null || loadoutName.isBlank()
+                            ? DEFAULT_MAINTAINED_LOADOUT.toLowerCase(Locale.ROOT)
+                            : loadoutName.trim().toLowerCase(Locale.ROOT));
+            for (DataTraining tech : training.getAllTraining()) {
+                if (tech == null || !"Maintained".equalsIgnoreCase(tech.getType())) continue;
+                // Granted loadouts store AL against the same maintained technique rows.
+                total += calculateTechniqueOccupiedAura(dq, tech, GRANTED_LOADOUT_PREFIX, normalizedLoadout, GRANTED_ROW_PREFIX);
+            }
+        }
+        return Math.max(0.0, total);
+    }
+
+    private double calculateTechniqueOccupiedAura(StoreRuleManager dq, DataTraining tech,
+            String loadoutPrefix, String normalizedLoadout, String rowPrefix) {
+        if (tech == null) return 0.0;
+        // Granted loadouts default to 0 AL; maintained loadouts fall back to the technique AL.
+        int fallbackAl = GRANTED_LOADOUT_PREFIX.equals(loadoutPrefix) ? 0 : Math.max(0, tech.getAl());
+        boolean isStandardAffinity = "Standard".equalsIgnoreCase(tech.getAffinity())
+                && tech.getGrant() != null && !tech.getGrant().isEmpty();
+        if (isStandardAffinity && dq != null) {
+            double total = 0.0;
+            boolean addedAny = false;
+            for (Integer gid : tech.getGrant()) {
+                if (gid == null || gid <= 0) continue;
+                DataTechPerm perm = dq.getTechPermById(gid);
+                String attr = (perm != null && perm.getAttribute() != null) ? perm.getAttribute() : "None";
+                String rowKey = rowPrefix + tech.getId() + "." + sanitizeMaintainedSelectionSegment(
+                        attr.isBlank() ? "base" : attr.trim().toLowerCase(Locale.ROOT));
+                int al = loadTechniqueRowAl(loadoutPrefix, normalizedLoadout, rowKey, fallbackAl);
+                total += resolveMaintainedCostPerAl(dq, tech, perm) * al;
+                addedAny = true;
+            }
+            if (addedAny) return total;
+        }
+        DataTechPerm perm = resolveFirstTechPerm(dq, tech);
+        String attr = perm != null ? perm.getAttribute() : null;
+        String variant = (attr == null || attr.isBlank()) ? "base" : attr.trim().toLowerCase(Locale.ROOT);
+        String rowKey = rowPrefix + tech.getId() + "." + sanitizeMaintainedSelectionSegment(variant);
+        int al = loadTechniqueRowAl(loadoutPrefix, normalizedLoadout, rowKey, fallbackAl);
+        return resolveMaintainedCostPerAl(dq, tech, perm) * al;
+    }
+
+    private int loadTechniqueRowAl(String loadoutPrefix, String normalizedLoadout, String rowKey, int fallback) {
+        String key = loadoutPrefix + normalizedLoadout + "." + rowKey;
+        String raw = getReminderSelection(key);
+        if (raw == null || raw.isBlank()) return Math.max(0, fallback);
+        try {
+            return Math.max(0, Integer.parseInt(raw.trim()));
+        } catch (NumberFormatException ignored) {
+            return Math.max(0, fallback);
+        }
+    }
+
+    private double resolveMaintainedCostPerAl(StoreRuleManager dq, DataTraining tech, DataTechPerm perm) {
+        if (tech != null && tech.getName() != null) {
+            String name = tech.getName().trim();
+            if (MENTAL_NETWORK_TECHNIQUE.equalsIgnoreCase(name)) return MENTAL_NETWORK_COST_PER_AL;
+            if (ETHEREAL_POCKET_TECHNIQUE.equalsIgnoreCase(name)) return ETHEREAL_POCKET_COST_PER_AL;
+        }
+        if (perm != null) {
+            if (perm.getCost() != 0) return perm.getCost();
+            if (perm.getRatio() != 0) return perm.getRatio();
+        }
+        if (tech != null && tech.hasPlaceholderGrant()) return PLACEHOLDER_GRANT_COST_PER_AL;
+        return 0.0;
+    }
+
+    private DataTechPerm resolveFirstTechPerm(StoreRuleManager dq, DataTraining tech) {
+        if (tech == null || tech.getGrant() == null || dq == null) return null;
+        for (Integer gid : tech.getGrant()) {
+            if (gid == null || gid <= 0) continue;
+            DataTechPerm perm = dq.getTechPermById(gid);
+            if (perm != null) return perm;
+        }
+        return null;
+    }
+
+    private List<String> getGrantedLoadoutNames() {
+        LinkedHashSet<String> names = new LinkedHashSet<>();
+        names.add(DEFAULT_MAINTAINED_LOADOUT);
+        String raw = getReminderSelection(GRANTED_LOADOUT_NAMES_KEY);
+        if (raw != null && !raw.isBlank()) {
+            for (String part : raw.split("\\R")) {
+                if (part == null) continue;
+                String trimmed = part.trim();
+                if (!trimmed.isEmpty()) names.add(trimmed);
+            }
+        }
+        return new ArrayList<>(names);
+    }
+
+    private boolean isGrantedLoadoutActivated(String loadoutName) {
+        String safeLoadout = sanitizeMaintainedSelectionSegment(
+                loadoutName == null || loadoutName.isBlank()
+                        ? DEFAULT_MAINTAINED_LOADOUT.toLowerCase(Locale.ROOT)
+                        : loadoutName.trim().toLowerCase(Locale.ROOT));
+        return Boolean.parseBoolean(getReminderSelection(GRANTED_LOADOUT_ENABLED_PREFIX + safeLoadout));
     }
 
     private void clearStatusPrefix(ArrayList<DataStatus>[][] category, String prefix) {
@@ -3725,11 +5544,44 @@ public class StoreCharData {
         return identity.getLevel();
     }
 
+    /** Multiplier applied to support buff magnitudes: (1 + SUP). */
+    @JsonIgnore
+    public double getSupportEffectMultiplier() {
+        if (attributes == null) return 1.0;
+        return 1.0 + Math.max(0.0, attributes.calcStatusValue("SUP"));
+    }
+
+    /** Scales a support buff base value by (1 + SUP). */
+    @JsonIgnore
+    public double scaleSupportEffect(double baseValue) {
+        return baseValue * getSupportEffectMultiplier();
+    }
+
+    /** Multiplier applied to technique durations: (1 + DUR). */
+    @JsonIgnore
+    public double getDurationEffectMultiplier() {
+        if (attributes == null) return 1.0;
+        return 1.0 + Math.max(0.0, attributes.calcStatusValue("DUR"));
+    }
+
+    /** Scales a technique duration value by (1 + DUR). */
+    @JsonIgnore
+    public double scaleDurationEffect(double baseValue) {
+        return baseValue * getDurationEffectMultiplier();
+    }
+
     @JsonIgnore
     public boolean isIrdonRace() {
         return identity != null
                 && identity.getRace() != null
                 && IRDON_RACE.equalsIgnoreCase(identity.getRace().trim());
+    }
+
+    @JsonIgnore
+    public boolean isGaianRace() {
+        return identity != null
+                && identity.getRace() != null
+                && GAIAN_RACE.equalsIgnoreCase(identity.getRace().trim());
     }
 
     @JsonIgnore
@@ -3869,7 +5721,7 @@ public class StoreCharData {
     private void applySizeSaveModifiers() {
         if (attributes == null || identity == null) return;
 
-        String size = identity.getSize();
+        String size = getEffectiveSize();
         double refSev = 0;
         double fortSev = 0;
         double dodgeSev = 0;
@@ -3891,6 +5743,11 @@ public class StoreCharData {
                     fortSev = 2;
                     dodgeSev = -1;
                     break;
+                case "HUGE":
+                    refSev = -4;
+                    fortSev = 4;
+                    dodgeSev = -2;
+                    break;
                 case "MEDIUM":
                 default:
                     refSev = 0;
@@ -3901,9 +5758,9 @@ public class StoreCharData {
         }
 
         if (combat != null) {
-            String normalized = size == null ? "" : size.trim().toUpperCase();
-            combat.setInvade("TINY".equals(normalized));
-            combat.setReach("LARGE".equals(normalized) ? 5 : 0);
+            int sizeIndex = indexOfSizeCategory(size);
+            combat.setInvade(sizeIndex == 0);
+            combat.setReach(sizeIndex >= 3 ? (sizeIndex - 2) * 5 : 0);
         }
 
         upsertLevelScalerStatus(attributes.getBDefense(), "BREF",
@@ -3930,6 +5787,11 @@ public class StoreCharData {
             collectSpecialtySpecCheckReminders(specCheck, specialty, otherSpecialtyReminderLines);
         }
         appendCombatStatusReminders();
+        appendMaintainedSenseReminders(otherReminderLines);
+        appendMentalNetworkReminderLine(otherReminderLines);
+        appendEtherealAttunementReminderLine(otherReminderLines);
+        appendEtherealPocketReminderLine(otherReminderLines);
+        appendMetalManifestationReminderLine(otherReminderLines);
         appendMoldingReminderLine(otherReminderLines);
         flushReminderBuckets();
     }
@@ -3949,15 +5811,15 @@ public class StoreCharData {
     }
 
     private boolean shouldEmitDomainEmanationReminder(DataSpecialty specialty) {
-        if (specialty == null || specialty.getName() == null || !hasPaladinDomainEmanationAccess()) return false;
+        if (specialty == null || specialty.getName() == null) return false;
         String specialtyName = specialty.getName().trim();
-        return HOLY_DOMAIN_SPECIALTY.equalsIgnoreCase(specialtyName)
+        return HOLY_DOMAIN_EMANATION_SPECIALTY.equalsIgnoreCase(specialtyName)
                 || DOMAIN_EMANATION_SPECIALTY.equalsIgnoreCase(specialtyName);
     }
 
     private void appendDomainEmanationReminderLine(List<String> bucket) {
         if (bucket == null) return;
-        String reminderLine = DOMAIN_EMANATION_REMINDER_KEY + "::On|Off";
+        String reminderLine = getDomainEmanationReminderText();
         if (!bucket.contains(reminderLine)) {
             bucket.add(reminderLine);
         }
@@ -3997,9 +5859,207 @@ public class StoreCharData {
         }
     }
 
+    private void appendMaintainedSenseReminders(List<String> bucket) {
+        if (bucket == null || training == null) return;
+        Map<String, MaintainedSenseReminderData> remindersBySenseName = new LinkedHashMap<>();
+        for (DataTraining tech : training.getAllTraining()) {
+            if (!isActiveMaintainedSenseTechnique(tech)) continue;
+            String senseName = resolveMaintainedSenseReminderName(tech);
+            if (senseName == null || senseName.isBlank()) continue;
+            MaintainedSenseReminderData reminderData = remindersBySenseName.computeIfAbsent(
+                    senseName, ignored -> new MaintainedSenseReminderData());
+            reminderData.add(tech);
+        }
+        for (Map.Entry<String, MaintainedSenseReminderData> entry : remindersBySenseName.entrySet()) {
+            String reminderLine = buildMaintainedSenseReminderLine(entry.getKey(), entry.getValue());
+            if (reminderLine == null || reminderLine.isBlank()) continue;
+            appendReminderLine(bucket, reminderLine);
+        }
+    }
+
+    private void appendMentalNetworkReminderLine(List<String> bucket) {
+        if (bucket == null || training == null) return;
+        DataTraining mentalNetwork = training.getTrainingByName(MENTAL_NETWORK_TECHNIQUE);
+        if (mentalNetwork == null || mentalNetwork.getAl() <= 0) return;
+        List<String> selectedChannels = resolveActiveMentalNetworkChannels();
+        if (selectedChannels.isEmpty()) return;
+        int bandwidth = Math.max(0, mentalNetwork.getAl()) * 2;
+        int creatureCount = resolveMentalNetworkCreatureCount(bandwidth, selectedChannels.size());
+        appendReminderLine(bucket,
+                "Mindlink: Share " + String.join(", ", selectedChannels) + " between " + creatureCount + " creatures and you.");
+    }
+
+    private void appendEtherealAttunementReminderLine(List<String> bucket) {
+        if (bucket == null || training == null) return;
+        DataTraining etherealAttunement = training.getTrainingByName(ETHEREAL_ATTUNEMENT_TECHNIQUE);
+        if (etherealAttunement == null || etherealAttunement.getAl() <= 0) return;
+        List<String> selectedAttunements = resolveActiveEtherealAttunements();
+        if (selectedAttunements.isEmpty()) return;
+        appendReminderLine(bucket,
+                "Attunement: You can " + String.join(", ", selectedAttunements) + " spirits.");
+    }
+
+    private void appendEtherealPocketReminderLine(List<String> bucket) {
+        if (bucket == null || training == null) return;
+        DataTraining etherealPocket = training.getTrainingByName(ETHEREAL_POCKET_TECHNIQUE);
+        if (etherealPocket == null || etherealPocket.getAl() <= 0) return;
+        int volume = Math.max(0, etherealPocket.getAl()) * 10;
+        appendReminderLine(bucket, "Ethereal Pocket: " + volume + " ft^3 volume");
+    }
+
+    private void appendMetalManifestationReminderLine(List<String> bucket) {
+        if (bucket == null || training == null) return;
+        DataTraining metalManifestation = training.getTrainingByName(METAL_MANIFESTATION_TECHNIQUE);
+        if (metalManifestation == null || metalManifestation.getAl() <= 0) return;
+        int manifestationRank = Math.max(0, metalManifestation.getRank());
+        if (manifestationRank <= 0) return;
+        List<String> selectedMetals = resolveActiveMetalManifestations();
+        if (selectedMetals.isEmpty()) return;
+
+        ArrayList<String> manifestedEntries = new ArrayList<>();
+        for (String metal : selectedMetals) {
+            String trimmed = safeTrim(metal);
+            if (!trimmed.isBlank()) {
+                manifestedEntries.add(manifestationRank + " units of " + trimmed);
+            }
+        }
+        if (manifestedEntries.isEmpty()) return;
+        appendReminderLine(bucket,
+                "Manifestation: You have manifested " + String.join(", ", manifestedEntries) + ".");
+    }
+
+    private boolean isActiveMaintainedSenseTechnique(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return false;
+        if (!"Maintained".equalsIgnoreCase(tech.getType())) return false;
+        if (tech.getAl() <= 0) return false;
+        String normalizedName = tech.getName().trim().toLowerCase(Locale.ROOT);
+        return normalizedName.matches(".+ sense(?:\\s*\\(.*\\))?$")
+                || SOUL_CAGE_TECHNIQUE.equalsIgnoreCase(tech.getName().trim())
+                || ETHEREAL_REPOSITORY_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
+    private String buildMaintainedSenseReminderLine(String name, MaintainedSenseReminderData reminderData) {
+        if (name == null || name.isBlank() || reminderData == null) return null;
+        String description = reminderData.description() == null ? "" : reminderData.description().trim();
+        if (description.isBlank()) return name + ":";
+
+        String upperDescription = description.toUpperCase(Locale.ROOT);
+        int markerIndex = upperDescription.indexOf("AL.");
+        String reminderBody;
+        if (markerIndex >= 0 && markerIndex + 3 < description.length()) {
+            reminderBody = description.substring(markerIndex + 3).trim();
+        } else {
+            reminderBody = description;
+        }
+        reminderBody = reminderBody.replace("RADIUS", resolveMaintainedSenseRadiusText(reminderData));
+        return name + ":" + reminderBody;
+    }
+
+    private String resolveMaintainedSenseRadiusText(MaintainedSenseReminderData reminderData) {
+        if (reminderData == null || attributes == null) return "0ft";
+        double range = Math.max(0.0, attributes.calcStatusValue("RANGE"));
+        double area = Math.max(0.0, attributes.calcStatusValue("AREA"));
+        double radius = (reminderData.lesserAl()
+                + (2.0 * reminderData.greaterAl())
+                + (2.0 * Math.sqrt(range)))
+                * area
+                * 2.5;
+        return formatSenseRadius(radius) + "ft";
+    }
+
+    private String formatSenseRadius(double value) {
+        double rounded = Math.round(value * 10.0) / 10.0;
+        if (Math.abs(rounded - Math.rint(rounded)) <= 0.0001) {
+            return Integer.toString((int) Math.round(rounded));
+        }
+        return String.format(Locale.ROOT, "%.1f", rounded);
+    }
+
+    private String resolveMaintainedSenseReminderName(DataTraining tech) {
+        if (tech == null || tech.getName() == null) return null;
+        return tech.getName().trim().replaceFirst("\\s*\\([^)]*\\)\\s*$", "").trim();
+    }
+
+    private List<String> resolveActiveMentalNetworkChannels() {
+        ArrayList<String> activeChannels = new ArrayList<>();
+        if (activeMentalNetworkChannels == null || activeMentalNetworkChannels.isEmpty()) return activeChannels;
+        List<String> knownChannels = getDistinctListEntryNames(KNOWN_CHANNELS_LIST);
+        if (knownChannels.isEmpty()) return activeChannels;
+        for (String knownChannel : knownChannels) {
+            for (String selectedChannel : activeMentalNetworkChannels) {
+                if (selectedChannel != null && knownChannel.equalsIgnoreCase(selectedChannel.trim())) {
+                    activeChannels.add(knownChannel);
+                    break;
+                }
+            }
+        }
+        return activeChannels;
+    }
+
+    private List<String> resolveActiveEtherealAttunements() {
+        ArrayList<String> activeAttunements = new ArrayList<>();
+        if (activeEtherealAttunements == null || activeEtherealAttunements.isEmpty()) return activeAttunements;
+        List<String> knownAttunements = getDistinctListEntryNames(KNOWN_ATTUNEMENTS_LIST);
+        if (knownAttunements.isEmpty()) return activeAttunements;
+        for (String knownAttunement : knownAttunements) {
+            for (String selectedAttunement : activeEtherealAttunements) {
+                if (selectedAttunement != null && knownAttunement.equalsIgnoreCase(selectedAttunement.trim())) {
+                    activeAttunements.add(knownAttunement);
+                    break;
+                }
+            }
+        }
+        return activeAttunements;
+    }
+
+    private List<String> resolveActiveMetalManifestations() {
+        ArrayList<String> activeMetals = new ArrayList<>();
+        if (activeMetalManifestations == null || activeMetalManifestations.isEmpty()) return activeMetals;
+        List<String> knownMetals = getDistinctListEntryNames(KNOWN_METALS_LIST);
+        if (knownMetals.isEmpty()) return activeMetals;
+        for (String knownMetal : knownMetals) {
+            for (String selectedMetal : activeMetalManifestations) {
+                if (selectedMetal != null && knownMetal.equalsIgnoreCase(selectedMetal.trim())) {
+                    activeMetals.add(knownMetal);
+                    break;
+                }
+            }
+        }
+        return activeMetals;
+    }
+
+    private int resolveMentalNetworkCreatureCount(int bandwidth, int activeChannelCount) {
+        if (bandwidth <= 0 || activeChannelCount <= 0) return 0;
+        return Math.max(0, bandwidth / activeChannelCount);
+    }
+
     private void appendMoldingReminderLine(List<String> bucket) {
         if (bucket == null || !hasActiveMoldingTechnique()) return;
         appendReminderLine(bucket, MOLDING_REMINDER_KEY + ":");
+    }
+
+    private static final class MaintainedSenseReminderData {
+        private int lesserAl;
+        private int greaterAl;
+        private String description;
+
+        private void add(DataTraining tech) {
+            if (tech == null) return;
+            int al = Math.max(0, tech.getAl());
+            String variant = tech.getName() == null ? "" : tech.getName().trim().toLowerCase(Locale.ROOT);
+            if (variant.endsWith("(greater)")) {
+                greaterAl += al;
+            } else {
+                lesserAl += al;
+            }
+            if (description == null || description.isBlank() || variant.endsWith("(greater)")) {
+                description = tech.getDescription();
+            }
+        }
+
+        private int lesserAl() { return lesserAl; }
+        private int greaterAl() { return greaterAl; }
+        private String description() { return description; }
     }
 
     public boolean hasActiveMoldingTechnique() {
@@ -4097,6 +6157,25 @@ public class StoreCharData {
         return stanceNames;
     }
 
+    private ArrayList<String> getDistinctListEntryNames(String listName) {
+        ArrayList<String> entries = new ArrayList<>();
+        if (Lists == null || listName == null || listName.isBlank()) return entries;
+        LinkedHashSet<String> uniqueEntries = new LinkedHashSet<>();
+        for (List<DataList> group : Lists) {
+            if (group == null) continue;
+            for (DataList entry : group) {
+                if (entry == null || entry.getList() == null || entry.getName() == null) continue;
+                if (!listName.equalsIgnoreCase(entry.getList().trim())) continue;
+                String entryName = entry.getName().trim();
+                if (!entryName.isBlank()) {
+                    uniqueEntries.add(entryName);
+                }
+            }
+        }
+        entries.addAll(uniqueEntries);
+        return entries;
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////
     /// /////////////////////////////////////////////////////////////////////////
@@ -4118,7 +6197,7 @@ public class StoreCharData {
             case "CURAURA" -> resources.calcCurrentAura();
             case "CURR1" -> resources.calcCurrentResource1();
             case "CURR2" -> resources.calcCurrentResource2();
-            case "CURR3" -> resources.calcCurrentResource3();
+            case "CURR3" -> getCurrentResource3Value();
             case "CURANGEL" -> resources.calcCurrentAngelPoints();
             case "CURREACT" -> resources.calcCurrentReactions();
             case "OCCAURA" -> resources.calcOccupiedAura();
@@ -4128,14 +6207,14 @@ public class StoreCharData {
         };
     }
 
-        public void setResourceValue(String key, double value) {
+    public void setResourceValue(String key, double value) {
         if (resources == null || key == null) return;
         switch (key.toUpperCase()) {
             case "LOSTHP" -> resources.setLostHP(value);
             case "SPENTAURA" -> resources.setSpentAura(value);
             case "SPENTR1" -> resources.setSpentR1(value);
             case "SPENTR2" -> resources.setSpentR2(value);
-            case "SPENTR3" -> resources.setSpentR3(value);
+            case "SPENTR3" -> setSpentResource3(value);
             case "SPENTANGEL" -> resources.setSpentAngelPoints(value);
             case "SPENTREACT" -> resources.setSpentReactions(value);
             case "MAINOCC" -> resources.setMainOccupiedAura(value);
@@ -4143,6 +6222,367 @@ public class StoreCharData {
             case "SHIELD" -> resources.setShield(value);
             case "STAGGER" -> resources.setStagger(value);
         };
+    }
+
+    @JsonIgnore
+    public boolean usesCenteredClassResource3() {
+        if (hasTacticsResourceSpecialty()) return false;
+        return hasUnlockedResourceSpecialtyType("resource3");
+    }
+
+    @JsonIgnore
+    public boolean hasEntropySpecialty() {
+        return specials != null && specials.hasSpecialty(ENTROPY_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public boolean hasTemperanceSpecialty() {
+        return specials != null && specials.hasSpecialty(TEMPERANCE_SPECIALTY);
+    }
+
+    /**
+     * Base Damage change per point of centered Resource 3 (Temperance/Entropy).
+     * Both resources use -2x current value.
+     */
+    @JsonIgnore
+    public double getCenteredResource3BaseDamagePerPoint() {
+        return -2.0;
+    }
+
+    @JsonIgnore
+    public boolean hasTacticsResourceSpecialty() {
+        return specials != null && specials.hasSpecialty(TACTICS_SPECIALTY);
+    }
+
+    @JsonIgnore
+    public int getTacticsBaseMax() {
+        return Math.max(0, getLevel() / 3);
+    }
+
+    @JsonIgnore
+    public int getAggressiveTacticsMax() {
+        int max = getTacticsBaseMax();
+        if (getLevel() % 3 >= 1) max += 1;
+        return Math.max(0, max);
+    }
+
+    @JsonIgnore
+    public int getDefensiveTacticsMax() {
+        int max = getTacticsBaseMax();
+        if (getLevel() % 3 == 2) max += 1;
+        return Math.max(0, max);
+    }
+
+    @JsonIgnore
+    public int getStrategicTacticsMax() {
+        return getTacticsBaseMax();
+    }
+
+    @JsonIgnore
+    public int getCurrentAggressiveTactics() {
+        if (resources == null) return 0;
+        return Math.max(0, getAggressiveTacticsMax() - (int) Math.round(resources.getSpentAggressiveTactics()));
+    }
+
+    @JsonIgnore
+    public int getCurrentDefensiveTactics() {
+        if (resources == null) return 0;
+        return Math.max(0, getDefensiveTacticsMax() - (int) Math.round(resources.getSpentDefensiveTactics()));
+    }
+
+    @JsonIgnore
+    public int getCurrentStrategicTactics() {
+        if (resources == null) return 0;
+        return Math.max(0, getStrategicTacticsMax() - (int) Math.round(resources.getSpentStrategicTactics()));
+    }
+
+    public enum TacticType {
+        AGGRESSIVE("Aggressive"),
+        DEFENSIVE("Defensive"),
+        STRATEGIC("Strategic");
+
+        private final String displayName;
+
+        TacticType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
+
+    public TacticType rollTacticRecoveryType() {
+        int roll = java.util.concurrent.ThreadLocalRandom.current().nextInt(1, 4);
+        return switch (roll) {
+            case 1 -> TacticType.AGGRESSIVE;
+            case 2 -> TacticType.DEFENSIVE;
+            default -> TacticType.STRATEGIC;
+        };
+    }
+
+    public int getTacticMax(TacticType type) {
+        if (type == null) return 0;
+        return switch (type) {
+            case AGGRESSIVE -> getAggressiveTacticsMax();
+            case DEFENSIVE -> getDefensiveTacticsMax();
+            case STRATEGIC -> getStrategicTacticsMax();
+        };
+    }
+
+    public int getCurrentTactic(TacticType type) {
+        if (type == null) return 0;
+        return switch (type) {
+            case AGGRESSIVE -> getCurrentAggressiveTactics();
+            case DEFENSIVE -> getCurrentDefensiveTactics();
+            case STRATEGIC -> getCurrentStrategicTactics();
+        };
+    }
+
+    public boolean canRecoverTactic(TacticType type) {
+        return type != null && getCurrentTactic(type) < getTacticMax(type);
+    }
+
+    public boolean recoverTactic(TacticType type) {
+        if (resources == null || type == null || !canRecoverTactic(type)) return false;
+        switch (type) {
+            case AGGRESSIVE -> resources.setSpentAggressiveTactics(
+                    clamp(resources.getSpentAggressiveTactics() - 1.0, 0.0, getAggressiveTacticsMax()));
+            case DEFENSIVE -> resources.setSpentDefensiveTactics(
+                    clamp(resources.getSpentDefensiveTactics() - 1.0, 0.0, getDefensiveTacticsMax()));
+            case STRATEGIC -> resources.setSpentStrategicTactics(
+                    clamp(resources.getSpentStrategicTactics() - 1.0, 0.0, getStrategicTacticsMax()));
+        }
+        syncSpentR3FromTacticsPools();
+        return true;
+    }
+
+    public boolean spendTactic(TacticType type, int amount) {
+        if (resources == null || type == null || amount <= 0) return false;
+        if (getCurrentTactic(type) < amount) return false;
+        switch (type) {
+            case AGGRESSIVE -> resources.setSpentAggressiveTactics(
+                    clamp(resources.getSpentAggressiveTactics() + amount, 0.0, getAggressiveTacticsMax()));
+            case DEFENSIVE -> resources.setSpentDefensiveTactics(
+                    clamp(resources.getSpentDefensiveTactics() + amount, 0.0, getDefensiveTacticsMax()));
+            case STRATEGIC -> resources.setSpentStrategicTactics(
+                    clamp(resources.getSpentStrategicTactics() + amount, 0.0, getStrategicTacticsMax()));
+        }
+        syncSpentR3FromTacticsPools();
+        return true;
+    }
+
+    public java.util.List<TacticType> getRecoverableTacticTypes() {
+        java.util.ArrayList<TacticType> types = new java.util.ArrayList<>();
+        for (TacticType type : TacticType.values()) {
+            if (canRecoverTactic(type)) types.add(type);
+        }
+        return types;
+    }
+
+    public java.util.List<TacticType> getSpendableTacticTypes(int amount) {
+        java.util.ArrayList<TacticType> types = new java.util.ArrayList<>();
+        for (TacticType type : TacticType.values()) {
+            if (getCurrentTactic(type) >= amount) types.add(type);
+        }
+        return types;
+    }
+
+    @JsonIgnore
+    public int getClassResource3MaximumValue() {
+        if (hasTacticsResourceSpecialty()) {
+            return getAggressiveTacticsMax() + getDefensiveTacticsMax() + getStrategicTacticsMax();
+        }
+        if (resources == null) return 0;
+        return Math.max(0, resources.calcMaxResource3());
+    }
+
+    @JsonIgnore
+    public int getClassResource3MinimumValue() {
+        return usesCenteredClassResource3() ? -getClassResource3MaximumValue() : 0;
+    }
+
+    @JsonIgnore
+    public int getClassResource3OverflowValue() {
+        if (!usesCenteredClassResource3() || combat == null || !combat.isInCombat()) return 0;
+        return Math.max(0, combat.getClassResource3Overflow());
+    }
+
+    @JsonIgnore
+    public int getCurrentResource3Value() {
+        if (hasTacticsResourceSpecialty()) {
+            return getCurrentAggressiveTactics() + getCurrentDefensiveTactics() + getCurrentStrategicTactics();
+        }
+        if (resources == null) return 0;
+        int currentValue = resources.calcCurrentResource3();
+        if (!usesCenteredClassResource3()) {
+            return currentValue;
+        }
+        return currentValue + getClassResource3OverflowValue();
+    }
+
+    @JsonIgnore
+    public int getAvailableResource3Spend() {
+        if (resources == null) return 0;
+        int currentValue = getCurrentResource3Value();
+        if (!usesCenteredClassResource3()) {
+            return Math.max(0, currentValue);
+        }
+        return Math.max(0, currentValue + getClassResource3MaximumValue());
+    }
+
+    public void setSpentResource3(double spentValue) {
+        if (resources == null) return;
+        if (hasTacticsResourceSpecialty()) {
+            // Aggregate setter is not pool-aware; prefer spendTactic for Leaders.
+            resources.setSpentR3(Math.max(0.0, spentValue));
+            return;
+        }
+        if (!usesCenteredClassResource3()) {
+            resources.setSpentR3(Math.max(0.0, spentValue));
+            return;
+        }
+        int maxResource3 = Math.max(0, resources.calcMaxResource3());
+        resources.setSpentR3(clamp(spentValue, 0.0, maxResource3 * 2.0));
+    }
+
+    public void adjustSpentResource3(double delta) {
+        if (resources == null || Math.abs(delta) <= 0.0001) return;
+        if (hasTacticsResourceSpecialty()) {
+            // Non-prompted path: apply to the first pool that can absorb spend/recover.
+            applyAutomaticTacticResource3Delta(delta);
+            return;
+        }
+        if (!usesCenteredClassResource3() || delta < 0.0) {
+            setSpentResource3(resources.getSpentR3() + delta);
+            return;
+        }
+        long discreteDelta = Math.round(delta);
+        if (Math.abs(delta - discreteDelta) > 0.0001) {
+            setSpentResource3(resources.getSpentR3() + delta);
+            return;
+        }
+        int overflowAvailable = getClassResource3OverflowValue();
+        int overflowSpent = (int) Math.min(Math.max(0L, discreteDelta), (long) overflowAvailable);
+        if (overflowSpent > 0 && combat != null) {
+            combat.adjustClassResource3Overflow(-overflowSpent);
+        }
+        double remainingDelta = delta - overflowSpent;
+        if (Math.abs(remainingDelta) > 0.0001) {
+            setSpentResource3(resources.getSpentR3() + remainingDelta);
+        }
+    }
+
+    private void applyAutomaticTacticResource3Delta(double delta) {
+        int amount = (int) Math.round(Math.abs(delta));
+        if (amount <= 0) return;
+        if (delta > 0.0) {
+            for (int i = 0; i < amount; i++) {
+                TacticType target = null;
+                for (TacticType type : TacticType.values()) {
+                    if (getCurrentTactic(type) > 0) {
+                        target = type;
+                        break;
+                    }
+                }
+                if (target == null || !spendTactic(target, 1)) break;
+            }
+        } else {
+            for (int i = 0; i < amount; i++) {
+                TacticType target = null;
+                for (TacticType type : TacticType.values()) {
+                    if (canRecoverTactic(type)) {
+                        target = type;
+                        break;
+                    }
+                }
+                if (target == null || !recoverTactic(target)) break;
+            }
+        }
+    }
+
+    public boolean hasAdvantageResourceSpecialty() {
+        return specials != null && specials.hasSpecialty(ADVANTAGE_SPECIALTY);
+    }
+
+    public void grantAdvantageTurnStart() {
+        if (!hasAdvantageResourceSpecialty() || resources == null) return;
+        int maxResource2 = Math.max(0, resources.calcMaxResource2());
+        if (maxResource2 <= 0) return;
+        resources.setSpentR2(clamp(resources.getSpentR2() - 1.0, 0.0, maxResource2));
+    }
+
+    public boolean hasStreamSpecialty() {
+        return specials != null && specials.hasSpecialty(STREAM_SPECIALTY);
+    }
+
+    public boolean hasCriticalMassSpecialty() {
+        return specials != null && specials.hasSpecialty(CRITICAL_MASS_SPECIALTY);
+    }
+
+    public void recordAuraSpentForCombatSpecialties(double amount) {
+        if (combat != null && combat.isInCombat() && amount > 0.0) {
+            combat.adjustAuraSpentThisTurn(amount);
+        }
+        recordAuraSpentForStream(amount);
+    }
+
+    public void recordAuraSpentForStream(double amount) {
+        if (!hasStreamSpecialty() || combat == null || !combat.isInCombat() || amount <= 0.0) return;
+        combat.adjustStreamValue(amount);
+    }
+
+    public double resolveStreamTurnEndAuraRecovery() {
+        if (!hasStreamSpecialty() || combat == null || resources == null) return 0.0;
+
+        double streamValue = Math.max(0.0, combat.getStreamValue());
+        combat.setStreamValue(0.0);
+        if (streamValue <= 0.0) return 0.0;
+
+        int level = Math.max(0, getLevel());
+        double recoveryCap = (double) level * level;
+        double attemptedRecovery = Math.min(streamValue * 0.1, recoveryCap);
+        if (attemptedRecovery <= 0.0) return 0.0;
+
+        double maxAura = Math.max(0.0, resources.calcMaxAura());
+        double previousSpentAura = Math.max(0.0, resources.getSpentAura());
+        double newSpentAura = clamp(previousSpentAura - attemptedRecovery, 0.0, maxAura);
+        resources.setSpentAura(newSpentAura);
+        return Math.max(0.0, previousSpentAura - newSpentAura);
+    }
+
+    public boolean hasInherentUnderstandingSpecialty() {
+        if (specials == null) return false;
+        return specials.hasSpecialty(INHERENT_UNDERSTANDING_SPECIALTY)
+                || specials.hasSpecialty(IMMERSIVE_UNDERSTANDING_SPECIALTY);
+    }
+
+    public int getInherentUnderstandingMaxRankBonus() {
+        if (!hasInherentUnderstandingSpecialty() || identity == null) return 0;
+        int level = Math.max(0, identity.getLevel());
+        if (level < 4) return 0;
+        return 1 + ((level - 4) / 4);
+    }
+
+    public void increaseResource3WithOverflow(int amount) {
+        if (resources == null || amount <= 0) return;
+        if (!usesCenteredClassResource3()) {
+            setSpentResource3(resources.getSpentR3() - amount);
+            return;
+        }
+        int recoverable = Math.max(0, getClassResource3MaximumValue() - getCurrentResource3Value());
+        int recovered = Math.min(amount, recoverable);
+        if (recovered > 0) {
+            setSpentResource3(resources.getSpentR3() - recovered);
+        }
+        int overflowIncrease = amount - recovered;
+        if (overflowIncrease > 0 && combat != null && combat.isInCombat()) {
+            combat.adjustClassResource3Overflow(overflowIncrease);
+        }
+    }
+
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     public void checkSkillSpecialChanges() {
@@ -4433,6 +6873,8 @@ public class StoreCharData {
                 mergeStatusSeverity(totals, "MBHEAL", severity);
                 mergeStatusSeverity(totals, "MTHEAL", severity);
             }
+            case "SIZE" -> mergeStatusSeverity(totals, SIZE_ATTRIBUTE, severity);
+            case "RESDISP" -> mergeStatusSeverity(totals, "BRESDISP", severity);
             default -> {
                 String outputAttribute = normalized.startsWith("B") || normalized.startsWith("M")
                         ? normalized
@@ -4458,6 +6900,7 @@ public class StoreCharData {
             case "APPLY" -> "APP";
             case "IMPAIR" -> "IMP";
             case "RESPHY" -> "PHY";
+            case "RESDISP", "RD", "DISPRES" -> "RESDISP";
             default -> {
                 if (upper.startsWith("RESIST")) yield upper.substring("RESIST".length());
                 if (upper.startsWith("RES") && upper.length() > 3) yield upper.substring(3);
@@ -4474,12 +6917,13 @@ public class StoreCharData {
                     "BASEREACT", "BASER1", "BASER2", "BASER3",
                     "BSTR", "BDEX", "BCON", "BFOC", "BCTL", "BCAP", "BKNOW", "BMECH", "BPERC", "BINT", "BCHA", "BSUB",
                     "BARMOR", "BDODGE", "BDEF", "BFORT", "BREF", "BWILL", "BAVOID",
-                    "BATK", "BAPP", "BMOVE", "BFLY", "BRANGE", "BINIT", "BCMAN", "BMAXATK",
-                    "BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BBREAK", "BAREA", "BPOWER",
+                    "BATK", "BAPP", "BMOVE", "BFLY", "BRANGE", "BINIT", "BMAN", "BMAXATK", "BRESDISP",
+                    "BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BBREAK", "BAREA", "BPOWER", "BDUR",
                     "BBDMG", "BTDMG", "BBHEAL", "BTHEAL",
                     "MBDMG", "MTDMG", "MBHEAL", "MTHEAL",
                     "BALL", "BPHY", "BBLUNT", "BPIERCE", "BSLASH", "BFIRE", "BFROST", "BELEC", "BENERGY", "BSONIC",
-                    "BLIGHT", "BTOXIC", "BDARK", "BPSI", "BSPIRIT", "BTIME" -> true;
+                    "BLIGHT", "BTOXIC", "BDARK", "BPSI", "BSPIRIT", "BTIME",
+                    "SIZE" -> true;
             default -> (upper.startsWith("BSKILL") || upper.startsWith("MSKILL")) && upper.length() > "BSKILL".length();
         };
     }

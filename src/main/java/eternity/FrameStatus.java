@@ -1,26 +1,39 @@
 package eternity;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class FrameStatus extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -30,6 +43,15 @@ public class FrameStatus extends JFrame {
             "BASER1", "MULTIR1", "BASER2", "MULTIR2", "BASER3", "MULTIR3",
             "BASEREACT", "MULTIREACT"
     };
+    private static final String[] EXCLUDED_AFFINITIES = {
+            "Attribute", "Misc", "Affinity", "Fundamental", "Standard", "Crafting"
+    };
+    private static final String[] DURATION_TYPES = {
+            "Passive", "Maintained", "Temporary", "Turn", "Round", "Cycle", "Next Attack"
+    };
+    private static final String[] EXCLUDED_DURATION_TYPES = { "Passive", "Temporary" };
+    private static final String TRAINING_STATUS_PREFIX = "Training Passive: ";
+    private static final String MAINTAINED_STATUS_PREFIX = "Panel Maintained: ";
 
     private final FrameCombat combatFrame;
     private final FrameSheet sheetFrame;
@@ -37,11 +59,14 @@ public class FrameStatus extends JFrame {
 
     private JTextArea codeArea;
     private JTextArea previewArea;
-    private JLabel targetSideValueLabel;
-    private JLabel targetShapeValueLabel;
+    private JTextField titleField;
+    private JComboBox<String> affinityBox;
+    private JComboBox<String> durationTypeBox;
+    private JFormattedTextField durationField;
     private JLabel statusCountValueLabel;
     private StatusCodeParseResult lastParseResult;
     private FrameManStatus manualStatusFrame;
+    private boolean updatingFromCode;
 
     public FrameStatus(FrameCombat combatFrame, StoreCharData character) {
         this(combatFrame, null, character);
@@ -70,6 +95,53 @@ public class FrameStatus extends JFrame {
         this.character = character;
     }
 
+    public String getEffectTitle() {
+        return titleField == null || titleField.getText() == null ? "" : titleField.getText().trim();
+    }
+
+    public String getEffectAffinity() {
+        if (affinityBox == null || affinityBox.getSelectedItem() == null) {
+            return "None";
+        }
+        String affinity = affinityBox.getSelectedItem().toString().trim();
+        return affinity.isBlank() ? "None" : affinity;
+    }
+
+    public String getEffectDurationType() {
+        if (durationTypeBox == null || durationTypeBox.getSelectedItem() == null) {
+            return "Maintained";
+        }
+        String durationType = durationTypeBox.getSelectedItem().toString().trim();
+        return durationType.isBlank() ? "Maintained" : durationType;
+    }
+
+    public int getEffectDuration() {
+        if (!isTimedDuration(getEffectDurationType())) {
+            return 0;
+        }
+        return Math.max(1, parseInteger(durationField));
+    }
+
+    public void appendEffectToken(String attribute, double severity) {
+        if (codeArea == null || attribute == null || attribute.isBlank()) {
+            return;
+        }
+        String alias = StatusCodeParser.getPreferredAttributeAlias(attribute);
+        if (alias == null || alias.isBlank()) {
+            alias = attribute.trim().toUpperCase(Locale.ROOT);
+        }
+        String token = alias + ":" + formatSignedNumber(severity);
+        String current = codeArea.getText() == null ? "" : codeArea.getText().trim();
+        if (current.isBlank()) {
+            codeArea.setText(token);
+        } else if (current.endsWith("_") || current.endsWith("|")) {
+            codeArea.setText(current + token);
+        } else {
+            codeArea.setText(current + "_" + token);
+        }
+        codeArea.setCaretPosition(codeArea.getText().length());
+    }
+
     private void buildUi() {
         JPanel center = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -87,13 +159,37 @@ public class FrameStatus extends JFrame {
         codeArea = new JTextArea(4, 40);
         codeArea.setLineWrap(true);
         codeArea.setWrapStyleWord(true);
+        codeArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                onCodeChanged();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                onCodeChanged();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                onCodeChanged();
+            }
+        });
         JScrollPane codePane = new JScrollPane(codeArea);
         addRow(center, gbc, y++, "Code", codePane);
 
-        targetSideValueLabel = new JLabel("Not parsed");
-        addRow(center, gbc, y++, "Target Side", targetSideValueLabel);
-        targetShapeValueLabel = new JLabel("Not parsed");
-        addRow(center, gbc, y++, "Target Shape", targetShapeValueLabel);
+        titleField = new JTextField();
+        addRow(center, gbc, y++, "Title", titleField);
+        affinityBox = new JComboBox<>(buildAffinityOptions());
+        affinityBox.setSelectedItem("None");
+        addRow(center, gbc, y++, "Affinity", affinityBox);
+        durationTypeBox = new JComboBox<>(buildDurationTypeOptions());
+        durationTypeBox.setSelectedItem("Maintained");
+        durationTypeBox.addActionListener(e -> updateDurationFieldState());
+        addRow(center, gbc, y++, "Duration Type", durationTypeBox);
+        durationField = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        durationField.setValue(1);
+        addRow(center, gbc, y++, "Duration", durationField);
         statusCountValueLabel = new JLabel("0");
         addRow(center, gbc, y++, "Statuses", statusCountValueLabel);
 
@@ -105,10 +201,10 @@ public class FrameStatus extends JFrame {
         addRow(center, gbc, y++, "Preview", previewPane);
 
         JLabel note = new JLabel(
-                "<html>Format: <code>ALLY_SINGLE_BATK:+2_BDODGE:+1_DUR:Turn:1_NAME:Guarded</code><br>"
-                        + "Short form: <code>AT+2_DG+1</code> defaults to Ally / Single / Maintained.<br>"
+                "<html>Format: <code>BATK:+2_BDODGE:+1_DUR:Turn:1_NAME:Guarded</code><br>"
+                        + "Short form: <code>AT+2_DG+1</code> defaults to Maintained.<br>"
                         + "Packed form: <code>NMABCGRANT_ATP2DGN1</code> uses a compact name token plus alphanumeric status tokens.<br>"
-                        + "Target side and shape are previewed here. Apply still affects the currently loaded character.</html>",
+                        + "Apply affects the currently loaded character.</html>",
                 SwingConstants.CENTER);
         gbc.gridx = 0;
         gbc.gridy = y;
@@ -117,20 +213,29 @@ public class FrameStatus extends JFrame {
 
         add(center, BorderLayout.CENTER);
 
-        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel footer = new JPanel(new BorderLayout());
+        JPanel leftFooter = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel rightFooter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(e -> setVisible(false));
-        JButton manual = new JButton("Manual");
+        JButton applied = new JButton("View Applied");
+        applied.addActionListener(e -> showAppliedStatuses());
+        JButton remove = new JButton("Remove Effect");
+        remove.addActionListener(e -> showAppliedStatuses());
+        JButton manual = new JButton("Add Effect");
         manual.addActionListener(e -> openManualStatusFrame());
-        JButton preview = new JButton("Preview");
-        preview.addActionListener(e -> previewStatusCode());
         JButton apply = new JButton("Apply");
         apply.addActionListener(e -> applyStatusCode());
-        footer.add(cancel);
-        footer.add(manual);
-        footer.add(preview);
-        footer.add(apply);
+        leftFooter.add(cancel);
+        leftFooter.add(applied);
+        rightFooter.add(remove);
+        rightFooter.add(manual);
+        rightFooter.add(apply);
+        footer.add(leftFooter, BorderLayout.WEST);
+        footer.add(rightFooter, BorderLayout.EAST);
         add(footer, BorderLayout.SOUTH);
+
+        updateDurationFieldState();
     }
 
     private void addRow(JPanel panel, GridBagConstraints gbc, int y, String labelText, java.awt.Component field) {
@@ -153,7 +258,16 @@ public class FrameStatus extends JFrame {
         gbc.weighty = 0.0;
     }
 
+    private void onCodeChanged() {
+        if (updatingFromCode) return;
+        previewStatusCode(true);
+    }
+
     private void previewStatusCode() {
+        previewStatusCode(false);
+    }
+
+    private void previewStatusCode(boolean updateFieldsFromCode) {
         StatusCodeParseResult parseResult = parseCurrentCode();
         lastParseResult = parseResult;
         if (parseResult == null || !parseResult.isSuccess()) {
@@ -162,11 +276,45 @@ public class FrameStatus extends JFrame {
         }
 
         DecodedEffect effect = parseResult.getEffect();
-        targetSideValueLabel.setText(effect.getTargetSide() == null ? "Unknown" : effect.getTargetSide().name());
-        targetShapeValueLabel.setText(effect.getTargetShape() == null ? "Unknown" : effect.getTargetShape().name());
+        if (updateFieldsFromCode) {
+            updateTitleFromEffect(effect);
+            updateAffinityFromEffect(effect);
+            updateDurationFromEffect(effect);
+        }
+        applyAffinityOverride(effect);
+        applyDurationOverride(effect);
         statusCountValueLabel.setText(Integer.toString(effect.getStatuses().size()));
         previewArea.setText(buildPreviewText(effect));
         previewArea.setCaretPosition(0);
+    }
+
+    private void updateTitleFromEffect(DecodedEffect effect) {
+        if (titleField == null) return;
+        String title = effect == null || effect.getTitle() == null ? "" : effect.getTitle().trim();
+        if (title.isBlank()) return;
+        updatingFromCode = true;
+        try {
+            titleField.setText(title);
+        } finally {
+            updatingFromCode = false;
+        }
+    }
+
+    private void updateAffinityFromEffect(DecodedEffect effect) {
+        if (affinityBox == null || effect == null) return;
+        String affinity = effect.getAffinity() == null ? "" : effect.getAffinity().trim();
+        if (affinity.isBlank()) return;
+        updatingFromCode = true;
+        try {
+            affinityBox.setSelectedItem(affinity);
+            if (affinityBox.getSelectedItem() == null
+                    || !affinity.equalsIgnoreCase(affinityBox.getSelectedItem().toString())) {
+                affinityBox.addItem(affinity);
+                affinityBox.setSelectedItem(affinity);
+            }
+        } finally {
+            updatingFromCode = false;
+        }
     }
 
     private void applyStatusCode() {
@@ -180,6 +328,9 @@ public class FrameStatus extends JFrame {
         }
 
         DecodedEffect effect = parseResult.getEffect();
+        applyTitleOverride(effect);
+        applyAffinityOverride(effect);
+        applyDurationOverride(effect);
         removeObsoleteGrantStatuses(effect);
         int appliedCount = 0;
         for (DataStatus status : effect.getStatuses()) {
@@ -201,6 +352,147 @@ public class FrameStatus extends JFrame {
         setVisible(false);
     }
 
+    private void applyTitleOverride(DecodedEffect effect) {
+        if (effect == null || titleField == null) return;
+        String title = titleField.getText() == null ? "" : titleField.getText().trim();
+        if (title.isBlank()) return;
+
+        effect.setTitle(title);
+        for (DataStatus status : effect.getStatuses()) {
+            if (status == null) continue;
+            String attribute = status.getAttribute() == null ? "" : status.getAttribute().trim();
+            if (attribute.isBlank()) {
+                status.setName(title);
+            } else {
+                status.setName(title + " [" + attribute + "]");
+            }
+        }
+    }
+
+    private void applyAffinityOverride(DecodedEffect effect) {
+        if (effect == null) return;
+        String affinity = getEffectAffinity();
+        effect.setAffinity(affinity);
+        for (DataStatus status : effect.getStatuses()) {
+            if (status != null) {
+                status.setAffinity(affinity);
+            }
+        }
+    }
+
+    private String[] buildAffinityOptions() {
+        List<String> values = new ArrayList<>();
+        for (String affinity : FrameTrainingExp.AURA_TYPES) {
+            if (affinity == null || affinity.isBlank()) continue;
+            if (isExcludedAffinity(affinity)) continue;
+            values.add(affinity);
+        }
+        return values.toArray(String[]::new);
+    }
+
+    private boolean isExcludedAffinity(String affinity) {
+        if (affinity == null) return false;
+        String normalized = affinity.trim().toUpperCase(Locale.ROOT);
+        for (String excluded : EXCLUDED_AFFINITIES) {
+            if (excluded != null && normalized.equals(excluded.toUpperCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void updateDurationFromEffect(DecodedEffect effect) {
+        if (durationTypeBox == null || effect == null || !effect.isDurationSpecified()) {
+            return;
+        }
+        String durationType = effect.getDurationType() == null ? "" : effect.getDurationType().trim();
+        if (durationType.isBlank()) return;
+        updatingFromCode = true;
+        try {
+            durationTypeBox.setSelectedItem(durationType);
+            if (durationTypeBox.getSelectedItem() == null
+                    || !durationType.equalsIgnoreCase(durationTypeBox.getSelectedItem().toString())) {
+                durationTypeBox.addItem(durationType);
+                durationTypeBox.setSelectedItem(durationType);
+            }
+            if (durationField != null) {
+                if (isTimedDuration(durationType)) {
+                    durationField.setValue(Math.max(1, effect.getDuration()));
+                } else {
+                    durationField.setValue(0);
+                }
+            }
+            updateDurationFieldState();
+        } finally {
+            updatingFromCode = false;
+        }
+    }
+
+    private void applyDurationOverride(DecodedEffect effect) {
+        if (effect == null) return;
+        String durationType = getEffectDurationType();
+        int duration = getEffectDuration();
+        effect.setDurationType(durationType);
+        effect.setDuration(duration);
+        for (DataStatus status : effect.getStatuses()) {
+            if (status == null || status.getAttribute() == null) continue;
+            if (isInstantResourceDeltaAttribute(status.getAttribute())) {
+                status.setDurationType("Instant");
+                status.setDuration(0);
+                continue;
+            }
+            status.setDurationType(durationType);
+            status.setDuration(duration);
+        }
+    }
+
+    private String[] buildDurationTypeOptions() {
+        List<String> values = new ArrayList<>();
+        for (String durationType : DURATION_TYPES) {
+            if (durationType == null || durationType.isBlank()) continue;
+            if (isExcludedDurationType(durationType)) continue;
+            values.add(durationType);
+        }
+        return values.toArray(String[]::new);
+    }
+
+    private boolean isExcludedDurationType(String durationType) {
+        if (durationType == null) return false;
+        String normalized = durationType.trim().toUpperCase(Locale.ROOT);
+        for (String excluded : EXCLUDED_DURATION_TYPES) {
+            if (excluded != null && normalized.equals(excluded.toUpperCase(Locale.ROOT))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void updateDurationFieldState() {
+        if (durationField == null) return;
+        String durationType = getEffectDurationType();
+        boolean timed = isTimedDuration(durationType);
+        durationField.setEditable(timed);
+        durationField.setEnabled(timed);
+        if (!timed) {
+            durationField.setValue(0);
+        } else if (parseInteger(durationField) <= 0) {
+            durationField.setValue(1);
+        }
+    }
+
+    private int parseInteger(JFormattedTextField field) {
+        if (field == null || field.getValue() == null) return 0;
+        Object value = field.getValue();
+        if (value instanceof Number number) {
+            return number.intValue();
+        }
+        try {
+            return Integer.parseInt(value.toString());
+        } catch (NumberFormatException ignored) {
+            return 0;
+        }
+    }
+
     private StatusCodeParseResult parseCurrentCode() {
         resetPreviewIfCodeBlank();
         String code = codeArea == null ? "" : codeArea.getText();
@@ -209,17 +501,33 @@ public class FrameStatus extends JFrame {
 
     private void resetPreviewIfCodeBlank() {
         if (codeArea == null || codeArea.getText() == null || codeArea.getText().isBlank()) {
-            targetSideValueLabel.setText("Not parsed");
-            targetShapeValueLabel.setText("Not parsed");
+            updatingFromCode = true;
+            try {
+                if (titleField != null) {
+                    titleField.setText("");
+                }
+            } finally {
+                updatingFromCode = false;
+            }
             statusCountValueLabel.setText("0");
             previewArea.setText("");
         }
     }
 
     private void showParseErrors(StatusCodeParseResult parseResult) {
-        targetSideValueLabel.setText("Invalid");
-        targetShapeValueLabel.setText("Invalid");
         statusCountValueLabel.setText("0");
+        if (codeArea == null || codeArea.getText() == null || codeArea.getText().isBlank()) {
+            updatingFromCode = true;
+            try {
+                if (titleField != null) {
+                    titleField.setText("");
+                }
+            } finally {
+                updatingFromCode = false;
+            }
+            previewArea.setText("");
+            return;
+        }
         if (parseResult == null || parseResult.getErrors().isEmpty()) {
             previewArea.setText("Unable to parse status code.");
             return;
@@ -240,8 +548,19 @@ public class FrameStatus extends JFrame {
 
         StringBuilder text = new StringBuilder();
         text.append("Original Code: ").append(effect.getOriginalCode()).append(System.lineSeparator());
-        text.append("Target Side: ").append(effect.getTargetSide()).append(System.lineSeparator());
-        text.append("Target Shape: ").append(effect.getTargetShape()).append(System.lineSeparator());
+        String title = getEffectTitle();
+        if (title.isBlank()) {
+            title = effect.getTitle() == null ? "" : effect.getTitle().trim();
+        }
+        if (!title.isBlank()) {
+            text.append("Title: ").append(title).append(System.lineSeparator());
+        }
+        text.append("Affinity: ").append(getEffectAffinity()).append(System.lineSeparator());
+        text.append("Duration: ").append(getEffectDurationType());
+        if (getEffectDuration() > 0) {
+            text.append(" (").append(getEffectDuration()).append(")");
+        }
+        text.append(System.lineSeparator());
         text.append(System.lineSeparator());
 
         Map<String, List<DataStatus>> grantStatusesByFamily = groupGrantStatusesByFamily(effect.getStatuses());
@@ -302,13 +621,252 @@ public class FrameStatus extends JFrame {
 
     private void openManualStatusFrame() {
         if (manualStatusFrame == null) {
-            manualStatusFrame = combatFrame != null
-                    ? new FrameManStatus(combatFrame, character)
-                    : new FrameManStatus(sheetFrame, character);
+            manualStatusFrame = new FrameManStatus(this, character);
         } else {
             manualStatusFrame.updateCharacter(character);
         }
         manualStatusFrame.setVisible(true);
+    }
+
+    private void showAppliedStatuses() {
+        DefaultListModel<AppliedStatusGroup> listModel = new DefaultListModel<>();
+        JList<AppliedStatusGroup> statusList = new JList<>(listModel);
+        statusList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JTextArea detailsArea = new JTextArea();
+        detailsArea.setEditable(false);
+        detailsArea.setLineWrap(true);
+        detailsArea.setWrapStyleWord(true);
+
+        Runnable reload = () -> {
+            int selectedIndex = statusList.getSelectedIndex();
+            listModel.clear();
+            Map<String, List<DataStatus>> grouped = groupAppliedStatuses(collectAppliedStatuses());
+            for (Map.Entry<String, List<DataStatus>> entry : grouped.entrySet()) {
+                listModel.addElement(new AppliedStatusGroup(entry.getKey(), entry.getValue()));
+            }
+            if (listModel.isEmpty()) {
+                detailsArea.setText("No statuses have been applied by status codes or manually.");
+                return;
+            }
+            if (selectedIndex >= 0 && selectedIndex < listModel.size()) {
+                statusList.setSelectedIndex(selectedIndex);
+            } else {
+                statusList.setSelectedIndex(0);
+            }
+        };
+
+        statusList.addListSelectionListener(event -> {
+            if (event.getValueIsAdjusting()) return;
+            AppliedStatusGroup selected = statusList.getSelectedValue();
+            detailsArea.setText(selected == null
+                    ? "No statuses have been applied by status codes or manually."
+                    : buildAppliedStatusText(selected.statuses));
+            detailsArea.setCaretPosition(0);
+        });
+
+        JScrollPane listPane = new JScrollPane(statusList);
+        listPane.setPreferredSize(new Dimension(180, 360));
+        JScrollPane detailsPane = new JScrollPane(detailsArea);
+        detailsPane.setPreferredSize(new Dimension(340, 360));
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listPane, detailsPane);
+        split.setResizeWeight(0.35);
+
+        JDialog dialog = new JDialog(this, "Applied Statuses", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLayout(new BorderLayout(0, 8));
+        dialog.add(split, BorderLayout.CENTER);
+
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton close = new JButton("Close");
+        close.addActionListener(event -> dialog.dispose());
+        JButton delete = new JButton("Delete");
+        delete.addActionListener(event -> {
+            AppliedStatusGroup selected = statusList.getSelectedValue();
+            if (selected == null) {
+                JOptionPane.showMessageDialog(dialog,
+                        "Select a status to delete.",
+                        "Delete Status",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(dialog,
+                    "Delete applied status \"" + selected.name + "\"?",
+                    "Delete Status",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+            if (confirm != JOptionPane.YES_OPTION) return;
+            deleteAppliedStatusGroup(selected);
+            reload.run();
+        });
+        footer.add(close);
+        footer.add(delete);
+        dialog.add(footer, BorderLayout.SOUTH);
+        dialog.setSize(560, 420);
+        dialog.setLocationRelativeTo(this);
+        reload.run();
+        dialog.setVisible(true);
+    }
+
+    private Map<String, List<DataStatus>> groupAppliedStatuses(List<DataStatus> statuses) {
+        LinkedHashMap<String, List<DataStatus>> grouped = new LinkedHashMap<>();
+        if (statuses == null) return grouped;
+        for (DataStatus status : statuses) {
+            if (status == null) continue;
+            String groupName = extractStatusBaseName(status.getName());
+            if (groupName.isBlank()) {
+                groupName = status.getName() == null ? "Unnamed" : status.getName().trim();
+            }
+            grouped.computeIfAbsent(groupName, ignored -> new ArrayList<>()).add(status);
+        }
+        return grouped;
+    }
+
+    private void deleteAppliedStatusGroup(AppliedStatusGroup group) {
+        if (group == null || group.name == null || group.name.isBlank()) return;
+
+        for (DataStatus status : collectActiveCharacterStatuses()) {
+            if (!isAppliedStatus(status)) continue;
+            if (!group.name.equalsIgnoreCase(extractStatusBaseName(status.getName()))) continue;
+            removeActiveStatus(status);
+        }
+
+        CharCombat combat = resolveCombat();
+        if (combat != null && combat.getCombatStatus() != null) {
+            List<DataStatus> tracked = new ArrayList<>(combat.getCombatStatus());
+            for (DataStatus status : tracked) {
+                if (status == null) continue;
+                if (!group.name.equalsIgnoreCase(extractStatusBaseName(status.getName()))) continue;
+                reverseTokenStatus(status);
+            }
+            combat.getCombatStatus().removeIf(status ->
+                    status != null && group.name.equalsIgnoreCase(extractStatusBaseName(status.getName())));
+        }
+
+        if (combatFrame != null) {
+            combatFrame.removeBattleStatusByBaseName(group.name);
+        }
+
+        refreshAfterAppliedStatusChange();
+    }
+
+    private void reverseTokenStatus(DataStatus status) {
+        if (status == null || status.getAttribute() == null) return;
+        CharCombat combat = resolveCombat();
+        if (combat == null) return;
+        String attribute = status.getAttribute().toUpperCase();
+        int amount = (int) Math.round(status.getSeverity());
+        if (isStunAttribute(attribute)) {
+            combat.adjustStunTokens(-amount);
+        } else if (isHeavyAttribute(attribute)) {
+            combat.adjustHeavyTokens(-amount);
+        } else if (isIncapacitateAttribute(attribute)) {
+            combat.adjustIncapacitateTokens(-amount);
+        } else if (isRootAttribute(attribute)) {
+            combat.adjustRootTokens(-amount);
+        }
+    }
+
+    private void refreshAfterAppliedStatusChange() {
+        if (character != null) {
+            character.updateAll();
+        }
+        if (combatFrame != null) {
+            combatFrame.refreshAfterStatusChange();
+        } else if (sheetFrame != null) {
+            sheetFrame.refreshMainPanel();
+            sheetFrame.refreshImagePanel();
+        }
+    }
+
+    private List<DataStatus> collectAppliedStatuses() {
+        ArrayList<DataStatus> statuses = new ArrayList<>();
+        for (DataStatus status : collectActiveCharacterStatuses()) {
+            if (!isAppliedStatus(status)) continue;
+            statuses.add(status);
+        }
+
+        CharCombat combat = resolveCombat();
+        if (combat != null && combat.getCombatStatus() != null) {
+            for (DataStatus tracked : combat.getCombatStatus()) {
+                if (!isAppliedStatus(tracked)) continue;
+                DataStatus existing = findMatchingAppliedStatus(statuses, tracked);
+                if (existing != null) {
+                    existing.setDurationType(tracked.getDurationType());
+                    existing.setDuration(tracked.getDuration());
+                } else if (isCombatMarkerAttribute(tracked.getAttribute())) {
+                    statuses.add(new DataStatus(tracked));
+                }
+            }
+        }
+        return statuses;
+    }
+
+    private boolean isAppliedStatus(DataStatus status) {
+        if (status == null || status.getName() == null || status.getName().isBlank()) return false;
+        String name = status.getName().trim();
+        if ("Base".equalsIgnoreCase(name)) return false;
+        if (name.regionMatches(true, 0, TRAINING_STATUS_PREFIX, 0, TRAINING_STATUS_PREFIX.length())) return false;
+        if (name.regionMatches(true, 0, MAINTAINED_STATUS_PREFIX, 0, MAINTAINED_STATUS_PREFIX.length())) return false;
+        String duration = status.getDurationType();
+        if (duration != null
+                && ("Passive".equalsIgnoreCase(duration)
+                || "Permanent".equalsIgnoreCase(duration)
+                || "Domain".equalsIgnoreCase(duration)
+                || "Combat".equalsIgnoreCase(duration))) {
+            return false;
+        }
+        return true;
+    }
+
+    private DataStatus findMatchingAppliedStatus(List<DataStatus> statuses, DataStatus candidate) {
+        if (statuses == null || candidate == null) return null;
+        String name = normalizeStatusName(candidate.getName());
+        String attribute = candidate.getAttribute() == null ? "" : candidate.getAttribute().trim();
+        for (DataStatus status : statuses) {
+            if (status == null) continue;
+            String statusAttribute = status.getAttribute() == null ? "" : status.getAttribute().trim();
+            if (name.equalsIgnoreCase(normalizeStatusName(status.getName()))
+                    && attribute.equalsIgnoreCase(statusAttribute)) {
+                return status;
+            }
+        }
+        return null;
+    }
+
+    private String buildAppliedStatusText(List<DataStatus> statuses) {
+        if (statuses == null || statuses.isEmpty()) {
+            return "No statuses have been applied by status codes or manually.";
+        }
+
+        Map<String, List<DataStatus>> grouped = new LinkedHashMap<>();
+        for (DataStatus status : statuses) {
+            String groupName = extractStatusBaseName(status.getName());
+            if (groupName.isBlank()) {
+                groupName = status.getName().trim();
+            }
+            grouped.computeIfAbsent(groupName, ignored -> new ArrayList<>()).add(status);
+        }
+
+        StringBuilder text = new StringBuilder();
+        int index = 1;
+        for (Map.Entry<String, List<DataStatus>> entry : grouped.entrySet()) {
+            text.append(index++).append(". ").append(entry.getKey()).append(System.lineSeparator());
+            for (DataStatus status : entry.getValue()) {
+                text.append("   ").append(formatAttributeDisplay(status.getAttribute()))
+                        .append("  ").append(formatSignedNumber(status.getSeverity()))
+                        .append("  ").append(status.getDurationType() == null ? "None" : status.getDurationType());
+                if (status.getDuration() > 0) {
+                    text.append(" (").append(status.getDuration()).append(")");
+                }
+                text.append(System.lineSeparator());
+                if (status.getDescription() != null && !status.getDescription().isBlank()) {
+                    text.append("   ").append(status.getDescription()).append(System.lineSeparator());
+                }
+            }
+            text.append(System.lineSeparator());
+        }
+        return text.toString().trim();
     }
 
     private boolean applyBuiltStatus(DataStatus status) {
@@ -332,8 +890,8 @@ public class FrameStatus extends JFrame {
             return false;
         }
 
-        if ((reminderStatus || combatMarkerStatus || isTimedDuration(originalDurationType)) && character.getCombat() != null) {
-            character.getCombat().addStatus(new DataStatus(status));
+        if ((reminderStatus || combatMarkerStatus || isTimedDuration(originalDurationType)) && resolveCombat() != null) {
+            resolveCombat().addStatus(new DataStatus(status));
         }
 
         if (sheetFrame != null) {
@@ -344,30 +902,38 @@ public class FrameStatus extends JFrame {
         return true;
     }
 
+    private CharCombat resolveCombat() {
+        if (combatFrame != null && combatFrame.getActiveCombat() != null) {
+            return combatFrame.getActiveCombat();
+        }
+        return character == null ? null : character.getCombat();
+    }
+
     private boolean applyStatusToCharacter(DataStatus status) {
         if (status == null || character == null || status.getAttribute() == null) return false;
         String attribute = status.getAttribute().toUpperCase();
         if (isInstantResourceDeltaAttribute(attribute)) {
             return applyInstantResourceDelta(status);
         }
+        CharCombat combat = resolveCombat();
         if (isStunAttribute(attribute)) {
-            if (character.getCombat() == null) return false;
-            character.getCombat().adjustStunTokens((int)Math.round(status.getSeverity()));
+            if (combat == null) return false;
+            combat.adjustStunTokens((int)Math.round(status.getSeverity()));
             return true;
         }
         if (isHeavyAttribute(attribute)) {
-            if (character.getCombat() == null) return false;
-            character.getCombat().adjustHeavyTokens((int)Math.round(status.getSeverity()));
+            if (combat == null) return false;
+            combat.adjustHeavyTokens((int)Math.round(status.getSeverity()));
             return true;
         }
         if (isIncapacitateAttribute(attribute)) {
-            if (character.getCombat() == null) return false;
-            character.getCombat().adjustIncapacitateTokens((int)Math.round(status.getSeverity()));
+            if (combat == null) return false;
+            combat.adjustIncapacitateTokens((int)Math.round(status.getSeverity()));
             return true;
         }
         if (isRootAttribute(attribute)) {
-            if (character.getCombat() == null) return false;
-            character.getCombat().adjustRootTokens((int)Math.round(status.getSeverity()));
+            if (combat == null) return false;
+            combat.adjustRootTokens((int)Math.round(status.getSeverity()));
             return true;
         }
         try {
@@ -423,12 +989,16 @@ public class FrameStatus extends JFrame {
                 || "FLANKING".equalsIgnoreCase(normalized)
                 || "HOTHP".equalsIgnoreCase(normalized)
                 || "HOTSHIELD".equalsIgnoreCase(normalized)
-                || "DMGTAKEN".equalsIgnoreCase(normalized);
+                || "DMGTAKEN".equalsIgnoreCase(normalized)
+                || StoreCharData.isSizeAttribute(normalized);
     }
 
     private boolean isInstantResourceDeltaAttribute(String attribute) {
-        return attribute != null
-                && ("HP".equalsIgnoreCase(attribute.trim()) || "AURA".equalsIgnoreCase(attribute.trim()));
+        if (attribute == null || attribute.isBlank()) return false;
+        String normalized = attribute.trim();
+        return "HP".equalsIgnoreCase(normalized)
+                || "AURA".equalsIgnoreCase(normalized)
+                || "SPENTAURA".equalsIgnoreCase(normalized);
     }
 
     private boolean applyInstantResourceDelta(DataStatus status) {
@@ -449,6 +1019,17 @@ public class FrameStatus extends JFrame {
             character.getResources().setSpentAura(newSpentAura);
             return true;
         }
+        if ("SPENTAURA".equalsIgnoreCase(attribute)) {
+            double maxAura = Math.max(0.0, character.getResources().calcMaxAura());
+            double previousSpent = Math.max(0.0, character.getResources().getSpentAura());
+            double newSpentAura = clamp(previousSpent + severity, 0.0, maxAura);
+            character.getResources().setSpentAura(newSpentAura);
+            double spentDelta = newSpentAura - previousSpent;
+            if (spentDelta > 0.0) {
+                character.recordAuraSpentForCombatSpecialties(spentDelta);
+            }
+            return true;
+        }
         return false;
     }
 
@@ -460,7 +1041,7 @@ public class FrameStatus extends JFrame {
         int index = 1;
         for (DataStatus status : statuses) {
             text.append(index++).append(". ").append(status.getName()).append(System.lineSeparator());
-            text.append("Attribute: ").append(status.getAttribute()).append(System.lineSeparator());
+            text.append("Attribute: ").append(formatAttributeDisplay(status.getAttribute())).append(System.lineSeparator());
             text.append("Severity: ").append(formatNumber(status.getSeverity())).append(System.lineSeparator());
             text.append("Duration: ").append(status.getDurationType());
             if (status.getDuration() > 0) {
@@ -524,6 +1105,8 @@ public class FrameStatus extends JFrame {
             appendStatusMatrix(statuses, character.getAttributes().getMSecondary());
             appendStatusMatrix(statuses, character.getAttributes().getBDamage());
             appendStatusMatrix(statuses, character.getAttributes().getMDamage());
+            appendStatusBlock(statuses, character.getAttributes().getBSkill());
+            appendStatusBlock(statuses, character.getAttributes().getMSkill());
         }
 
         if (character.getResources() != null) {
@@ -600,8 +1183,8 @@ public class FrameStatus extends JFrame {
             removeActiveStatus(status);
         }
 
-        if (character.getCombat() != null) {
-            character.getCombat().getCombatStatus().removeIf(status -> {
+        if (resolveCombat() != null) {
+            resolveCombat().getCombatStatus().removeIf(status -> {
                 String grantFamily = getGrantFamilyName(status == null ? null : status.getName());
                 if (grantFamily == null) return false;
                 Set<String> incomingNames = incomingNamesByGrantFamily.get(grantFamily);
@@ -642,6 +1225,26 @@ public class FrameStatus extends JFrame {
         return statusName == null ? "" : statusName.trim();
     }
 
+    private String formatAttributeDisplay(String attribute) {
+        if (attribute == null || attribute.isBlank()) return "None";
+        String normalized = attribute.trim().toUpperCase();
+        if (normalized.startsWith("BSKILL") && normalized.length() > "BSKILL".length()) {
+            return "Skill: " + normalized.substring("BSKILL".length());
+        }
+        if (normalized.startsWith("MSKILL") && normalized.length() > "MSKILL".length()) {
+            return "Skill Multiplier: " + normalized.substring("MSKILL".length());
+        }
+        if (StoreCharData.isSizeAttribute(normalized)) {
+            return "Size";
+        }
+        return switch (normalized) {
+            case "HP" -> "Current HP";
+            case "AURA" -> "Current Aura";
+            case "SPENTAURA" -> "Spent Aura";
+            default -> attribute;
+        };
+    }
+
     private String formatNumber(double value) {
         synchronized (NUMBER_FORMAT) {
             return NUMBER_FORMAT.format(value);
@@ -650,5 +1253,20 @@ public class FrameStatus extends JFrame {
 
     private String formatSignedNumber(double value) {
         return (value >= 0 ? "+" : "") + formatNumber(value);
+    }
+
+    private static final class AppliedStatusGroup {
+        private final String name;
+        private final List<DataStatus> statuses;
+
+        private AppliedStatusGroup(String name, List<DataStatus> statuses) {
+            this.name = name;
+            this.statuses = statuses;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

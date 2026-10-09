@@ -1,7 +1,10 @@
 package eternity;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,14 +13,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+
+import websocket.Roll20WebSocketServer;
+import websocket.events.Roll20Token;
 
 /**
  * Helper frame for techniques that apply to the next resolved attack.
@@ -25,6 +38,18 @@ import javax.swing.SwingConstants;
 public class FrameNextAttack extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String STEALTH_STRIKE_ACTION = "Stealth Strike";
+	private static final String ANGER_STRIKE_ACTION = "Anger Strike";
+	private static final String CALM_STRIKE_ACTION = "Calm Strike";
+	private static final String ORDER_STRIKE_ACTION = "Order Strike";
+	private static final String CHAOS_STRIKE_ACTION = "Chaos Strike";
+	private static final String FLASH_MOB_ACTION = "Flash Mob";
+	private static final String SHIVER_ACTION = "Shiver";
+	private static final String CROSSFIRE_ACTION = "Crossfire";
+	private static final String CROSSFIRE_MARKER = "CROSSFIRE";
+	private static final String INCANT_ACTION = "Incant";
+	private static final String INCANT_MARKER = "INCANT";
+	private static final String CHAIN_ACTION = "Chain";
+	private static final String CHAIN_MARKER = "CHAIN";
 
 	private final FrameSheet sheetFrame;
 	private final FrameCombat combatFrame;
@@ -37,6 +62,11 @@ public class FrameNextAttack extends JFrame {
 	private JLabel actionTypeValueLabel;
 	private JLabel costValueLabel;
 	private JTextArea effectsArea;
+	private JLabel targetHeaderL;
+	private JList<Roll20Token> targetList;
+	private DefaultListModel<Roll20Token> sourceTargetModel;
+	private final DefaultListModel<Roll20Token> visibleTargetModel = new DefaultListModel<>();
+	private String selectedTargetId;
 
 	FrameNextAttack(FrameSheet sheetFrame, FrameCombat combatFrame, StoreCharData character, DataAction action) {
 		super("Next Attack Helper");
@@ -44,9 +74,12 @@ public class FrameNextAttack extends JFrame {
 		this.combatFrame = combatFrame;
 		this.character = character;
 		this.action = action == null ? new DataAction() : new DataAction(action);
+		if (isChargeAction()) {
+			this.action.setCosts(List.of(new DataAction.CostPair("None", 0.0)));
+		}
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(560, 420);
+		setSize(isChargeAction() ? 810 : 560, 420);
 		setLocationRelativeTo(combatFrame);
 		setResizable(false);
 		setLayout(new BorderLayout());
@@ -82,7 +115,14 @@ public class FrameNextAttack extends JFrame {
 		if (isAuraSourceAction()) {
 			alSelect = new JComboBox<>();
 			populateAlSelect();
-			alSelect.addActionListener(e -> refreshEffectsPreview());
+			action.setAl(getSelectedAl());
+			alSelect.addActionListener(e -> {
+				action.setAl(getSelectedAl());
+				if (costValueLabel != null) {
+					costValueLabel.setText(buildCostDisplay(action));
+				}
+				refreshEffectsPreview();
+			});
 			addRow(center, gbc, y++, "AL", alSelect);
 		}
 
@@ -100,6 +140,9 @@ public class FrameNextAttack extends JFrame {
 		gbc.fill = GridBagConstraints.BOTH;
 		center.add(effectsPane, gbc);
 		add(center, BorderLayout.CENTER);
+		if (isChargeAction()) {
+			add(buildChargeTargetPanel(), BorderLayout.EAST);
+		}
 
 		JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		javax.swing.JButton cancel = new javax.swing.JButton("Cancel");
@@ -117,6 +160,179 @@ public class FrameNextAttack extends JFrame {
 		affinityValueLabel.setText(safeDisplay(action.getAffinity()));
 		actionTypeValueLabel.setText(safeDisplay(action.getActionType()));
 		costValueLabel.setText(buildCostDisplay(action));
+	}
+
+	private JPanel buildChargeTargetPanel() {
+		JPanel panel = new JPanel(new BorderLayout(0, 6));
+		panel.setBorder(BorderFactory.createEmptyBorder(12, 8, 12, 12));
+		panel.setPreferredSize(new Dimension(250, 420));
+
+		targetHeaderL = new JLabel("Charge Targets");
+		targetHeaderL.setFont(targetHeaderL.getFont().deriveFont(Font.BOLD, 14f));
+		panel.add(targetHeaderL, BorderLayout.NORTH);
+
+		try {
+			Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+			sourceTargetModel = server.getTargetModel();
+			if (character != null && character.getIdentity() != null) {
+				server.setLoadedCharacter(
+						character.getIdentity().getName(),
+						character.getIdentity().getNickname());
+			}
+			if (server.getSelectedTarget() != null) {
+				selectedTargetId = server.getSelectedTarget().id;
+			}
+			server.requestTokenSnapshot();
+		} catch (Exception ex) {
+			sourceTargetModel = new DefaultListModel<>();
+			targetHeaderL.setText("Roll20 Targets Unavailable");
+			targetHeaderL.setToolTipText(ex.getMessage());
+		}
+
+		targetList = new JList<>(visibleTargetModel);
+		targetList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		targetList.setCellRenderer(new DefaultListCellRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (component instanceof JLabel && value instanceof Roll20Token token) {
+					((JLabel) component).setText(formatChargeTargetLabel(token));
+				}
+				return component;
+			}
+		});
+		targetList.addListSelectionListener(event -> {
+			if (event.getValueIsAdjusting()) return;
+			Roll20Token selected = targetList.getSelectedValue();
+			selectedTargetId = selected == null ? null : selected.id;
+			try {
+				Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+				server.setSelectedTarget(selected);
+				if (selected != null && selected.id != null) {
+					server.sendSelectToken(selected.id);
+				}
+			} catch (Exception ignored) {
+				// Keep the local selection even if the bridge is unavailable.
+			}
+			refreshEffectsPreview();
+		});
+		sourceTargetModel.addListDataListener(new ListDataListener() {
+			@Override public void intervalAdded(ListDataEvent e) { refreshChargeTargets(); }
+			@Override public void intervalRemoved(ListDataEvent e) { refreshChargeTargets(); }
+			@Override public void contentsChanged(ListDataEvent e) { refreshChargeTargets(); }
+		});
+		refreshChargeTargets();
+
+		JScrollPane targetPane = new JScrollPane(targetList);
+		targetPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		targetPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panel.add(targetPane, BorderLayout.CENTER);
+		return panel;
+	}
+
+	private void refreshChargeTargets() {
+		if (visibleTargetModel == null || sourceTargetModel == null || targetHeaderL == null) {
+			return;
+		}
+		Roll20WebSocketServer server = null;
+		try {
+			server = Roll20WebSocketServer.getSharedServer();
+		} catch (Exception ignored) {
+			server = null;
+		}
+		Roll20Token self = server == null ? null : server.getLoadedCharacterToken();
+		boolean canFilterRange = self != null && self.left != null && self.top != null;
+		double minFeet = getChargeMinimumDistance();
+		double maxFeet = getChargeMoveDistance();
+
+		if (canFilterRange) {
+			targetHeaderL.setText("Charge Targets");
+			targetHeaderL.setToolTipText("Enemy tokens between " + trimNumber(minFeet) + "ft and "
+					+ trimNumber(maxFeet) + "ft with a clear path.");
+		} else {
+			targetHeaderL.setText("Enemy Targets");
+			targetHeaderL.setToolTipText("The loaded character token was not found, so charge range cannot be applied.");
+		}
+
+		visibleTargetModel.clear();
+		for (int i = 0; i < sourceTargetModel.size(); i++) {
+			Roll20Token token = sourceTargetModel.get(i);
+			if (token == null || token.loadedCharacter || token.isAlly()) {
+				continue;
+			}
+			if (canFilterRange && !server.isWithinRangeOfLoadedCharacter(token, minFeet, maxFeet)) {
+				continue;
+			}
+			if (canFilterRange && !server.isChargePathClearToLoadedCharacter(token)) {
+				continue;
+			}
+			visibleTargetModel.addElement(token);
+		}
+		restoreChargeTargetSelection();
+	}
+
+	private void restoreChargeTargetSelection() {
+		if (targetList == null || selectedTargetId == null || selectedTargetId.isBlank()) return;
+		for (int i = 0; i < visibleTargetModel.size(); i++) {
+			Roll20Token token = visibleTargetModel.get(i);
+			if (token != null && selectedTargetId.equals(token.id)) {
+				if (targetList.getSelectedIndex() != i) {
+					targetList.setSelectedIndex(i);
+				}
+				return;
+			}
+		}
+	}
+
+	private Roll20Token getSelectedChargeTarget() {
+		if (targetList != null && targetList.getSelectedValue() != null) {
+			Roll20Token selected = targetList.getSelectedValue();
+			if (isUsableChargeTarget(selected)) {
+				return selected;
+			}
+		}
+		try {
+			Roll20Token selected = Roll20WebSocketServer.getSharedServer().getSelectedTarget();
+			if (isUsableChargeTarget(selected)) {
+				return selected;
+			}
+		} catch (Exception ignored) {
+			return null;
+		}
+		return null;
+	}
+
+	private boolean isUsableChargeTarget(Roll20Token token) {
+		if (token == null || token.isAlly()) {
+			return false;
+		}
+		try {
+			Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+			Roll20Token self = server.getLoadedCharacterToken();
+			if (self == null || self.left == null || self.top == null) {
+				return true;
+			}
+			return server.isChargePathClearToLoadedCharacter(token);
+		} catch (Exception ignored) {
+			return true;
+		}
+	}
+
+	private String formatChargeTargetLabel(Roll20Token token) {
+		if (token == null) return "";
+		String displayName = token.name == null || token.name.isBlank() ? token.id : token.name;
+		try {
+			double distance = Roll20WebSocketServer.getSharedServer().getDistanceFeetFromLoadedCharacter(token);
+			if (!Double.isNaN(distance)) {
+				return displayName + " (" + trimNumber(distance) + " ft)";
+			}
+		} catch (Exception ignored) {
+			// Fall through to the name only.
+		}
+		return displayName;
 	}
 
 	private void addRow(JPanel panel, GridBagConstraints gbc, int y, String labelText, java.awt.Component field) {
@@ -147,6 +363,12 @@ public class FrameNextAttack extends JFrame {
 		List<DataStatus> previewStatuses = buildPendingStatuses();
 		StringBuilder text = new StringBuilder();
 		appendChargeInstructions(text);
+		appendTemperanceInstructions(text);
+		appendFlashMobInstructions(text);
+		appendShiverInstructions(text);
+		appendCrossfireInstructions(text);
+		appendIncantInstructions(text);
+		appendChainInstructions(text);
 		text.append("Pending effects applied until the next resolved attack.");
 		text.append(System.lineSeparator()).append(System.lineSeparator());
 
@@ -186,6 +408,86 @@ public class FrameNextAttack extends JFrame {
 					.append(System.lineSeparator());
 		}
 		text.append(System.lineSeparator());
+	}
+
+	private void appendTemperanceInstructions(StringBuilder text) {
+		if (text == null || !isTemperanceAbility()) return;
+		boolean entropyAbility = isEntropyAbility();
+		text.append(entropyAbility
+						? "Only one Entropy ability can be activated per turn."
+						: "Only one Temperance ability can be activated per turn.")
+				.append(System.lineSeparator());
+		if (isAngerStrikeAction() || isChaosStrikeAction()) {
+			text.append("If this effect is not consumed before the end of your turn, it is lost and the resource cost is not refunded.")
+					.append(System.lineSeparator());
+		} else {
+			text.append("If this effect is not consumed before the end of your turn, it is lost.")
+					.append(System.lineSeparator());
+		}
+		text.append(System.lineSeparator());
+	}
+
+	private void appendFlashMobInstructions(StringBuilder text) {
+		if (text == null || !isFlashMobAbility()) return;
+		text.append("Costs 1 Aggressive Tactic and 1 Strategic Tactic.")
+				.append(System.lineSeparator());
+		text.append("Only one Tactics ability can be activated per turn.")
+				.append(System.lineSeparator());
+		text.append("Modifies your next attack this turn with the Technical modifier (no direct attack bonus).")
+				.append(System.lineSeparator());
+		text.append("If unused before end of turn, Flash Mob is lost and you recover one of the two Tactics spent.")
+				.append(System.lineSeparator());
+		text.append("For each TP, select a unique minion and an adjacent unoccupied tile to move/create a 1 HP copy.")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
+	}
+
+	private void appendShiverInstructions(StringBuilder text) {
+		if (text == null || !isShiverAction()) return;
+		text.append("Costs 1 Aptitude.")
+				.append(System.lineSeparator());
+		text.append("Activated as a free action or interrupt when declaring an attack.")
+				.append(System.lineSeparator());
+		text.append("Modifies your next attack this turn (+1x CL to attack roll) and grants Technical.")
+				.append(System.lineSeparator());
+		text.append("If unused before the end of your turn, the effect is lost and the Aptitude cost is not refunded.")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
+	}
+
+	private void appendCrossfireInstructions(StringBuilder text) {
+		if (text == null || !isCrossfireAction()) return;
+		text.append("Crossfire affects your next single-target attack.")
+				.append(System.lineSeparator());
+		text.append("That target is subject to an attack of opportunity from all allies.")
+				.append(System.lineSeparator());
+		text.append("Each ally must spend 1 Reaction to attack, and these attacks are not limited to melee.")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
+	}
+
+	private void appendIncantInstructions(StringBuilder text) {
+		if (text == null || !isIncantAction()) return;
+		double severityBonus = getIncantSeverityBonus();
+		text.append("Your next Impairment ability gains an additional WILL save.")
+				.append(System.lineSeparator());
+		text.append("If the target fails that save, the base effect severity is increased by ")
+				.append(trimNumber(severityBonus))
+				.append(" (10% of DEX).")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
+	}
+
+	private void appendChainInstructions(StringBuilder text) {
+		if (text == null || !isChainAction()) return;
+		text.append("Your next Impairment ability gains an additional FORT save.")
+				.append(System.lineSeparator());
+		text.append("If the target fails that save, the technique is replicated with a -10 APPLY penalty")
+				.append(" against an unaffected creature within RANGE.")
+				.append(System.lineSeparator());
+		text.append("The replicated technique also has this Chain effect.")
+				.append(System.lineSeparator())
+				.append(System.lineSeparator());
 	}
 
 	private boolean isChargeAction() {
@@ -234,6 +536,18 @@ public class FrameNextAttack extends JFrame {
 	}
 
 	private void confirmPressed() {
+		if (isChargeAction() && getSelectedChargeTarget() == null) {
+			int choice = JOptionPane.showConfirmDialog(
+					this,
+					"No target selected. Continue anyway?",
+					"Charge Target",
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE);
+			if (choice != JOptionPane.YES_OPTION) {
+				return;
+			}
+		}
+
 		List<DataStatus> statuses = buildPendingStatuses();
 		if (statuses.isEmpty()) {
 			statuses = List.of(buildMarkerStatus());
@@ -247,9 +561,19 @@ public class FrameNextAttack extends JFrame {
 		}
 
 		if (combatFrame != null) {
+			if (isAuraSourceAction()) {
+				action.setAl(getSelectedAl());
+			}
 			if (!combatFrame.finishActionUse(action)) {
 				return;
 			}
+		}
+		if (isTemperanceAbility() && character != null && character.getCombat() != null) {
+			character.getCombat().setTemperanceAbilityUsedThisTurn(true);
+		}
+		if (isFlashMobAbility() && character != null && character.getCombat() != null) {
+			character.getCombat().setTacticsAbilityUsedThisTurn(true);
+			character.getCombat().setFlashMobPendingRefund(true);
 		}
 		if (sheetFrame != null) {
 			sheetFrame.refreshImagePanel();
@@ -266,11 +590,30 @@ public class FrameNextAttack extends JFrame {
 		if (isStealthStrikeAction()) {
 			statuses.add(buildMarkerStatus("STEALTHSTRIKE", "Stealth Strike"));
 		}
+		if (isFlashMobAbility()) {
+			statuses.add(buildMarkerStatus("FLASHMOB", "Flash Mob"));
+		}
+		if (isCrossfireAction()) {
+			statuses.add(buildMarkerStatus(CROSSFIRE_MARKER, "Crossfire"));
+		}
+		if (isIncantAction()) {
+			statuses.add(buildMarkerStatus(INCANT_MARKER, "Incant"));
+		}
+		if (isChainAction()) {
+			statuses.add(buildMarkerStatus(CHAIN_MARKER, "Chain"));
+		}
 		Map<String, Double> accumulatedEffects = new LinkedHashMap<>();
 		for (DataAction.ModifierKey modifier : action.getModifierKey()) {
 			accumulatePendingEffect(accumulatedEffects, modifier);
 		}
 		accumulateChargeRacialEffects(accumulatedEffects);
+		if (character != null && character.isOverchargeClassAbility(action)) {
+			double bonus = character.getOverchargeDamageMultiplierBonus();
+			if (bonus > 0.0) {
+				mergeEffect(accumulatedEffects, "MBDMG", bonus);
+				mergeEffect(accumulatedEffects, "MTDMG", bonus);
+			}
+		}
 		if (!isStealthStrikeAction() && resolveTechnicalData() != null && !accumulatedEffects.containsKey("TECH")) {
 			accumulatedEffects.put("TECH", 1.0);
 		}
@@ -284,9 +627,25 @@ public class FrameNextAttack extends JFrame {
 		if (accumulatedEffects == null || !hasJoustingCharge()) return;
 		int raceTrainingRank = getRaceTrainingRank();
 		if (raceTrainingRank <= 0) return;
-		mergeEffect(accumulatedEffects, "BATK", raceTrainingRank / 2.0);
+		mergeEffect(accumulatedEffects, "BATK", raceTrainingRank);
 		mergeEffect(accumulatedEffects, "BBDMG", raceTrainingRank);
-		mergeEffect(accumulatedEffects, "BTDMG", raceTrainingRank);
+		mergeEffect(accumulatedEffects, "BTDMG", getJoustingChargeTdmgBonus(raceTrainingRank));
+	}
+
+	private double getJoustingChargeTdmgBonus(int raceTrainingRank) {
+		if (raceTrainingRank <= 0) return 0.0;
+		return (getChargeDistanceTraveled() / 5.0) * raceTrainingRank;
+	}
+
+	private double getChargeDistanceTraveled() {
+		Roll20Token target = getSelectedChargeTarget();
+		if (target == null) return 0.0;
+		try {
+			double distance = Roll20WebSocketServer.getSharedServer().getDistanceFeetFromLoadedCharacter(target);
+			return Double.isNaN(distance) ? 0.0 : Math.max(0.0, distance);
+		} catch (Exception ignored) {
+			return 0.0;
+		}
 	}
 
 	private void addPendingStatus(List<DataStatus> statuses, String attribute, double severity, String label) {
@@ -365,7 +724,14 @@ public class FrameNextAttack extends JFrame {
 		ArrayList<String> values = new ArrayList<>();
 		for (DataAction.CostPair cost : dataAction.getCosts()) {
 			if (cost == null || cost.getType() == null) continue;
-			values.add(cost.getType() + " " + trimNumber(cost.getValue()));
+			if ("None".equalsIgnoreCase(cost.getType())) {
+				values.add("None");
+				continue;
+			}
+			double shownValue = character == null
+					? cost.getValue()
+					: character.getEffectiveActionCostValue(dataAction, cost.getType(), cost.getValue());
+			values.add(cost.getType() + " " + trimNumber(shownValue));
 		}
 		return values.isEmpty() ? "None" : String.join(", ", values);
 	}
@@ -380,6 +746,20 @@ public class FrameNextAttack extends JFrame {
 		}
 		if ("STEALTHSTRIKE".equalsIgnoreCase(status.getAttribute())) {
 			return "Stealth Strike: Successful attack grants 1 TP, failed WILL save grants 1 TP, then spend TP on rogue follow-up effects.";
+		}
+		if ("FLASHMOB".equalsIgnoreCase(status.getAttribute())) {
+			return "Flash Mob: Next attack is Technical; for each TP, create/move a unique minion copy (1 HP).";
+		}
+		if (CROSSFIRE_MARKER.equalsIgnoreCase(status.getAttribute())) {
+			return "Crossfire: The target is subject to an attack of opportunity from all allies. Each ally spends 1 Reaction, and these attacks are not limited to melee.";
+		}
+		if (INCANT_MARKER.equalsIgnoreCase(status.getAttribute())) {
+			return "Incant: Next Impairment ability provokes a WILL save; on failure, base effect severity +"
+					+ trimNumber(getIncantSeverityBonus()) + " (10% of DEX).";
+		}
+		if (CHAIN_MARKER.equalsIgnoreCase(status.getAttribute())) {
+			return "Chain: Next Impairment ability provokes a FORT save; on failure, replicate the technique"
+					+ " with APPLY -10 against an unaffected creature within RANGE (replica also Chains).";
 		}
 		return describeAttribute(status.getAttribute()) + ": " + formatSignedNumber(status.getSeverity());
 	}
@@ -408,6 +788,69 @@ public class FrameNextAttack extends JFrame {
 		return action != null
 				&& action.getName() != null
 				&& STEALTH_STRIKE_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isCrossfireAction() {
+		return action != null
+				&& action.getName() != null
+				&& CROSSFIRE_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isIncantAction() {
+		return action != null
+				&& action.getName() != null
+				&& INCANT_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isChainAction() {
+		return action != null
+				&& action.getName() != null
+				&& CHAIN_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private double getIncantSeverityBonus() {
+		if (character == null || character.getAttributes() == null) return 0.0;
+		return Math.max(0.0, character.getAttributes().calcStatusValue("DEX") * 0.1);
+	}
+
+	private boolean isAngerStrikeAction() {
+		return action != null
+				&& action.getName() != null
+				&& ANGER_STRIKE_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isChaosStrikeAction() {
+		return action != null
+				&& action.getName() != null
+				&& CHAOS_STRIKE_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isTemperanceAbility() {
+		if (action == null || action.getName() == null) return false;
+		String actionName = action.getName().trim();
+		return ANGER_STRIKE_ACTION.equalsIgnoreCase(actionName)
+				|| CALM_STRIKE_ACTION.equalsIgnoreCase(actionName)
+				|| ORDER_STRIKE_ACTION.equalsIgnoreCase(actionName)
+				|| CHAOS_STRIKE_ACTION.equalsIgnoreCase(actionName);
+	}
+
+	private boolean isEntropyAbility() {
+		if (action == null || action.getName() == null) return false;
+		String actionName = action.getName().trim();
+		return ORDER_STRIKE_ACTION.equalsIgnoreCase(actionName)
+				|| CHAOS_STRIKE_ACTION.equalsIgnoreCase(actionName);
+	}
+
+	private boolean isFlashMobAbility() {
+		return action != null
+				&& action.getName() != null
+				&& FLASH_MOB_ACTION.equalsIgnoreCase(action.getName().trim());
+	}
+
+	private boolean isShiverAction() {
+		return action != null
+				&& action.getName() != null
+				&& SHIVER_ACTION.equalsIgnoreCase(action.getName().trim());
 	}
 
 	private void appendTechnicalDescription(StringBuilder text) {
@@ -580,6 +1023,7 @@ public class FrameNextAttack extends JFrame {
 		return switch (normalized) {
 			case "AL" -> character == null || action == null ? 0.0 : character.getEffectiveTechniqueAl(action.getAffinity(), getSelectedAl());
 			case "CL" -> getClassLevel();
+			case "BASEHP" -> getLevelBaseHp();
 			case "ATK" -> 0.0;
 			case "APP" -> 0.0;
 			case "BDMG" -> 0.0;
@@ -593,6 +1037,12 @@ public class FrameNextAttack extends JFrame {
 	private double getClassLevel() {
 		if (character == null || character.getIdentity() == null) return 0.0;
 		return Math.max(0, character.getIdentity().getLevel());
+	}
+
+	private double getLevelBaseHp() {
+		if (character == null || character.getIdentity() == null) return 0.0;
+		DataLevel levelData = new StoreRuleManager().getLevel(character.getIdentity().getLevel());
+		return levelData == null ? 0.0 : Math.max(0, levelData.getBaseHP());
 	}
 
 	private double resolveCharacterStatValue(String key) {

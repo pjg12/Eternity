@@ -37,6 +37,9 @@ public class CharSpecials {
     private static final String COMMAND_SPECIALTY = "Command";
     private static final String COMMAND_SAFE_SPECIALTY = "Command (Safe)";
     private static final String COMMAND_SOUND_SPECIALTY = "Command (Sound)";
+    private static final String GAMBIT_SPECIALTY = "Gambit";
+    private static final String GAMBIT_MINION_SPECIALTY = "Gambit (Minion)";
+    private static final String GAMBIT_LEADER_SPECIALTY = "Gambit (Leader)";
     private static final String CHASTISE_SPECIALTY = "Chastise";
     private static final String CHASTISE_NIGHT_SPECIALTY = "Chastise (Night)";
     private static final String CHASTISE_DAY_SPECIALTY = "Chastise (Day)";
@@ -49,6 +52,9 @@ public class CharSpecials {
     private static final String IONIZE_SPECIALTY = "Ionize";
     private static final String IONIZE_SUPPLY_SPECIALTY = "Ionize (Supply)";
     private static final String IONIZE_DEMAND_SPECIALTY = "Ionize (Demand)";
+    private static final int SUMMON_MINION_MINOR_II_ID = 6061;
+    private static final String SUMMON_MINION_MINOR_GENERAL_MELEE_SPECIALTY =
+            "Summon Minion (Minor + General + Melee)";
 
     // ---------------------------------------------------------
     // Fields
@@ -137,6 +143,7 @@ public class CharSpecials {
                 || RESONANT_STRIKE_SPECIALTY.equalsIgnoreCase(name)
                 || MISDIRECTION_SPECIALTY.equalsIgnoreCase(name)
                 || COMMAND_SPECIALTY.equalsIgnoreCase(name)
+                || GAMBIT_SPECIALTY.equalsIgnoreCase(name)
                 || CHASTISE_SPECIALTY.equalsIgnoreCase(name)
                 || EFFLUX_SPECIALTY.equalsIgnoreCase(name)
                 || PULSE_SPECIALTY.equalsIgnoreCase(name)
@@ -414,6 +421,10 @@ public class CharSpecials {
                 COMMAND_SAFE_SPECIALTY,
                 COMMAND_SOUND_SPECIALTY);
         normalizeLegacySplitClassSpecialty(
+                GAMBIT_SPECIALTY,
+                GAMBIT_MINION_SPECIALTY,
+                GAMBIT_LEADER_SPECIALTY);
+        normalizeLegacySplitClassSpecialty(
                 CHASTISE_SPECIALTY,
                 CHASTISE_NIGHT_SPECIALTY,
                 CHASTISE_DAY_SPECIALTY);
@@ -468,6 +479,24 @@ public class CharSpecials {
             classSpecialtiesByName.remove(normalizeName(spec.getName()));
             specialtiesDirty = true;
         }
+    }
+
+    public void removeClassSpecialtiesByType(String type) {
+        if (type == null || type.isBlank()) return;
+        boolean removed = charClassSpecials.removeIf(spec ->
+                spec != null && spec.getType() != null && type.equalsIgnoreCase(spec.getType().trim()));
+        if (!removed) return;
+        rebuildClassSpecialtiesByName();
+        specialtiesDirty = true;
+    }
+
+    public void removeClassSpecialtiesByRefName(String refName) {
+        if (refName == null || refName.isBlank()) return;
+        boolean removed = charClassSpecials.removeIf(spec ->
+                spec != null && spec.getRefName() != null && refName.equalsIgnoreCase(spec.getRefName().trim()));
+        if (!removed) return;
+        rebuildClassSpecialtiesByName();
+        specialtiesDirty = true;
     }
 
     private void rebuildClassSpecialtiesByName() {
@@ -651,4 +680,27 @@ public class CharSpecials {
 
     /** Search combined specialties by name. */
     public boolean hasSpecialty(String name) { return findSpecialty(name) != null; }
+
+    /**
+     * Returns true when the character is missing a specialty prerequisite for {@code specialty}.
+     * Uses the specialty's {@code prereq} id when it resolves to another specialty,
+     * plus hard-coded specialty chains (e.g. Summon Minion Minor II requires 6011).
+     */
+    public boolean lacksRequiredSpecialty(DataSpecialty specialty, StoreRuleManager ruleManager) {
+        if (specialty == null) return false;
+
+        if (specialty.getId() == SUMMON_MINION_MINOR_II_ID
+                && !hasSpecialty(SUMMON_MINION_MINOR_GENERAL_MELEE_SPECIALTY)) {
+            return true;
+        }
+
+        int prereqId = specialty.getPrereq();
+        if (prereqId <= 0 || ruleManager == null) return false;
+
+        DataSpecialty prereqSpecialty = ruleManager.getSpecialtyById(prereqId);
+        if (prereqSpecialty == null || prereqSpecialty.getName() == null || prereqSpecialty.getName().isBlank()) {
+            return false;
+        }
+        return !hasSpecialty(prereqSpecialty.getName());
+    }
 }

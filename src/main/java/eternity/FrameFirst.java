@@ -124,14 +124,16 @@ public class FrameFirst extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.setOpaque(false);
+        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, BUTTON_HEIGHT));
 
         // New Button
         newBtn = new JButton(BUTTON_NEW);
-        newBtn.setPreferredSize(btnSize);
+        sizeButton(newBtn, btnSize);
 
         // Load Button
         loadBtn = new JButton(BUTTON_LOAD);
-        loadBtn.setPreferredSize(btnSize);
+        sizeButton(loadBtn, btnSize);
 
         // Add Buttons
         buttonPanel.add(Box.createHorizontalGlue());
@@ -151,12 +153,14 @@ public class FrameFirst extends JFrame {
         JPanel helperButtonPanel = new JPanel();
         helperButtonPanel.setLayout(new BoxLayout(helperButtonPanel, BoxLayout.X_AXIS));
         helperButtonPanel.setOpaque(false);
+        helperButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        helperButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, BUTTON_HEIGHT));
 
         playerBtn = new JButton(BUTTON_PLAYER);
-        playerBtn.setPreferredSize(btnSize);
+        sizeButton(playerBtn, btnSize);
 
         narratorBtn = new JButton(BUTTON_NARRATOR);
-        narratorBtn.setPreferredSize(btnSize);
+        sizeButton(narratorBtn, btnSize);
 
         helperButtonPanel.add(Box.createHorizontalGlue());
         helperButtonPanel.add(playerBtn);
@@ -166,8 +170,7 @@ public class FrameFirst extends JFrame {
         root.add(helperButtonPanel);
         root.add(Box.createVerticalGlue());
 
-        // Add root to frame
-        add(root);
+        setContentPane(root);
 
         // Listeners
         newBtn.addActionListener(e -> onNewPressed());
@@ -203,6 +206,12 @@ public class FrameFirst extends JFrame {
                 }
             }
         });
+    }
+
+    private static void sizeButton(JButton button, Dimension size) {
+        button.setPreferredSize(size);
+        button.setMinimumSize(size);
+        button.setMaximumSize(size);
     }
 
     private void setStatusText(String text) {

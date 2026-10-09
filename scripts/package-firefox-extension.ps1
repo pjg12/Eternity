@@ -59,6 +59,7 @@ Temporary test install:
 Note:
 - Temporary installs are removed when Firefox restarts.
 - Wider tester distribution in Firefox requires a Mozilla-signed package.
+- The bridge connects only on Roll20 campaigns that have a journal handout titled Eternity.
 "@ | Set-Content -LiteralPath (Join-Path $stagingDir "INSTALL.txt")
 
 Compress-Archive -Path (Join-Path $stagingDir "*") -DestinationPath $zipPath -Force

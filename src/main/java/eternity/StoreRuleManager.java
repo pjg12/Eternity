@@ -214,6 +214,10 @@ public class StoreRuleManager {
         return searchByEntries(QUERY_INDEX.skillNameSearch, normalizeKey(namePart), QUERY_INDEX.skillSearchCache);
     }
 
+    public List<DataSkill> getSkillData() {
+        return RULE_DATA.getSkillData();
+    }
+
     public List<DataSkill> getSkillsByAttribute(String attribute) {
         if (attribute == null || attribute.equals("***")) return List.of();
         String normalizedAttribute = normalizeKey(attribute);
@@ -314,6 +318,11 @@ public class StoreRuleManager {
         return QUERY_INDEX.trainingById.get(id);
     }
 
+    public DataTraining getTrainingByName(String name) {
+        String normalized = normalizeKey(name);
+        return normalized == null ? null : QUERY_INDEX.trainingByName.get(normalized);
+    }
+
     public List<DataTraining> getTrainingData() {
         return RULE_DATA.getTrainingData();
     }
@@ -345,6 +354,49 @@ public class StoreRuleManager {
     public List<DataAction> getActionsBySource(String source) {
         if (source == null || source.equals("***")) return RULE_DATA.getActionData();
         return QUERY_INDEX.actionsBySource.getOrDefault(normalizeKey(source), List.of());
+    }
+
+    public List<DataExo> getExoData() {
+        return RULE_DATA.getExoData();
+    }
+
+    public DataExo getExoForWeapon(DataItemEquipment weapon) {
+        if (weapon == null) return null;
+        DataExo byName = getExoByWeaponName(weapon.getDname());
+        if (byName != null) return byName;
+        DataItemWeapon template = weapon.getDid() > 0 ? getWeaponByDid(weapon.getDid()) : null;
+        if (template != null) {
+            byName = getExoByWeaponName(template.getDname());
+            if (byName != null) return byName;
+        }
+        DataExo byType = getExoByWeaponType(weapon.getType());
+        if (byType != null) return byType;
+        if (template != null) {
+            return getExoByWeaponType(template.getType());
+        }
+        return null;
+    }
+
+    public DataExo getExoByWeaponName(String weaponName) {
+        String normalized = normalizeKey(weaponName);
+        if (normalized == null || normalized.isBlank()) return null;
+        for (DataExo exo : RULE_DATA.getExoData()) {
+            if (exo != null && normalized.equals(normalizeKey(exo.getWeapon()))) {
+                return exo;
+            }
+        }
+        return null;
+    }
+
+    public DataExo getExoByWeaponType(String weaponType) {
+        String normalized = normalizeKey(weaponType);
+        if (normalized == null || normalized.isBlank()) return null;
+        for (DataExo exo : RULE_DATA.getExoData()) {
+            if (exo != null && normalized.equals(normalizeKey(exo.getType()))) {
+                return exo;
+            }
+        }
+        return null;
     }
 
     private static <T> List<T> searchByEntries(List<SearchEntry<T>> entries, String normalizedSearch, Map<String, List<T>> cache) {
@@ -397,6 +449,7 @@ public class StoreRuleManager {
         private final Map<String, DataItemWeapon> weaponsByName;
         private final List<SearchEntry<DataItemWeapon>> weaponNameSearch;
         private final Map<Integer, DataTraining> trainingById;
+        private final Map<String, DataTraining> trainingByName;
         private final List<SearchEntry<DataTraining>> trainingNameSearch;
         private final Map<Integer, DataAction> actionsById;
         private final Map<String, DataAction> actionsByName;
@@ -601,6 +654,7 @@ public class StoreRuleManager {
             }
 
             trainingById = new HashMap<>(Math.max(16, trainingData.size() * 2));
+            trainingByName = new HashMap<>(Math.max(16, trainingData.size() * 2));
             trainingNameSearch = new ArrayList<>(trainingData.size());
             trainingSearchCache = new ConcurrentHashMap<>();
             for (DataTraining training : trainingData) {
@@ -608,6 +662,7 @@ public class StoreRuleManager {
                     trainingById.putIfAbsent(training.getId(), training);
                     String normalizedName = normalizeKey(training.getName());
                     if (normalizedName != null) {
+                        trainingByName.putIfAbsent(normalizedName, training);
                         trainingNameSearch.add(new SearchEntry<>(normalizedName, training));
                     }
                 }

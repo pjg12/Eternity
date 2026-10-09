@@ -55,8 +55,9 @@ public class SpecCheck {
         if (panelReminderSetter == null) return;
         String refName = special.getRefName();
         String specialName = special.getName() == null ? "" : special.getName();
-        if ("Domain Emanation".equalsIgnoreCase(specialName)) {
-            panelReminderSetter.accept("Domain Emanation::On|Off");
+        if ("Domain Emanation".equalsIgnoreCase(specialName)
+                || "Holy Domain Emanation".equalsIgnoreCase(specialName)) {
+            panelReminderSetter.accept("Domain Emanation:");
             return;
         }
         if ("Nimble Feet".equalsIgnoreCase(specialName)) {

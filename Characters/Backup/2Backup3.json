@@ -2360,7 +2360,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2368,7 +2368,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2376,7 +2376,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "BCMAN",
+      "attribute" : "BMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -2553,7 +2553,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
@@ -2561,7 +2561,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Maintained",
       "duration" : 0
@@ -2569,7 +2569,7 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
-      "attribute" : "MCMAN",
+      "attribute" : "MMAN",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0

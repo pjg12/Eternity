@@ -623,7 +623,7 @@
   "name" : "Jousting Charge (En)",
   "refName" : "",
   "category" : "Racial",
-  "description" : "Receive a bonus to ATK equal to 1/2x racial rank during a charge attack.<br> Receive a bonus to BDMG and TDMG equal to racial rank during a charge attack.<br> Your minimum charge range is 10ft and your maximum charge range is increased by 5ft x racial rank.",
+  "description" : "Receive a bonus to ATK equal to 1x racial rank during a charge attack.<br> Receive a bonus to BDMG equal to racial rank and TDMG equal to (Distance Traveled / 5ft × racial rank) during a charge attack.<br> Your minimum charge range is 10ft and your maximum charge range is increased by 5ft x racial rank.",
   "type" : "specCheck",
   "prereq" : -1,
   "pick" : false,
@@ -673,10 +673,10 @@
   "name" : "Versatility (Gaian)",
   "refName" : "",
   "category" : "Racial",
-  "description" : "Gaians gain an additional skill and an additional feature at level 1.",
+  "description" : "Gaians choose one core attribute and one character attribute and gain a +1 bonus to each. They also select an additional specialty. Each rank of Race Training lets them choose another unused attribute for a +1 bonus. At Race Training ranks 5 and 10, they also select another bonus specialty.",
   "type" : "T",
   "prereq" : -1,
-  "pick" : true,
+  "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 115,
@@ -1733,7 +1733,7 @@
   "name" : "Tough",
   "refName" : "",
   "category" : "Martial",
-  "description" : "Increases your base HP by 10%.",
+  "description" : "Increases your base HP by CON * 1%.",
   "type" : "passive",
   "prereq" : 0,
   "pick" : false,
@@ -1741,8 +1741,8 @@
     "name" : "Tough",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEHPM",
-    "severity" : 0.1,
+    "attribute" : "BASEHP",
+    "severity" : 0.01,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1759,8 +1759,8 @@
     "name" : "Hardy",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEHPM",
-    "severity" : 0.1,
+    "attribute" : "BASEHP",
+    "severity" : 0.02,
     "durationType" : "Permanent",
     "duration" : 0
   }, {
@@ -1768,7 +1768,7 @@
     "affinity" : "None",
     "description" : "None",
     "attribute" : "HPMULTI",
-    "severity" : 0.02,
+    "severity" : 0.01,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1785,8 +1785,8 @@
     "name" : "Durable",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEHPM",
-    "severity" : 0.2,
+    "attribute" : "BASEHP",
+    "severity" : 0.03,
     "durationType" : "Permanent",
     "duration" : 0
   }, {
@@ -1794,7 +1794,7 @@
     "affinity" : "None",
     "description" : "None",
     "attribute" : "HPMULTI",
-    "severity" : 0.03,
+    "severity" : 0.02,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1811,8 +1811,8 @@
     "name" : "Soulful",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEAURAM",
-    "severity" : 0.1,
+    "attribute" : "BASEAURA",
+    "severity" : 0.01,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1829,8 +1829,8 @@
     "name" : "Spiritual",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEAURAM",
-    "severity" : 0.1,
+    "attribute" : "BASEAURA",
+    "severity" : 0.02,
     "durationType" : "Permanent",
     "duration" : 0
   }, {
@@ -1838,7 +1838,7 @@
     "affinity" : "None",
     "description" : "None",
     "attribute" : "AURAMULTI",
-    "severity" : 0.02,
+    "severity" : 0.01,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1855,8 +1855,8 @@
     "name" : "Attuned",
     "affinity" : "None",
     "description" : "None",
-    "attribute" : "BASEAURAM",
-    "severity" : 0.2,
+    "attribute" : "BASEAURA",
+    "severity" : 0.03,
     "durationType" : "Permanent",
     "duration" : 0
   }, {
@@ -1864,7 +1864,7 @@
     "affinity" : "None",
     "description" : "None",
     "attribute" : "AURAMULTI",
-    "severity" : 0.03,
+    "severity" : 0.02,
     "durationType" : "Permanent",
     "duration" : 0
   } ]
@@ -1876,6 +1876,36 @@
   "description" : "Your heals do not provoke an attack of opportunity.",
   "type" : "reminder",
   "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 351,
+  "name" : "Aura Actioneer I",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 352,
+  "name" : "Aura Actioneer II",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 351,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 353,
+  "name" : "Aura Actioneer III",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 352,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -2007,7 +2037,7 @@
   "name" : "Combat Specialist",
   "refName" : "",
   "category" : "Class",
-  "description" : "Choose a Special Combat Action. When that action, add your PRIM to CMAN.",
+  "description" : "Choose a Special Combat Action. When that action, add your PRIM to MAN.",
   "type" : "passive",
   "prereq" : 3,
   "pick" : true,
@@ -2674,7 +2704,7 @@
   "permStatus" : [ ]
 }, {
   "id" : 2012,
-  "name" : "Holy Domain",
+  "name" : "Holy Domain Emanation",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
@@ -3249,7 +3279,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "specCheck",
-  "prereq" : 1,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -3984,21 +4014,21 @@
   "permStatus" : [ ]
 }, {
   "id" : 4071,
-  "name" : "Blackout Kick",
+  "name" : "Breaker Combo",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain a bonus to CRUSH equal to 0.5 x level.<br>Each attack you make increases your CRUSH by 0.5 x level.<br>This bonus resets at end of turn.",
+  "type" : "passive",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 4074,
-  "name" : "Stagger",
+  "name" : "Adaptive Technique",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Whenever you are struck by an attack or effect, increase the defensive attribute used.<br>Whenever you avoid or save against an attack or effect, reduce this bonus by 1.",
+  "type" : "passive",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
@@ -4017,8 +4047,8 @@
   "name" : "Temperance",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Grants access to class resource 2, Temperance.",
+  "type" : "resource3",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -4028,7 +4058,7 @@
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -4038,17 +4068,27 @@
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 4091,
-  "name" : "Mighty Ox Kick",
+  "id" : 4084,
+  "name" : "Combat Discipline III",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "passive",
+  "prereq" : 8,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 4091,
+  "name" : "Mighty Kick",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
@@ -4058,7 +4098,7 @@
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
@@ -4479,7 +4519,7 @@
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -4999,7 +5039,7 @@
   "category" : "Class",
   "description" : "Summon a small minion to do your bidding.",
   "type" : "specCheck",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 }, {
@@ -5057,38 +5097,48 @@
   "name" : "Minion (Damaging + Ranged)",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain access to Damaging minions. These minions have increased Offense but lowered Defense.<br>Gain access to Ranged minions.",
+  "type" : "specCheck",
   "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6032,
-  "name" : "Doubletap",
+  "name" : "Gambit",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
   "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6041,
-  "name" : "Inspire",
+  "name" : "Inspire I",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
+  "prereq" : 4,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 6042,
+  "name" : "Minion (Durable)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Durable minions. These minions have increased Defense but lowered Offense.",
+  "type" : "specCheck",
   "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 6042,
-  "name" : "Minion (Durable + Astral)",
+  "id" : 6043,
+  "name" : "Swap",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Switch position with target minion.",
+  "type" : "action",
   "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
@@ -5097,7 +5147,7 @@
   "name" : "Respite",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
+  "description" : "Grants access to your subclass resource, Respite.",
   "type" : "F",
   "prereq" : 5,
   "pick" : false,
@@ -5113,32 +5163,52 @@
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 6057,
-  "name" : "Advantage",
+  "id" : 6056,
+  "name" : "Healthcare",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
   "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6057,
+  "name" : "Advantage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Advantage.",
+  "type" : "resource2",
   "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6058,
-  "name" : "Infiltrate",
+  "name" : "Uplift",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Apply any number of cleanse effects once each to allies within your range without action cost. All allies gain +1 to their primary attribute until EoR.",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6059,
+  "name" : "Muster",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Allies gain a bonus equal to your character level to base damage until EoR.",
+  "type" : "action",
   "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6061,
-  "name" : "Summon Minion (Minor)",
+  "name" : "Summon Minion (Minor) II",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "You may summon a second minor minion.",
+  "type" : "specCheck",
   "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
@@ -5147,8 +5217,18 @@
   "name" : "Crossfire",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "The target of your Crossfire attack is subject to an attack of opportunity from all of your allies.  Your allies must consume 1 Reaction to make this attack. This attack of opportunity is not limited to melee attacks.",
+  "type" : "action",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6063,
+  "name" : "Rally",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Designate a target afflicted by a Psychosis effect. Select and dispel 1 Psychosis effect from the target",
+  "type" : "action",
   "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
@@ -5157,14 +5237,14 @@
   "name" : "Life Link",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Whenever you suffer damage, you may redirect up to 50% of the taken damage to one of your minions. This ability takes effect after damage mitigation is calculated and the redirected damage may not be mitigated further.",
+  "type" : "specCheck",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6074,
-  "name" : "Minion Form (Heal)",
+  "name" : "Minion (Heal)",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
@@ -5174,11 +5254,11 @@
   "permStatus" : [ ]
 }, {
   "id" : 6077,
-  "name" : "Minion Form (Control)",
+  "name" : "Minion (Support)",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain access to Support minions. These minions have decreased stats, but can perform support abilities.",
+  "type" : "specCheck",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
@@ -5187,18 +5267,18 @@
   "name" : "Tactics",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Grants access to class resource 2, Tactics.",
+  "type" : "resource3",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6082,
-  "name" : "Triage",
+  "name" : "Transpose",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Your swap ability can now exchange positions of a minion and any willing ally.",
+  "type" : "specCheck",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -5207,24 +5287,34 @@
   "name" : "Flash Mob",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Flash Mob ability. Performing Flash Mob requires a cost of 1 Aggressive Tactic and 1 Strategic Tactic to use. Flash Mob is activated as a free action or an interrupt when declaring an attack. Only one Tactics ability can be activated per turn. Flash Mob modifies the user’s next attack during the turn in which it is activated. If Flash Mob is not consumed before the end of the user’s turn, the effect is lost and the user recovers one of the two tactics consumed.  Flash Mob grants no direct bonus for the attack consuming it. The attack gains the \"Technical\" modifier (see Combat for more information on technical abilities). For each TP, the user may select a unique minion under their control. Choose an unoccupied tile adjacent to the chosen minion. Your minion may move to the chosen tile without cost or attacks of opportunity.         If the minion does not move, a copy of the minion is created in the chosen tile. This copy is identical to the original with the following exceptions: The copy has a maximum of 1 HP and this amount cannot be increased. The copy cannot use or be targeted by class abilities. The copy acts during the original's turn. If the minion does move, the copy is created in the minion's original tile. This process does not allow creatures other than the leader to identify original or copy. If the Leader has a Support subclass, the copy minions can use Gambit as though they were a support minion.",
+  "type" : "action",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 6091,
-  "name" : "Summon Minion (Medium)",
+  "id" : 6084,
+  "name" : "Inspire II",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Select another Inspire from available options.",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 6091,
+  "name" : "Minion (Aura)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Aura minions. These minions have decreased stats, but can activate aura techniques.",
+  "type" : "specCheck",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 6094,
-  "name" : "Infuse",
+  "name" : "Triage",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
@@ -5234,11 +5324,11 @@
   "permStatus" : [ ]
 }, {
   "id" : 6097,
-  "name" : "Transposition",
+  "name" : "Formation",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Formation ability. Performing Formation requires a cost of 1 Defensive Tactic and 1 Strategic Tactic to use. Formation is activated as an aura action. Only one Tactics ability can be activated per turn. Only one Formation can be active at any time. Select a target ally (you may select yourself). For every minion adjacent to the target ally, that ally receives a bonus to attack equal to the minion's gambit bonus. ",
+  "type" : "action",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
@@ -5567,20 +5657,20 @@
   "name" : "Divine Attunement",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain 1 free rank in all aura affinities related to your deity's domains.<br>Gain a bonus for all non-affinity domains.<br>Gain proficiency with your deity's weapon.",
+  "type" : "passive",
   "prereq" : 0,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 7012,
-  "name" : "Holy Domain",
+  "name" : "Holy Domain Blessing",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
-  "prereq" : 0,
-  "pick" : false,
+  "description" : "Select one of your deity's domains.<br>Apply a blessing to allies when meeting the domain condition.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
   "permStatus" : [ ]
 }, {
   "id" : 7021,
@@ -6149,7 +6239,7 @@
   "category" : "Class",
   "description" : "Gain a bonus natural affinity.",
   "type" : "specCheck",
-  "prereq" : 0,
+  "prereq" : -1,
   "pick" : true,
   "permStatus" : [ ]
 }, {
@@ -6194,21 +6284,21 @@
   "permStatus" : [ ]
 }, {
   "id" : 8031,
-  "name" : "Runic Enlightenment",
+  "name" : "Arcane Analysis",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Grants skills Analyze (CTL) and Identify (CTL)",
+  "type" : "specCheck",
   "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 8032,
-  "name" : "Deepening Pools",
+  "name" : "Deepening Pools I",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Increases Aura per CAP by 0.25%",
+  "type" : "specCheck",
   "prereq" : 3,
   "pick" : false,
   "permStatus" : [ ]
@@ -6223,22 +6313,22 @@
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 8041,
+  "id" : 8042,
   "name" : "Stream",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Stream resets to 0 at start of combat. Whenever you spend aura, gain Stream value equal to the amount of aura spent. At the end of your turn, gain aura equal to 10% aura spent or (char level / 2), whichever is lesser, and reset stream amount to 0.",
+  "type" : "specCheck",
   "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 8042,
-  "name" : "Immersive Understanding",
+  "id" : 8043,
+  "name" : "Inherent Understanding",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "At level 4 and every 4 levels thereafter, the maximum tech level of all the caster’s aura techniques that match their natural affinities is raised by 1.",
+  "type" : "specCheck",
   "prereq" : 4,
   "pick" : false,
   "permStatus" : [ ]
@@ -6248,7 +6338,7 @@
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "resource2",
   "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
@@ -6267,18 +6357,28 @@
   "name" : "Affliction",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Grants access to your subclass resource, Affliction.",
+  "type" : "resource2",
   "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 8058,
-  "name" : "Impose",
+  "name" : "Incant",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "When Incant is activated, your next impairment ability gains the following: “Provoke a WILL save. If the target fails this save, the severity of the base effect is increased by 10% of your DEX.”",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8059,
+  "name" : "Chain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "When Chain is activated, your next impairment ability gains the following: “Provoke a FORT save. If the target fails this save, the technique is replicated with a -10 penalty to APPLY and targets an unaffected creature within RANGE. The replicated technique also has this effect.”",
+  "type" : "action",
   "prereq" : 5,
   "pick" : false,
   "permStatus" : [ ]
@@ -6287,8 +6387,8 @@
   "name" : "Arcane Missiles",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Arcane Missiles ability. Arcane Missiles costs 1 Power to activate. Arcane Missiles has an additional aura cost equal to <character level * character level>. Arcane Missiles is activated as a standard action.  Arcane Missiles performs a simultaneous set of standard attacks equal in number to (CL / 3), rounded up. These attacks receive a bonus damage multiplier of (10 x CL)%. Each attack may designate its own target and all targets must be designated before attack roll and damage. The missiles will share attack and damage rolls. Each missile's damage type may be selected individually among damage types you have aura attacks for. ",
+  "type" : "action",
   "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
@@ -6297,18 +6397,38 @@
   "name" : "Critical Mass",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Your critical damage is increased by 1% for every aura you have spent this turn.",
+  "type" : "specCheck",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8063,
+  "name" : "Deepening Pools I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Increases Aura per CAP by 0.25%",
+  "type" : "specCheck",
   "prereq" : 6,
   "pick" : false,
   "permStatus" : [ ]
 }, {
   "id" : 8071,
+  "name" : "Astral Proficiency III",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+  "type" : "specCheck",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8072,
   "name" : "Blink",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "You teleport from your starting location to your destination. Your movement is not impaired by difficult terrain or obstacles. You are not subject to attacks of opportunity during your move action.",
+  "type" : "action",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
@@ -6318,7 +6438,7 @@
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
-  "type" : "F",
+  "type" : "action",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
@@ -6327,8 +6447,8 @@
   "name" : "Shiver",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Shiver ability. Shiver costs 1 Power to activate. Shiver is activated as a free action or an interrupt when declaring an attack.  Shiver modifies the user’s next attack during the turn in which it is activated. If Shiver is not consumed before the end of the user’s turn, the effect and the consumed resource cost are lost.  Shiver grants a bonus to attack roll equal to 1x CL for the attack consuming it. The attack in question also gains the \"Technical\" modifier (see Combat for more information on technical abilities). Technical Effect: Provoke a FORT Save; A failed save generates 1 TechPoint. Reduce the target's MOVE by 50%. Reduce the target's Dodge by (nonsense formula). This effect lasts for a while.",
+  "type" : "action",
   "prereq" : 7,
   "pick" : false,
   "permStatus" : [ ]
@@ -6337,8 +6457,8 @@
   "name" : "Entropy",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Grants access to your final class resource, Entropy.",
+  "type" : "resource3",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -6347,8 +6467,8 @@
   "name" : "Order Strike",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Order Strike ability. Performing Order Strike increases Entropy by 1 prior to activation. If Entropy cannot be increased by 1, the user cannot activate Order Strike. Order Strike is activated as a free action or an interrupt when declaring an attack. Only one Entropy ability can be activated per turn. Order Strike modifies the user’s next attack during the turn in which it is activated. If Order Strike is not consumed before the end of the user’s turn, the effect is lost.  Order Strike grants a bonus to ATK equal to 1x CL for the attack consuming it. The attack also gains the \"Technical\" modifier (see Combat for more information on technical abilities). The attack will increase Entropy by 1 per TP. This increase can exceed the caster's normal maximum Entropy value.",
+  "type" : "action",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -6357,8 +6477,8 @@
   "name" : "Chaos Strike",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Gain the Chaos Strike ability. Performing Chaos Strike decreases Entropy by 1 prior to activation. If Entropy cannot be decreased by 1, the user cannot activate Chaos Strike. Chaos Strike is activated as a free action or an interrupt when declaring an attack. Only one Entropy ability can be activated per turn. Chaos Strike modifies the user’s next attack during the turn in which it is activated. If Chaos Strike is not consumed before the end of the user’s turn, the effect is lost.  Chaos Strike grants a bonus to Base Damage equal to 1x CL for the attack consuming it. The attack also gains the \"Technical\" modifier (see Combat for more information on technical abilities). The attack will deal an additional 5% bonus damage per TP.",
+  "type" : "action",
   "prereq" : 8,
   "pick" : false,
   "permStatus" : [ ]
@@ -6367,8 +6487,8 @@
   "name" : "Arcane Orb",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Activating Arcane Orb is a Standard Action. Arcane Orb costs 3 Aptitude. Arcane Orb has an additional aura cost equal to (CLVL * CLVL). The orb has a duration equal to (5% * CTL) turns.         Select a target location within your RANGE. Determine cross section: FLOOR ( cube root (RANGE / 5) * AREA) tiles, to a minimum of 1 tile. If the cross section is odd, it is centered on the chosen tile. If it is even, choose a corner to center the orb. The height of the orb is also equal to its cross section -- if insufficient height is available, the orb confines itself to the space.         The sphere does not restrict the movement of creatures through its space. All creatures adjacent to the orb receive damage equal to (50% x BDMG) + (25% TDMG) of the caster at the beginning of their turn. If a creature moves into a tile adjacent to the orb, they suffer the same damage. A creature cannot be damaged by the orb more often than twice per turn.",
+  "type" : "action",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
@@ -6387,8 +6507,8 @@
   "name" : "Spellsteal",
   "refName" : "",
   "category" : "Class",
-  "description" : "Stuff",
-  "type" : "F",
+  "description" : "Whenever you deal damage to an enemy, provoke a WILL save. If the target fails their save, obtain one of their beneficial effects for (10% of DEX) turns. The enemy may not reactivate the effect until the duration expires.",
+  "type" : "specCheck",
   "prereq" : 9,
   "pick" : false,
   "permStatus" : [ ]
@@ -6794,7 +6914,7 @@
   "permStatus" : [ ]
 }, {
   "id" : 9041,
-  "name" : "Bond",
+  "name" : "Embed",
   "refName" : "",
   "category" : "Class",
   "description" : "Stuff",
@@ -6873,7 +6993,7 @@
   "pick" : false,
   "permStatus" : [ ]
 }, {
-  "id" : 9071,
+  "id" : 9072,
   "name" : "Blink",
   "refName" : "",
   "category" : "Class",
@@ -7323,6 +7443,66 @@
   "pick" : false,
   "permStatus" : [ ]
 }, {
+  "id" : 10015,
+  "name" : "Hand Slots",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants four weapon slots at level 1. Gain one additional weapon slot at level 5 and every 4 levels thereafter.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10016,
+  "name" : "Hand Abilities",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants one class specialty for each equipped weapon. The granted specialty is determined by the weapon's exo ability.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10017,
+  "name" : "Fullmetal Mechanic",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "The pilot gains the Repair skill. When repairing their own Exosuit, the Repair skill's attribute modifier increases from x1.5 to x2.5. The pilot also gains a permanent +1 MECH bonus at level 3 and every 3 levels thereafter.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10018,
+  "name" : "Custom Rig",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "A pilot's Exosuit can maintain an improved quantity of special enhancements. Each piece of equipment used by the pilot is considered to have a tier of ((Tier * 2) + 1) for purposes of enhancement targets. This also applies to aura enhancement, such as enchanting and gemwork.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10019,
+  "name" : "Shoulder Hardpoint",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 3, a pilot can add a shoulder mounted weapon to their Exosuit. An additional shoulder hardpoint is added at level 13.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10020,
+  "name" : "Charge-Up",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 3, the construct gains the Charge-Up ability. Charge-Up is activated as a Standard Action. Charge-Up restores an amount of Charge equal to class level.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
   "id" : 10021,
   "name" : "Charge",
   "refName" : "",
@@ -7360,6 +7540,36 @@
   "description" : "Grants access to Ionize (Demand) - Your next attack increases your RESISTS.",
   "type" : "action",
   "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10025,
+  "name" : "Drones",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 4, a pilot can deploy support drones. The pilot can control a number of drones at a time equal to character level. A pilot can deploy a drone with an aura action. When deploying a drone, the pilot selects a drone type from their available options and a target within their Range. The deployed drone will affix to the target, maintaining a safe distance and applying its effect. The pilot may select themselves as a target. A target may only have 1 drone attached at a time. The drone must remain within the Pilot's Range in order to continue applying its effect. If the target moves out of the pilot's range, the drone immediately returns to the pilot and can be returned to play on the Pilot's next turn. Deploying a drone occupies 1 Charge. This Charge is refunded when the drone is recalled.<br>Level 4 options:<br>Attack: Attack drones grant allies a bonus to hit equal to 1/4 the pilot's PRIM.<br>Defense: Defense drones grant allies a bonus to AC equal to 1/4 the pilot's PRIM.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10026,
+  "name" : "Positioning Jets",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Interrupt: An enemy moves. Cost 1 Reaction. As a reaction to an enemy's movement, the pilot may take a step.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10027,
+  "name" : "Overcharge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 4, a pilot can expend additional charge to increase their damage. Overcharge is activated as an aura action. Until end of turn, the cost of all class abilities are doubled. As a result, all class abilities increase the damage multiplier of their associated attack by +0.5 per class level.",
+  "type" : "action",
+  "prereq" : -1,
   "pick" : false,
   "permStatus" : [ ]
 } ]

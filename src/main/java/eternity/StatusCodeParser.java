@@ -10,12 +10,12 @@ import java.util.Set;
  * Strict parser for shorthand effect codes.
  *
  * Format:
- * TARGET_SIDE_TARGET_SHAPE_ATTRIBUTE:SEVERITY_..._DUR:TYPE:DURATION_NAME:Label_AFF:Affinity_DESC:Text
- * Short format defaults omitted TARGET_SIDE to ALLY, TARGET_SHAPE to SINGLE, and duration to Maintained.
+ * ATTRIBUTE:SEVERITY_..._DUR:TYPE:DURATION_NAME:Label_AFF:Affinity_DESC:Text
+ * Short format defaults omitted duration to Maintained.
  * Status tokens may be written as ATTRIBUTE:SEVERITY or compact ATTRIBUTE+SEVERITY / ATTRIBUTE-SEVERITY.
  *
  * Example:
- * ALLY_SINGLE_BATK:+2_BDODGE:+1_DUR:Turn:1_NAME:Guarded
+ * BATK:+2_BDODGE:+1_DUR:Turn:1_NAME:Guarded
  * AT+2_DG+1
  */
 public final class StatusCodeParser {
@@ -24,7 +24,7 @@ public final class StatusCodeParser {
             "BASER1", "MULTIR1", "BASER2", "MULTIR2", "BASER3", "MULTIR3",
             "BASEREACT", "MULTIREACT"
     };
-    private static final String[] INSTANT_RESOURCE_KEYS = {"HP", "AURA"};
+    private static final String[] INSTANT_RESOURCE_KEYS = {"HP", "AURA", "SPENTAURA"};
 
     private static final Set<String> VALID_ATTRIBUTES = buildValidAttributes();
 
@@ -44,40 +44,31 @@ public final class StatusCodeParser {
             return result;
         }
 
-        int tokenIndex = 0;
-        EffectTargetSide targetSide = EffectTargetSide.ALLY;
-        EffectTargetShape targetShape = EffectTargetShape.SINGLE;
-
-        EffectTargetSide parsedSide = tryParseTargetSide(tokens[tokenIndex]);
-        if (parsedSide != null) {
-            targetSide = parsedSide;
-            tokenIndex++;
-        }
-        if (tokenIndex < tokens.length) {
-            EffectTargetShape parsedShape = tryParseTargetShape(tokens[tokenIndex]);
-            if (parsedShape != null) {
-                targetShape = parsedShape;
-                tokenIndex++;
-            }
-        }
-
         String effectName = "Decoded Effect";
+        String title = "";
         String affinity = "None";
+        String parsedAffinity = "";
         String description = "Decoded from shorthand effect code.";
         String durationType = "Maintained";
         int duration = 0;
         boolean timedDuration = false;
+        boolean durationSpecified = false;
         List<StatusSpec> statusSpecs = new ArrayList<>();
 
-        for (int i = tokenIndex; i < tokens.length; i++) {
+        for (int i = 0; i < tokens.length; i++) {
             String token = tokens[i] == null ? "" : tokens[i].trim();
             if (token.isBlank()) {
                 continue;
             }
 
             String upper = token.toUpperCase(Locale.ROOT);
+            // Legacy target tokens are ignored; status codes no longer include targets.
+            if (isLegacyTargetToken(upper)) {
+                continue;
+            }
             if (upper.startsWith("NM") && token.indexOf(':') < 0) {
                 effectName = token.substring(2).trim();
+                title = effectName;
                 if (effectName.isBlank()) {
                     result.addError("NM token cannot be empty.");
                 }
@@ -85,6 +76,7 @@ public final class StatusCodeParser {
             }
             if (upper.startsWith("NAME:")) {
                 effectName = token.substring(5).trim();
+                title = effectName;
                 if (effectName.isBlank()) {
                     result.addError("NAME token cannot be empty.");
                 }
@@ -92,6 +84,7 @@ public final class StatusCodeParser {
             }
             if (upper.startsWith("AFF:")) {
                 affinity = token.substring(4).trim();
+                parsedAffinity = affinity;
                 if (affinity.isBlank()) {
                     result.addError("AFF token cannot be empty.");
                 }
@@ -110,6 +103,7 @@ public final class StatusCodeParser {
                     durationType = spec.durationType;
                     duration = spec.duration;
                     timedDuration = spec.timed;
+                    durationSpecified = true;
                 }
                 continue;
             }
@@ -129,8 +123,11 @@ public final class StatusCodeParser {
 
         DecodedEffect effect = new DecodedEffect();
         effect.setOriginalCode(code);
-        effect.setTargetSide(targetSide);
-        effect.setTargetShape(targetShape);
+        effect.setTitle(title);
+        effect.setAffinity(parsedAffinity);
+        effect.setDurationType(durationType);
+        effect.setDuration(timedDuration ? duration : 0);
+        effect.setDurationSpecified(durationSpecified);
 
         for (StatusSpec spec : statusSpecs) {
             DataStatus status = new DataStatus();
@@ -153,24 +150,14 @@ public final class StatusCodeParser {
         return result;
     }
 
-    private static EffectTargetSide tryParseTargetSide(String token) {
-        if (token == null) return null;
-        String normalized = token.trim().toUpperCase(Locale.ROOT);
-        try {
-            return EffectTargetSide.valueOf(normalized);
-        } catch (IllegalArgumentException ex) {
-            return null;
+    private static boolean isLegacyTargetToken(String upperToken) {
+        if (upperToken == null || upperToken.isBlank() || upperToken.indexOf(':') >= 0) {
+            return false;
         }
-    }
-
-    private static EffectTargetShape tryParseTargetShape(String token) {
-        if (token == null) return null;
-        String normalized = token.trim().toUpperCase(Locale.ROOT);
-        try {
-            return EffectTargetShape.valueOf(normalized);
-        } catch (IllegalArgumentException ex) {
-            return null;
-        }
+        return switch (upperToken) {
+            case "SELF", "ALLY", "ENEMY", "SINGLE", "MULTI", "AOE" -> true;
+            default -> false;
+        };
     }
 
     private static List<StatusSpec> parseStatusTokens(String token, StatusCodeParseResult result) {
@@ -252,7 +239,7 @@ public final class StatusCodeParser {
             if (signChar != 'P' && signChar != 'N') continue;
             String alias = token.substring(start, end);
             String attribute = canonicalizeAttributeToken(alias);
-            if (attribute != null && VALID_ATTRIBUTES.contains(attribute)) {
+            if (attribute != null && isSupportedAttribute(attribute)) {
                 return end;
             }
         }
@@ -277,7 +264,7 @@ public final class StatusCodeParser {
         }
 
         String attribute = canonicalizeAttributeToken(attributeToken);
-        if (attribute == null || !VALID_ATTRIBUTES.contains(attribute)) {
+        if (attribute == null || !isSupportedAttribute(attribute)) {
             result.addError("Unsupported attribute key: " + attributeToken);
             return null;
         }
@@ -307,6 +294,8 @@ public final class StatusCodeParser {
     private static String canonicalizeAttributeToken(String token) {
         if (token == null || token.isBlank()) return null;
         String normalized = token.trim().toUpperCase(Locale.ROOT);
+        String skillAttribute = canonicalizeSkillAttributeToken(normalized);
+        if (skillAttribute != null) return skillAttribute;
         return switch (normalized) {
             case "STUN" -> "STUN";
             case "HEAVY", "HVY" -> "HEAVY";
@@ -316,6 +305,8 @@ public final class StatusCodeParser {
             case "HOTHP", "REGENHP" -> "HOTHP";
             case "HOTSHIELD", "REGSHIELD" -> "HOTSHIELD";
             case "TAKEN", "DMGTKN", "DMGTAKEN" -> "DMGTAKEN";
+            case "SZ", "SIZE" -> "SIZE";
+            case "RD", "RESDISP", "DISPRES" -> "BRESDISP";
             case "HP" -> "HP";
             case "HPM", "HPMULTI" -> "MULTIHP";
             case "AU", "AURA" -> "AURA";
@@ -338,7 +329,7 @@ public final class StatusCodeParser {
             case "FL", "FLY" -> "BFLY";
             case "RG", "RANGE" -> "BRANGE";
             case "IN", "INIT" -> "BINIT";
-            case "CM", "CMAN" -> "BCMAN";
+            case "M", "MAN", "CM", "CMAN" -> "BMAN";
             case "MX", "MAXATK" -> "BMAXATK";
             case "PW", "POWER" -> "BPOWER";
             case "SU", "SUP" -> "BSUP";
@@ -348,6 +339,7 @@ public final class StatusCodeParser {
             case "GR", "GRANT" -> "BGRANT";
             case "CR", "CRUSH" -> "BCRUSH";
             case "AE", "AREA" -> "BAREA";
+            case "DU", "DURATION" -> "BDUR";
             case "BD", "BDMG" -> "BBDMG";
             case "TD", "TDMG" -> "BTDMG";
             case "BH", "BHEAL" -> "BBHEAL";
@@ -363,6 +355,12 @@ public final class StatusCodeParser {
     public static String getPreferredAttributeAlias(String attribute) {
         if (attribute == null || attribute.isBlank()) return "";
         String normalized = attribute.trim().toUpperCase(Locale.ROOT);
+        if (normalized.startsWith("BSKILL") && normalized.length() > "BSKILL".length()) {
+            return "SKILL" + normalized.substring("BSKILL".length());
+        }
+        if (normalized.startsWith("MSKILL") && normalized.length() > "MSKILL".length()) {
+            return "MSKILL" + normalized.substring("MSKILL".length());
+        }
         return switch (normalized) {
             case "STUN" -> "STUN";
             case "HEAVY" -> "HEAVY";
@@ -372,6 +370,8 @@ public final class StatusCodeParser {
             case "HOTHP" -> "HOTHP";
             case "HOTSHIELD" -> "HOTSHIELD";
             case "DMGTAKEN" -> "TAKEN";
+            case "SIZE" -> "SIZE";
+            case "BRESDISP", "MRESDISP", "RESDISP" -> "RESDISP";
             case "HP" -> "HP";
             case "BASEHP" -> "HP";
             case "MULTIHP" -> "HPM";
@@ -407,7 +407,7 @@ public final class StatusCodeParser {
             case "BFLY" -> "FL";
             case "BRANGE" -> "RG";
             case "BINIT" -> "IN";
-            case "BCMAN" -> "CM";
+            case "BMAN", "BCMAN" -> "MAN";
             case "BMAXATK" -> "MX";
             case "BPOWER" -> "PW";
             case "BSUP" -> "SU";
@@ -417,6 +417,7 @@ public final class StatusCodeParser {
             case "BGRANT" -> "GR";
             case "BCRUSH" -> "CR";
             case "BAREA" -> "AE";
+            case "BDUR" -> "DURATION";
             case "BBDMG" -> "BD";
             case "BTDMG" -> "TD";
             case "BBHEAL" -> "BH";
@@ -479,6 +480,30 @@ public final class StatusCodeParser {
         };
     }
 
+    private static boolean isSupportedAttribute(String attribute) {
+        return attribute != null && (VALID_ATTRIBUTES.contains(attribute) || isSkillStatusAttribute(attribute));
+    }
+
+    private static boolean isSkillStatusAttribute(String attribute) {
+        if (attribute == null || attribute.isBlank()) return false;
+        String upper = attribute.trim().toUpperCase(Locale.ROOT);
+        return (upper.startsWith("BSKILL") || upper.startsWith("MSKILL")) && upper.length() > "BSKILL".length();
+    }
+
+    private static String canonicalizeSkillAttributeToken(String normalized) {
+        if (normalized == null || normalized.isBlank()) return null;
+        if (normalized.startsWith("BSKILL") && normalized.length() > "BSKILL".length()) {
+            return "BSKILL" + normalized.substring("BSKILL".length()).replaceAll("[^A-Z0-9]", "");
+        }
+        if (normalized.startsWith("MSKILL") && normalized.length() > "MSKILL".length()) {
+            return "MSKILL" + normalized.substring("MSKILL".length()).replaceAll("[^A-Z0-9]", "");
+        }
+        if (normalized.startsWith("SKILL") && normalized.length() > "SKILL".length()) {
+            return "BSKILL" + normalized.substring("SKILL".length()).replaceAll("[^A-Z0-9]", "");
+        }
+        return null;
+    }
+
     private static boolean isTimedDuration(String durationType) {
         return "Turn".equalsIgnoreCase(durationType)
                 || "Round".equalsIgnoreCase(durationType)
@@ -514,6 +539,10 @@ public final class StatusCodeParser {
         keys.add("HOTHP");
         keys.add("HOTSHIELD");
         keys.add("DMGTAKEN");
+        keys.add("SIZE");
+        keys.add("RESDISP");
+        keys.add("BRESDISP");
+        keys.add("MRESDISP");
         return keys;
     }
 

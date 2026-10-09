@@ -1720,7 +1720,7 @@
         "name" : "Passive",
         "affinity" : "None",
         "description" : "None",
-        "attribute" : "CMAN",
+        "attribute" : "MAN",
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
@@ -1728,7 +1728,7 @@
         "name" : "Maintained",
         "affinity" : "None",
         "description" : "None",
-        "attribute" : "CMAN",
+        "attribute" : "MAN",
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0
@@ -1736,7 +1736,7 @@
         "name" : "Temporary",
         "affinity" : "None",
         "description" : "None",
-        "attribute" : "CMAN",
+        "attribute" : "MAN",
         "severity" : 0.0,
         "durationType" : "Permanent",
         "duration" : 0

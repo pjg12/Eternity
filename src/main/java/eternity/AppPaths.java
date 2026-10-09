@@ -9,6 +9,8 @@ import java.util.List;
 final class AppPaths {
 	private static final String APP_SUBDIR = "app";
 	private static final String APP_JAR_NAME = "EternityTTRPG.jar";
+	private static final String IMAGES_SUBDIR = "Images";
+	private static final String CHARACTERS_SUBDIR = "Characters";
 
 	private AppPaths() { /* Utility class */ }
 
@@ -17,11 +19,25 @@ final class AppPaths {
 	}
 
 	static Path charactersDir() {
-		return resolveBundledDir("Characters");
+		if (usesUserDataDirs()) {
+			return userDataRootDir().resolve(CHARACTERS_SUBDIR);
+		}
+		return resolveBundledDir(CHARACTERS_SUBDIR);
 	}
 
 	static Path imagesDir() {
-		return resolveBundledDir("Images");
+		if (usesUserDataDirs()) {
+			return userDataRootDir().resolve(IMAGES_SUBDIR);
+		}
+		Path userImages = userDataImagesDir();
+		if (userImages != null && userImages.toFile().isDirectory()) {
+			return userImages;
+		}
+		return resolveBundledDir(IMAGES_SUBDIR);
+	}
+
+	private static boolean usesUserDataDirs() {
+		return launcherExecutablePath() != null && userDataRootDir() != null;
 	}
 
 	static boolean isInstalledApp() {
@@ -79,6 +95,30 @@ final class AppPaths {
 		return new RelaunchSpec(javaw.toString(), arguments);
 	}
 
+	private static Path userDataImagesDir() {
+		Path userRoot = userDataRootDir();
+		return userRoot == null ? null : userRoot.resolve(IMAGES_SUBDIR);
+	}
+
+	/** Writable user app root used by the launcher (%LOCALAPPDATA%\Eternity on Windows). */
+	private static Path userDataRootDir() {
+		String override = System.getProperty("eternity.app.root");
+		if (override != null && !override.isBlank()) {
+			return Paths.get(override).toAbsolutePath().normalize();
+		}
+
+		String localAppData = System.getenv("LOCALAPPDATA");
+		if (localAppData != null && !localAppData.isBlank()) {
+			return Paths.get(localAppData, "Eternity").toAbsolutePath().normalize();
+		}
+
+		String userHome = System.getProperty("user.home");
+		if (userHome != null && !userHome.isBlank()) {
+			return Paths.get(userHome, ".eternity").toAbsolutePath().normalize();
+		}
+		return null;
+	}
+
 	private static Path resolveBundledDir(String dirName) {
 		Path payloadDir = installedPayloadDir();
 		if (payloadDir != null) {
@@ -116,16 +156,16 @@ final class AppPaths {
 			return null;
 		}
 
-		Path siblingAppDir = launcherDir.resolve(APP_SUBDIR);
+		Path siblingAppDir = launcherDir.resolve("app");
 		if (siblingAppDir.toFile().exists()) {
-			return launcherDir;
+			return siblingAppDir;
 		}
 
 		Path parentDir = launcherDir.getParent();
 		if (parentDir != null) {
-			Path parentAppDir = parentDir.resolve(APP_SUBDIR);
+			Path parentAppDir = parentDir.resolve("app");
 			if (parentAppDir.toFile().exists()) {
-				return parentDir;
+				return parentAppDir;
 			}
 		}
 

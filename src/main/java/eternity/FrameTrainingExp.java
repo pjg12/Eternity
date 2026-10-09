@@ -77,14 +77,14 @@ public class FrameTrainingExp extends JFrame {
         adHocSource = buildSourceButton("Ad hoc", 285, 104);
         selfSource.setSelected(true);
 
-        standardTotalGain = buildIntegerField();
+        standardTotalGain = buildIntegerField(false);
         standardAuraType = new JComboBox<>(AURA_TYPES);
-        standardAuraGain = buildDecimalField();
+        standardAuraGain = buildDecimalField(false);
         standardAuraGain.setEditable(false);
         standardAuraGain.setFocusable(false);
-        adHocTotalGain = buildDecimalField();
+        adHocTotalGain = buildDecimalField(true);
         adHocAuraType = new JComboBox<>(AURA_TYPES);
-        adHocAuraGain = buildDecimalField();
+        adHocAuraGain = buildDecimalField(true);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -155,26 +155,35 @@ public class FrameTrainingExp extends JFrame {
             activeAuraGain = standardAuraGain;
         }
 
-        double totalGainValue = parseField(activeTotalGain);
-        double auraGainValue = parseField(activeAuraGain);
+        commitFieldEdit(activeTotalGain);
+        commitFieldEdit(activeAuraGain);
+
+        boolean adHocSelected = isAdHocSelected();
+        double totalGainValue = parseField(activeTotalGain, adHocSelected);
+        double auraGainValue = parseField(activeAuraGain, adHocSelected);
         double appliedAuraGainValue = applyAuraTrainingXpBonus(auraGainValue);
         int auraIndex = activeAuraType.getSelectedIndex();
         boolean hasAuraType = auraIndex > 0;
         boolean isUntypedAuraGain = auraIndex == 0;
+        boolean hasNonZeroGain = adHocSelected
+                ? Math.abs(auraGainValue) > 0.0001
+                : totalGainValue > 0.0 || auraGainValue > 0.0;
 
-        if (totalGainValue <= 0.0 && auraGainValue <= 0.0) {
-            JOptionPane.showMessageDialog(this, "Enter a positive training value.");
+        if (!hasNonZeroGain) {
+            JOptionPane.showMessageDialog(this, adHocSelected
+                    ? "Enter a non-zero training value."
+                    : "Enter a positive training value.");
             return;
         }
-        if (auraGainValue > 0.0 && !hasAuraType && !isUntypedAuraGain) {
+        if (Math.abs(auraGainValue) > 0.0001 && !hasAuraType && !isUntypedAuraGain) {
             JOptionPane.showMessageDialog(this, "Select an aura type when applying aura training XP.");
             return;
         }
 
         CharTraining training = character.getTraining();
-        if (appliedAuraGainValue > 0.0 && isUntypedAuraGain) {
+        if (Math.abs(appliedAuraGainValue) > 0.0001 && isUntypedAuraGain) {
             training.setTrainingXp(training.getTrainingXp() + appliedAuraGainValue);
-        } else if (appliedAuraGainValue > 0.0 && hasAuraType) {
+        } else if (Math.abs(appliedAuraGainValue) > 0.0001 && hasAuraType) {
             int auraTypeIndex = auraIndex - 1;
             double currentAuraXp = training.getTrainingXpByAuraType(auraTypeIndex);
             training.setTrainingXpByAuraType(auraTypeIndex, currentAuraXp + appliedAuraGainValue);
@@ -240,28 +249,38 @@ public class FrameTrainingExp extends JFrame {
         return panel;
     }
 
-    private JFormattedTextField buildDecimalField() {
+    private JFormattedTextField buildDecimalField(boolean allowNegative) {
         NumberFormat format = new DecimalFormat("0.0#");
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Double.class);
-        formatter.setAllowsInvalid(false);
-        formatter.setMinimum(0.0);
+        // Allow intermediate edits (e.g. "-") so Ad Hoc can accept negative aura XP.
+        formatter.setAllowsInvalid(true);
+        formatter.setMinimum(allowNegative ? null : 0.0);
         JFormattedTextField field = new JFormattedTextField(formatter);
         field.setHorizontalAlignment(SwingConstants.CENTER);
         field.setValue(0.0);
         return field;
     }
 
-    private JFormattedTextField buildIntegerField() {
+    private JFormattedTextField buildIntegerField(boolean allowNegative) {
         NumberFormat format = new DecimalFormat("0");
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
-        formatter.setAllowsInvalid(false);
-        formatter.setMinimum(0);
+        formatter.setAllowsInvalid(true);
+        formatter.setMinimum(allowNegative ? null : 0);
         JFormattedTextField field = new JFormattedTextField(formatter);
         field.setHorizontalAlignment(SwingConstants.CENTER);
         field.setValue(0);
         return field;
+    }
+
+    private void commitFieldEdit(JFormattedTextField field) {
+        if (field == null) return;
+        try {
+            field.commitEdit();
+        } catch (java.text.ParseException ignored) {
+            // parseField falls back to the raw text when commit fails
+        }
     }
 
     private JRadioButton buildSourceButton(String text, int x, int y) {
@@ -303,11 +322,16 @@ public class FrameTrainingExp extends JFrame {
     }
 
     private double applyAuraTrainingXpBonus(double auraGainValue) {
+        if (isGmAdHocSelected()) {
+            return auraGainValue;
+        }
         return auraGainValue * getAuraTrainingXpGainMultiplier();
     }
 
     private double getAuraTrainingXpGainMultiplier() {
-        return character == null ? 1.0 : character.getAuraTrainingXpGainMultiplier();
+        if (character == null) return 1.0;
+        if (sheetFrame != null && sheetFrame.isGmModeActive()) return 1.0;
+        return character.getAuraTrainingXpGainMultiplier();
     }
 
     private int parseLiveIntegerField(JFormattedTextField field) {
@@ -323,17 +347,36 @@ public class FrameTrainingExp extends JFrame {
         }
     }
 
-    private double parseField(JFormattedTextField field) {
-        if (field == null || field.getValue() == null) return 0.0;
+    private double parseField(JFormattedTextField field, boolean allowNegative) {
+        if (field == null) return 0.0;
+        String text = field.getText();
+        if (text != null) {
+            text = text.trim();
+            if (!text.isEmpty() && !"-".equals(text)) {
+                try {
+                    double numericValue = Double.parseDouble(text);
+                    return allowNegative ? numericValue : Math.max(0.0, numericValue);
+                } catch (NumberFormatException ignored) {
+                    // Fall back to the formatter value below.
+                }
+            }
+        }
+        if (field.getValue() == null) return 0.0;
         Object value = field.getValue();
         if (value instanceof Number number) {
-            return Math.max(0.0, number.doubleValue());
+            double numericValue = number.doubleValue();
+            return allowNegative ? numericValue : Math.max(0.0, numericValue);
         }
         try {
-            return Math.max(0.0, Double.parseDouble(value.toString()));
+            double numericValue = Double.parseDouble(value.toString());
+            return allowNegative ? numericValue : Math.max(0.0, numericValue);
         } catch (NumberFormatException ignored) {
             return 0.0;
         }
+    }
+
+    private boolean isGmAdHocSelected() {
+        return isAdHocSelected() && sheetFrame != null && sheetFrame.isGmModeActive();
     }
 
     private String fmt(double value) {

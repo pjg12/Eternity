@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 
+
 /**
  * Tracks HP, Aura, Reactions, Class Resources, and special race resources
  * using the modern StatBlock architecture.
@@ -34,9 +35,13 @@ public class CharResources {
     @JsonProperty private double spentR1;                                           // Count of spent Class Resource 1  
     @JsonProperty private double spentR2;                                           // Count of spent Class Resource 2         
     @JsonProperty private double spentR3;                                           // Count of spent Class Resource 3 (subclass resource)
+    @JsonProperty private double spentAggressiveTactics;                            // Leader Tactics: Aggressive spent
+    @JsonProperty private double spentDefensiveTactics;                             // Leader Tactics: Defensive spent
+    @JsonProperty private double spentStrategicTactics;                             // Leader Tactics: Strategic spent
     @JsonProperty private double spentAngelPoints;                                  // Count of spent Angel Points
     @JsonProperty private double spentReactions;                                    // Count of spent Reactions
 
+    @JsonProperty private double occupiedR1;                                        // Charge currently occupied by deployed drones
     @JsonProperty private double mainOccupiedAura;                                  // Aura currently occupied by maintained abilities
     @JsonProperty private double grantOccupiedAura;                                     // Aura currently occupied by abilities granted to allies
     @JsonProperty private double shield;                                            // Shield counter: absorbs damage before HP is lost
@@ -63,9 +68,13 @@ public class CharResources {
         this.spentR1 = 0.0;
         this.spentR2 = 0.0;
         this.spentR3 = 0.0;
+        this.spentAggressiveTactics = 0.0;
+        this.spentDefensiveTactics = 0.0;
+        this.spentStrategicTactics = 0.0;
         this.spentAngelPoints = 0.0;
         this.spentReactions = 0.0;
 
+        this.occupiedR1 = 0.0;
         this.mainOccupiedAura = 0.0;
         this.grantOccupiedAura = 0.0;
         this.shield = 0.0;
@@ -75,6 +84,7 @@ public class CharResources {
     @SuppressWarnings("unchecked")
     private ArrayList<DataStatus>[] initStatus(String attributeKey) {
         ArrayList<DataStatus>[] list = (ArrayList<DataStatus>[]) new ArrayList<?>[3];
+
         String[] labels = { "Passive", "Maintained", "Temporary" };
         for (int i = 0; i < 3; i++) {
             list[i] = new ArrayList<>();
@@ -126,7 +136,7 @@ public class CharResources {
 
     @JsonIgnore public int calcCurrentHP() { return (int)(calcMaxHP() - lostHP); }
     @JsonIgnore public int calcCurrentAura() { return (int)(calcMaxAura() - spentAura - calcOccupiedAura()); }
-    @JsonIgnore public int calcCurrentResource1() { return (int)(calcMaxResource1() - spentR1); }
+    @JsonIgnore public int calcCurrentResource1() { return (int)(calcMaxResource1() - spentR1 - occupiedR1); }
     @JsonIgnore public int calcCurrentResource2() { return (int)(calcMaxResource2() - spentR2); }
     @JsonIgnore public int calcCurrentResource3() { return (int)(calcMaxResource3() - spentR3); }
     @JsonIgnore public int calcCurrentAngelPoints() { return (int)(calcMaxAngelPoints() - spentAngelPoints); }
@@ -207,10 +217,25 @@ public class CharResources {
     public double getSpentR1() { return spentR1; }
     public double getSpentR2() { return spentR2; }
     public double getSpentR3() { return spentR3; }
+    public double getSpentAggressiveTactics() { return spentAggressiveTactics; }
+    public double getSpentDefensiveTactics() { return spentDefensiveTactics; }
+    public double getSpentStrategicTactics() { return spentStrategicTactics; }
     public double getSpentAngelPoints() { return spentAngelPoints; }
     public void setSpentR1(double spent) { spentR1 = spent; }
+    public double getOccupiedR1() { return occupiedR1; }
+    public void setOccupiedR1(double occupied) { occupiedR1 = Math.max(0.0, occupied); }
+
+    public int restoreResource1(double amount) {
+        if (amount <= 0.0) return 0;
+        double before = spentR1;
+        spentR1 = Math.max(0.0, spentR1 - amount);
+        return (int) Math.round(before - spentR1);
+    }
     public void setSpentR2(double spent) { spentR2 = spent; }
     public void setSpentR3(double spent) { spentR3 = spent; }
+    public void setSpentAggressiveTactics(double spent) { spentAggressiveTactics = Math.max(0.0, spent); }
+    public void setSpentDefensiveTactics(double spent) { spentDefensiveTactics = Math.max(0.0, spent); }
+    public void setSpentStrategicTactics(double spent) { spentStrategicTactics = Math.max(0.0, spent); }
     public void setSpentAngelPoints(double spent) { spentAngelPoints = spent; }
 
     public double getSpentReactions() { return spentReactions; }

@@ -1,5 +1,6 @@
 package eternity;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,11 +11,14 @@ import java.util.Map;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class PanelCharMaintained extends PanelCharBase {
@@ -22,6 +26,16 @@ public class PanelCharMaintained extends PanelCharBase {
 	private static final String DEFAULT_LOADOUT_NAME = "Default";
 	private static final String LOADOUT_NAMES_KEY = "maintained.loadouts";
 	private static final String ACTIVE_LOADOUT_KEY = "maintained.loadout.active";
+	private static final String KNOWN_CHANNELS_LIST = "Known Channels";
+	private static final String KNOWN_ATTUNEMENTS_LIST = "Known Attunements";
+	private static final String KNOWN_METALS_LIST = "Known Metals";
+	private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
+	private static final String ETHEREAL_POCKET_TECHNIQUE = "Ethereal Pocket";
+	private static final String ETHEREAL_ATTUNEMENT_TECHNIQUE = "Ethereal Attunement";
+	private static final String METAL_MANIFESTATION_TECHNIQUE = "Metal Manifestation";
+	private static final double MENTAL_NETWORK_COST_PER_AL = 3.0;
+	private static final double ETHEREAL_POCKET_COST_PER_AL = 5.0;
+	private static final double PLACEHOLDER_GRANT_COST_PER_AL = 1.0;
 	private static final String MOLDS_LIST = "Molds";
 	private static final String MOLDING_MANIFEST_NOTE_PREFIX = "[MOLDING_MANIFEST]";
 	private static final String MOLDING_WEAPON_BONUS_KEY = "TDMG";
@@ -235,12 +249,14 @@ public class PanelCharMaintained extends PanelCharBase {
 	
 
 	public void mtUpdate () {
-		if (!canApplyProjectedMaintainedAura(calculateProjectedMaintainedOccupiedAuraFromFields())) {
-			refreshMaintainedValuesOnly();
-			refreshAllMaxFieldHighlights();
-			resizeSheet();
-			return;
-		}
+		Map<String, Integer> previousRowLevels = snapshotDisplayedMaintainedRowLevels();
+		Map<String, Integer> previousMoldingLevels = snapshotDisplayedMoldingLevels();
+		int previousMentalNetworkAl = snapshotStoredMentalNetworkAl();
+		ArrayList<String> previousMentalNetworkChannels = snapshotMentalNetworkChannels();
+		int previousEtherealAttunementAl = snapshotStoredEtherealAttunementAl();
+		ArrayList<String> previousEtherealAttunements = snapshotEtherealAttunements();
+		int previousMetalManifestationAl = snapshotStoredMetalManifestationAl();
+		ArrayList<String> previousMetalManifestations = snapshotMetalManifestations();
 		if (character != null && mtActLevel != null && mtTechRefs != null) {
 			for (int i = 0; i < mtActLevel.size() && i < mtTechRefs.size(); i++) {
 				DataTraining tech = mtTechRefs.get(i);
@@ -275,19 +291,38 @@ public class PanelCharMaintained extends PanelCharBase {
 					}
 				}
 			}
-			// Recompute occupied costs after AL changes
-			for (int i = 0; i < mtCost.size() && i < mtCostPerAL.size() && i < mtActLevel.size(); i++) {
-				try {
-					double costPer = ((Number) mtCostPerAL.get(i).getValue()).doubleValue();
-					double al = ((Number) mtActLevel.get(i).getValue()).doubleValue();
-					mtCost.get(i).setValue(costPer * al);
-				} catch (Exception ignored) {
-					mtCost.get(i).setValue(0);
-				}
-			}
+			recomputeDisplayedOccupiedCosts();
+			persistDisplayedLevelsIntoCache();
 			syncTechniqueActiveLevelsFromDisplayedRows();
 			syncMainOccupiedAuraFromOcc();
-			refreshAfterMaintainedChange(false);
+			if (!validateMaintainedAuraWithCurrentDisplay()) {
+				restoreDisplayedMaintainedRowLevels(previousRowLevels);
+				restoreMentalNetworkChannels(previousMentalNetworkChannels);
+				restoreEtherealAttunements(previousEtherealAttunements);
+				restoreMetalManifestations(previousMetalManifestations);
+				recomputeDisplayedOccupiedCosts();
+				persistDisplayedLevelsIntoCache();
+				syncTechniqueActiveLevelsFromDisplayedRows();
+				syncMainOccupiedAuraFromOcc();
+				refreshAfterMaintainedChange(false);
+				showInsufficientAuraPopup();
+			} else {
+				if (!handleMentalNetworkSelectionChange(previousMentalNetworkAl)
+						|| !handleEtherealAttunementSelectionChange(previousEtherealAttunementAl)
+						|| !handleMetalManifestationSelectionChange(previousMetalManifestationAl)) {
+					restoreDisplayedMaintainedRowLevels(previousRowLevels);
+					restoreMentalNetworkChannels(previousMentalNetworkChannels);
+					restoreEtherealAttunements(previousEtherealAttunements);
+					restoreMetalManifestations(previousMetalManifestations);
+					recomputeDisplayedOccupiedCosts();
+					persistDisplayedLevelsIntoCache();
+					syncTechniqueActiveLevelsFromDisplayedRows();
+					syncMainOccupiedAuraFromOcc();
+					refreshAfterMaintainedChange(false);
+				} else {
+					refreshAfterMaintainedChange(false, previousMoldingLevels);
+				}
+			}
 		}
 		refreshAllMaxFieldHighlights();
 	    resizeSheet();
@@ -295,42 +330,52 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 	
 	public void mtMax () {
-		double projectedOccupiedAura = calculateProjectedMaintainedOccupiedAuraFromMax();
-		if (!canApplyProjectedMaintainedAura(projectedOccupiedAura)) {
-			refreshMaintainedValuesOnly();
-			refreshAllMaxFieldHighlights();
-			resizeSheet();
-			return;
-		}
-		// Set each Active Level to its Max value, persist to training data, and refresh costs.
-		for (int i = 0; i < mtActLevel.size() && i < mtMax.size(); i++) {
-			int newAl = 0;
-			try {
-				Number maxVal = (Number) mtMax.get(i).getValue();
-				newAl = maxVal == null ? 0 : Math.max(0, maxVal.intValue());
-				mtActLevel.get(i).setValue(newAl);
-			} catch (Exception ignored) {
-				mtActLevel.get(i).setValue(0);
-				newAl = 0;
-			}
-			if (mtTechRefs != null && i < mtTechRefs.size() && mtTechRefs.get(i) != null) {
-				mtTechRefs.get(i).setAl(newAl);
-			}
-			saveMaintainedAl(i, newAl);
-		}
-		for (int i = 0; i < mtCost.size() && i < mtCostPerAL.size() && i < mtActLevel.size(); i++) {
-			try {
-				double costPer = ((Number) mtCostPerAL.get(i).getValue()).doubleValue();
-				double al = ((Number) mtActLevel.get(i).getValue()).doubleValue();
-				mtCost.get(i).setValue(costPer * al);
-			} catch (Exception ignored) {
-				mtCost.get(i).setValue(0);
-			}
-		}
+		Map<String, Integer> previousRowLevels = snapshotDisplayedMaintainedRowLevels();
+		Map<String, Integer> previousMoldingLevels = snapshotDisplayedMoldingLevels();
+		int previousMentalNetworkAl = snapshotStoredMentalNetworkAl();
+		ArrayList<String> previousMentalNetworkChannels = snapshotMentalNetworkChannels();
+		int previousEtherealAttunementAl = snapshotStoredEtherealAttunementAl();
+		ArrayList<String> previousEtherealAttunements = snapshotEtherealAttunements();
+		int previousMetalManifestationAl = snapshotStoredMetalManifestationAl();
+		ArrayList<String> previousMetalManifestations = snapshotMetalManifestations();
+		double requestedMaxOcc = applyMaximizedLevelsWithinBudget();
+		recomputeDisplayedOccupiedCosts();
+		persistDisplayedLevelsIntoCache();
 		if (character != null) {
 			syncTechniqueActiveLevelsFromDisplayedRows();
 			syncMainOccupiedAuraFromOcc();
-			refreshAfterMaintainedChange(false);
+			if (!validateMaintainedAuraWithCurrentDisplay()) {
+				restoreDisplayedMaintainedRowLevels(previousRowLevels);
+				restoreMentalNetworkChannels(previousMentalNetworkChannels);
+				restoreEtherealAttunements(previousEtherealAttunements);
+				restoreMetalManifestations(previousMetalManifestations);
+				recomputeDisplayedOccupiedCosts();
+				persistDisplayedLevelsIntoCache();
+				syncTechniqueActiveLevelsFromDisplayedRows();
+				syncMainOccupiedAuraFromOcc();
+				refreshAfterMaintainedChange(false);
+				showInsufficientAuraPopup();
+			} else {
+				if (requestedMaxOcc > availableMaintainedAuraBudget() + 0.0001
+						&& calculateProjectedMaintainedOccupiedAuraFromActiveRows() <= 0.0001) {
+					showInsufficientAuraPopup();
+				}
+				if (!handleMentalNetworkSelectionChange(previousMentalNetworkAl)
+						|| !handleEtherealAttunementSelectionChange(previousEtherealAttunementAl)
+						|| !handleMetalManifestationSelectionChange(previousMetalManifestationAl)) {
+					restoreDisplayedMaintainedRowLevels(previousRowLevels);
+					restoreMentalNetworkChannels(previousMentalNetworkChannels);
+					restoreEtherealAttunements(previousEtherealAttunements);
+					restoreMetalManifestations(previousMetalManifestations);
+					recomputeDisplayedOccupiedCosts();
+					persistDisplayedLevelsIntoCache();
+					syncTechniqueActiveLevelsFromDisplayedRows();
+					syncMainOccupiedAuraFromOcc();
+					refreshAfterMaintainedChange(false);
+				} else {
+					refreshAfterMaintainedChange(false, previousMoldingLevels);
+				}
+			}
 		}
 		refreshAllMaxFieldHighlights();
 		resizeSheet();
@@ -338,6 +383,7 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 	
 	public void mtOff () {
+		Map<String, Integer> previousMoldingLevels = snapshotDisplayedMoldingLevels();
 		// Set all active levels to zero and recompute occupied cost display
 		for (int i = 0; i < mtActLevel.size(); i++) {
 			JFormattedTextField alField = mtActLevel.get(i);
@@ -356,9 +402,12 @@ public class PanelCharMaintained extends PanelCharBase {
 			}
 		}
 		if (character != null) {
+			character.clearActiveMentalNetworkChannels();
+			character.clearActiveEtherealAttunements();
+			character.clearActiveMetalManifestations();
 			syncTechniqueActiveLevelsFromDisplayedRows();
 			syncMainOccupiedAuraFromOcc();
-			refreshAfterMaintainedChange(false);
+			refreshAfterMaintainedChange(false, previousMoldingLevels);
 		}
 		refreshAllMaxFieldHighlights();
 		resizeSheet();
@@ -366,18 +415,71 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 
 	private void syncMainOccupiedAuraFromOcc() {
-		if (character == null || character.getResources() == null || mtCost == null) return;
-		double totalOcc = 0.0;
-		for (JFormattedTextField occField : mtCost) {
-			if (occField == null) continue;
-			try {
-				Number value = (Number) occField.getValue();
-				if (value != null) totalOcc += value.doubleValue();
-			} catch (Exception ignored) {
-				// Ignore malformed field values.
-			}
+		if (character == null || character.getResources() == null) return;
+		character.setResourceValue("MAINOCC", calculateProjectedMaintainedOccupiedAuraFromActiveRows());
+	}
+
+	private double availableMaintainedAuraBudget() {
+		if (character == null || character.getResources() == null) return 0.0;
+		CharResources resources = character.getResources();
+		return resources.calcMaxAura() - resources.getSpentAura() - resources.getGrantOccupiedAura();
+	}
+
+	private int resolveDisplayedMaxAl(int index) {
+		int newAl = Math.max(0, safeIntFieldValue(mtMax.get(index)));
+		if (newAl <= 0 && mtTechRefs != null && index < mtTechRefs.size() && mtTechRefs.get(index) != null) {
+			newAl = Math.max(0, mtTechRefs.get(index).getRank());
 		}
-		character.setResourceValue("MAINOCC", totalOcc);
+		return newAl;
+	}
+
+	private double applyMaximizedLevelsWithinBudget() {
+		int limit = 0;
+		if (mtActLevel != null && mtMax != null && mtCostPerAL != null && mtTechRefs != null) {
+			limit = Math.min(Math.min(mtActLevel.size(), mtMax.size()), Math.min(mtCostPerAL.size(), mtTechRefs.size()));
+		}
+		double requestedMaxOcc = 0.0;
+		double remaining = character == null ? Double.POSITIVE_INFINITY : availableMaintainedAuraBudget();
+		for (int i = 0; i < limit; i++) {
+			if (mtTechRefs.get(i) == null) continue;
+			int desiredAl = resolveDisplayedMaxAl(i);
+			double costPer = Math.max(0.0, safeDoubleFieldValue(mtCostPerAL.get(i)));
+			requestedMaxOcc += costPer * desiredAl;
+			int appliedAl = desiredAl;
+			if (costPer > 0.0) {
+				appliedAl = Math.min(desiredAl, (int)Math.floor((remaining + 1e-9) / costPer));
+				appliedAl = Math.max(0, appliedAl);
+				remaining = Math.max(0.0, remaining - (costPer * appliedAl));
+			}
+			try {
+				mtActLevel.get(i).setValue(appliedAl);
+			} catch (Exception ignored) {
+				mtActLevel.get(i).setValue(0);
+				appliedAl = 0;
+			}
+			mtTechRefs.get(i).setAl(appliedAl);
+			saveMaintainedAl(i, appliedAl);
+		}
+		return requestedMaxOcc;
+	}
+
+	private void persistDisplayedLevelsIntoCache() {
+		if (cachedMaintainedRows == null || cachedMaintainedRows.isEmpty()) return;
+		ArrayList<MaintainedRow> updated = new ArrayList<>(cachedMaintainedRows.size());
+		int limit = mtActLevel == null ? 0 : Math.min(cachedMaintainedRows.size(), mtActLevel.size());
+		for (int i = 0; i < cachedMaintainedRows.size(); i++) {
+			MaintainedRow row = cachedMaintainedRows.get(i);
+			if (row == null) continue;
+			int activeLevel = i < limit ? Math.max(0, safeIntFieldValue(mtActLevel.get(i))) : row.activeLevel();
+			if (character != null && row.rowKey() != null && !row.rowKey().isBlank()) {
+				character.setReminderSelection(buildLoadoutValueKey(currentLoadoutName, row.rowKey()),
+						Integer.toString(Math.max(0, activeLevel)));
+			}
+			updated.add(new MaintainedRow(row.affinity(), row.name(), row.maxRank(), activeLevel, row.costPer(),
+					row.costPer() * activeLevel, row.tech(), row.attrKey(), row.permRatio(), row.normalizedKey(),
+					row.resolvedCategory(), row.rowKey()));
+		}
+		cachedMaintainedRows = updated;
 	}
 
 	private double calculateProjectedMaintainedOccupiedAura(Map<String, Integer> effectiveAlByTechnique, boolean useMaxFieldAsFallback) {
@@ -394,40 +496,54 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 
 	private double calculateProjectedMaintainedOccupiedAuraFromFields() {
+		return calculateProjectedMaintainedOccupiedAuraFromActiveRows();
+	}
+
+	private double calculateProjectedMaintainedOccupiedAuraFromMax() {
 		double totalOcc = 0.0;
-		int limit = Math.min(mtActLevel.size(), mtCostPerAL.size());
+		int limit = 0;
+		if (mtMax != null && mtCostPerAL != null) {
+			limit = Math.min(mtMax.size(), mtCostPerAL.size());
+		}
+		if (mtTechRefs != null) {
+			limit = Math.min(limit, mtTechRefs.size());
+		}
 		for (int i = 0; i < limit; i++) {
-			double costPer = safeDoubleFieldValue(mtCostPerAL.get(i));
+			if (mtTechRefs != null && mtTechRefs.get(i) == null) continue;
+			double costPer = Math.max(0.0, safeDoubleFieldValue(mtCostPerAL.get(i)));
+			int al = resolveDisplayedMaxAl(i);
+			totalOcc += costPer * al;
+		}
+		return totalOcc;
+	}
+
+	private double calculateProjectedMaintainedOccupiedAuraFromActiveRows() {
+		double totalOcc = 0.0;
+		if (mtActLevel == null || mtCostPerAL == null) return 0.0;
+		int limit = Math.min(mtActLevel.size(), mtCostPerAL.size());
+		if (mtTechRefs != null) {
+			limit = Math.min(limit, mtTechRefs.size());
+		}
+		for (int i = 0; i < limit; i++) {
+			if (mtTechRefs != null && mtTechRefs.get(i) == null) continue;
+			double costPer = Math.max(0.0, safeDoubleFieldValue(mtCostPerAL.get(i)));
 			int al = Math.max(0, safeIntFieldValue(mtActLevel.get(i)));
 			totalOcc += costPer * al;
 		}
 		return totalOcc;
 	}
 
-	private double calculateProjectedMaintainedOccupiedAuraFromMax() {
-		double totalOcc = 0.0;
-		int limit = Math.min(mtMax.size(), mtCostPerAL.size());
-		for (int i = 0; i < limit; i++) {
-			double costPer = safeDoubleFieldValue(mtCostPerAL.get(i));
-			int al = Math.max(0, safeIntFieldValue(mtMax.get(i)));
-			totalOcc += costPer * al;
-		}
-		return totalOcc;
+	private boolean validateMaintainedAuraWithCurrentDisplay() {
+		if (character == null || character.getResources() == null) return true;
+		return calculateProjectedMaintainedOccupiedAuraFromActiveRows()
+				<= availableMaintainedAuraBudget() + 0.0001;
 	}
 
-	private boolean canApplyProjectedMaintainedAura(double projectedMainOccupiedAura) {
-		if (character == null || character.getResources() == null) return true;
-		CharResources resources = character.getResources();
-		double availableAfter = resources.calcMaxAura()
-				- resources.getSpentAura()
-				- resources.getGrantOccupiedAura()
-				- Math.max(0.0, projectedMainOccupiedAura);
-		if (availableAfter >= -0.0001) return true;
+	private void showInsufficientAuraPopup() {
 		JOptionPane.showMessageDialog(this,
 				"You do not have enough aura for that.",
 				"Not Enough Aura",
 				JOptionPane.WARNING_MESSAGE);
-		return false;
 	}
 
 	private int safeIntFieldValue(JFormattedTextField field) {
@@ -447,6 +563,18 @@ public class PanelCharMaintained extends PanelCharBase {
 			return value == null ? 0.0 : value.doubleValue();
 		} catch (Exception ignored) {
 			return 0.0;
+		}
+	}
+
+	private void recomputeDisplayedOccupiedCosts() {
+		for (int i = 0; i < mtCost.size() && i < mtCostPerAL.size() && i < mtActLevel.size(); i++) {
+			try {
+				double costPer = ((Number) mtCostPerAL.get(i).getValue()).doubleValue();
+				double al = ((Number) mtActLevel.get(i).getValue()).doubleValue();
+				mtCost.get(i).setValue(costPer * al);
+			} catch (Exception ignored) {
+				mtCost.get(i).setValue(0);
+			}
 		}
 	}
 
@@ -474,6 +602,7 @@ public class PanelCharMaintained extends PanelCharBase {
 		if ("APPLY".equals(upper)) return "APP";
 		if ("IMPAIR".equals(upper)) return "IMP";
 		if ("RESPHY".equals(upper)) return "PHY";
+		if ("RESDISP".equals(upper) || "RD".equals(upper) || "DISPRES".equals(upper)) return "RESDISP";
 		if (upper.startsWith("RESIST")) return upper.substring("RESIST".length());
 		if (upper.startsWith("RES") && upper.length() > 3) return upper.substring(3);
 		return upper;
@@ -626,10 +755,11 @@ public class PanelCharMaintained extends PanelCharBase {
 		String selected = getSelectedLoadoutName();
 		if (selected == null || selected.isBlank()) return;
 		if (selected.equalsIgnoreCase(currentLoadoutName)) return;
+		Map<String, Integer> previousMoldingLevels = snapshotDisplayedMoldingLevels();
 		persistDisplayedStateForLoadout(currentLoadoutName);
 		currentLoadoutName = selected;
 		setActiveLoadoutName(selected);
-		refreshAfterMaintainedChange(false);
+		refreshAfterMaintainedChange(false, previousMoldingLevels);
 	}
 
 	private void createLoadout() {
@@ -853,7 +983,7 @@ public class PanelCharMaintained extends PanelCharBase {
 			if (isStandardAffinity && dataQuery != null) {
 				boolean addedAny = false;
 				for (Integer gid : tech.getGrant()) {
-					if (gid == null) continue;
+					if (gid == null || gid <= 0) continue;
 					DataTechPerm perm = dataQuery.getTechPermById(gid);
 					String attr = (perm != null && perm.getAttribute() != null) ? perm.getAttribute() : "None";
 					String rowName = shouldAppendMaintainedSubtype(tech)
@@ -874,7 +1004,7 @@ public class PanelCharMaintained extends PanelCharBase {
 			DataTechPerm perm = resolveFirstPerm(tech);
 			String mappedAttr = perm != null ? perm.getAttribute() : null;
 			double mappedRatio = perm != null ? perm.getRatio() : 0.0;
-			double costPer = resolveCostPer(perm);
+			double costPer = resolveCostPer(tech, perm);
 			String normalizedKey = normalizeAttrKey(mappedAttr);
 			String resolvedCategory = resolveCategory(character != null ? character.getAttributes() : null, normalizedKey);
 			String rowKey = buildMaintainedAlKey(tech, mappedAttr);
@@ -991,6 +1121,10 @@ public class PanelCharMaintained extends PanelCharBase {
 			mtActLevel.get(i).setVisible(false);
 			mtCostPerAL.get(i).setVisible(false);
 			mtCost.get(i).setVisible(false);
+			mtActLevel.get(i).setValue(0);
+			mtMax.get(i).setValue(0);
+			mtCostPerAL.get(i).setValue(0.0);
+			mtCost.get(i).setValue(0.0);
 			mtTechRefs.set(i, null);
 			mtRowKeys.set(i, "");
 			mtAttrKeys.set(i, null);
@@ -1044,12 +1178,44 @@ public class PanelCharMaintained extends PanelCharBase {
 		return 0.0;
 	}
 
+	private double resolveCostPer(DataTraining tech, DataTechPerm perm) {
+		if (isMentalNetworkTechnique(tech)) return MENTAL_NETWORK_COST_PER_AL;
+		if (isEtherealPocketTechnique(tech)) return ETHEREAL_POCKET_COST_PER_AL;
+		double costPer = resolveCostPer(perm);
+		if (costPer != 0.0) return costPer;
+		if (tech != null && tech.hasPlaceholderGrant()) return PLACEHOLDER_GRANT_COST_PER_AL;
+		return 0.0;
+	}
+
+	private boolean isMentalNetworkTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& MENTAL_NETWORK_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isEtherealPocketTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& ETHEREAL_POCKET_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
 	private void refreshAfterMaintainedChange(boolean forceRebuild) {
+		refreshAfterMaintainedChange(forceRebuild, null);
+	}
+
+	private void refreshAfterMaintainedChange(boolean forceRebuild, Map<String, Integer> previousMoldingLevels) {
 		if (forceRebuild) {
 			cachedStructureSignature = "";
 		}
-		synchronizeCharacterState();
 		ArrayList<MaintainedRow> rows = forceRebuild ? getMaintainedRows() : refreshCachedMaintainedRows();
+		applyMaintainedRowsToTraining(rows);
+		if (hasReducedMoldingAl(previousMoldingLevels, snapshotMoldingLevels(rows)) && character != null) {
+			character.clearMoldingManifestItems();
+		}
+		if (character != null && !character.hasActiveMoldingTechnique()) {
+			FrameMold.clearPersistedSelection(character);
+		}
+		synchronizeCharacterState();
 		applyDisplayedMaintainedStatuses(rows);
 		if (forceRebuild) {
 			updateMaintained();
@@ -1073,6 +1239,188 @@ public class PanelCharMaintained extends PanelCharBase {
 			levels.put(tech.getId(), Math.max(0, tech.getAl()));
 		}
 		return levels;
+	}
+
+	private Map<String, Integer> snapshotDisplayedMoldingLevels() {
+		Map<String, Integer> levels = new LinkedHashMap<>();
+		if (mtTechRefs == null || mtActLevel == null) return levels;
+		int limit = Math.min(mtTechRefs.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			DataTraining tech = mtTechRefs.get(i);
+			if (!isMoldingTechnique(tech)) continue;
+			String key = getMaintainedTechniqueKey(tech);
+			int value = Math.max(0, safeIntFieldValue(mtActLevel.get(i)));
+			levels.merge(key, value, Math::max);
+		}
+		return levels;
+	}
+
+	private Map<String, Integer> snapshotDisplayedMaintainedRowLevels() {
+		Map<String, Integer> levels = new LinkedHashMap<>();
+		if (mtRowKeys == null || mtActLevel == null) return levels;
+		int limit = Math.min(mtRowKeys.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			String rowKey = mtRowKeys.get(i);
+			if (rowKey == null || rowKey.isBlank()) continue;
+			levels.put(rowKey, Math.max(0, safeIntFieldValue(mtActLevel.get(i))));
+		}
+		return levels;
+	}
+
+	private int snapshotDisplayedMentalNetworkAl() {
+		if (mtTechRefs == null || mtActLevel == null) return 0;
+		int limit = Math.min(mtTechRefs.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			if (!isMentalNetworkTechnique(mtTechRefs.get(i))) continue;
+			return Math.max(0, safeIntFieldValue(mtActLevel.get(i)));
+		}
+		return 0;
+	}
+
+	private int snapshotStoredMentalNetworkAl() {
+		if (mtTechRefs == null) return 0;
+		for (DataTraining tech : mtTechRefs) {
+			if (!isMentalNetworkTechnique(tech)) continue;
+			return tech == null ? 0 : Math.max(0, tech.getAl());
+		}
+		return 0;
+	}
+
+	private int snapshotDisplayedEtherealAttunementAl() {
+		if (mtTechRefs == null || mtActLevel == null) return 0;
+		int limit = Math.min(mtTechRefs.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			if (!isEtherealAttunementTechnique(mtTechRefs.get(i))) continue;
+			return Math.max(0, safeIntFieldValue(mtActLevel.get(i)));
+		}
+		return 0;
+	}
+
+	private int snapshotStoredEtherealAttunementAl() {
+		if (mtTechRefs == null) return 0;
+		for (DataTraining tech : mtTechRefs) {
+			if (!isEtherealAttunementTechnique(tech)) continue;
+			return tech == null ? 0 : Math.max(0, tech.getAl());
+		}
+		return 0;
+	}
+
+	private int snapshotDisplayedMetalManifestationAl() {
+		if (mtTechRefs == null || mtActLevel == null) return 0;
+		int limit = Math.min(mtTechRefs.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			if (!isMetalManifestationTechnique(mtTechRefs.get(i))) continue;
+			return Math.max(0, safeIntFieldValue(mtActLevel.get(i)));
+		}
+		return 0;
+	}
+
+	private int snapshotStoredMetalManifestationAl() {
+		if (mtTechRefs == null) return 0;
+		for (DataTraining tech : mtTechRefs) {
+			if (!isMetalManifestationTechnique(tech)) continue;
+			return tech == null ? 0 : Math.max(0, tech.getAl());
+		}
+		return 0;
+	}
+
+	private ArrayList<String> snapshotMentalNetworkChannels() {
+		if (character == null) return new ArrayList<>();
+		return new ArrayList<>(character.getActiveMentalNetworkChannels());
+	}
+
+	private ArrayList<String> snapshotEtherealAttunements() {
+		if (character == null) return new ArrayList<>();
+		return new ArrayList<>(character.getActiveEtherealAttunements());
+	}
+
+	private ArrayList<String> snapshotMetalManifestations() {
+		if (character == null) return new ArrayList<>();
+		return new ArrayList<>(character.getActiveMetalManifestations());
+	}
+
+	private void restoreMentalNetworkChannels(List<String> channels) {
+		if (character == null) return;
+		character.setActiveMentalNetworkChannels(channels);
+	}
+
+	private void restoreEtherealAttunements(List<String> attunements) {
+		if (character == null) return;
+		character.setActiveEtherealAttunements(attunements);
+	}
+
+	private void restoreMetalManifestations(List<String> metals) {
+		if (character == null) return;
+		character.setActiveMetalManifestations(metals);
+	}
+
+	private void restoreDisplayedMaintainedRowLevels(Map<String, Integer> rowLevels) {
+		if (rowLevels == null || rowLevels.isEmpty() || mtRowKeys == null || mtActLevel == null) return;
+		int limit = Math.min(mtRowKeys.size(), mtActLevel.size());
+		for (int i = 0; i < limit; i++) {
+			String rowKey = mtRowKeys.get(i);
+			if (rowKey == null || rowKey.isBlank()) continue;
+			int value = Math.max(0, rowLevels.getOrDefault(rowKey, 0));
+			mtActLevel.get(i).setValue(value);
+			saveMaintainedAl(i, value);
+		}
+	}
+
+	private boolean handleMentalNetworkSelectionChange(int previousMentalNetworkAl) {
+		if (character == null) return true;
+		int currentMentalNetworkAl = snapshotDisplayedMentalNetworkAl();
+		if (currentMentalNetworkAl <= 0) {
+			character.clearActiveMentalNetworkChannels();
+			return true;
+		}
+		if (currentMentalNetworkAl == previousMentalNetworkAl) return true;
+		return promptForMentalNetworkChannelSelection(currentMentalNetworkAl);
+	}
+
+	private boolean handleEtherealAttunementSelectionChange(int previousEtherealAttunementAl) {
+		if (character == null) return true;
+		int currentEtherealAttunementAl = snapshotDisplayedEtherealAttunementAl();
+		if (currentEtherealAttunementAl <= 0) {
+			character.clearActiveEtherealAttunements();
+			return true;
+		}
+		if (currentEtherealAttunementAl == previousEtherealAttunementAl) return true;
+		return promptForEtherealAttunementSelection(currentEtherealAttunementAl);
+	}
+
+	private boolean handleMetalManifestationSelectionChange(int previousMetalManifestationAl) {
+		if (character == null) return true;
+		int currentMetalManifestationAl = snapshotDisplayedMetalManifestationAl();
+		if (currentMetalManifestationAl <= 0) {
+			character.clearActiveMetalManifestations();
+			return true;
+		}
+		if (currentMetalManifestationAl == previousMetalManifestationAl) return true;
+		return promptForMetalManifestationSelection();
+	}
+
+	private Map<String, Integer> snapshotMoldingLevels(List<MaintainedRow> rows) {
+		Map<String, Integer> levels = new LinkedHashMap<>();
+		if (rows == null) return levels;
+		for (MaintainedRow row : rows) {
+			if (row == null || !isMoldingTechnique(row.tech())) continue;
+			String key = getMaintainedTechniqueKey(row.tech());
+			levels.merge(key, Math.max(0, row.activeLevel()), Math::max);
+		}
+		return levels;
+	}
+
+	private boolean hasReducedMoldingAl(Map<String, Integer> previousLevels, Map<String, Integer> currentLevels) {
+		if (previousLevels == null || previousLevels.isEmpty()) return false;
+		for (Map.Entry<String, Integer> entry : previousLevels.entrySet()) {
+			if (entry == null || entry.getKey() == null) continue;
+			int previous = Math.max(0, entry.getValue() == null ? 0 : entry.getValue());
+			int current = Math.max(0, currentLevels == null ? 0 : currentLevels.getOrDefault(entry.getKey(), 0));
+			if (current < previous) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void applyMoldingArrangementIfNeeded(Map<Integer, Integer> previousMoldingLevels) {
@@ -1123,6 +1471,18 @@ public class PanelCharMaintained extends PanelCharBase {
 		return tech.getName().trim().toLowerCase().endsWith(" molding");
 	}
 
+	private boolean isEtherealAttunementTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& ETHEREAL_ATTUNEMENT_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
+	private boolean isMetalManifestationTechnique(DataTraining tech) {
+		return tech != null
+				&& tech.getName() != null
+				&& METAL_MANIFESTATION_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+	}
+
 	private ArrayList<String> getListEntries(String listName) {
 		ArrayList<String> entries = new ArrayList<>();
 		if (character == null || character.getLists() == null || listName == null || listName.isBlank()) return entries;
@@ -1138,6 +1498,209 @@ public class PanelCharMaintained extends PanelCharBase {
 		}
 		entries.addAll(deduped);
 		return entries;
+	}
+
+	private boolean promptForMentalNetworkChannelSelection(int mentalNetworkAl) {
+		ArrayList<String> knownChannels = getListEntries(KNOWN_CHANNELS_LIST);
+		if (knownChannels.isEmpty()) {
+			character.clearActiveMentalNetworkChannels();
+			JOptionPane.showMessageDialog(
+					this,
+					"Mental Network has no Known Channels to activate.",
+					"No Known Channels",
+					JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+
+		LinkedHashSet<String> selectedChannels = new LinkedHashSet<>(character.getActiveMentalNetworkChannels());
+		int bandwidth = Math.max(0, mentalNetworkAl) * 2;
+
+		JLabel bandwidthLabel = new JLabel("Bandwidth: " + bandwidth);
+		JLabel creatureCountLabel = new JLabel();
+		JPanel channelPanel = new JPanel();
+		channelPanel.setLayout(new BoxLayout(channelPanel, BoxLayout.Y_AXIS));
+		ArrayList<JCheckBox> channelBoxes = new ArrayList<>();
+
+		for (String channel : knownChannels) {
+			JCheckBox box = new JCheckBox(channel);
+			box.setSelected(containsIgnoreCase(selectedChannels, channel));
+			box.addActionListener(e -> updateMentalNetworkPromptLabels(creatureCountLabel, channelBoxes, bandwidth));
+			channelBoxes.add(box);
+			channelPanel.add(box);
+		}
+		updateMentalNetworkPromptLabels(creatureCountLabel, channelBoxes, bandwidth);
+
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+		infoPanel.add(new JLabel("Activate Known Channels for Mental Network."));
+		infoPanel.add(bandwidthLabel);
+		infoPanel.add(creatureCountLabel);
+
+		JPanel promptPanel = new JPanel(new BorderLayout(0, 8));
+		promptPanel.add(infoPanel, BorderLayout.NORTH);
+		promptPanel.add(new JScrollPane(channelPanel), BorderLayout.CENTER);
+
+		int result = JOptionPane.showConfirmDialog(
+				this,
+				promptPanel,
+				"Mental Network Channels",
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		if (result != JOptionPane.OK_OPTION) {
+			return false;
+		}
+
+		ArrayList<String> activeChannels = new ArrayList<>();
+		for (JCheckBox box : channelBoxes) {
+			if (box != null && box.isSelected()) {
+				activeChannels.add(box.getText());
+			}
+		}
+		character.setActiveMentalNetworkChannels(activeChannels);
+		return true;
+	}
+
+	private boolean promptForEtherealAttunementSelection(int etherealAttunementAl) {
+		ArrayList<String> knownAttunements = getListEntries(KNOWN_ATTUNEMENTS_LIST);
+		if (knownAttunements.isEmpty()) {
+			character.clearActiveEtherealAttunements();
+			JOptionPane.showMessageDialog(
+					this,
+					"Ethereal Attunement has no Known Attunements to activate.",
+					"No Known Attunements",
+					JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+
+		LinkedHashSet<String> selectedAttunements = new LinkedHashSet<>(character.getActiveEtherealAttunements());
+		JLabel rankLabel = new JLabel("Current AL: " + Math.max(0, etherealAttunementAl));
+		JPanel attunementPanel = new JPanel();
+		attunementPanel.setLayout(new BoxLayout(attunementPanel, BoxLayout.Y_AXIS));
+		ArrayList<JCheckBox> attunementBoxes = new ArrayList<>();
+
+		for (String attunement : knownAttunements) {
+			JCheckBox box = new JCheckBox(attunement);
+			box.setSelected(containsIgnoreCase(selectedAttunements, attunement));
+			attunementBoxes.add(box);
+			attunementPanel.add(box);
+		}
+
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+		infoPanel.add(new JLabel("Activate Known Attunements for Ethereal Attunement."));
+		infoPanel.add(rankLabel);
+
+		JPanel promptPanel = new JPanel(new BorderLayout(0, 8));
+		promptPanel.add(infoPanel, BorderLayout.NORTH);
+		promptPanel.add(new JScrollPane(attunementPanel), BorderLayout.CENTER);
+
+		int result = JOptionPane.showConfirmDialog(
+				this,
+				promptPanel,
+				"Ethereal Attunement",
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		if (result != JOptionPane.OK_OPTION) {
+			return false;
+		}
+
+		ArrayList<String> activeAttunements = new ArrayList<>();
+		for (JCheckBox box : attunementBoxes) {
+			if (box != null && box.isSelected()) {
+				activeAttunements.add(box.getText());
+			}
+		}
+		character.setActiveEtherealAttunements(activeAttunements);
+		return true;
+	}
+
+	private boolean promptForMetalManifestationSelection() {
+		ArrayList<String> knownMetals = getListEntries(KNOWN_METALS_LIST);
+		if (knownMetals.isEmpty()) {
+			character.clearActiveMetalManifestations();
+			JOptionPane.showMessageDialog(
+					this,
+					"Metal Manifestation has no Known Metals to manifest.",
+					"No Known Metals",
+					JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+
+		LinkedHashSet<String> selectedMetals = new LinkedHashSet<>(character.getActiveMetalManifestations());
+		int currentRank = 0;
+		if (character != null && character.getTraining() != null) {
+			DataTraining metalManifestation = character.getTraining().getTrainingByName(METAL_MANIFESTATION_TECHNIQUE);
+			currentRank = metalManifestation == null ? 0 : Math.max(0, metalManifestation.getRank());
+		}
+
+		JLabel rankLabel = new JLabel("Current Rank: " + currentRank);
+		JPanel metalPanel = new JPanel();
+		metalPanel.setLayout(new BoxLayout(metalPanel, BoxLayout.Y_AXIS));
+		ArrayList<JCheckBox> metalBoxes = new ArrayList<>();
+
+		for (String metal : knownMetals) {
+			JCheckBox box = new JCheckBox(metal);
+			box.setSelected(containsIgnoreCase(selectedMetals, metal));
+			metalBoxes.add(box);
+			metalPanel.add(box);
+		}
+
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+		infoPanel.add(new JLabel("Select Known Metals for Metal Manifestation."));
+		infoPanel.add(rankLabel);
+
+		JPanel promptPanel = new JPanel(new BorderLayout(0, 8));
+		promptPanel.add(infoPanel, BorderLayout.NORTH);
+		promptPanel.add(new JScrollPane(metalPanel), BorderLayout.CENTER);
+
+		int result = JOptionPane.showConfirmDialog(
+				this,
+				promptPanel,
+				"Metal Manifestation",
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		if (result != JOptionPane.OK_OPTION) {
+			return false;
+		}
+
+		ArrayList<String> activeMetals = new ArrayList<>();
+		for (JCheckBox box : metalBoxes) {
+			if (box != null && box.isSelected()) {
+				activeMetals.add(box.getText());
+			}
+		}
+		character.setActiveMetalManifestations(activeMetals);
+		return true;
+	}
+
+	private void updateMentalNetworkPromptLabels(JLabel creatureCountLabel, List<JCheckBox> channelBoxes, int bandwidth) {
+		if (creatureCountLabel == null) return;
+		int activeChannelCount = 0;
+		if (channelBoxes != null) {
+			for (JCheckBox box : channelBoxes) {
+				if (box != null && box.isSelected()) {
+					activeChannelCount++;
+				}
+			}
+		}
+		int creatureCount = resolveMentalNetworkCreatureCount(bandwidth, activeChannelCount);
+		creatureCountLabel.setText("Available Creature Count: " + creatureCount);
+	}
+
+	private int resolveMentalNetworkCreatureCount(int bandwidth, int activeChannelCount) {
+		if (bandwidth <= 0 || activeChannelCount <= 0) return 0;
+		return Math.max(0, bandwidth / activeChannelCount);
+	}
+
+	private boolean containsIgnoreCase(Iterable<String> values, String candidate) {
+		if (values == null || candidate == null) return false;
+		for (String value : values) {
+			if (value != null && value.equalsIgnoreCase(candidate)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private ArrayList<String> getAvailableMoldingChoices(List<String> moldNames) {
@@ -1431,23 +1994,8 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 
 	private void clearExistingMoldingManifestItems() {
-		if (character == null || character.getInventory() == null) return;
-		CharInventory inventory = character.getInventory();
-		ArrayList<DataItemEquipment> equipmentToRemove = new ArrayList<>();
-		for (DataItemEquipment item : inventory.getEquipment()) {
-			if (item != null && isMoldingManifestItem(item.getInote())) equipmentToRemove.add(item);
-		}
-		for (DataItemEquipment item : equipmentToRemove) {
-			inventory.removeEquipment(item);
-		}
-
-		ArrayList<DataItem> itemsToRemove = new ArrayList<>();
-		for (DataItem item : inventory.getItems()) {
-			if (item != null && isMoldingManifestItem(item.getInote())) itemsToRemove.add(item);
-		}
-		for (DataItem item : itemsToRemove) {
-			inventory.removeItem(item);
-		}
+		if (character == null) return;
+		character.clearMoldingManifestItems();
 	}
 
 	private boolean isMoldingManifestItem(String note) {
@@ -1477,21 +2025,10 @@ public class PanelCharMaintained extends PanelCharBase {
 	}
 
 	private void applyDisplayedMaintainedStatuses(List<MaintainedRow> rows) {
+		// Maintained HP/Aura/attribute effects are applied in StoreCharData.updateAll() so every
+		// character-sheet tab shows the same totals. Only clear legacy panel-prefixed statuses here.
 		clearDisplayedMaintainedStatuses();
-		if (character == null || rows == null) return;
-		for (MaintainedRow row : rows) {
-			if (row == null || row.activeLevel() <= 0 || row.attrKey() == null || row.attrKey().isBlank()) continue;
-			String attr = normalizeAttrKey(row.attrKey());
-			if (attr == null || attr.isBlank()) continue;
-			double severity = row.permRatio() * character.getEffectiveTechniqueAl(row.affinity(), row.activeLevel());
-			if (Math.abs(severity) < 0.0001) continue;
-			String statusName = MAINTAINED_STATUS_PREFIX + row.rowKey();
-			String description = row.name() + " maintained effect";
-			if (applyMaintainedResourceStatus(statusName, attr, severity, description)) continue;
-			if (applyMaintainedMultiplierAliases(statusName, attr, severity, description)) continue;
-			addMaintainedAttributeStatus(statusName, "B" + attr, severity, description);
-		}
-		if (character.getAttributes() != null) {
+		if (character != null && character.getAttributes() != null) {
 			character.getAttributes().refreshLinkedAttributeStatuses();
 		}
 	}
@@ -1530,6 +2067,7 @@ public class PanelCharMaintained extends PanelCharBase {
 			clearStatusPrefix(character.getResources().getBaseReactions(), MAINTAINED_STATUS_PREFIX);
 			clearStatusPrefix(character.getResources().getMultiReactions(), MAINTAINED_STATUS_PREFIX);
 		}
+		character.clearCombatSizeStatusesByPrefix(MAINTAINED_STATUS_PREFIX);
 	}
 
 	private void clearStatusPrefix(ArrayList<DataStatus>[][] category, String prefix) {
@@ -1551,7 +2089,13 @@ public class PanelCharMaintained extends PanelCharBase {
 
 	private boolean applyMaintainedResourceStatus(String uniqueName, String attribute, double severity, String description) {
 		if (character == null || character.getResources() == null) return false;
-		String resourceAttribute = switch (attribute) {
+		String normalizedAttribute = attribute == null ? "" : attribute.trim().toUpperCase();
+		if ("SHIELD".equals(normalizedAttribute) || "STAGGER".equals(normalizedAttribute)) {
+			// Shield and stagger are tracked as direct runtime resource values, not status-block attributes.
+			// Suppress attribute fallback here to avoid generating invalid keys like BSHIELD.
+			return true;
+		}
+		String resourceAttribute = switch (normalizedAttribute) {
 			case "MAXHP" -> "BASEHP";
 			case "HPMULTI" -> "MULTIHP";
 			case "MAXAURA" -> "BASEAURA";
@@ -1563,15 +2107,56 @@ public class PanelCharMaintained extends PanelCharBase {
 			default -> null;
 		};
 		if (resourceAttribute == null) return false;
+
+		double computedSeverity = severity;
+		if ("MAXHP".equals(normalizedAttribute) || "MAXAURA".equals(normalizedAttribute)) {
+			double levelBase = resolveLevelScaledBaseResource(resourceAttribute);
+			if (levelBase <= 0.0) return false;
+			computedSeverity = levelBase * severity;
+		}
 		DataStatus copy = new DataStatus();
 		copy.setName(uniqueName);
 		copy.setAttribute(resourceAttribute);
 		copy.setDurationType("Maintained");
-		copy.setSeverity(severity);
+		copy.setSeverity(computedSeverity);
 		copy.setAffinity("None");
 		copy.setDescription(description);
 		character.getResources().addStatus(copy);
 		return true;
+	}
+
+	private double resolveLevelScaledBaseResource(String resourceAttribute) {
+		if (character == null || character.getIdentity() == null || dataQuery == null || resourceAttribute == null || resourceAttribute.isBlank()) {
+			return 0.0;
+		}
+		DataLevel dataLevel = dataQuery.getLevel(character.getIdentity().getLevel());
+		if (dataLevel == null) return 0.0;
+
+		DataClass effectiveClass = resolveEffectiveClass();
+		double scaling = switch (resourceAttribute.toUpperCase()) {
+			case "BASEHP" -> effectiveClass != null ? effectiveClass.getHpScaling() : 1.0;
+			case "BASEAURA" -> effectiveClass != null ? effectiveClass.getAuraScaling() : 1.0;
+			default -> 1.0;
+		};
+
+		return switch (resourceAttribute.toUpperCase()) {
+			case "BASEHP" -> dataLevel.getBaseHP() * scaling;
+			case "BASEAURA" -> dataLevel.getBaseAura() * scaling;
+			default -> 0.0;
+		};
+	}
+
+	private DataClass resolveEffectiveClass() {
+		if (character == null || character.getIdentity() == null || dataQuery == null) return null;
+		String subclassName = character.getIdentity().getCharSubclass();
+		if (subclassName != null && !subclassName.isBlank() && !"***".equals(subclassName.trim()) && !"?".equals(subclassName.trim())) {
+			DataClass subclass = dataQuery.getClassByName(subclassName);
+			if (subclass != null) return subclass;
+		}
+
+		String className = character.getIdentity().getCharClass();
+		if (className == null || className.isBlank() || "?".equals(className.trim())) return null;
+		return dataQuery.getClassByName(className);
 	}
 
 	private boolean applyMaintainedMultiplierAliases(String uniqueName, String attribute, double severity, String description) {

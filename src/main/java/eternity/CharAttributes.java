@@ -4,6 +4,7 @@ package eternity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,12 +17,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class CharAttributes {
     @JsonIgnore private StoreCharData owner;                                             // Reference to main character data
+    @JsonIgnore private String primaryAttributeOverride;
 
     private static final String[] ATTRIBUTES = { "STR","DEX","CON","FOC","CTL","CAP","KNOW","MECH","PERC","INT","CHA","SUB" };
     private static final String[] DEFENSE = { "ARMOR","DODGE","DEF","FORT","REF","WILL","AVOID" };
     private static final String[] DMGTYPE = { "ALL","PHY","BLUNT","PIERCE","SLASH","FIRE","FROST","ELEC","ENERGY","SONIC","LIGHT","TOXIC","DARK","PSI","SPIRIT","TIME" };
-    private static final String[] COMBAT = { "ATK","APP","MOVE","FLY","RANGE","INIT","CMAN","MAXATK" };
-    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","BREAK","AREA","POWER" };
+    private static final String[] COMBAT = { "ATK","APP","MOVE","FLY","RANGE","INIT","MAN","MAXATK","RESDISP" };
+    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","BREAK","AREA","POWER","DUR" };
     private static final String[] DAMAGE = { "BDMG", "TDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
 
     //  GENERIC STAT ARRAYS
@@ -67,6 +69,8 @@ public class CharAttributes {
         this.bCombat[7][0].get(0).setSeverity(1);
         // set base area
         this.bSecondary[7][0].get(0).setSeverity(1);
+        // set base duration multiplier
+        this.bSecondary[9][0].get(0).setSeverity(1);
     }
 
     // ---------------------------------------------------------
@@ -125,13 +129,43 @@ public class CharAttributes {
 
     @JsonIgnore public double calcStatusValue(String key) {
         if (key == null || key.isBlank()) return 0.0;
-        String normalized = key.toUpperCase();
+        String normalized = canonicalizeCombatStatName(key.toUpperCase());
         String baseKey = "B" + normalized;
         String multiKey = "M" + normalized;
         ArrayList<DataStatus>[] base = findStatusBlock(findStatusCategory(findCatByAttribute(baseKey)), baseKey);
         ArrayList<DataStatus>[] multi = findStatusBlock(findStatusCategory(findCatByAttribute(multiKey)), multiKey);
         if (base == null || multi == null) return 0.0;
+        if ("RESDISP".equalsIgnoreCase(normalized)) {
+            return clampUnitInterval(sumRawStatusValue(base, multi));
+        }
         return calcMaxValue(base, multi);
+    }
+
+    private double sumRawStatusValue(ArrayList<DataStatus>[] base, ArrayList<DataStatus>[] multi) {
+        double baseValue = 0.0;
+        double multiValue = 1.0;
+        if (base != null) {
+            for (ArrayList<DataStatus> list : base) {
+                if (list == null) continue;
+                for (DataStatus status : list) {
+                    if (status != null) baseValue += status.getSeverity();
+                }
+            }
+        }
+        if (multi != null) {
+            for (ArrayList<DataStatus> list : multi) {
+                if (list == null) continue;
+                for (DataStatus status : list) {
+                    if (status != null) multiValue += status.getSeverity();
+                }
+            }
+        }
+        return baseValue * multiValue;
+    }
+
+    public static double clampUnitInterval(double value) {
+        if (Double.isNaN(value) || value <= 0.0) return 0.0;
+        return Math.min(1.0, value);
     }
 
     // ---------------------------------------------------------
@@ -170,11 +204,59 @@ public class CharAttributes {
     @JsonIgnore public StoreCharData getOwner() { return owner; }
     @JsonIgnore public void setOwner(StoreCharData owner) { this.owner = owner; }
 
+    @JsonIgnore
+    public void setPrimaryAttributeOverride(String primaryAttribute) {
+        if (primaryAttribute == null || primaryAttribute.isBlank()) {
+            this.primaryAttributeOverride = null;
+            return;
+        }
+        String normalized = primaryAttribute.trim().toUpperCase();
+        this.primaryAttributeOverride = containsAttributeKey(normalized) ? normalized : null;
+    }
+
+    @JsonIgnore
+    public String getPrimaryAttributeOverride() {
+        return primaryAttributeOverride;
+    }
+
+    @JsonIgnore
+    public List<DataStatus> collectStatusesByNamePrefixes(String... prefixes) {
+        ArrayList<DataStatus> collected = new ArrayList<>();
+        collectMatchingStatuses(bAttributes, collected, prefixes);
+        collectMatchingStatuses(mAttributes, collected, prefixes);
+        collectMatchingStatuses(bDefense, collected, prefixes);
+        collectMatchingStatuses(mDefense, collected, prefixes);
+        collectMatchingStatuses(bResist, collected, prefixes);
+        collectMatchingStatuses(mResist, collected, prefixes);
+        collectMatchingStatuses(bCombat, collected, prefixes);
+        collectMatchingStatuses(mCombat, collected, prefixes);
+        collectMatchingStatuses(bSecondary, collected, prefixes);
+        collectMatchingStatuses(mSecondary, collected, prefixes);
+        collectMatchingStatuses(bDamage, collected, prefixes);
+        collectMatchingStatuses(mDamage, collected, prefixes);
+        collectMatchingStatuses(bSkill, collected, prefixes);
+        collectMatchingStatuses(mSkill, collected, prefixes);
+        return collected;
+    }
+
+    @JsonIgnore
+    public double sumSeverityByNamePrefixes(String attribute, String... prefixes) {
+        if (attribute == null || attribute.isBlank()) return 0.0;
+        double total = 0.0;
+        for (DataStatus status : collectStatusesByNamePrefixes(prefixes)) {
+            if (status != null && attribute.equalsIgnoreCase(status.getAttribute())) {
+                total += status.getSeverity();
+            }
+        }
+        return total;
+    }
+
     public void refreshLinkedAttributeStatuses() {
         for (String attribute : ATTRIBUTES) {
             updateAttributes(attribute);
         }
         syncLeaderPowerStat();
+        syncCenteredResource3CombatStats();
     }
 
     public static String[] getAttributeKeys() { return ATTRIBUTES.clone(); }
@@ -354,7 +436,7 @@ public class CharAttributes {
                     || block[0].get(0) == null || block[0].get(0).getAttribute() == null) {
                 continue;
             }
-            String attribute = block[0].get(0).getAttribute().toUpperCase();
+            String attribute = canonicalizeCombatAttributeKey(block[0].get(0).getAttribute());
             int targetIndex = findCategoryIndex(categoryKeys, attribute);
             if (targetIndex < 0) continue;
             normalized[targetIndex] = normalizeStatusBlock(block, attribute);
@@ -364,7 +446,7 @@ public class CharAttributes {
 
     private int findCategoryIndex(String[] categoryKeys, String blockAttribute) {
         if (categoryKeys == null || blockAttribute == null || blockAttribute.isBlank()) return -1;
-        String upper = blockAttribute.toUpperCase();
+        String upper = canonicalizeCombatAttributeKey(blockAttribute);
         for (int i = 0; i < categoryKeys.length; i++) {
             String expectedBase = "B" + categoryKeys[i].toUpperCase();
             String expectedMulti = "M" + categoryKeys[i].toUpperCase();
@@ -384,7 +466,9 @@ public class CharAttributes {
             for (DataStatus status : source[i]) {
                 if (status == null) continue;
                 DataStatus copy = new DataStatus(status);
-                copy.setAttribute(expectedAttribute);
+                // Skill blocks store many skills together; keep skill-specific keys
+                // (e.g. BSKILLMEDICAL) instead of collapsing everything to BSKILL/MSKILL.
+                copy.setAttribute(resolveNormalizedBlockAttribute(status.getAttribute(), expectedAttribute));
                 normalized[i].add(copy);
             }
             if (normalized[i].isEmpty()) {
@@ -397,6 +481,21 @@ public class CharAttributes {
             }
         }
         return normalized;
+    }
+
+    private String resolveNormalizedBlockAttribute(String statusAttribute, String expectedAttribute) {
+        if (expectedAttribute == null || expectedAttribute.isBlank()) {
+            return statusAttribute;
+        }
+        String expected = expectedAttribute.trim().toUpperCase();
+        if (!"BSKILL".equals(expected) && !"MSKILL".equals(expected)) {
+            return expectedAttribute;
+        }
+        if (!isSkillPseudoAttribute(statusAttribute)) {
+            return expectedAttribute;
+        }
+        String skillKey = stripBaseOrMultiPrefix(statusAttribute); // e.g. SKILLMEDICAL
+        return expected.charAt(0) + skillKey;
     }
 
     private DataStatus findStatus(ArrayList<DataStatus> list, String name) {
@@ -416,7 +515,7 @@ public class CharAttributes {
 
     private String checkCatByKey(String key) {
         String subcat = key.substring(0, 1);
-        key = key.substring(1).toUpperCase();
+        key = canonicalizeCombatStatName(key.substring(1).toUpperCase());
         for (String cat: ATTRIBUTES) {
             if ((cat).equals(key)) return subcat + "attributes";
         }
@@ -436,6 +535,21 @@ public class CharAttributes {
             if (cat.equals(key)) return subcat + "damage";
         }
         return null;
+    }
+
+    private static String canonicalizeCombatAttributeKey(String attribute) {
+        if (attribute == null || attribute.isBlank()) return attribute;
+        String upper = attribute.toUpperCase();
+        return switch (upper) {
+            case "CMAN" -> "MAN";
+            case "BCMAN" -> "BMAN";
+            case "MCMAN" -> "MMAN";
+            default -> upper;
+        };
+    }
+
+    private static String canonicalizeCombatStatName(String stat) {
+        return "CMAN".equalsIgnoreCase(stat) ? "MAN" : stat;
     }
 
     private double roundToTenths(double value) {
@@ -473,7 +587,7 @@ public class CharAttributes {
         double severity2 = roundToTenths(constitutionValue * 0.5);
         upsertPassiveStatus("BTDMG", "Attribute", severity, "Derived from Strength");
         upsertPassiveStatus("BALL", "Attribute", severity, "Derived from Strength");
-        upsertPassiveStatus("BFORT", "Attribute", (severity + severity2)/2, "Derived from Strength / Constitution");
+        upsertPassiveStatus("BFORT", "Attribute", severity + severity2, "Derived from Strength / Constitution");
     }
 
     private void updateDexterityLinks() {
@@ -482,16 +596,17 @@ public class CharAttributes {
         double focusValue = calcStatusValue("FOC");
         double severity2 = roundToTenths(focusValue * 0.5);
         upsertPassiveStatus("BDODGE", "Attribute", severity, "Derived from Dexterity");
-        upsertPassiveStatus("BREF", "Attribute", (severity + severity2)/2, "Derived from Dexterity / Focus");
+        upsertPassiveStatus("BREF", "Attribute", severity + severity2, "Derived from Dexterity / Focus");
     }
 
     private void updateConstitutionLinks() {
         double constitutionValue = calcStatusValue("CON");
-        double severity = roundToTenths(constitutionValue * 0.05);
+        double severity = roundToTenths(constitutionValue * 0.02);
         double strengthValue = calcStatusValue("STR");
         double severity2 = roundToTenths(strengthValue * 0.5);
+        double fortFromCon = roundToTenths(constitutionValue * 0.5);
         upsertPassiveResourceStatus("MULTIHP", "Attribute", severity, "Derived from Constitution");
-        upsertPassiveStatus("BFORT", "Attribute", ((severity * 10) + severity2)/2, "Derived from Strength / Constitution");
+        upsertPassiveStatus("BFORT", "Attribute", fortFromCon + severity2, "Derived from Strength / Constitution");
     }
 
     private void updateFocusLinks() {
@@ -499,9 +614,10 @@ public class CharAttributes {
         double severity = roundToTenths(focusValue * 0.25);
         double dexterityValue = calcStatusValue("DEX");
         double severity2 = roundToTenths(dexterityValue * 0.5);
+        double refFromFocus = roundToTenths(focusValue * 0.5);
         upsertPassiveStatus("BATK", "Attribute", severity, "Derived from Focus");
         upsertPassiveStatus("BAPP", "Attribute", severity, "Derived from Focus");
-        upsertPassiveStatus("BWILL", "Attribute", severity+(severity2/2), "Derived from Dexterity / Focus");
+        upsertPassiveStatus("BREF", "Attribute", refFromFocus + severity2, "Derived from Dexterity / Focus");
     }
 
     private void updateControlLinks() {
@@ -509,18 +625,21 @@ public class CharAttributes {
         double severity = roundToTenths(controlValue * 0.25);
         double capacityValue = calcStatusValue("CAP");
         double severity2 = roundToTenths(capacityValue * 0.5);
+        double willFromControl = roundToTenths(controlValue * 0.5);
         upsertPassiveStatus("BBDMG", "Attribute", severity, "Derived from Control");
         upsertPassiveStatus("BBHEAL", "Attribute", severity, "Derived from Control");
-        upsertPassiveStatus("BREF", "Attribute", severity+(severity2/2), "Derived from Control / Capacity");
+        upsertPassiveStatus("BWILL", "Attribute", willFromControl + severity2, "Derived from Control / Capacity");
     }
 
     private void updateCapacityLinks() {
         double capacityValue = calcStatusValue("CAP");
-        double severity = roundToTenths(capacityValue * 0.05);
+        double auraSeverity = roundToTenths(1.0 + (capacityValue * 0.02));
+        double severity = roundToTenths(capacityValue * 0.02);
         double controlValue = calcStatusValue("CTL");
         double severity2 = roundToTenths(controlValue * 0.5);
-        upsertPassiveResourceStatus("MULTIAURA", "Attribute", severity, "Derived from Capacity");
-        upsertPassiveStatus("BWILL", "Attribute", ((severity*10)+severity2)/2, "Derived from Control / Capacity");
+        double willFromCapacity = roundToTenths(capacityValue * 0.5);
+        upsertPassiveResourceStatus("MULTIAURA", "Attribute", auraSeverity, "Derived from Capacity");
+        upsertPassiveStatus("BWILL", "Attribute", willFromCapacity + severity2, "Derived from Control / Capacity");
     }
 
     private void updatePrimaryAttributeLinks(String changedAttribute) {
@@ -556,6 +675,37 @@ public class CharAttributes {
         if (owner == null || owner.getIdentity() == null) return false;
         String className = owner.getIdentity().getCharClass();
         return className != null && className.equalsIgnoreCase("Leader");
+    }
+
+    private void syncCenteredResource3CombatStats() {
+        double currentResource3 = 0.0;
+        double bdmgPerPoint = -2.0;
+        if (owner != null
+                && owner.usesCenteredClassResource3()
+                && owner.getResources() != null) {
+            currentResource3 = owner.getCurrentResource3Value();
+            bdmgPerPoint = owner.getCenteredResource3BaseDamagePerPoint();
+        }
+        String resourceLabel = resolveCenteredResource3Label();
+        upsertPassiveStatus("BATK", "Class Resource 3", currentResource3,
+                resourceLabel + " modifies Attack by its current value");
+        upsertPassiveStatus("BBDMG", "Class Resource 3", bdmgPerPoint * currentResource3,
+                resourceLabel + " modifies Base Damage by " + formatCenteredBdmgScale(bdmgPerPoint)
+                        + " x its current value");
+    }
+
+    private String resolveCenteredResource3Label() {
+        if (owner != null && owner.hasEntropySpecialty()) return "Entropy";
+        if (owner != null && owner.hasTemperanceSpecialty()) return "Temperance";
+        return "Class Resource 3";
+    }
+
+    private static String formatCenteredBdmgScale(double bdmgPerPoint) {
+        double abs = Math.abs(bdmgPerPoint);
+        if (Math.abs(abs - Math.rint(abs)) <= 0.0001) {
+            return Integer.toString((int) Math.round(abs));
+        }
+        return Double.toString(abs);
     }
 
     private void upsertPassiveStatus(String targetAttribute, String statusName, double severity, String description) {
@@ -639,6 +789,9 @@ public class CharAttributes {
     }
 
     private String resolvePrimaryAttribute() {
+        if (primaryAttributeOverride != null && !primaryAttributeOverride.isBlank()) {
+            return primaryAttributeOverride;
+        }
         if (owner == null || owner.getIdentity() == null) return null;
         StoreRuleManager ruleManager = new StoreRuleManager();
         CharIdentity identity = owner.getIdentity();
@@ -656,6 +809,35 @@ public class CharAttributes {
         DataClass baseClass = ruleManager.getClassByName(className);
         if (baseClass == null || !containsAttributeKey(baseClass.getPrimaryAtt())) return null;
         return baseClass.getPrimaryAtt().toUpperCase();
+    }
+
+    private void collectMatchingStatuses(ArrayList<DataStatus>[][] category, List<DataStatus> collected, String... prefixes) {
+        if (category == null) return;
+        for (ArrayList<DataStatus>[] block : category) {
+            collectMatchingStatuses(block, collected, prefixes);
+        }
+    }
+
+    private void collectMatchingStatuses(ArrayList<DataStatus>[] blocks, List<DataStatus> collected, String... prefixes) {
+        if (blocks == null || collected == null) return;
+        for (ArrayList<DataStatus> statuses : blocks) {
+            if (statuses == null) continue;
+            for (DataStatus status : statuses) {
+                if (matchesNamePrefixes(status, prefixes)) {
+                    collected.add(status);
+                }
+            }
+        }
+    }
+
+    private static boolean matchesNamePrefixes(DataStatus status, String... prefixes) {
+        if (status == null || status.getName() == null || prefixes == null) return false;
+        String name = status.getName();
+        if ("Base".equalsIgnoreCase(name)) return false;
+        for (String prefix : prefixes) {
+            if (prefix != null && name.startsWith(prefix)) return true;
+        }
+        return false;
     }
 }
 

@@ -41,12 +41,17 @@ public class FrameSpecialsPicker extends JDialog {
     private static final String COMBAT_DISCIPLINE_II_SPECIALTY = "Combat Discipline II";
     private static final String STANCE_SPECIALTY = "Stance";
     private static final String DIVINE_DEDICATION_SPECIALTY = "Divine Dedication";
+    private static final String INSPIRE_SPECIALTY = "Inspire";
+    private static final String INSPIRE_I_SPECIALTY = "Inspire I";
+    private static final String INSPIRE_II_SPECIALTY = "Inspire II";
     private static final String WEAPON_SPECIALIZATION_SPECIALTY = "Weapon Specialization";
     private static final String MARTIAL_FEATURE_PREFIX = "Martial Feature";
     private static final String SPECIALIZATION_PREFIX = "Specialization (";
     private static final String[] MARTIAL_FOCUS_OPTIONS = { "Mobility", "Avoidance", "Harm" };
     private static final String[] COMBAT_DISCIPLINE_OPTIONS = { "Mobility", "Avoidance", "Martial" };
     private static final String[] DIVINE_DEDICATION_OPTIONS = { "Faithful", "Dawning", "Dominant" };
+    private static final String[] INSPIRE_BASE_OPTIONS = { "Hasten", "Competence", "Freedom" };
+    private static final String[] INSPIRE_II_EXTRA_OPTIONS = { "Clarity", "Fortune" };
     private static final String[] MELEE_WEAPON_TYPES = {"Greatsword", "Battleaxe", "Warhammer", "Polearm", "Sword", "Axe", "Mace", "Shield", "Blade", "Dagger", "Fist", "Whip"};
     private static final String[] RANGED_WEAPON_TYPES = {"Bow", "Crossbow", "Rifle", "Cannon", "Thrown", "Sling", "Handbow", "Pistol"};
     private static final String[] AURA_WEAPON_TYPES = {"Staff", "Tome", "Relic", "Symbol", "Ring", "Orb", "Wand", "Talisman"};
@@ -118,6 +123,10 @@ public class FrameSpecialsPicker extends JDialog {
             JOptionPane.showMessageDialog(parent, "Skill Dedication requires a known skill that is not already dedicated.");
             return null;
         }
+        if (isInspireIiSpecialty(copy) && buildInspireIiOptions(character).isEmpty()) {
+            JOptionPane.showMessageDialog(parent, "No additional Inspire selections are currently available.");
+            return null;
+        }
 
         Window owner = parent == null ? null : SwingUtilities.getWindowAncestor(parent);
         FrameSpecialsPicker picker = new FrameSpecialsPicker(owner, ruleManager, character, copy);
@@ -143,6 +152,7 @@ public class FrameSpecialsPicker extends JDialog {
         if (specialty == null || specialty.getName() == null) return false;
         String name = specialty.getName().trim();
         return COMBAT_DISCIPLINE_SPECIALTY.equalsIgnoreCase(name)
+                || COMBAT_DISCIPLINE_I_DISPLAY.equalsIgnoreCase(name)
                 || COMBAT_DISCIPLINE_II_SPECIALTY.equalsIgnoreCase(name);
     }
 
@@ -314,6 +324,19 @@ public class FrameSpecialsPicker extends JDialog {
 
         String name = specialty.getName() == null ? "" : specialty.getName();
         String refName = specialty.getRefName();
+
+        if (isInspireIiSpecialty(specialty)) {
+            List<String> options = buildInspireIiOptions(character);
+            if (!options.isEmpty()) {
+                fields.add(ChoiceField.combo("Choice", options, extractSingleChoiceValue(specialty.getRefName())));
+                return fields;
+            }
+        }
+        if (isInspireISpecialty(specialty) || INSPIRE_SPECIALTY.equalsIgnoreCase(name)) {
+            fields.add(ChoiceField.combo("Choice", List.of(INSPIRE_BASE_OPTIONS), extractSingleChoiceValue(specialty.getRefName())));
+            return fields;
+        }
+
         List<String> refOptions = extractOptions(refName);
         if (!refOptions.isEmpty()) {
             fields.add(ChoiceField.combo("Choice", refOptions, null));
@@ -360,7 +383,9 @@ public class FrameSpecialsPicker extends JDialog {
                 return fields;
             }
         }
-        if (MARTIAL_FOCUS_SPECIALTY.equalsIgnoreCase(name) || COMBAT_DISCIPLINE_SPECIALTY.equalsIgnoreCase(name)) {
+        if (MARTIAL_FOCUS_SPECIALTY.equalsIgnoreCase(name)
+                || COMBAT_DISCIPLINE_SPECIALTY.equalsIgnoreCase(name)
+                || COMBAT_DISCIPLINE_I_DISPLAY.equalsIgnoreCase(name)) {
             fields.add(ChoiceField.combo("Focus", List.of(MARTIAL_FOCUS_OPTIONS), normalizeMartialFocusValue(specialty.getRefName())));
             return fields;
         }
@@ -419,11 +444,6 @@ public class FrameSpecialsPicker extends JDialog {
                 return fields;
             }
         }
-        if ("Versatility (Gaian)".equalsIgnoreCase(name)) {
-            fields.add(ChoiceField.text("Skill", ""));
-            fields.add(ChoiceField.text("Feature", ""));
-            return fields;
-        }
         if ("Tails of the Fox (Kitsune)".equalsIgnoreCase(name)) {
             fields.add(ChoiceField.text("Spirit", ""));
             return fields;
@@ -458,6 +478,79 @@ public class FrameSpecialsPicker extends JDialog {
                 && WEAPON_SPECIALIZATION_SPECIALTY.equalsIgnoreCase(specialty.getName().trim());
     }
 
+    private static boolean isInspireISpecialty(DataSpecialty specialty) {
+        if (specialty == null || specialty.getName() == null) return false;
+        String name = specialty.getName().trim();
+        return INSPIRE_SPECIALTY.equalsIgnoreCase(name) || INSPIRE_I_SPECIALTY.equalsIgnoreCase(name);
+    }
+
+    private static boolean isInspireIiSpecialty(DataSpecialty specialty) {
+        return specialty != null
+                && specialty.getName() != null
+                && INSPIRE_II_SPECIALTY.equalsIgnoreCase(specialty.getName().trim());
+    }
+
+    private static List<String> buildInspireIiOptions(StoreCharData character) {
+        ArrayList<String> options = new ArrayList<>();
+        String chosenPrimary = getPrimaryInspireChoice(character);
+        for (String option : INSPIRE_BASE_OPTIONS) {
+            if (option == null || option.isBlank()) continue;
+            if (chosenPrimary != null && chosenPrimary.equalsIgnoreCase(option)) continue;
+            options.add(option);
+        }
+        for (String option : INSPIRE_II_EXTRA_OPTIONS) {
+            if (option == null || option.isBlank()) continue;
+            options.add(option);
+        }
+        return options;
+    }
+
+    private static String getPrimaryInspireChoice(StoreCharData character) {
+        if (character == null || character.getSpecials() == null) return null;
+        for (DataSpecialty specialty : character.getSpecials().getAllSpecialties()) {
+            if (!isInspireISpecialty(specialty)) continue;
+            String choice = extractInspireChoiceValue(specialty.getRefName());
+            if (choice != null && !choice.isBlank()) {
+                return choice;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns chosen Inspire versions from Inspire I then Inspire II, in selection order.
+     */
+    public static List<String> getChosenInspireVariants(StoreCharData character) {
+        ArrayList<String> variants = new ArrayList<>();
+        if (character == null || character.getSpecials() == null) return variants;
+        String primary = null;
+        String secondary = null;
+        for (DataSpecialty specialty : character.getSpecials().getAllSpecialties()) {
+            if (specialty == null || specialty.getName() == null) continue;
+            String choice = extractInspireChoiceValue(specialty.getRefName());
+            if (choice == null || choice.isBlank()) continue;
+            if (isInspireISpecialty(specialty) && primary == null) {
+                primary = choice;
+            } else if (isInspireIiSpecialty(specialty) && secondary == null) {
+                secondary = choice;
+            }
+        }
+        if (primary != null) variants.add(primary);
+        if (secondary != null) variants.add(secondary);
+        return variants;
+    }
+
+    private static String extractInspireChoiceValue(String value) {
+        if (value == null) return null;
+        String trimmed = value.trim();
+        if (trimmed.isBlank()) return trimmed;
+        int colonIndex = trimmed.indexOf(':');
+        if (colonIndex >= 0 && colonIndex + 1 < trimmed.length()) {
+            return trimmed.substring(colonIndex + 1).trim();
+        }
+        return trimmed;
+    }
+
     private static boolean characterHasWeaponSpecialization(StoreCharData character) {
         if (character == null || character.getSpecials() == null) return false;
         for (DataSpecialty specialty : character.getSpecials().getAllSpecialties()) {
@@ -477,7 +570,15 @@ public class FrameSpecialsPicker extends JDialog {
         int level = character == null ? Integer.MAX_VALUE : Math.max(0, character.getLevel());
         for (DataSpecialty option : ruleManager.getSpecialtiesByType("Martial")) {
             if (option == null || option.getName() == null || option.getName().isBlank()) continue;
-            if (option.getPrereq() < 0 || option.getPrereq() > level) continue;
+            if (option.getPrereq() < 0) continue;
+            if (character != null && character.getSpecials() != null
+                    && character.getSpecials().lacksRequiredSpecialty(option, ruleManager)) {
+                continue;
+            }
+            DataSpecialty prereqSpecialty = option.getPrereq() > 0
+                    ? ruleManager.getSpecialtyById(option.getPrereq())
+                    : null;
+            if (prereqSpecialty == null && option.getPrereq() > level) continue;
             if (character != null && character.getSpecials() != null
                     && !CharSpecials.isRepeatableSpecialty(option)
                     && character.getSpecials().hasSpecialty(option.getName())) {

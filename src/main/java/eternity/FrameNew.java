@@ -405,7 +405,11 @@ public class FrameNew extends JFrame {
             character.initializeNewCharacter();
         }
         saveCharacter();
-        if (sheetFrame != null && character != null) sheetFrame.loadCharacter(character); 
+        if (sheetFrame != null && character != null) {
+            sheetFrame.loadCharacter(character);
+            sheetFrame.setVisible(true);
+            sheetFrame.toFront();
+        }
         dispose();
     }
 

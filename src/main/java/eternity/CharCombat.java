@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,11 +32,44 @@ public class CharCombat {
     private static final String HOLY_BEACON_SPECIALTY = "Holy Beacon";
     private static final String EMBED_SPECIALTY = "Embed";
     private static final String SALVO_SPECIALTY = "Salvo";
+    private static final String CHARGE_UP_SPECIALTY = "Charge-Up";
+    private static final String DRONES_SPECIALTY = "Drones";
+    private static final String POSITIONING_JETS_SPECIALTY = "Positioning Jets";
+    private static final String OVERCHARGE_SPECIALTY = "Overcharge";
+    private static final String DEPLOY_DRONE_ACTION = "Deploy Drone";
+    private static final String RECALL_DRONE_ACTION = "Recall Drone";
+    private static final String COUNTERSTRIKE_SPECIALTY = "Counterstrike";
+    private static final String ARCANE_MISSILES_SPECIALTY = "Arcane Missiles";
+    private static final String MIGHTY_KICK_SPECIALTY = "Mighty Kick";
+    private static final String MIGHTY_KICK_ATTACK_ACTION = "Mighty Kick (Attack)";
+    private static final String MIGHTY_KICK_SPELL_ACTION = "Mighty Kick (Spell)";
+    private static final String ANGER_STRIKE_ACTION = "Anger Strike";
+    private static final String CALM_STRIKE_ACTION = "Calm Strike";
+    private static final String ORDER_STRIKE_ACTION = "Order Strike";
+    private static final String CHAOS_STRIKE_ACTION = "Chaos Strike";
+    private static final String FLASH_MOB_ACTION = "Flash Mob";
+    private static final String SHIVER_ACTION = "Shiver";
+    private static final String INSPIRE_ACTION = "Inspire";
+    private static final String INSPIRE_I_SPECIALTY = "Inspire I";
+    private static final String INSPIRE_II_SPECIALTY = "Inspire II";
+    private static final String GAMBIT_SPECIALTY = "Gambit";
+    private static final String GAMBIT_MINION_ACTION = "Gambit (Minion)";
+    private static final String GAMBIT_LEADER_ACTION = "Gambit (Leader)";
+    private static final String[] ADAPTIVE_TECHNIQUE_KEYS = {"DEF", "DODGE", "FORT", "REF", "WILL"};
     private static final int STILL_MIND_ACTION_ID = -7001;
     private static final int CLASH_ACTION_ID = -7002;
     private static final int HOLY_BEACON_ACTION_ID = -7003;
     private static final int EMBED_ACTION_ID = -7004;
     private static final int SALVO_ACTION_ID = -7005;
+    private static final int CHARGE_UP_ACTION_ID = -7010;
+    private static final int DEPLOY_DRONE_ACTION_ID = -7011;
+    private static final int RECALL_DRONE_ACTION_ID = -7012;
+    private static final int POSITIONING_JETS_ACTION_ID = -7013;
+    private static final int OVERCHARGE_ACTION_ID = -7014;
+    private static final int COUNTERSTRIKE_ACTION_ID = -7006;
+    private static final int ARCANE_MISSILES_ACTION_ID = -7007;
+    private static final int MIGHTY_KICK_ATTACK_ACTION_ID = -7008;
+    private static final int MIGHTY_KICK_SPELL_ACTION_ID = -7009;
 
 
     @JsonIgnore
@@ -80,6 +116,24 @@ public class CharCombat {
 
     @JsonProperty
     private double shufflePool;
+    @JsonProperty
+    private double streamValue;
+    @JsonProperty
+    private double auraSpentThisTurn;
+    @JsonProperty
+    private int breakerComboAttacksThisTurn;
+    @JsonProperty
+    private Map<String, Integer> adaptiveTechniqueBonuses;
+    @JsonProperty
+    private boolean overchargeActiveThisTurn;
+    @JsonProperty
+    private boolean temperanceAbilityUsedThisTurn;
+    @JsonProperty
+    private boolean tacticsAbilityUsedThisTurn;
+    @JsonProperty
+    private boolean flashMobPendingRefund;
+    @JsonProperty
+    private int classResource3Overflow;
 
     @JsonProperty
     private final List<DataStatus> combatStatus;
@@ -114,6 +168,15 @@ public class CharCombat {
         this.rootTokens = 0;
         this.damageDealtThisTurn = 0.0;
         this.shufflePool = 0.0;
+        this.streamValue = 0.0;
+        this.auraSpentThisTurn = 0.0;
+        this.breakerComboAttacksThisTurn = 0;
+        this.adaptiveTechniqueBonuses = new LinkedHashMap<>();
+        this.overchargeActiveThisTurn = false;
+        this.temperanceAbilityUsedThisTurn = false;
+        this.tacticsAbilityUsedThisTurn = false;
+        this.flashMobPendingRefund = false;
+        this.classResource3Overflow = 0;
         this.combatStatus = new ArrayList<>();
         this.standardActions = new ArrayList<>();
         this.moveActions = new ArrayList<>();
@@ -142,6 +205,15 @@ public class CharCombat {
         inCombat = true;
         round = Math.max(round, 1);
         damageDealtThisTurn = 0.0;
+        breakerComboAttacksThisTurn = 0;
+        streamValue = 0.0;
+        auraSpentThisTurn = 0.0;
+        clearAdaptiveTechniqueBonuses();
+        overchargeActiveThisTurn = false;
+        temperanceAbilityUsedThisTurn = false;
+        tacticsAbilityUsedThisTurn = false;
+        flashMobPendingRefund = false;
+        classResource3Overflow = 0;
     }
     public void endCombat() {
         inCombat = false;
@@ -152,6 +224,15 @@ public class CharCombat {
         rootTokens = 0;
         damageDealtThisTurn = 0.0;
         shufflePool = 0.0;
+        streamValue = 0.0;
+        auraSpentThisTurn = 0.0;
+        breakerComboAttacksThisTurn = 0;
+        clearAdaptiveTechniqueBonuses();
+        overchargeActiveThisTurn = false;
+        temperanceAbilityUsedThisTurn = false;
+        tacticsAbilityUsedThisTurn = false;
+        flashMobPendingRefund = false;
+        classResource3Overflow = 0;
         combatStatus.clear();
     }
 
@@ -209,6 +290,84 @@ public class CharCombat {
     public double getShufflePool() { return Math.max(0.0, shufflePool); }
     public void setShufflePool(double shufflePool) { this.shufflePool = Math.max(0.0, shufflePool); }
     public void adjustShufflePool(double delta) { setShufflePool(this.shufflePool + delta); }
+    public double getStreamValue() { return Math.max(0.0, streamValue); }
+    public void setStreamValue(double streamValue) { this.streamValue = Math.max(0.0, streamValue); }
+    public void adjustStreamValue(double delta) { setStreamValue(this.streamValue + delta); }
+    public double getAuraSpentThisTurn() { return Math.max(0.0, auraSpentThisTurn); }
+    public void setAuraSpentThisTurn(double auraSpentThisTurn) { this.auraSpentThisTurn = Math.max(0.0, auraSpentThisTurn); }
+    public void adjustAuraSpentThisTurn(double delta) { setAuraSpentThisTurn(this.auraSpentThisTurn + delta); }
+    public void resetAuraSpentThisTurn() { this.auraSpentThisTurn = 0.0; }
+    public int getBreakerComboAttacksThisTurn() { return Math.max(0, breakerComboAttacksThisTurn); }
+    public void setBreakerComboAttacksThisTurn(int breakerComboAttacksThisTurn) {
+        this.breakerComboAttacksThisTurn = Math.max(0, breakerComboAttacksThisTurn);
+    }
+    public void incrementBreakerComboAttacksThisTurn() {
+        setBreakerComboAttacksThisTurn(this.breakerComboAttacksThisTurn + 1);
+    }
+    public void resetBreakerComboAttacksThisTurn() { this.breakerComboAttacksThisTurn = 0; }
+    public Map<String, Integer> getAdaptiveTechniqueBonuses() {
+        ensureAdaptiveTechniqueBonusMap();
+        return adaptiveTechniqueBonuses;
+    }
+    public void setAdaptiveTechniqueBonuses(Map<String, Integer> adaptiveTechniqueBonuses) {
+        ensureAdaptiveTechniqueBonusMap();
+        this.adaptiveTechniqueBonuses.clear();
+        if (adaptiveTechniqueBonuses == null) return;
+        for (Map.Entry<String, Integer> entry : adaptiveTechniqueBonuses.entrySet()) {
+            if (entry == null) continue;
+            String normalizedKey = normalizeAdaptiveTechniqueKey(entry.getKey());
+            if (normalizedKey == null) continue;
+            int value = entry.getValue() == null ? 0 : Math.max(0, entry.getValue());
+            if (value > 0) {
+                this.adaptiveTechniqueBonuses.put(normalizedKey, value);
+            }
+        }
+    }
+    public int getAdaptiveTechniqueBonus(String attribute) {
+        ensureAdaptiveTechniqueBonusMap();
+        String normalizedKey = normalizeAdaptiveTechniqueKey(attribute);
+        if (normalizedKey == null) return 0;
+        return Math.max(0, adaptiveTechniqueBonuses.getOrDefault(normalizedKey, 0));
+    }
+    public void adjustAdaptiveTechniqueBonus(String attribute, int delta) {
+        if (delta == 0) return;
+        ensureAdaptiveTechniqueBonusMap();
+        String normalizedKey = normalizeAdaptiveTechniqueKey(attribute);
+        if (normalizedKey == null) return;
+        int updatedValue = Math.max(0, getAdaptiveTechniqueBonus(normalizedKey) + delta);
+        if (updatedValue <= 0) {
+            adaptiveTechniqueBonuses.remove(normalizedKey);
+            return;
+        }
+        adaptiveTechniqueBonuses.put(normalizedKey, updatedValue);
+    }
+    public void clearAdaptiveTechniqueBonuses() {
+        ensureAdaptiveTechniqueBonusMap();
+        adaptiveTechniqueBonuses.clear();
+    }
+    public boolean isOverchargeActiveThisTurn() { return overchargeActiveThisTurn; }
+    public void setOverchargeActiveThisTurn(boolean overchargeActiveThisTurn) {
+        this.overchargeActiveThisTurn = overchargeActiveThisTurn;
+    }
+    public boolean isTemperanceAbilityUsedThisTurn() { return temperanceAbilityUsedThisTurn; }
+    public void setTemperanceAbilityUsedThisTurn(boolean temperanceAbilityUsedThisTurn) {
+        this.temperanceAbilityUsedThisTurn = temperanceAbilityUsedThisTurn;
+    }
+    public boolean isTacticsAbilityUsedThisTurn() { return tacticsAbilityUsedThisTurn; }
+    public void setTacticsAbilityUsedThisTurn(boolean tacticsAbilityUsedThisTurn) {
+        this.tacticsAbilityUsedThisTurn = tacticsAbilityUsedThisTurn;
+    }
+    public boolean isFlashMobPendingRefund() { return flashMobPendingRefund; }
+    public void setFlashMobPendingRefund(boolean flashMobPendingRefund) {
+        this.flashMobPendingRefund = flashMobPendingRefund;
+    }
+    public int getClassResource3Overflow() { return Math.max(0, classResource3Overflow); }
+    public void setClassResource3Overflow(int classResource3Overflow) {
+        this.classResource3Overflow = Math.max(0, classResource3Overflow);
+    }
+    public void adjustClassResource3Overflow(int delta) {
+        setClassResource3Overflow(getClassResource3Overflow() + delta);
+    }
 
     /* Status handling */
     public List<DataStatus> getCombatStatus() { return combatStatus; }
@@ -228,15 +387,26 @@ public class CharCombat {
     public void addInterruptAction(DataAction action) { addAction(action, interruptActions); }
 
     public void clearActions() {
+        clearActionBuckets();
+        ensureStandardAttackExists();
+        ensureStandardSpellExists();
+        ensureStandardMoveExists();
+        ensureDefaultBaseActionsExist();
+    }
+
+    /** Clears combat action buckets without reinstalling leader baselines. */
+    public void clearActionBuckets() {
         standardActions.clear();
         moveActions.clear();
         auraActions.clear();
         freeActions.clear();
         interruptActions.clear();
-        ensureStandardAttackExists();
-        ensureStandardSpellExists();
-        ensureStandardMoveExists();
-        ensureDefaultBaseActionsExist();
+    }
+
+    /** Routes a copy of the action into the matching combat bucket. */
+    public void routeAction(DataAction action) {
+        if (action == null) return;
+        routeActionByType(new DataAction(action));
     }
 
     /**
@@ -383,9 +553,16 @@ public class CharCombat {
             if (specialty == null) continue;
             for (DataAction actionTemplate : getSpecialtyActionTemplates(specialty, dataQuery)) {
                 if (actionTemplate == null || hasBaseAction(actionTemplate)) continue;
+                // Gambit (Minion) belongs on summoned minion actors only.
+                if (GAMBIT_MINION_ACTION.equalsIgnoreCase(actionTemplate.getName())) continue;
                 DataAction action = new DataAction(actionTemplate);
                 action.setCharacter(owner);
                 routeActionByType(action);
+                DataAction interruptVariant = buildDualInterruptVariant(actionTemplate);
+                if (interruptVariant != null) {
+                    interruptVariant.setCharacter(owner);
+                    routeActionByType(interruptVariant);
+                }
             }
         }
     }
@@ -454,6 +631,41 @@ public class CharCombat {
             actionTemplates.add(buildSalvoActionTemplate());
             return actionTemplates;
         }
+        if (CHARGE_UP_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildChargeUpActionTemplate());
+            return actionTemplates;
+        }
+        if (DRONES_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildDeployDroneActionTemplate());
+            actionTemplates.add(buildRecallDroneActionTemplate());
+            return actionTemplates;
+        }
+        if (POSITIONING_JETS_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildPositioningJetsActionTemplate());
+            return actionTemplates;
+        }
+        if (OVERCHARGE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildOverchargeActionTemplate());
+            return actionTemplates;
+        }
+        if (COUNTERSTRIKE_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildCounterstrikeActionTemplate());
+            return actionTemplates;
+        }
+        if (ARCANE_MISSILES_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildArcaneMissilesActionTemplate());
+            return actionTemplates;
+        }
+        if (MIGHTY_KICK_SPECIALTY.equalsIgnoreCase(specialty.getName())) {
+            actionTemplates.add(buildMightyKickAttackActionTemplate());
+            actionTemplates.add(buildMightyKickSpellActionTemplate());
+            return actionTemplates;
+        }
+        if (isGambitSpecialtyName(specialty.getName())) {
+            addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(GAMBIT_LEADER_ACTION));
+            addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(GAMBIT_MINION_ACTION));
+            return actionTemplates;
+        }
 
         DataSpecialty ruleTemplate = resolveSpecialtyRuleTemplate(specialty, dataQuery);
         collectGrantedActionTemplates(actionTemplates, specialty, dataQuery);
@@ -465,14 +677,36 @@ public class CharCombat {
         if (ruleTemplate != null) {
             addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(ruleTemplate.getName()));
         }
+        if (isInspireSpecialtyName(specialty.getName())
+                || (ruleTemplate != null && isInspireSpecialtyName(ruleTemplate.getName()))) {
+            addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(INSPIRE_ACTION));
+        }
 
         return actionTemplates;
+    }
+
+    private static boolean isInspireSpecialtyName(String name) {
+        if (name == null || name.isBlank()) return false;
+        String trimmed = name.trim();
+        return INSPIRE_ACTION.equalsIgnoreCase(trimmed)
+                || INSPIRE_I_SPECIALTY.equalsIgnoreCase(trimmed)
+                || INSPIRE_II_SPECIALTY.equalsIgnoreCase(trimmed);
+    }
+
+    private static boolean isGambitSpecialtyName(String name) {
+        if (name == null || name.isBlank()) return false;
+        String trimmed = name.trim();
+        return GAMBIT_SPECIALTY.equalsIgnoreCase(trimmed)
+                || GAMBIT_MINION_ACTION.equalsIgnoreCase(trimmed)
+                || GAMBIT_LEADER_ACTION.equalsIgnoreCase(trimmed);
     }
 
     private void collectGrantedSubtypeActionTemplates(List<DataAction> actionTemplates, DataSpecialty specialty, StoreRuleManager dataQuery) {
         if (actionTemplates == null || specialty == null || dataQuery == null || owner == null || owner.getSpecials() == null) return;
         for (DataSpecialty granted : owner.getSpecials().getGrantedSubtypeSpecialties(specialty)) {
             if (granted == null || granted.getName() == null || granted.getName().isBlank()) continue;
+            // Gambit (Minion) is granted to summoned minions, not the leader.
+            if (GAMBIT_MINION_ACTION.equalsIgnoreCase(granted.getName())) continue;
             addActionTemplateIfPresent(actionTemplates, dataQuery.getActionByName(granted.getName()));
             collectGrantedActionTemplates(actionTemplates, granted, dataQuery);
         }
@@ -618,6 +852,186 @@ public class CharCombat {
         return action;
     }
 
+    private DataAction buildChargeUpActionTemplate() {
+        DataAction action = new DataAction();
+        action.setId(CHARGE_UP_ACTION_ID);
+        action.setName(CHARGE_UP_SPECIALTY);
+        action.setCategory("Inform");
+        action.setSource("Class");
+        action.setAffinity("None");
+        action.setAtkType("OTHER");
+        action.setActionType("Standard");
+        action.setCosts(List.of());
+        action.setModifierKey(List.of());
+        action.setCharacter(owner);
+        return action;
+    }
+
+    private DataAction buildDeployDroneActionTemplate() {
+        DataAction action = new DataAction();
+        action.setId(DEPLOY_DRONE_ACTION_ID);
+        action.setName(DEPLOY_DRONE_ACTION);
+        action.setCategory("Inform");
+        action.setSource("Class");
+        action.setAffinity("None");
+        action.setAtkType("OTHER");
+        action.setActionType("Aura");
+        action.setRanged(1);
+        action.setCosts(List.of());
+        action.setModifierKey(List.of());
+        action.setCharacter(owner);
+        return action;
+    }
+
+    private DataAction buildPositioningJetsActionTemplate() {
+        DataAction action = new DataAction();
+        action.setId(POSITIONING_JETS_ACTION_ID);
+        action.setName(POSITIONING_JETS_SPECIALTY);
+        action.setCategory("Inform");
+        action.setSource("Class");
+        action.setAffinity("None");
+        action.setAtkType("OTHER");
+        action.setActionType("Interrupt");
+        action.setCosts(List.of(new DataAction.CostPair("REACT", 1.0)));
+        action.setModifierKey(List.of());
+        action.setCharacter(owner);
+        return action;
+    }
+
+    private DataAction buildOverchargeActionTemplate() {
+        DataAction action = new DataAction();
+        action.setId(OVERCHARGE_ACTION_ID);
+        action.setName(OVERCHARGE_SPECIALTY);
+        action.setCategory("Inform");
+        action.setSource("Class");
+        action.setAffinity("None");
+        action.setAtkType("OTHER");
+        action.setActionType("Aura");
+        action.setCosts(List.of());
+        action.setModifierKey(List.of());
+        action.setCharacter(owner);
+        return action;
+    }
+
+    private DataAction buildRecallDroneActionTemplate() {
+        DataAction action = new DataAction();
+        action.setId(RECALL_DRONE_ACTION_ID);
+        action.setName(RECALL_DRONE_ACTION);
+        action.setCategory("Inform");
+        action.setSource("Class");
+        action.setAffinity("None");
+        action.setAtkType("OTHER");
+        action.setActionType("Free");
+        action.setRanged(1);
+        action.setCosts(List.of());
+        action.setModifierKey(List.of());
+        action.setCharacter(owner);
+        return action;
+    }
+
+    private DataAction buildCounterstrikeActionTemplate() {
+        DataAction template = standardAttackAction == null ? new DataAction() : new DataAction(standardAttackAction);
+        template.setId(COUNTERSTRIKE_ACTION_ID);
+        template.setName(COUNTERSTRIKE_SPECIALTY);
+        template.setCategory("Attack");
+        template.setSource("Class");
+        template.setActionType("Interrupt");
+        template.setCosts(List.of(new DataAction.CostPair("REACT", 1.0)));
+        template.setCharacter(owner);
+        return template;
+    }
+
+    private DataAction buildArcaneMissilesActionTemplate() {
+        DataAction template = standardSpellAction == null ? new DataAction() : new DataAction(standardSpellAction);
+        template.setId(ARCANE_MISSILES_ACTION_ID);
+        template.setName(ARCANE_MISSILES_SPECIALTY);
+        template.setCategory("Attack");
+        template.setSource("Class");
+        template.setAffinity("Variable");
+        template.setRanged(1);
+        template.setActionType("Standard");
+
+        int classLevel = owner != null && owner.getIdentity() != null
+                ? Math.max(0, owner.getIdentity().getLevel())
+                : 0;
+        ArrayList<DataAction.CostPair> costs = new ArrayList<>();
+        costs.add(new DataAction.CostPair("R1", 1.0));
+        costs.add(new DataAction.CostPair("Aura", classLevel * classLevel));
+        template.setCosts(costs);
+
+        ArrayList<DataAction.ModifierKey> modifierKeys = new ArrayList<>();
+        if (template.getModifierKey() != null) {
+            for (DataAction.ModifierKey modifier : template.getModifierKey()) {
+                if (modifier != null) {
+                    modifierKeys.add(new DataAction.ModifierKey(modifier));
+                }
+            }
+        }
+        modifierKeys.add(new DataAction.ModifierKey("DMGMULTI", "+" + Double.toString(classLevel * 0.1)));
+        template.setModifierKey(modifierKeys);
+        template.setCharacter(owner);
+        return template;
+    }
+
+    private DataAction buildMightyKickAttackActionTemplate() {
+        DataAction template = standardAttackAction == null ? new DataAction() : new DataAction(standardAttackAction);
+        template.setId(MIGHTY_KICK_ATTACK_ACTION_ID);
+        template.setName(MIGHTY_KICK_ATTACK_ACTION);
+        template.setCategory("Attack");
+        template.setSource("Class");
+        template.setAffinity("None");
+        template.setAtkType("AC");
+        template.setActionType(STANDARD_ACTION_TYPE);
+        template.setCosts(List.of());
+        template.setModifierKey(List.of());
+        template.setCharacter(owner);
+        return template;
+    }
+
+    private DataAction buildMightyKickSpellActionTemplate() {
+        DataAction template = standardSpellAction == null ? new DataAction() : new DataAction(standardSpellAction);
+        template.setId(MIGHTY_KICK_SPELL_ACTION_ID);
+        template.setName(MIGHTY_KICK_SPELL_ACTION);
+        template.setCategory("Attack");
+        template.setSource("Class");
+        template.setAffinity("None");
+        template.setAtkType("FORT");
+        template.setActionType(STANDARD_ACTION_TYPE);
+        template.setCosts(List.of());
+        template.setModifierKey(List.of());
+        if (standardAttackAction != null) {
+            template.setBdmg(standardAttackAction.getBdmg());
+            template.setTdmg(standardAttackAction.getTdmg());
+            template.setDmgMulti(standardAttackAction.getDmgMulti());
+            template.setRanged(standardAttackAction.getRanged());
+        }
+        template.setCharacter(owner);
+        return template;
+    }
+
+    private DataAction buildDualInterruptVariant(DataAction actionTemplate) {
+        if (!isTemperanceAbilityAction(actionTemplate)
+                && !isFlashMobAbilityAction(actionTemplate)
+                && !isShiverAbilityAction(actionTemplate)) {
+            return null;
+        }
+        DataAction interruptAction = new DataAction(actionTemplate);
+        interruptAction.setActionType("Interrupt");
+        return interruptAction;
+    }
+
+    private boolean isFlashMobAbilityAction(DataAction action) {
+        return action != null
+                && action.getName() != null
+                && FLASH_MOB_ACTION.equalsIgnoreCase(action.getName().trim());
+    }
+
+    private boolean isShiverAbilityAction(DataAction action) {
+        return action != null
+                && action.getName() != null
+                && SHIVER_ACTION.equalsIgnoreCase(action.getName().trim());
+    }
+
     private void routeActionByType(DataAction action) {
         if (action == null) return;
         String type = action.getActionType();
@@ -731,6 +1145,10 @@ public class CharCombat {
             maneuver.setAtkType("AC");
             maneuver.setRanged(0);
             maneuver.setActionType(isChargeManeuver(name) ? MOVE_ACTION_TYPE : STANDARD_ACTION_TYPE);
+        }
+        if (isChargeManeuver(actionName)) {
+            maneuver.setActionType(MOVE_ACTION_TYPE);
+            maneuver.setCosts(List.of(new DataAction.CostPair("None", 0.0)));
         }
         maneuver.setCharacter(owner);
         return maneuver;
@@ -894,6 +1312,32 @@ public class CharCombat {
             return left == null && right == null;
         }
         return left.equalsIgnoreCase(right);
+    }
+
+    private boolean isTemperanceAbilityAction(DataAction action) {
+        if (action == null || action.getName() == null) return false;
+        String actionName = action.getName().trim();
+        return ANGER_STRIKE_ACTION.equalsIgnoreCase(actionName)
+                || CALM_STRIKE_ACTION.equalsIgnoreCase(actionName)
+                || ORDER_STRIKE_ACTION.equalsIgnoreCase(actionName)
+                || CHAOS_STRIKE_ACTION.equalsIgnoreCase(actionName);
+    }
+
+    private void ensureAdaptiveTechniqueBonusMap() {
+        if (adaptiveTechniqueBonuses == null) {
+            adaptiveTechniqueBonuses = new LinkedHashMap<>();
+        }
+    }
+
+    private String normalizeAdaptiveTechniqueKey(String attribute) {
+        if (attribute == null || attribute.isBlank()) return null;
+        String normalized = attribute.trim().toUpperCase(Locale.ROOT);
+        for (String allowedKey : ADAPTIVE_TECHNIQUE_KEYS) {
+            if (allowedKey.equalsIgnoreCase(normalized)) {
+                return allowedKey;
+            }
+        }
+        return null;
     }
 
     private boolean isChargeManeuver(String name) {

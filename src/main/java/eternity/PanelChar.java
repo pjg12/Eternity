@@ -4,6 +4,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ToolTipManager;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Insets;
 import java.util.List;
 
 /**
@@ -59,12 +63,11 @@ public class PanelChar extends JPanel {
     public PanelChar(StoreRuleManager dataQuery, FrameSheet sheetFrame) {
         this.dataQuery = dataQuery;
         this.sheetFrame = sheetFrame;
-        setLayout(null);
+        setLayout(new BorderLayout());
         ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
         tabbedPane = new JTabbedPane();
-        add(tabbedPane);
-        tabbedPane.setBounds(0, 0, 585, 965-230);
+        add(tabbedPane, BorderLayout.CENTER);
         dirtyTabs = new boolean[8];
 
         // ==== Main Tab ====
@@ -124,9 +127,55 @@ public class PanelChar extends JPanel {
     private JScrollPane wrap(JPanel panel) {
         JScrollPane scroll = new JScrollPane(panel);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(15);
         return scroll;
+    }
+
+    /**
+     * Client width needed so tab content plus the always-on vertical scrollbar
+     * fits without showing a horizontal scrollbar.
+     */
+    int resolveWidthToAvoidHorizontalScroll() {
+        int contentWidth = 0;
+        JScrollPane sampleScroll = null;
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+            Component tab = tabbedPane.getComponentAt(i);
+            if (!(tab instanceof JScrollPane scroll)) continue;
+            if (sampleScroll == null) {
+                sampleScroll = scroll;
+            }
+            Component view = scroll.getViewport() != null ? scroll.getViewport().getView() : null;
+            if (view != null) {
+                contentWidth = Math.max(contentWidth, view.getPreferredSize().width);
+            }
+        }
+        if (contentWidth <= 0) {
+            contentWidth = 580;
+        }
+        int chrome = 0;
+        if (sampleScroll != null) {
+            chrome += Math.max(16, sampleScroll.getVerticalScrollBar().getPreferredSize().width);
+            Insets scrollInsets = sampleScroll.getInsets();
+            chrome += scrollInsets.left + scrollInsets.right;
+            if (sampleScroll.getViewportBorder() != null) {
+                Insets viewportBorder = sampleScroll.getViewportBorder().getBorderInsets(sampleScroll);
+                chrome += viewportBorder.left + viewportBorder.right;
+            }
+            if (sampleScroll.getViewport() != null) {
+                Insets viewportInsets = sampleScroll.getViewport().getInsets();
+                chrome += viewportInsets.left + viewportInsets.right;
+            }
+        }
+        Insets tabInsets = tabbedPane.getInsets();
+        chrome += tabInsets.left + tabInsets.right;
+        if (tabbedPane.getBorder() != null) {
+            Insets tabBorder = tabbedPane.getBorder().getBorderInsets(tabbedPane);
+            chrome += tabBorder.left + tabBorder.right;
+        }
+        Insets panelInsets = getInsets();
+        chrome += panelInsets.left + panelInsets.right;
+        return contentWidth + chrome + 2;
     }
 
     // ---------------------------------------------------------
@@ -209,6 +258,12 @@ public class PanelChar extends JPanel {
         dirtyTabs[TAB_GRANTED] = false;
     }
 
+    public void refreshListOnly() {
+        if (character == null) return;
+        panelList.updateCharacter(character);
+        dirtyTabs[TAB_LISTS] = false;
+    }
+
     public void refreshMinionOnly() {
         if (character == null) return;
         panelMinion.updateCharacter(character);
@@ -283,7 +338,7 @@ public class PanelChar extends JPanel {
     }
 
     private void syncSpecialTabs() {
-        boolean shouldShowMinionTab = isLeaderCharacter();
+        boolean shouldShowMinionTab = character != null && character.hasUnlockedMinionSlots();
         int currentMinionIndex = tabbedPane.indexOfTab(TAB_TITLE_MINION);
         if (shouldShowMinionTab && currentMinionIndex < 0) {
             int notesIndex = tabbedPane.indexOfTab(TAB_TITLE_NOTES);
@@ -298,14 +353,24 @@ public class PanelChar extends JPanel {
         }
     }
 
-    private boolean isLeaderCharacter() {
-        if (character == null || character.getIdentity() == null) return false;
-        String charClass = character.getIdentity().getCharClass();
-        return charClass != null && charClass.equalsIgnoreCase("Leader");
+    public double getDisplayedArmorClass() {
+        return getDisplayedDefenseAgainst("AC");
+    }
+
+    public double getDisplayedDefenseAgainst(String vsDefense) {
+        return panelMain == null ? 0.0 : panelMain.getDisplayedDefenseAgainst(vsDefense);
+    }
+
+    public String buildInitiativeRollMacro() {
+        return panelMain == null ? null : panelMain.buildInitiativeRollMacro();
     }
 
     public List<PanelCharMinion.MinionInitiativeInfo> getSummonedMinionInitiativeInfo() {
         return panelMinion == null ? List.of() : panelMinion.getSummonedMinionInitiativeInfo();
+    }
+
+    public List<PanelCharMinion.SummonedMinionCombatInfo> getSummonedMinionCombatInfo() {
+        return panelMinion == null ? List.of() : panelMinion.getSummonedMinionCombatInfo();
     }
 }
 

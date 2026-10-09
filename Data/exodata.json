@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "weapon": "Blade",
+    "type": "Blade",
+    "specialty": 3024
+  },
+  {
+    "id": 2,
+    "weapon": "Shortsword",
+    "type": "Blade",
+    "specialty": 9023
+  },
+  {
+    "id": 3,
+    "weapon": "Dagger",
+    "type": "Dagger",
+    "specialty": 3024
+  },
+  {
+    "id": 4,
+    "weapon": "Knife",
+    "type": "Dagger",
+    "specialty": 4023
+  },
+  {
+    "id": 5,
+    "weapon": "Fist",
+    "type": "Fist",
+    "specialty": 3023
+  },
+  {
+    "id": 6,
+    "weapon": "Knuckle",
+    "type": "Fist",
+    "specialty": 4024
+  },
+  {
+    "id": 7,
+    "weapon": "Whip",
+    "type": "Whip",
+    "specialty": 3023
+  },
+  {
+    "id": 8,
+    "weapon": "Chain",
+    "type": "Whip",
+    "specialty": 8024
+  },
+  {
+    "id": 10,
+    "weapon": "Longsword",
+    "type": "Sword",
+    "specialty": 9024
+  },
+  {
+    "id": 11,
+    "weapon": "Saber",
+    "type": "Sword",
+    "specialty": 2023
+  },
+  {
+    "id": 12,
+    "weapon": "Mace",
+    "type": "Mace",
+    "specialty": 4023
+  },
+  {
+    "id": 13,
+    "weapon": "Club",
+    "type": "Mace",
+    "specialty": 2023
+  },
+  {
+    "id": 14,
+    "weapon": "Axe",
+    "type": "Axe",
+    "specialty": 5023
+  },
+  {
+    "id": 15,
+    "weapon": "Hatchet",
+    "type": "Axe",
+    "specialty": 1024
+  },
+  {
+    "id": 16,
+    "weapon": "Shield",
+    "type": "Shield",
+    "specialty": 2023
+  },
+  {
+    "id": 18,
+    "weapon": "Greatsword",
+    "type": "Greatsword",
+    "specialty": 9023
+  },
+  {
+    "id": 19,
+    "weapon": "Claymore",
+    "type": "Greatsword",
+    "specialty": 1023
+  },
+  {
+    "id": 20,
+    "weapon": "Warhammer",
+    "type": "Warhammer",
+    "specialty": 2024
+  },
+  {
+    "id": 21,
+    "weapon": "Mallet",
+    "type": "Warhammer",
+    "specialty": 1023
+  },
+  {
+    "id": 22,
+    "weapon": "Battleaxe",
+    "type": "Battleaxe",
+    "specialty": 1024
+  },
+  {
+    "id": 23,
+    "weapon": "Cleaver",
+    "type": "Battleaxe",
+    "specialty": 2024
+  },
+  {
+    "id": 24,
+    "weapon": "Polearm",
+    "type": "Polearm",
+    "specialty": 1023
+  },
+  {
+    "id": 25,
+    "weapon": "Spear",
+    "type": "Polearm",
+    "specialty": 4024
+  },
+  {
+    "id": 26,
+    "weapon": "Kunai",
+    "type": "Thrown",
+    "specialty": 6024
+  },
+  {
+    "id": 27,
+    "weapon": "Shuriken",
+    "type": "Thrown",
+    "specialty": 7023
+  },
+  {
+    "id": 28,
+    "weapon": "Sling",
+    "type": "Sling",
+    "specialty": 4023
+  },
+  {
+    "id": 30,
+    "weapon": "Handbow",
+    "type": "Handbow",
+    "specialty": 5023
+  },
+  {
+    "id": 31,
+    "weapon": "Bolter",
+    "type": "Handbow",
+    "specialty": 3024
+  },
+  {
+    "id": 32,
+    "weapon": "Pistol",
+    "type": "Pistol",
+    "specialty": 5024
+  },
+  {
+    "id": 33,
+    "weapon": "Blaster",
+    "type": "Pistol",
+    "specialty": 6023
+  },
+  {
+    "id": 34,
+    "weapon": "Bow",
+    "type": "Bow",
+    "specialty": 5024
+  },
+  {
+    "id": 35,
+    "weapon": "Recurve",
+    "type": "Bow",
+    "specialty": 6024
+  },
+  {
+    "id": 36,
+    "weapon": "Crossbow",
+    "type": "Crossbow",
+    "specialty": 1024
+  },
+  {
+    "id": 37,
+    "weapon": "Arbalest",
+    "type": "Crossbow",
+    "specialty": 5023
+  },
+  {
+    "id": 38,
+    "weapon": "Rifle",
+    "type": "Rifle",
+    "specialty": 9024
+  },
+  {
+    "id": 39,
+    "weapon": "Sniper",
+    "type": "Rifle",
+    "specialty": 6023
+  },
+  {
+    "id": 40,
+    "weapon": "Cannon",
+    "type": "Cannon",
+    "specialty": 5024
+  },
+  {
+    "id": 41,
+    "weapon": "Launcher",
+    "type": "Cannon",
+    "specialty": 6023
+  },
+  {
+    "id": 42,
+    "weapon": "Ring",
+    "type": "Ring",
+    "specialty": 8023
+  },
+  {
+    "id": 43,
+    "weapon": "Signet",
+    "type": "Ring",
+    "specialty": 3023
+  },
+  {
+    "id": 44,
+    "weapon": "Orb",
+    "type": "Orb",
+    "specialty": 8023
+  },
+  {
+    "id": 45,
+    "weapon": "Sphere",
+    "type": "Orb",
+    "specialty": 7024
+  },
+  {
+    "id": 46,
+    "weapon": "Wand",
+    "type": "Wand",
+    "specialty": 8024
+  },
+  {
+    "id": 47,
+    "weapon": "Scepter",
+    "type": "Wand",
+    "specialty": 9024
+  },
+  {
+    "id": 48,
+    "weapon": "Talisman",
+    "type": "Talisman",
+    "specialty": 7023
+  },
+  {
+    "id": 49,
+    "weapon": "Charm",
+    "type": "Talisman",
+    "specialty": 9023
+  },
+  {
+    "id": 50,
+    "weapon": "Staff",
+    "type": "Staff",
+    "specialty": 7024
+  },
+  {
+    "id": 51,
+    "weapon": "Cane",
+    "type": "Staff",
+    "specialty": 4024
+  },
+  {
+    "id": 52,
+    "weapon": "Tome",
+    "type": "Tome",
+    "specialty": 7023
+  },
+  {
+    "id": 53,
+    "weapon": "Libram",
+    "type": "Tome",
+    "specialty": 8024
+  },
+  {
+    "id": 54,
+    "weapon": "Relic",
+    "type": "Relic",
+    "specialty": 8023
+  },
+  {
+    "id": 55,
+    "weapon": "Artifact",
+    "type": "Relic",
+    "specialty": 6024
+  },
+  {
+    "id": 56,
+    "weapon": "Symbol",
+    "type": "Symbol",
+    "specialty": 7024
+  },
+  {
+    "id": 57,
+    "weapon": "Idol",
+    "type": "Symbol",
+    "specialty": 2024
+  }
+]

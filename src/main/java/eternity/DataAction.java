@@ -6,10 +6,14 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import websocket.Roll20WebSocketServer;
+import websocket.events.Roll20Token;
+
 public class DataAction {
 	private static final String ATKTYPE_OTHER = "OTHER";
 	private static final String RACE_TRAINING_NAME = "Race Training";
 	private static final String JOUSTING_CHARGE_SPECIALTY = "Jousting Charge";
+	private static final String MIGHTY_KICK_SPELL_ACTION = "Mighty Kick (Spell)";
 
 	@JsonIgnore
 	private StoreCharData character;
@@ -230,17 +234,24 @@ public class DataAction {
 
 	public void update() {
 		DataAction sourceAction = null;
+		DataAction damageSourceAction = null;
 		if (character != null && character.getCombat() != null && usesStandardAttackValues()) {
 			sourceAction = character.getCombat().getStandardAttackAction();
 		} else if (character != null && character.getCombat() != null && !ATKTYPE_OTHER.equalsIgnoreCase(atkType)) {
 			sourceAction = character.getCombat().getStandardSpellAction();
+			if (isMightyKickSpellAction()) {
+				damageSourceAction = character.getCombat().getStandardAttackAction();
+			}
+		}
+		if (damageSourceAction == null) {
+			damageSourceAction = sourceAction;
 		}
 
 		if (sourceAction != null && sourceAction != this) {
 			atk = sourceAction.getAtk();
-			bdmg = sourceAction.getBdmg();
-			tdmg = sourceAction.getTdmg();
-			dmgMulti = sourceAction.getDmgMulti();
+			bdmg = damageSourceAction == null ? sourceAction.getBdmg() : damageSourceAction.getBdmg();
+			tdmg = damageSourceAction == null ? sourceAction.getTdmg() : damageSourceAction.getTdmg();
+			dmgMulti = damageSourceAction == null ? sourceAction.getDmgMulti() : damageSourceAction.getDmgMulti();
 		}
 
 		for (ModifierKey entry : modifierKey) {
@@ -282,6 +293,10 @@ public class DataAction {
 		return isAttackLayoutType(atkType);
 	}
 
+	private boolean isMightyKickSpellAction() {
+		return name != null && MIGHTY_KICK_SPELL_ACTION.equalsIgnoreCase(name.trim());
+	}
+
 	private boolean isSupportedAttackType(String value) {
 		return isAttackLayoutType(value)
 				|| "FORT".equalsIgnoreCase(value)
@@ -300,9 +315,9 @@ public class DataAction {
 	private void applyRacialCombatManeuverBonuses() {
 		if (!isChargeCombatManeuver() || !hasRacialSpecialty(JOUSTING_CHARGE_SPECIALTY)) return;
 		int raceTrainingRank = getRaceTrainingRank();
-		atk += raceTrainingRank / 2;
+		atk += raceTrainingRank;
 		bdmg += raceTrainingRank;
-		tdmg += raceTrainingRank;
+		tdmg += (int) Math.round(getJoustingChargeTdmgBonus(raceTrainingRank));
 	}
 
 	private boolean isChargeCombatManeuver() {
@@ -321,6 +336,23 @@ public class DataAction {
 		if (character == null || character.getTraining() == null) return 0;
 		DataTraining raceTraining = character.getTraining().getTrainingByName(RACE_TRAINING_NAME);
 		return raceTraining == null ? 0 : Math.max(0, raceTraining.getRank());
+	}
+
+	private double getJoustingChargeTdmgBonus(int raceTrainingRank) {
+		if (raceTrainingRank <= 0) return 0.0;
+		return (getChargeDistanceTraveled() / 5.0) * raceTrainingRank;
+	}
+
+	private double getChargeDistanceTraveled() {
+		try {
+			Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+			Roll20Token target = server.getSelectedTarget();
+			if (target == null || target.isAlly()) return 0.0;
+			double distance = server.getDistanceFeetFromLoadedCharacter(target);
+			return Double.isNaN(distance) ? 0.0 : Math.max(0.0, distance);
+		} catch (Exception ignored) {
+			return 0.0;
+		}
 	}
 
 	private void applyModifierKey(ModifierKey entry) {
@@ -396,7 +428,8 @@ public class DataAction {
 		return switch (normalized) {
 			case "AL" -> character == null ? al : character.getEffectiveTechniqueAl(this);
 			case "CL" -> getClassLevel();
-			case "CMAN" -> getEffectiveCombatManeuverValue();
+			case "BASEHP" -> getLevelBaseHp();
+			case "MAN", "CMAN" -> getEffectiveCombatManeuverValue();
 			case "ATK" -> atk;
 			case "BDMG" -> bdmg;
 			case "TDMG" -> tdmg;
@@ -410,6 +443,12 @@ public class DataAction {
 					: 0.0;
 			default -> resolveCharacterStatValue(normalized);
 		};
+	}
+
+	private double getLevelBaseHp() {
+		if (character == null || character.getIdentity() == null) return 0.0;
+		DataLevel levelData = new StoreRuleManager().getLevel(character.getIdentity().getLevel());
+		return levelData == null ? 0.0 : Math.max(0, levelData.getBaseHP());
 	}
 
 	private double getEffectiveCombatManeuverValue() {

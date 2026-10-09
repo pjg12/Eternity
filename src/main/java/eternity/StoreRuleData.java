@@ -3,6 +3,7 @@
 package eternity;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StoreRuleData {
-    private static final String DATA_DIR = "Data";
+    private static final String CLASSPATH_DATA_DIR = "Data/";
     private static final Path DATA_PATH = AppPaths.dataDir();
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -33,11 +34,10 @@ public class StoreRuleData {
 	private final List<DataTraining> trainingData;
 	private final List<DataTechPerm> techPermData;
     private final List<DataAction> actionData;
+    private final List<DataExo> exoData;
 
 	
 	public StoreRuleData() {
-        startUp();        
-        
         // Load all JSON data files
         colorData          = safeLoad("colordata.json",        DataColor[].class);
         levelData          = safeLoad("leveldata.json",        DataLevel[].class);
@@ -54,16 +54,9 @@ public class StoreRuleData {
         techPermData       = safeLoad("techpermdata.json",     DataTechPerm[].class);
         trainingData       = safeLoad("trainingdata.json",     DataTraining[].class);
         actionData         = safeLoad("actiondata.json",       DataAction[].class);
+        exoData            = safeLoad("exodata.json",          DataExo[].class);
         
         finishTrainingData();
-    }
-
-    private static void startUp() {
-        try {
-            if (!Files.exists(DATA_PATH)) Files.createDirectories(DATA_PATH);
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot create base data directory: " + DATA_DIR, e);
-        }
     }
     
 	
@@ -86,6 +79,11 @@ public class StoreRuleData {
      * Example: loadList("racedata.json", DataRace[].class)
      */
     public static <T> List<T> loadList(String filename, Class<T[]> arrayType) {
+        T[] classpathArray = loadListFromClasspath(filename, arrayType);
+        if (classpathArray != null) {
+            return Collections.unmodifiableList(Arrays.asList(classpathArray));
+        }
+
         Path path = DATA_PATH.resolve(filename);
         if (!Files.exists(path)) return List.of(); // empty list if file missing
         try {
@@ -94,6 +92,17 @@ public class StoreRuleData {
             return Collections.unmodifiableList(Arrays.asList(arr));
         } catch (IOException e) {
             throw new RuntimeException("Error loading " + path.toString(), e);
+        }
+    }
+
+    private static <T> T[] loadListFromClasspath(String filename, Class<T[]> arrayType) {
+        if (filename == null || filename.isBlank()) return null;
+        String resourcePath = CLASSPATH_DATA_DIR + filename;
+        try (InputStream stream = StoreRuleData.class.getClassLoader().getResourceAsStream(resourcePath)) {
+            if (stream == null) return null;
+            return MAPPER.readValue(stream, arrayType);
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading classpath resource " + resourcePath, e);
         }
     }
 
@@ -144,4 +153,5 @@ public class StoreRuleData {
     public List<DataTraining> getTrainingData() { return trainingData; }
     public List<DataTechPerm> getTechPermData() { return techPermData; }
     public List<DataAction> getActionData() { return actionData; }
+    public List<DataExo> getExoData() { return exoData; }
 }

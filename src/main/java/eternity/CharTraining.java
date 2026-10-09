@@ -86,16 +86,20 @@ public class CharTraining {
         @JsonProperty
         private int id;
         @JsonProperty
+        private String name;
+        @JsonProperty
         private int rank;
 
         public PersistedTrainingRecord() { }
 
         public PersistedTrainingRecord(DataTraining tech) {
             this.id = tech == null ? 0 : tech.getId();
+            this.name = tech == null ? "" : tech.getName();
             this.rank = tech == null ? 0 : tech.getRank();
         }
 
         public int getId() { return id; }
+        public String getName() { return name; }
         public int getRank() { return rank; }
     }
 
@@ -398,8 +402,9 @@ public class CharTraining {
             List<PersistedTrainingRecord> records = entry.getValue();
             if (records == null) continue;
             for (PersistedTrainingRecord record : records) {
-                if (record == null || record.getId() <= 0) continue;
-                DataTraining template = ruleManager.getTrainingById(record.getId());
+                if (record == null) continue;
+                if (record.getId() <= 0 && (record.getName() == null || record.getName().isBlank())) continue;
+                DataTraining template = resolvePersistedTrainingTemplate(ruleManager, record);
                 if (template == null) continue;
                 DataTraining rebuilt = new DataTraining(template);
                 rebuilt.setRank(Math.max(0, record.getRank()));
@@ -606,6 +611,15 @@ public class CharTraining {
         allTrainingDirty = false;
         dirtyCategories.clear();
         sortedCategories.clear();
+    }
+
+    private DataTraining resolvePersistedTrainingTemplate(StoreRuleManager ruleManager, PersistedTrainingRecord record) {
+        if (ruleManager == null || record == null) return null;
+        if (record.getId() > 0) {
+            DataTraining byId = ruleManager.getTrainingById(record.getId());
+            if (byId != null) return byId;
+        }
+        return ruleManager.getTrainingByName(record.getName());
     }
 
     private boolean isDeprecatedTraining(DataTraining tech) {

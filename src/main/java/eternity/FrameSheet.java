@@ -1,7 +1,16 @@
 package eternity;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
@@ -17,8 +26,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+
+import javax.swing.SwingUtilities;
+
+import websocket.Roll20WebSocketServer;
+import websocket.events.IncomingAttackEvent;
 
 public class FrameSheet extends JFrame {
 
@@ -27,6 +44,7 @@ public class FrameSheet extends JFrame {
     private final ArrayList<StoreMetaChar> metaStore;
     private final boolean promptToSaveOnClose;
     private final boolean exitProgramWhenLastSheetCloses;
+    private final boolean narratorMode;
     private StoreCharData character;
     private final StoreCharManager charManager;
 
@@ -65,6 +83,7 @@ public class FrameSheet extends JFrame {
     private static final String CHAR_EQUIPPED_MSG = "Character updated from equipment and saved.";
     private static final String EXIT_SAVE_PROMPT = "Save the current character before closing?";
     private static final String EXIT_CONFIRM_TITLE = "Save Before Exit";
+    private static final String SAVE_ACTION_KEY = "saveCharacter";
     private static final ScheduledExecutorService autoSaveExecutor = Executors.newScheduledThreadPool(1, r -> {
         Thread t = new Thread(r, "character-auto-save");
         t.setDaemon(true);
@@ -76,6 +95,8 @@ public class FrameSheet extends JFrame {
     private final Map<Integer, Integer> charStoreIndexByCharId;
     private final ScheduledFuture<?> autoSaveTask;
     private boolean shuttingDown;
+    private boolean gmModeActive;
+    private boolean trainingCostDisabled;
     
     private FrameNew newFrame;
     private FrameLoad loadFrame;
@@ -91,27 +112,34 @@ public class FrameSheet extends JFrame {
     private PanelImage characterImage;
     private PanelChar charPanel;
     private FrameDetail detailFrame;
+    private FrameAttacked attackedFrame;
 
     // ---------------------------------------------------------
     // Constructor
     // ---------------------------------------------------------
     
     public FrameSheet() {
-        this(true, true);
+        this(true, true, false);
     }
 
     public FrameSheet(boolean promptToSaveOnClose, boolean exitProgramWhenLastSheetCloses) {
+        this(promptToSaveOnClose, exitProgramWhenLastSheetCloses, false);
+    }
+
+    private FrameSheet(boolean promptToSaveOnClose, boolean exitProgramWhenLastSheetCloses, boolean narratorMode) {
         this.ruleManager = new StoreRuleManager();
         StoreMetaManager.loadCharStore();
         this.metaStore = StoreMetaManager.getCharStore();
         this.charStoreIndexByCharId = buildCharStoreIndex(metaStore);
         this.promptToSaveOnClose = promptToSaveOnClose;
         this.exitProgramWhenLastSheetCloses = exitProgramWhenLastSheetCloses;
+        this.narratorMode = narratorMode;
         this.charManager = new StoreCharManager();
         OPEN_SHEETS.add(this);
 
         setupFrame();
         initPanels();
+        applyWidthToFitSheetContent();
         
         // Schedule autosave using shared thread pool to avoid creating new threads
         autoSaveTask = autoSaveExecutor.scheduleAtFixedRate(
@@ -123,17 +151,55 @@ public class FrameSheet extends JFrame {
     }
 
     public static FrameSheet createNarratorSheet() {
-        return new FrameSheet(false, false);
+        return new FrameSheet(false, false, true);
     }
 
     public StoreRuleManager getStoreRuleManager() { return ruleManager; }
 
+    public boolean isNarratorMode() {
+        return narratorMode;
+    }
+
+    public static boolean hasOpenNarratorSheet() {
+        synchronized (OPEN_SHEETS) {
+            for (FrameSheet sheet : OPEN_SHEETS) {
+                if (sheet != null && sheet.narratorMode) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void applyNarratorCombatSignal(String type) {
+        if (type == null || type.isBlank()) return;
+        ArrayList<FrameSheet> sheets = new ArrayList<>();
+        synchronized (OPEN_SHEETS) {
+            sheets.addAll(OPEN_SHEETS);
+        }
+        for (FrameSheet sheet : sheets) {
+            if (sheet == null || !sheet.hasActiveCharacter()) continue;
+            sheet.handleNarratorCombatSignal(type);
+        }
+    }
+
+    private void handleNarratorCombatSignal(String type) {
+        if (characterImage == null) return;
+        if ("combat-start".equals(type)) {
+            characterImage.applyNarratorCombatStart();
+        } else if ("combat-end".equals(type)) {
+            characterImage.applyNarratorCombatEnd();
+        } else if ("combat-new-round".equals(type)) {
+            characterImage.applyNarratorNewRound();
+        }
+    }
+
     private void setupFrame() {
-        setLayout(null);
+        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        applyDesktopHeight();
+        setMinimumSize(new Dimension(FRAME_WIDTH, IMAGE_PANEL_HEIGHT + 400));
+        setResizable(true);
         setTitle(NO_CHAR_LOADED);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -141,8 +207,66 @@ public class FrameSheet extends JFrame {
                 handleWindowClosing();
             }
         });
-        setVisible(true);
+        bindSaveShortcut();
+        if (!narratorMode) {
+            setVisible(true);
+        }
         setInteractive(false);
+    }
+
+    private void bindSaveShortcut() {
+        KeyStroke saveKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(saveKeyStroke, SAVE_ACTION_KEY);
+        getRootPane().getActionMap().put(SAVE_ACTION_KEY, new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onSavePressed();
+            }
+        });
+    }
+
+    /**
+     * Sizes the sheet to the usable desktop height so it spans from the top of
+     * the work area to the taskbar without covering reserved system chrome.
+     */
+    private void applyDesktopHeight() {
+        Rectangle usable = resolveUsableDesktopBounds();
+        int frameHeight = usable.height > 0 ? usable.height : FRAME_HEIGHT;
+        setSize(FRAME_WIDTH, frameHeight);
+        int x = usable.x + Math.max(0, (usable.width - FRAME_WIDTH) / 2);
+        setLocation(x, usable.y);
+    }
+
+    private void applyWidthToFitSheetContent() {
+        validate();
+        int requiredWidth = FRAME_WIDTH;
+        if (charPanel != null) {
+            requiredWidth = charPanel.resolveWidthToAvoidHorizontalScroll()
+                    + getInsets().left
+                    + getInsets().right;
+        }
+        if (requiredWidth <= 0) {
+            requiredWidth = FRAME_WIDTH;
+        }
+        setMinimumSize(new Dimension(requiredWidth, IMAGE_PANEL_HEIGHT + 400));
+        setSize(requiredWidth, getHeight());
+        Rectangle usable = resolveUsableDesktopBounds();
+        int x = usable.x + Math.max(0, (usable.width - requiredWidth) / 2);
+        setLocation(x, usable.y);
+    }
+
+    private static Rectangle resolveUsableDesktopBounds() {
+        GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                .getDefaultScreenDevice()
+                .getDefaultConfiguration();
+        Rectangle screen = gc.getBounds();
+        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(gc);
+        return new Rectangle(
+            screen.x + insets.left,
+            screen.y + insets.top,
+            screen.width - insets.left - insets.right,
+            screen.height - insets.top - insets.bottom
+        );
     }
 
     /**
@@ -150,15 +274,20 @@ public class FrameSheet extends JFrame {
      */
     private void initPanels() {
         characterImage = new PanelImage(this, character);
-        characterImage.setBounds(0, 0, FRAME_WIDTH, IMAGE_PANEL_HEIGHT);
-        add(characterImage);
+        characterImage.setPreferredSize(new Dimension(FRAME_WIDTH, IMAGE_PANEL_HEIGHT));
+        add(characterImage, BorderLayout.NORTH);
 
         charPanel = new PanelChar(ruleManager, this);
-        charPanel.setBounds(0, IMAGE_PANEL_HEIGHT, FRAME_WIDTH, FRAME_HEIGHT - IMAGE_PANEL_HEIGHT);
-        add(charPanel);
+        add(charPanel, BorderLayout.CENTER);
     }
 
     public void loadCharacter(StoreCharData character) {
+        loadCharacter(character, gmModeActive);
+    }
+
+    public void loadCharacter(StoreCharData character, boolean gmModeActive) {
+        this.gmModeActive = gmModeActive;
+        this.trainingCostDisabled = gmModeActive;
         this.character = character;
         if (this.character != null) {
             this.character.syncIdentityDerivedState(ruleManager);
@@ -174,8 +303,36 @@ public class FrameSheet extends JFrame {
             charPanel.setInteractive(true);
         }
 
+        syncOpenCharacterWithRoll20();
         revalidate();
         repaint();
+    }
+
+    public boolean isGmModeActive() {
+        return gmModeActive;
+    }
+
+    public void setGmModeActive(boolean gmModeActive) {
+        this.gmModeActive = gmModeActive;
+        trainingCostDisabled = gmModeActive;
+        refreshImagePanel();
+        refreshMainPanel();
+        refreshTrainingPanel();
+        if (trainingNewFrame != null) {
+            trainingNewFrame.updateCharacter(character);
+        }
+    }
+
+    public boolean isTrainingCostDisabled() {
+        return gmModeActive && trainingCostDisabled;
+    }
+
+    public void setTrainingCostDisabled(boolean trainingCostDisabled) {
+        this.trainingCostDisabled = gmModeActive && trainingCostDisabled;
+        refreshTrainingPanel();
+        if (trainingNewFrame != null) {
+            trainingNewFrame.updateCharacter(character);
+        }
     }
 
     /** Refreshes the portrait/date panel using the current character. */
@@ -196,6 +353,16 @@ public class FrameSheet extends JFrame {
         if (charPanel != null && character != null) {
             character.updateAll();
             charPanel.refreshMainOnly();
+            charPanel.refreshListOnly();
+            charPanel.refreshAllPrimaryHeaders();
+        }
+    }
+
+    /** Refreshes minion slot panels after out-of-band changes such as incoming damage. */
+    public void refreshMinionPanel() {
+        if (charPanel != null && character != null) {
+            character.updateAll();
+            charPanel.refreshMinionOnly();
             charPanel.refreshAllPrimaryHeaders();
         }
     }
@@ -207,6 +374,7 @@ public class FrameSheet extends JFrame {
             charPanel.refreshTrainingOnly();
             charPanel.refreshMaintainedOnly();
             charPanel.refreshGrantedOnly();
+            charPanel.refreshListOnly();
             charPanel.refreshAllPrimaryHeaders();
         }
     }
@@ -216,6 +384,16 @@ public class FrameSheet extends JFrame {
         if (charPanel != null && character != null) {
             character.updateAll();
             charPanel.refreshInventoryOnly();
+            charPanel.refreshListOnly();
+            charPanel.refreshAllPrimaryHeaders();
+        }
+    }
+
+    /** Refreshes the lists tab after list entries are added or changed. */
+    public void refreshListPanel() {
+        if (charPanel != null && character != null) {
+            character.updateAll();
+            charPanel.refreshListOnly();
             charPanel.refreshAllPrimaryHeaders();
         }
     }
@@ -223,12 +401,21 @@ public class FrameSheet extends JFrame {
     public void refreshAllCharacterPanelHeaders() {
         if (charPanel != null && character != null) {
             character.updateAll();
+            charPanel.refreshListOnly();
             charPanel.refreshAllPrimaryHeaders();
         }
     }
 
     public List<PanelCharMinion.MinionInitiativeInfo> getSummonedMinionInitiativeInfo() {
         return charPanel == null ? List.of() : charPanel.getSummonedMinionInitiativeInfo();
+    }
+
+    public String buildInitiativeRollMacro() {
+        return charPanel == null ? null : charPanel.buildInitiativeRollMacro();
+    }
+
+    public List<PanelCharMinion.SummonedMinionCombatInfo> getSummonedMinionCombatInfo() {
+        return charPanel == null ? List.of() : charPanel.getSummonedMinionCombatInfo();
     }
 
     /** Enables or disables all interactive panels. */
@@ -279,7 +466,23 @@ public class FrameSheet extends JFrame {
     }
 
     public FrameSheet createSiblingSheet() {
-        return new FrameSheet(promptToSaveOnClose, exitProgramWhenLastSheetCloses);
+        return new FrameSheet(promptToSaveOnClose, exitProgramWhenLastSheetCloses, narratorMode);
+    }
+
+    public static boolean isCharacterOpenElsewhere(int characterIndex, FrameSheet requester) {
+        if (characterIndex <= 0) return false;
+        synchronized (OPEN_SHEETS) {
+            for (FrameSheet sheet : OPEN_SHEETS) {
+                if (sheet == null || sheet == requester) continue;
+                if (!sheet.hasLoadedCharacter()) continue;
+                StoreCharData openCharacter = sheet.character;
+                if (openCharacter == null || openCharacter.getIdentity() == null) continue;
+                if (openCharacter.getIdentity().getIndex() == characterIndex) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void openCombatHelper() {
@@ -293,11 +496,24 @@ public class FrameSheet extends JFrame {
         characterImage.openCombatHelper(playerMode);
     }
 
+    public void refreshCombatActorSelectorIfOpen() {
+        if (characterImage != null) {
+            characterImage.refreshCombatActorSelectorIfOpen();
+        }
+    }
+
     public void enterPlayerMode() {
         if (!requireCharacter() || characterImage == null) {
             return;
         }
         characterImage.enterPlayerMode();
+        if (!narratorMode) {
+            try {
+                Roll20WebSocketServer.getSharedServer().setClientRole("player");
+            } catch (Exception ex) {
+                System.out.println("Could not register player with Roll20: " + ex.getMessage());
+            }
+        }
     }
 
     /** Saves the currently loaded character to disk and updates the store metadata. */
@@ -567,6 +783,8 @@ public class FrameSheet extends JFrame {
         if (characterImage != null) {
             characterImage.disposeOwnedWindows();
         }
+        safeDispose(attackedFrame);
+        attackedFrame = null;
     }
 
     private void safeDispose(Window window) {
@@ -585,7 +803,211 @@ public class FrameSheet extends JFrame {
     public void dispose() {
         if (autoSaveTask != null) autoSaveTask.cancel(false);
         OPEN_SHEETS.remove(this);
+        unregisterOpenCharacterWithRoll20();
         super.dispose();
+    }
+
+    private void syncOpenCharacterWithRoll20() {
+        try {
+            Roll20WebSocketServer server = Roll20WebSocketServer.getSharedServer();
+            server.setDefenseReplyHandler(FrameSheet::buildDefenseReplyForOpenCharacter);
+            if (narratorMode) {
+                server.setClientRole("narrator");
+            }
+            if (character != null && character.getIdentity() != null) {
+                server.registerOpenCharacter(
+                        System.identityHashCode(this),
+                        character.getIdentity().getName(),
+                        character.getIdentity().getNickname());
+            } else {
+                server.unregisterOpenCharacter(System.identityHashCode(this));
+            }
+        } catch (Exception ex) {
+            System.out.println("Could not register open character with Roll20: " + ex.getMessage());
+        }
+    }
+
+    private void unregisterOpenCharacterWithRoll20() {
+        try {
+            Roll20WebSocketServer.getSharedServer().unregisterOpenCharacter(System.identityHashCode(this));
+        } catch (Exception ex) {
+            // Server may not have been started.
+        }
+    }
+
+    private static String buildDefenseReplyForOpenCharacter(int openCharacterKey, IncomingAttackEvent attack) {
+        FrameSheet sheet;
+        synchronized (OPEN_SHEETS) {
+            sheet = null;
+            for (FrameSheet candidate : OPEN_SHEETS) {
+                if (candidate != null && System.identityHashCode(candidate) == openCharacterKey) {
+                    sheet = candidate;
+                    break;
+                }
+            }
+        }
+        if (sheet == null) {
+            return null;
+        }
+        sheet.showAttackedFrame(attack);
+        return null;
+    }
+
+    void showAttackedFrame(IncomingAttackEvent attack) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            SwingUtilities.invokeLater(() -> showAttackedFrame(attack));
+            return;
+        }
+        if (character == null) {
+            return;
+        }
+        Boolean hit = resolveIncomingAttackHit(attack);
+        if (attackedFrame != null && attackedFrame.isDisplayable()) {
+            attackedFrame.updateIncomingAttack(attack, hit);
+            attackedFrame.toFront();
+            attackedFrame.requestFocus();
+            SwingUtilities.invokeLater(() -> sendDefenseReplyFromAttacked(attackedFrame));
+            return;
+        }
+        attackedFrame = new FrameAttacked(this, character, attack, hit);
+        attackedFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (attackedFrame == e.getSource()) {
+                    attackedFrame = null;
+                }
+            }
+        });
+        attackedFrame.setVisible(true);
+        attackedFrame.toFront();
+        SwingUtilities.invokeLater(() -> sendDefenseReplyFromAttacked(attackedFrame));
+    }
+
+    private void sendDefenseReplyFromAttacked(FrameAttacked frame) {
+        if (frame == null || !frame.isDisplayable()) {
+            return;
+        }
+        String outcome = frame.getChatOutcome();
+        if (outcome == null || outcome.isBlank()) {
+            return;
+        }
+        String macro = buildDefenseReplyMacro(
+                frame.getChatVsDefense(),
+                outcome,
+                frame.getChatMitigatedDamage(),
+                frame.getChatAfterShielding(),
+                frame.getChatResultingHealth());
+        if (macro == null || macro.isBlank()) {
+            return;
+        }
+        try {
+            Roll20WebSocketServer.getSharedServer().sendChatMessage(macro);
+        } catch (Exception ex) {
+            System.out.println("Could not send defense reply: " + ex.getMessage());
+        }
+    }
+
+    FrameCombat ensureCombatHelperFrame() {
+        if (characterImage == null) {
+            return null;
+        }
+        return characterImage.ensureCombatFrameReady();
+    }
+
+    double getDisplayedDefenseAgainst(String vsDefense) {
+        return charPanel == null ? 0.0 : charPanel.getDisplayedDefenseAgainst(vsDefense);
+    }
+
+    private Boolean resolveIncomingAttackHit(IncomingAttackEvent attack) {
+        if (attack == null || attack.attackValue == null) {
+            return null;
+        }
+        String vs = attack.vsDefense == null ? "" : attack.vsDefense.trim();
+        if (vs.regionMatches(true, 0, "vs ", 0, 3)) {
+            vs = vs.substring(3).trim();
+        }
+        if (!isComparedDefense(vs)) {
+            return null;
+        }
+        double defense = charPanel == null ? 0.0 : charPanel.getDisplayedDefenseAgainst(vs);
+        return attack.attackValue.doubleValue() >= defense;
+    }
+
+    private String buildDefenseReplyMacro(String vsDefense, String outcome, Integer mitigatedDamage,
+            Integer afterShielding, String resultingHealth) {
+        if (character == null) {
+            return null;
+        }
+        DataColor raceColor = null;
+        if (character.getIdentity() != null) {
+            raceColor = ruleManager.getColorByTitle(character.getIdentity().getRace());
+        }
+        if (raceColor == null) {
+            raceColor = new DataColor("Default", 0, 0, 0, 255, 255, 255);
+        }
+        String colorString1 = String.format("#%02x%02x%02x",
+                raceColor.getBackRed(), raceColor.getBackGreen(), raceColor.getBackBlue());
+        String colorString2 = String.format("#%02x%02x%02x",
+                raceColor.getForeRed(), raceColor.getForeGreen(), raceColor.getForeBlue());
+        String charName = character.getIdentity() != null && character.getIdentity().getName() != null
+                ? character.getIdentity().getName()
+                : "Character";
+        String vs = vsDefense == null ? "" : vsDefense.trim();
+        if (vs.regionMatches(true, 0, "vs ", 0, 3)) {
+            vs = vs.substring(3).trim();
+        }
+        String subtitle = "Attack vs " + (vs.isBlank() ? "Defense" : formatDefenseLabel(vs));
+
+        StringBuilder macro = new StringBuilder();
+        macro.append("!scriptcard {{ --#titleCardBackground|").append(colorString1)
+                .append(" --#titleFontFace|Arial --#titleFontSize|2em --#titleFontColor|").append(colorString1)
+                .append(" --#titleCardBottomBorder|4px solid #000000; --#title|")
+                .append(sanitizeMacroText(charName))
+                .append(" --#subtitleFontFace|Tahoma --#subtitleFontSize|1.2em --#subtitleFontColor|").append(colorString2)
+                .append(" --#leftSub|").append(sanitizeMacroText(subtitle))
+                .append(" --#LineHeight|1.5em --#rollHilightLineHeight|1.5em --#evenRowBackground|").append(colorString1)
+                .append(" --#evenRowFontColor|").append(colorString2)
+                .append(" --#oddRowBackground|").append(colorString2)
+                .append(" --#oddRowFontColor|").append(colorString1)
+                .append(" --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;");
+        if (outcome != null && !outcome.isBlank()) {
+            macro.append(" --+|").append(sanitizeMacroText(outcome));
+        }
+        if (mitigatedDamage != null) {
+            macro.append(" --+|After Mitigation: ").append(mitigatedDamage.intValue());
+        }
+        if (afterShielding != null) {
+            macro.append(" --+|After Shielding: ").append(afterShielding.intValue());
+        }
+        if (resultingHealth != null && !resultingHealth.isBlank()) {
+            macro.append(" --+|Resulting Health: ").append(sanitizeMacroText(resultingHealth));
+        }
+        macro.append(" }}");
+        return macro.toString();
+    }
+
+    private static String formatDefenseLabel(String vs) {
+        if ("AC".equalsIgnoreCase(vs)) {
+            return "AC";
+        }
+        if ("DODGE".equalsIgnoreCase(vs)) {
+            return "Dodge";
+        }
+        if ("ARMOR".equalsIgnoreCase(vs)) {
+            return "Armor";
+        }
+        return vs;
+    }
+
+    private static boolean isComparedDefense(String vs) {
+        return "AC".equalsIgnoreCase(vs)
+                || "DODGE".equalsIgnoreCase(vs)
+                || "ARMOR".equalsIgnoreCase(vs);
+    }
+
+    private static String sanitizeMacroText(String value) {
+        if (value == null) return "";
+        return value.replace("|", "/").replace("_", " ").replace("{", "(").replace("}", ")").trim();
     }
 
     private boolean hasLoadedCharacter() {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -49,6 +50,8 @@ public class FrameLoad extends JFrame {
     private static final String NO_SELECTION_TITLE = "No Selection";
     private static final String LOAD_FAILED_MSG = "Failed to load character.";
     private static final String LOAD_FAILED_TITLE = "Error";
+    private static final String DUPLICATE_CHARACTER_MSG = "That character is already open. Open duplicate copies from Narrator Mode only.";
+    private static final String DUPLICATE_CHARACTER_TITLE = "Character Already Open";
 
     // Date format
     private static final String DATE_FORMAT = "MM/dd/yyyy";
@@ -59,6 +62,7 @@ public class FrameLoad extends JFrame {
     private JLabel headerL;
     private JScrollPane scrollPane;
     private JButton newBtn, loadBtn;
+    private JCheckBox gmModeCheckBox;
 
     // Load list elements
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -107,8 +111,10 @@ public class FrameLoad extends JFrame {
         loadBtn = new JButton(BUTTON_LOAD);
         newBtn.addActionListener(e -> onNewPressed());
         loadBtn.addActionListener(e -> onLoadPressed());
+        gmModeCheckBox = new JCheckBox("GM");
 
         buttons = new JPanel();
+        buttons.add(gmModeCheckBox);
         buttons.add(newBtn);
         buttons.add(loadBtn);
         root.add(buttons, BorderLayout.SOUTH);
@@ -132,6 +138,11 @@ public class FrameLoad extends JFrame {
             return;
         }
         int index = charStore.get(idx).getIndex();
+        if (sheetFrame != null && !sheetFrame.isNarratorMode()
+                && FrameSheet.isCharacterOpenElsewhere(index, sheetFrame)) {
+            JOptionPane.showMessageDialog(this, DUPLICATE_CHARACTER_MSG, DUPLICATE_CHARACTER_TITLE, JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         StoreCharData character = StoreCharManager.loadCharacter(index);
         
         if (character != null) {
@@ -141,8 +152,9 @@ public class FrameLoad extends JFrame {
             } else {
                 targetSheet = sheetFrame != null ? sheetFrame.createSiblingSheet() : new FrameSheet();
             }
-            targetSheet.loadCharacter(character);
+            targetSheet.loadCharacter(character, gmModeCheckBox != null && gmModeCheckBox.isSelected());
             targetSheet.setVisible(true);
+            targetSheet.toFront();
             if (openCombatHelperAfterLoad) {
                 targetSheet.enterPlayerMode();
             }

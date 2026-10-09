@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +19,22 @@ import javax.swing.SwingConstants;
  */
 public class FrameSpecial {
 	public static record SpecialtyGrant(DataSpecialty specialty, List<DataSkill> grantedSkills) {}
+	private static final String ARCANE_ANALYSIS_SPECIALTY = "Arcane Analysis";
+	private static final String ARCANE_ANALYSIS_ATTRIBUTE = "CTL";
+	private static final String ANALYZE_SKILL = "Analyze";
+	private static final String IDENTIFY_SKILL = "Identify";
+	private static final String[] RESERVED_SKILL_ATTRIBUTES = {"STR","DEX","CON","FOC","CAP","CTL","KNOW","MECH","PERC","INT","CHA","SUB"};
+	private static final Map<String, int[]> BASE_CLASS_PROHIBITED_SPECIALTY_RANGES = Map.ofEntries(
+			Map.entry("Warrior", new int[] {1000, 1999}),
+			Map.entry("Paladin", new int[] {2000, 2999}),
+			Map.entry("Rogue", new int[] {3000, 3999}),
+			Map.entry("Monk", new int[] {4000, 4999}),
+			Map.entry("Archer", new int[] {5000, 5999}),
+			Map.entry("Leader", new int[] {6000, 6999}),
+			Map.entry("Cleric", new int[] {7000, 7999}),
+			Map.entry("Caster", new int[] {8000, 8999}),
+			Map.entry("Shifter", new int[] {9000, 9999}),
+			Map.entry("Pilot", new int[] {10000, 10999}));
 
 	private final StoreRuleManager dataQuery;
 	private final JComboBox<String> specialsList;
@@ -113,8 +130,15 @@ public class FrameSpecial {
 
 	public static List<SpecialtyGrant> promptForTrainingSpecialtyGrants(Component parent, StoreRuleManager dataQuery,
 			StoreCharData character, int selectionCount, List<DataSpecialty> reservedSpecialties, List<DataSkill> reservedSkills) {
+		return promptForTrainingSpecialtyGrants(parent, dataQuery, character, selectionCount, reservedSpecialties, reservedSkills, null);
+	}
+
+	public static List<SpecialtyGrant> promptForTrainingSpecialtyGrants(Component parent, StoreRuleManager dataQuery,
+			StoreCharData character, int selectionCount, List<DataSpecialty> reservedSpecialties, List<DataSkill> reservedSkills,
+			String dialogTitle) {
 		if (dataQuery == null || character == null || character.getSpecials() == null) return null;
 		if (selectionCount <= 0) return new ArrayList<>();
+		String resolvedTitle = (dialogTitle == null || dialogTitle.isBlank()) ? "New Specialty" : dialogTitle.trim();
 
 		ArrayList<DataSpecialty> allReservedSpecialties = new ArrayList<>();
 		if (reservedSpecialties != null) {
@@ -143,7 +167,7 @@ public class FrameSpecial {
 			}
 
 			JDialog dialog = new JDialog(parent == null ? null : JOptionPane.getFrameForComponent(parent),
-					selectionCount == 1 ? "New Specialty" : "New Specialty (" + (pickIndex + 1) + " of " + selectionCount + ")",
+					selectionCount == 1 ? resolvedTitle : resolvedTitle + " (" + (pickIndex + 1) + " of " + selectionCount + ")",
 					true);
 			dialog.setLayout(null);
 			dialog.setSize(430, 230);
@@ -190,8 +214,7 @@ public class FrameSpecial {
 				DataSpecialty resolved = FrameSpecialsPicker.resolveSpecialtyChoice(dialog, dataQuery, character, picked);
 				if (resolved == null) return;
 
-				int grantedSkillCount = resolveGrantedSkillCount(dataQuery, resolved);
-				List<DataSkill> grantedSkills = FrameSkill.promptForTrainingSkills(dialog, dataQuery, character, grantedSkillCount, allReservedSkills);
+				List<DataSkill> grantedSkills = resolveGrantedSkills(dialog, dataQuery, character, resolved, allReservedSkills);
 				if (grantedSkills == null) {
 					return;
 				}
@@ -259,6 +282,7 @@ public class FrameSpecial {
 	private boolean shouldExcludeSpecialty(DataSpecialty spec) {
 		if (spec == null) return true;
 		if (spec.getPrereq() < 0) return true;
+		if (isBaseClassProhibitedSpecialty(spec)) return true;
 		if (STANCE_SPECIALTY.equalsIgnoreCase(spec.getName())
 				&& FrameSpecialsPicker.getAvailableStanceOptions(ownerForFilter).isEmpty()) return true;
 		if (hideOwnedSpecialties && !CharSpecials.isRepeatableSpecialty(spec) && hasSpecialty(spec.getName())) return true;
@@ -266,16 +290,19 @@ public class FrameSpecial {
 		return isCurrentClassSpecialty(spec);
 	}
 
+	private boolean isBaseClassProhibitedSpecialty(DataSpecialty spec) {
+		if (spec == null || ownerForFilter == null || ownerForFilter.getIdentity() == null) return false;
+		String baseClass = ownerForFilter.getIdentity().getCharClass();
+		if (baseClass == null || baseClass.isBlank()) return false;
+		int[] range = BASE_CLASS_PROHIBITED_SPECIALTY_RANGES.get(baseClass);
+		if (range == null || range.length < 2) return false;
+		int specialtyId = spec.getId();
+		return specialtyId >= range[0] && specialtyId <= range[1];
+	}
+
 	private boolean lacksRequiredSpecialty(DataSpecialty spec) {
 		if (spec == null || ownerForFilter == null || ownerForFilter.getSpecials() == null) return false;
-		int prereqId = spec.getPrereq();
-		if (prereqId <= 0) return false;
-
-		DataSpecialty prereqSpecialty = dataQuery.getSpecialtyById(prereqId);
-		if (prereqSpecialty == null || prereqSpecialty.getName() == null || prereqSpecialty.getName().isBlank()) {
-			return false;
-		}
-		return !ownerForFilter.getSpecials().hasSpecialty(prereqSpecialty.getName());
+		return ownerForFilter.getSpecials().lacksRequiredSpecialty(spec, dataQuery);
 	}
 
 	private boolean isCurrentClassSpecialty(DataSpecialty spec) {
@@ -321,8 +348,7 @@ public class FrameSpecial {
 	public static boolean applyResolvedSpecialtyGrant(Component parent, StoreRuleManager dataQuery, StoreCharData character, DataSpecialty specialty, List<DataSkill> reservedSkills) {
 		if (character == null || character.getSpecials() == null || specialty == null) return false;
 
-		int grantedSkillCount = resolveGrantedSkillCount(dataQuery, specialty);
-		List<DataSkill> grantedSkills = FrameSkill.promptForTrainingSkills(parent, dataQuery, character, grantedSkillCount, reservedSkills);
+		List<DataSkill> grantedSkills = resolveGrantedSkills(parent, dataQuery, character, specialty, reservedSkills);
 		if (grantedSkills == null) return false;
 
 		character.getSpecials().addTrainedSpecialty(specialty);
@@ -331,6 +357,17 @@ public class FrameSpecial {
 		}
 		character.syncSpecialtyChoiceLists();
 		return true;
+	}
+
+	public static List<DataSkill> resolveGrantedSkills(Component parent, StoreRuleManager dataQuery, StoreCharData character,
+			DataSpecialty specialty, List<DataSkill> reservedSkills) {
+		if (character == null || character.getSpecials() == null || specialty == null) return null;
+		if (isArcaneAnalysisSpecialty(specialty)) {
+			return resolveArcaneAnalysisGrantedSkills(parent, dataQuery, character, reservedSkills);
+		}
+
+		int grantedSkillCount = resolveGrantedSkillCount(dataQuery, specialty);
+		return FrameSkill.promptForTrainingSkills(parent, dataQuery, character, grantedSkillCount, reservedSkills);
 	}
 
 	public static void applyResolvedSpecialtyGrant(StoreCharData character, DataSpecialty specialty, List<DataSkill> grantedSkills) {
@@ -359,6 +396,69 @@ public class FrameSpecial {
 			return base.getGrantedSkillSelectionCount();
 		}
 		return specialty.getGrantedSkillSelectionCount();
+	}
+
+	private static boolean isArcaneAnalysisSpecialty(DataSpecialty specialty) {
+		return specialty != null
+				&& specialty.getName() != null
+				&& ARCANE_ANALYSIS_SPECIALTY.equalsIgnoreCase(specialty.getName().trim());
+	}
+
+	private static List<DataSkill> resolveArcaneAnalysisGrantedSkills(Component parent, StoreRuleManager dataQuery,
+			StoreCharData character, List<DataSkill> reservedSkills) {
+		if (dataQuery == null || character == null || character.getSpecials() == null) return null;
+
+		ArrayList<DataSkill> grantedSkills = new ArrayList<>();
+		ArrayList<DataSkill> promptReservedSkills = new ArrayList<>();
+		if (reservedSkills != null) {
+			for (DataSkill reservedSkill : reservedSkills) {
+				if (reservedSkill != null) {
+					promptReservedSkills.add(new DataSkill(reservedSkill));
+				}
+			}
+		}
+
+		int replacementCount = 0;
+		replacementCount += processArcaneAnalysisSkillGrant(dataQuery, character, ANALYZE_SKILL, grantedSkills, promptReservedSkills);
+		replacementCount += processArcaneAnalysisSkillGrant(dataQuery, character, IDENTIFY_SKILL, grantedSkills, promptReservedSkills);
+
+		List<DataSkill> replacementSkills = FrameSkill.promptForTrainingSkills(parent, dataQuery, character, replacementCount, promptReservedSkills);
+		if (replacementSkills == null) {
+			return null;
+		}
+		grantedSkills.addAll(replacementSkills);
+		return grantedSkills;
+	}
+
+	private static int processArcaneAnalysisSkillGrant(StoreRuleManager dataQuery, StoreCharData character, String skillName,
+			List<DataSkill> grantedSkills, List<DataSkill> promptReservedSkills) {
+		if (dataQuery == null || character == null || character.getSpecials() == null || skillName == null || skillName.isBlank()) {
+			return 0;
+		}
+		if (character.getSpecials().getSkillByName(skillName) != null) {
+			addReservedSkillName(promptReservedSkills, skillName);
+			return 1;
+		}
+
+		DataSkill template = dataQuery.getSkillByName(skillName);
+		if (template == null) return 0;
+
+		DataSkill grantedSkill = new DataSkill(template);
+		grantedSkill.addChosenAttribute(ARCANE_ANALYSIS_ATTRIBUTE);
+		grantedSkills.add(grantedSkill);
+		addReservedSkillName(promptReservedSkills, skillName);
+		promptReservedSkills.add(new DataSkill(grantedSkill));
+		return 0;
+	}
+
+	private static void addReservedSkillName(List<DataSkill> reservedSkills, String skillName) {
+		if (reservedSkills == null || skillName == null || skillName.isBlank()) return;
+		for (String attribute : RESERVED_SKILL_ATTRIBUTES) {
+			DataSkill reservedSkill = new DataSkill();
+			reservedSkill.setName(skillName);
+			reservedSkill.addChosenAttribute(attribute);
+			reservedSkills.add(reservedSkill);
+		}
 	}
 }
 

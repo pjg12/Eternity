@@ -60,7 +60,13 @@ final class LauncherUpdateChecker {
                 firstNonBlank(manifest.artifactUrl, manifest.jarUrl),
                 safeTrim(manifest.downloadUrl),
                 safeTrim(manifest.sha256),
-                safeTrim(manifest.notes));
+                safeTrim(manifest.notes),
+                safeTrim(manifest.imagesUrl),
+                safeTrim(manifest.imagesSha256),
+                safeTrim(manifest.chromeExtensionUrl),
+                safeTrim(manifest.chromeExtensionSha256),
+                safeTrim(manifest.firefoxExtensionUrl),
+                safeTrim(manifest.firefoxExtensionSha256));
         } catch (Exception ex) {
             throw new IllegalStateException(ex.getMessage(), ex);
         }
@@ -106,13 +112,45 @@ final class LauncherUpdateChecker {
                 }
             }
 
+            String imagesUrl = "";
+            String imagesSha256 = "";
+            String imagesAssetName = LauncherConfig.getConfiguredGitHubImagesAssetName();
+            GitHubReleaseAsset imagesAsset = findAssetByName(release.assets, imagesAssetName);
+            if (imagesAsset != null && imagesAsset.browser_download_url != null && !imagesAsset.browser_download_url.isBlank()) {
+                imagesUrl = imagesAsset.browser_download_url.trim();
+                if (imagesAsset.digest != null && imagesAsset.digest.toLowerCase(Locale.ROOT).startsWith("sha256:")) {
+                    imagesSha256 = imagesAsset.digest.substring("sha256:".length()).trim();
+                }
+                if (imagesSha256.isBlank()) {
+                    String imagesShaAssetName = LauncherConfig.getConfiguredGitHubImagesSha256AssetName();
+                    GitHubReleaseAsset imagesChecksumAsset = findAssetByName(release.assets, imagesShaAssetName);
+                    if (imagesChecksumAsset != null
+                            && imagesChecksumAsset.browser_download_url != null
+                            && !imagesChecksumAsset.browser_download_url.isBlank()) {
+                        imagesSha256 = downloadChecksumAsset(imagesChecksumAsset.browser_download_url, currentVersion);
+                    }
+                }
+            }
+
+            String releaseVersion = stripLeadingV(latestVersion.trim());
+            ExtensionAsset chromeExtension = resolveExtensionAsset(
+                release.assets, releaseVersion, currentVersion, false);
+            ExtensionAsset firefoxExtension = resolveExtensionAsset(
+                release.assets, releaseVersion, currentVersion, true);
+
             return new UpdateInfo(
                 currentVersion,
-                stripLeadingV(latestVersion.trim()),
+                releaseVersion,
                 safeTrim(artifact.browser_download_url),
                 safeTrim(release.html_url),
                 safeTrim(sha256),
-                safeTrim(release.body));
+                safeTrim(release.body),
+                safeTrim(imagesUrl),
+                safeTrim(imagesSha256),
+                chromeExtension.url(),
+                chromeExtension.sha256(),
+                firefoxExtension.url(),
+                firefoxExtension.sha256());
         } catch (Exception ex) {
             throw new IllegalStateException(ex.getMessage(), ex);
         }
@@ -122,7 +160,7 @@ final class LauncherUpdateChecker {
         return compareVersions(updateInfo.latestVersion(), updateInfo.currentVersion()) > 0;
     }
 
-    private static int compareVersions(String left, String right) {
+    static int compareVersions(String left, String right) {
         List<Integer> leftParts = parseVersionParts(left);
         List<Integer> rightParts = parseVersionParts(right);
         int maxParts = Math.max(leftParts.size(), rightParts.size());
@@ -200,6 +238,93 @@ final class LauncherUpdateChecker {
         return null;
     }
 
+    private static ExtensionAsset resolveExtensionAsset(
+            List<GitHubReleaseAsset> assets,
+            String version,
+            String currentVersion,
+            boolean firefox) {
+        GitHubReleaseAsset asset = findExtensionAsset(assets, version, firefox);
+        if (asset == null || asset.browser_download_url == null || asset.browser_download_url.isBlank()) {
+            return new ExtensionAsset("", "");
+        }
+
+        String sha256 = "";
+        if (asset.digest != null && asset.digest.toLowerCase(Locale.ROOT).startsWith("sha256:")) {
+            sha256 = asset.digest.substring("sha256:".length()).trim();
+        }
+        if (sha256.isBlank() && asset.name != null && !asset.name.isBlank()) {
+            GitHubReleaseAsset checksumAsset = findAssetByName(assets, asset.name + ".sha256");
+            if (checksumAsset != null
+                    && checksumAsset.browser_download_url != null
+                    && !checksumAsset.browser_download_url.isBlank()) {
+                try {
+                    sha256 = downloadChecksumAsset(checksumAsset.browser_download_url, currentVersion);
+                } catch (Exception ignored) {
+                    sha256 = "";
+                }
+            }
+        }
+        return new ExtensionAsset(asset.browser_download_url.trim(), safeTrim(sha256));
+    }
+
+    private static GitHubReleaseAsset findExtensionAsset(
+            List<GitHubReleaseAsset> assets,
+            String version,
+            boolean firefox) {
+        if (assets == null || version == null || version.isBlank()) {
+            return null;
+        }
+
+        String normalized = stripLeadingV(version);
+        String configured = expandAssetName(
+            firefox
+                ? LauncherConfig.getConfiguredGitHubFirefoxExtensionAssetName()
+                : LauncherConfig.getConfiguredGitHubChromeExtensionAssetName(),
+            normalized);
+        String[] candidates = firefox
+            ? new String[] {
+                configured,
+                "roll20-bridge-firefox-v" + normalized + ".zip",
+                "roll20-bridge-firefox-" + normalized + ".zip"
+            }
+            : new String[] {
+                configured,
+                "roll20-bridge-v" + normalized + ".zip",
+                "roll20-bridge-" + normalized + ".zip",
+                "roll20-bridge-chrome-v" + normalized + ".zip"
+            };
+
+        for (String candidate : candidates) {
+            GitHubReleaseAsset found = findAssetByName(assets, candidate);
+            if (found != null) {
+                return found;
+            }
+        }
+
+        for (GitHubReleaseAsset asset : assets) {
+            if (asset == null || asset.name == null) {
+                continue;
+            }
+            String name = asset.name.toLowerCase(Locale.ROOT);
+            if (!name.endsWith(".zip") || !name.contains("roll20-bridge")) {
+                continue;
+            }
+            boolean isFirefox = name.contains("firefox");
+            if (isFirefox == firefox) {
+                return asset;
+            }
+        }
+        return null;
+    }
+
+    private static String expandAssetName(String template, String version) {
+        if (template == null || template.isBlank()) {
+            return "";
+        }
+        String normalized = version == null ? "" : version.trim();
+        return template.replace("{version}", normalized).replace("{VERSION}", normalized);
+    }
+
     private static String downloadChecksumAsset(String assetUrl, String currentVersion) throws Exception {
         HttpRequest request = HttpRequest.newBuilder(URI.create(assetUrl))
             .timeout(Duration.ofSeconds(10))
@@ -239,8 +364,31 @@ final class LauncherUpdateChecker {
         String artifactUrl,
         String downloadUrl,
         String sha256,
-        String notes) {
+        String notes,
+        String imagesUrl,
+        String imagesSha256,
+        String chromeExtensionUrl,
+        String chromeExtensionSha256,
+        String firefoxExtensionUrl,
+        String firefoxExtensionSha256) {
+        boolean hasImagesAsset() {
+            return imagesUrl != null && !imagesUrl.isBlank();
+        }
+
+        boolean hasChromeExtensionAsset() {
+            return chromeExtensionUrl != null && !chromeExtensionUrl.isBlank();
+        }
+
+        boolean hasFirefoxExtensionAsset() {
+            return firefoxExtensionUrl != null && !firefoxExtensionUrl.isBlank();
+        }
+
+        boolean hasExtensionAsset() {
+            return hasChromeExtensionAsset() || hasFirefoxExtensionAsset();
+        }
     }
+
+    private record ExtensionAsset(String url, String sha256) { }
 
     private static final class UpdateManifest {
         public String version;
@@ -249,6 +397,12 @@ final class LauncherUpdateChecker {
         public String downloadUrl;
         public String sha256;
         public String notes;
+        public String imagesUrl;
+        public String imagesSha256;
+        public String chromeExtensionUrl;
+        public String chromeExtensionSha256;
+        public String firefoxExtensionUrl;
+        public String firefoxExtensionSha256;
     }
 
     private static final class GitHubRelease {

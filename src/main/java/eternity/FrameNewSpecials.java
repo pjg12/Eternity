@@ -23,6 +23,17 @@ public class FrameNewSpecials extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String DIVINE_VOW_SPECIALTY = "Divine Vow";
     private static final String STANCE_SPECIALTY = "Stance";
+    private static final Map<String, int[]> BASE_CLASS_PROHIBITED_SPECIALTY_RANGES = Map.ofEntries(
+            Map.entry("Warrior", new int[] {1000, 1999}),
+            Map.entry("Paladin", new int[] {2000, 2999}),
+            Map.entry("Rogue", new int[] {3000, 3999}),
+            Map.entry("Monk", new int[] {4000, 4999}),
+            Map.entry("Archer", new int[] {5000, 5999}),
+            Map.entry("Leader", new int[] {6000, 6999}),
+            Map.entry("Cleric", new int[] {7000, 7999}),
+            Map.entry("Caster", new int[] {8000, 8999}),
+            Map.entry("Shifter", new int[] {9000, 9999}),
+            Map.entry("Pilot", new int[] {10000, 10999}));
 
     private final StoreRuleManager dataQuery;
     private final StoreCharData character;
@@ -182,7 +193,7 @@ public class FrameNewSpecials extends JFrame {
             }
         }
 
-        ArrayList<DataSpecialty> picks = new ArrayList<>(2);
+        ArrayList<DataSpecialty> picks = new ArrayList<>(3);
         for (int i = 0; i < 2; i++) {
             DataSpecialty resolved = resolveSelectedSpecialty(i);
             if (resolved == null) {
@@ -190,11 +201,14 @@ public class FrameNewSpecials extends JFrame {
             }
             picks.add(resolved);
         }
+        DataSpecialty gaianSpecialty = character == null ? null : character.resolveGaianBonusSpecialty(dataQuery);
+        if (gaianSpecialty != null && !character.getSpecials().hasSpecialty(gaianSpecialty.getName())) {
+            picks.add(gaianSpecialty);
+        }
 
         ArrayList<DataSkill> grantedSkills = new ArrayList<>();
         for (DataSpecialty specialty : picks) {
-            int grantedSkillCount = FrameSpecial.resolveGrantedSkillCount(dataQuery, specialty);
-            List<DataSkill> specialtySkills = FrameSkill.promptForTrainingSkills(this, dataQuery, character, grantedSkillCount, grantedSkills);
+            List<DataSkill> specialtySkills = FrameSpecial.resolveGrantedSkills(this, dataQuery, character, specialty, grantedSkills);
             if (specialtySkills == null) {
                 return;
             }
@@ -214,13 +228,14 @@ public class FrameNewSpecials extends JFrame {
 
     private boolean grantRandomGmSpecialties() {
         List<DataSpecialty> available = collectAvailableSpecialties();
-        if (available.isEmpty()) return false;
-
         int picksToGrant = Math.min(2, available.size());
         for (int i = 0; i < picksToGrant; i++) {
             int pickIndex = ThreadLocalRandom.current().nextInt(available.size());
             DataSpecialty selected = available.remove(pickIndex);
             character.getSpecials().addTrainedSpecialty(new DataSpecialty(selected));
+        }
+        if (character.grantGaianBonusSpecialty(dataQuery)) {
+            picksToGrant++;
         }
         return picksToGrant > 0;
     }
@@ -260,6 +275,7 @@ public class FrameNewSpecials extends JFrame {
 
     private boolean isAvailableSpecialty(DataSpecialty specialty) {
         if (specialty == null || specialty.getPrereq() < 0 || isCurrentClassSpecialty(specialty)) return false;
+        if (isBaseClassProhibitedSpecialty(specialty)) return false;
         String name = specialty.getName();
         if (name == null || name.isBlank()) return false;
         if (STANCE_SPECIALTY.equalsIgnoreCase(name)
@@ -268,6 +284,8 @@ public class FrameNewSpecials extends JFrame {
         }
         String excludedCreationSpecialty = getExcludedCreationSpecialtyName();
         if (excludedCreationSpecialty != null && excludedCreationSpecialty.equalsIgnoreCase(name)) return false;
+        String gaianSpecialty = getGaianBonusSpecialtyName();
+        if (gaianSpecialty != null && gaianSpecialty.equalsIgnoreCase(name)) return false;
         if (lacksRequiredSpecialty(specialty)) return false;
         return character == null
                 || character.getSpecials() == null
@@ -275,18 +293,28 @@ public class FrameNewSpecials extends JFrame {
                 || !character.getSpecials().hasSpecialty(name);
     }
 
+    private boolean isBaseClassProhibitedSpecialty(DataSpecialty specialty) {
+        if (specialty == null || character == null || character.getIdentity() == null) return false;
+        String baseClass = character.getIdentity().getCharClass();
+        if (baseClass == null || baseClass.isBlank()) return false;
+        int[] range = BASE_CLASS_PROHIBITED_SPECIALTY_RANGES.get(baseClass);
+        if (range == null || range.length < 2) return false;
+        int specialtyId = specialty.getId();
+        return specialtyId >= range[0] && specialtyId <= range[1];
+    }
+
     private boolean lacksRequiredSpecialty(DataSpecialty specialty) {
         if (specialty == null || character == null || character.getSpecials() == null) return false;
-        int prereqId = specialty.getPrereq();
-        if (prereqId <= 0) return false;
+        return character.getSpecials().lacksRequiredSpecialty(specialty, dataQuery);
+    }
 
-        DataSpecialty prereqSpecialty = dataQuery.getSpecialtyById(prereqId);
-        if (prereqSpecialty == null) return false;
-
-        String prereqName = prereqSpecialty.getName();
-        return prereqName != null
-                && !prereqName.isBlank()
-                && !character.getSpecials().hasSpecialty(prereqName);
+    private String getGaianBonusSpecialtyName() {
+        if (character == null) return null;
+        DataSpecialty gaianSpecialty = character.resolveGaianBonusSpecialty(dataQuery);
+        if (gaianSpecialty == null || gaianSpecialty.getName() == null || gaianSpecialty.getName().isBlank()) {
+            return null;
+        }
+        return gaianSpecialty.getName().trim();
     }
 
     private String getExcludedCreationSpecialtyName() {

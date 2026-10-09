@@ -88,6 +88,34 @@ final class AppVersion {
         return getProperty("update.github.sha256AssetName", "EternityTTRPG.jar.sha256");
     }
 
+    static String getConfiguredGitHubImagesAssetName() {
+        String systemProperty = System.getProperty("eternity.update.github.imagesAssetName");
+        if (systemProperty != null && !systemProperty.isBlank()) {
+            return systemProperty.trim();
+        }
+
+        String envValue = System.getenv("ETERNITY_UPDATE_GITHUB_IMAGES_ASSET_NAME");
+        if (envValue != null && !envValue.isBlank()) {
+            return envValue.trim();
+        }
+
+        return getProperty("update.github.imagesAssetName", "Images.zip");
+    }
+
+    static String getConfiguredGitHubImagesSha256AssetName() {
+        String systemProperty = System.getProperty("eternity.update.github.imagesSha256AssetName");
+        if (systemProperty != null && !systemProperty.isBlank()) {
+            return systemProperty.trim();
+        }
+
+        String envValue = System.getenv("ETERNITY_UPDATE_GITHUB_IMAGES_SHA256_ASSET_NAME");
+        if (envValue != null && !envValue.isBlank()) {
+            return envValue.trim();
+        }
+
+        return getProperty("update.github.imagesSha256AssetName", "Images.zip.sha256");
+    }
+
     static String getConfiguredUpdateSource() {
         String githubLatestReleaseUrl = getConfiguredGitHubLatestReleaseUrl();
         if (!githubLatestReleaseUrl.isBlank()) {
