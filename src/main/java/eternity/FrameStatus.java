@@ -221,7 +221,7 @@ public class FrameStatus extends JFrame {
         JButton applied = new JButton("View Applied");
         applied.addActionListener(e -> showAppliedStatuses());
         JButton remove = new JButton("Remove Effect");
-        remove.addActionListener(e -> showAppliedStatuses());
+        remove.addActionListener(e -> showRemoveEffectDialog());
         JButton manual = new JButton("Add Effect");
         manual.addActionListener(e -> openManualStatusFrame());
         JButton apply = new JButton("Apply");
@@ -628,6 +628,57 @@ public class FrameStatus extends JFrame {
         manualStatusFrame.setVisible(true);
     }
 
+    private void showRemoveEffectDialog() {
+        DefaultListModel<AppliedStatusGroup> listModel = new DefaultListModel<>();
+        Map<String, List<DataStatus>> grouped = groupAppliedStatuses(collectAppliedStatuses());
+        for (Map.Entry<String, List<DataStatus>> entry : grouped.entrySet()) {
+            listModel.addElement(new AppliedStatusGroup(entry.getKey(), entry.getValue()));
+        }
+
+        if (listModel.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "No applied status effects are available to remove.",
+                    "Remove Effect",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        JList<AppliedStatusGroup> statusList = new JList<>(listModel);
+        statusList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        statusList.setSelectedIndex(0);
+        JScrollPane listPane = new JScrollPane(statusList);
+        listPane.setPreferredSize(new Dimension(320, 220));
+
+        JDialog dialog = new JDialog(this, "Remove Effect", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLayout(new BorderLayout(0, 8));
+        dialog.add(new JLabel("Select a status effect to remove:"), BorderLayout.NORTH);
+        dialog.add(listPane, BorderLayout.CENTER);
+
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(event -> dialog.dispose());
+        JButton delete = new JButton("Delete");
+        delete.addActionListener(event -> {
+            AppliedStatusGroup selected = statusList.getSelectedValue();
+            if (selected == null) {
+                JOptionPane.showMessageDialog(dialog,
+                        "Select a status effect to delete.",
+                        "Remove Effect",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            deleteAppliedStatusGroup(selected);
+            dialog.dispose();
+        });
+        footer.add(cancel);
+        footer.add(delete);
+        dialog.add(footer, BorderLayout.SOUTH);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
     private void showAppliedStatuses() {
         DefaultListModel<AppliedStatusGroup> listModel = new DefaultListModel<>();
         JList<AppliedStatusGroup> statusList = new JList<>(listModel);
@@ -680,27 +731,7 @@ public class FrameStatus extends JFrame {
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton close = new JButton("Close");
         close.addActionListener(event -> dialog.dispose());
-        JButton delete = new JButton("Delete");
-        delete.addActionListener(event -> {
-            AppliedStatusGroup selected = statusList.getSelectedValue();
-            if (selected == null) {
-                JOptionPane.showMessageDialog(dialog,
-                        "Select a status to delete.",
-                        "Delete Status",
-                        JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            int confirm = JOptionPane.showConfirmDialog(dialog,
-                    "Delete applied status \"" + selected.name + "\"?",
-                    "Delete Status",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE);
-            if (confirm != JOptionPane.YES_OPTION) return;
-            deleteAppliedStatusGroup(selected);
-            reload.run();
-        });
         footer.add(close);
-        footer.add(delete);
         dialog.add(footer, BorderLayout.SOUTH);
         dialog.setSize(560, 420);
         dialog.setLocationRelativeTo(this);
