@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Chrome Roll20-EternityTTRPG Bridge",
+  "version": "0.5.1",
+
+  "host_permissions": [
+    "ws://localhost/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://app.roll20.net/*"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["pageBridge.js"],
+      "matches": ["https://app.roll20.net/*"]
+    }
+  ]
+}

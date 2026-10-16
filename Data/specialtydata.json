@@ -1,0 +1,7575 @@
+[ {
+  "id" : 1,
+  "name" : "Level 1",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 1",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2,
+  "name" : "Level 2",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 2",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3,
+  "name" : "Level 3",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 3",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4,
+  "name" : "Level 4",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 4",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5,
+  "name" : "Level 5",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 5",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6,
+  "name" : "Level 6",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 6",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7,
+  "name" : "Level 7",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 7",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8,
+  "name" : "Level 8",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 8",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9,
+  "name" : "Level 9",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 9",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10,
+  "name" : "Level 10",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 10",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 11,
+  "name" : "Level 11",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 11",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 12,
+  "name" : "Level 12",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 12",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 13,
+  "name" : "Level 13",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 13",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 14,
+  "name" : "Level 14",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 14",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 15,
+  "name" : "Level 15",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 15",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 16,
+  "name" : "Level 16",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 16",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 17,
+  "name" : "Level 17",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 17",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 18,
+  "name" : "Level 18",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 18",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 19,
+  "name" : "Level 19",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 19",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 20,
+  "name" : "Level 20",
+  "refName" : "",
+  "category" : "Level",
+  "description" : "Level 20",
+  "type" : "level",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 41,
+  "name" : "Proficiency (Light Armor)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip Light Armor",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 42,
+  "name" : "Proficiency (Medium Armor)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip Medium Armor",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 43,
+  "name" : "Proficiency (Heavy Armor)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip Heavy Armor",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 44,
+  "name" : "Proficiency (Exo Armor)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip Exo Armor",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 51,
+  "name" : "Proficiency (Blade)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a blade.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 52,
+  "name" : "Proficiency (Dagger)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a dagger.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 53,
+  "name" : "Proficiency (Fist)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a fist.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 54,
+  "name" : "Proficiency (Whip)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a whip.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 55,
+  "name" : "Proficiency (Sword)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a sword.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 56,
+  "name" : "Proficiency (Axe)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding an axe.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 57,
+  "name" : "Proficiency (Mace)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a mace.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 58,
+  "name" : "Proficiency (Shield)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a shield.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 59,
+  "name" : "Proficiency (Greatsword)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a greatsword.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 60,
+  "name" : "Proficiency (Battleaxe)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a battleaxe.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 61,
+  "name" : "Proficiency (Warhammer)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a warhammer.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 62,
+  "name" : "Proficiency (Polearm)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a polearm.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 63,
+  "name" : "Proficiency (Thrown)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a thrown weapon.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 64,
+  "name" : "Proficiency (Handbow)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a handbow.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 65,
+  "name" : "Proficiency (Pistol)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a pistol.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 66,
+  "name" : "Proficiency (Sling)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a sling.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 67,
+  "name" : "Proficiency (Bow)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a bow.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 68,
+  "name" : "Proficiency (Crosbow)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a crossbow.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 69,
+  "name" : "Proficiency (Rifle)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a rifle.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 70,
+  "name" : "Proficiency (Cannon)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a cannon.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 71,
+  "name" : "Proficiency (Wand)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a wand.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 72,
+  "name" : "Proficiency (Ring)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a ring.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 73,
+  "name" : "Proficiency (Orb)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding an orb.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 74,
+  "name" : "Proficiency (Talisman)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a talisman.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 75,
+  "name" : "Proficiency (Staff)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a staff.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 76,
+  "name" : "Proficiency (Tome)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a tome.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 77,
+  "name" : "Proficiency (Relic)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a relic.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 78,
+  "name" : "Proficiency (Symbol)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to use their primary Attribute when weilding a holy symbol.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 79,
+  "name" : "Proficiency (Matrix)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip a matrix.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 80,
+  "name" : "Proficiency (Exo Weapons)",
+  "refName" : "",
+  "category" : "Proficiency",
+  "description" : "Allows the character to equip Exo Weapons.",
+  "type" : "proficiency",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 101,
+  "name" : "Shapeshifting (Alteri)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
+  "type" : "reminder",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 102,
+  "name" : "Waveborne (Aquios)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "<html><center>Aquata can survive under water indefinitely and move twice their move speed when swimming.</center></html>",
+  "type" : "reminder",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 103,
+  "name" : "Skittish (Ardian)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Ardians can move 5ft at the end of any turn during which they took damage.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 104,
+  "name" : "Avarice (Azuri)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Azuri choose a Pursuit character attribute at character creation and a minimum of one skill for that attribute. Azuri add their racial level as a bonus to skills matching their pursuit. Additionally, they make take 20 when using these skills in any situation where a character could take 10.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 105,
+  "name" : "Green Giant (Boxlor)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Boxlor can regenerate a lost limb or from another significant injury by spending a cumulative 24 hours in long rest. A Boxlor is considered to be large size and receives all bonuses and penalties thereof.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 106,
+  "name" : "Path to Progress (Cetryu)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Cetryu never suffer penalties to KNOW or MECH checks and can take 10 on such checks when under pressure. Cetryu use KNOW in place of INT for any skill where KNOW seems relevant.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 107,
+  "name" : "Catalytic Converter (Construct)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "A construct may install, assimilate, or otherwise use catalysts. Acclimation to a new catalyst will be treated as a 'list' addition and be subject to the same time requirements. Removing a catalyst requires one hour.",
+  "type" : "T",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 108,
+  "name" : "Honorbound (Deckan)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Deckans receive a bonus to Attack and Damage while in 'honorable' standing. If a Deckan is reduced to an honorless state, these bonuses become penalties and the Deckan suffers an additional -10 WILL until their honor is restored.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 109,
+  "name" : "Jousting Charge (En)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Receive a bonus to ATK equal to 1x racial rank during a charge attack.<br> Receive a bonus to BDMG equal to racial rank and TDMG equal to (Distance Traveled / 5ft × racial rank) during a charge attack.<br> Your minimum charge range is 10ft and your maximum charge range is increased by 5ft x racial rank.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 110,
+  "name" : "Evan",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Evans have a distinct Hero or Villain alignment. Evans gain a Hero or Villain index equal to their race level. An Evan can spend an index point to grant all allies a bonus to current Init equal to their race level.",
+  "type" : "f",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 111,
+  "name" : "Witchcraft (Felsh)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Felsh receive Aura Ritual equal to their race level. Felsh also increase their Max Ranks by 0.5% per race level.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 112,
+  "name" : "Felshify (Felsh Cat)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Felsh Cats can turn into their humanoid forms or revert to their cat forms once per turn as a free action.",
+  "type" : "reminder",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 113,
+  "name" : "Mastercraft (Forven)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Forven add their entire INT mod to Crafting rolls. When crafting, Forven can spend additional time to improve their crafting outcome. Each additional hour increases their result by 2 and they may spend additional time until the result is Masterwork. Forven also generate 50% additional crafting revenue.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 114,
+  "name" : "Versatility (Gaian)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Gaians choose one core attribute and one character attribute and gain a +1 bonus to each. They also select an additional specialty. Each rank of Race Training lets them choose another unused attribute for a +1 bonus. At Race Training ranks 5 and 10, they also select another bonus specialty.",
+  "type" : "T",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 115,
+  "name" : "Angelic Host (Irdon)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Irdon host an angelic spirit controlled by the narrator. An Irdon's spirit generates a resource referred to as their Angel Index. An Irdon may consume a point from their index to add an additional target to a non-AoE ability. Doing so will double the cost of that ability. The Angel index will be restored following a long rest.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 116,
+  "name" : "Balance in All Things (Kenti)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Kenti who are in Balance receive a +1 bonus to all attributes aside from their primary attribute. A Kenti is in balance if all of their attributes aside from their primary attribute are within 1.5 of the average of those attributes.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 117,
+  "name" : "Tails of the Fox (Kitsune)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Kitsune can invoke an ancestral spirit as a free action once per day. The effects of this invocation remain with the Kitsune until they invoke a different spirit. Kitsune can invoke any of the tailed spirits from one up to their racial level.",
+  "type" : "T",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 118,
+  "name" : "Darklight (Loben)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Loben have exceptional senses of sight, hearing, and smell. Loben are also capable of cutting off an overwhelmed sense before they are disoriented. If they are able to utilize even one of these senses, Loben receive no penalties for being blinded, deafened, or odorized.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 119,
+  "name" : "Windsense (Loritho)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Loritho get bonus range. Loritho get bonuses to navigation when outside. Once per day, a Loritho can shift their fortunes, rerolling a single die.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 120,
+  "name" : "Imperial Devotion (Meridian)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Meridians increase the durations of their debuff and support techniques by one regardless of duration type.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 121,
+  "name" : "Stout Sailor (Nohmen)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Nohmen receive the Balance skill at level 1 and automatically succeed at mundane balance checks. Nohmen are considered small creatures, gaining all bonuses and penalties of such.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 122,
+  "name" : "Bloodplague (Nosfer)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Nosfer receive a +2 bonus per racial level against all disease and poison effects and are immune to mundane disease and poison. Whenever a Nosfer applies a disease effect to an enemy, apply 'Bloodplague' to that enemy as well, increasing the damage they take from all attacks by the Nosfer's Racial level until End of Round.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 123,
+  "name" : "Beware of Dog (Oon)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Oons receive a bonus to grapple actions equal to their racial level. Oons possess a bite attack that can be used as a free action in any state of grapple.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 124,
+  "name" : "Mistwalker (Poruuk)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Poruuk can hide in plain sight and increase the DC to track groups they are a part of by an amount equal to their racial level.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 125,
+  "name" : "Formicidae (Quez - Ant)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Quez of the Formicidae Family receive +0.5 CON per Racial Level. These Quez have double the standard lifting capacity. Formicidae never become exhausted from travel.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 126,
+  "name" : "-",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "-",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 127,
+  "name" : "-",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "-",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 128,
+  "name" : "Draconic Heritage (Raigon)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Raigon can activate their dragonshape as an aura action. Raigon can maintain their dragonshape for a number of rounds each day equal to racial level. In dragonshape, Raigon gain fly speed equal to their move speed and Armor equal to racial level. They can use a breath attack once per day, increased to twice at racial level 6.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 129,
+  "name" : "March of the Dead (Reven)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Reven are not immediately rendered unconscious when reduced below 0 HP. Reven make a FORT save (DC equal to their negative HP) at the start of their turn. If they succeed, they remain conscious. Additionally, any creature damaged by the Reven which dies briefly enters the Reven's service. This creature may not attack, but occupies its tile.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 130,
+  "name" : "Reign of Terror (Skren)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Skren receive the Intimidate skill at level 1. At the start of a Skren's combat turn, make an Intimidate check and multiply the result by your racial level. Any creature with less HP than this value must make a WILL save (DC your original intimidate check). A creature that fails this save has their morale broken.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 131,
+  "name" : "Photosynthesis (Theran)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Therans require 1/2 rations and 1/2 sleep time. Increase INIT by 1/2 racial level during daylight. Increase RESISTALL by twice racial level outside daylight.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 132,
+  "name" : "Sacred Folklore (Vindis)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Vindis have the rank cost and xp requirement for spirit affinity techniques reduced by 25%. Vindis can summon a companion spirit.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 133,
+  "name" : "Demonic Host (Vyrek)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Vyrek host a demonic spirit controlled by the narrator. A Vyrek's spirit generates a resource referred to as their Demon Index. A Vyrek may consume a point from their index to increase the damage of a non-AoE ability by 50%. Doing so will double the cost of that ability. This effect may be activated after the hit has been confirmed. The Demon index will be restored following a long rest.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 134,
+  "name" : "Faekind (Xid)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Xid are tiny creatures and are subject to all bonuses and penalties that entails. Xid do not occupy the tile they are in and must enter an enemy's tile to make a melee attack. Xid have the natural ability to fly and have natural flight speed equal to 15ft + 2.5ft per racial level.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 135,
+  "name" : "Hybridize (Zyan)",
+  "refName" : "",
+  "category" : "Racial",
+  "description" : "Zyans can assume or revert their hybrid form as a free action once per turn. The bonuses of this form depend on the Xyan's culture.",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 201,
+  "name" : "Specialization (Blade)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
+  "type" : "specCheck",
+  "prereq" : 51,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 202,
+  "name" : "Specialization (Dagger)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
+  "type" : "specCheck",
+  "prereq" : 52,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 203,
+  "name" : "Specialization (Fist)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
+  "type" : "specCheck",
+  "prereq" : 53,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 204,
+  "name" : "Specialization (Whip)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
+  "type" : "specCheck",
+  "prereq" : 54,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 205,
+  "name" : "Specialization (Sword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
+  "type" : "specCheck",
+  "prereq" : 55,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 206,
+  "name" : "Specialization (Axe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
+  "type" : "specCheck",
+  "prereq" : 56,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 207,
+  "name" : "Specialization (Mace)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
+  "type" : "specCheck",
+  "prereq" : 57,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 208,
+  "name" : "Specialization (Shield)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
+  "type" : "specCheck",
+  "prereq" : 58,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 209,
+  "name" : "Specialization (Greatsword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
+  "type" : "specCheck",
+  "prereq" : 59,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 210,
+  "name" : "Specialization (Battleaxe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
+  "type" : "specCheck",
+  "prereq" : 60,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 211,
+  "name" : "Specialization (Warhammer)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
+  "type" : "specCheck",
+  "prereq" : 61,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 212,
+  "name" : "Specialization (Polearm)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
+  "type" : "specCheck",
+  "prereq" : 62,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 213,
+  "name" : "Specialization (Thrown)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
+  "type" : "specCheck",
+  "prereq" : 63,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 214,
+  "name" : "Specialization (Handbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
+  "type" : "specCheck",
+  "prereq" : 64,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 215,
+  "name" : "Specialization (Pistol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
+  "type" : "specCheck",
+  "prereq" : 65,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 216,
+  "name" : "Specialization (Sling)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
+  "type" : "specCheck",
+  "prereq" : 66,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 217,
+  "name" : "Specialization (Bow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
+  "type" : "specCheck",
+  "prereq" : 67,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 218,
+  "name" : "Specialization (Crossbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
+  "type" : "specCheck",
+  "prereq" : 68,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 219,
+  "name" : "Specialization (Rifle)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
+  "type" : "specCheck",
+  "prereq" : 69,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 220,
+  "name" : "Specialization (Cannon)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
+  "type" : "specCheck",
+  "prereq" : 70,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 221,
+  "name" : "Specialization (Wand)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
+  "type" : "specCheck",
+  "prereq" : 71,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 222,
+  "name" : "Specialization (Ring)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
+  "type" : "specCheck",
+  "prereq" : 72,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 223,
+  "name" : "Specialization (Orb)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
+  "type" : "specCheck",
+  "prereq" : 73,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 224,
+  "name" : "Specialization (Talisman)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
+  "type" : "specCheck",
+  "prereq" : 74,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 225,
+  "name" : "Specialization (Staff)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
+  "type" : "specCheck",
+  "prereq" : 75,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 226,
+  "name" : "Specialization (Tome)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
+  "type" : "specCheck",
+  "prereq" : 76,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 227,
+  "name" : "Specialization (Relic)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
+  "type" : "specCheck",
+  "prereq" : 77,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 228,
+  "name" : "Specialization (Symbol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
+  "type" : "specCheck",
+  "prereq" : 78,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 231,
+  "name" : "Expertise (Blade)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
+  "type" : "specCheck",
+  "prereq" : 201,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 232,
+  "name" : "Expertise (Dagger)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
+  "type" : "specCheck",
+  "prereq" : 202,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 233,
+  "name" : "Expertise (Fist)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
+  "type" : "specCheck",
+  "prereq" : 203,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 234,
+  "name" : "Expertise (Whip)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
+  "type" : "specCheck",
+  "prereq" : 204,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 235,
+  "name" : "Expertise (Sword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
+  "type" : "specCheck",
+  "prereq" : 205,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 236,
+  "name" : "Expertise (Axe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
+  "type" : "specCheck",
+  "prereq" : 206,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 237,
+  "name" : "Expertise (Mace)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
+  "type" : "specCheck",
+  "prereq" : 207,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 238,
+  "name" : "Expertise (Shield)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
+  "type" : "specCheck",
+  "prereq" : 208,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 239,
+  "name" : "Expertise (Greatsword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
+  "type" : "specCheck",
+  "prereq" : 209,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 240,
+  "name" : "Expertise (Battleaxe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
+  "type" : "specCheck",
+  "prereq" : 210,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 241,
+  "name" : "Expertise (Warhammer)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
+  "type" : "specCheck",
+  "prereq" : 211,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 242,
+  "name" : "Expertise (Polearm)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
+  "type" : "specCheck",
+  "prereq" : 212,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 243,
+  "name" : "Expertise (Thrown)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
+  "type" : "specCheck",
+  "prereq" : 213,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 244,
+  "name" : "Expertise (Handbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
+  "type" : "specCheck",
+  "prereq" : 214,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 245,
+  "name" : "Expertise (Pistol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
+  "type" : "specCheck",
+  "prereq" : 215,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 246,
+  "name" : "Expertise (Sling)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
+  "type" : "specCheck",
+  "prereq" : 216,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 247,
+  "name" : "Expertise (Bow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
+  "type" : "specCheck",
+  "prereq" : 217,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 248,
+  "name" : "Expertise (Crossbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
+  "type" : "specCheck",
+  "prereq" : 218,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 249,
+  "name" : "Expertise (Rifle)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
+  "type" : "specCheck",
+  "prereq" : 219,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 250,
+  "name" : "Expertise (Cannon)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
+  "type" : "specCheck",
+  "prereq" : 220,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 251,
+  "name" : "Expertise (Wand)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
+  "type" : "specCheck",
+  "prereq" : 221,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 252,
+  "name" : "Expertise (Ring)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
+  "type" : "specCheck",
+  "prereq" : 222,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 253,
+  "name" : "Expertise (Orb)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
+  "type" : "specCheck",
+  "prereq" : 223,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 254,
+  "name" : "Expertise (Talisman)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
+  "type" : "specCheck",
+  "prereq" : 224,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 255,
+  "name" : "Expertise (Staff)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
+  "type" : "specCheck",
+  "prereq" : 225,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 256,
+  "name" : "Expertise (Tome)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
+  "type" : "specCheck",
+  "prereq" : 226,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 257,
+  "name" : "Expertise (Relic)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
+  "type" : "specCheck",
+  "prereq" : 227,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 258,
+  "name" : "Expertise (Symbol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
+  "type" : "specCheck",
+  "prereq" : 228,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 261,
+  "name" : "Mastery (Blade)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Blade.",
+  "type" : "specCheck",
+  "prereq" : 231,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 262,
+  "name" : "Mastery (Dagger)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an Dagger.",
+  "type" : "specCheck",
+  "prereq" : 232,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 263,
+  "name" : "Mastery (Fist)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Fist.",
+  "type" : "specCheck",
+  "prereq" : 233,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 264,
+  "name" : "Mastery (Whip)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a Whip.",
+  "type" : "specCheck",
+  "prereq" : 234,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 265,
+  "name" : "Mastery (Sword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sword.",
+  "type" : "specCheck",
+  "prereq" : 235,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 266,
+  "name" : "Mastery (Axe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using an axe.",
+  "type" : "specCheck",
+  "prereq" : 236,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 267,
+  "name" : "Mastery (Mace)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a mace.",
+  "type" : "specCheck",
+  "prereq" : 237,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 268,
+  "name" : "Mastery (Shield)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a shield.",
+  "type" : "specCheck",
+  "prereq" : 238,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 269,
+  "name" : "Mastery (Greatsword)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a greatsword.",
+  "type" : "specCheck",
+  "prereq" : 239,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 270,
+  "name" : "Mastery (Battleaxe)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a battleaxe.",
+  "type" : "specCheck",
+  "prereq" : 240,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 271,
+  "name" : "Mastery (Warhammer)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a warhammer.",
+  "type" : "specCheck",
+  "prereq" : 241,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 272,
+  "name" : "Mastery (Polearm)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a polearm.",
+  "type" : "specCheck",
+  "prereq" : 242,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 273,
+  "name" : "Mastery (Thrown)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a thrown weapon.",
+  "type" : "specCheck",
+  "prereq" : 243,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 274,
+  "name" : "Mastery (Handbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a handbow.",
+  "type" : "specCheck",
+  "prereq" : 244,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 275,
+  "name" : "Mastery (Pistol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a pistol.",
+  "type" : "specCheck",
+  "prereq" : 245,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 276,
+  "name" : "Mastery (Sling)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a sling.",
+  "type" : "specCheck",
+  "prereq" : 246,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 277,
+  "name" : "Mastery (Bow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a bow.",
+  "type" : "specCheck",
+  "prereq" : 247,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 278,
+  "name" : "Mastery (Crossbow)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a crossbow.",
+  "type" : "specCheck",
+  "prereq" : 248,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 279,
+  "name" : "Mastery (Rifle)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a rifle.",
+  "type" : "specCheck",
+  "prereq" : 249,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 280,
+  "name" : "Mastery (Cannon)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a cannon.",
+  "type" : "specCheck",
+  "prereq" : 250,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 281,
+  "name" : "Mastery (Wand)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a wand.",
+  "type" : "specCheck",
+  "prereq" : 251,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 282,
+  "name" : "Mastery (Ring)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a ring.",
+  "type" : "specCheck",
+  "prereq" : 252,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 283,
+  "name" : "Mastery (Orb)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a orb.",
+  "type" : "specCheck",
+  "prereq" : 253,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 284,
+  "name" : "Mastery (Talisman)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a talisman.",
+  "type" : "specCheck",
+  "prereq" : 254,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 285,
+  "name" : "Mastery (Staff)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a staff.",
+  "type" : "specCheck",
+  "prereq" : 255,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 286,
+  "name" : "Mastery (Tome)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a tome.",
+  "type" : "specCheck",
+  "prereq" : 256,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 287,
+  "name" : "Mastery (Relic)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a relic.",
+  "type" : "specCheck",
+  "prereq" : 257,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 288,
+  "name" : "Mastery (Symbol)",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases contribution to damage from your primary attribute by 10% while using a symbol.",
+  "type" : "specCheck",
+  "prereq" : 258,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 301,
+  "name" : "Tough",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base HP by CON * 1%.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Tough",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 0.01,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 302,
+  "name" : "Hardy",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base HP by 10% and your HP multiplier by 2%.",
+  "type" : "passive",
+  "prereq" : 301,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Hardy",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 0.02,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Hardy",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "HPMULTI",
+    "severity" : 0.01,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 303,
+  "name" : "Durable",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base HP by 20% and your HP multiplier by 3%.",
+  "type" : "passive",
+  "prereq" : 302,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Durable",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEHP",
+    "severity" : 0.03,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Durable",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "HPMULTI",
+    "severity" : 0.02,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 311,
+  "name" : "Soulful",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base aura by 10%.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Soulful",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEAURA",
+    "severity" : 0.01,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 312,
+  "name" : "Spiritual",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base aura by 10% and your aura multiplier by 2%.",
+  "type" : "passive",
+  "prereq" : 311,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Spiritual",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEAURA",
+    "severity" : 0.02,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Spiritual",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "AURAMULTI",
+    "severity" : 0.01,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 313,
+  "name" : "Attuned",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Increases your base aura by 20% and your aura multiplier by 3%.",
+  "type" : "passive",
+  "prereq" : 312,
+  "pick" : false,
+  "permStatus" : [ {
+    "name" : "Attuned",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "BASEAURA",
+    "severity" : 0.03,
+    "durationType" : "Permanent",
+    "duration" : 0
+  }, {
+    "name" : "Attuned",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "AURAMULTI",
+    "severity" : 0.02,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 321,
+  "name" : "Combat Medic",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Your heals do not provoke an attack of opportunity.",
+  "type" : "reminder",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 351,
+  "name" : "Aura Actioneer I",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 352,
+  "name" : "Aura Actioneer II",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 351,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 353,
+  "name" : "Aura Actioneer III",
+  "refName" : "",
+  "category" : "Martial",
+  "description" : "Gain 1 additional Aura Action.",
+  "type" : "passive",
+  "prereq" : 352,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 331,
+  "name" : "Skill Dedication",
+  "refName" : "",
+  "category" : "Skill",
+  "description" : "Improve a skill",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 341,
+  "name" : "Skillful",
+  "refName" : "",
+  "category" : "Skill",
+  "description" : "Gain an additional skill.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ {
+    "name" : "Skillful",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "SKILL",
+    "severity" : 1.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 342,
+  "name" : "Accomplished",
+  "refName" : "",
+  "category" : "Skill",
+  "description" : "Gain 2 additional skills.",
+  "type" : "passive",
+  "prereq" : 341,
+  "pick" : true,
+  "permStatus" : [ {
+    "name" : "Accomplished",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "SKILL",
+    "severity" : 2.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 343,
+  "name" : "Virtuoso",
+  "refName" : "",
+  "category" : "Skill",
+  "description" : "Gain 3 additional skills.",
+  "type" : "passive",
+  "prereq" : 342,
+  "pick" : true,
+  "permStatus" : [ {
+    "name" : "Virtuoso",
+    "affinity" : "None",
+    "description" : "None",
+    "attribute" : "SKILL",
+    "severity" : 3.0,
+    "durationType" : "Permanent",
+    "duration" : 0
+  } ]
+}, {
+  "id" : 1011,
+  "name" : "Martial Feature I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1012,
+  "name" : "War Charge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "When performing a charge, increase your move speed by (2.5 x char level) ft.<br> You are not subject to attacks of opportunity during a Charge attack.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1021,
+  "name" : "Might",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Might.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1022,
+  "name" : "Crushing Blow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Crushing Blow (Bend) - Your next attack increases your RESALL.<br>Crushing Blow (Break) - Your next attack reduces the target's DODGE.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1023,
+  "name" : "Crushing Blow (Bend)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Crushing Blow (Bend) - Your next attack increases your RESALL.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1024,
+  "name" : "Crushing Blow (Break)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Crushing Blow (Break) - Your next attack reduces the target's DODGE.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1031,
+  "name" : "Combat Specialist",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a Special Combat Action. When that action, add your PRIM to MAN.",
+  "type" : "passive",
+  "prereq" : 3,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1032,
+  "name" : "Stance I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "reminder",
+  "prereq" : 3,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1041,
+  "name" : "Martial Feature II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1042,
+  "name" : "Weapon Specialization I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a weapon you are proficient with. Gain the Weapon Specialization feature for that weapon. If you already have Weapon Specialization for that weapon, select another martial feature to gain instead.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1043,
+  "name" : "Jagged Edges",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to TDMG equal to 1/2 your ARMOR.",
+  "type" : "passive",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1031,
+  "name" : "Specialized Combatant",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a Special Combat Action. When performing that action, gain a bonus equal to char level.",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1041,
+  "name" : "Weapon Specialization",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a weapon you are proficient with. Gain the Weapon Specialization feature for that weapon. If you already have Weapon Specialization for that weapon, select another martial feature to gain instead.",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1042,
+  "name" : "Stance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose an available stance. Gain 1 rank in the chosen stance.",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1051,
+  "name" : "Defender (Defense Subclass)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a 50% increase to base HP. Gain a bonus to reactions equal to your char level. An adjacent enemy must succeed at a WILL save to attack a target that is not a tank.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1052,
+  "name" : "Fighter (Impairment Subclass)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to DC equal to 1/2 char level. Gain a 50% increase to Debuff. Your impairment effects gain an increase of +1 to duration.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1054,
+  "name" : "Valor",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1055,
+  "name" : "Taunt",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active abilities Taunt and Taunting Shout.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1057,
+  "name" : "Ferocity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to your first Subclass Resource. Maximum value equal to char level. Restored on long rest.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1058,
+  "name" : "Rend",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active abilities Rend and Rending Cleave.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1061,
+  "name" : "Whirlwind",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Whirlwind.",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1062,
+  "name" : "Overpower",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a 50% increase to Critical Damage.",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1071,
+  "name" : "Martial Feature III",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1072,
+  "name" : "Stance II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "reminder",
+  "prereq" : 7,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1071,
+  "name" : "Slam",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "While equipped with a shield, gain an additional attack for 50% damage. While not using a shield, your first attack each turn gains a +25% modifier.",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1074,
+  "name" : "Ignore Pain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Ignore Pain.",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1077,
+  "name" : "Hemorrhage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Hemorrhage.",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1081,
+  "name" : "Rage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to your special Class Resource. Maximum value equal to char level. Decays between combat. Gain 1 Rage at end of your turn if you dealt damage. Gain 1 Rage at start of your turn if you received damage that cycle.",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1082,
+  "name" : "Battle Frenzy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Battle Frenzy.",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1083,
+  "name" : "Violent Fury",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Enrage. (Blood rage?)",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1091,
+  "name" : "Weapon Expertise",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a weapon you have specialization for. Gain Weapon Expertise for that weapon. If you already have Weapon Expertise, you may choose another martial feature instead.",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1094,
+  "name" : "Parry",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to DEF equal to 1/5 of your attack bonus.",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1097,
+  "name" : "Hamstring",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "When you apply an impairment to an enemy, apply Hamstring for the same duration. Hamstring reduces movement speed by 50%.",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1101,
+  "name" : "Martial Feature IV",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1101,
+  "name" : "Savage Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Savage Strike.",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1102,
+  "name" : "Enrage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Each time you are dealt damage or deal damage, gain 1 Enrage. Lose 1/2 your enrage stacks at end of round. Your total damage is increased by +1 per Enrage stack.",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1104,
+  "name" : "Instigate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Instigate.",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1107,
+  "name" : "Sunder",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Sunder.",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1111,
+  "name" : "Stance III",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "reminder",
+  "prereq" : 11,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1111,
+  "name" : "Raging Blow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Raging Blow.",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1114,
+  "name" : "Intercept",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Intercept.",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1117,
+  "name" : "Impale",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Impale.",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1121,
+  "name" : "Execution",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At the resolution of an attack where you dealt damage, any enemy target with more bleed than HP dies.",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1122,
+  "name" : "Devastation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your wound effects require two heals to cure.",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1131,
+  "name" : "Martial Feature V",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1131,
+  "name" : "Dreadnaut",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You may execute a special combat action as a free action at the conclusion of a charge attack.",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1134,
+  "name" : "Punish",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Punish.",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1137,
+  "name" : "Pummel",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Pummel.",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1141,
+  "name" : "Berserker Rage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Berserker Rage.",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1142,
+  "name" : "Weapon Mastery",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Choose a weapon you have expertise for. Gain Weapon Mastery for that weapon. If you already have Weapon Mastery, you may choose another martial feature instead.",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1151,
+  "name" : "Stance IV",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "reminder",
+  "prereq" : 15,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1151,
+  "name" : "War Machine",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Any time you perform a special combat action you may perform two special combat actions.",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1154,
+  "name" : "Last Stand",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Last Stand.",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1157,
+  "name" : "Shatter",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Shatter.",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1161,
+  "name" : "Martial Feature VI",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1161,
+  "name" : "Bladestorm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1162,
+  "name" : "Relentlessness",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1171,
+  "name" : "Colossal Smash",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to active ability Colossal Smash.",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1174,
+  "name" : "Vanguard",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1177,
+  "name" : "Conqueror",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1181,
+  "name" : "Titanic",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You may weild a heavy melee weapon in one hand. You may use a standard melee weapon in your off-hand.",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1184,
+  "name" : "Unstoppable",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1187,
+  "name" : "Mortal Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1191,
+  "name" : "Martial Feature VII",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a Martial type Feature of your choice.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1192,
+  "name" : "Stance V",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "",
+  "type" : "reminder",
+  "prereq" : 19,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 1191,
+  "name" : "Death Wish",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1194,
+  "name" : "Vigilance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1197,
+  "name" : "Concuss",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1201,
+  "name" : "Demolish",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1202,
+  "name" : "Juggernaut",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1204,
+  "name" : "Immortal Object",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 1207,
+  "name" : "Tyrant",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2011,
+  "name" : "Divine Vow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 2012,
+  "name" : "Holy Domain Emanation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "reminder",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 2021,
+  "name" : "Purpose",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Purpose.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2022,
+  "name" : "Judgment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Judgment (Innocent) - Your next attack curses the target to heal targets it damages..<br>Grants access to Judgment (Guilty) - Your next attack curses the target to take damage when attacking your allies.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2023,
+  "name" : "Judgment (Innocent)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Judgment (Innocent) - Your next attack curses the target to heal targets it damages.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2024,
+  "name" : "Judgment (Guilty)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Judgment (Guilty) - Your next attack curses the target to take damage when attacking your allies.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2031,
+  "name" : "Divine Grace",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a passive bonus equal to level to saves, DEF, ATK, and APPLY. If you break your vow, you are denied this bonus until redeemed.",
+  "type" : "passive",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2032,
+  "name" : "Smite",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Smite - Your next attack bypasses ARMOR and deals divine damage",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2041,
+  "name" : "Reckoning",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Whenever an ally takes damage, you gain +1 TDMG until the end of combat",
+  "type" : "passive",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2042,
+  "name" : "Crusader Seal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Activate to begin storing charges. Unleash charges for +0.5 MAXATK per charge until end of turn.",
+  "type" : "action",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2054,
+  "name" : "Conviction",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2055,
+  "name" : "Denounce",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2057,
+  "name" : "Zeal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2058,
+  "name" : "Consecrate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2061,
+  "name" : "Divine Storm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2062,
+  "name" : "Vindicator",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2071,
+  "name" : "Exorcize",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2074,
+  "name" : "Shield Wall",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2077,
+  "name" : "Blessing of Protection",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2081,
+  "name" : "Wrath",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2082,
+  "name" : "Sanctify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2083,
+  "name" : "Bastion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2091,
+  "name" : "Holy Ground",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2094,
+  "name" : "Block",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2097,
+  "name" : "Aura of Devotion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2101,
+  "name" : "Avenging Wrath",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2102,
+  "name" : "Hammer of the Righteous",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2104,
+  "name" : "Rebuke",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2107,
+  "name" : "Blessing of Freedom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2111,
+  "name" : "Blades of Justice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2114,
+  "name" : "Hand of Justice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2117,
+  "name" : "Blessing of Justice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2121,
+  "name" : "Lay on Hands",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2122,
+  "name" : "Reprentence",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2131,
+  "name" : "Verdict",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2134,
+  "name" : "Holy Shield",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2137,
+  "name" : "Blessing of Sanctuary",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2141,
+  "name" : "Divine Might",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2142,
+  "name" : "Unity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2151,
+  "name" : "Inquisition",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2154,
+  "name" : "Angelic Guardian",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2157,
+  "name" : "Aura of Dominion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2161,
+  "name" : "Templar's Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2162,
+  "name" : "Holy Shock",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2171,
+  "name" : "Argent Call",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2174,
+  "name" : "Godborne",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2177,
+  "name" : "Holy Seal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2181,
+  "name" : "Divine Champion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2184,
+  "name" : "Divne Beacon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2187,
+  "name" : "Divine Decree",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2191,
+  "name" : "Commandment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2194,
+  "name" : "Holy Aegis",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2197,
+  "name" : "Blessing of Sacrifice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2201,
+  "name" : "Armageddon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2202,
+  "name" : "Avatar",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2204,
+  "name" : "Divine Intervention",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 2207,
+  "name" : "Holy Crusade",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3011,
+  "name" : "Sneak Attack",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Usable once per turn.<br>Target must be unaware, flanked, or exposed.<br>Increases DMGMULTI by 0.25 and TDMG by (level+1 x level+1)",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3012,
+  "name" : "Dual Wield",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3021,
+  "name" : "Wits",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Wits.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3022,
+  "name" : "Shiv",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Shiv (Over) - Your next attack applies a stun to your target.<br>Grants access to Shiv (Under) - Your next attack reduces the target's ATK.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3023,
+  "name" : "Shiv (Over)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Shiv (Over) - Your next attack applies a stun to your target.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3024,
+  "name" : "Shiv (Under)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Shiv (Under) - Your next attack reduces the target's ATK.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3031,
+  "name" : "Trapfinding",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You have a chance to sense traps automatically.",
+  "type" : "reminder",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3032,
+  "name" : "Stealth Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Stealth Strike - Your next attack has stealth related special effects",
+  "type" : "action",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3041,
+  "name" : "Escape Artisan",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to saves against hard control effects",
+  "type" : "reminder",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3042,
+  "name" : "Evasion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3054,
+  "name" : "Secrecy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3055,
+  "name" : "Vanish",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3057,
+  "name" : "Infliction",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3058,
+  "name" : "Envenom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3061,
+  "name" : "Lethality",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3062,
+  "name" : "Hit and Run",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3071,
+  "name" : "Venoms",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3074,
+  "name" : "Drowsy Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3077,
+  "name" : "Weakening Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3081,
+  "name" : "Tricks",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3082,
+  "name" : "Backstab",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3083,
+  "name" : "Sap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3091,
+  "name" : "Eviscerate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3094,
+  "name" : "Distract",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3097,
+  "name" : "Garrote",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3101,
+  "name" : "Instant Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3102,
+  "name" : "Alacrity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3104,
+  "name" : "Daze",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3107,
+  "name" : "Sepsis",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3111,
+  "name" : "Fan of Knives",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3114,
+  "name" : "Impersonate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3117,
+  "name" : "Numbing Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3121,
+  "name" : "Tricks of the Trade",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3122,
+  "name" : "Blade Flurry",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3131,
+  "name" : "Slice and Dice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3134,
+  "name" : "Atrophic Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3137,
+  "name" : "Smoke Bomb",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3141,
+  "name" : "Deadly Venom",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3142,
+  "name" : "Ambidexterity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3151,
+  "name" : "Rupture",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3154,
+  "name" : "Burgle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3157,
+  "name" : "Feint",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3161,
+  "name" : "Premeditation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3162,
+  "name" : "Riposte",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3171,
+  "name" : "Adrenaline Rush",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3174,
+  "name" : "Swift Step",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3177,
+  "name" : "Gouge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3181,
+  "name" : "Poison Bomb",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3184,
+  "name" : "Blind",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3187,
+  "name" : "Hemotoxin",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3191,
+  "name" : "Marked for Death",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3194,
+  "name" : "Ambush",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3197,
+  "name" : "Mutilate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3201,
+  "name" : "Killing Spree",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3202,
+  "name" : "Dreadblades",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3204,
+  "name" : "Shadow Dance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 3207,
+  "name" : "Cloak of Shadows",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4011,
+  "name" : "Unarmed Prowess",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You are proficient with unarmed attacks.<br>Once per turn, gain an advantage over an unaware, flanked, or exposed target.<br>Increases ATK against that target by (level x level x 0.5)",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4012,
+  "name" : "Combat Discipline I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 4021,
+  "name" : "Preparation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Preparation.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4022,
+  "name" : "Resonant Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Resonant Strike (Ebb) - Your next attack applies heavy tokens to your target.<br>Grants access to Resonant Strike (Flow) - Your next attack grants you Shield.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4023,
+  "name" : "Resonant Strike (Ebb)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Resonant Strike (Ebb) - Your next attack applies heavy tokens to your target.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4024,
+  "name" : "Resonant Strike (Flow)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Resonant Strike (Flow) - Your next attack grants you Shield.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4031,
+  "name" : "Nimble Feet",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Negate All Displacement Damage (including fall damage).<br>Gain a bonus to saves against displacement.<br>Gain a bonus to MOVE equal to your level.",
+  "type" : "reminder",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4032,
+  "name" : "Follow Up",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Perform a final attack.",
+  "type" : "action",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4041,
+  "name" : "Sharp Senses",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to REACT equal to 0.1 x FOC",
+  "type" : "passive",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4042,
+  "name" : "Still Mind",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You are immune to mind-based loss of control effects.<br>You may not speak. You may only attack.",
+  "type" : "action",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4043,
+  "name" : "Combat Discipline II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "passive",
+  "prereq" : 4,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 4054,
+  "name" : "Tolerance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Tolerance.",
+  "type" : "resource2",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4055,
+  "name" : "Clash",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Allows you to take an attack for an ally.",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4056,
+  "name" : "Shuffle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Delays incoming damage.",
+  "type" : "specCheck",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4057,
+  "name" : "Tranquility",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Tranquility.",
+  "type" : "resource2",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4058,
+  "name" : "Sneak",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4061,
+  "name" : "Spear Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Spear Strike, an ability interrupt",
+  "type" : "action",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4062,
+  "name" : "Fleet Footwork",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You may use movement abilities between your full-attack actions",
+  "type" : "reminder",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4071,
+  "name" : "Breaker Combo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus to CRUSH equal to 0.5 x level.<br>Each attack you make increases your CRUSH by 0.5 x level.<br>This bonus resets at end of turn.",
+  "type" : "passive",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4074,
+  "name" : "Adaptive Technique",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Whenever you are struck by an attack or effect, increase the defensive attribute used.<br>Whenever you avoid or save against an attack or effect, reduce this bonus by 1.",
+  "type" : "passive",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4077,
+  "name" : "Leg Sweep",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4081,
+  "name" : "Temperance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to class resource 2, Temperance.",
+  "type" : "resource3",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4082,
+  "name" : "Anger Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4083,
+  "name" : "Calm Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4084,
+  "name" : "Combat Discipline III",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "passive",
+  "prereq" : 8,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 4091,
+  "name" : "Mighty Kick",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4094,
+  "name" : "Counterstrike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4097,
+  "name" : "Windwalking",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4101,
+  "name" : "Combo Breaker",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4102,
+  "name" : "Spinning Crane Kick",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4104,
+  "name" : "Dampen Harm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4107,
+  "name" : "Disable",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4111,
+  "name" : "Inner Balance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4114,
+  "name" : "Inner Strength",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4117,
+  "name" : "Inner Peace",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4121,
+  "name" : "Fists of Fury",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4122,
+  "name" : "Serenity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4131,
+  "name" : "Resonant Fists",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4134,
+  "name" : "Bob and Weave",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4137,
+  "name" : "Paralysis",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4141,
+  "name" : "Crashing Bear Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4142,
+  "name" : "Astral Torpedo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4151,
+  "name" : "Unison Raid",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4154,
+  "name" : "Expel Harm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4157,
+  "name" : "Guided Meditation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4161,
+  "name" : "Wolf Fang Fist",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4162,
+  "name" : "Skyreach",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4171,
+  "name" : "Whirling Dragon Punch",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4174,
+  "name" : "Elusive Footwork",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4177,
+  "name" : "Pressure Points",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4181,
+  "name" : "Touch of Death",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4184,
+  "name" : "Touch of Karma",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4187,
+  "name" : "Mystic Touch",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4191,
+  "name" : "Ascension",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4194,
+  "name" : "Clash",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4197,
+  "name" : "Ring of Peace",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4201,
+  "name" : "Essence of the Wolf",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4202,
+  "name" : "Essence of the Bear",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4204,
+  "name" : "Essence of the Ox",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 4207,
+  "name" : "Essence of the Tiger",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5011,
+  "name" : "Sniper's Domain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Increases RANGE by 2.5 x level.<br>Add TDMG to your attacks based on distance from the enemy.<br>+[distance in feet] * [character level] / 2.5",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5012,
+  "name" : "Favored Enemy and Terrain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain + level to ATK and CRIT when fighting favored enemies.<br>Gain + level to APPLY, SUP, and MAST when fighting in favored terrain.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 5013,
+  "name" : "Favored Enemy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain + level to ATK and CRIT when fighting favored enemies.",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 5014,
+  "name" : "Favored Terrain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain + level to APPLY, SUP, and MAST when fighting in favored terrain.",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 5021,
+  "name" : "Precision",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Precision.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5022,
+  "name" : "Misdirection",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Misdirection (Toss) - Your next attack prevents your opponent from attacking.<br>Grants access to Misdirection (Turn) - Your next attack grants your allies flanking.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5023,
+  "name" : "Misdirection (Toss)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Misdirection (Toss) - Your next attack prevents your opponent from attacking.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5024,
+  "name" : "Misdirection (Turn)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Misdirection (Turn) - Your next attack grants your allies flanking.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5012,
+  "name" : "Preferred Environment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5031,
+  "name" : "Steady Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5032,
+  "name" : "Swap Ammo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5041,
+  "name" : "Rapid Fire",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5042,
+  "name" : "Chakrams",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5054,
+  "name" : "Observation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5055,
+  "name" : "Coordinate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5057,
+  "name" : "Insight",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5058,
+  "name" : "Hide",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5061,
+  "name" : "Aimed Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5062,
+  "name" : "Pathfinder",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5071,
+  "name" : "Sniper Training",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5074,
+  "name" : "Hawk Eye",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5077,
+  "name" : "Binding Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5081,
+  "name" : "Concentration",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5082,
+  "name" : "Marking Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5083,
+  "name" : "Traps",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5091,
+  "name" : "Barbed Trap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5094,
+  "name" : "Alarm Trap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5097,
+  "name" : "Snare Trap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5101,
+  "name" : "Multi Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5102,
+  "name" : "Aspect of the Hawk",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5104,
+  "name" : "Aspect of the Crow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5107,
+  "name" : "Aspect of the Sparrow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5111,
+  "name" : "Ricochet",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5114,
+  "name" : "Trueshot Aura",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5117,
+  "name" : "Track",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5121,
+  "name" : "Barbed Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5122,
+  "name" : "Harpoon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5131,
+  "name" : "Volley",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5134,
+  "name" : "Flare",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5137,
+  "name" : "Silencing Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5141,
+  "name" : "Kill Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5142,
+  "name" : "Deadeye",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5151,
+  "name" : "Explosive Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5154,
+  "name" : "Rallying Cry",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5157,
+  "name" : "Hookshot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5161,
+  "name" : "Scatter Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5162,
+  "name" : "Disengage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5171,
+  "name" : "Barrage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5174,
+  "name" : "Aspect of the Eagle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5177,
+  "name" : "Tangling Trap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5181,
+  "name" : "Hydra Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5184,
+  "name" : "Supply Lines",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5187,
+  "name" : "Camouflage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5191,
+  "name" : "Astral Arrow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5194,
+  "name" : "Tactical Awareness",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5197,
+  "name" : "Tranquilizer Shot",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5201,
+  "name" : "Bombardment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5202,
+  "name" : "Planeswalker",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5204,
+  "name" : "The Art of War",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 5207,
+  "name" : "Grand Design",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6011,
+  "name" : "Summon Minion (Minor + General + Melee)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Summon a small minion to do your bidding.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6012,
+  "name" : "Restore Summon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Rebuild a minion that has fallen in combat.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6021,
+  "name" : "Authority",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Authority.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6022,
+  "name" : "Command",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Command (Safe) - Your next attack grants an ally a bonus to DEF.<br>Grants access to Command (Sound) - Your next attack applies a heal over time to allies.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6023,
+  "name" : "Command (Safe)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Command (Safe) - Your next attack grants an ally a bonus to DEF.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6024,
+  "name" : "Command (Sound)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Command (Sound) - Your next attack applies a heal over time to allies.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6031,
+  "name" : "Minion (Damaging + Ranged)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Damaging minions. These minions have increased Offense but lowered Defense.<br>Gain access to Ranged minions.",
+  "type" : "specCheck",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6032,
+  "name" : "Gambit",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6041,
+  "name" : "Inspire I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 4,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 6042,
+  "name" : "Minion (Durable)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Durable minions. These minions have increased Defense but lowered Offense.",
+  "type" : "specCheck",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6043,
+  "name" : "Swap",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Switch position with target minion.",
+  "type" : "action",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6054,
+  "name" : "Respite",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Respite.",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6055,
+  "name" : "Medicate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6056,
+  "name" : "Healthcare",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6057,
+  "name" : "Advantage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Advantage.",
+  "type" : "resource2",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6058,
+  "name" : "Uplift",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Apply any number of cleanse effects once each to allies within your range without action cost. All allies gain +1 to their primary attribute until EoR.",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6059,
+  "name" : "Muster",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Allies gain a bonus equal to your character level to base damage until EoR.",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6061,
+  "name" : "Summon Minion (Minor) II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You may summon a second minor minion.",
+  "type" : "specCheck",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6062,
+  "name" : "Crossfire",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "The target of your Crossfire attack is subject to an attack of opportunity from all of your allies.  Your allies must consume 1 Reaction to make this attack. This attack of opportunity is not limited to melee attacks.",
+  "type" : "action",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6063,
+  "name" : "Rally",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Designate a target afflicted by a Psychosis effect. Select and dispel 1 Psychosis effect from the target",
+  "type" : "action",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6071,
+  "name" : "Life Link",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Whenever you suffer damage, you may redirect up to 50% of the taken damage to one of your minions. This ability takes effect after damage mitigation is calculated and the redirected damage may not be mitigated further.",
+  "type" : "specCheck",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6074,
+  "name" : "Minion (Heal)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6077,
+  "name" : "Minion (Support)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Support minions. These minions have decreased stats, but can perform support abilities.",
+  "type" : "specCheck",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6081,
+  "name" : "Tactics",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to class resource 2, Tactics.",
+  "type" : "resource3",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6082,
+  "name" : "Transpose",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your swap ability can now exchange positions of a minion and any willing ally.",
+  "type" : "specCheck",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6083,
+  "name" : "Flash Mob",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Flash Mob ability. Performing Flash Mob requires a cost of 1 Aggressive Tactic and 1 Strategic Tactic to use. Flash Mob is activated as a free action or an interrupt when declaring an attack. Only one Tactics ability can be activated per turn. Flash Mob modifies the user’s next attack during the turn in which it is activated. If Flash Mob is not consumed before the end of the user’s turn, the effect is lost and the user recovers one of the two tactics consumed.  Flash Mob grants no direct bonus for the attack consuming it. The attack gains the \"Technical\" modifier (see Combat for more information on technical abilities). For each TP, the user may select a unique minion under their control. Choose an unoccupied tile adjacent to the chosen minion. Your minion may move to the chosen tile without cost or attacks of opportunity.         If the minion does not move, a copy of the minion is created in the chosen tile. This copy is identical to the original with the following exceptions: The copy has a maximum of 1 HP and this amount cannot be increased. The copy cannot use or be targeted by class abilities. The copy acts during the original's turn. If the minion does move, the copy is created in the minion's original tile. This process does not allow creatures other than the leader to identify original or copy. If the Leader has a Support subclass, the copy minions can use Gambit as though they were a support minion.",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6084,
+  "name" : "Inspire II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Select another Inspire from available options.",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 6091,
+  "name" : "Minion (Aura)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain access to Aura minions. These minions have decreased stats, but can activate aura techniques.",
+  "type" : "specCheck",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6094,
+  "name" : "Triage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6097,
+  "name" : "Formation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Formation ability. Performing Formation requires a cost of 1 Defensive Tactic and 1 Strategic Tactic to use. Formation is activated as an aura action. Only one Tactics ability can be activated per turn. Only one Formation can be active at any time. Select a target ally (you may select yourself). For every minion adjacent to the target ally, that ally receives a bonus to attack equal to the minion's gambit bonus. ",
+  "type" : "action",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6101,
+  "name" : "Maker's Call",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6102,
+  "name" : "Burst Fire",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6104,
+  "name" : "Protect",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6107,
+  "name" : "Bond Senses",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6111,
+  "name" : "Summon Minion (Minor)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6114,
+  "name" : "Renew",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6117,
+  "name" : "Redact",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6121,
+  "name" : "Life Bond",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6122,
+  "name" : "Detonate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6131,
+  "name" : "Minion Type (Specialized)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6134,
+  "name" : "Operating Room",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6137,
+  "name" : "Web",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6141,
+  "name" : "Summon Minion (Medium)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6142,
+  "name" : "Latch On",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6151,
+  "name" : "Bond",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6154,
+  "name" : "Therapy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6157,
+  "name" : "Occlude",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6161,
+  "name" : "Summon Minion (Major)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6162,
+  "name" : "Cannonade",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6171,
+  "name" : "Minion Type (Hybrid)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6174,
+  "name" : "Fountain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6177,
+  "name" : "Apprehend",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6181,
+  "name" : "Union",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6184,
+  "name" : "Replenish",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6187,
+  "name" : "Suppress",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6191,
+  "name" : "Rapid Summon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6194,
+  "name" : "Sacrifice",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6197,
+  "name" : "Unsummon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6201,
+  "name" : "Forge Titan",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6202,
+  "name" : "Mandate (Kill)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6204,
+  "name" : "Mandate (Heal)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 6207,
+  "name" : "Mandate (Imprision)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7011,
+  "name" : "Divine Attunement",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain 1 free rank in all aura affinities related to your deity's domains.<br>Gain a bonus for all non-affinity domains.<br>Gain proficiency with your deity's weapon.",
+  "type" : "passive",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7012,
+  "name" : "Holy Domain Blessing",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Select one of your deity's domains.<br>Apply a blessing to allies when meeting the domain condition.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 7021,
+  "name" : "Piety",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Piety.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7022,
+  "name" : "Chastise",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Chastise (Night) - Your next attack increases the damage the target takes.<br>Grants access to Chastise (Day) - Your next attack heals your allies.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7023,
+  "name" : "Chastise (Night)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Chastise (Night) - Your next attack increases the damage the target takes.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7024,
+  "name" : "Chastise (Day)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Chastise (Day) - Your next attack heals your allies.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7031,
+  "name" : "Holy Beacon",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7032,
+  "name" : "Divine Enlightenment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7041,
+  "name" : "Atonement",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7042,
+  "name" : "Holy Fire",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7054,
+  "name" : "Devotion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7055,
+  "name" : "Prayer",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7057,
+  "name" : "Damnation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7058,
+  "name" : "Condemn",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7061,
+  "name" : "DarkWord: Pain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7062,
+  "name" : "Rapture",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7071,
+  "name" : "Divine Service",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7074,
+  "name" : "Flash Heal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7077,
+  "name" : "Curse of Weakness",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7081,
+  "name" : "Faith",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7082,
+  "name" : "Extoll",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7083,
+  "name" : "Castigate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7091,
+  "name" : "Dark Word: Misery",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7094,
+  "name" : "Circle of Healing",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7097,
+  "name" : "Curse of Tongues",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7101,
+  "name" : "Void Lance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7102,
+  "name" : "Vampiric Touch",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7104,
+  "name" : "Heal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7107,
+  "name" : "Silence",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7111,
+  "name" : "Power Word: Wrath",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7114,
+  "name" : "Power Word: Shield",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7117,
+  "name" : "Power Word: Radiance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7121,
+  "name" : "Holy Nova",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7122,
+  "name" : "Exaltation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7131,
+  "name" : "Void Eruption",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7134,
+  "name" : "Prayer of Healing",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7137,
+  "name" : "Curse of the Elements",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7141,
+  "name" : "Contrition",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7142,
+  "name" : "Glorious Prayer",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7151,
+  "name" : "Power Word: Sanctify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7154,
+  "name" : "Power Word: Salvation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7157,
+  "name" : "Power Word: Censure",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7161,
+  "name" : "Void Torrent",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7162,
+  "name" : "Halo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7171,
+  "name" : "Dark Word: Death",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7174,
+  "name" : "Greater Heal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7177,
+  "name" : "Curse of Rate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7181,
+  "name" : "Deathspeaker",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7184,
+  "name" : "Prayer of Mending",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7187,
+  "name" : "Penance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7191,
+  "name" : "Last Word",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7194,
+  "name" : "Divine Font",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7197,
+  "name" : "Curse of Enfeeblement",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7201,
+  "name" : "Archangel",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7202,
+  "name" : "Epiphany",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7204,
+  "name" : "Miracle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 7207,
+  "name" : "Crucify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8011,
+  "name" : "Astral Proficiency",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8012,
+  "name" : "Advanced Affinity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain a bonus natural affinity.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 8021,
+  "name" : "Aptitude",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Aptitude.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8022,
+  "name" : "Efflux",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Efflux (Rise) - Your next attack increases the damage of your allies.<br>Grants access to Efflux (Fall) - Your next attack reduces the damage of the target.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8023,
+  "name" : "Efflux (Rise)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Efflux (Rise) - Your next attack increases the damage of your allies.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8024,
+  "name" : "Efflux (Fall)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Efflux (Fall) - Your next attack reduces the damage of the target.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8031,
+  "name" : "Arcane Analysis",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants skills Analyze (CTL) and Identify (CTL)",
+  "type" : "specCheck",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8032,
+  "name" : "Deepening Pools I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Increases Aura per CAP by 0.25%",
+  "type" : "specCheck",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8041,
+  "name" : "Astral Proficiency II",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+  "type" : "specCheck",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8042,
+  "name" : "Stream",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stream resets to 0 at start of combat. Whenever you spend aura, gain Stream value equal to the amount of aura spent. At the end of your turn, gain aura equal to 10% aura spent or (char level / 2), whichever is lesser, and reset stream amount to 0.",
+  "type" : "specCheck",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8043,
+  "name" : "Inherent Understanding",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 4 and every 4 levels thereafter, the maximum tech level of all the caster’s aura techniques that match their natural affinities is raised by 1.",
+  "type" : "specCheck",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8054,
+  "name" : "Empowerment",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "resource2",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8055,
+  "name" : "Evoke",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8057,
+  "name" : "Affliction",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your subclass resource, Affliction.",
+  "type" : "resource2",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8058,
+  "name" : "Incant",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "When Incant is activated, your next impairment ability gains the following: “Provoke a WILL save. If the target fails this save, the severity of the base effect is increased by 10% of your DEX.”",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8059,
+  "name" : "Chain",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "When Chain is activated, your next impairment ability gains the following: “Provoke a FORT save. If the target fails this save, the technique is replicated with a -10 penalty to APPLY and targets an unaffected creature within RANGE. The replicated technique also has this effect.”",
+  "type" : "action",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8061,
+  "name" : "Arcane Missiles",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Arcane Missiles ability. Arcane Missiles costs 1 Power to activate. Arcane Missiles has an additional aura cost equal to <character level * character level>. Arcane Missiles is activated as a standard action.  Arcane Missiles performs a simultaneous set of standard attacks equal in number to (CL / 3), rounded up. These attacks receive a bonus damage multiplier of (10 x CL)%. Each attack may designate its own target and all targets must be designated before attack roll and damage. The missiles will share attack and damage rolls. Each missile's damage type may be selected individually among damage types you have aura attacks for. ",
+  "type" : "action",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8062,
+  "name" : "Critical Mass",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your critical damage is increased by 1% for every aura you have spent this turn.",
+  "type" : "specCheck",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8063,
+  "name" : "Deepening Pools I",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Increases Aura per CAP by 0.25%",
+  "type" : "specCheck",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8071,
+  "name" : "Astral Proficiency III",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your maximum training ranks are increased by 5%.<br>Your aura XP gains are increased by 5%.",
+  "type" : "specCheck",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8072,
+  "name" : "Blink",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You teleport from your starting location to your destination. Your movement is not impaired by difficult terrain or obstacles. You are not subject to attacks of opportunity during your move action.",
+  "type" : "action",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8074,
+  "name" : "Focus Magic",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "action",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8077,
+  "name" : "Shiver",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Shiver ability. Shiver costs 1 Power to activate. Shiver is activated as a free action or an interrupt when declaring an attack.  Shiver modifies the user’s next attack during the turn in which it is activated. If Shiver is not consumed before the end of the user’s turn, the effect and the consumed resource cost are lost.  Shiver grants a bonus to attack roll equal to 1x CL for the attack consuming it. The attack in question also gains the \"Technical\" modifier (see Combat for more information on technical abilities). Technical Effect: Provoke a FORT Save; A failed save generates 1 TechPoint. Reduce the target's MOVE by 50%. Reduce the target's Dodge by (nonsense formula). This effect lasts for a while.",
+  "type" : "action",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8081,
+  "name" : "Entropy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your final class resource, Entropy.",
+  "type" : "resource3",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8082,
+  "name" : "Order Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Order Strike ability. Performing Order Strike increases Entropy by 1 prior to activation. If Entropy cannot be increased by 1, the user cannot activate Order Strike. Order Strike is activated as a free action or an interrupt when declaring an attack. Only one Entropy ability can be activated per turn. Order Strike modifies the user’s next attack during the turn in which it is activated. If Order Strike is not consumed before the end of the user’s turn, the effect is lost.  Order Strike grants a bonus to ATK equal to 1x CL for the attack consuming it. The attack also gains the \"Technical\" modifier (see Combat for more information on technical abilities). The attack will increase Entropy by 1 per TP. This increase can exceed the caster's normal maximum Entropy value.",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8083,
+  "name" : "Chaos Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Gain the Chaos Strike ability. Performing Chaos Strike decreases Entropy by 1 prior to activation. If Entropy cannot be decreased by 1, the user cannot activate Chaos Strike. Chaos Strike is activated as a free action or an interrupt when declaring an attack. Only one Entropy ability can be activated per turn. Chaos Strike modifies the user’s next attack during the turn in which it is activated. If Chaos Strike is not consumed before the end of the user’s turn, the effect is lost.  Chaos Strike grants a bonus to Base Damage equal to 1x CL for the attack consuming it. The attack also gains the \"Technical\" modifier (see Combat for more information on technical abilities). The attack will deal an additional 5% bonus damage per TP.",
+  "type" : "action",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8091,
+  "name" : "Arcane Orb",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Activating Arcane Orb is a Standard Action. Arcane Orb costs 3 Aptitude. Arcane Orb has an additional aura cost equal to (CLVL * CLVL). The orb has a duration equal to (5% * CTL) turns.         Select a target location within your RANGE. Determine cross section: FLOOR ( cube root (RANGE / 5) * AREA) tiles, to a minimum of 1 tile. If the cross section is odd, it is centered on the chosen tile. If it is even, choose a corner to center the orb. The height of the orb is also equal to its cross section -- if insufficient height is available, the orb confines itself to the space.         The sphere does not restrict the movement of creatures through its space. All creatures adjacent to the orb receive damage equal to (50% x BDMG) + (25% TDMG) of the caster at the beginning of their turn. If a creature moves into a tile adjacent to the orb, they suffer the same damage. A creature cannot be damaged by the orb more often than twice per turn.",
+  "type" : "action",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8094,
+  "name" : "Mirror Image",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8097,
+  "name" : "Spellsteal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Whenever you deal damage to an enemy, provoke a WILL save. If the target fails their save, obtain one of their beneficial effects for (10% of DEX) turns. The enemy may not reactivate the effect until the duration expires.",
+  "type" : "specCheck",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8101,
+  "name" : "Arcane Blizzard",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8102,
+  "name" : "Arcane Brilliance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8104,
+  "name" : "Arcane Infusion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8107,
+  "name" : "Arcane Dissonance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8111,
+  "name" : "Shimmer",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8114,
+  "name" : "Convection",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8117,
+  "name" : "Slow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8121,
+  "name" : "Arcane Touch",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8122,
+  "name" : "Conjuration",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8131,
+  "name" : "Astral Circle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8134,
+  "name" : "Amplify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8137,
+  "name" : "Dampen",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8141,
+  "name" : "Recall",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8142,
+  "name" : "Arcane Ray",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8151,
+  "name" : "Master's Sanctum",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8154,
+  "name" : "Enlighten",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8157,
+  "name" : "Deep Impact",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8161,
+  "name" : "Codex of Chaos",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8162,
+  "name" : "Tome of Order",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8171,
+  "name" : "Hydra Bolt",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8174,
+  "name" : "Astral Barrier",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8177,
+  "name" : "Astral Ring",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8181,
+  "name" : "Arcane Gate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8184,
+  "name" : "Arcane Surge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8187,
+  "name" : "Arcane Echo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8191,
+  "name" : "Hydra Blast",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8194,
+  "name" : "Touch of the Magi",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8197,
+  "name" : "Quake",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8201,
+  "name" : "Astral Logia",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8202,
+  "name" : "Catclysm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8204,
+  "name" : "Incarnate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 8207,
+  "name" : "Disintegrate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9011,
+  "name" : "Equipment Evocation",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Bonus to max rank of molding techniques.<br>The first rank of molded weapons does not count against Molding's AL.",
+  "type" : "grantSpec",
+  "prereq" : 0,
+  "pick" : true,
+  "permStatus" : [ ]
+}, {
+  "id" : 9012,
+  "name" : "Fighting Form (Heavy + Light)",
+  "refName" : "Current Form: ",
+  "category" : "Class",
+  "description" : "Heavy Form: Melee Primary Attribute. Increases ATK and MOVE.<br>Light Form: Ranged Primary Attribute. Increases APPLY and RANGE.",
+  "type" : "Reminder",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9021,
+  "name" : "Convection",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Convection.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9022,
+  "name" : "Pulse",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Pulse (Slow) - Your next attack incapacitates the target.<br>Grants access to Pulse (Steady) - Your next attack heals your allies.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9023,
+  "name" : "Pulse (Slow)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Pulse (Slow) - Your next attack incapacitates the target.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9024,
+  "name" : "Pulse (Steady)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Pulse (Steady) - Your next attack heals your allies.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9031,
+  "name" : "Bond",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9032,
+  "name" : "Complexity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 3,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9041,
+  "name" : "Embed",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9042,
+  "name" : "Modular Form",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 4,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9054,
+  "name" : "Synchronicity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9055,
+  "name" : "Evoke",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9057,
+  "name" : "Asynchronicity",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9058,
+  "name" : "Vivify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 5,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9061,
+  "name" : "Arcane Missiles",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9062,
+  "name" : "Critical Mass",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 6,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9072,
+  "name" : "Blink",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9074,
+  "name" : "Focus Magic",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9077,
+  "name" : "Shiver",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 7,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9081,
+  "name" : "Entropy",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9082,
+  "name" : "Order Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9083,
+  "name" : "Chaos Strike",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 8,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9091,
+  "name" : "Arcane Orb",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9094,
+  "name" : "Mirror Image",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9097,
+  "name" : "Spellsteal",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 9,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9101,
+  "name" : "Arcane Blizzard",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9102,
+  "name" : "Arcane Brilliance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9104,
+  "name" : "Arcane Infusion",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9107,
+  "name" : "Arcane Dissonance",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 10,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9111,
+  "name" : "Shimmer",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9114,
+  "name" : "Convection",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9117,
+  "name" : "Slow",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 11,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9121,
+  "name" : "Arcane Touch",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9122,
+  "name" : "Conjuration",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 12,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9131,
+  "name" : "Astral Circle",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9134,
+  "name" : "Amplify",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9137,
+  "name" : "Dampen",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 13,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9141,
+  "name" : "Recall",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9142,
+  "name" : "Arcane Ray",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 14,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9151,
+  "name" : "Master's Sanctum",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9154,
+  "name" : "Enlighten",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9157,
+  "name" : "Deep Impact",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 15,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9161,
+  "name" : "Codex of Chaos",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9162,
+  "name" : "Tome of Order",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 16,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9171,
+  "name" : "Hydra Bolt",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9174,
+  "name" : "Astral Barrier",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9177,
+  "name" : "Astral Ring",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 17,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9181,
+  "name" : "Arcane Gate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9184,
+  "name" : "Arcane Surge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9187,
+  "name" : "Arcane Echo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 18,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9191,
+  "name" : "Hydra Blast",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9194,
+  "name" : "Touch of the Magi",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9197,
+  "name" : "Quake",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 19,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9201,
+  "name" : "Astral Logia",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9202,
+  "name" : "Catclysm",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9204,
+  "name" : "Incarnate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 9207,
+  "name" : "Disintegrate",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Stuff",
+  "type" : "F",
+  "prereq" : 20,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10011,
+  "name" : "Armor Dependency",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You are unable to utilize your aura directly.<br>You are unable to learn aura techniques and require your exo armor to engage in battle.<br.>Your armor grants you +1 to all attributes per level.<br>Your armor grants you + (0.5 * level * level) to ATK and APPLY.<br>Your armor grants you + (level * level) to BDMG and all SAVES.<br>Your armor grants you + ( level * level) RESALL and + ( 0.5 * level * level ) to all sub resists.<br>When armor is unequipped, your MAXHP is reduced by 90%.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10012,
+  "name" : "Patronage",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Your gear is prohibitively expensive.<br>A patron will reduce upgrade costs to the pilot by 90%.<br>Gain engineering schematics for new tier of Exo Armor at level up.<br>Your patron may call you to service. If you do not answer the call, you may lose funding.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10013,
+  "name" : "Enhanced Engineering",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You receive a free rank of Aura Engineering and its max rank is increased by 1.<br>Can reverse engineer devices to learn their schematic.<br>Takes 1 hour per tier to disassemble and reassemble a device.",
+  "type" : "specCheck",
+  "prereq" : 0,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10014,
+  "name" : "Salvo",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "You may additionally perform attacks with all equpped weapons as part of a Extended Attack.<br>These Salvo attacks can each activate a class ability.",
+  "type" : "specCheck",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10015,
+  "name" : "Hand Slots",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants four weapon slots at level 1. Gain one additional weapon slot at level 5 and every 4 levels thereafter.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10016,
+  "name" : "Hand Abilities",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants one class specialty for each equipped weapon. The granted specialty is determined by the weapon's exo ability.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10017,
+  "name" : "Fullmetal Mechanic",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "The pilot gains the Repair skill. When repairing their own Exosuit, the Repair skill's attribute modifier increases from x1.5 to x2.5. The pilot also gains a permanent +1 MECH bonus at level 3 and every 3 levels thereafter.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10018,
+  "name" : "Custom Rig",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "A pilot's Exosuit can maintain an improved quantity of special enhancements. Each piece of equipment used by the pilot is considered to have a tier of ((Tier * 2) + 1) for purposes of enhancement targets. This also applies to aura enhancement, such as enchanting and gemwork.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10019,
+  "name" : "Shoulder Hardpoint",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 3, a pilot can add a shoulder mounted weapon to their Exosuit. An additional shoulder hardpoint is added at level 13.",
+  "type" : "passive",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10020,
+  "name" : "Charge-Up",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 3, the construct gains the Charge-Up ability. Charge-Up is activated as a Standard Action. Charge-Up restores an amount of Charge equal to class level.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10021,
+  "name" : "Charge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to your first class resource, Charge.",
+  "type" : "resource1",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10022,
+  "name" : "Ionize",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to the following:<br>Grants access to Pulse (Slow) - Your next attack incapacitates the target.<br>Grants access to Pulse (Steady) - Your next attack heals your allies.",
+  "type" : "grantSpec",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10023,
+  "name" : "Ionize (Supply)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Ionize (Supply) - Your next attack grants an ally RESALL.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10024,
+  "name" : "Ionize (Demand)",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Grants access to Ionize (Demand) - Your next attack increases your RESISTS.",
+  "type" : "action",
+  "prereq" : 2,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10025,
+  "name" : "Drones",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 4, a pilot can deploy support drones. The pilot can control a number of drones at a time equal to character level. A pilot can deploy a drone with an aura action. When deploying a drone, the pilot selects a drone type from their available options and a target within their Range. The deployed drone will affix to the target, maintaining a safe distance and applying its effect. The pilot may select themselves as a target. A target may only have 1 drone attached at a time. The drone must remain within the Pilot's Range in order to continue applying its effect. If the target moves out of the pilot's range, the drone immediately returns to the pilot and can be returned to play on the Pilot's next turn. Deploying a drone occupies 1 Charge. This Charge is refunded when the drone is recalled.<br>Level 4 options:<br>Attack: Attack drones grant allies a bonus to hit equal to 1/4 the pilot's PRIM.<br>Defense: Defense drones grant allies a bonus to AC equal to 1/4 the pilot's PRIM.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10026,
+  "name" : "Positioning Jets",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "Interrupt: An enemy moves. Cost 1 Reaction. As a reaction to an enemy's movement, the pilot may take a step.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+}, {
+  "id" : 10027,
+  "name" : "Overcharge",
+  "refName" : "",
+  "category" : "Class",
+  "description" : "At level 4, a pilot can expend additional charge to increase their damage. Overcharge is activated as an aura action. Until end of turn, the cost of all class abilities are doubled. As a result, all class abilities increase the damage multiplier of their associated attack by +0.5 per class level.",
+  "type" : "action",
+  "prereq" : -1,
+  "pick" : false,
+  "permStatus" : [ ]
+} ]

@@ -1,0 +1,30 @@
+name: firefox-extension-beta
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/main/java/websocket/manifest.json"
+      - "src/main/java/websocket/content.js"
+      - "src/main/java/websocket/pageBridge.js"
+      - "scripts/package-firefox-extension.ps1"
+      - ".github/workflows/firefox-extension-beta.yml"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Package Firefox extension
+        shell: pwsh
+        run: ./scripts/package-firefox-extension.ps1 -OutputDir artifact/firefox-extension
+
+      - name: Upload beta artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: roll20-bridge-firefox-extension-beta
+          path: artifact/firefox-extension/*.zip
+          if-no-files-found: error
