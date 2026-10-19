@@ -845,30 +845,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1002,
-    "name" : "Strong Shot (Medium)",
+    "id" : 1003,
+    "name" : "Strong Shot (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "Empowers your next attack based on your STR",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1001,
-    "grant" : [
-      1002
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1003,
-    "name" : "Strong Shot (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1002,
     "grant" : [
       1003
     ],
@@ -893,30 +877,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1005,
-    "name" : "Agile Shot (Medium)",
+    "id" : 1006,
+    "name" : "Agile Shot (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "Empowers your next attack based on your DEX",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1004,
-    "grant" : [
-      1005
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1006,
-    "name" : "Agile Shot (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1005,
     "grant" : [
       1006
     ],
@@ -941,30 +909,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1008,
-    "name" : "Focused Shot (Medium)",
+    "id" : 1009,
+    "name" : "Focused Shot (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "Empowers your next attack based on your FOC",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1007,
-    "grant" : [
-      1008
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1009,
-    "name" : "Focused Shot (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1008,
     "grant" : [
       1009
     ],
@@ -989,30 +941,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1011,
-    "name" : "Controlled Shot (Medium)",
+    "id" : 1012,
+    "name" : "Controlled Shot (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "Empowers your next attack based on your CTL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1010,
-    "grant" : [
-      1011
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1012,
-    "name" : "Controlled Shot (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Empowers your next attack based on your CTL",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1011,
     "grant" : [
       1012
     ],
@@ -1037,30 +973,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1014,
-    "name" : "Enhance Damage (Medium)",
+    "id" : 1015,
+    "name" : "Enhance Damage (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "-",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1013,
-    "grant" : [
-      1014
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1015,
-    "name" : "Enhance Damage (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "-",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1014,
     "grant" : [
       1015
     ],
@@ -1085,30 +1005,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1017,
-    "name" : "Enhanced Smash (Medium)",
+    "id" : 1018,
+    "name" : "Enhanced Smash (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "A standard melee attack with scaling damage",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1016,
-    "grant" : [
-      1017
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1018,
-    "name" : "Enhanced Smash (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1017,
     "grant" : [
       1018
     ],
@@ -1133,30 +1037,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1020,
-    "name" : "Enhanced Jab (Medium)",
+    "id" : 1021,
+    "name" : "Enhanced Jab (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "A quick melee attack with scaling damage",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1019,
-    "grant" : [
-      1020
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1021,
-    "name" : "Enhanced Jab (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1020,
     "grant" : [
       1021
     ],
@@ -1181,30 +1069,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1023,
-    "name" : "Enhanced Blast (Medium)",
+    "id" : 1024,
+    "name" : "Enhanced Blast (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "A standard ranged attack with scaling damage",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 1022,
-    "grant" : [
-      1023
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1024,
-    "name" : "Enhanced Blast (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1023,
     "grant" : [
       1024
     ],
@@ -1229,8 +1101,8 @@
     "permStatus" : []
   },
   {
-    "id" : 1026,
-    "name" : "Enhanced Bolt (Medium)",
+    "id" : 1027,
+    "name" : "Enhanced Bolt (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
     "description" : "A quick ranged attack with scaling damage",
@@ -1238,167 +1110,7 @@
     "levelMod" : 0.0,
     "prereq" : 1025,
     "grant" : [
-      1026
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1027,
-    "name" : "Enhanced Bolt (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1026,
-    "grant" : [
       1027
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1028,
-    "name" : "Enhanced Eruption (Weak)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 1000,
-    "grant" : [
-      1028
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1029,
-    "name" : "Enhanced Eruption (Medium)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 1028,
-    "grant" : [
-      1029
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1030,
-    "name" : "Enhanced Eruption (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1029,
-    "grant" : [
-      1030
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1031,
-    "name" : "Enhanced Heal (Weak)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 1000,
-    "grant" : [
-      1031
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1032,
-    "name" : "Enhanced Heal (Medium)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 1031,
-    "grant" : [
-      1032
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1033,
-    "name" : "Enhanced Heal (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1032,
-    "grant" : [
-      1033
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1034,
-    "name" : "Enhanced Mend (Weak)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 1000,
-    "grant" : [
-      1034
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1035,
-    "name" : "Enhanced Mend (Medium)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 1034,
-    "grant" : [
-      1035
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1036,
-    "name" : "Enhanced Mend (Strong)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 1035,
-    "grant" : [
-      1036
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -1409,7 +1121,7 @@
     "name" : "Enhanced Shield (Weak)",
     "type" : "Active",
     "affinity" : "Enhancement",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
+    "description" : "SHIELD = Base HP x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -1421,30 +1133,14 @@
     "permStatus" : []
   },
   {
-    "id" : 1038,
-    "name" : "Enhanced Shield (Medium)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 1037,
-    "grant" : [
-      1038
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
     "id" : 1039,
     "name" : "Enhanced Shield (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "description" : "SHIELD = 3 x Base HP x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
-    "prereq" : 1038,
+    "prereq" : 1037,
     "grant" : [
       1039
     ],
@@ -1457,7 +1153,7 @@
     "name" : "Enhanced Shell (Weak)",
     "type" : "Active",
     "affinity" : "Enhancement",
-    "description" : "Increases damage resistance",
+    "description" : "RESALL = 5 x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -1469,48 +1165,16 @@
     "permStatus" : []
   },
   {
-    "id" : 1041,
-    "name" : "Enhanced Shell (Medium)",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Increases damage resistance",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 1040,
-    "grant" : [
-      1041
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
     "id" : 1042,
     "name" : "Enhanced Shell (Strong)",
     "type" : "Active",
     "affinity" : "Enhancement",
-    "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "description" : "RESALL = 15 x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
-    "prereq" : 1041,
+    "prereq" : 1040,
     "grant" : [
       1042
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 1043,
-    "name" : "Enhanced Therapy",
-    "type" : "Active",
-    "affinity" : "Enhancement",
-    "description" : "Give bonus against Psychosis effects",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 1000,
-    "grant" : [
-      1043
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2097,15 +1761,12 @@
     "name" : "Improved Resistance (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 RESALL, +0.25 RESSLASH, +0.25 RESPIERCE, +0.25 RESBLUNT per AL",
+    "description" : "+2 RESALL per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      201,
-      214,
-      224,
-      234
+      204
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2116,15 +1777,12 @@
     "name" : "Improved Resistance (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 RESALL, +0.5 RESSLASH, +0.5 RESPIERCE, +0.5 RESBLUNT per AL",
+    "description" : "+4 RESALL per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2101,
     "grant" : [
-      202,
-      215,
-      225,
-      235
+      205
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2135,15 +1793,12 @@
     "name" : "Improved Resistance (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+3 RESALL, +0.75 RESSLASH, +0.75 RESPIERCE, +0.75 RESBLUNT per AL",
+    "description" : "+6 RESALL per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2102,
     "grant" : [
-      203,
-      216,
-      226,
-      236
+      206
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2495,8 +2150,8 @@
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2512,8 +2167,8 @@
     "levelMod" : 0.0,
     "prereq" : 2201,
     "grant" : [
-      652,
-      672
+      632,
+      652
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2529,8 +2184,8 @@
     "levelMod" : 0.0,
     "prereq" : 2202,
     "grant" : [
-      653,
-      673
+      633,
+      653
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2541,7 +2196,7 @@
     "name" : "Improved Support (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 SUP per AL",
+    "description" : "+0.1 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2557,7 +2212,7 @@
     "name" : "Improved Support (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 SUP per AL",
+    "description" : "+0.2 SUP per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2204,
@@ -2573,7 +2228,7 @@
     "name" : "Improved Support (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+3 SUP per AL",
+    "description" : "+0.3 SUP per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2205,
@@ -2637,7 +2292,7 @@
     "name" : "Improved Impairment (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 IMPAIR per AL",
+    "description" : "+0.1 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2653,7 +2308,7 @@
     "name" : "Improved Impairment (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 IMPAIR per AL",
+    "description" : "+0.2 IMPAIR per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2210,
@@ -2669,7 +2324,7 @@
     "name" : "Improved Impairment (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+3 IMPAIR per AL",
+    "description" : "+0.3 IMPAIR per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2211,
@@ -2685,7 +2340,7 @@
     "name" : "Improved Mastery (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 MAST per AL",
+    "description" : "+0.1 MAST per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2701,7 +2356,7 @@
     "name" : "Improved Mastery (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 MAST per AL",
+    "description" : "+0.2 MAST per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2213,
@@ -2717,7 +2372,7 @@
     "name" : "Improved Mastery (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+3 MAST per AL",
+    "description" : "+0.3 MAST per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2214,
@@ -2733,7 +2388,7 @@
     "name" : "Improved Rapidity (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.25 MAXATK per AL",
+    "description" : "+0.2 MAXATK per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2749,7 +2404,7 @@
     "name" : "Improved Rapidity (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.5 MAXATK per AL",
+    "description" : "+0.4 MAXATK per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2216,
@@ -2765,7 +2420,7 @@
     "name" : "Improved Rapidity (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.75 MAXATK per AL",
+    "description" : "+0.6 MAXATK per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2217,
@@ -2781,7 +2436,7 @@
     "name" : "Improved Initiative (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.25 INIT per AL",
+    "description" : "+0.2 INIT per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2797,7 +2452,7 @@
     "name" : "Improved Initiative (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.5 INIT per AL",
+    "description" : "+0.4 INIT per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2219,
@@ -2813,7 +2468,7 @@
     "name" : "Improved Initiative (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.75 INIT per AL",
+    "description" : "+0.6 INIT per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2220,
@@ -2877,7 +2532,7 @@
     "name" : "Improved Technique (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.5 R1 per AL",
+    "description" : "+0.1 R1 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2893,7 +2548,7 @@
     "name" : "Improved Technique (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 R1 per AL",
+    "description" : "+0.2 R1 per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2225,
@@ -2909,7 +2564,7 @@
     "name" : "Improved Technique (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1.5 R1 per AL",
+    "description" : "+0.3 R1 per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2226,
@@ -2925,7 +2580,7 @@
     "name" : "Improved Prowess (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.5 R2 per AL",
+    "description" : "+0.1 R2 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2941,7 +2596,7 @@
     "name" : "Improved Prowess (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 R2 per AL",
+    "description" : "+0.2 R2 per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2228,
@@ -2957,60 +2612,12 @@
     "name" : "Improved Prowess (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1.5 R2 per AL",
+    "description" : "+0.3 R2 per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2229,
     "grant" : [
       433
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 2231,
-    "name" : "Improved Aptitude (Lesser)",
-    "type" : "Maintained",
-    "affinity" : "Enhancement",
-    "description" : "+0.5 R3 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 1000,
-    "grant" : [
-      441
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 2232,
-    "name" : "Improved Aptitude (Standard)",
-    "type" : "Maintained",
-    "affinity" : "Enhancement",
-    "description" : "+1 R3 per AL",
-    "levelCoef" : 0.75,
-    "levelMod" : 0.0,
-    "prereq" : 2231,
-    "grant" : [
-      442
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 2233,
-    "name" : "Improved Aptitude (Greater)",
-    "type" : "Maintained",
-    "affinity" : "Enhancement",
-    "description" : "+1.5 R3 per AL",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 2232,
-    "grant" : [
-      443
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3114,7 +2721,7 @@
   },
   {
     "id" : 2240,
-    "name" : "Improved Accuracy (Lesser)",
+    "name" : "Improved Attack (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
     "description" : "+1 ATK per AL",
@@ -3130,7 +2737,7 @@
   },
   {
     "id" : 2241,
-    "name" : "Improved Accuracy (Standard)",
+    "name" : "Improved Attack (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
     "description" : "+2 ATK per AL",
@@ -3146,7 +2753,7 @@
   },
   {
     "id" : 2242,
-    "name" : "Improved Accuracy (Greater)",
+    "name" : "Improved Attack (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
     "description" : "+3 ATK per AL",
@@ -3261,7 +2868,7 @@
     "name" : "Improved Soaring (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2.5 FLY per AL",
+    "description" : "+5 FLY per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -3277,7 +2884,7 @@
     "name" : "Improved Soaring (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+5 FLY per AL",
+    "description" : "+10 FLY per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2249,
@@ -3293,7 +2900,7 @@
     "name" : "Improved Soaring (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+7.5 FLY per AL",
+    "description" : "+15 FLY per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2250,
@@ -3597,7 +3204,7 @@
     "name" : "Improved Shielding (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+1 SHIELD per AL",
+    "description" : "+0.1 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -3613,7 +3220,7 @@
     "name" : "Improved Shielding (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 SHIELD per AL",
+    "description" : "+0.2 SHD per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2270,
@@ -3629,7 +3236,7 @@
     "name" : "Improved Shielding (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+3 SHIELD per AL",
+    "description" : "+0.3 SHD per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2271,
@@ -3645,7 +3252,7 @@
     "name" : "Improved Break (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 BREAK per AL",
+    "description" : "+4 BREAK per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -3661,7 +3268,7 @@
     "name" : "Improved Break (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+4 BREAK per AL",
+    "description" : "+8 BREAK per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2273,
@@ -3677,7 +3284,7 @@
     "name" : "Improved Break (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+6 BREAK per AL",
+    "description" : "+12 BREAK per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2274,
@@ -3977,16 +3584,96 @@
     "permStatus" : []
   },
   {
-    "id" : 2301,
-    "name" : "Enhanced Molding",
+    "id" : 2294,
+    "name" : "Improved Duration (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "Generate objects using aura",
+    "description" : "+0.1 DUR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      -1
+      701
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 2295,
+    "name" : "Improved Duration (Standard)",
+    "type" : "Maintained",
+    "affinity" : "Enhancement",
+    "description" : "+0.2 DUR per AL",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 2294,
+    "grant" : [
+      702
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 2296,
+    "name" : "Improved Duration (Greater)",
+    "type" : "Maintained",
+    "affinity" : "Enhancement",
+    "description" : "+0.3 DUR per AL",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 2295,
+    "grant" : [
+      703
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 2297,
+    "name" : "Improved Augmentation (Lesser)",
+    "type" : "Maintained",
+    "affinity" : "Enhancement",
+    "description" : "+0.02 DMGMULTI per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 1000,
+    "grant" : [
+      671
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 2298,
+    "name" : "Improved Augmentation (Standard)",
+    "type" : "Maintained",
+    "affinity" : "Enhancement",
+    "description" : "+0.04 DMGMULTI per AL",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 2297,
+    "grant" : [
+      672
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 2299,
+    "name" : "Improved Augmentation (Greater)",
+    "type" : "Maintained",
+    "affinity" : "Enhancement",
+    "description" : "+0.06 DMGMULTI per AL",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 2298,
+    "grant" : [
+      673
     ],
     "rank" : -1,
     "exp" : 0.0,

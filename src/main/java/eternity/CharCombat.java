@@ -544,6 +544,11 @@ public class CharCombat {
             DataAction action = new DataAction(actionTemplate);
             action.setCharacter(owner);
             routeActionByType(action);
+            DataAction interruptVariant = buildDualInterruptVariant(actionTemplate);
+            if (interruptVariant != null) {
+                interruptVariant.setCharacter(owner);
+                routeActionByType(interruptVariant);
+            }
         }
     }
 
@@ -1012,12 +1017,26 @@ public class CharCombat {
     private DataAction buildDualInterruptVariant(DataAction actionTemplate) {
         if (!isTemperanceAbilityAction(actionTemplate)
                 && !isFlashMobAbilityAction(actionTemplate)
-                && !isShiverAbilityAction(actionTemplate)) {
+                && !isShiverAbilityAction(actionTemplate)
+                && !isFreeOrInterruptMitigationAction(actionTemplate)) {
+            return null;
+        }
+        // Avoid cloning an action that is already Interrupt-only.
+        if (actionTemplate != null && "Interrupt".equalsIgnoreCase(actionTemplate.getActionType())) {
             return null;
         }
         DataAction interruptAction = new DataAction(actionTemplate);
         interruptAction.setActionType("Interrupt");
         return interruptAction;
+    }
+
+    /** Enhanced Shield/Shell (and affinity copies) are Free actions that may also interrupt. */
+    private boolean isFreeOrInterruptMitigationAction(DataAction action) {
+        if (action == null || action.getName() == null) return false;
+        if (!"Mitigation".equalsIgnoreCase(action.getCategory())) return false;
+        if (!"Free".equalsIgnoreCase(action.getActionType())) return false;
+        String name = action.getName().toLowerCase(java.util.Locale.ROOT);
+        return name.contains("shield") || name.contains("shell");
     }
 
     private boolean isFlashMobAbilityAction(DataAction action) {

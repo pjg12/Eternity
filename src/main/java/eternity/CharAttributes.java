@@ -23,7 +23,7 @@ public class CharAttributes {
     private static final String[] DEFENSE = { "ARMOR","DODGE","DEF","FORT","REF","WILL","AVOID" };
     private static final String[] DMGTYPE = { "ALL","PHY","BLUNT","PIERCE","SLASH","FIRE","FROST","ELEC","ENERGY","SONIC","LIGHT","TOXIC","DARK","PSI","SPIRIT","TIME" };
     private static final String[] COMBAT = { "ATK","APP","MOVE","FLY","RANGE","INIT","MAN","MAXATK","RESDISP" };
-    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","BREAK","AREA","POWER","DUR" };
+    private static final String[] SECONDARY = { "SUP","IMP","MAST","EXCL","GRANT","CRUSH","BREAK","AREA","POWER","DUR","SHD" };
     private static final String[] DAMAGE = { "BDMG", "TDMG", "BHEAL", "THEAL", "CRIT", "CRITDMG" };
 
     //  GENERIC STAT ARRAYS

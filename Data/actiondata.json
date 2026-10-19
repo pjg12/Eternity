@@ -1297,42 +1297,6 @@
     ]
   },
   {
-    "id" : 1002,
-    "name" : "Strong Shot (Medium)",
-    "category" : "Next Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Free",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "atk",
-        "operator" : "+(AL*STR*0.05)"
-      },
-      {
-        "attribute" : "bdmg",
-        "operator" : "+(AL*STR*0.05)"
-      },
-      {
-        "attribute" : "tdmg",
-        "operator" : "+(AL*STR*0.25)"
-      }
-    ]
-  },
-  {
     "id" : 1003,
     "name" : "Strong Shot (Strong)",
     "category" : "Next Attack",
@@ -1350,7 +1314,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1405,42 +1369,6 @@
     ]
   },
   {
-    "id" : 1005,
-    "name" : "Agile Shot (Medium)",
-    "category" : "Next Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Free",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "atk",
-        "operator" : "+(AL*DEX*0.05)"
-      },
-      {
-        "attribute" : "bdmg",
-        "operator" : "+(AL*DEX*0.05)"
-      },
-      {
-        "attribute" : "tdmg",
-        "operator" : "+(AL*DEX*0.25)"
-      }
-    ]
-  },
-  {
     "id" : 1006,
     "name" : "Agile Shot (Strong)",
     "category" : "Next Attack",
@@ -1458,7 +1386,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1513,42 +1441,6 @@
     ]
   },
   {
-    "id" : 1008,
-    "name" : "Focused Shot (Medium)",
-    "category" : "Next Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Free",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "atk",
-        "operator" : "+(AL*FOC*0.05)"
-      },
-      {
-        "attribute" : "bdmg",
-        "operator" : "+(AL*FOC*0.05)"
-      },
-      {
-        "attribute" : "tdmg",
-        "operator" : "+(AL*FOC*0.25)"
-      }
-    ]
-  },
-  {
     "id" : 1009,
     "name" : "Focused Shot (Strong)",
     "category" : "Next Attack",
@@ -1566,7 +1458,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1621,42 +1513,6 @@
     ]
   },
   {
-    "id" : 1011,
-    "name" : "Controlled Shot (Medium)",
-    "category" : "Next Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Free",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "atk",
-        "operator" : "+(AL*CTL*0.05)"
-      },
-      {
-        "attribute" : "bdmg",
-        "operator" : "+(AL*CTL*0.05)"
-      },
-      {
-        "attribute" : "tdmg",
-        "operator" : "+(AL*CTL*0.25)"
-      }
-    ]
-  },
-  {
     "id" : 1012,
     "name" : "Controlled Shot (Strong)",
     "category" : "Next Attack",
@@ -1674,7 +1530,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1721,34 +1577,6 @@
     ]
   },
   {
-    "id" : 1014,
-    "name" : "Enhance Damage (Medium)",
-    "category" : "Next Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Free",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.5)"
-      }
-    ]
-  },
-  {
     "id" : 1015,
     "name" : "Enhance Damage (Strong)",
     "category" : "Next Attack",
@@ -1766,7 +1594,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1805,34 +1633,6 @@
     ]
   },
   {
-    "id" : 1017,
-    "name" : "Enhanced Smash (Medium)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "AC",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Standard",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*1.0)"
-      }
-    ]
-  },
-  {
     "id" : 1018,
     "name" : "Enhanced Smash (Strong)",
     "category" : "Attack",
@@ -1850,7 +1650,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1889,34 +1689,6 @@
     ]
   },
   {
-    "id" : 1020,
-    "name" : "Enhanced Jab (Medium)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "AC",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 0,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.8)-1"
-      }
-    ]
-  },
-  {
     "id" : 1021,
     "name" : "Enhanced Jab (Strong)",
     "category" : "Attack",
@@ -1934,7 +1706,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -1973,34 +1745,6 @@
     ]
   },
   {
-    "id" : 1023,
-    "name" : "Enhanced Blast (Medium)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "AC",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Standard",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.8)"
-      }
-    ]
-  },
-  {
     "id" : 1024,
     "name" : "Enhanced Blast (Strong)",
     "category" : "Attack",
@@ -2018,7 +1762,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -2057,34 +1801,6 @@
     ]
   },
   {
-    "id" : 1026,
-    "name" : "Enhanced Bolt (Medium)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "AC",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.6)-1"
-      }
-    ]
-  },
-  {
     "id" : 1027,
     "name" : "Enhanced Bolt (Strong)",
     "category" : "Attack",
@@ -2102,277 +1818,13 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.9)-1"
-      }
-    ]
-  },
-  {
-    "id" : 1028,
-    "name" : "Enhanced Eruption (Weak)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "REF",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 1.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.25)-1"
-      },
-      {
-        "attribute" : "radius",
-        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
-      }
-    ]
-  },
-  {
-    "id" : 1029,
-    "name" : "Enhanced Eruption (Medium)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "REF",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.5)-1"
-      },
-      {
-        "attribute" : "radius",
-        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
-      }
-    ]
-  },
-  {
-    "id" : 1030,
-    "name" : "Enhanced Eruption (Strong)",
-    "category" : "Attack",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "REF",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 6.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "dmgmulti",
-        "operator" : "+(AL*0.75)-1"
-      },
-      {
-        "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
-      }
-    ]
-  },
-  {
-    "id" : 1031,
-    "name" : "Enhanced Heal (Weak)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Standard",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 1.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*0.5)"
-      }
-    ]
-  },
-  {
-    "id" : 1032,
-    "name" : "Enhanced Heal (Medium)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Standard",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*1.0)"
-      }
-    ]
-  },
-  {
-    "id" : 1033,
-    "name" : "Enhanced Heal (Strong)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Standard",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 6.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*1.5)"
-      }
-    ]
-  },
-  {
-    "id" : 1034,
-    "name" : "Enhanced Mend (Weak)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 1.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*0.4)-1"
-      }
-    ]
-  },
-  {
-    "id" : 1035,
-    "name" : "Enhanced Mend (Medium)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*0.8)-1"
-      }
-    ]
-  },
-  {
-    "id" : 1036,
-    "name" : "Enhanced Mend (Strong)",
-    "category" : "Heal",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 6.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "healmulti",
-        "operator" : "+(AL*1.2)-1"
       }
     ]
   },
@@ -2389,7 +1841,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -2399,36 +1851,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.05)"
-      }
-    ]
-  },
-  {
-    "id" : 1038,
-    "name" : "Enhanced Shield (Medium)",
-    "category" : "Mitigation",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Interrupt",
-    "weapon" : null,
-    "costs" : [
+        "attribute" : "SHIELD",
+        "operator" : "=(BASEHP*AL*SHD)"
+      },
       {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.1)"
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -2445,18 +1873,22 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.15)"
+        "attribute" : "SHIELD",
+        "operator" : "=(3*BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
@@ -2473,7 +1905,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -2483,36 +1915,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.01)"
-      }
-    ]
-  },
-  {
-    "id" : 1041,
-    "name" : "Enhanced Shell (Medium)",
-    "category" : "Mitigation",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Interrupt",
-    "weapon" : null,
-    "costs" : [
+        "attribute" : "RESALL",
+        "operator" : "=(5*AL*SHD)"
+      },
       {
-        "type" : "Aura",
-        "value" : 3.0
-      }
-    ],
-    "modifierKey" : [
-      {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.02)"
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -2529,43 +1937,24 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.03)"
+        "attribute" : "RESALL",
+        "operator" : "=(15*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
-  },
-  {
-    "id" : 1043,
-    "name" : "Enhanced Therapy",
-    "category" : "Remedy",
-    "source" : "Aura",
-    "affinity" : "Enhancement",
-    "atkType" : "Other",
-    "atk" : 0,
-    "bdmg" : 0,
-    "tdmg" : 0,
-    "dmgMulti" : 0.0,
-    "al" : 0,
-    "ranged" : 15,
-    "actionType" : "Aura",
-    "weapon" : null,
-    "costs" : [
-      {
-        "type" : "Aura",
-        "value" : 1.0
-      }
-    ],
-    "modifierKey" : []
   },
   {
     "id" : 4001,

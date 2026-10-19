@@ -441,6 +441,9 @@ public class DataAction {
 			case "APP" -> character != null && character.getAttributes() != null
 					? character.getAttributes().calcStatusValue("APP")
 					: 0.0;
+			// Multiplier secondaries: baseline 1.0, Improved Duration/Shielding add on top.
+			case "DUR", "SHD" -> 1.0 + resolveCharacterStatValue(normalized);
+			case "RESALL" -> resolveCharacterStatValue("ALL");
 			default -> resolveCharacterStatValue(normalized);
 		};
 	}

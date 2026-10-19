@@ -1053,8 +1053,10 @@ public class FrameAttack extends JFrame {
 		}
 		if (isShieldTechniqueAction()) {
 			tempString += " --+|Shield: " + trimDisplayDouble(getShieldAmount())
-					+ " [br]&nbsp;&nbsp;Temporary HP = Base HP (level data) x AL"
-					+ getShieldTierMultiplierText().replace(" × ", " x ")
+					+ " [br]&nbsp;&nbsp;Temporary HP = Base HP x AL x SHD"
+					+ (action != null && action.getName() != null
+							&& action.getName().toLowerCase(java.util.Locale.ROOT).contains("(strong)")
+							? " x 3" : "")
 					+ ".";
 			tempString += " }}";
 			return tempString;
@@ -1389,10 +1391,7 @@ public class FrameAttack extends JFrame {
 	}
 
 	private String getShieldTierMultiplierText() {
-		if (action == null || action.getName() == null) return "";
-		String name = action.getName().toLowerCase(java.util.Locale.ROOT);
-		if (name.contains("(strong)")) return " × 3";
-		if (name.contains("(medium)")) return " × 2";
+		// Shield amount already includes tier scaling from modifierKey (e.g. 3*BASEHP*AL*SHD).
 		return "";
 	}
 
@@ -2299,8 +2298,10 @@ public class FrameAttack extends JFrame {
 		if (isShieldTechniqueAction()) {
 			text.append("Shield: ")
 					.append(trimDisplayDouble(getShieldAmount()))
-					.append(" temporary HP (Base HP from level data × AL")
-					.append(getShieldTierMultiplierText())
+					.append(" temporary HP (Base HP × AL × SHD")
+					.append(action != null && action.getName() != null
+							&& action.getName().toLowerCase(java.util.Locale.ROOT).contains("(strong)")
+							? " × 3" : "")
 					.append(").")
 					.append(System.lineSeparator());
 		}

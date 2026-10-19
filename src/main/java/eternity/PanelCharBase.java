@@ -1397,7 +1397,7 @@ public class PanelCharBase extends JPanel {
 					"BSTR", "BDEX", "BCON", "BFOC", "BCTL", "BCAP", "BKNOW", "BMECH", "BPERC", "BINT", "BCHA", "BSUB",
 					"BARMOR", "BDODGE", "BDEF", "BFORT", "BREF", "BWILL", "BAVOID",
 					"BATK", "BAPP", "BMOVE", "BFLY", "BRANGE", "BINIT", "BCMAN", "BMAXATK",
-					"BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BAREA", "BPOWER", "BDUR",
+					"BSUP", "BIMP", "BMAST", "BEXCL", "BGRANT", "BCRUSH", "BAREA", "BPOWER", "BDUR", "BSHD",
 					"BBDMG", "BTDMG", "BBHEAL", "BTHEAL",
 					"MBDMG", "MTDMG", "MBHEAL", "MTHEAL",
 					"BALL", "BPHY", "BBLUNT", "BPIERCE", "BSLASH", "BFIRE", "BFROST", "BELEC", "BENERGY", "BSONIC",

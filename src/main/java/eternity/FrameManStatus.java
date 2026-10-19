@@ -388,6 +388,7 @@ public class FrameManStatus extends JFrame {
             case "AREA" -> "Area Multiplier";
             case "POWER" -> "Power";
             case "DUR" -> "Duration";
+            case "SHD" -> "Shielding";
             case "BDMG" -> "Base Damage";
             case "TDMG" -> "Total Damage";
             case "BHEAL" -> "Base Healing";

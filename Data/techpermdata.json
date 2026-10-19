@@ -299,6 +299,21 @@
   "ratio" : 3.0,
   "cost" : 6
 }, {
+  "id" : 204,
+  "attribute" : "RESALL",
+  "ratio" : 2.0,
+  "cost" : 1
+}, {
+  "id" : 205,
+  "attribute" : "RESALL",
+  "ratio" : 4.0,
+  "cost" : 3
+}, {
+  "id" : 206,
+  "attribute" : "RESALL",
+  "ratio" : 6.0,
+  "cost" : 6
+}, {
   "id" : 211,
   "attribute" : "RESSLASH",
   "ratio" : 1.0,
@@ -556,17 +571,17 @@
 }, {
   "id" : 351,
   "attribute" : "SUP",
-  "ratio" : 1.0,
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 352,
   "attribute" : "SUP",
-  "ratio" : 2.0,
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 353,
   "attribute" : "SUP",
-  "ratio" : 3.0,
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 361,
@@ -586,32 +601,32 @@
 }, {
   "id" : 371,
   "attribute" : "IMPAIR",
-  "ratio" : 1.0,
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 372,
   "attribute" : "IMPAIR",
-  "ratio" : 2.0,
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 373,
   "attribute" : "IMPAIR",
-  "ratio" : 3.0,
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 381,
   "attribute" : "MAST",
-  "ratio" : 1.0,
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 382,
   "attribute" : "MAST",
-  "ratio" : 2.0,
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 383,
   "attribute" : "MAST",
-  "ratio" : 3.0,
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 391,
@@ -661,32 +676,32 @@
 }, {
   "id" : 421,
   "attribute" : "R1",
-  "ratio" : 0.5,
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 422,
   "attribute" : "R1",
-  "ratio" : 1.0,
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 423,
   "attribute" : "R1",
-  "ratio" : 1.5,
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 431,
   "attribute" : "R2",
-  "ratio" : 0.5,
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 432,
   "attribute" : "R2",
-  "ratio" : 1.0,
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 433,
   "attribute" : "R2",
-  "ratio" : 1.5,
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 441,
@@ -781,17 +796,17 @@
 }, {
   "id" : 501,
   "attribute" : "FLY",
-  "ratio" : 2.5,
+  "ratio" : 5.0,
   "cost" : 1
 }, {
   "id" : 502,
   "attribute" : "FLY",
-  "ratio" : 5.0,
+  "ratio" : 10.0,
   "cost" : 3
 }, {
   "id" : 503,
   "attribute" : "FLY",
-  "ratio" : 7.5,
+  "ratio" : 15.0,
   "cost" : 6
 }, {
   "id" : 511,
@@ -915,33 +930,33 @@
   "cost" : 6
 }, {
   "id" : 591,
-  "attribute" : "SHIELD",
-  "ratio" : 1.0,
+  "attribute" : "SHD",
+  "ratio" : 0.1,
   "cost" : 1
 }, {
   "id" : 592,
-  "attribute" : "SHIELD",
-  "ratio" : 2.0,
+  "attribute" : "SHD",
+  "ratio" : 0.2,
   "cost" : 3
 }, {
   "id" : 593,
-  "attribute" : "SHIELD",
-  "ratio" : 3.0,
+  "attribute" : "SHD",
+  "ratio" : 0.3,
   "cost" : 6
 }, {
   "id" : 601,
   "attribute" : "BREAK",
-  "ratio" : 2.0,
+  "ratio" : 4.0,
   "cost" : 1
 }, {
   "id" : 602,
   "attribute" : "BREAK",
-  "ratio" : 4.0,
+  "ratio" : 8.0,
   "cost" : 3
 }, {
   "id" : 603,
   "attribute" : "BREAK",
-  "ratio" : 6.0,
+  "ratio" : 12.0,
   "cost" : 6
 }, {
   "id" : 611,
@@ -1042,7 +1057,7 @@
   "id" : 672,
   "attribute" : "DMGMULTI",
   "ratio" : 0.04,
-  "cost" : 2
+  "cost" : 3
 }, {
   "id" : 673,
   "attribute" : "DMGMULTI",
@@ -1077,5 +1092,20 @@
   "id" : 693,
   "attribute" : "SKILLMEDICAL",
   "ratio" : 6.0,
+  "cost" : 6
+}, {
+  "id" : 701,
+  "attribute" : "DUR",
+  "ratio" : 0.1,
+  "cost" : 1
+}, {
+  "id" : 702,
+  "attribute" : "DUR",
+  "ratio" : 0.2,
+  "cost" : 3
+}, {
+  "id" : 703,
+  "attribute" : "DUR",
+  "ratio" : 0.3,
   "cost" : 6
 } ]
