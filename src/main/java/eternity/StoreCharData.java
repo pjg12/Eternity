@@ -2685,9 +2685,23 @@ public class StoreCharData {
             if (tech == null || tech.isListEntry()) continue;
             String techAffinity = normalizeAuraAffinityKey(tech.getAffinity());
             if (techAffinity == null || !normalizedAffinity.equalsIgnoreCase(techAffinity)) continue;
-            total += Math.max(0, tech.getRank());
+            total += auraTechniqueSynergy(tech);
         }
         return Math.max(0, total);
+    }
+
+    /**
+     * Most techniques add 1 synergy per rank. A SYN grant replaces that with its ratio per rank.
+     */
+    private static int auraTechniqueSynergy(DataTraining tech) {
+        int rank = Math.max(0, tech.getRank());
+        if (rank == 0 || tech.getPermStatus() == null) return rank;
+        for (DataStatus status : tech.getPermStatus()) {
+            if (status == null || status.getAttribute() == null) continue;
+            if (!"SYN".equalsIgnoreCase(status.getAttribute().trim())) continue;
+            return (int) Math.round(status.getSeverity() * rank);
+        }
+        return rank;
     }
 
     @JsonIgnore

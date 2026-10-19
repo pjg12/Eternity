@@ -43,6 +43,8 @@ public class FrameTraining extends JFrame {
     private static final String KNOWN_ARRAYS_LIST = "Known Arrays";
     private static final String KNOWN_ATTUNEMENTS_LIST = "Known Attunements";
     private static final String KNOWN_METALS_LIST = "Known Metals";
+    private static final String KNOWN_MUTATIONS_LIST = MutationCatalog.LIST_NAME;
+    private static final String EVOLVED_MUTATION_TECHNIQUE = MutationCatalog.TECHNIQUE_NAME;
     private static final String MENTAL_NETWORK_TECHNIQUE = "Mental Network";
     private static final String AURA_RUNOLOGY_TECHNIQUE = "Aura Runology";
     private static final String ETHEREAL_ATTUNEMENT_TECHNIQUE = "Ethereal Attunement";
@@ -703,6 +705,7 @@ public class FrameTraining extends JFrame {
         boolean createInitialKnownArraysList = shouldCreateInitialKnownArraysList(added);
         boolean createInitialKnownAttunementsList = shouldCreateInitialKnownAttunementsList(added);
         boolean createInitialKnownMetalsList = shouldCreateInitialKnownMetalsList(added);
+        boolean createInitialKnownMutationsList = shouldCreateInitialKnownMutationsList(added);
         MoldEntrySelection firstMoldEntry = null;
         if (createInitialMoldsList) {
             firstMoldEntry = promptForMoldEntrySelection(List.of(), 1, 1);
@@ -727,6 +730,11 @@ public class FrameTraining extends JFrame {
         if (createInitialKnownMetalsList) {
             firstKnownMetalEntry = promptForSingleListEntry(KNOWN_METALS_LIST, List.of(), 1, 1);
             if (firstKnownMetalEntry == null) return;
+        }
+        String firstKnownMutationEntry = null;
+        if (createInitialKnownMutationsList) {
+            firstKnownMutationEntry = promptForSingleListEntry(KNOWN_MUTATIONS_LIST, List.of(), 1, 1);
+            if (firstKnownMutationEntry == null) return;
         }
 
         DataTraining preview = new DataTraining(added);
@@ -776,6 +784,9 @@ public class FrameTraining extends JFrame {
         }
         if (createInitialKnownMetalsList) {
             ensureListWithFirstEntry(KNOWN_METALS_LIST, firstKnownMetalEntry, "");
+        }
+        if (createInitialKnownMutationsList) {
+            ensureListWithFirstEntry(KNOWN_MUTATIONS_LIST, firstKnownMutationEntry, MutationCatalog.descriptionFor(firstKnownMutationEntry));
         }
         if (selectedManifestedMetals != null && character != null) {
             character.setActiveMetalManifestations(selectedManifestedMetals);
@@ -987,7 +998,7 @@ public class FrameTraining extends JFrame {
             if (genericEntry == null) {
                 return;
             }
-            chosenEntry = new MoldEntrySelection(genericEntry, "");
+            chosenEntry = new MoldEntrySelection(genericEntry, MutationCatalog.descriptionFor(genericEntry));
         }
 
         consumeTrainingXp(listTech.getAffinity(), availableAuraXp, availableTypedXp, listEntryCost);
@@ -1144,6 +1155,9 @@ public class FrameTraining extends JFrame {
         if (KNOWN_METALS_LIST.equalsIgnoreCase(safeLabel(listName))) {
             return "New Metal";
         }
+        if (KNOWN_MUTATIONS_LIST.equalsIgnoreCase(safeLabel(listName))) {
+            return "New Mutation";
+        }
         return "New " + listName;
     }
 
@@ -1168,6 +1182,7 @@ public class FrameTraining extends JFrame {
         if (isAuraRunologyTechnique(tech)) return KNOWN_ARRAYS_LIST;
         if (isEtherealAttunementTechnique(tech)) return KNOWN_ATTUNEMENTS_LIST;
         if (isMetalManifestationTechnique(tech)) return KNOWN_METALS_LIST;
+        if (isEvolvedMutationTechnique(tech)) return KNOWN_MUTATIONS_LIST;
         String listName = tech.getListName();
         return listName == null ? "" : listName.trim();
     }
@@ -1198,6 +1213,10 @@ public class FrameTraining extends JFrame {
 
     private boolean shouldCreateInitialKnownMetalsList(DataTraining tech) {
         return isMetalManifestationTechnique(tech) && !hasListNamed(KNOWN_METALS_LIST);
+    }
+
+    private boolean shouldCreateInitialKnownMutationsList(DataTraining tech) {
+        return isEvolvedMutationTechnique(tech) && !hasListNamed(KNOWN_MUTATIONS_LIST);
     }
 
     private boolean isMoldingTechnique(DataTraining tech) {
@@ -1236,6 +1255,12 @@ public class FrameTraining extends JFrame {
                 && METAL_MANIFESTATION_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
     }
 
+    private boolean isEvolvedMutationTechnique(DataTraining tech) {
+        return tech != null
+                && tech.getName() != null
+                && EVOLVED_MUTATION_TECHNIQUE.equalsIgnoreCase(tech.getName().trim());
+    }
+
     private int resolveListMaxMembers(DataTraining listTech) {
         if (listTech == null || character == null || character.getTraining() == null) return 0;
         DataTraining parent = character.getTraining().getTrainingById(listTech.getListParentId());
@@ -1244,6 +1269,11 @@ public class FrameTraining extends JFrame {
         if (isAuraRunologyTechnique(parent)) return Math.max(0, parent.getRank() * 4);
         if (isEtherealAttunementTechnique(parent)) return Math.max(0, parent.getRank());
         if (isMetalManifestationTechnique(parent)) return Math.max(0, parent.getRank());
+        if (isEvolvedMutationTechnique(parent)) {
+            int rank = Math.max(0, parent.getRank());
+            if (rank >= 10) return Integer.MAX_VALUE / 4;
+            return rank;
+        }
         return Math.max(0, parent.getRank() * parent.getEffectiveListMaxPerRank() + parent.getEffectiveListMaxBase());
     }
 
@@ -1580,6 +1610,9 @@ public class FrameTraining extends JFrame {
     }
 
     private String[] resolveListEntryOptions(String listName) {
+        if (KNOWN_MUTATIONS_LIST.equalsIgnoreCase(safeLabel(listName))) {
+            return MutationCatalog.names();
+        }
         if (!ALTERI_SHAPESHIFT_LIST.equalsIgnoreCase(listName) || ruleManager == null) return new String[0];
         ArrayList<String> names = new ArrayList<>();
         String currentRace = character != null && character.getIdentity() != null ? safeLabel(character.getIdentity().getRace()) : "";

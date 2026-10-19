@@ -50,6 +50,7 @@ public class FrameMold extends JFrame {
     private final FrameSheet sheetFrame;
     private StoreCharData character;
     private boolean confirmed;
+    private Runnable onConfirmed;
     private boolean suppressRowEvents;
     private ArrayList<MoldOption> availableMolds = new ArrayList<>();
     private final ArrayList<MoldRow> moldRows = new ArrayList<>();
@@ -85,6 +86,10 @@ public class FrameMold extends JFrame {
 
     public boolean isConfirmed() {
         return confirmed;
+    }
+
+    public void setOnConfirmed(Runnable onConfirmed) {
+        this.onConfirmed = onConfirmed;
     }
 
     public List<String> getSelectedMolds() {
@@ -248,6 +253,9 @@ public class FrameMold extends JFrame {
             character.updateAll();
         }
         confirmed = true;
+        if (onConfirmed != null) {
+            onConfirmed.run();
+        }
         dispose();
     }
 
@@ -432,7 +440,7 @@ public class FrameMold extends JFrame {
         }
     }
 
-    private int getAssignedLevels() {
+    public int getAssignedLevels() {
         int assigned = 0;
         for (MoldRow row : moldRows) {
             if (row == null || row.alBox() == null) continue;

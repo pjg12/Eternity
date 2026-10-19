@@ -931,8 +931,7 @@ public class FrameInform extends JFrame {
 			text.append("Effect: Grant +").append(trimNumber(bonus))
 					.append(" to saves against ").append(effectType).append(" effects.")
 					.append(System.lineSeparator());
-			text.append("If the target is already under a ").append(effectType)
-					.append(" effect, they may make an immediate save against it.");
+			text.append(describeRemedyOngoingSave(effectType));
 		}
 		else if (isArcaneOrbAction()) {
 			int crossSection = getArcaneOrbCrossSection();
@@ -1209,8 +1208,7 @@ public class FrameInform extends JFrame {
 			tempString += " --+|Target Ally: " + sanitizeForMacro(getRemedyTargetDisplay());
 			tempString += " --+|Save Bonus: +" + trimNumber(getRemedySaveBonus())
 					+ " vs " + sanitizeForMacro(effectType) + " effects";
-			tempString += " --+|Notes: If already under a " + sanitizeForMacro(effectType)
-					+ " effect, the target may make an immediate save against it";
+			tempString += " --+|Notes: " + sanitizeForMacro(describeRemedyOngoingSave(effectType));
 			tempString += " --+|Status Code:[br]&nbsp;&nbsp;" + buildRemedyStatusCode();
 		}
 		if (isArcaneOrbAction()) {
@@ -1610,6 +1608,24 @@ public class FrameInform extends JFrame {
 		return REMEDY_SAVE_BONUS_PER_AL * getRemedyAl();
 	}
 
+	private int getRemedyExtraSaves() {
+		if (action == null || !action.hasModifierAttribute("diseasesaves")) return 1;
+		syncRemedyAlToAction();
+		return Math.max(0, (int) Math.round(action.evaluateModifierAttributeValue("diseasesaves")));
+	}
+
+	private String describeRemedyOngoingSave(String effectType) {
+		String effect = effectType == null || effectType.isBlank() ? "targeted" : effectType;
+		if (action == null || !action.hasModifierAttribute("diseasesaves")) {
+			return "If the target is already under a " + effect
+					+ " effect, they may make an immediate save against it.";
+		}
+		int saves = getRemedyExtraSaves();
+		String count = saves == 1 ? "1 new save" : "up to " + saves + " new saves";
+		return "The target may make " + count + " against each ongoing " + effect
+				+ " effect. Recasting grants additional saves.";
+	}
+
 	private String getRemedyTarget() {
 		if (remedyTargetField == null || remedyTargetField.getText() == null) return "";
 		return remedyTargetField.getText().trim();
@@ -1629,8 +1645,7 @@ public class FrameInform extends JFrame {
 		double bonus = getRemedySaveBonus();
 		String desc = "Grant +" + trimNumber(bonus) + " to saves against " + effectType
 				+ " effects for " + duration + (duration == 1 ? " turn" : " turns")
-				+ ". If already under a " + effectType
-				+ " effect, may make an immediate save against it.";
+				+ ". " + describeRemedyOngoingSave(effectType);
 		return "NAME:" + sanitizeStatusCodeText(actionName)
 				+ "_DUR:Turn:" + duration
 				+ "_DESC:" + sanitizeStatusCodeText(desc);
@@ -1654,9 +1669,8 @@ public class FrameInform extends JFrame {
 				: action.getName();
 
 		String description = actionName + " on " + target + ": +" + trimNumber(bonus)
-				+ " to saves against " + effectType + " effects. If already under a "
-				+ effectType + " effect, may make an immediate save against it. Duration: "
-				+ duration + (duration == 1 ? " turn." : " turns.");
+				+ " to saves against " + effectType + " effects. " + describeRemedyOngoingSave(effectType)
+				+ " Duration: " + duration + (duration == 1 ? " turn." : " turns.");
 
 		character.getCombat().removeStatus(actionName);
 		DataStatus reminder = new DataStatus();

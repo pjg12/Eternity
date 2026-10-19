@@ -2038,6 +2038,12 @@ public class FrameCombat extends JFrame {
 					startSalvoSequence();
 					return;
 				}
+				if (openMoldFrameIfNeeded(action)) {
+					return;
+				}
+				if (openMutationFrameIfNeeded(action)) {
+					return;
+				}
 				if (openStepPopupIfNeeded(action)) {
 					return;
 				}
@@ -2096,6 +2102,12 @@ public class FrameCombat extends JFrame {
 			DataAction action = getClickedAction(e);
 			if (action != null) {
 				if (!ensureActionRequirementsAvailable(action)) {
+					return;
+				}
+				if (openMoldFrameIfNeeded(action)) {
+					return;
+				}
+				if (openMutationFrameIfNeeded(action)) {
 					return;
 				}
 				if (openStepPopupIfNeeded(action)) {
@@ -2699,6 +2711,140 @@ public class FrameCombat extends JFrame {
 		return true;
 	}
 
+	private boolean openMoldFrameIfNeeded(DataAction action) {
+		if (!isNamedAction(action, "Body Molding (Mold)") && !isNamedAction(action, "Body Molding (Quick Mold)")) {
+			return false;
+		}
+		FrameMold mold = new FrameMold(sheetFrame, character);
+		mold.setOnConfirmed(() -> {
+			int assignedLevels = mold.getAssignedLevels();
+			if (assignedLevels > 0) {
+				action.setAl(assignedLevels);
+			}
+			finishActionUse(action);
+		});
+		mold.setVisible(true);
+		return true;
+	}
+
+	private boolean openMutationFrameIfNeeded(DataAction action) {
+		boolean mutate = isNamedAction(action, "Evolved Mutation (Mutate)");
+		boolean quick = isNamedAction(action, "Evolved Mutation (Quick Mutate)");
+		if (!mutate && !quick) return false;
+		if (character == null || character.getCombat() == null || character.getTraining() == null) return true;
+
+		int cap = 0;
+		for (DataTraining tech : character.getTraining().getAllTraining()) {
+			if (tech != null && MutationCatalog.TECHNIQUE_NAME.equalsIgnoreCase(tech.getName())) {
+				cap = Math.max(0, tech.getAl());
+				break;
+			}
+		}
+		int remaining = cap - activeMutationAl();
+		List<String> known = getCharacterListEntries(MutationCatalog.LIST_NAME);
+		if (known.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No entries are available in the Known Mutations list.", "Mutate", JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+		if (remaining <= 0) {
+			JOptionPane.showMessageDialog(this, "Active mutations already use the full Evolved Mutation AL.", "Mutate", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+
+		ArrayList<String> choices = new ArrayList<>();
+		for (String name : known) {
+			if (maxMutationApplications(name, remaining) > 0) choices.add(name);
+		}
+		if (choices.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No known mutations can be activated with the remaining AL.", "Mutate", JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+
+		JComboBox<String> mutationBox = new JComboBox<>(choices.toArray(new String[0]));
+		JComboBox<Integer> countBox = new JComboBox<>();
+		java.awt.event.ActionListener refreshCounts = e -> {
+			countBox.removeAllItems();
+			Object selected = mutationBox.getSelectedItem();
+			int maxCount = selected == null ? 0 : maxMutationApplications(selected.toString(), remaining);
+			for (int i = 1; i <= maxCount; i++) countBox.addItem(i);
+		};
+		mutationBox.addActionListener(refreshCounts);
+		refreshCounts.actionPerformed(null);
+
+		JPanel fields = new JPanel(new java.awt.GridLayout(2, 2, 6, 6));
+		fields.add(new JLabel("Mutation"));
+		fields.add(mutationBox);
+		fields.add(new JLabel("Applications"));
+		fields.add(countBox);
+		JPanel panel = new JPanel(new BorderLayout(0, 8));
+		panel.add(new JLabel("Remaining Evolved Mutation AL: " + remaining), BorderLayout.NORTH);
+		panel.add(fields, BorderLayout.CENTER);
+		int result = JOptionPane.showConfirmDialog(this, panel, quick ? "Quick Mutate" : "Mutate", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (result != JOptionPane.OK_OPTION) return true;
+
+		Object selectedItem = mutationBox.getSelectedItem();
+		Object countItem = countBox.getSelectedItem();
+		if (selectedItem == null || !(countItem instanceof Integer applications) || applications <= 0) return true;
+		String selected = selectedItem.toString();
+		MutationCatalog.MutationOption option = MutationCatalog.find(selected);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		int spentAl = applications * alEach;
+		int updatedApplications = activeMutationApplications(selected) + applications;
+		int updatedAl = activeMutationAlFor(selected) + spentAl;
+		String description = option == null ? "" : option.description();
+		String statusName = "Mutation: " + selected;
+		character.getCombat().removeStatus(statusName);
+		DataStatus status = new DataStatus();
+		status.setName(statusName);
+		status.setAffinity("Body");
+		status.setAttribute("MUTATION");
+		status.setSeverity(updatedAl);
+		status.setDurationType("Maintained");
+		status.setDuration(0);
+		status.setDescription(description + " Active applications: " + updatedApplications + ". AL used: " + updatedAl + ". Deactivate as a free action to reabsorb the mutation.");
+		character.getCombat().addStatus(status);
+		action.setAl(spentAl);
+		finishActionUse(action);
+		return true;
+	}
+
+	private int maxMutationApplications(String name, int remainingAl) {
+		MutationCatalog.MutationOption option = MutationCatalog.find(name);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		int maxSelections = option == null ? remainingAl : option.maxSelections();
+		int selectionsLeft = maxSelections - activeMutationApplications(name);
+		if (selectionsLeft <= 0 || alEach > remainingAl) return 0;
+		return Math.min(selectionsLeft, remainingAl / alEach);
+	}
+
+	private int activeMutationAl() {
+		int total = 0;
+		for (DataStatus status : character.getCombat().getCombatStatus()) {
+			if (status == null || status.getAttribute() == null) continue;
+			if ("MUTATION".equalsIgnoreCase(status.getAttribute().trim())) {
+				total += (int) Math.round(status.getSeverity());
+			}
+		}
+		return Math.max(0, total);
+	}
+
+	private int activeMutationAlFor(String name) {
+		String statusName = "Mutation: " + (name == null ? "" : name.trim());
+		for (DataStatus status : character.getCombat().getCombatStatus()) {
+			if (status == null || status.getName() == null) continue;
+			if (statusName.equalsIgnoreCase(status.getName().trim())) {
+				return Math.max(0, (int) Math.round(status.getSeverity()));
+			}
+		}
+		return 0;
+	}
+
+	private int activeMutationApplications(String name) {
+		MutationCatalog.MutationOption option = MutationCatalog.find(name);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		return activeMutationAlFor(name) / alEach;
+	}
+
 	private boolean openInformFrameIfNeeded(DataAction action) {
 		if (!isInformAction(action)) return false;
 		openActionFrame(action);
@@ -2933,6 +3079,9 @@ public class FrameCombat extends JFrame {
 		String actionType = action.getActionType();
 		if ("Standard".equalsIgnoreCase(actionType)) {
 			requirements.standardActions += 1;
+		} else if ("Full".equalsIgnoreCase(actionType)) {
+			requirements.standardActions += 1;
+			requirements.moveActions += 1;
 		} else if ("Move".equalsIgnoreCase(actionType)) {
 			requirements.moveActions += 1;
 		} else if ("Aura".equalsIgnoreCase(actionType)) {
@@ -2976,6 +3125,9 @@ public class FrameCombat extends JFrame {
 					|| costType.equalsIgnoreCase("Strategic Tactics")) {
 				requirements.strategicTactics += normalizeDiscreteActionCost(costValue);
 			}
+		}
+		if ("Interrupt".equalsIgnoreCase(actionType) && requirements.reactions <= 0) {
+			requirements.reactions = 1;
 		}
 		return requirements;
 	}

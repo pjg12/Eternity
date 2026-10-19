@@ -1,1111 +1,1496 @@
-[ {
-  "id" : 11,
-  "attribute" : "STR",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 12,
-  "attribute" : "STR",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 13,
-  "attribute" : "STR",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 21,
-  "attribute" : "DEX",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 22,
-  "attribute" : "DEX",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 23,
-  "attribute" : "DEX",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 31,
-  "attribute" : "CON",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 32,
-  "attribute" : "CON",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 33,
-  "attribute" : "CON",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 41,
-  "attribute" : "FOC",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 42,
-  "attribute" : "FOC",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 43,
-  "attribute" : "FOC",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 51,
-  "attribute" : "CTL",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 52,
-  "attribute" : "CTL",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 53,
-  "attribute" : "CTL",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 61,
-  "attribute" : "CAP",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 62,
-  "attribute" : "CAP",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 63,
-  "attribute" : "CAP",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 71,
-  "attribute" : "KNOW",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 72,
-  "attribute" : "KNOW",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 73,
-  "attribute" : "KNOW",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 81,
-  "attribute" : "MECH",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 82,
-  "attribute" : "MECH",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 83,
-  "attribute" : "MECH",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 91,
-  "attribute" : "PERC",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 92,
-  "attribute" : "PERC",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 93,
-  "attribute" : "PERC",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 101,
-  "attribute" : "INT",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 102,
-  "attribute" : "INT",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 103,
-  "attribute" : "INT",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 111,
-  "attribute" : "CHA",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 112,
-  "attribute" : "CHA",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 113,
-  "attribute" : "CHA",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 121,
-  "attribute" : "SUB",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 122,
-  "attribute" : "SUB",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 123,
-  "attribute" : "SUB",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 131,
-  "attribute" : "ARMOR",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 132,
-  "attribute" : "ARMOR",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 133,
-  "attribute" : "ARMOR",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 141,
-  "attribute" : "DODGE",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 142,
-  "attribute" : "DODGE",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 143,
-  "attribute" : "DODGE",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 151,
-  "attribute" : "DEF",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 152,
-  "attribute" : "DEF",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 153,
-  "attribute" : "DEF",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 161,
-  "attribute" : "FORT",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 162,
-  "attribute" : "FORT",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 163,
-  "attribute" : "FORT",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 171,
-  "attribute" : "REF",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 172,
-  "attribute" : "REF",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 173,
-  "attribute" : "REF",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 181,
-  "attribute" : "WILL",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 182,
-  "attribute" : "WILL",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 183,
-  "attribute" : "WILL",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 191,
-  "attribute" : "AVOID",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 192,
-  "attribute" : "AVOID",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 193,
-  "attribute" : "AVOID",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 201,
-  "attribute" : "RESALL",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 202,
-  "attribute" : "RESALL",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 203,
-  "attribute" : "RESALL",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 204,
-  "attribute" : "RESALL",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 205,
-  "attribute" : "RESALL",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 206,
-  "attribute" : "RESALL",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 211,
-  "attribute" : "RESSLASH",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 212,
-  "attribute" : "RESSLASH",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 213,
-  "attribute" : "RESSLASH",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 214,
-  "attribute" : "RESSLASH",
-  "ratio" : 0.25,
-  "cost" : 1
-}, {
-  "id" : 215,
-  "attribute" : "RESSLASH",
-  "ratio" : 0.5,
-  "cost" : 3
-}, {
-  "id" : 216,
-  "attribute" : "RESSLASH",
-  "ratio" : 0.75,
-  "cost" : 6
-}, {
-  "id" : 221,
-  "attribute" : "RESPIERCE",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 222,
-  "attribute" : "RESPIERCE",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 223,
-  "attribute" : "RESPIERCE",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 224,
-  "attribute" : "RESPIERCE",
-  "ratio" : 0.25,
-  "cost" : 1
-}, {
-  "id" : 225,
-  "attribute" : "RESPIERCE",
-  "ratio" : 0.5,
-  "cost" : 3
-}, {
-  "id" : 226,
-  "attribute" : "RESPIERCE",
-  "ratio" : 0.75,
-  "cost" : 6
-}, {
-  "id" : 231,
-  "attribute" : "RESBLUNT",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 232,
-  "attribute" : "RESBLUNT",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 233,
-  "attribute" : "RESBLUNT",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 234,
-  "attribute" : "RESBLUNT",
-  "ratio" : 0.25,
-  "cost" : 1
-}, {
-  "id" : 235,
-  "attribute" : "RESBLUNT",
-  "ratio" : 0.5,
-  "cost" : 3
-}, {
-  "id" : 236,
-  "attribute" : "RESBLUNT",
-  "ratio" : 0.75,
-  "cost" : 6
-}, {
-  "id" : 241,
-  "attribute" : "RESFIRE",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 242,
-  "attribute" : "RESFIRE",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 243,
-  "attribute" : "RESFIRE",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 251,
-  "attribute" : "RESFROST",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 252,
-  "attribute" : "RESFROST",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 253,
-  "attribute" : "RESFROST",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 261,
-  "attribute" : "RESELEC",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 262,
-  "attribute" : "RESELEC",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 263,
-  "attribute" : "RESELEC",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 271,
-  "attribute" : "RESLIGHT",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 272,
-  "attribute" : "RESLIGHT",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 273,
-  "attribute" : "RESLIGHT",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 281,
-  "attribute" : "RESDARK",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 282,
-  "attribute" : "RESDARK",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 283,
-  "attribute" : "RESDARK",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 291,
-  "attribute" : "RESSONIC",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 292,
-  "attribute" : "RESSONIC",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 293,
-  "attribute" : "RESSONIC",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 301,
-  "attribute" : "RESTOXIC",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 302,
-  "attribute" : "RESTOXIC",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 303,
-  "attribute" : "RESTOXIC",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 311,
-  "attribute" : "RESPSI",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 312,
-  "attribute" : "RESPSI",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 313,
-  "attribute" : "RESPSI",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 321,
-  "attribute" : "RESENERGY",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 322,
-  "attribute" : "RESENERGY",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 323,
-  "attribute" : "RESENERGY",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 331,
-  "attribute" : "RESSPIRIT",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 332,
-  "attribute" : "RESSPIRIT",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 333,
-  "attribute" : "RESSPIRIT",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 341,
-  "attribute" : "RESTIME",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 342,
-  "attribute" : "RESTIME",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 343,
-  "attribute" : "RESTIME",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 351,
-  "attribute" : "SUP",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 352,
-  "attribute" : "SUP",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 353,
-  "attribute" : "SUP",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 361,
-  "attribute" : "GRANT",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 362,
-  "attribute" : "GRANT",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 363,
-  "attribute" : "GRANT",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 371,
-  "attribute" : "IMPAIR",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 372,
-  "attribute" : "IMPAIR",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 373,
-  "attribute" : "IMPAIR",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 381,
-  "attribute" : "MAST",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 382,
-  "attribute" : "MAST",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 383,
-  "attribute" : "MAST",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 391,
-  "attribute" : "MAXATK",
-  "ratio" : 0.2,
-  "cost" : 1
-}, {
-  "id" : 392,
-  "attribute" : "MAXATK",
-  "ratio" : 0.4,
-  "cost" : 3
-}, {
-  "id" : 393,
-  "attribute" : "MAXATK",
-  "ratio" : 0.6,
-  "cost" : 6
-}, {
-  "id" : 401,
-  "attribute" : "INIT",
-  "ratio" : 0.2,
-  "cost" : 1
-}, {
-  "id" : 402,
-  "attribute" : "INIT",
-  "ratio" : 0.4,
-  "cost" : 3
-}, {
-  "id" : 403,
-  "attribute" : "INIT",
-  "ratio" : 0.6,
-  "cost" : 6
-}, {
-  "id" : 411,
-  "attribute" : "REACT",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 412,
-  "attribute" : "REACT",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 413,
-  "attribute" : "REACT",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 421,
-  "attribute" : "R1",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 422,
-  "attribute" : "R1",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 423,
-  "attribute" : "R1",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 431,
-  "attribute" : "R2",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 432,
-  "attribute" : "R2",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 433,
-  "attribute" : "R2",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 441,
-  "attribute" : "R3",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 442,
-  "attribute" : "R3",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 443,
-  "attribute" : "R3",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 451,
-  "attribute" : "EXCL",
-  "ratio" : 0.5,
-  "cost" : 1
-}, {
-  "id" : 452,
-  "attribute" : "EXCL",
-  "ratio" : 1.0,
-  "cost" : 3
-}, {
-  "id" : 453,
-  "attribute" : "EXCL",
-  "ratio" : 1.5,
-  "cost" : 6
-}, {
-  "id" : 461,
-  "attribute" : "CMAN",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 462,
-  "attribute" : "CMAN",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 463,
-  "attribute" : "CMAN",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 471,
-  "attribute" : "ATK",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 472,
-  "attribute" : "ATK",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 473,
-  "attribute" : "ATK",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 481,
-  "attribute" : "APPLY",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 482,
-  "attribute" : "APPLY",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 483,
-  "attribute" : "APPLY",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 491,
-  "attribute" : "MOVE",
-  "ratio" : 2.5,
-  "cost" : 1
-}, {
-  "id" : 492,
-  "attribute" : "MOVE",
-  "ratio" : 5.0,
-  "cost" : 3
-}, {
-  "id" : 493,
-  "attribute" : "MOVE",
-  "ratio" : 7.5,
-  "cost" : 6
-}, {
-  "id" : 501,
-  "attribute" : "FLY",
-  "ratio" : 5.0,
-  "cost" : 1
-}, {
-  "id" : 502,
-  "attribute" : "FLY",
-  "ratio" : 10.0,
-  "cost" : 3
-}, {
-  "id" : 503,
-  "attribute" : "FLY",
-  "ratio" : 15.0,
-  "cost" : 6
-}, {
-  "id" : 511,
-  "attribute" : "RANGE",
-  "ratio" : 2.5,
-  "cost" : 1
-}, {
-  "id" : 512,
-  "attribute" : "RANGE",
-  "ratio" : 5.0,
-  "cost" : 3
-}, {
-  "id" : 513,
-  "attribute" : "RANGE",
-  "ratio" : 7.5,
-  "cost" : 6
-}, {
-  "id" : 521,
-  "attribute" : "AREA",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 522,
-  "attribute" : "AREA",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 523,
-  "attribute" : "AREA",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 531,
-  "attribute" : "MAXHP",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 532,
-  "attribute" : "MAXHP",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 533,
-  "attribute" : "MAXHP",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 541,
-  "attribute" : "HPMULTI",
-  "ratio" : 0.01,
-  "cost" : 1
-}, {
-  "id" : 542,
-  "attribute" : "HPMULTI",
-  "ratio" : 0.02,
-  "cost" : 3
-}, {
-  "id" : 543,
-  "attribute" : "HPMULTI",
-  "ratio" : 0.03,
-  "cost" : 6
-}, {
-  "id" : 551,
-  "attribute" : "MAXAURA",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 552,
-  "attribute" : "MAXAURA",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 553,
-  "attribute" : "MAXAURA",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 561,
-  "attribute" : "AURAMULTI",
-  "ratio" : 0.01,
-  "cost" : 1
-}, {
-  "id" : 562,
-  "attribute" : "AURAMULTI",
-  "ratio" : 0.02,
-  "cost" : 3
-}, {
-  "id" : 563,
-  "attribute" : "AURAMULTI",
-  "ratio" : 0.03,
-  "cost" : 6
-}, {
-  "id" : 571,
-  "attribute" : "CRIT",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 572,
-  "attribute" : "CRIT",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 573,
-  "attribute" : "CRIT",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 581,
-  "attribute" : "CRITDMG",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 582,
-  "attribute" : "CRITDMG",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 583,
-  "attribute" : "CRITDMG",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 591,
-  "attribute" : "SHD",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 592,
-  "attribute" : "SHD",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 593,
-  "attribute" : "SHD",
-  "ratio" : 0.3,
-  "cost" : 6
-}, {
-  "id" : 601,
-  "attribute" : "BREAK",
-  "ratio" : 4.0,
-  "cost" : 1
-}, {
-  "id" : 602,
-  "attribute" : "BREAK",
-  "ratio" : 8.0,
-  "cost" : 3
-}, {
-  "id" : 603,
-  "attribute" : "BREAK",
-  "ratio" : 12.0,
-  "cost" : 6
-}, {
-  "id" : 611,
-  "attribute" : "CRUSH",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 612,
-  "attribute" : "CRUSH",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 613,
-  "attribute" : "CRUSH",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 621,
-  "attribute" : "REGEN",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 622,
-  "attribute" : "REGEN",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 623,
-  "attribute" : "REGEN",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 631,
-  "attribute" : "BDMG",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 632,
-  "attribute" : "BDMG",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 633,
-  "attribute" : "BDMG",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 641,
-  "attribute" : "TDMG",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 642,
-  "attribute" : "TDMG",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 643,
-  "attribute" : "TDMG",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 651,
-  "attribute" : "BHEAL",
-  "ratio" : 1.0,
-  "cost" : 1
-}, {
-  "id" : 652,
-  "attribute" : "BHEAL",
-  "ratio" : 2.0,
-  "cost" : 3
-}, {
-  "id" : 653,
-  "attribute" : "BHEAL",
-  "ratio" : 3.0,
-  "cost" : 6
-}, {
-  "id" : 661,
-  "attribute" : "THEAL",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 662,
-  "attribute" : "THEAL",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 663,
-  "attribute" : "THEAL",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 671,
-  "attribute" : "DMGMULTI",
-  "ratio" : 0.02,
-  "cost" : 1
-}, {
-  "id" : 672,
-  "attribute" : "DMGMULTI",
-  "ratio" : 0.04,
-  "cost" : 3
-}, {
-  "id" : 673,
-  "attribute" : "DMGMULTI",
-  "ratio" : 0.06,
-  "cost" : 6
-}, {
-  "id" : 681,
-  "attribute" : "HEALMULTI",
-  "ratio" : 0.02,
-  "cost" : 1
-}, {
-  "id" : 682,
-  "attribute" : "HEALMULTI",
-  "ratio" : 0.04,
-  "cost" : 2
-}, {
-  "id" : 683,
-  "attribute" : "HEALMULTI",
-  "ratio" : 0.06,
-  "cost" : 6
-}, {
-  "id" : 691,
-  "attribute" : "SKILLMEDICAL",
-  "ratio" : 2.0,
-  "cost" : 1
-}, {
-  "id" : 692,
-  "attribute" : "SKILLMEDICAL",
-  "ratio" : 4.0,
-  "cost" : 3
-}, {
-  "id" : 693,
-  "attribute" : "SKILLMEDICAL",
-  "ratio" : 6.0,
-  "cost" : 6
-}, {
-  "id" : 701,
-  "attribute" : "DUR",
-  "ratio" : 0.1,
-  "cost" : 1
-}, {
-  "id" : 702,
-  "attribute" : "DUR",
-  "ratio" : 0.2,
-  "cost" : 3
-}, {
-  "id" : 703,
-  "attribute" : "DUR",
-  "ratio" : 0.3,
-  "cost" : 6
-} ]
+[
+  {
+    "id" : 11,
+    "attribute" : "STR",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 12,
+    "attribute" : "STR",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 13,
+    "attribute" : "STR",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 21,
+    "attribute" : "DEX",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 22,
+    "attribute" : "DEX",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 23,
+    "attribute" : "DEX",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 31,
+    "attribute" : "CON",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 32,
+    "attribute" : "CON",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 33,
+    "attribute" : "CON",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 41,
+    "attribute" : "FOC",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 42,
+    "attribute" : "FOC",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 43,
+    "attribute" : "FOC",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 51,
+    "attribute" : "CTL",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 52,
+    "attribute" : "CTL",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 53,
+    "attribute" : "CTL",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 61,
+    "attribute" : "CAP",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 62,
+    "attribute" : "CAP",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 63,
+    "attribute" : "CAP",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 71,
+    "attribute" : "KNOW",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 72,
+    "attribute" : "KNOW",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 73,
+    "attribute" : "KNOW",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 81,
+    "attribute" : "MECH",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 82,
+    "attribute" : "MECH",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 83,
+    "attribute" : "MECH",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 91,
+    "attribute" : "PERC",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 92,
+    "attribute" : "PERC",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 93,
+    "attribute" : "PERC",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 101,
+    "attribute" : "INT",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 102,
+    "attribute" : "INT",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 103,
+    "attribute" : "INT",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 111,
+    "attribute" : "CHA",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 112,
+    "attribute" : "CHA",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 113,
+    "attribute" : "CHA",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 121,
+    "attribute" : "SUB",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 122,
+    "attribute" : "SUB",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 123,
+    "attribute" : "SUB",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 131,
+    "attribute" : "ARMOR",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 132,
+    "attribute" : "ARMOR",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 133,
+    "attribute" : "ARMOR",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 141,
+    "attribute" : "DODGE",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 142,
+    "attribute" : "DODGE",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 143,
+    "attribute" : "DODGE",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 151,
+    "attribute" : "DEF",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 152,
+    "attribute" : "DEF",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 153,
+    "attribute" : "DEF",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 161,
+    "attribute" : "FORT",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 162,
+    "attribute" : "FORT",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 163,
+    "attribute" : "FORT",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 171,
+    "attribute" : "REF",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 172,
+    "attribute" : "REF",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 173,
+    "attribute" : "REF",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 181,
+    "attribute" : "WILL",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 182,
+    "attribute" : "WILL",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 183,
+    "attribute" : "WILL",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 191,
+    "attribute" : "AVOID",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 192,
+    "attribute" : "AVOID",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 193,
+    "attribute" : "AVOID",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 201,
+    "attribute" : "RESALL",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 202,
+    "attribute" : "RESALL",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 203,
+    "attribute" : "RESALL",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 204,
+    "attribute" : "RESALL",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 205,
+    "attribute" : "RESALL",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 206,
+    "attribute" : "RESALL",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 211,
+    "attribute" : "RESSLASH",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 212,
+    "attribute" : "RESSLASH",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 213,
+    "attribute" : "RESSLASH",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 214,
+    "attribute" : "RESSLASH",
+    "ratio" : 0.25,
+    "cost" : 1
+  },
+  {
+    "id" : 215,
+    "attribute" : "RESSLASH",
+    "ratio" : 0.5,
+    "cost" : 3
+  },
+  {
+    "id" : 216,
+    "attribute" : "RESSLASH",
+    "ratio" : 0.75,
+    "cost" : 6
+  },
+  {
+    "id" : 221,
+    "attribute" : "RESPIERCE",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 222,
+    "attribute" : "RESPIERCE",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 223,
+    "attribute" : "RESPIERCE",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 224,
+    "attribute" : "RESPIERCE",
+    "ratio" : 0.25,
+    "cost" : 1
+  },
+  {
+    "id" : 225,
+    "attribute" : "RESPIERCE",
+    "ratio" : 0.5,
+    "cost" : 3
+  },
+  {
+    "id" : 226,
+    "attribute" : "RESPIERCE",
+    "ratio" : 0.75,
+    "cost" : 6
+  },
+  {
+    "id" : 231,
+    "attribute" : "RESBLUNT",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 232,
+    "attribute" : "RESBLUNT",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 233,
+    "attribute" : "RESBLUNT",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 234,
+    "attribute" : "RESBLUNT",
+    "ratio" : 0.25,
+    "cost" : 1
+  },
+  {
+    "id" : 235,
+    "attribute" : "RESBLUNT",
+    "ratio" : 0.5,
+    "cost" : 3
+  },
+  {
+    "id" : 236,
+    "attribute" : "RESBLUNT",
+    "ratio" : 0.75,
+    "cost" : 6
+  },
+  {
+    "id" : 241,
+    "attribute" : "RESFIRE",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 242,
+    "attribute" : "RESFIRE",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 243,
+    "attribute" : "RESFIRE",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 251,
+    "attribute" : "RESFROST",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 252,
+    "attribute" : "RESFROST",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 253,
+    "attribute" : "RESFROST",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 261,
+    "attribute" : "RESELEC",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 262,
+    "attribute" : "RESELEC",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 263,
+    "attribute" : "RESELEC",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 271,
+    "attribute" : "RESLIGHT",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 272,
+    "attribute" : "RESLIGHT",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 273,
+    "attribute" : "RESLIGHT",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 281,
+    "attribute" : "RESDARK",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 282,
+    "attribute" : "RESDARK",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 283,
+    "attribute" : "RESDARK",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 291,
+    "attribute" : "RESSONIC",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 292,
+    "attribute" : "RESSONIC",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 293,
+    "attribute" : "RESSONIC",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 301,
+    "attribute" : "RESTOXIC",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 302,
+    "attribute" : "RESTOXIC",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 303,
+    "attribute" : "RESTOXIC",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 311,
+    "attribute" : "RESPSI",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 312,
+    "attribute" : "RESPSI",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 313,
+    "attribute" : "RESPSI",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 321,
+    "attribute" : "RESENERGY",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 322,
+    "attribute" : "RESENERGY",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 323,
+    "attribute" : "RESENERGY",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 331,
+    "attribute" : "RESSPIRIT",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 332,
+    "attribute" : "RESSPIRIT",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 333,
+    "attribute" : "RESSPIRIT",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 341,
+    "attribute" : "RESTIME",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 342,
+    "attribute" : "RESTIME",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 343,
+    "attribute" : "RESTIME",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 351,
+    "attribute" : "SUP",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 352,
+    "attribute" : "SUP",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 353,
+    "attribute" : "SUP",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 361,
+    "attribute" : "GRANT",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 362,
+    "attribute" : "GRANT",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 363,
+    "attribute" : "GRANT",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 371,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 372,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 373,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 381,
+    "attribute" : "MAST",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 382,
+    "attribute" : "MAST",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 383,
+    "attribute" : "MAST",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 391,
+    "attribute" : "MAXATK",
+    "ratio" : 0.2,
+    "cost" : 1
+  },
+  {
+    "id" : 392,
+    "attribute" : "MAXATK",
+    "ratio" : 0.4,
+    "cost" : 3
+  },
+  {
+    "id" : 393,
+    "attribute" : "MAXATK",
+    "ratio" : 0.6,
+    "cost" : 6
+  },
+  {
+    "id" : 401,
+    "attribute" : "INIT",
+    "ratio" : 0.2,
+    "cost" : 1
+  },
+  {
+    "id" : 402,
+    "attribute" : "INIT",
+    "ratio" : 0.4,
+    "cost" : 3
+  },
+  {
+    "id" : 403,
+    "attribute" : "INIT",
+    "ratio" : 0.6,
+    "cost" : 6
+  },
+  {
+    "id" : 411,
+    "attribute" : "REACT",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 412,
+    "attribute" : "REACT",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 413,
+    "attribute" : "REACT",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 421,
+    "attribute" : "R1",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 422,
+    "attribute" : "R1",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 423,
+    "attribute" : "R1",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 431,
+    "attribute" : "R2",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 432,
+    "attribute" : "R2",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 433,
+    "attribute" : "R2",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 441,
+    "attribute" : "R3",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 442,
+    "attribute" : "R3",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 443,
+    "attribute" : "R3",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 451,
+    "attribute" : "EXCL",
+    "ratio" : 0.5,
+    "cost" : 1
+  },
+  {
+    "id" : 452,
+    "attribute" : "EXCL",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 453,
+    "attribute" : "EXCL",
+    "ratio" : 1.5,
+    "cost" : 6
+  },
+  {
+    "id" : 461,
+    "attribute" : "CMAN",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 462,
+    "attribute" : "CMAN",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 463,
+    "attribute" : "CMAN",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 471,
+    "attribute" : "ATK",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 472,
+    "attribute" : "ATK",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 473,
+    "attribute" : "ATK",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 481,
+    "attribute" : "APPLY",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 482,
+    "attribute" : "APPLY",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 483,
+    "attribute" : "APPLY",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 491,
+    "attribute" : "MOVE",
+    "ratio" : 2.5,
+    "cost" : 1
+  },
+  {
+    "id" : 492,
+    "attribute" : "MOVE",
+    "ratio" : 5.0,
+    "cost" : 3
+  },
+  {
+    "id" : 493,
+    "attribute" : "MOVE",
+    "ratio" : 7.5,
+    "cost" : 6
+  },
+  {
+    "id" : 501,
+    "attribute" : "FLY",
+    "ratio" : 5.0,
+    "cost" : 1
+  },
+  {
+    "id" : 502,
+    "attribute" : "FLY",
+    "ratio" : 10.0,
+    "cost" : 3
+  },
+  {
+    "id" : 503,
+    "attribute" : "FLY",
+    "ratio" : 15.0,
+    "cost" : 6
+  },
+  {
+    "id" : 511,
+    "attribute" : "RANGE",
+    "ratio" : 2.5,
+    "cost" : 1
+  },
+  {
+    "id" : 512,
+    "attribute" : "RANGE",
+    "ratio" : 5.0,
+    "cost" : 3
+  },
+  {
+    "id" : 513,
+    "attribute" : "RANGE",
+    "ratio" : 7.5,
+    "cost" : 6
+  },
+  {
+    "id" : 521,
+    "attribute" : "AREA",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 522,
+    "attribute" : "AREA",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 523,
+    "attribute" : "AREA",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 531,
+    "attribute" : "MAXHP",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 532,
+    "attribute" : "MAXHP",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 533,
+    "attribute" : "MAXHP",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 541,
+    "attribute" : "HPMULTI",
+    "ratio" : 0.01,
+    "cost" : 1
+  },
+  {
+    "id" : 542,
+    "attribute" : "HPMULTI",
+    "ratio" : 0.02,
+    "cost" : 3
+  },
+  {
+    "id" : 543,
+    "attribute" : "HPMULTI",
+    "ratio" : 0.03,
+    "cost" : 6
+  },
+  {
+    "id" : 551,
+    "attribute" : "MAXAURA",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 552,
+    "attribute" : "MAXAURA",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 553,
+    "attribute" : "MAXAURA",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 561,
+    "attribute" : "AURAMULTI",
+    "ratio" : 0.01,
+    "cost" : 1
+  },
+  {
+    "id" : 562,
+    "attribute" : "AURAMULTI",
+    "ratio" : 0.02,
+    "cost" : 3
+  },
+  {
+    "id" : 563,
+    "attribute" : "AURAMULTI",
+    "ratio" : 0.03,
+    "cost" : 6
+  },
+  {
+    "id" : 571,
+    "attribute" : "CRIT",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 572,
+    "attribute" : "CRIT",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 573,
+    "attribute" : "CRIT",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 581,
+    "attribute" : "CRITDMG",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 582,
+    "attribute" : "CRITDMG",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 583,
+    "attribute" : "CRITDMG",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 591,
+    "attribute" : "SHD",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 592,
+    "attribute" : "SHD",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 593,
+    "attribute" : "SHD",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 601,
+    "attribute" : "BREAK",
+    "ratio" : 4.0,
+    "cost" : 1
+  },
+  {
+    "id" : 602,
+    "attribute" : "BREAK",
+    "ratio" : 8.0,
+    "cost" : 3
+  },
+  {
+    "id" : 603,
+    "attribute" : "BREAK",
+    "ratio" : 12.0,
+    "cost" : 6
+  },
+  {
+    "id" : 611,
+    "attribute" : "CRUSH",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 612,
+    "attribute" : "CRUSH",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 613,
+    "attribute" : "CRUSH",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 621,
+    "attribute" : "REGEN",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 622,
+    "attribute" : "REGEN",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 623,
+    "attribute" : "REGEN",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 631,
+    "attribute" : "BDMG",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 632,
+    "attribute" : "BDMG",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 633,
+    "attribute" : "BDMG",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 641,
+    "attribute" : "TDMG",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 642,
+    "attribute" : "TDMG",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 643,
+    "attribute" : "TDMG",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 651,
+    "attribute" : "BHEAL",
+    "ratio" : 1.0,
+    "cost" : 1
+  },
+  {
+    "id" : 652,
+    "attribute" : "BHEAL",
+    "ratio" : 2.0,
+    "cost" : 3
+  },
+  {
+    "id" : 653,
+    "attribute" : "BHEAL",
+    "ratio" : 3.0,
+    "cost" : 6
+  },
+  {
+    "id" : 661,
+    "attribute" : "THEAL",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 662,
+    "attribute" : "THEAL",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 663,
+    "attribute" : "THEAL",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 671,
+    "attribute" : "DMGMULTI",
+    "ratio" : 0.02,
+    "cost" : 1
+  },
+  {
+    "id" : 672,
+    "attribute" : "DMGMULTI",
+    "ratio" : 0.04,
+    "cost" : 3
+  },
+  {
+    "id" : 673,
+    "attribute" : "DMGMULTI",
+    "ratio" : 0.06,
+    "cost" : 6
+  },
+  {
+    "id" : 681,
+    "attribute" : "HEALMULTI",
+    "ratio" : 0.02,
+    "cost" : 1
+  },
+  {
+    "id" : 682,
+    "attribute" : "HEALMULTI",
+    "ratio" : 0.04,
+    "cost" : 2
+  },
+  {
+    "id" : 683,
+    "attribute" : "HEALMULTI",
+    "ratio" : 0.06,
+    "cost" : 6
+  },
+  {
+    "id" : 691,
+    "attribute" : "SKILLMEDICAL",
+    "ratio" : 2.0,
+    "cost" : 1
+  },
+  {
+    "id" : 692,
+    "attribute" : "SKILLMEDICAL",
+    "ratio" : 4.0,
+    "cost" : 3
+  },
+  {
+    "id" : 693,
+    "attribute" : "SKILLMEDICAL",
+    "ratio" : 6.0,
+    "cost" : 6
+  },
+  {
+    "id" : 701,
+    "attribute" : "DUR",
+    "ratio" : 0.1,
+    "cost" : 1
+  },
+  {
+    "id" : 702,
+    "attribute" : "DUR",
+    "ratio" : 0.2,
+    "cost" : 3
+  },
+  {
+    "id" : 703,
+    "attribute" : "DUR",
+    "ratio" : 0.3,
+    "cost" : 6
+  },
+  {
+    "id" : 704,
+    "attribute" : "SUP",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 705,
+    "attribute" : "SUP",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 706,
+    "attribute" : "SUP",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 707,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 708,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 709,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 710,
+    "attribute" : "MAST",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 711,
+    "attribute" : "MAST",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 712,
+    "attribute" : "MAST",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 713,
+    "attribute" : "R1",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 714,
+    "attribute" : "R1",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 715,
+    "attribute" : "R1",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 716,
+    "attribute" : "R2",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 717,
+    "attribute" : "R2",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 718,
+    "attribute" : "R2",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 719,
+    "attribute" : "AREA",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 720,
+    "attribute" : "AREA",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 721,
+    "attribute" : "AREA",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 722,
+    "attribute" : "SHD",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 723,
+    "attribute" : "SHD",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 724,
+    "attribute" : "SHD",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 725,
+    "attribute" : "DUR",
+    "ratio" : 0.025,
+    "cost" : 1
+  },
+  {
+    "id" : 726,
+    "attribute" : "DUR",
+    "ratio" : 0.05,
+    "cost" : 3
+  },
+  {
+    "id" : 727,
+    "attribute" : "DUR",
+    "ratio" : 0.075,
+    "cost" : 6
+  },
+  {
+    "id" : 728,
+    "attribute" : "SYN",
+    "ratio" : 3.0,
+    "cost" : 3
+  },
+  {
+    "id" : 729,
+    "attribute" : "",
+    "ratio" : 0.0,
+    "cost" : 2
+  },
+  {
+    "id" : 730,
+    "attribute" : "",
+    "ratio" : 0.0,
+    "cost" : 5
+  }
+]

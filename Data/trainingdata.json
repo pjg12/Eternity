@@ -815,14 +815,12 @@
     "name" : "Aura Affinity (Enhancement)",
     "type" : "Passive",
     "affinity" : "Enhancement",
-    "description" : "+0.25 RESSLASH, RESPIERCE, RESBLUNT per level",
+    "description" : "+1 RESALL per level",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : -1,
     "grant" : [
-      214,
-      224,
-      234
+      201
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2196,12 +2194,12 @@
     "name" : "Improved Support (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 SUP per AL",
+    "description" : "+0.025 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2212,12 +2210,12 @@
     "name" : "Improved Support (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 SUP per AL",
+    "description" : "+0.05 SUP per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2204,
     "grant" : [
-      352
+      705
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2228,12 +2226,12 @@
     "name" : "Improved Support (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 SUP per AL",
+    "description" : "+0.075 SUP per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2205,
     "grant" : [
-      353
+      706
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2292,12 +2290,12 @@
     "name" : "Improved Impairment (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 IMPAIR per AL",
+    "description" : "+0.025 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2308,12 +2306,12 @@
     "name" : "Improved Impairment (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 IMPAIR per AL",
+    "description" : "+0.05 IMPAIR per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2210,
     "grant" : [
-      372
+      708
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2324,12 +2322,12 @@
     "name" : "Improved Impairment (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 IMPAIR per AL",
+    "description" : "+0.075 IMPAIR per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2211,
     "grant" : [
-      373
+      709
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2340,12 +2338,12 @@
     "name" : "Improved Mastery (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 MAST per AL",
+    "description" : "+0.025 MAST per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2356,12 +2354,12 @@
     "name" : "Improved Mastery (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 MAST per AL",
+    "description" : "+0.05 MAST per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2213,
     "grant" : [
-      382
+      711
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2372,12 +2370,12 @@
     "name" : "Improved Mastery (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 MAST per AL",
+    "description" : "+0.075 MAST per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2214,
     "grant" : [
-      383
+      712
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2532,12 +2530,12 @@
     "name" : "Improved Technique (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 R1 per AL",
+    "description" : "+0.025 R1 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      421
+      713
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2548,12 +2546,12 @@
     "name" : "Improved Technique (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 R1 per AL",
+    "description" : "+0.05 R1 per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2225,
     "grant" : [
-      422
+      714
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2564,12 +2562,12 @@
     "name" : "Improved Technique (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 R1 per AL",
+    "description" : "+0.075 R1 per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2226,
     "grant" : [
-      423
+      715
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2580,12 +2578,12 @@
     "name" : "Improved Prowess (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 R2 per AL",
+    "description" : "+0.025 R2 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      431
+      716
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2596,12 +2594,12 @@
     "name" : "Improved Prowess (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 R2 per AL",
+    "description" : "+0.05 R2 per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2228,
     "grant" : [
-      432
+      717
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2612,12 +2610,12 @@
     "name" : "Improved Prowess (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 R2 per AL",
+    "description" : "+0.075 R2 per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2229,
     "grant" : [
-      433
+      718
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2964,12 +2962,12 @@
     "name" : "Improved Area (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 AREA per AL",
+    "description" : "+0.025 AREA per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      521
+      719
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2980,12 +2978,12 @@
     "name" : "Improved Area (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 AREA per AL",
+    "description" : "+0.05 AREA per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2255,
     "grant" : [
-      522
+      720
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -2996,12 +2994,12 @@
     "name" : "Improved Area (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 AREA per AL",
+    "description" : "+0.075 AREA per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2256,
     "grant" : [
-      523
+      721
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3204,12 +3202,12 @@
     "name" : "Improved Shielding (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 SHD per AL",
+    "description" : "+0.025 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      591
+      722
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3220,12 +3218,12 @@
     "name" : "Improved Shielding (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 SHD per AL",
+    "description" : "+0.05 SHD per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2270,
     "grant" : [
-      592
+      723
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3236,12 +3234,12 @@
     "name" : "Improved Shielding (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 SHD per AL",
+    "description" : "+0.075 SHD per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2271,
     "grant" : [
-      593
+      724
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3588,12 +3586,12 @@
     "name" : "Improved Duration (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.1 DUR per AL",
+    "description" : "+0.025 DUR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
     "grant" : [
-      701
+      725
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3604,12 +3602,12 @@
     "name" : "Improved Duration (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.2 DUR per AL",
+    "description" : "+0.05 DUR per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2294,
     "grant" : [
-      702
+      726
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3620,12 +3618,12 @@
     "name" : "Improved Duration (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+0.3 DUR per AL",
+    "description" : "+0.075 DUR per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2295,
     "grant" : [
-      703
+      727
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -3717,7 +3715,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4001,
     "grant" : [
@@ -3729,7 +3727,7 @@
   },
   {
     "id" : 4004,
-    "name" : "Limber Shot (Weak)",
+    "name" : "Ligament Shot (Weak)",
     "type" : "Active",
     "affinity" : "Body",
     "description" : "Empowers your next attack based on your DEX",
@@ -3745,11 +3743,11 @@
   },
   {
     "id" : 4006,
-    "name" : "Limber Shot (Strong)",
+    "name" : "Ligament Shot (Strong)",
     "type" : "Active",
     "affinity" : "Body",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4004,
     "grant" : [
@@ -3781,7 +3779,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4007,
     "grant" : [
@@ -3813,7 +3811,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4010,
     "grant" : [
@@ -3845,7 +3843,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4013,
     "grant" : [
@@ -3877,7 +3875,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4016,
     "grant" : [
@@ -3909,7 +3907,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4019,
     "grant" : [
@@ -3941,7 +3939,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4022,
     "grant" : [
@@ -3973,7 +3971,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4025,
     "grant" : [
@@ -4005,7 +4003,7 @@
     "type" : "Active",
     "affinity" : "Body",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4028,
     "grant" : [
@@ -4020,7 +4018,7 @@
     "name" : "Body Shield (Weak)",
     "type" : "Active",
     "affinity" : "Body",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
+    "description" : "SHIELD = Base HP x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
@@ -4036,8 +4034,8 @@
     "name" : "Body Shield (Strong)",
     "type" : "Active",
     "affinity" : "Body",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "description" : "SHIELD = 3 x Base HP x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4031,
     "grant" : [
@@ -4052,7 +4050,7 @@
     "name" : "Body Shell (Weak)",
     "type" : "Active",
     "affinity" : "Body",
-    "description" : "Increases damage resistance",
+    "description" : "RESALL and RESPIERCE = 3 x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
@@ -4068,8 +4066,8 @@
     "name" : "Body Shell (Strong)",
     "type" : "Active",
     "affinity" : "Body",
-    "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "description" : "RESALL and RESPIERCE = 9 x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4034,
     "grant" : [
@@ -4081,15 +4079,543 @@
   },
   {
     "id" : 4037,
-    "name" : "Body Cure",
+    "name" : "Body Cure (Weak)",
     "type" : "Active",
     "affinity" : "Body",
-    "description" : "Give bonus against Disease effects",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
     "grant" : [
       4034
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4086,
+    "name" : "Body Cure (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4037,
+    "grant" : [
+      4059
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4038,
+    "name" : "Body Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60030
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4040,
+    "name" : "Body Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4038,
+    "grant" : [
+      60031
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4041,
+    "name" : "Body Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60032
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4043,
+    "name" : "Body Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4041,
+    "grant" : [
+      60033
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4044,
+    "name" : "Body Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60034
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4046,
+    "name" : "Body Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4044,
+    "grant" : [
+      60035
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4047,
+    "name" : "Body Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Create a lingering ruptured area that deals Piercing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60036
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4049,
+    "name" : "Body Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Create a lingering ruptured area that deals Piercing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4047,
+    "grant" : [
+      60037
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4050,
+    "name" : "Body Accelerate (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's movement speed.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4035
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4052,
+    "name" : "Body Accelerate (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's movement speed.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4050,
+    "grant" : [
+      4036
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4053,
+    "name" : "Body Sharpen (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's Critical Threat.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4037
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4055,
+    "name" : "Body Sharpen (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's Critical Threat.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4053,
+    "grant" : [
+      4038
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4056,
+    "name" : "Body Invigorate (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's Regeneration.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4039
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4058,
+    "name" : "Body Invigorate (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's Regeneration.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4056,
+    "grant" : [
+      4040
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4059,
+    "name" : "Body Comforting (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's total healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4041
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4061,
+    "name" : "Body Comforting (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Increase an ally's total healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4059,
+    "grant" : [
+      4042
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4062,
+    "name" : "Body Degradation (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce enemy Adaptation effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4043
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4064,
+    "name" : "Body Degradation (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce enemy Adaptation effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4062,
+    "grant" : [
+      4044
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4065,
+    "name" : "Body Slow (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's movement speed.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4045
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4067,
+    "name" : "Body Slow (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's movement speed.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4065,
+    "grant" : [
+      4046
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4068,
+    "name" : "Body Dulling (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's Critical Threat.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4047
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4070,
+    "name" : "Body Dulling (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's Critical Threat.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4068,
+    "grant" : [
+      4048
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4071,
+    "name" : "Body Degenerate (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's Regeneration.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4049
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4073,
+    "name" : "Body Degenerate (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's Regeneration.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4071,
+    "grant" : [
+      4050
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4074,
+    "name" : "Body Unrest (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's total healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4051
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4076,
+    "name" : "Body Unrest (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Reduce an enemy's total healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4074,
+    "grant" : [
+      4052
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4077,
+    "name" : "Body Step (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Instantly reposition yourself without provoking attacks of opportunity.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4053
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4079,
+    "name" : "Body Step (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Instantly reposition yourself without provoking attacks of opportunity.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4077,
+    "grant" : [
+      4054
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4080,
+    "name" : "Body Berserk (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Afflict Berserk (disease) on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4055
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4082,
+    "name" : "Body Berserk (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Afflict Berserk (disease) on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4080,
+    "grant" : [
+      4056
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4083,
+    "name" : "Body Charm (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Afflict Charm (disease) on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      4057
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4085,
+    "name" : "Body Charm (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Afflict Charm (disease) on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4083,
+    "grant" : [
+      4058
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -4298,8 +4824,8 @@
     "levelMod" : 0.0,
     "prereq" : 4000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -4307,7 +4833,7 @@
   },
   {
     "id" : 5203,
-    "name" : "Evolved Granting",
+    "name" : "Evolved Grant",
     "type" : "Maintained",
     "affinity" : "Body",
     "description" : "+1 GRANT per AL",
@@ -4326,12 +4852,12 @@
     "name" : "Evolved Impairment",
     "type" : "Maintained",
     "affinity" : "Body",
-    "description" : "+1 IMPAIR per AL",
+    "description" : "+0.025 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -4387,7 +4913,7 @@
   },
   {
     "id" : 5213,
-    "name" : "Evolved Accuracy",
+    "name" : "Evolved Attack",
     "type" : "Maintained",
     "affinity" : "Body",
     "description" : "+1 ATK per AL",
@@ -4534,16 +5060,39 @@
     "name" : "Body Molding",
     "type" : "Maintained",
     "affinity" : "Body",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quick Mold.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
     "grant" : [
-      -1
+      729,
+      60038,
+      60039
     ],
     "rank" : -1,
     "exp" : 0.0,
     "permStatus" : []
+  },
+  {
+    "id" : 5302,
+    "name" : "Evolved Mutation",
+    "type" : "Maintained",
+    "affinity" : "Body",
+    "description" : "Occupied cost 5 Aura per AL. While active, grants Mutate and Quick Mutate. Generates the Known Mutations list.",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      730,
+      60040,
+      60041
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : [],
+    "listName" : "Known Mutations",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
   },
   {
     "id" : 6001,
@@ -4551,7 +5100,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5001,
     "grant" : [
@@ -4567,7 +5116,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5003,
     "grant" : [
@@ -4583,7 +5132,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 CON per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5005,
     "grant" : [
@@ -4599,7 +5148,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5007,
     "grant" : [
@@ -4615,7 +5164,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5009,
     "grant" : [
@@ -4631,7 +5180,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5011,
     "grant" : [
@@ -4647,7 +5196,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 CHA per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5013,
     "grant" : [
@@ -4663,7 +5212,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 SUB per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5015,
     "grant" : [
@@ -4679,7 +5228,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 RESALL, +2 RESPIERCE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5101,
     "grant" : [
@@ -4696,7 +5245,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 DEF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5103,
     "grant" : [
@@ -4712,7 +5261,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5105,
     "grant" : [
@@ -4728,7 +5277,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 REF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5107,
     "grant" : [
@@ -4744,7 +5293,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5201,
     "grant" : [
@@ -4761,7 +5310,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 GRANT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5203,
     "grant" : [
@@ -4776,12 +5325,12 @@
     "name" : "Body Impairment",
     "type" : "Passive",
     "affinity" : "Body",
-    "description" : "+2 IMPAIR per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 IMPAIR per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5205,
     "grant" : [
-      372
+      708
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -4792,8 +5341,8 @@
     "name" : "Body Initiative",
     "type" : "Passive",
     "affinity" : "Body",
-    "description" : "+0.5 INIT per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.4 INIT per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5207,
     "grant" : [
@@ -4809,7 +5358,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+1 REACT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5209,
     "grant" : [
@@ -4825,7 +5374,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+4 CMAN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5211,
     "grant" : [
@@ -4837,11 +5386,11 @@
   },
   {
     "id" : 6207,
-    "name" : "Body Accuracy",
+    "name" : "Body Attack",
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 ATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5213,
     "grant" : [
@@ -4857,7 +5406,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+5 MOVE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5215,
     "grant" : [
@@ -4873,7 +5422,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+0.02 HPMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5217,
     "grant" : [
@@ -4889,7 +5438,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+4 CRIT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5219,
     "grant" : [
@@ -4905,7 +5454,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+4 CRUSH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5221,
     "grant" : [
@@ -4921,7 +5470,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 REGEN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5223,
     "grant" : [
@@ -4937,7 +5486,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 BDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5225,
     "grant" : [
@@ -4953,7 +5502,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5227,
     "grant" : [
@@ -4969,7 +5518,7 @@
     "type" : "Passive",
     "affinity" : "Body",
     "description" : "+4 THEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5229,
     "grant" : [
@@ -4984,13 +5533,13 @@
     "name" : "Body Affinity",
     "type" : "Passive",
     "affinity" : "Body",
-    "description" : "+1 RESALL, +1 RESPIERCE per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESPIERCE, +3 Body synergy per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 4000,
     "grant" : [
-      201,
-      221
+      222,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,

@@ -1490,6 +1490,13 @@ public class FrameAttack extends JFrame {
 			damageType.setEnabled(false);
 			return;
 		}
+		String forcedDamageType = getModifierDamageType();
+		if (!forcedDamageType.isBlank()) {
+			resetDamageTypeOptions(DMGTYPE);
+			selectDamageType(forcedDamageType);
+			damageType.setEnabled(false);
+			return;
+		}
 		String lockedDamageType = getLockedWeaponDamageType();
 		if (lockedDamageType != null) {
 			resetDamageTypeOptions(DMGTYPE);
@@ -1802,6 +1809,22 @@ public class FrameAttack extends JFrame {
 	private List<String> getStandardDamageTypeOptions() {
 		if (combatFrame == null) return List.of();
 		return combatFrame.getStandardDamageTypeOptions();
+	}
+
+	private String getModifierDamageType() {
+		if (action == null || action.getModifierKey() == null) return "";
+		for (DataAction.ModifierKey modifier : action.getModifierKey()) {
+			if (modifier == null || modifier.getAttribute() == null) continue;
+			if (!"dmgtype".equalsIgnoreCase(modifier.getAttribute().trim())) continue;
+			String operator = modifier.getOperator();
+			if (operator == null) return "";
+			String value = operator.trim();
+			if (value.startsWith("=")) {
+				value = value.substring(1).trim();
+			}
+			return value.toUpperCase(java.util.Locale.ROOT);
+		}
+		return "";
 	}
 
 	private String getAuraTechniqueDamageType() {

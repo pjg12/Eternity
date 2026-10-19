@@ -717,7 +717,14 @@ public class FrameHeal extends JFrame {
 	}
 
 	private double getHealMultiplier() {
-		double meleeBonus = !isGerminateAction() && isMeleeRangeSelected() ? 0.5 : 0.0;
+		double meleeBonus = 0.0;
+		if (isMeleeRangeSelected()) {
+			if (action != null && action.hasModifierAttribute("meleehealmulti")) {
+				meleeBonus = evaluateActionModifierTotal("MELEEHEALMULTI");
+			} else if (!isGerminateAction()) {
+				meleeBonus = 0.5;
+			}
+		}
 		return Math.max(0.0, 1.0 + evaluateActionModifierTotal("HEALMULTI") + meleeBonus);
 	}
 

@@ -384,7 +384,10 @@ public class CharCombat {
     public void addMoveAction(DataAction action) { addAction(action, moveActions); }
     public void addAuraAction(DataAction action) { addAction(action, auraActions); }
     public void addFreeAction(DataAction action) { addAction(action, freeActions); }
-    public void addInterruptAction(DataAction action) { addAction(action, interruptActions); }
+    public void addInterruptAction(DataAction action) {
+        ensureInterruptReactionCost(action);
+        addAction(action, interruptActions);
+    }
 
     public void clearActions() {
         clearActionBuckets();
@@ -530,8 +533,12 @@ public class CharCombat {
     private boolean hasTrainedActionTechnique(DataTraining tech, StoreRuleManager dataQuery) {
         if (tech == null || dataQuery == null) return false;
         if (tech.getRank() < 1) return false;
-        if (!"Active".equalsIgnoreCase(tech.getType())) return false;
-        return !getTrainingActionTemplates(tech, dataQuery).isEmpty();
+        if ("Active".equalsIgnoreCase(tech.getType())) {
+            return !getTrainingActionTemplates(tech, dataQuery).isEmpty();
+        }
+        return "Maintained".equalsIgnoreCase(tech.getType())
+                && tech.getAl() > 0
+                && !getTrainingActionTemplates(tech, dataQuery).isEmpty();
     }
 
     private void addTrainingActionFromData(DataTraining tech, StoreRuleManager dataQuery) {
@@ -581,8 +588,10 @@ public class CharCombat {
         collectGrantedActionIds(actionIds, ruleTemplate);
         collectGrantedActionIds(actionIds, tech);
 
+        boolean maintained = "Maintained".equalsIgnoreCase(tech.getType());
         for (Integer actionId : actionIds) {
             if (actionId == null || actionId <= 0) continue;
+            if (maintained && dataQuery.getTechPermById(actionId) != null) continue;
             DataAction actionTemplate = dataQuery.getActionById(actionId);
             if (actionTemplate != null) {
                 actionTemplates.add(actionTemplate);
@@ -1030,6 +1039,25 @@ public class CharCombat {
         return interruptAction;
     }
 
+    /** Every interrupt spends 1 Reaction. Existing reaction costs are left as written. */
+    private void ensureInterruptReactionCost(DataAction action) {
+        if (action == null) return;
+        List<DataAction.CostPair> costs = new ArrayList<>();
+        for (DataAction.CostPair cost : action.getCosts()) {
+            if (cost != null && cost.getType() != null) {
+                String type = cost.getType().trim();
+                if (type.equalsIgnoreCase("Reaction")
+                        || type.equalsIgnoreCase("Reactions")
+                        || type.equalsIgnoreCase("React")) {
+                    return;
+                }
+            }
+            if (cost != null) costs.add(new DataAction.CostPair(cost));
+        }
+        costs.add(new DataAction.CostPair("Reaction", 1.0));
+        action.setCosts(costs);
+    }
+
     /** Enhanced Shield/Shell (and affinity copies) are Free actions that may also interrupt. */
     private boolean isFreeOrInterruptMitigationAction(DataAction action) {
         if (action == null || action.getName() == null) return false;
@@ -1068,6 +1096,10 @@ public class CharCombat {
         }
         if ("Interrupt".equalsIgnoreCase(type)) {
             addInterruptAction(action);
+            return;
+        }
+        if ("Full".equalsIgnoreCase(type)) {
+            addStandardAction(action);
             return;
         }
         addStandardAction(action);
