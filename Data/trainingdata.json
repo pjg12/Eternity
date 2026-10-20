@@ -10188,7 +10188,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16001,
     "grant" : [
@@ -10220,7 +10220,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16004,
     "grant" : [
@@ -10252,7 +10252,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "Empowers your next attack based on your CTL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16007,
     "grant" : [
@@ -10284,7 +10284,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16010,
     "grant" : [
@@ -10316,7 +10316,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16013,
     "grant" : [
@@ -10348,7 +10348,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16016,
     "grant" : [
@@ -10380,7 +10380,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16019,
     "grant" : [
@@ -10412,7 +10412,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16022,
     "grant" : [
@@ -10444,7 +10444,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16025,
     "grant" : [
@@ -10476,7 +10476,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16028,
     "grant" : [
@@ -10508,7 +10508,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16031,
     "grant" : [
@@ -10540,7 +10540,7 @@
     "type" : "Active",
     "affinity" : "Water",
     "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16034,
     "grant" : [
@@ -10552,10 +10552,10 @@
   },
   {
     "id" : 16037,
-    "name" : "Water Cure",
+    "name" : "Water Cure (Weak)",
     "type" : "Active",
     "affinity" : "Water",
-    "description" : "Give bonus against Disease effects",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
@@ -10769,8 +10769,8 @@
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10781,12 +10781,12 @@
     "name" : "Aquatic Support",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+1 SUP per AL",
+    "description" : "+0.025 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10797,12 +10797,12 @@
     "name" : "Aquatic Impairment",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+1 IMPAIR per AL",
+    "description" : "+0.025 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10813,12 +10813,12 @@
     "name" : "Aquatic Mastery",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+1 MAST per AL",
+    "description" : "+0.025 MAST per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10829,12 +10829,12 @@
     "name" : "Aquatic Prowess",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+0.5 R2 per AL",
+    "description" : "+0.025 R2 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      431
+      716
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10877,7 +10877,7 @@
     "name" : "Aquatic Soaring",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+2.5 FLY per AL",
+    "description" : "+5 FLY per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
@@ -10893,12 +10893,12 @@
     "name" : "Aquatic Area",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+0.1 AREA per AL",
+    "description" : "+0.025 AREA per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      521
+      719
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10941,12 +10941,12 @@
     "name" : "Aquatic Shielding",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+1 SHIELD per AL",
+    "description" : "+0.025 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      591
+      722
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11005,12 +11005,34 @@
     "name" : "Water Molding",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      -1
+      729,
+      60238,
+      60239
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : [],
+    "listName" : "Known Molds",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
+  },
+  {
+    "id" : 17233,
+    "name" : "Aquatic Flight",
+    "type" : "Maintained",
+    "affinity" : "Water",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 16000,
+    "grant" : [
+      732,
+      501
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11022,7 +11044,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17001,
     "grant" : [
@@ -11038,7 +11060,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17003,
     "grant" : [
@@ -11054,7 +11076,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 CON per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17005,
     "grant" : [
@@ -11070,7 +11092,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 CTL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17007,
     "grant" : [
@@ -11086,7 +11108,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17009,
     "grant" : [
@@ -11102,7 +11124,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 MECH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17011,
     "grant" : [
@@ -11118,7 +11140,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17013,
     "grant" : [
@@ -11134,7 +11156,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 CHA per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17015,
     "grant" : [
@@ -11150,7 +11172,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 RESALL, +2 RESFROST per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17101,
     "grant" : [
@@ -11167,7 +11189,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 ARMOR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17103,
     "grant" : [
@@ -11183,7 +11205,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+1 DODGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17105,
     "grant" : [
@@ -11199,7 +11221,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17107,
     "grant" : [
@@ -11215,7 +11237,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17201,
     "grant" : [
@@ -11231,12 +11253,12 @@
     "name" : "Water Support",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+2 SUP per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SUP per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17203,
     "grant" : [
-      352
+      705
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11247,12 +11269,12 @@
     "name" : "Water Impairment",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+2 IMPAIR per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 IMPAIR per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17205,
     "grant" : [
-      372
+      708
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11263,12 +11285,12 @@
     "name" : "Water Mastery",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+2 MAST per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 MAST per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17207,
     "grant" : [
-      382
+      711
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11279,12 +11301,12 @@
     "name" : "Water Prowess",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+1 R2 per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 R2 per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17209,
     "grant" : [
-      432
+      717
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11296,7 +11318,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+4 MAN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17211,
     "grant" : [
@@ -11312,7 +11334,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 APPLY per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17213,
     "grant" : [
@@ -11327,8 +11349,8 @@
     "name" : "Water Soaring",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+5 FLY per rank",
-    "levelCoef" : 0.5,
+    "description" : "+10 FLY per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17215,
     "grant" : [
@@ -11343,12 +11365,12 @@
     "name" : "Water Area",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+0.2 AREA per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 AREA per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17217,
     "grant" : [
-      522
+      720
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11360,7 +11382,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+0.02 HPMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17219,
     "grant" : [
@@ -11376,7 +11398,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+4 CRIT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17221,
     "grant" : [
@@ -11391,12 +11413,12 @@
     "name" : "Water Shielding",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+2 SHIELD per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SHD per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17223,
     "grant" : [
-      592
+      723
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11408,7 +11430,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+4 CRUSH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17225,
     "grant" : [
@@ -11424,7 +11446,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 REGEN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17227,
     "grant" : [
@@ -11440,7 +11462,7 @@
     "type" : "Passive",
     "affinity" : "Water",
     "description" : "+2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 17229,
     "grant" : [
@@ -11455,13 +11477,13 @@
     "name" : "Water Affinity",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+1 RESALL, +1 RESFROST per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESFROST, +3 Water synergy per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 16000,
     "grant" : [
-      201,
-      251
+      252,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -32798,6 +32820,726 @@
       732,
       92,
       60190
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16038,
+    "name" : "Water Cure (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16037,
+    "grant" : [
+      60193
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16039,
+    "name" : "Water Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60194
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16040,
+    "name" : "Water Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16039,
+    "grant" : [
+      60195
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16041,
+    "name" : "Water Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60196
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16042,
+    "name" : "Water Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16041,
+    "grant" : [
+      60197
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16043,
+    "name" : "Water Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60198
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16044,
+    "name" : "Water Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16043,
+    "grant" : [
+      60199
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16045,
+    "name" : "Water Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Create a lingering ruptured area that deals Blunt damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60200
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16046,
+    "name" : "Water Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Create a lingering ruptured area that deals Blunt damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16045,
+    "grant" : [
+      60201
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16047,
+    "name" : "Water Renew (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Perform a Ranged heal with a lingering HoT effect.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60202
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16048,
+    "name" : "Water Renew (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Perform a Ranged heal with a lingering HoT effect.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16047,
+    "grant" : [
+      60203
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16049,
+    "name" : "Water Convalesce (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Perform a series of Ranged heals.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60204
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16050,
+    "name" : "Water Convalesce (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Perform a series of Ranged heals.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16049,
+    "grant" : [
+      60205
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16051,
+    "name" : "Water Rejuvenate (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Apply Heal over Time effects to nearby creatures.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60206
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16052,
+    "name" : "Water Rejuvenate (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Apply Heal over Time effects to nearby creatures.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16051,
+    "grant" : [
+      60207
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16053,
+    "name" : "Water Font (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Shower nearby targets with healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60208
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16054,
+    "name" : "Water Font (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Shower nearby targets with healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16053,
+    "grant" : [
+      60209
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16055,
+    "name" : "Water Charity (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Cause damage against target creature to heal allies.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60210
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16056,
+    "name" : "Water Charity (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Cause damage against target creature to heal allies.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16055,
+    "grant" : [
+      60211
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16057,
+    "name" : "Water Salve (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Move to and heal target creature.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60212
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16058,
+    "name" : "Water Salve (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Move to and heal target creature.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16057,
+    "grant" : [
+      60213
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16059,
+    "name" : "Water Assistance (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's support.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60214
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16060,
+    "name" : "Water Assistance (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's support.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16059,
+    "grant" : [
+      60215
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16061,
+    "name" : "Water Detainment (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's mastery.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60216
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16062,
+    "name" : "Water Detainment (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's mastery.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16061,
+    "grant" : [
+      60217
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16063,
+    "name" : "Water Tactics (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's combat maneuvers.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60218
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16064,
+    "name" : "Water Tactics (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's combat maneuvers.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16063,
+    "grant" : [
+      60219
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16065,
+    "name" : "Water Penetration (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's crush bonus.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60220
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16066,
+    "name" : "Water Penetration (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Increase an ally's crush bonus.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16065,
+    "grant" : [
+      60221
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16067,
+    "name" : "Water Withdrawal (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60222
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16068,
+    "name" : "Water Withdrawal (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16067,
+    "grant" : [
+      60223
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16069,
+    "name" : "Water Obstruction (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's support.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60224
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16070,
+    "name" : "Water Obstruction (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's support.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16069,
+    "grant" : [
+      60225
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16071,
+    "name" : "Water Emancipation (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's mastery.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60226
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16072,
+    "name" : "Water Emancipation (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's mastery.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16071,
+    "grant" : [
+      60227
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16073,
+    "name" : "Water Botch (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's combat maneuvers.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60228
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16074,
+    "name" : "Water Botch (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's combat maneuvers.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16073,
+    "grant" : [
+      60229
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16075,
+    "name" : "Water Numbing (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's Crush.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60230
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16076,
+    "name" : "Water Numbing (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reduce an enemy's Crush.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16075,
+    "grant" : [
+      60231
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16077,
+    "name" : "Water Tide (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reposition a creature.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60232
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16078,
+    "name" : "Water Tide (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Reposition a creature.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16077,
+    "grant" : [
+      60233
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16079,
+    "name" : "Water Incapacitate (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Afflict Incapacitate on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60234
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16080,
+    "name" : "Water Incapacitate (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Afflict Incapacitate on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16079,
+    "grant" : [
+      60235
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16081,
+    "name" : "Water Heavy (Weak)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Afflict Heavy on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 16000,
+    "grant" : [
+      60236
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 16082,
+    "name" : "Water Heavy (Strong)",
+    "type" : "Active",
+    "affinity" : "Water",
+    "description" : "Afflict Heavy on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 16081,
+    "grant" : [
+      60237
     ],
     "rank" : -1,
     "exp" : 0.0,
