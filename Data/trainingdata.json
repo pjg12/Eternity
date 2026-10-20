@@ -2674,7 +2674,7 @@
     "name" : "Improved Maneuvers (Lesser)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 1000,
@@ -2690,7 +2690,7 @@
     "name" : "Improved Maneuvers (Standard)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+4 CMAN per AL",
+    "description" : "+4 MAN per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 2237,
@@ -2706,7 +2706,7 @@
     "name" : "Improved Maneuvers (Greater)",
     "type" : "Maintained",
     "affinity" : "Enhancement",
-    "description" : "+6 CMAN per AL",
+    "description" : "+6 MAN per AL",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 2238,
@@ -4900,7 +4900,7 @@
     "name" : "Evolved Maneuvers",
     "type" : "Maintained",
     "affinity" : "Body",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 4000,
@@ -5373,7 +5373,7 @@
     "name" : "Body Maneuvers",
     "type" : "Passive",
     "affinity" : "Body",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 5211,
@@ -5583,7 +5583,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7001,
     "grant" : [
@@ -5615,7 +5615,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7004,
     "grant" : [
@@ -5647,7 +5647,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7007,
     "grant" : [
@@ -5679,7 +5679,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7010,
     "grant" : [
@@ -5711,7 +5711,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7013,
     "grant" : [
@@ -5743,7 +5743,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7016,
     "grant" : [
@@ -5775,11 +5775,139 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7019,
     "grant" : [
       60003
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7048,
+    "name" : "Nature Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60064
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7049,
+    "name" : "Nature Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7048,
+    "grant" : [
+      60065
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7050,
+    "name" : "Nature Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60066
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7051,
+    "name" : "Nature Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7050,
+    "grant" : [
+      60067
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7052,
+    "name" : "Nature Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60068
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7053,
+    "name" : "Nature Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7052,
+    "grant" : [
+      60069
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7054,
+    "name" : "Nature Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Create a lingering ruptured area that deals Piercing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60070
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7055,
+    "name" : "Nature Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Create a lingering ruptured area that deals Piercing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7054,
+    "grant" : [
+      60071
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -5807,7 +5935,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7022,
     "grant" : [
@@ -5839,7 +5967,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7025,
     "grant" : [
@@ -5854,7 +5982,7 @@
     "name" : "Nature Shield (Weak)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
+    "description" : "SHIELD = Base HP x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
@@ -5870,8 +5998,8 @@
     "name" : "Nature Shield (Strong)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "description" : "SHIELD = 3 x Base HP x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7028,
     "grant" : [
@@ -5886,7 +6014,7 @@
     "name" : "Nature Shell (Weak)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Increases damage resistance",
+    "description" : "RESALL and RES Piercing = 3 x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
@@ -5902,8 +6030,8 @@
     "name" : "Nature Shell (Strong)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "description" : "RESALL and RES Piercing = 9 x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7031,
     "grant" : [
@@ -5915,10 +6043,10 @@
   },
   {
     "id" : 7034,
-    "name" : "Nature Cure",
+    "name" : "Nature Cure (Weak)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Give bonus against Disease effects",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
@@ -5930,11 +6058,411 @@
     "permStatus" : []
   },
   {
+    "id" : 7056,
+    "name" : "Nature Cure (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Grant disease save bonus and allow new saves against ongoing diseases.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7034,
+    "grant" : [
+      60072
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7057,
+    "name" : "Nature Quickness (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's maximum attacks.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60073
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7058,
+    "name" : "Nature Quickness (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's maximum attacks.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7057,
+    "grant" : [
+      60074
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7059,
+    "name" : "Nature Accelerate (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's movement speed.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60075
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7060,
+    "name" : "Nature Accelerate (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's movement speed.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7059,
+    "grant" : [
+      60076
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7061,
+    "name" : "Nature Sturdiness (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's HP.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60077
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7062,
+    "name" : "Nature Sturdiness (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's HP.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7061,
+    "grant" : [
+      60078
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7063,
+    "name" : "Nature Revitalizing (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's base healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60079
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7064,
+    "name" : "Nature Revitalizing (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Increase an ally's base healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7063,
+    "grant" : [
+      60080
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7065,
+    "name" : "Nature Degradation (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce the effect of enemy Adaptations and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60081
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7066,
+    "name" : "Nature Degradation (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce the effect of enemy Adaptations and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7065,
+    "grant" : [
+      60082
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7067,
+    "name" : "Nature Lethargy (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's maximum attacks.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60083
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7068,
+    "name" : "Nature Lethargy (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's maximum attacks.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7067,
+    "grant" : [
+      60084
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7069,
+    "name" : "Nature Slow (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's movement speed.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60085
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7070,
+    "name" : "Nature Slow (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's movement speed.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7069,
+    "grant" : [
+      60086
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7071,
+    "name" : "Nature Frailty (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's Max HP.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60087
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7072,
+    "name" : "Nature Frailty (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's Max HP.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7071,
+    "grant" : [
+      60088
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7073,
+    "name" : "Nature Sapping (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's base healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60089
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7074,
+    "name" : "Nature Sapping (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Reduce an enemy's base healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7073,
+    "grant" : [
+      60090
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7075,
+    "name" : "Nature Camouflage (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Improved hiding via stealth check.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60091
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7076,
+    "name" : "Nature Camouflage (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Become hidden via stealth check with stealth tokens.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7075,
+    "grant" : [
+      60092
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7077,
+    "name" : "Nature Root (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Afflict Root disease tokens on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60093
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7078,
+    "name" : "Nature Root (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Afflict Root disease tokens on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7077,
+    "grant" : [
+      60094
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7079,
+    "name" : "Nature Paranoia (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Afflict Paranoia disease tokens on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60095
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7080,
+    "name" : "Nature Paranoia (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Afflict Paranoia disease tokens on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7079,
+    "grant" : [
+      60096
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
     "id" : 7035,
     "name" : "Nature Germinate (Weak)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Applies a Heal over Time effect",
+    "description" : "HoT with healmulti (0.1xAL)-1. Duration ALx1 turns. On expire/dispel, heal for 2x Heal value.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
@@ -5950,12 +6478,172 @@
     "name" : "Nature Germinate (Strong)",
     "type" : "Active",
     "affinity" : "Nature",
-    "description" : "Applies a Heal over Time effect",
+    "description" : "HoT with healmulti (0.3xAL)-1. Duration ALx2 turns. Cost 5 Aura/AL. On expire/dispel, heal for 2x Heal value.",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 7035,
     "grant" : [
       7037
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7038,
+    "name" : "Nature Regrowth (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "HoT with healmulti (0.1xAL)-1. Duration ALx2 turns.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60054
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7039,
+    "name" : "Nature Regrowth (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "HoT with healmulti (0.3xAL)-1. Duration ALx3 turns. Cost 5 Aura/AL.",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 7038,
+    "grant" : [
+      60055
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7040,
+    "name" : "Nature Bloom (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Dispel up to ceil(AL/3) HoTs and apply (5xAL)% of their remaining healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60056
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7041,
+    "name" : "Nature Bloom (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Dispel up to AL HoTs and apply (15xAL)% of their remaining healing. Cost 5 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7040,
+    "grant" : [
+      60057
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7042,
+    "name" : "Nature Sanctuary (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Area heal. Radius 2.5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. Healmulti (0.05xAL)-1. Cost 2 Aura/AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60058
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7043,
+    "name" : "Nature Sanctuary (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Area heal. Radius 5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. Healmulti (0.15xAL)-1. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7042,
+    "grant" : [
+      60059
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7044,
+    "name" : "Nature Rejuvenate (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "AoE HoT. Radius 2.5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. Healmulti (0.025xAL)-1. Duration ALx2. Cost 2 Aura/AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60060
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7045,
+    "name" : "Nature Rejuvenate (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "AoE HoT. Radius 5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. Healmulti (0.075xAL)-1. Duration ALx4. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7044,
+    "grant" : [
+      60061
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7046,
+    "name" : "Nature Lifebind (Weak)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Bind 2 allies. Redirect up to (2.5xAL)% damage/healing. Duration ALx2. Cost 2 Aura/AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      60062
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 7047,
+    "name" : "Nature Lifebind (Strong)",
+    "type" : "Active",
+    "affinity" : "Nature",
+    "description" : "Bind up to (AL/2+1) allies. Redirect up to (8xAL)% damage/healing. Duration ALx2. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 7046,
+    "grant" : [
+      60063
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6164,8 +6852,8 @@
     "levelMod" : 0.0,
     "prereq" : 7000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6176,12 +6864,12 @@
     "name" : "Feral Mastery",
     "type" : "Maintained",
     "affinity" : "Nature",
-    "description" : "+1 MAST per AL",
+    "description" : "+0.025 MAST per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6224,7 +6912,7 @@
     "name" : "Feral Maneuvers",
     "type" : "Maintained",
     "affinity" : "Nature",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
@@ -6400,16 +7088,42 @@
     "name" : "Nature Molding",
     "type" : "Maintained",
     "affinity" : "Nature",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 7000,
     "grant" : [
-      -1
+      729,
+      60097,
+      60098
     ],
     "rank" : -1,
     "exp" : 0.0,
-    "permStatus" : []
+    "permStatus" : [],
+    "listName" : "Known Molds",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
+  },
+  {
+    "id" : 8302,
+    "name" : "Feral Adaptation",
+    "type" : "Maintained",
+    "affinity" : "Nature",
+    "description" : "Occupied cost 6 Aura per AL. While active, grants Adapt and Quick Adapt. Generates the Known Adaptations list.",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 7000,
+    "grant" : [
+      731,
+      60099,
+      60100
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : [],
+    "listName" : "Known Adaptations",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
   },
   {
     "id" : 9001,
@@ -6469,7 +7183,7 @@
     "levelMod" : 0.0,
     "prereq" : 8007,
     "grant" : [
-      52
+      62
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6626,12 +7340,12 @@
     "name" : "Nature Mastery",
     "type" : "Passive",
     "affinity" : "Nature",
-    "description" : "+2 MAST per rank",
+    "description" : "+0.05 MAST per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 8203,
     "grant" : [
-      382
+      711
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6674,7 +7388,7 @@
     "name" : "Nature Maneuvers",
     "type" : "Passive",
     "affinity" : "Nature",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 8209,
@@ -6850,13 +7564,13 @@
     "name" : "Nature Affinity",
     "type" : "Passive",
     "affinity" : "Nature",
-    "description" : "+1 RESALL, +1 RESPIERCE per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RES Piercing, +3 Nature synergy per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
-    "prereq" : 4000,
+    "prereq" : 7000,
     "grant" : [
-      201,
-      221
+      222,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -6900,7 +7614,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10001,
     "grant" : [
@@ -6932,7 +7646,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10004,
     "grant" : [
@@ -6964,7 +7678,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10007,
     "grant" : [
@@ -6996,7 +7710,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10010,
     "grant" : [
@@ -7028,7 +7742,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10013,
     "grant" : [
@@ -7060,7 +7774,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10016,
     "grant" : [
@@ -7092,7 +7806,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10019,
     "grant" : [
@@ -7124,7 +7838,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10022,
     "grant" : [
@@ -7156,7 +7870,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10025,
     "grant" : [
@@ -7188,7 +7902,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10028,
     "grant" : [
@@ -7220,7 +7934,7 @@
     "type" : "Active",
     "affinity" : "Metal",
     "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10031,
     "grant" : [
@@ -7232,10 +7946,10 @@
   },
   {
     "id" : 10034,
-    "name" : "Metal Antidote",
+    "name" : "Metal Antidote (Weak)",
     "type" : "Active",
     "affinity" : "Metal",
-    "description" : "Give bonus against Poison effects",
+    "description" : "Grant poison save bonus and allow new saves against ongoing poisons.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
@@ -7465,8 +8179,8 @@
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7477,12 +8191,12 @@
     "name" : "Steel Support",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+1 SUP per AL",
+    "description" : "+0.05 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      351
+      736
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7493,44 +8207,12 @@
     "name" : "Steel Impairment",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+1 IMPAIR per AL",
+    "description" : "+0.05 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      371
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 11207,
-    "name" : "Steel Technique",
-    "type" : "Maintained",
-    "affinity" : "Metal",
-    "description" : "+0.5 R1 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 10000,
-    "grant" : [
-      421
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 11209,
-    "name" : "Steel Aptitude",
-    "type" : "Maintained",
-    "affinity" : "Metal",
-    "description" : "+0.5 R3 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 10000,
-    "grant" : [
-      441
+      739
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7541,7 +8223,7 @@
     "name" : "Steel Maneuvers",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
@@ -7554,7 +8236,7 @@
   },
   {
     "id" : 11213,
-    "name" : "Steel Accuracy",
+    "name" : "Steel Attack",
     "type" : "Maintained",
     "affinity" : "Metal",
     "description" : "+1 ATK per AL",
@@ -7573,7 +8255,7 @@
     "name" : "Steel Soaring",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+2.5 FLY per AL",
+    "description" : "+5 FLY per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
@@ -7589,12 +8271,12 @@
     "name" : "Steel Area",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+0.1 AREA per AL",
+    "description" : "+0.05 AREA per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      521
+      740
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7637,12 +8319,12 @@
     "name" : "Steel Shielding",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+1 SHIELD per AL",
+    "description" : "+0.05 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      591
+      741
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7653,7 +8335,7 @@
     "name" : "Steel Break",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "+2 BREAK per AL",
+    "description" : "+4 BREAK per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
@@ -7701,12 +8383,14 @@
     "name" : "Metal Molding",
     "type" : "Maintained",
     "affinity" : "Metal",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      -1
+      729,
+      60144,
+      60145
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7718,7 +8402,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11001,
     "grant" : [
@@ -7734,7 +8418,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 CON per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11003,
     "grant" : [
@@ -7750,7 +8434,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11005,
     "grant" : [
@@ -7766,7 +8450,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 CAP per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11007,
     "grant" : [
@@ -7782,7 +8466,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11009,
     "grant" : [
@@ -7798,7 +8482,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 MECH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11011,
     "grant" : [
@@ -7814,7 +8498,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11013,
     "grant" : [
@@ -7830,7 +8514,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 CHA per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11015,
     "grant" : [
@@ -7845,13 +8529,13 @@
     "name" : "Metal Resistance",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+2 RESALL, +2 RESSLASH per rank",
-    "levelCoef" : 0.5,
+    "description" : "+2 RESALL, +2 RESPHY per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11101,
     "grant" : [
       202,
-      212
+      738
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7863,7 +8547,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+1 ARMOR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11103,
     "grant" : [
@@ -7879,7 +8563,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11105,
     "grant" : [
@@ -7891,11 +8575,11 @@
   },
   {
     "id" : 12104,
-    "name" : "Metal Reflex",
+    "name" : "Metal Reflexes",
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+2 REF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11107,
     "grant" : [
@@ -7911,7 +8595,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+4 AVOID per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11109,
     "grant" : [
@@ -7927,7 +8611,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+2 BDMG, +2 BHEAL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11201,
     "grant" : [
@@ -7943,12 +8627,12 @@
     "name" : "Metal Support",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+2 SUP per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SUP per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11203,
     "grant" : [
-      352
+      705
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -7959,44 +8643,12 @@
     "name" : "Metal Impairment",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+2 IMPAIR per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 IMPAIR per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11205,
     "grant" : [
-      372
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 12204,
-    "name" : "Metal Technique",
-    "type" : "Passive",
-    "affinity" : "Metal",
-    "description" : "+1 R1 per rank",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 11207,
-    "grant" : [
-      422
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 12205,
-    "name" : "Metal Aptitude",
-    "type" : "Passive",
-    "affinity" : "Metal",
-    "description" : "+1 R3 per rank",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 11209,
-    "grant" : [
-      442
+      708
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8007,8 +8659,8 @@
     "name" : "Metal Maneuvers",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+4 CMAN per rank",
-    "levelCoef" : 0.5,
+    "description" : "+4 MAN per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11211,
     "grant" : [
@@ -8020,7 +8672,7 @@
   },
   {
     "id" : 12207,
-    "name" : "Metal Accuracy",
+    "name" : "Metal Attack",
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+2 ATK per rank",
@@ -8039,8 +8691,8 @@
     "name" : "Metal Soaring",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+5 FLY per rank",
-    "levelCoef" : 0.5,
+    "description" : "+10 FLY per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11215,
     "grant" : [
@@ -8055,12 +8707,12 @@
     "name" : "Metal Area",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+0.2 AREA per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 AREA per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11217,
     "grant" : [
-      522
+      720
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8072,7 +8724,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+4 CRIT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11219,
     "grant" : [
@@ -8088,7 +8740,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+0.2 CRITDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11221,
     "grant" : [
@@ -8103,12 +8755,12 @@
     "name" : "Metal Shielding",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+2 SHIELD per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SHD per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11223,
     "grant" : [
-      592
+      723
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8120,11 +8772,11 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+4 BREAK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11225,
     "grant" : [
-      602
+      737
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8136,7 +8788,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+4 CRUSH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11227,
     "grant" : [
@@ -8152,7 +8804,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+4 TDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11229,
     "grant" : [
@@ -8167,13 +8819,13 @@
     "name" : "Metal Affinity",
     "type" : "Passive",
     "affinity" : "Metal",
-    "description" : "+1 RESALL, +1 RESSLASH per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESPHY, +3 SYN per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 10000,
     "grant" : [
-      201,
-      211
+      738,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8217,7 +8869,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13001,
     "grant" : [
@@ -8249,7 +8901,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13004,
     "grant" : [
@@ -8281,7 +8933,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "Empowers your next attack based on your CTL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13007,
     "grant" : [
@@ -8313,7 +8965,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13010,
     "grant" : [
@@ -8345,7 +8997,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13013,
     "grant" : [
@@ -8377,7 +9029,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13016,
     "grant" : [
@@ -8409,7 +9061,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13019,
     "grant" : [
@@ -8441,7 +9093,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13022,
     "grant" : [
@@ -8473,7 +9125,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13025,
     "grant" : [
@@ -8505,7 +9157,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13028,
     "grant" : [
@@ -8537,7 +9189,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13031,
     "grant" : [
@@ -8569,7 +9221,7 @@
     "type" : "Active",
     "affinity" : "Earth",
     "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13034,
     "grant" : [
@@ -8581,10 +9233,10 @@
   },
   {
     "id" : 13037,
-    "name" : "Earth Antidote",
+    "name" : "Earth Antidote (Weak)",
     "type" : "Active",
     "affinity" : "Earth",
-    "description" : "Give bonus against Poison effects",
+    "description" : "Grant poison save bonus and allow new saves against ongoing poisons.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
@@ -8814,8 +9466,8 @@
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8826,12 +9478,12 @@
     "name" : "Stone Support",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+1 SUP per AL",
+    "description" : "+0.05 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      351
+      736
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8842,12 +9494,12 @@
     "name" : "Stone Mastery",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+1 MAST per AL",
+    "description" : "+0.05 MAST per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      381
+      748
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8858,12 +9510,12 @@
     "name" : "Stone Technique",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+0.5 R1 per AL",
+    "description" : "+0.05 R1 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      421
+      749
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8874,28 +9526,12 @@
     "name" : "Stone Prowess",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+0.5 R2 per AL",
+    "description" : "+0.05 R2 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      431
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 14211,
-    "name" : "Stone Aptitude",
-    "type" : "Maintained",
-    "affinity" : "Earth",
-    "description" : "+0.5 R3 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 13000,
-    "grant" : [
-      441
+      734
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -8922,7 +9558,7 @@
     "name" : "Stone Maneuvers",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
@@ -8986,12 +9622,12 @@
     "name" : "Stone Shielding",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "+1 SHIELD per AL",
+    "description" : "+0.05 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      591
+      741
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9050,12 +9686,14 @@
     "name" : "Earth Molding",
     "type" : "Maintained",
     "affinity" : "Earth",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      -1
+      729,
+      60191,
+      60192
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9067,7 +9705,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14001,
     "grant" : [
@@ -9083,7 +9721,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 CON per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14003,
     "grant" : [
@@ -9099,7 +9737,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14005,
     "grant" : [
@@ -9115,7 +9753,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 CTL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14007,
     "grant" : [
@@ -9131,7 +9769,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14009,
     "grant" : [
@@ -9147,7 +9785,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14011,
     "grant" : [
@@ -9163,7 +9801,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14013,
     "grant" : [
@@ -9179,7 +9817,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 CHA per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14015,
     "grant" : [
@@ -9195,7 +9833,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+2 RESALL, +2 RESBLUNT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14101,
     "grant" : [
@@ -9212,7 +9850,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 ARMOR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14103,
     "grant" : [
@@ -9228,7 +9866,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14105,
     "grant" : [
@@ -9244,7 +9882,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+2 WILL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14107,
     "grant" : [
@@ -9260,7 +9898,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+4 AVOID per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14109,
     "grant" : [
@@ -9276,7 +9914,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14201,
     "grant" : [
@@ -9292,12 +9930,12 @@
     "name" : "Earth Support",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+2 SUP per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 SUP per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14203,
     "grant" : [
-      352
+      743
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9308,12 +9946,12 @@
     "name" : "Earth Mastery",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+2 MAST per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 MAST per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14205,
     "grant" : [
-      382
+      744
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9324,12 +9962,12 @@
     "name" : "Earth Technique",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+1 R1 per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 R1 per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14207,
     "grant" : [
-      422
+      745
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9340,28 +9978,12 @@
     "name" : "Earth Prowess",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+1 R2 per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 R2 per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14209,
     "grant" : [
-      432
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 15206,
-    "name" : "Earth Aptitude",
-    "type" : "Passive",
-    "affinity" : "Earth",
-    "description" : "+1 R3 per rank",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 14211,
-    "grant" : [
-      442
+      746
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9373,7 +9995,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+1 EXCL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14213,
     "grant" : [
@@ -9388,8 +10010,8 @@
     "name" : "Earth Maneuvers",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+4 CMAN per rank",
-    "levelCoef" : 0.5,
+    "description" : "+4 MAN per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14215,
     "grant" : [
@@ -9405,7 +10027,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+2 APPLY per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14217,
     "grant" : [
@@ -9421,7 +10043,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+0.02 HPMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14219,
     "grant" : [
@@ -9437,7 +10059,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+0.2 CRITDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14221,
     "grant" : [
@@ -9452,12 +10074,12 @@
     "name" : "Earth Shielding",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+2 SHIELD per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 SHD per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14223,
     "grant" : [
-      592
+      747
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -9469,7 +10091,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+4 CRUSH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14225,
     "grant" : [
@@ -9485,7 +10107,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+4 TDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14227,
     "grant" : [
@@ -9501,7 +10123,7 @@
     "type" : "Passive",
     "affinity" : "Earth",
     "description" : "+4 THEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 14229,
     "grant" : [
@@ -9516,13 +10138,13 @@
     "name" : "Earth Affinity",
     "type" : "Passive",
     "affinity" : "Earth",
-    "description" : "+1 RESALL, +1 RESBLUNT per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESBLUNT, +3 SYN per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 13000,
     "grant" : [
-      201,
-      231
+      232,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -10223,7 +10845,7 @@
     "name" : "Aquatic Maneuvers",
     "type" : "Maintained",
     "affinity" : "Water",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 16000,
@@ -10673,7 +11295,7 @@
     "name" : "Water Maneuvers",
     "type" : "Passive",
     "affinity" : "Water",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 17211,
@@ -14302,7 +14924,7 @@
     "name" : "Voltaic Maneuvers",
     "type" : "Maintained",
     "affinity" : "Electricity",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 25000,
@@ -14768,7 +15390,7 @@
     "name" : "Electric Maneuvers",
     "type" : "Passive",
     "affinity" : "Electricity",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 26215,
@@ -15651,7 +16273,7 @@
     "name" : "Kinetic Maneuvers",
     "type" : "Maintained",
     "affinity" : "Force",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 28000,
@@ -16101,7 +16723,7 @@
     "name" : "Force Maneuvers",
     "type" : "Passive",
     "affinity" : "Force",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 29215,
@@ -25782,7 +26404,7 @@
     "name" : "Ethereal Maneuvers (Lesser)",
     "type" : "Maintained",
     "affinity" : "Spirit",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 49000,
@@ -25798,7 +26420,7 @@
     "name" : "Ethereal Maneuvers (Greater)",
     "type" : "Maintained",
     "affinity" : "Spirit",
-    "description" : "+6 CMAN per AL",
+    "description" : "+6 MAN per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 50225,
@@ -26920,7 +27542,7 @@
     "name" : "Spirit Maneuvers",
     "type" : "Passive",
     "affinity" : "Spirit",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 50225,
@@ -28941,7 +29563,7 @@
     "name" : "Temporal Maneuvers (Lesser)",
     "type" : "Maintained",
     "affinity" : "Time",
-    "description" : "+2 CMAN per AL",
+    "description" : "+2 MAN per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 52000,
@@ -28957,7 +29579,7 @@
     "name" : "Temporal Maneuvers (Greater)",
     "type" : "Maintained",
     "affinity" : "Time",
-    "description" : "+6 CMAN per AL",
+    "description" : "+6 MAN per AL",
     "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 53225,
@@ -30079,7 +30701,7 @@
     "name" : "Time Maneuvers",
     "type" : "Passive",
     "affinity" : "Time",
-    "description" : "+4 CMAN per rank",
+    "description" : "+4 MAN per rank",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 53225,
@@ -30406,6 +31028,1776 @@
     "prereq" : -1,
     "grant" : [
       -1
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4087,
+    "name" : "Body Envelop (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "HoT with healmulti (0.05xAL)-1. Duration (AL+1)x2xDUR. Incoming healing +(3xAL)%.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60042
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4088,
+    "name" : "Body Envelop (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "HoT with healmulti (0.15xAL)-1. Duration (AL+1)x4xDUR. Incoming healing +(3xAL)%.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4087,
+    "grant" : [
+      60043
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4089,
+    "name" : "Body Martyr (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Aura heal with healmulti +1xAL. Take Divine damage equal to 50% of amount healed (not from overheal; floored at 1 HP).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60044
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4090,
+    "name" : "Body Martyr (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Aura heal with healmulti +2xAL. Take Divine damage equal to 50% of amount healed (not from overheal; floored at 1 HP).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4089,
+    "grant" : [
+      60045
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4091,
+    "name" : "Body Reversion (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "HoT with healmulti (0.1xAL)-1. Duration (AL+1)xDUR. Extend by 1 turn when you apply direct healing to the target.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60046
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4092,
+    "name" : "Body Reversion (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "HoT with healmulti (0.2xAL)-1. Duration (AL+1)xDUR. Extend by 1 turn when you apply direct healing to the target.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4091,
+    "grant" : [
+      60047
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4093,
+    "name" : "Body Bestow (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "AoE heal centered on caster. Radius 2.5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. Healmulti (0.35xAL)-1.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60048
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4094,
+    "name" : "Body Bestow (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Aura Action AoE heal centered on caster. Same radius as Weak. Healmulti (1.05xAL)-1. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4093,
+    "grant" : [
+      60049
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4095,
+    "name" : "Body Font (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Shower heals in radius 2.5ft x (AREA x (sqrt(RANGE/5)+AL)). Healmulti (0.05xAL)-1. Perform AL heals through a rotation.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60050
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4096,
+    "name" : "Body Font (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Shower heals in radius. Healmulti (0.15xAL)-1. Perform 2xAL heals through a rotation. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4095,
+    "grant" : [
+      60051
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4097,
+    "name" : "Body Replicate (Weak)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Adaptation: when you direct-heal a different ally, also heal this ally for (2.5xAL)% of that heal. Duration (AL+1)x2xDUR. One Replicate at a time.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 4000,
+    "grant" : [
+      60052
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 4098,
+    "name" : "Body Replicate (Strong)",
+    "type" : "Active",
+    "affinity" : "Body",
+    "description" : "Adaptation: replicate (7.5xAL)% of direct heals to other allies. Duration (AL+1)x3xDUR. One Replicate at a time.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 4097,
+    "grant" : [
+      60053
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10036,
+    "name" : "Metal Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60101
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10037,
+    "name" : "Metal Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10036,
+    "grant" : [
+      60102
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10038,
+    "name" : "Metal Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60103
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10039,
+    "name" : "Metal Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10038,
+    "grant" : [
+      60104
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10040,
+    "name" : "Metal Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60105
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10041,
+    "name" : "Metal Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10040,
+    "grant" : [
+      60106
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10042,
+    "name" : "Metal Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Create a lingering ruptured area that deals Slashing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60107
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10043,
+    "name" : "Metal Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Create a lingering ruptured area that deals Slashing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10042,
+    "grant" : [
+      60108
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10044,
+    "name" : "Metal Alleviate (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A quick, tiring heal with a short cooldown.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60109
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10045,
+    "name" : "Metal Alleviate (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A quick, tiring heal with a short cooldown.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10044,
+    "grant" : [
+      60110
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10046,
+    "name" : "Metal Restore (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A fast, exhausting heal with a long cooldown.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60111
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10047,
+    "name" : "Metal Restore (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "A fast, exhausting heal with a long cooldown.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10046,
+    "grant" : [
+      60112
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10048,
+    "name" : "Metal Sanctuary (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Establish an area of healing.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60113
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10049,
+    "name" : "Metal Sanctuary (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Establish an area of healing.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10048,
+    "grant" : [
+      60114
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10050,
+    "name" : "Metal Wash (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Heal all targets in a line.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60115
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10051,
+    "name" : "Metal Wash (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Heal all targets in a line.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10050,
+    "grant" : [
+      60116
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10052,
+    "name" : "Metal Care (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Heal a target whenever they take damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60117
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10053,
+    "name" : "Metal Care (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Heal a target whenever they take damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10052,
+    "grant" : [
+      60118
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10054,
+    "name" : "Metal Antidote (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Grant poison save bonus and allow new saves against ongoing poisons.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10034,
+    "grant" : [
+      60119
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10055,
+    "name" : "Metal Aim (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's attack bonus.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60120
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10056,
+    "name" : "Metal Aim (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's attack bonus.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10055,
+    "grant" : [
+      60121
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10057,
+    "name" : "Metal Barrier (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's shielding bonus.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60122
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10058,
+    "name" : "Metal Barrier (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's shielding bonus.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10057,
+    "grant" : [
+      60123
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10059,
+    "name" : "Metal Penetration (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's crush bonus.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60124
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10060,
+    "name" : "Metal Penetration (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's crush bonus.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10059,
+    "grant" : [
+      60125
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10061,
+    "name" : "Metal Shredding (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's total damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60126
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10062,
+    "name" : "Metal Shredding (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Increase an ally's total damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10061,
+    "grant" : [
+      60127
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10063,
+    "name" : "Metal Withdrawal (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60128
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10064,
+    "name" : "Metal Withdrawal (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10063,
+    "grant" : [
+      60129
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10065,
+    "name" : "Metal Diversion (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's attack.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60130
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10066,
+    "name" : "Metal Diversion (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's attack.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10065,
+    "grant" : [
+      60131
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10067,
+    "name" : "Metal Shattering (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's Shielding.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60132
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10068,
+    "name" : "Metal Shattering (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's Shielding.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10067,
+    "grant" : [
+      60133
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10069,
+    "name" : "Metal Numbing (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's Crush.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60134
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10070,
+    "name" : "Metal Numbing (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's Crush.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10069,
+    "grant" : [
+      60135
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10071,
+    "name" : "Metal Weaken (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's total damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60136
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10072,
+    "name" : "Metal Weaken (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Reduce an enemy's total damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10071,
+    "grant" : [
+      60137
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10073,
+    "name" : "Metal Banish (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Afflict Banish on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60138
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10074,
+    "name" : "Metal Banish (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Afflict Banish on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10073,
+    "grant" : [
+      60139
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10075,
+    "name" : "Metal Disable (Weak)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Afflict Disable on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      60140
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 10076,
+    "name" : "Metal Disable (Strong)",
+    "type" : "Active",
+    "affinity" : "Metal",
+    "description" : "Afflict Disable on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 10075,
+    "grant" : [
+      60141
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11231,
+    "name" : "Steel Duration",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "+0.05 DUR per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      733
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11233,
+    "name" : "Steel Prowess",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "+0.05 R2 per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      734
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11302,
+    "name" : "Metal Manifestation",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "Occupied cost 1 Aura per AL. Create a block of metal from the Known Metals list.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      735
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11303,
+    "name" : "Steel Flight",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 10000,
+    "grant" : [
+      732,
+      501
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11304,
+    "name" : "Metalsense (Lesser)",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "Detect magnetic fields and metals. +0.5 PERC per AL. Occupied cost 2 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 10000,
+    "grant" : [
+      729,
+      91,
+      60142
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 11305,
+    "name" : "Metalsense (Greater)",
+    "type" : "Maintained",
+    "affinity" : "Metal",
+    "description" : "Detect magnetic fields and metals. +1 PERC per AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 11304,
+    "grant" : [
+      732,
+      92,
+      60143
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 12216,
+    "name" : "Metal Duration",
+    "type" : "Passive",
+    "affinity" : "Metal",
+    "description" : "+0.05 DUR per rank",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 11231,
+    "grant" : [
+      726
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 12217,
+    "name" : "Metal Prowess",
+    "type" : "Passive",
+    "affinity" : "Metal",
+    "description" : "+0.05 R2 per rank",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 11233,
+    "grant" : [
+      717
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13038,
+    "name" : "Earth Antidote (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Grant poison save bonus and allow new saves against ongoing poisons.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13037,
+    "grant" : [
+      60146
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13039,
+    "name" : "Earth Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60147
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13040,
+    "name" : "Earth Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A cone Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13039,
+    "grant" : [
+      60148
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13041,
+    "name" : "Earth Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60149
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13042,
+    "name" : "Earth Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A line Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13041,
+    "grant" : [
+      60150
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13043,
+    "name" : "Earth Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60151
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13044,
+    "name" : "Earth Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "A location-based Area of Effect attack with scaling damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13043,
+    "grant" : [
+      60152
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13045,
+    "name" : "Earth Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Create a lingering ruptured area that deals Blunt damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60153
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13046,
+    "name" : "Earth Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Create a lingering ruptured area that deals Blunt damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13045,
+    "grant" : [
+      60154
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13047,
+    "name" : "Earth Recovery (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Heavy Ranged heal.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60155
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13048,
+    "name" : "Earth Recovery (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Heavy Ranged heal.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13047,
+    "grant" : [
+      60156
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13049,
+    "name" : "Earth Renew (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Ranged heal with a lingering HoT effect.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60157
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13050,
+    "name" : "Earth Renew (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Ranged heal with a lingering HoT effect.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13049,
+    "grant" : [
+      60158
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13051,
+    "name" : "Earth Germinate (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Maturing Heal Over Time. On expire/dispel, heal for 2x Heal value.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60159
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13052,
+    "name" : "Earth Germinate (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a Maturing Heal Over Time. On expire/dispel, heal for 2x Heal value.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13051,
+    "grant" : [
+      60160
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13053,
+    "name" : "Earth Tranquility (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a channeled Area of Effect Heal.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60161
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13054,
+    "name" : "Earth Tranquility (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Perform a channeled Area of Effect Heal.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13053,
+    "grant" : [
+      60162
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13055,
+    "name" : "Earth Care (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Heal a target whenever they take damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60163
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13056,
+    "name" : "Earth Care (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Heal a target whenever they take damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13055,
+    "grant" : [
+      60164
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13057,
+    "name" : "Earth Replicate (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Designate a target to receive a portion of healing from others.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60165
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13058,
+    "name" : "Earth Replicate (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Designate a target to receive a portion of healing from others.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13057,
+    "grant" : [
+      60166
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13059,
+    "name" : "Earth Aptitude (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's class resource.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60167
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13060,
+    "name" : "Earth Aptitude (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's class resource.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13059,
+    "grant" : [
+      60168
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13061,
+    "name" : "Earth Tactics (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's combat maneuvers.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60169
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13062,
+    "name" : "Earth Tactics (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's combat maneuvers.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13061,
+    "grant" : [
+      60170
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13063,
+    "name" : "Earth Sturdiness (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's HP.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60171
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13064,
+    "name" : "Earth Sturdiness (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's HP.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13063,
+    "grant" : [
+      60172
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13065,
+    "name" : "Earth Intensify (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's critical damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60173
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13066,
+    "name" : "Earth Intensify (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Increase an ally's critical damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13065,
+    "grant" : [
+      60174
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13067,
+    "name" : "Earth Withdrawal (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60175
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13068,
+    "name" : "Earth Withdrawal (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce the effect of enemy Drug effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13067,
+    "grant" : [
+      60176
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13069,
+    "name" : "Earth Incompetence (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's class resource.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60177
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13070,
+    "name" : "Earth Incompetence (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's class resource.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13069,
+    "grant" : [
+      60178
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13071,
+    "name" : "Earth Botch (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's combat maneuvers.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60179
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13072,
+    "name" : "Earth Botch (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's combat maneuvers.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13071,
+    "grant" : [
+      60180
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13073,
+    "name" : "Earth Frailty (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's max hit points.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60181
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13074,
+    "name" : "Earth Frailty (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's max hit points.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13073,
+    "grant" : [
+      60182
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13075,
+    "name" : "Earth Soften (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's critical damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60183
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13076,
+    "name" : "Earth Soften (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Reduce an enemy's critical damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13075,
+    "grant" : [
+      60184
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13077,
+    "name" : "Earth Root (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Afflict Root on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60185
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13078,
+    "name" : "Earth Root (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Afflict Root on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13077,
+    "grant" : [
+      60186
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13079,
+    "name" : "Earth Heavy (Weak)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Afflict Heavy on an enemy.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      60187
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 13080,
+    "name" : "Earth Heavy (Strong)",
+    "type" : "Active",
+    "affinity" : "Earth",
+    "description" : "Afflict Heavy on an enemy.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 13079,
+    "grant" : [
+      60188
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 14231,
+    "name" : "Stone Duration",
+    "type" : "Maintained",
+    "affinity" : "Earth",
+    "description" : "+0.05 DUR per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      733
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 15216,
+    "name" : "Earth Duration",
+    "type" : "Passive",
+    "affinity" : "Earth",
+    "description" : "+0.1 DUR per rank",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 14231,
+    "grant" : [
+      742
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 14302,
+    "name" : "Earth Manifestation",
+    "type" : "Maintained",
+    "affinity" : "Earth",
+    "description" : "Occupied cost 1 Aura per AL. Create a block of stone from the Known Stones list.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      735
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 14303,
+    "name" : "Stone Flight",
+    "type" : "Maintained",
+    "affinity" : "Earth",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 13000,
+    "grant" : [
+      732,
+      501
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 14304,
+    "name" : "Tremor Sense (Lesser)",
+    "type" : "Maintained",
+    "affinity" : "Earth",
+    "description" : "Detect movement through vibrations in the Earth. +0.5 PERC per AL x MAST. Occupied cost 2 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 13000,
+    "grant" : [
+      729,
+      91,
+      60189
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 14305,
+    "name" : "Tremor Sense (Greater)",
+    "type" : "Maintained",
+    "affinity" : "Earth",
+    "description" : "Send vibrations into the Earth to gain information. +1 PERC per AL x MAST. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 14304,
+    "grant" : [
+      732,
+      92,
+      60190
     ],
     "rank" : -1,
     "exp" : 0.0,

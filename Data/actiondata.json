@@ -161,11 +161,11 @@
     "modifierKey" : [
       {
         "attribute" : "atk",
-        "operator" : "+(CL+CMAN)*0.5"
+        "operator" : "+(CL+MAN)*0.5"
       },
       {
         "attribute" : "def",
-        "operator" : "-(CL+CMAN)*0.5"
+        "operator" : "-(CL+MAN)*0.5"
       }
     ]
   },
@@ -2453,10 +2453,6 @@
       {
         "attribute" : "healmulti",
         "operator" : "+(AL*0.5)"
-      },
-      {
-        "attribute" : "meleehealmulti",
-        "operator" : "+0.25"
       }
     ]
   },
@@ -2485,10 +2481,6 @@
       {
         "attribute" : "healmulti",
         "operator" : "+(AL*1.5)"
-      },
-      {
-        "attribute" : "meleehealmulti",
-        "operator" : "+0.25"
       }
     ]
   },
@@ -2517,10 +2509,6 @@
       {
         "attribute" : "healmulti",
         "operator" : "+(AL*0.4)-1"
-      },
-      {
-        "attribute" : "meleehealmulti",
-        "operator" : "+0.25"
       }
     ]
   },
@@ -2549,10 +2537,6 @@
       {
         "attribute" : "healmulti",
         "operator" : "+(AL*1.2)-1"
-      },
-      {
-        "attribute" : "meleehealmulti",
-        "operator" : "+0.25"
       }
     ]
   },
@@ -3377,7 +3361,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 0,
-    "actionType" : "Free",
+    "actionType" : "Aura",
     "weapon" : null,
     "costs" : [
       {
@@ -3388,7 +3372,7 @@
     "modifierKey" : [
       {
         "attribute" : "range",
-        "operator" : "=(5*AL*MAST)"
+        "operator" : "=(2.5*AL*MAST)"
       }
     ]
   },
@@ -3405,7 +3389,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 0,
-    "actionType" : "Free",
+    "actionType" : "Aura",
     "weapon" : null,
     "costs" : [
       {
@@ -3416,7 +3400,7 @@
     "modifierKey" : [
       {
         "attribute" : "range",
-        "operator" : "=(10*AL*MAST)"
+        "operator" : "=(5*AL*MAST)"
       }
     ]
   },
@@ -3586,7 +3570,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -3658,7 +3642,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -3701,6 +3685,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3722,13 +3710,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3757,6 +3749,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3778,13 +3774,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3813,6 +3813,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3834,13 +3838,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3869,6 +3877,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3890,13 +3902,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -3946,7 +3962,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4002,7 +4018,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4025,7 +4041,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -4035,8 +4051,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.05)"
+        "attribute" : "SHIELD",
+        "operator" : "=(BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -4053,18 +4073,22 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.15)"
+        "attribute" : "SHIELD",
+        "operator" : "=(3*BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
@@ -4081,7 +4105,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -4091,8 +4115,16 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.01)"
+        "attribute" : "RESALL",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "RESPIERCE",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -4109,24 +4141,32 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.03)"
+        "attribute" : "RESALL",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "RESPIERCE",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
   {
     "id" : 7031,
-    "name" : "Nature Cure",
+    "name" : "Nature Cure (Weak)",
     "category" : "Remedy",
     "source" : "Aura",
     "affinity" : "Nature",
@@ -4145,7 +4185,20 @@
         "value" : 1.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "diseasesave",
+        "operator" : "=(SUP*0.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "diseasesaves",
+        "operator" : "=1"
+      }
+    ]
   },
   {
     "id" : 7032,
@@ -4168,7 +4221,16 @@
         "value" : 1.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*1)"
+      }
+    ]
   },
   {
     "id" : 10001,
@@ -4224,7 +4286,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4296,7 +4358,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4339,6 +4401,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4360,13 +4426,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4395,6 +4465,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4416,13 +4490,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4451,6 +4529,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4472,13 +4554,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4507,6 +4593,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4528,13 +4618,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -4584,7 +4678,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4640,7 +4734,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4663,7 +4757,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -4673,8 +4767,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.05)"
+        "attribute" : "SHIELD",
+        "operator" : "=(BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -4691,18 +4789,22 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.15)"
+        "attribute" : "SHIELD",
+        "operator" : "=(3*BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
@@ -4719,7 +4821,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -4729,8 +4831,16 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.01)"
+        "attribute" : "RESALL",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "RESSLASH",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -4747,24 +4857,32 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.03)"
+        "attribute" : "RESALL",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "RESSLASH",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
   {
     "id" : 10031,
-    "name" : "Metal Antidote",
+    "name" : "Metal Antidote (Weak)",
     "category" : "Remedy",
     "source" : "Aura",
     "affinity" : "Metal",
@@ -4783,7 +4901,20 @@
         "value" : 1.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "poisonsave",
+        "operator" : "=(SUP*0.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "poisonsaves",
+        "operator" : "=1"
+      }
+    ]
   },
   {
     "id" : 13001,
@@ -4839,7 +4970,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4911,7 +5042,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -4983,7 +5114,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -5026,6 +5157,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5047,13 +5182,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5082,6 +5221,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5103,13 +5246,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5138,6 +5285,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5159,13 +5310,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5194,6 +5349,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5215,13 +5374,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -5271,7 +5434,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -5327,7 +5490,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -5350,7 +5513,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -5360,8 +5523,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.05)"
+        "attribute" : "SHIELD",
+        "operator" : "=(BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -5378,18 +5545,22 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.15)"
+        "attribute" : "SHIELD",
+        "operator" : "=(3*BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
@@ -5406,7 +5577,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -5416,8 +5587,16 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.01)"
+        "attribute" : "RESALL",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "RESBLUNT",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -5434,24 +5613,32 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.03)"
+        "attribute" : "RESALL",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "RESBLUNT",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
   {
     "id" : 13034,
-    "name" : "Earth Antidote",
+    "name" : "Earth Antidote (Weak)",
     "category" : "Remedy",
     "source" : "Aura",
     "affinity" : "Earth",
@@ -5470,7 +5657,20 @@
         "value" : 1.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "poisonsave",
+        "operator" : "=(SUP*0.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "poisonsaves",
+        "operator" : "=1"
+      }
+    ]
   },
   {
     "id" : 16001,
@@ -15131,10 +15331,19 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
   },
   {
     "id" : 60000,
@@ -15200,7 +15409,7 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
       },
       {
         "attribute" : "dmgtype",
@@ -15272,7 +15481,7 @@
       },
       {
         "attribute" : "length",
-        "operator" : "7.5*AREA*(rt(RANGE)+AL))"
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
       },
       {
         "attribute" : "dmgtype",
@@ -15352,7 +15561,7 @@
       },
       {
         "attribute" : "length",
-        "operator" : "7.5*(rt(RANGE/5)+AL))"
+        "operator" : "5*(rt(RANGE/5)+AL))"
       },
       {
         "attribute" : "dmgtype",
@@ -15388,7 +15597,7 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "1*AREA*(rt(RANGE)+AL))"
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
       },
       {
         "attribute" : "dmgtype",
@@ -15424,7 +15633,7 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "3*AREA*(rt(RANGE)+AL))"
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
       },
       {
         "attribute" : "dmgtype",
@@ -15500,7 +15709,7 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
       },
       {
         "attribute" : "duration",
@@ -15525,12 +15734,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 1.0
+        "value" : 2.0
       }
     ],
     "modifierKey" : [
@@ -15541,6 +15750,10 @@
       {
         "attribute" : "radius",
         "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -15557,12 +15770,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 10.0
       }
     ],
     "modifierKey" : [
@@ -15572,7 +15785,11 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
       }
     ]
   },
@@ -15589,12 +15806,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 1.0
+        "value" : 2.0
       }
     ],
     "modifierKey" : [
@@ -15605,6 +15822,10 @@
       {
         "attribute" : "radius",
         "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -15621,12 +15842,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 10.0
       }
     ],
     "modifierKey" : [
@@ -15636,7 +15857,11 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -15653,12 +15878,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 1.0
+        "value" : 2.0
       }
     ],
     "modifierKey" : [
@@ -15669,6 +15894,10 @@
       {
         "attribute" : "radius",
         "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -15685,12 +15914,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 10.0
       }
     ],
     "modifierKey" : [
@@ -15700,7 +15929,11 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
       }
     ]
   },
@@ -16533,5 +16766,5107 @@
       }
     ],
     "modifierKey" : []
+  },
+  {
+    "id" : 60042,
+    "name" : "Body Envelop (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.05)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "incomingheal",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60043,
+    "name" : "Body Envelop (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.15)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "incomingheal",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60044,
+    "name" : "Body Martyr (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1)"
+      },
+      {
+        "attribute" : "martyr",
+        "operator" : "=0.5"
+      }
+    ]
+  },
+  {
+    "id" : 60045,
+    "name" : "Body Martyr (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*2)"
+      },
+      {
+        "attribute" : "martyr",
+        "operator" : "=0.5"
+      }
+    ]
+  },
+  {
+    "id" : 60046,
+    "name" : "Body Reversion (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*DUR)"
+      },
+      {
+        "attribute" : "reversionextend",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60047,
+    "name" : "Body Reversion (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.2)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*DUR)"
+      },
+      {
+        "attribute" : "reversionextend",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60048,
+    "name" : "Body Bestow (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.35)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60049,
+    "name" : "Body Bestow (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1.05)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60050,
+    "name" : "Body Font (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.05)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "heals",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60051,
+    "name" : "Body Font (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.15)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "heals",
+        "operator" : "=(2*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60052,
+    "name" : "Body Replicate (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "replicate",
+        "operator" : "=(2.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60053,
+    "name" : "Body Replicate (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Body",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "replicate",
+        "operator" : "=(7.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*3*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60054,
+    "name" : "Nature Regrowth (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60055,
+    "name" : "Nature Regrowth (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*3)"
+      }
+    ]
+  },
+  {
+    "id" : 60056,
+    "name" : "Nature Bloom (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hots",
+        "operator" : "=(AL/3)"
+      },
+      {
+        "attribute" : "bloom",
+        "operator" : "=(5*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60057,
+    "name" : "Nature Bloom (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hots",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "bloom",
+        "operator" : "=(15*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60058,
+    "name" : "Nature Sanctuary (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.05)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60059,
+    "name" : "Nature Sanctuary (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.15)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60060,
+    "name" : "Nature Rejuvenate (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.025)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60061,
+    "name" : "Nature Rejuvenate (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.075)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*4)"
+      }
+    ]
+  },
+  {
+    "id" : 60062,
+    "name" : "Nature Lifebind (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "lifebind",
+        "operator" : "=(2.5*AL)"
+      },
+      {
+        "attribute" : "targets",
+        "operator" : "=2"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60063,
+    "name" : "Nature Lifebind (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "lifebind",
+        "operator" : "=(8*AL)"
+      },
+      {
+        "attribute" : "targets",
+        "operator" : "=((AL/2)+1)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60064,
+    "name" : "Nature Burst (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60065,
+    "name" : "Nature Burst (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60066,
+    "name" : "Nature Beam (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60067,
+    "name" : "Nature Beam (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(3*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60068,
+    "name" : "Nature Ball (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60069,
+    "name" : "Nature Ball (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60070,
+    "name" : "Nature Rupture (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60071,
+    "name" : "Nature Rupture (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "PIERCE"
+      }
+    ]
+  },
+  {
+    "id" : 60072,
+    "name" : "Nature Cure (Strong)",
+    "category" : "Remedy",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "diseasesave",
+        "operator" : "=(SUP*1.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "diseasesaves",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60073,
+    "name" : "Nature Quickness (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "maxatk",
+        "operator" : "=((AL+1)*0.2*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60074,
+    "name" : "Nature Quickness (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "maxatk",
+        "operator" : "=((AL+1)*0.6*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60075,
+    "name" : "Nature Accelerate (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "move",
+        "operator" : "=((AL+1)*5*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60076,
+    "name" : "Nature Accelerate (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "move",
+        "operator" : "=((AL+1)*15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60077,
+    "name" : "Nature Sturdiness (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*0.01*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60078,
+    "name" : "Nature Sturdiness (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*0.03*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60079,
+    "name" : "Nature Revitalizing (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "bheal",
+        "operator" : "=((AL+1)*1*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60080,
+    "name" : "Nature Revitalizing (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "bheal",
+        "operator" : "=((AL+1)*3*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60081,
+    "name" : "Nature Degradation (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "adaptpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "adaptdur",
+        "operator" : "=-(5*AL)"
+      },
+      {
+        "attribute" : "adaptsev",
+        "operator" : "=-(AL*IMP)"
+      },
+      {
+        "attribute" : "saveadaptdur",
+        "operator" : "=-(2*AL)"
+      },
+      {
+        "attribute" : "saveadaptsev",
+        "operator" : "=-(0.5*AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60082,
+    "name" : "Nature Degradation (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "adaptpurge",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "adaptdur",
+        "operator" : "=-(10*AL)"
+      },
+      {
+        "attribute" : "adaptsev",
+        "operator" : "=-(2*AL*IMP)"
+      },
+      {
+        "attribute" : "saveadaptdur",
+        "operator" : "=-(4*AL)"
+      },
+      {
+        "attribute" : "saveadaptsev",
+        "operator" : "=-(AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60083,
+    "name" : "Nature Lethargy (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "maxatk",
+        "operator" : "=((AL+1)*-0.2*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60084,
+    "name" : "Nature Lethargy (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "maxatk",
+        "operator" : "=((AL+1)*-0.6*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60085,
+    "name" : "Nature Slow (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "move",
+        "operator" : "=((AL+1)*-5*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60086,
+    "name" : "Nature Slow (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "move",
+        "operator" : "=((AL+1)*-15*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60087,
+    "name" : "Nature Frailty (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*-0.01*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60088,
+    "name" : "Nature Frailty (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*-0.03*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60089,
+    "name" : "Nature Sapping (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "bheal",
+        "operator" : "=((AL+1)*-1*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60090,
+    "name" : "Nature Sapping (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "bheal",
+        "operator" : "=((AL+1)*-3*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60091,
+    "name" : "Nature Camouflage (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "stealth",
+        "operator" : "=(5*AL*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60092,
+    "name" : "Nature Camouflage (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "stealth",
+        "operator" : "=(15*AL*MAST)"
+      },
+      {
+        "attribute" : "stealthtokens",
+        "operator" : "=(AL/2)"
+      }
+    ]
+  },
+  {
+    "id" : 60093,
+    "name" : "Nature Root (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "root",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60094,
+    "name" : "Nature Root (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "root",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60095,
+    "name" : "Nature Paranoia (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "paranoia",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60096,
+    "name" : "Nature Paranoia (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "paranoia",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60097,
+    "name" : "Nature Molding (Mold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60098,
+    "name" : "Nature Molding (Quickmold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60099,
+    "name" : "Feral Adaptation (Adapt)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : []
+  },
+  {
+    "id" : 60100,
+    "name" : "Feral Adaptation (Quick Adapt)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Nature",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : []
+  },
+  {
+    "id" : 60101,
+    "name" : "Metal Burst (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60102,
+    "name" : "Metal Burst (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60103,
+    "name" : "Metal Beam (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60104,
+    "name" : "Metal Beam (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(3*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60105,
+    "name" : "Metal Ball (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60106,
+    "name" : "Metal Ball (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60107,
+    "name" : "Metal Rupture (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60108,
+    "name" : "Metal Rupture (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60109,
+    "name" : "Metal Alleviate (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL)-1"
+      },
+      {
+        "attribute" : "cooldown",
+        "operator" : "=(AL/4)"
+      }
+    ]
+  },
+  {
+    "id" : 60110,
+    "name" : "Metal Alleviate (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(3*AL)-1"
+      },
+      {
+        "attribute" : "cooldown",
+        "operator" : "=(AL/2)"
+      }
+    ]
+  },
+  {
+    "id" : 60111,
+    "name" : "Metal Restore (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(2*AL)-1"
+      },
+      {
+        "attribute" : "cooldown",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60112,
+    "name" : "Metal Restore (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(6*AL)-1"
+      },
+      {
+        "attribute" : "cooldown",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60113,
+    "name" : "Metal Sanctuary (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.05)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60114,
+    "name" : "Metal Sanctuary (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.15)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60115,
+    "name" : "Metal Wash (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.35)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60116,
+    "name" : "Metal Wash (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1.05)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(2*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60117,
+    "name" : "Metal Care (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.2)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60118,
+    "name" : "Metal Care (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.6)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4)"
+      }
+    ]
+  },
+  {
+    "id" : 60119,
+    "name" : "Metal Antidote (Strong)",
+    "category" : "Remedy",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "poisonsave",
+        "operator" : "=(SUP*1.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "poisonsaves",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60120,
+    "name" : "Metal Aim (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "atk",
+        "operator" : "=((AL+1)*1*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60121,
+    "name" : "Metal Aim (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "atk",
+        "operator" : "=((AL+1)*3*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60122,
+    "name" : "Metal Barrier (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "shd",
+        "operator" : "=((AL+1)*0.05*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60123,
+    "name" : "Metal Barrier (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "shd",
+        "operator" : "=((AL+1)*0.15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60124,
+    "name" : "Metal Penetration (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "crush",
+        "operator" : "=((AL+1)*2*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60125,
+    "name" : "Metal Penetration (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "crush",
+        "operator" : "=((AL+1)*6*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60126,
+    "name" : "Metal Shredding (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "tdmg",
+        "operator" : "=((AL+1)*2*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60127,
+    "name" : "Metal Shredding (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "tdmg",
+        "operator" : "=((AL+1)*6*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60128,
+    "name" : "Metal Withdrawal (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "drugpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "drugdur",
+        "operator" : "=-(5*AL)"
+      },
+      {
+        "attribute" : "drugsev",
+        "operator" : "=-(AL*IMP)"
+      },
+      {
+        "attribute" : "savedrugdur",
+        "operator" : "=-(2*AL)"
+      },
+      {
+        "attribute" : "savedrugsev",
+        "operator" : "=-(0.5*AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60129,
+    "name" : "Metal Withdrawal (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "drugpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "drugdur",
+        "operator" : "=-(10*AL)"
+      },
+      {
+        "attribute" : "drugsev",
+        "operator" : "=-(2*AL*IMP)"
+      },
+      {
+        "attribute" : "savedrugdur",
+        "operator" : "=-(4*AL)"
+      },
+      {
+        "attribute" : "savedrugsev",
+        "operator" : "=-(AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60130,
+    "name" : "Metal Diversion (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "atk",
+        "operator" : "=((AL+1)*-1*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60131,
+    "name" : "Metal Diversion (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "atk",
+        "operator" : "=((AL+1)*-3*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60132,
+    "name" : "Metal Shattering (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "shd",
+        "operator" : "=((AL+1)*-0.1*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60133,
+    "name" : "Metal Shattering (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "shd",
+        "operator" : "=((AL+1)*-0.3*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60134,
+    "name" : "Metal Numbing (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "crush",
+        "operator" : "=((AL+1)*-2*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60135,
+    "name" : "Metal Numbing (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "crush",
+        "operator" : "=((AL+1)*-6*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60136,
+    "name" : "Metal Weaken (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "tdmg",
+        "operator" : "=((AL+1)*-2*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60137,
+    "name" : "Metal Weaken (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "tdmg",
+        "operator" : "=((AL+1)*-6*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60138,
+    "name" : "Metal Banish (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "banish",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60139,
+    "name" : "Metal Banish (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "banish",
+        "operator" : "=((AL+1)*6*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60140,
+    "name" : "Metal Disable (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "disable",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60141,
+    "name" : "Metal Disable (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "disable",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60142,
+    "name" : "Metalsense (Lesser)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "detection",
+        "operator" : "METAL"
+      }
+    ]
+  },
+  {
+    "id" : 60143,
+    "name" : "Metalsense (Greater)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "detection",
+        "operator" : "METAL"
+      }
+    ]
+  },
+  {
+    "id" : 60144,
+    "name" : "Metal Molding (Mold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60145,
+    "name" : "Metal Molding (Quickmold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Metal",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60146,
+    "name" : "Earth Antidote (Strong)",
+    "category" : "Remedy",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "poisonsave",
+        "operator" : "=(SUP*1.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "poisonsaves",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60147,
+    "name" : "Earth Burst (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60148,
+    "name" : "Earth Burst (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60149,
+    "name" : "Earth Beam (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60150,
+    "name" : "Earth Beam (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(3*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60151,
+    "name" : "Earth Ball (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60152,
+    "name" : "Earth Ball (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60153,
+    "name" : "Earth Rupture (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60154,
+    "name" : "Earth Rupture (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "BLUNT"
+      }
+    ]
+  },
+  {
+    "id" : 60155,
+    "name" : "Earth Recovery (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1.0)"
+      }
+    ]
+  },
+  {
+    "id" : 60156,
+    "name" : "Earth Recovery (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*3.0)"
+      }
+    ]
+  },
+  {
+    "id" : 60157,
+    "name" : "Earth Renew (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.4)-1"
+      },
+      {
+        "attribute" : "hotpct",
+        "operator" : "=(4*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60158,
+    "name" : "Earth Renew (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1.2)-1"
+      },
+      {
+        "attribute" : "hotpct",
+        "operator" : "=(8*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60159,
+    "name" : "Earth Germinate (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*1)"
+      },
+      {
+        "attribute" : "germinate",
+        "operator" : "=2"
+      }
+    ]
+  },
+  {
+    "id" : 60160,
+    "name" : "Earth Germinate (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      },
+      {
+        "attribute" : "germinate",
+        "operator" : "=2"
+      }
+    ]
+  },
+  {
+    "id" : 60161,
+    "name" : "Earth Tranquility (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "channel",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60162,
+    "name" : "Earth Tranquility (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "channel",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60163,
+    "name" : "Earth Care (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.2)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60164,
+    "name" : "Earth Care (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.6)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4)"
+      }
+    ]
+  },
+  {
+    "id" : 60165,
+    "name" : "Earth Replicate (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "replicate",
+        "operator" : "=(2.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60166,
+    "name" : "Earth Replicate (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "replicate",
+        "operator" : "=(7.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*3*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60167,
+    "name" : "Earth Aptitude (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "r1",
+        "operator" : "=((AL+1)*0.05*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60168,
+    "name" : "Earth Aptitude (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "r1",
+        "operator" : "=((AL+1)*0.15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60169,
+    "name" : "Earth Tactics (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "man",
+        "operator" : "=((AL+1)*2*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60170,
+    "name" : "Earth Tactics (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "man",
+        "operator" : "=((AL+1)*6*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60171,
+    "name" : "Earth Sturdiness (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*0.01*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60172,
+    "name" : "Earth Sturdiness (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*0.03*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60173,
+    "name" : "Earth Intensify (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "critdmg",
+        "operator" : "=((AL+1)*0.1*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60174,
+    "name" : "Earth Intensify (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "critdmg",
+        "operator" : "=((AL+1)*0.3*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60175,
+    "name" : "Earth Withdrawal (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "drugpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "drugdur",
+        "operator" : "=-(5*AL)"
+      },
+      {
+        "attribute" : "drugsev",
+        "operator" : "=-(AL*IMP)"
+      },
+      {
+        "attribute" : "savedrugdur",
+        "operator" : "=-(2*AL)"
+      },
+      {
+        "attribute" : "savedrugsev",
+        "operator" : "=-(0.5*AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60176,
+    "name" : "Earth Withdrawal (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "drugpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "drugdur",
+        "operator" : "=-(10*AL)"
+      },
+      {
+        "attribute" : "drugsev",
+        "operator" : "=-(2*AL*IMP)"
+      },
+      {
+        "attribute" : "savedrugdur",
+        "operator" : "=-(4*AL)"
+      },
+      {
+        "attribute" : "savedrugsev",
+        "operator" : "=-(AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60177,
+    "name" : "Earth Incompetence (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "r1",
+        "operator" : "=((AL+1)*-0.05*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60178,
+    "name" : "Earth Incompetence (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "r1",
+        "operator" : "=((AL+1)*-0.15*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60179,
+    "name" : "Earth Botch (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "man",
+        "operator" : "=((AL+1)*-2*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60180,
+    "name" : "Earth Botch (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "man",
+        "operator" : "=((AL+1)*-6*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60181,
+    "name" : "Earth Frailty (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*-0.01*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60182,
+    "name" : "Earth Frailty (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "hpmulti",
+        "operator" : "=((AL+1)*-0.03*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60183,
+    "name" : "Earth Soften (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "critdmg",
+        "operator" : "=((AL+1)*-0.1*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60184,
+    "name" : "Earth Soften (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "critdmg",
+        "operator" : "=((AL+1)*-0.3*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60185,
+    "name" : "Earth Root (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "root",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60186,
+    "name" : "Earth Root (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "root",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60187,
+    "name" : "Earth Heavy (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "heavy",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60188,
+    "name" : "Earth Heavy (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "heavy",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60189,
+    "name" : "Tremor Sense (Lesser)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*MAST*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "detection",
+        "operator" : "EARTH"
+      }
+    ]
+  },
+  {
+    "id" : 60190,
+    "name" : "Tremor Sense (Greater)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*MAST*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "detection",
+        "operator" : "EARTH"
+      }
+    ]
+  },
+  {
+    "id" : 60191,
+    "name" : "Earth Molding (Mold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60192,
+    "name" : "Earth Molding (Quickmold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Earth",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
   }
 ]
