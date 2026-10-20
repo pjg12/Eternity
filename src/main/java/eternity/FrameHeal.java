@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -287,6 +289,9 @@ public class FrameHeal extends JFrame {
 		String actionSubtitle = action == null ? "Heal" : action.getName();
 		if (alSelect != null && alSelect.getSelectedItem() != null) {
 			actionSubtitle += " AL: " + alSelect.getSelectedItem();
+			if (isMeleeRangeSelected()) {
+				actionSubtitle += " (effective " + formatNumber(getSelectedAl() + 0.5) + ")";
+			}
 		}
 		tempString += actionSubtitle + " --#LineHeight|1.5em --#rollHilightLineHeight|1.5em --#evenRowBackground|" + colorString1 + " --#evenRowFontColor|" + colorString2 + " --#oddRowBackground|" + colorString2 + " --#oddRowFontColor|" + colorString1;
 		tempString += " --#bodyFontFace|Helvetica --#bodyFontSize|16px --#outputtagprefix|&nbsp;&nbsp;";
@@ -571,25 +576,54 @@ public class FrameHeal extends JFrame {
 	}
 
 	private int getGerminateDuration() {
-		int duration = getSelectedAl() * getGerminateDurationPerAl();
-		if (isWeakGerminateAction() && isMeleeRangeSelected()) {
-			duration += 1;
-		}
-		duration = Math.max(1, duration);
+		double al = getSelectedAl() + (isMeleeRangeSelected() ? 0.5 : 0.0);
+		double duration = al * getGerminateDurationPerAl();
 		if (character != null) {
-			duration = Math.max(1, (int) Math.ceil(character.scaleDurationEffect(duration)));
+			duration = character.scaleDurationEffect(duration);
 		}
-		return duration;
+		return Math.max(1, (int) Math.ceil(duration));
 	}
 
 	private int getGerminateDurationPerAl() {
-		if (isStrongGerminateAction()) return 4;
-		if (isMediumGerminateAction()) return 3;
-		return 2;
+		Double fromAction = getGerminateDurationMultiplierFromAction();
+		if (fromAction != null) {
+			return Math.max(1, (int) Math.round(fromAction));
+		}
+		if (isStrongGerminateAction()) return 2;
+		if (isMediumGerminateAction()) return 2;
+		return 1;
+	}
+
+	private Double getGerminateDurationMultiplierFromAction() {
+		if (action == null || action.getModifierKey() == null) return null;
+		for (DataAction.ModifierKey modifier : action.getModifierKey()) {
+			if (modifier == null || modifier.getAttribute() == null) continue;
+			if (!"duration".equalsIgnoreCase(modifier.getAttribute())) continue;
+			String operator = modifier.getOperator();
+			if (operator == null) continue;
+			Matcher matcher = Pattern
+					.compile("(?i)=\\s*\\(?\\s*AL\\s*\\*\\s*([0-9]+(?:\\.[0-9]+)?)\\s*\\)?")
+					.matcher(operator.trim());
+			if (matcher.find()) {
+				try {
+					return Double.parseDouble(matcher.group(1));
+				} catch (NumberFormatException ignored) {
+					return null;
+				}
+			}
+		}
+		return null;
 	}
 
 	private double getGerminateAuraCostPerAl() {
-		if (isStrongGerminateAction()) return 6.0;
+		if (action != null && action.getCosts() != null) {
+			for (DataAction.CostPair cost : action.getCosts()) {
+				if (cost != null && cost.getType() != null && "Aura".equalsIgnoreCase(cost.getType().trim())) {
+					return Math.max(0.0, cost.getValue());
+				}
+			}
+		}
+		if (isStrongGerminateAction()) return 5.0;
 		if (isMediumGerminateAction()) return 3.0;
 		return 1.0;
 	}
@@ -716,16 +750,18 @@ public class FrameHeal extends JFrame {
 		return Math.max(0.0, getDerivedStatusValue("THEAL") + evaluateActionModifierTotal("THEAL"));
 	}
 
-	private double getHealMultiplier() {
-		double meleeBonus = 0.0;
+	private double getEffectiveHealAl() {
+		double al = action == null || character == null
+				? getSelectedAl()
+				: character.getEffectiveTechniqueAl(action);
 		if (isMeleeRangeSelected()) {
-			if (action != null && action.hasModifierAttribute("meleehealmulti")) {
-				meleeBonus = evaluateActionModifierTotal("MELEEHEALMULTI");
-			} else if (!isGerminateAction()) {
-				meleeBonus = 0.5;
-			}
+			al += 0.5;
 		}
-		return Math.max(0.0, 1.0 + evaluateActionModifierTotal("HEALMULTI") + meleeBonus);
+		return al;
+	}
+
+	private double getHealMultiplier() {
+		return Math.max(0.0, 1.0 + evaluateActionModifierTotal("HEALMULTI"));
 	}
 
 	private double evaluateActionModifierTotal(String targetAttribute) {
@@ -793,7 +829,7 @@ public class FrameHeal extends JFrame {
 		if (token == null || token.isBlank()) return 0.0;
 		String normalized = token.trim().toUpperCase();
 		return switch (normalized) {
-			case "AL" -> action == null || character == null ? 0.0 : character.getEffectiveTechniqueAl(action);
+			case "AL" -> getEffectiveHealAl();
 			case "CL" -> getClassLevel();
 			case "BASEHP" -> getLevelBaseHp();
 			case "BHEAL" -> getDerivedStatusValue("BHEAL");

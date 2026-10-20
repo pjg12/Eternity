@@ -2044,6 +2044,9 @@ public class FrameCombat extends JFrame {
 				if (openMutationFrameIfNeeded(action)) {
 					return;
 				}
+				if (openAdaptationFrameIfNeeded(action)) {
+					return;
+				}
 				if (openStepPopupIfNeeded(action)) {
 					return;
 				}
@@ -2108,6 +2111,9 @@ public class FrameCombat extends JFrame {
 					return;
 				}
 				if (openMutationFrameIfNeeded(action)) {
+					return;
+				}
+				if (openAdaptationFrameIfNeeded(action)) {
 					return;
 				}
 				if (openStepPopupIfNeeded(action)) {
@@ -2843,6 +2849,124 @@ public class FrameCombat extends JFrame {
 		MutationCatalog.MutationOption option = MutationCatalog.find(name);
 		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
 		return activeMutationAlFor(name) / alEach;
+	}
+
+	private boolean openAdaptationFrameIfNeeded(DataAction action) {
+		boolean adapt = isNamedAction(action, "Feral Adaptation (Adapt)");
+		boolean quick = isNamedAction(action, "Feral Adaptation (Quick Adapt)");
+		if (!adapt && !quick) return false;
+		if (character == null || character.getCombat() == null || character.getTraining() == null) return true;
+
+		int cap = 0;
+		for (DataTraining tech : character.getTraining().getAllTraining()) {
+			if (tech != null && AdaptationCatalog.TECHNIQUE_NAME.equalsIgnoreCase(tech.getName())) {
+				cap = Math.max(0, tech.getAl());
+				break;
+			}
+		}
+		int remaining = cap - activeAdaptationAl();
+		List<String> known = getCharacterListEntries(AdaptationCatalog.LIST_NAME);
+		if (known.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No entries are available in the Known Adaptations list.", "Adapt", JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+		if (remaining <= 0) {
+			JOptionPane.showMessageDialog(this, "Active adaptations already use the full Feral Adaptation AL.", "Adapt", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+
+		ArrayList<String> choices = new ArrayList<>();
+		for (String name : known) {
+			if (maxAdaptationApplications(name, remaining) > 0) choices.add(name);
+		}
+		if (choices.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No known adaptations can be activated with the remaining AL.", "Adapt", JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+
+		JComboBox<String> adaptationBox = new JComboBox<>(choices.toArray(new String[0]));
+		JComboBox<Integer> countBox = new JComboBox<>();
+		java.awt.event.ActionListener refreshCounts = e -> {
+			countBox.removeAllItems();
+			Object selected = adaptationBox.getSelectedItem();
+			int maxCount = selected == null ? 0 : maxAdaptationApplications(selected.toString(), remaining);
+			for (int i = 1; i <= maxCount; i++) countBox.addItem(i);
+		};
+		adaptationBox.addActionListener(refreshCounts);
+		refreshCounts.actionPerformed(null);
+
+		JPanel fields = new JPanel(new java.awt.GridLayout(2, 2, 6, 6));
+		fields.add(new JLabel("Adaptation"));
+		fields.add(adaptationBox);
+		fields.add(new JLabel("Applications"));
+		fields.add(countBox);
+		JPanel panel = new JPanel(new BorderLayout(0, 8));
+		panel.add(new JLabel("Remaining Feral Adaptation AL: " + remaining), BorderLayout.NORTH);
+		panel.add(fields, BorderLayout.CENTER);
+		int result = JOptionPane.showConfirmDialog(this, panel, quick ? "Quick Adapt" : "Adapt", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		if (result != JOptionPane.OK_OPTION) return true;
+
+		Object selectedItem = adaptationBox.getSelectedItem();
+		Object countItem = countBox.getSelectedItem();
+		if (selectedItem == null || !(countItem instanceof Integer applications) || applications <= 0) return true;
+		String selected = selectedItem.toString();
+		AdaptationCatalog.AdaptationOption option = AdaptationCatalog.find(selected);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		int spentAl = applications * alEach;
+		int updatedApplications = activeAdaptationApplications(selected) + applications;
+		int updatedAl = activeAdaptationAlFor(selected) + spentAl;
+		String description = option == null ? "" : option.description();
+		String statusName = "Adaptation: " + selected;
+		character.getCombat().removeStatus(statusName);
+		DataStatus status = new DataStatus();
+		status.setName(statusName);
+		status.setAffinity("Nature");
+		status.setAttribute("ADAPTATION");
+		status.setSeverity(updatedAl);
+		status.setDurationType("Maintained");
+		status.setDuration(0);
+		status.setDescription(description + " Active applications: " + updatedApplications + ". AL used: " + updatedAl + ". Deactivate as a free action to eject biological material.");
+		character.getCombat().addStatus(status);
+		action.setAl(spentAl);
+		finishActionUse(action);
+		return true;
+	}
+
+	private int maxAdaptationApplications(String name, int remainingAl) {
+		AdaptationCatalog.AdaptationOption option = AdaptationCatalog.find(name);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		int maxSelections = option == null ? remainingAl : option.maxSelections();
+		int selectionsLeft = maxSelections - activeAdaptationApplications(name);
+		if (selectionsLeft <= 0 || alEach > remainingAl) return 0;
+		return Math.min(selectionsLeft, remainingAl / alEach);
+	}
+
+	private int activeAdaptationAl() {
+		int total = 0;
+		for (DataStatus status : character.getCombat().getCombatStatus()) {
+			if (status == null || status.getAttribute() == null) continue;
+			if ("ADAPTATION".equalsIgnoreCase(status.getAttribute().trim())) {
+				total += (int) Math.round(status.getSeverity());
+			}
+		}
+		return Math.max(0, total);
+	}
+
+	private int activeAdaptationAlFor(String name) {
+		String statusName = "Adaptation: " + (name == null ? "" : name.trim());
+		for (DataStatus status : character.getCombat().getCombatStatus()) {
+			if (status == null || status.getName() == null) continue;
+			if (statusName.equalsIgnoreCase(status.getName().trim())) {
+				return Math.max(0, (int) Math.round(status.getSeverity()));
+			}
+		}
+		return 0;
+	}
+
+	private int activeAdaptationApplications(String name) {
+		AdaptationCatalog.AdaptationOption option = AdaptationCatalog.find(name);
+		int alEach = option == null ? 1 : Math.max(1, option.alPerSelection());
+		return activeAdaptationAlFor(name) / alEach;
 	}
 
 	private boolean openInformFrameIfNeeded(DataAction action) {
