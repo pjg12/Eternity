@@ -1,4 +1,4 @@
-package eternity;
+package eternity.Minions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

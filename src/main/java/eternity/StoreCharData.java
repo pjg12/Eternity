@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import eternity.Minions.CharMinions;
+
 /**
  * Main character container, orchestrating all character subsystems.
  * 

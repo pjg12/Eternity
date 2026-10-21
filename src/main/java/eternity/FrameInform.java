@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import eternity.Minions.MinionCombatState;
+
 /**
  * Helper frame for informational combat techniques.
  */

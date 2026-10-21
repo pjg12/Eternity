@@ -23,6 +23,9 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import eternity.Minions.CharMinions;
+import eternity.Minions.MinionSlotState;
+
 /**
  * Helper frame for resolving Technical effects.
  */
