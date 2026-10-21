@@ -2131,6 +2131,9 @@ public class FrameCombat extends JFrame {
 				if (openHealFrameIfNeeded(action)) {
 					return;
 				}
+				if (openEffectFrameIfNeeded(action)) {
+					return;
+				}
 				if (isNamedAction(action, CRUSADER_SEAL_ACTION)) {
 					if (finishActionUse(action)) {
 						activateCrusaderSeal();
@@ -2161,7 +2164,10 @@ public class FrameCombat extends JFrame {
 			if (openAttackFrameIfNeeded(action)) {
 				return;
 			}
-			openHealFrameIfNeeded(action);
+			if (openHealFrameIfNeeded(action)) {
+				return;
+			}
+			openEffectFrameIfNeeded(action);
 		}
 	}
 	
@@ -2564,6 +2570,8 @@ public class FrameCombat extends JFrame {
 			actionFrame = new FrameInform(sheetFrame, this, character, action);
 		} else if (isHealAction(action)) {
 			actionFrame = new FrameHeal(sheetFrame, this, character, action);
+		} else if (isEffectAction(action)) {
+			actionFrame = new FrameEffect(sheetFrame, this, character, action);
 		} else {
 			actionFrame = new FrameAttack(sheetFrame, this, character, action, sneakAttackSelected, unarmedProwessSelected, favoredEnemySelected, snipersDomainTdmgBonus, consumeActionUseOnResolve);
 		}
@@ -2988,6 +2996,12 @@ public class FrameCombat extends JFrame {
 		return true;
 	}
 
+	private boolean openEffectFrameIfNeeded(DataAction action) {
+		if (!isEffectAction(action)) return false;
+		openActionFrame(action);
+		return true;
+	}
+
 	private void prepareWeakGerminateForCast(DataAction action) {
 		if (action == null || action.getName() == null) return;
 		String name = action.getName().toLowerCase(java.util.Locale.ROOT);
@@ -3029,6 +3043,13 @@ public class FrameCombat extends JFrame {
 
 	private boolean isInformAction(DataAction action) {
 		return hasActionCategory(action, "Inform") || hasActionCategory(action, "Remedy");
+	}
+
+	/** Mitigation / Support / Apply use the effect helper (summary + status code ScriptCard). */
+	private boolean isEffectAction(DataAction action) {
+		return hasActionCategory(action, "Mitigation")
+				|| hasActionCategory(action, "Support")
+				|| hasActionCategory(action, "Apply");
 	}
 
 	private boolean isAttackAction(DataAction action) {
@@ -4047,7 +4068,8 @@ public class FrameCombat extends JFrame {
 		String normalized = attribute.trim();
 		return "HP".equalsIgnoreCase(normalized)
 				|| "AURA".equalsIgnoreCase(normalized)
-				|| "SPENTAURA".equalsIgnoreCase(normalized);
+				|| "SPENTAURA".equalsIgnoreCase(normalized)
+				|| "SHIELD".equalsIgnoreCase(normalized);
 	}
 
 	private boolean applyInstantResourceDelta(DataStatus status) {
@@ -4078,6 +4100,11 @@ public class FrameCombat extends JFrame {
 				character.recordAuraSpentForCombatSpecialties(spentDelta);
 				refreshCriticalMassDerivedStateIfNeeded();
 			}
+			return true;
+		}
+		if ("SHIELD".equalsIgnoreCase(attribute)) {
+			double previous = Math.max(0.0, character.getResources().getShield());
+			character.getResources().setShield(Math.max(0.0, previous + severity));
 			return true;
 		}
 		return false;

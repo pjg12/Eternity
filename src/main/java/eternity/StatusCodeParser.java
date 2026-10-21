@@ -24,7 +24,7 @@ public final class StatusCodeParser {
             "BASER1", "MULTIR1", "BASER2", "MULTIR2", "BASER3", "MULTIR3",
             "BASEREACT", "MULTIREACT"
     };
-    private static final String[] INSTANT_RESOURCE_KEYS = {"HP", "AURA", "SPENTAURA"};
+    private static final String[] INSTANT_RESOURCE_KEYS = {"HP", "AURA", "SPENTAURA", "SHIELD"};
 
     private static final Set<String> VALID_ATTRIBUTES = buildValidAttributes();
 
@@ -304,6 +304,13 @@ public final class StatusCodeParser {
             case "FLANK", "FLANKING" -> "FLANKING";
             case "HOTHP", "REGENHP" -> "HOTHP";
             case "HOTSHIELD", "REGSHIELD" -> "HOTSHIELD";
+            case "SHIELD" -> "SHIELD";
+            case "MAXHP" -> "BASEHP";
+            case "RESALL" -> "BALL";
+            case "RESSLASH" -> "BSLASH";
+            case "RESPIERCE" -> "BPIERCE";
+            case "RESBLUNT" -> "BBLUNT";
+            case "RESFROST" -> "BFROST";
             case "TAKEN", "DMGTKN", "DMGTAKEN" -> "DMGTAKEN";
             case "SZ", "SIZE" -> "SIZE";
             case "RD", "RESDISP", "DISPRES" -> "BRESDISP";
@@ -369,6 +376,12 @@ public final class StatusCodeParser {
             case "FLANKING" -> "FLANK";
             case "HOTHP" -> "HOTHP";
             case "HOTSHIELD" -> "HOTSHIELD";
+            case "SHIELD" -> "SHIELD";
+            case "BALL" -> "RESALL";
+            case "BSLASH" -> "RESSLASH";
+            case "BPIERCE" -> "RESPIERCE";
+            case "BBLUNT" -> "RESBLUNT";
+            case "BFROST" -> "RESFROST";
             case "DMGTAKEN" -> "TAKEN";
             case "SIZE" -> "SIZE";
             case "BRESDISP", "MRESDISP", "RESDISP" -> "RESDISP";
@@ -548,7 +561,11 @@ public final class StatusCodeParser {
 
     private static boolean isInstantResourceDeltaAttribute(String attribute) {
         if (attribute == null || attribute.isBlank()) return false;
-        return "HP".equalsIgnoreCase(attribute.trim()) || "AURA".equalsIgnoreCase(attribute.trim());
+        String normalized = attribute.trim();
+        return "HP".equalsIgnoreCase(normalized)
+                || "AURA".equalsIgnoreCase(normalized)
+                || "SPENTAURA".equalsIgnoreCase(normalized)
+                || "SHIELD".equalsIgnoreCase(normalized);
     }
 
     private static void addPrefixed(Set<String> keys, String prefix, String[] values) {

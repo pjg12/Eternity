@@ -1051,17 +1051,6 @@ public class FrameAttack extends JFrame {
 			tempString += " [br]&nbsp;&nbsp;Arcane Missiles: " + getArcaneMissileCount() + " missiles share attack and damage rolls.";
 			tempString += buildArcaneMissileMacroSummary();
 		}
-		if (isShieldTechniqueAction()) {
-			tempString += " --+|Shield: " + trimDisplayDouble(getShieldAmount())
-					+ " [br]&nbsp;&nbsp;Temporary HP = Base HP x AL x SHD"
-					+ (action != null && action.getName() != null
-							&& action.getName().toLowerCase(java.util.Locale.ROOT).contains("(strong)")
-							? " x 3" : "")
-					+ ".";
-			tempString += " }}";
-			return tempString;
-		}
-		
 		tempString += buildPrimaryRollMacroBlock();
 
 		if (isArcaneMissilesAction()) {
@@ -1379,20 +1368,6 @@ public class FrameAttack extends JFrame {
 
 	private boolean isEruptionAction() {
 		return action != null && action.hasModifierAttribute("RADIUS");
-	}
-
-	private boolean isShieldTechniqueAction() {
-		return action != null && action.hasModifierAttribute("SHIELD");
-	}
-
-	private double getShieldAmount() {
-		if (!isShieldTechniqueAction() || action == null) return 0.0;
-		return Math.max(0.0, action.evaluateModifierAttributeValue("SHIELD"));
-	}
-
-	private String getShieldTierMultiplierText() {
-		// Shield amount already includes tier scaling from modifierKey (e.g. 3*BASEHP*AL*SHD).
-		return "";
 	}
 
 	private double getEruptionMaxRadius() {
@@ -2317,16 +2292,6 @@ public class FrameAttack extends JFrame {
 						.append(System.lineSeparator());
 			}
 			text.append(System.lineSeparator());
-		}
-		if (isShieldTechniqueAction()) {
-			text.append("Shield: ")
-					.append(trimDisplayDouble(getShieldAmount()))
-					.append(" temporary HP (Base HP × AL × SHD")
-					.append(action != null && action.getName() != null
-							&& action.getName().toLowerCase(java.util.Locale.ROOT).contains("(strong)")
-							? " × 3" : "")
-					.append(").")
-					.append(System.lineSeparator());
 		}
 		if (isEruptionAction()) {
 			text.append("Eruption radius: ")
