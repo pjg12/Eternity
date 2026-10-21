@@ -6482,7 +6482,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -6554,7 +6554,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -6626,7 +6626,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -6698,7 +6698,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -6741,6 +6741,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6762,13 +6766,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.5)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6797,6 +6805,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6818,13 +6830,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6853,6 +6869,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6874,13 +6894,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*1.2)"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6909,6 +6933,10 @@
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6930,13 +6958,17 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
         "attribute" : "dmgmulti",
         "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -6986,7 +7018,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -7042,7 +7074,7 @@
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
@@ -7065,7 +7097,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -7075,8 +7107,12 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.05)"
+        "attribute" : "SHIELD",
+        "operator" : "=(BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
       }
     ]
   },
@@ -7093,18 +7129,22 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 5.0
       }
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.15)"
+        "attribute" : "SHIELD",
+        "operator" : "=(3*BASEHP*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
@@ -7121,7 +7161,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -7131,8 +7171,52 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.01)"
+        "attribute" : "RESALL",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "RESSLASH",
+        "operator" : "=(3*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 19035,
+    "name" : "Air Shell (Medium)",
+    "category" : "Mitigation",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Free",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 3.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "RESALL",
+        "operator" : "=(6*AL*SHD)"
+      },
+      {
+        "attribute" : "RESSLASH",
+        "operator" : "=(6*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*3*DUR)"
       }
     ]
   },
@@ -7149,7 +7233,7 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Interrupt",
+    "actionType" : "Free",
     "weapon" : null,
     "costs" : [
       {
@@ -7159,14 +7243,22 @@
     ],
     "modifierKey" : [
       {
-        "attribute" : "maxhp",
-        "operator" : "*(AL*0.03)"
+        "attribute" : "RESALL",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "RESSLASH",
+        "operator" : "=(9*AL*SHD)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
       }
     ]
   },
   {
     "id" : 19037,
-    "name" : "Air Therapy",
+    "name" : "Air Therapy (Weak)",
     "category" : "Remedy",
     "source" : "Aura",
     "affinity" : "Air",
@@ -7185,7 +7277,20 @@
         "value" : 1.0
       }
     ],
-    "modifierKey" : []
+    "modifierKey" : [
+      {
+        "attribute" : "psychosissave",
+        "operator" : "=(SUP*0.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*3)+(SUP/2)"
+      },
+      {
+        "attribute" : "psychosissaves",
+        "operator" : "=1"
+      }
+    ]
   },
   {
     "id" : 22001,
@@ -16091,12 +16196,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 1.0
+        "value" : 2.0
       }
     ],
     "modifierKey" : [
@@ -16107,6 +16212,10 @@
       {
         "attribute" : "radius",
         "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -16123,12 +16232,12 @@
     "dmgMulti" : 0.0,
     "al" : 0,
     "ranged" : 15,
-    "actionType" : "Aura",
+    "actionType" : "Standard",
     "weapon" : null,
     "costs" : [
       {
         "type" : "Aura",
-        "value" : 6.0
+        "value" : 10.0
       }
     ],
     "modifierKey" : [
@@ -16138,7 +16247,11 @@
       },
       {
         "attribute" : "radius",
-        "operator" : "7.5*AREA*(rt(RANGE/5)+AL))"
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
       }
     ]
   },
@@ -23508,6 +23621,1618 @@
     "category" : "Inform",
     "source" : "Aura",
     "affinity" : "Water",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60240,
+    "name" : "Air Burst (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60241,
+    "name" : "Air Burst (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60242,
+    "name" : "Air Beam (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60243,
+    "name" : "Air Beam (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "width",
+        "operator" : "(1*AL*AREA)"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*(rt(RANGE/5)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60244,
+    "name" : "Air Ball (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.25)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60245,
+    "name" : "Air Ball (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.75)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      },
+      {
+        "attribute" : "dmgtype",
+        "operator" : "SLASH"
+      }
+    ]
+  },
+  {
+    "id" : 60246,
+    "name" : "Air Chain (Weak)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "AC",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "meleedmgmulti",
+        "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "chaindist",
+        "operator" : "=(rt(RANGE)*AL)"
+      },
+      {
+        "attribute" : "chainatk",
+        "operator" : "=-10"
+      },
+      {
+        "attribute" : "chaindmg",
+        "operator" : "=(100-(5*AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60247,
+    "name" : "Air Chain (Strong)",
+    "category" : "Attack",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "AC",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "dmgmulti",
+        "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "meleedmgmulti",
+        "operator" : "+(AL*0.5)"
+      },
+      {
+        "attribute" : "chaindist",
+        "operator" : "=(rt(RANGE)*AL)"
+      },
+      {
+        "attribute" : "chainatk",
+        "operator" : "=-5"
+      },
+      {
+        "attribute" : "chaindmg",
+        "operator" : "=(100-(10*AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60248,
+    "name" : "Air Regrowth (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.1)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60249,
+    "name" : "Air Regrowth (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=(AL*3)"
+      }
+    ]
+  },
+  {
+    "id" : 60250,
+    "name" : "Air Soothe (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "channel",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60251,
+    "name" : "Air Soothe (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "channel",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60252,
+    "name" : "Air Shower (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.3)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "2.5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60253,
+    "name" : "Air Shower (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.9)-1"
+      },
+      {
+        "attribute" : "radius",
+        "operator" : "5*AREA*(rt(RANGE/5)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60254,
+    "name" : "Air Succession (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "chaindist",
+        "operator" : "=(rt(RANGE)*AL)"
+      },
+      {
+        "attribute" : "chainheal",
+        "operator" : "=(100-(5*AL))"
+      },
+      {
+        "attribute" : "chains",
+        "operator" : "=(AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60255,
+    "name" : "Air Succession (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.4)"
+      },
+      {
+        "attribute" : "chaindist",
+        "operator" : "=(rt(RANGE)*AL)"
+      },
+      {
+        "attribute" : "chainheal",
+        "operator" : "=(100-(10*AL))"
+      },
+      {
+        "attribute" : "chains",
+        "operator" : "=(AL*2)"
+      }
+    ]
+  },
+  {
+    "id" : 60256,
+    "name" : "Air Cascade (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 2.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.35)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "2.5*AREA*(rt(RANGE)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60257,
+    "name" : "Air Cascade (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 10.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*1.05)-1"
+      },
+      {
+        "attribute" : "length",
+        "operator" : "5*AREA*(rt(RANGE)+AL))"
+      }
+    ]
+  },
+  {
+    "id" : 60258,
+    "name" : "Air Salve (Weak)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Move",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=(AL*0.1*MOVE)"
+      },
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.25)-1"
+      }
+    ]
+  },
+  {
+    "id" : 60259,
+    "name" : "Air Salve (Strong)",
+    "category" : "Heal",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Standard",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=(AL*0.2*MOVE)"
+      },
+      {
+        "attribute" : "healmulti",
+        "operator" : "+(AL*0.75)-1"
+      }
+    ]
+  },
+  {
+    "id" : 60260,
+    "name" : "Air Therapy (Strong)",
+    "category" : "Remedy",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "psychosissave",
+        "operator" : "=(SUP*1.5*AL)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      },
+      {
+        "attribute" : "psychosissaves",
+        "operator" : "=AL"
+      }
+    ]
+  },
+  {
+    "id" : 60261,
+    "name" : "Air Affliction (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "apply",
+        "operator" : "=((AL+1)*0.05*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60262,
+    "name" : "Air Affliction (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "apply",
+        "operator" : "=((AL+1)*0.15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60263,
+    "name" : "Air Gliding (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "fly",
+        "operator" : "=((AL+1)*5*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60264,
+    "name" : "Air Gliding (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "fly",
+        "operator" : "=((AL+1)*15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60265,
+    "name" : "Air Extension (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=((AL+1)*5*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60266,
+    "name" : "Air Extension (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=((AL+1)*15*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60267,
+    "name" : "Air Regeneration (Weak)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "regen",
+        "operator" : "=((AL+1)*1*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60268,
+    "name" : "Air Regeneration (Strong)",
+    "category" : "Support",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "regen",
+        "operator" : "=((AL+1)*3*SUP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60269,
+    "name" : "Air Revoke (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "blessingpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "blessingdur",
+        "operator" : "=-(5*AL)"
+      },
+      {
+        "attribute" : "blessingsev",
+        "operator" : "=-(1*AL*IMP)"
+      },
+      {
+        "attribute" : "saveblessingdur",
+        "operator" : "=-(2*AL)"
+      },
+      {
+        "attribute" : "saveblessingsev",
+        "operator" : "=-(0.5*AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60270,
+    "name" : "Air Revoke (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "blessingpurge",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "blessingdur",
+        "operator" : "=-(10*AL)"
+      },
+      {
+        "attribute" : "blessingsev",
+        "operator" : "=-(2*AL*IMP)"
+      },
+      {
+        "attribute" : "saveblessingdur",
+        "operator" : "=-(4*AL)"
+      },
+      {
+        "attribute" : "saveblessingsev",
+        "operator" : "=-(AL*IMP)"
+      }
+    ]
+  },
+  {
+    "id" : 60271,
+    "name" : "Air Suppress (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "apply",
+        "operator" : "=((AL+1)*-0.05*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60272,
+    "name" : "Air Suppress (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "apply",
+        "operator" : "=((AL+1)*-0.15*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60273,
+    "name" : "Air Grounding (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "fly",
+        "operator" : "=((AL+1)*-5*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60274,
+    "name" : "Air Grounding (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "fly",
+        "operator" : "=((AL+1)*-15*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60275,
+    "name" : "Air Contraction (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=((AL+1)*-5*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60276,
+    "name" : "Air Contraction (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "range",
+        "operator" : "=((AL+1)*-15*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60277,
+    "name" : "Air Degenerate (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "regen",
+        "operator" : "=((AL+1)*-1*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*2*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60278,
+    "name" : "Air Degenerate (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Aura",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "regen",
+        "operator" : "=((AL+1)*-3*IMP)"
+      },
+      {
+        "attribute" : "duration",
+        "operator" : "=((AL+1)*4*DUR)"
+      }
+    ]
+  },
+  {
+    "id" : 60279,
+    "name" : "Air Shear (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "interrupt",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "interruptbuy",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "interruptlock",
+        "operator" : "=1"
+      }
+    ]
+  },
+  {
+    "id" : 60280,
+    "name" : "Air Shear (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "REF",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "interrupt",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "interruptbuy",
+        "operator" : "=1"
+      },
+      {
+        "attribute" : "interruptlock",
+        "operator" : "=(AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60281,
+    "name" : "Air Incapacitate (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "incapacitate",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60282,
+    "name" : "Air Incapacitate (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "FORT",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "incapacitate",
+        "operator" : "=((AL+1)*4*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60283,
+    "name" : "Air Confusion (Weak)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 1.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "confuse",
+        "operator" : "=((AL+1)*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60284,
+    "name" : "Air Confusion (Strong)",
+    "category" : "Apply",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "WILL",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 15,
+    "actionType" : "Interrupt",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "Aura",
+        "value" : 5.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "confuse",
+        "operator" : "=((AL+1)*2*MAST)"
+      }
+    ]
+  },
+  {
+    "id" : 60285,
+    "name" : "Air Molding (Mold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Air",
+    "atkType" : "Other",
+    "atk" : 0,
+    "bdmg" : 0,
+    "tdmg" : 0,
+    "dmgMulti" : 0.0,
+    "al" : 0,
+    "ranged" : 0,
+    "actionType" : "Full",
+    "weapon" : null,
+    "costs" : [
+      {
+        "type" : "None",
+        "value" : 0.0
+      }
+    ],
+    "modifierKey" : [
+      {
+        "attribute" : "moldatk",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldtdmg",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldamr",
+        "operator" : "=AL"
+      },
+      {
+        "attribute" : "moldhard",
+        "operator" : "=(3*AL)"
+      }
+    ]
+  },
+  {
+    "id" : 60286,
+    "name" : "Air Molding (Quickmold)",
+    "category" : "Inform",
+    "source" : "Aura",
+    "affinity" : "Air",
     "atkType" : "Other",
     "atk" : 0,
     "bdmg" : 0,

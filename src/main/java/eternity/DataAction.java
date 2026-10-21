@@ -281,12 +281,52 @@ public class DataAction {
 		for (ModifierKey entry : modifierKey) {
 			if (entry == null || entry.getAttribute() == null) continue;
 			if (!normalized.equalsIgnoreCase(entry.getAttribute().trim())) continue;
-			String normalizedOperator = entry.getOperator() == null ? "+" : entry.getOperator().trim().toUpperCase();
-			char mathOperator = resolveMathOperator(normalizedOperator);
-			double operand = resolveOperand(normalizedOperator, mathOperator);
-			value = applyDoubleOperator(value, mathOperator, operand);
+			value = applyModifierEntryToValue(value, entry);
 		}
 		return value;
+	}
+
+	/**
+	 * Evaluates a single modifier entry. Multiplicative operators (e.g. MAXHP *(AL*0.05))
+	 * scale from the attribute's current base (max HP) rather than from zero.
+	 */
+	public double evaluateModifierEntryValue(ModifierKey entry) {
+		if (entry == null || entry.getAttribute() == null || entry.getAttribute().isBlank()) return 0.0;
+		String normalizedOperator = entry.getOperator() == null ? "+" : entry.getOperator().trim();
+		char mathOperator = resolveMathOperator(normalizedOperator);
+		double base = (mathOperator == '*' || mathOperator == '/')
+				? resolveMultiplicativeBase(entry.getAttribute())
+				: 0.0;
+		return applyModifierEntryToValue(base, entry);
+	}
+
+	private double applyModifierEntryToValue(double currentValue, ModifierKey entry) {
+		if (entry == null) return currentValue;
+		String normalizedOperator = entry.getOperator() == null ? "+" : entry.getOperator().trim();
+		char mathOperator = resolveMathOperator(normalizedOperator);
+		double operand = resolveOperand(normalizedOperator, mathOperator);
+		return applyDoubleOperator(currentValue, mathOperator, operand);
+	}
+
+	private double resolveMultiplicativeBase(String attribute) {
+		if (attribute == null) return 0.0;
+		String normalized = attribute.trim().toUpperCase();
+		if ("MAXHP".equals(normalized) || "BASEHP".equals(normalized)) {
+			if (character != null) {
+				double maxHp = character.calcResourceValue("MAXHP");
+				// Uninitialized sheets report 0; fall back to level base HP for technique math.
+				if (maxHp > 0.0) return maxHp;
+			}
+			return getLevelBaseHp();
+		}
+		if ("MAXAURA".equals(normalized) || "BASEAURA".equals(normalized)) {
+			if (character != null) {
+				double maxAura = character.calcResourceValue("MAXAURA");
+				if (maxAura > 0.0) return maxAura;
+			}
+			return 0.0;
+		}
+		return 0.0;
 	}
 
 	private boolean usesStandardAttackValues() {
@@ -441,8 +481,9 @@ public class DataAction {
 			case "APP" -> character != null && character.getAttributes() != null
 					? character.getAttributes().calcStatusValue("APP")
 					: 0.0;
-			// Multiplier secondaries: baseline 1.0, Improved Duration/Shielding add on top.
-			case "DUR", "SHD" -> 1.0 + resolveCharacterStatValue(normalized);
+			// Multiplier secondaries: baseline 1.0, ranks/additions stack on top.
+			case "SUP", "IMP", "MAST", "EXCL", "GRANT", "CRUSH", "BREAK", "AREA", "POWER", "DUR", "SHD"
+					-> 1.0 + resolveCharacterStatValue(normalized);
 			case "RESALL" -> resolveCharacterStatValue("ALL");
 			default -> resolveCharacterStatValue(normalized);
 		};

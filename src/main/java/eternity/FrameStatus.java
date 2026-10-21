@@ -1029,7 +1029,8 @@ public class FrameStatus extends JFrame {
         String normalized = attribute.trim();
         return "HP".equalsIgnoreCase(normalized)
                 || "AURA".equalsIgnoreCase(normalized)
-                || "SPENTAURA".equalsIgnoreCase(normalized);
+                || "SPENTAURA".equalsIgnoreCase(normalized)
+                || "SHIELD".equalsIgnoreCase(normalized);
     }
 
     private boolean applyInstantResourceDelta(DataStatus status) {
@@ -1059,6 +1060,11 @@ public class FrameStatus extends JFrame {
             if (spentDelta > 0.0) {
                 character.recordAuraSpentForCombatSpecialties(spentDelta);
             }
+            return true;
+        }
+        if ("SHIELD".equalsIgnoreCase(attribute)) {
+            double previous = Math.max(0.0, character.getResources().getShield());
+            character.getResources().setShield(Math.max(0.0, previous + severity));
             return true;
         }
         return false;
