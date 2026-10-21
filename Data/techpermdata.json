@@ -1606,5 +1606,59 @@
     "attribute" : "R1",
     "ratio" : 0.05,
     "cost" : 1
+  },
+  {
+    "id" : 750,
+    "attribute" : "TDMG",
+    "ratio" : 3.0,
+    "cost" : 1
+  },
+  {
+    "id" : 751,
+    "attribute" : "TDMG",
+    "ratio" : 9.0,
+    "cost" : 6
+  },
+  {
+    "id" : 752,
+    "attribute" : "MOVE",
+    "ratio" : 5.0,
+    "cost" : 1
+  },
+  {
+    "id" : 753,
+    "attribute" : "RANGE",
+    "ratio" : 5.0,
+    "cost" : 1
+  },
+  {
+    "id" : 754,
+    "attribute" : "IMPAIR",
+    "ratio" : 0.025,
+    "cost" : 3
+  },
+  {
+    "id" : 755,
+    "attribute" : "REACT",
+    "ratio" : 0.5,
+    "cost" : 3
+  },
+  {
+    "id" : 756,
+    "attribute" : "APPLY",
+    "ratio" : 1.0,
+    "cost" : 3
+  },
+  {
+    "id" : 757,
+    "attribute" : "AREA",
+    "ratio" : 0.025,
+    "cost" : 3
+  },
+  {
+    "id" : 758,
+    "attribute" : "REGEN",
+    "ratio" : 1.0,
+    "cost" : 3
   }
 ]

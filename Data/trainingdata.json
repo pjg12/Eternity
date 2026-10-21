@@ -11527,7 +11527,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19001,
     "grant" : [
@@ -11559,7 +11559,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19004,
     "grant" : [
@@ -11591,7 +11591,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19007,
     "grant" : [
@@ -11623,7 +11623,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "Empowers your next attack based on your CTL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19010,
     "grant" : [
@@ -11655,7 +11655,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19013,
     "grant" : [
@@ -11687,7 +11687,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19016,
     "grant" : [
@@ -11719,7 +11719,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19019,
     "grant" : [
@@ -11751,7 +11751,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19022,
     "grant" : [
@@ -11766,7 +11766,7 @@
     "name" : "Air Eruption (Weak)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "A player-based Area of Effect attack with scaling damage.",
+    "description" : "Standard Action AoE near caster. REF save. Radius 2.5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. DMGMULTI (0.25xAL)-1. Slashing.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -11782,8 +11782,8 @@
     "name" : "Air Eruption (Strong)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "description" : "Standard Action AoE near caster. REF save. Radius 5ft x (AREA x (sqrt(RANGE/5)+AL)), min 5ft. DMGMULTI (0.75xAL)-1. Slashing. Cost 10 Aura/AL.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19025,
     "grant" : [
@@ -11815,7 +11815,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19028,
     "grant" : [
@@ -11847,7 +11847,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19031,
     "grant" : [
@@ -11862,7 +11862,7 @@
     "name" : "Air Shield (Weak)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
+    "description" : "SHIELD = Base HP x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -11878,8 +11878,8 @@
     "name" : "Air Shield (Strong)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "description" : "SHIELD = 3 x Base HP x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19034,
     "grant" : [
@@ -11894,7 +11894,7 @@
     "name" : "Air Shell (Weak)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "Increases damage resistance",
+    "description" : "RESALL and RES Slash = 3 x AL x SHD. Duration (AL+1) x 2 x DUR turns. Free or Interrupt.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -11906,14 +11906,30 @@
     "permStatus" : []
   },
   {
+    "id" : 19038,
+    "name" : "Air Shell (Medium)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "RESALL and RES Slash = 6 x AL x SHD. Duration (AL+1) x 3 x DUR turns. Free or Interrupt.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19037,
+    "grant" : [
+      19035
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
     "id" : 19039,
     "name" : "Air Shell (Strong)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "Increases damage resistance",
+    "description" : "RESALL and RES Slash = 9 x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
     "levelCoef" : 0.5,
     "levelMod" : 0.0,
-    "prereq" : 19037,
+    "prereq" : 19038,
     "grant" : [
       19036
     ],
@@ -11923,10 +11939,10 @@
   },
   {
     "id" : 19040,
-    "name" : "Air Therapy",
+    "name" : "Air Therapy (Weak)",
     "type" : "Active",
     "affinity" : "Air",
-    "description" : "Give bonus against Psychosis effects",
+    "description" : "Grant psychosis save bonus SUPPORT x 0.5 x AL. Duration ((AL+1)x3)+(SUPPORT/2) turns. Allow new psychosis saves.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -12156,8 +12172,8 @@
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12184,12 +12200,12 @@
     "name" : "Gale Impairment",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+1 IMPAIR per AL",
+    "description" : "+0.025 IMPAIR per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12200,7 +12216,7 @@
     "name" : "Gale Initiative",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+0.25 INIT per AL",
+    "description" : "+0.2 INIT per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -12248,12 +12264,12 @@
     "name" : "Gale Movement",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+2.5 MOVE per AL",
+    "description" : "+5 MOVE per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      491
+      752
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12264,7 +12280,7 @@
     "name" : "Gale Soaring",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+2.5 FLY per AL",
+    "description" : "+5 FLY per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
@@ -12280,12 +12296,12 @@
     "name" : "Gale Range",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+2.5 RANGE per AL",
+    "description" : "+5 RANGE per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      511
+      753
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12296,12 +12312,12 @@
     "name" : "Gale Area",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+0.1 AREA per AL",
+    "description" : "+0.025 AREA per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      521
+      719
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12344,12 +12360,12 @@
     "name" : "Gale Shielding",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "+1 SHIELD per AL",
+    "description" : "+0.025 SHD per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      591
+      722
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12389,19 +12405,24 @@
   },
   {
     "id" : 20301,
-    "name" : "Air Modling",
+    "name" : "Air Molding",
     "type" : "Maintained",
     "affinity" : "Air",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      -1
+      729,
+      60285,
+      60286
     ],
     "rank" : -1,
     "exp" : 0.0,
-    "permStatus" : []
+    "permStatus" : [],
+    "listName" : "Known Molds",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
   },
   {
     "id" : 21001,
@@ -12409,7 +12430,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20001,
     "grant" : [
@@ -12425,7 +12446,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20003,
     "grant" : [
@@ -12441,7 +12462,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20005,
     "grant" : [
@@ -12457,7 +12478,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 CTL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20007,
     "grant" : [
@@ -12473,7 +12494,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 MECH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20009,
     "grant" : [
@@ -12489,7 +12510,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20011,
     "grant" : [
@@ -12505,7 +12526,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20013,
     "grant" : [
@@ -12521,7 +12542,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 SUB per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20015,
     "grant" : [
@@ -12537,7 +12558,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 RESALL, +2 RESSLASH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20101,
     "grant" : [
@@ -12554,7 +12575,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+1 DODGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20103,
     "grant" : [
@@ -12570,7 +12591,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20105,
     "grant" : [
@@ -12586,7 +12607,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 REF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20107,
     "grant" : [
@@ -12602,7 +12623,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+4 AVOID per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20109,
     "grant" : [
@@ -12618,7 +12639,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20201,
     "grant" : [
@@ -12635,7 +12656,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 GRANT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20203,
     "grant" : [
@@ -12650,12 +12671,12 @@
     "name" : "Air Impairment",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+2 IMPAIR per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.025 IMPAIR per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20205,
     "grant" : [
-      372
+      754
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12666,8 +12687,8 @@
     "name" : "Air Initiative",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+0.5 INIT per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.4 INIT per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20207,
     "grant" : [
@@ -12682,12 +12703,12 @@
     "name" : "Air Reaction",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+1 REACT per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.5 REACT per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20209,
     "grant" : [
-      412
+      755
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12698,12 +12719,12 @@
     "name" : "Air Application",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+2 APPLY per rank",
-    "levelCoef" : 0.5,
+    "description" : "+1 APPLY per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20211,
     "grant" : [
-      482
+      756
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12715,7 +12736,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+5 MOVE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20213,
     "grant" : [
@@ -12730,8 +12751,8 @@
     "name" : "Air Soaring",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+5 FLY per rank",
-    "levelCoef" : 0.5,
+    "description" : "+10 FLY per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20215,
     "grant" : [
@@ -12747,7 +12768,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+5 RANGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20217,
     "grant" : [
@@ -12762,12 +12783,12 @@
     "name" : "Air Area",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+0.2 AREA per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.025 AREA per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20219,
     "grant" : [
-      522
+      757
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12779,7 +12800,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+0.02 HPMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20221,
     "grant" : [
@@ -12795,7 +12816,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+4 CRIT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20223,
     "grant" : [
@@ -12810,12 +12831,12 @@
     "name" : "Air Shielding",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+2 SHIELD per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SHD per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20225,
     "grant" : [
-      592
+      723
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12826,12 +12847,12 @@
     "name" : "Air Regeneration",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+2 REGEN per rank",
-    "levelCoef" : 0.5,
+    "description" : "+1 REGEN per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20227,
     "grant" : [
-      622
+      758
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -12843,7 +12864,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 20229,
     "grant" : [
@@ -12858,13 +12879,13 @@
     "name" : "Air Affinity",
     "type" : "Passive",
     "affinity" : "Air",
-    "description" : "+1 RESALL, +1 RESSLASH per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESSLASH, +3 Air synergy per rank",
+    "levelCoef" : 0.5,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
-      201,
-      211
+      212,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -33540,6 +33561,794 @@
     "prereq" : 16081,
     "grant" : [
       60237
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19042,
+    "name" : "Air Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A cone Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60240
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19043,
+    "name" : "Air Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A cone Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19042,
+    "grant" : [
+      60241
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19044,
+    "name" : "Air Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A line Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60242
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19045,
+    "name" : "Air Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A line Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19044,
+    "grant" : [
+      60243
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19046,
+    "name" : "Air Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A location-based Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60244
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19047,
+    "name" : "Air Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "A location-based Area of Effect attack with scaling Slashing damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19046,
+    "grant" : [
+      60245
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19048,
+    "name" : "Air Chain (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform an attack that chains to additional targets.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60246
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19049,
+    "name" : "Air Chain (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform an attack that chains to additional targets.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19048,
+    "grant" : [
+      60247
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19050,
+    "name" : "Air Regrowth (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Aura Action Heal Over Time. Healmulti (0.1/0.3 x AL)-1. Duration ALx2 / ALx3 turns.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60248
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19051,
+    "name" : "Air Regrowth (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Aura Action Heal Over Time. Healmulti (0.1/0.3 x AL)-1. Duration ALx2 / ALx3 turns.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19050,
+    "grant" : [
+      60249
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19052,
+    "name" : "Air Soothe (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Channeled heal. Healmulti (0.3/0.9 x AL)-1. May re-pay with Aura action next turn.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60250
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19053,
+    "name" : "Air Soothe (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Channeled heal. Healmulti (0.3/0.9 x AL)-1. May re-pay with Aura action next turn.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19052,
+    "grant" : [
+      60251
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19054,
+    "name" : "Air Shower (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Heal all creatures near the target location.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60252
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19055,
+    "name" : "Air Shower (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Heal all creatures near the target location.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19054,
+    "grant" : [
+      60253
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19056,
+    "name" : "Air Succession (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform a heal that chains to additional targets.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60254
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19057,
+    "name" : "Air Succession (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform a heal that chains to additional targets.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19056,
+    "grant" : [
+      60255
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19058,
+    "name" : "Air Cascade (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform a heal on all targets in a 90 degree cone.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60256
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19059,
+    "name" : "Air Cascade (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Perform a heal on all targets in a 90 degree cone.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19058,
+    "grant" : [
+      60257
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19060,
+    "name" : "Air Salve (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Move to and heal target creature.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60258
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19061,
+    "name" : "Air Salve (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Move to and heal target creature.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19060,
+    "grant" : [
+      60259
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19041,
+    "name" : "Air Therapy (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Grant psychosis save bonus SUP x 1.5 x AL. Duration (AL+1)x4xDUR. Up to AL new saves per effect.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19040,
+    "grant" : [
+      60260
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19062,
+    "name" : "Air Affliction (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's APPLY.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60261
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19063,
+    "name" : "Air Affliction (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's APPLY.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19062,
+    "grant" : [
+      60262
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19064,
+    "name" : "Air Gliding (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's fly speed (does not grant flight).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60263
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19065,
+    "name" : "Air Gliding (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's fly speed (does not grant flight).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19064,
+    "grant" : [
+      60264
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19066,
+    "name" : "Air Extension (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's range.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60265
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19067,
+    "name" : "Air Extension (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's range.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19066,
+    "grant" : [
+      60266
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19068,
+    "name" : "Air Regeneration (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's regeneration.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60267
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19069,
+    "name" : "Air Regeneration (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Increase an ally's regeneration.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19068,
+    "grant" : [
+      60268
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19070,
+    "name" : "Air Revoke (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce enemy Blessing effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60269
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19071,
+    "name" : "Air Revoke (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce enemy Blessing effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19070,
+    "grant" : [
+      60270
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19072,
+    "name" : "Air Suppress (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's application.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60271
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19073,
+    "name" : "Air Suppress (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's application.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19072,
+    "grant" : [
+      60272
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19074,
+    "name" : "Air Grounding (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's fly speed.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60273
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19075,
+    "name" : "Air Grounding (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's fly speed.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19074,
+    "grant" : [
+      60274
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19076,
+    "name" : "Air Contraction (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's range.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60275
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19077,
+    "name" : "Air Contraction (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's range.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19076,
+    "grant" : [
+      60276
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19078,
+    "name" : "Air Degenerate (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's Regeneration. Negative REGEN deals damage at turn start.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60277
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19079,
+    "name" : "Air Degenerate (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Reduce an enemy's Regeneration. Negative REGEN deals damage at turn start.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19078,
+    "grant" : [
+      60278
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19080,
+    "name" : "Air Shear (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Interrupt an enemy aura technique (REF save).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60279
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19081,
+    "name" : "Air Shear (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Interrupt an enemy aura technique (REF save).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19080,
+    "grant" : [
+      60280
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19082,
+    "name" : "Air Incapacitate (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Afflict Incapacitate on an enemy (drug effect).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60281
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19083,
+    "name" : "Air Incapacitate (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Afflict Incapacitate on an enemy (drug effect).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19082,
+    "grant" : [
+      60282
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19084,
+    "name" : "Air Confusion (Weak)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Afflict Confuse on an enemy (psychosis effect).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      60283
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 19085,
+    "name" : "Air Confusion (Strong)",
+    "type" : "Active",
+    "affinity" : "Air",
+    "description" : "Afflict Confuse on an enemy (psychosis effect).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 19084,
+    "grant" : [
+      60284
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 20302,
+    "name" : "Gale Harm (Lesser)",
+    "type" : "Maintained",
+    "affinity" : "Air",
+    "description" : "+3 TDMG per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      750
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 20303,
+    "name" : "Gale Harm (Greater)",
+    "type" : "Maintained",
+    "affinity" : "Air",
+    "description" : "+9 TDMG per AL",
+    "levelCoef" : 0.5,
+    "levelMod" : 0.0,
+    "prereq" : 20302,
+    "grant" : [
+      751
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 20304,
+    "name" : "Air Manifestation",
+    "type" : "Maintained",
+    "affinity" : "Air",
+    "description" : "Occupied cost 1 Aura per AL. Create a volume of gas from the Known Gasses list.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 19000,
+    "grant" : [
+      735
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : [],
+    "listName" : "Known Gasses",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
+  },
+  {
+    "id" : 20305,
+    "name" : "Gale Flight",
+    "type" : "Maintained",
+    "affinity" : "Air",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 19000,
+    "grant" : [
+      732,
+      501
     ],
     "rank" : -1,
     "exp" : 0.0,
