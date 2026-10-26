@@ -283,7 +283,7 @@
     "prereq" : -1,
     "grant" : [
       511,
-      371
+      708
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -317,7 +317,7 @@
     "prereq" : -1,
     "grant" : [
       651,
-      351
+      705
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -333,7 +333,7 @@
     "levelMod" : 0.0,
     "prereq" : -1,
     "grant" : [
-      381,
+      711,
       131
     ],
     "rank" : -1,
@@ -6479,7 +6479,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "HoT with healmulti (0.3xAL)-1. Duration ALx2 turns. Cost 5 Aura/AL. On expire/dispel, heal for 2x Heal value.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7035,
     "grant" : [
@@ -6511,7 +6511,7 @@
     "type" : "Active",
     "affinity" : "Nature",
     "description" : "HoT with healmulti (0.3xAL)-1. Duration ALx3 turns. Cost 5 Aura/AL.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 7038,
     "grant" : [
@@ -7131,7 +7131,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8001,
     "grant" : [
@@ -7147,7 +7147,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8003,
     "grant" : [
@@ -7163,7 +7163,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 CON per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8005,
     "grant" : [
@@ -7179,7 +7179,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 CAP per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8007,
     "grant" : [
@@ -7195,7 +7195,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8009,
     "grant" : [
@@ -7211,7 +7211,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8011,
     "grant" : [
@@ -7227,7 +7227,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8013,
     "grant" : [
@@ -7243,7 +7243,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 SUB per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8015,
     "grant" : [
@@ -7259,7 +7259,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+2 RESALL, +2 RESPIERCE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8101,
     "grant" : [
@@ -7276,7 +7276,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 ARMOR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8103,
     "grant" : [
@@ -7292,7 +7292,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 DODGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8105,
     "grant" : [
@@ -7308,7 +7308,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+2 REF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8107,
     "grant" : [
@@ -7324,7 +7324,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+2 BDMG, +2 BHEAL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8201,
     "grant" : [
@@ -7341,7 +7341,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+0.05 MAST per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8203,
     "grant" : [
@@ -7357,7 +7357,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+0.5 MAXATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8205,
     "grant" : [
@@ -7373,7 +7373,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+1 REACT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8207,
     "grant" : [
@@ -7389,7 +7389,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+4 MAN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8209,
     "grant" : [
@@ -7405,7 +7405,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+5 MOVE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8211,
     "grant" : [
@@ -7421,7 +7421,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+5 FLY per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8213,
     "grant" : [
@@ -7437,7 +7437,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+5 RANGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8215,
     "grant" : [
@@ -7453,7 +7453,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+0.02 HPMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8217,
     "grant" : [
@@ -7469,7 +7469,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+0.02 AURAMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8219,
     "grant" : [
@@ -7485,7 +7485,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+0.2 CRITDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8221,
     "grant" : [
@@ -7501,7 +7501,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+4 BREAK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8223,
     "grant" : [
@@ -7517,7 +7517,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+2 REGEN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8225,
     "grant" : [
@@ -7533,7 +7533,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+4 TDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8227,
     "grant" : [
@@ -7549,7 +7549,7 @@
     "type" : "Passive",
     "affinity" : "Nature",
     "description" : "+2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 8229,
     "grant" : [
@@ -8676,7 +8676,7 @@
     "type" : "Passive",
     "affinity" : "Metal",
     "description" : "+2 ATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 11213,
     "grant" : [
@@ -8776,7 +8776,7 @@
     "levelMod" : 0.0,
     "prereq" : 11225,
     "grant" : [
-      737
+      602
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -11927,7 +11927,7 @@
     "type" : "Active",
     "affinity" : "Air",
     "description" : "RESALL and RES Slash = 9 x AL x SHD. Duration (AL+1) x 4 x DUR turns. Free or Interrupt.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19038,
     "grant" : [
@@ -12880,7 +12880,7 @@
     "type" : "Passive",
     "affinity" : "Air",
     "description" : "+2 RESSLASH, +3 Air synergy per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 19000,
     "grant" : [
@@ -12929,7 +12929,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "Empowers your next attack based on your STR",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22001,
     "grant" : [
@@ -12961,7 +12961,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22004,
     "grant" : [
@@ -12993,7 +12993,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22007,
     "grant" : [
@@ -13025,7 +13025,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22010,
     "grant" : [
@@ -13057,7 +13057,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22013,
     "grant" : [
@@ -13089,7 +13089,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22016,
     "grant" : [
@@ -13121,7 +13121,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22019,
     "grant" : [
@@ -13153,7 +13153,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22022,
     "grant" : [
@@ -13185,7 +13185,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22025,
     "grant" : [
@@ -13217,7 +13217,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22028,
     "grant" : [
@@ -13249,7 +13249,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22031,
     "grant" : [
@@ -13281,7 +13281,7 @@
     "type" : "Active",
     "affinity" : "Fire",
     "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22034,
     "grant" : [
@@ -13293,15 +13293,31 @@
   },
   {
     "id" : 22037,
-    "name" : "Fire Cleanse",
+    "name" : "Fire Cleanse (Weak)",
     "type" : "Active",
     "affinity" : "Fire",
-    "description" : "Give bonus against Curse effects",
+    "description" : "Grant curse save bonus SUP x 0.5 x AL. Duration (AL+1)x2xDUR. Allow new curse saves.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
       22034
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22038,
+    "name" : "Fire Cleanse (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Grant curse save bonus SUP x 1.5 x AL. Duration (AL+1)x4xDUR. Up to AL new saves per effect.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22037,
+    "grant" : [
+      60287
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13526,8 +13542,8 @@
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13538,12 +13554,12 @@
     "name" : "Thermal Support",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "+1 SUP per AL",
+    "description" : "+0.05 SUP per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      351
+      736
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13559,7 +13575,7 @@
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      391
+      759
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13570,28 +13586,12 @@
     "name" : "Thermal Technique",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "+0.5 R1 per AL",
+    "description" : "+0.05 R1 per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      421
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 23209,
-    "name" : "Thermal Aptitude",
-    "type" : "Maintained",
-    "affinity" : "Fire",
-    "description" : "+0.5 R3 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 22000,
-    "grant" : [
-      441
+      749
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13599,7 +13599,7 @@
   },
   {
     "id" : 23211,
-    "name" : "Thermal Accuracy",
+    "name" : "Thermal Attack",
     "type" : "Maintained",
     "affinity" : "Fire",
     "description" : "+1 ATK per AL",
@@ -13634,7 +13634,7 @@
     "name" : "Thermal Soaring",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "+2.5 FLY per AL",
+    "description" : "+5 FLY per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
@@ -13650,12 +13650,12 @@
     "name" : "Thermal Area",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "+0.1 AREA per AL",
+    "description" : "+0.05 AREA per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      521
+      740
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13698,12 +13698,12 @@
     "name" : "Thermal Break",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "+2 BREAK per AL",
+    "description" : "+3 BREAK per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      601
+      760
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -13762,16 +13762,21 @@
     "name" : "Fire Molding",
     "type" : "Maintained",
     "affinity" : "Fire",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      -1
+      729,
+      60332,
+      60333
     ],
     "rank" : -1,
     "exp" : 0.0,
-    "permStatus" : []
+    "permStatus" : [],
+    "listName" : "Known Molds",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
   },
   {
     "id" : 24001,
@@ -13779,7 +13784,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 STR per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23001,
     "grant" : [
@@ -13795,7 +13800,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23003,
     "grant" : [
@@ -13811,7 +13816,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23005,
     "grant" : [
@@ -13827,7 +13832,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 CAP per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23007,
     "grant" : [
@@ -13843,7 +13848,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 MECH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23009,
     "grant" : [
@@ -13859,7 +13864,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23011,
     "grant" : [
@@ -13875,7 +13880,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23013,
     "grant" : [
@@ -13891,7 +13896,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 CHA per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23015,
     "grant" : [
@@ -13907,7 +13912,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 RESALL, +2 RESFIRE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23101,
     "grant" : [
@@ -13924,7 +13929,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+1 DODGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23103,
     "grant" : [
@@ -13940,7 +13945,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 FORT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23105,
     "grant" : [
@@ -13956,7 +13961,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 WILL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23107,
     "grant" : [
@@ -13972,7 +13977,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+4 AVOID per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23109,
     "grant" : [
@@ -13988,7 +13993,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23201,
     "grant" : [
@@ -14004,12 +14009,12 @@
     "name" : "Fire Support",
     "type" : "Passive",
     "affinity" : "Fire",
-    "description" : "+2 SUP per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 SUP per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23203,
     "grant" : [
-      352
+      705
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14021,11 +14026,11 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+0.5 MAXATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23205,
     "grant" : [
-      392
+      761
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14036,28 +14041,12 @@
     "name" : "Fire Technique",
     "type" : "Passive",
     "affinity" : "Fire",
-    "description" : "+1 R1 per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 R1 per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23207,
     "grant" : [
-      422
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 24205,
-    "name" : "Fire Aptitude",
-    "type" : "Passive",
-    "affinity" : "Fire",
-    "description" : "+1 R3 per rank",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 23209,
-    "grant" : [
-      442
+      714
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14065,11 +14054,11 @@
   },
   {
     "id" : 24206,
-    "name" : "Fire Accuracy",
+    "name" : "Fire Attack",
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 ATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23211,
     "grant" : [
@@ -14085,7 +14074,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 APPLY per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23213,
     "grant" : [
@@ -14101,7 +14090,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+5 FLY per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23215,
     "grant" : [
@@ -14116,12 +14105,12 @@
     "name" : "Fire Area",
     "type" : "Passive",
     "affinity" : "Fire",
-    "description" : "+0.2 AREA per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.05 AREA per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23217,
     "grant" : [
-      522
+      720
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14133,7 +14122,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+0.02 AURAMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23219,
     "grant" : [
@@ -14148,12 +14137,12 @@
     "name" : "Fire Severity",
     "type" : "Passive",
     "affinity" : "Fire",
-    "description" : "+0.2 CRITDMG per rank",
-    "levelCoef" : 0.5,
+    "description" : "+0.1 CRITDMG per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23221,
     "grant" : [
-      582
+      762
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14165,7 +14154,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+4 BREAK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23223,
     "grant" : [
@@ -14181,7 +14170,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+2 BDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23225,
     "grant" : [
@@ -14197,7 +14186,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+4 TDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23227,
     "grant" : [
@@ -14213,7 +14202,7 @@
     "type" : "Passive",
     "affinity" : "Fire",
     "description" : "+4 THEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 23229,
     "grant" : [
@@ -14228,13 +14217,13 @@
     "name" : "Fire Affinity",
     "type" : "Passive",
     "affinity" : "Fire",
-    "description" : "+1 RESALL, +1 RESFIRE per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESFIRE, +3 Fire synergy per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 22000,
     "grant" : [
-      201,
-      241
+      242,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14278,7 +14267,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "Empowers your next attack based on your DEX",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25001,
     "grant" : [
@@ -14310,7 +14299,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "Empowers your next attack based on your FOC",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25004,
     "grant" : [
@@ -14342,7 +14331,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "Empowers your next attack based on your CTL",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25007,
     "grant" : [
@@ -14374,7 +14363,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A standard melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25010,
     "grant" : [
@@ -14406,7 +14395,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A quick melee attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25013,
     "grant" : [
@@ -14438,7 +14427,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A standard ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25016,
     "grant" : [
@@ -14470,7 +14459,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A quick ranged attack with scaling damage",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25019,
     "grant" : [
@@ -14502,7 +14491,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A player-based Area of Effect attack with scaling damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25022,
     "grant" : [
@@ -14534,7 +14523,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A standard heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25025,
     "grant" : [
@@ -14566,7 +14555,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "A quick heal with scaling effectiveness.<br>Bonus if used from melee range.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25028,
     "grant" : [
@@ -14598,7 +14587,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "Creates a shield of temporary HP to absorb damage.",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25031,
     "grant" : [
@@ -14630,7 +14619,7 @@
     "type" : "Active",
     "affinity" : "Electricity",
     "description" : "Increases damage resistance",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25034,
     "grant" : [
@@ -14642,15 +14631,31 @@
   },
   {
     "id" : 25037,
-    "name" : "Electric Antidote",
+    "name" : "Electric Antidote (Weak)",
     "type" : "Active",
     "affinity" : "Electricity",
-    "description" : "Give bonus against Poison effects",
+    "description" : "Grant poison save bonus SUP x 0.5 x AL. Duration (AL+1)x2xDUR. Allow new poison saves.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 25000,
     "grant" : [
       25034
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25038,
+    "name" : "Electric Antidote (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Grant poison save bonus SUP x 1.5 x AL. Duration (AL+1)x4xDUR. Up to AL new saves per poison effect.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25037,
+    "grant" : [
+      60334
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14859,8 +14864,8 @@
     "levelMod" : 0.0,
     "prereq" : 25000,
     "grant" : [
-      651,
-      671
+      631,
+      651
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14876,7 +14881,7 @@
     "levelMod" : 0.0,
     "prereq" : 25000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -14947,22 +14952,6 @@
     "permStatus" : []
   },
   {
-    "id" : 26213,
-    "name" : "Voltaic Aptitude",
-    "type" : "Maintained",
-    "affinity" : "Electricity",
-    "description" : "+0.5 R3 per AL",
-    "levelCoef" : 1.0,
-    "levelMod" : 0.0,
-    "prereq" : 25000,
-    "grant" : [
-      441
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
     "id" : 26215,
     "name" : "Voltaic Maneuvers",
     "type" : "Maintained",
@@ -14980,7 +14969,7 @@
   },
   {
     "id" : 26217,
-    "name" : "Voltaic Accuracy",
+    "name" : "Voltaic Attack",
     "type" : "Maintained",
     "affinity" : "Electricity",
     "description" : "+1 ATK per AL",
@@ -15092,26 +15081,31 @@
   },
   {
     "id" : 26301,
-    "name" : "Electricity Molding",
+    "name" : "Electric Molding",
     "type" : "Maintained",
     "affinity" : "Electricity",
-    "description" : "Generate objects using aura",
+    "description" : "Occupied cost 2 Aura per AL. While active, grants Mold and Quickmold. Generates the Known Molds list.",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 25000,
     "grant" : [
-      -1
+      729,
+      60335,
+      60336
     ],
     "rank" : -1,
     "exp" : 0.0,
-    "permStatus" : []
+    "permStatus" : [],
+    "listName" : "Known Molds",
+    "listMaxPerRank" : 1,
+    "listMaxBase" : 0
   },
   {
     "id" : 26302,
     "name" : "Voltaic Diagnosis",
     "type" : "Maintained",
     "affinity" : "Electricity",
-    "description" : "Increase Medical skill",
+    "description" : "+3 Medical skill per AL",
     "levelCoef" : 1.0,
     "levelMod" : 0.0,
     "prereq" : 25000,
@@ -15128,7 +15122,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 DEX per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26001,
     "grant" : [
@@ -15144,7 +15138,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 FOC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26003,
     "grant" : [
@@ -15160,7 +15154,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 CTL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26005,
     "grant" : [
@@ -15176,7 +15170,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 CAP per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26007,
     "grant" : [
@@ -15192,7 +15186,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 KNOW per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26009,
     "grant" : [
@@ -15208,7 +15202,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 MECH per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26011,
     "grant" : [
@@ -15224,7 +15218,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 PERC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26013,
     "grant" : [
@@ -15240,7 +15234,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 INT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26015,
     "grant" : [
@@ -15256,7 +15250,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 RESALL, +2 RESELEC per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26101,
     "grant" : [
@@ -15273,7 +15267,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 DEF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26103,
     "grant" : [
@@ -15289,7 +15283,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 REF per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26105,
     "grant" : [
@@ -15305,7 +15299,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+4 AVOID per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26107,
     "grant" : [
@@ -15321,7 +15315,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 BDMG, +2 BHEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26201,
     "grant" : [
@@ -15338,7 +15332,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 MAST per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26203,
     "grant" : [
@@ -15354,7 +15348,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+0.5 MAXATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26205,
     "grant" : [
@@ -15370,7 +15364,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+0.5 INIT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26207,
     "grant" : [
@@ -15386,7 +15380,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 REACT per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26209,
     "grant" : [
@@ -15402,27 +15396,11 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+1 R1 per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26211,
     "grant" : [
       422
-    ],
-    "rank" : -1,
-    "exp" : 0.0,
-    "permStatus" : []
-  },
-  {
-    "id" : 27207,
-    "name" : "Electric Aptitude",
-    "type" : "Passive",
-    "affinity" : "Electricity",
-    "description" : "+1 R3 per rank",
-    "levelCoef" : 0.5,
-    "levelMod" : 0.0,
-    "prereq" : 26213,
-    "grant" : [
-      442
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -15434,7 +15412,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+4 MAN per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26215,
     "grant" : [
@@ -15446,11 +15424,11 @@
   },
   {
     "id" : 27209,
-    "name" : "Electric Accuracy",
+    "name" : "Electric Attack",
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 ATK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26217,
     "grant" : [
@@ -15466,7 +15444,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+5 MOVE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26219,
     "grant" : [
@@ -15482,7 +15460,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+5 RANGE per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26221,
     "grant" : [
@@ -15498,7 +15476,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+0.02 AURAMULTI per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26223,
     "grant" : [
@@ -15514,7 +15492,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+4 BREAK per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26225,
     "grant" : [
@@ -15530,7 +15508,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+2 BDMG per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26227,
     "grant" : [
@@ -15546,7 +15524,7 @@
     "type" : "Passive",
     "affinity" : "Electricity",
     "description" : "+4 THEAL per rank",
-    "levelCoef" : 0.5,
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26229,
     "grant" : [
@@ -15561,13 +15539,13 @@
     "name" : "Electric Affinity",
     "type" : "Passive",
     "affinity" : "Electricity",
-    "description" : "+1 RESALL, +1 RESELEC per rank",
-    "levelCoef" : 1.0,
+    "description" : "+2 RESELEC, +3 Electricity synergy per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 25000,
     "grant" : [
-      201,
-      261
+      262,
+      728
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -15578,8 +15556,8 @@
     "name" : "Electric Diagnosis",
     "type" : "Passive",
     "affinity" : "Electricity",
-    "description" : "+4 Medical Skill",
-    "levelCoef" : 1.0,
+    "description" : "+6 Medical skill per rank",
+    "levelCoef" : 0.75,
     "levelMod" : 0.0,
     "prereq" : 26302,
     "grant" : [
@@ -16225,7 +16203,7 @@
     "levelMod" : 0.0,
     "prereq" : 28000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -16257,7 +16235,7 @@
     "levelMod" : 0.0,
     "prereq" : 28000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -17542,7 +17520,7 @@
     "levelMod" : 0.0,
     "prereq" : 31000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -17574,7 +17552,7 @@
     "levelMod" : 0.0,
     "prereq" : 31000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -20158,7 +20136,7 @@
     "levelMod" : 0.0,
     "prereq" : 37000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -21507,7 +21485,7 @@
     "levelMod" : 0.0,
     "prereq" : 40000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -21523,7 +21501,7 @@
     "levelMod" : 0.0,
     "prereq" : 40000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -22776,7 +22754,7 @@
     "levelMod" : 0.0,
     "prereq" : 43000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -22792,7 +22770,7 @@
     "levelMod" : 0.0,
     "prereq" : 43000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -26100,7 +26078,7 @@
     "levelMod" : 0.0,
     "prereq" : 49000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -26164,7 +26142,7 @@
     "levelMod" : 0.0,
     "prereq" : 49000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -26196,7 +26174,7 @@
     "levelMod" : 0.0,
     "prereq" : 49000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -29259,7 +29237,7 @@
     "levelMod" : 0.0,
     "prereq" : 52000,
     "grant" : [
-      351
+      704
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -29323,7 +29301,7 @@
     "levelMod" : 0.0,
     "prereq" : 52000,
     "grant" : [
-      371
+      707
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -29355,7 +29333,7 @@
     "levelMod" : 0.0,
     "prereq" : 52000,
     "grant" : [
-      381
+      710
     ],
     "rank" : -1,
     "exp" : 0.0,
@@ -34349,6 +34327,1498 @@
     "grant" : [
       732,
       501
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25040,
+    "name" : "Electric Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A cone Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60337
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25041,
+    "name" : "Electric Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A cone Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25040,
+    "grant" : [
+      60338
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25042,
+    "name" : "Electric Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A line Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60339
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25043,
+    "name" : "Electric Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A line Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25042,
+    "grant" : [
+      60340
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25044,
+    "name" : "Electric Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A location-based Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60341
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25045,
+    "name" : "Electric Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A location-based Area of Effect attack with scaling electric damage (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25044,
+    "grant" : [
+      60342
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25046,
+    "name" : "Electric Chain (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Perform an attack that chains to additional targets. Damage type electric.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60343
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25047,
+    "name" : "Electric Chain (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Perform an attack that chains to additional targets. Damage type electric.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25046,
+    "grant" : [
+      60344
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25048,
+    "name" : "Electric Alleviate (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A quick, tiring heal with a short cooldown.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60345
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25049,
+    "name" : "Electric Alleviate (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "A quick, tiring heal with a short cooldown.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25048,
+    "grant" : [
+      60346
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25050,
+    "name" : "Electric Redemption (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Consume Accumulation to empower your next heal (THEAL/BHEAL).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60347
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25051,
+    "name" : "Electric Redemption (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Consume Accumulation to empower your next heal (THEAL/BHEAL).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25050,
+    "grant" : [
+      60348
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25052,
+    "name" : "Electric Succession (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Perform a heal that chains to additional targets.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60349
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25053,
+    "name" : "Electric Succession (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Perform a heal that chains to additional targets.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25052,
+    "grant" : [
+      60350
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25054,
+    "name" : "Electric Wash (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Heal all targets in a line.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60351
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25055,
+    "name" : "Electric Wash (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Heal all targets in a line.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25054,
+    "grant" : [
+      60352
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25056,
+    "name" : "Electric Overload (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Unleash a sequence of random Restoration techniques on random allies.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60353
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25057,
+    "name" : "Electric Overload (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Unleash a sequence of random Restoration techniques on random allies.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25056,
+    "grant" : [
+      60354
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25058,
+    "name" : "Electric Vivify (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Place a bouncing heal effect on an ally that triggers when they take damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60355
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25059,
+    "name" : "Electric Vivify (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Place a bouncing heal effect on an ally that triggers when they take damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25058,
+    "grant" : [
+      60356
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25060,
+    "name" : "Electric Quickness (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's maximum attacks.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60357
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25061,
+    "name" : "Electric Quickness (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's maximum attacks.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25060,
+    "grant" : [
+      60358
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25062,
+    "name" : "Electric Impulse (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's reactions.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60359
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25063,
+    "name" : "Electric Impulse (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's reactions.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25062,
+    "grant" : [
+      60360
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25064,
+    "name" : "Electric Accumulation (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's max aura.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60361
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25065,
+    "name" : "Electric Accumulation (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's max aura.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25064,
+    "grant" : [
+      60362
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25066,
+    "name" : "Electric Evisceration (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's base damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60363
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25067,
+    "name" : "Electric Evisceration (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Increase an ally's base damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25066,
+    "grant" : [
+      60364
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25068,
+    "name" : "Electric Degradation (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce enemy Adaptation effects and attempt to purge them.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60365
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25069,
+    "name" : "Electric Degradation (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce enemy Adaptation effects and attempt to purge them.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25068,
+    "grant" : [
+      60366
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25070,
+    "name" : "Electric Lethargy (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's maximum attacks.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60367
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25071,
+    "name" : "Electric Lethargy (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's maximum attacks.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25070,
+    "grant" : [
+      60368
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25072,
+    "name" : "Electric Apathy (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's reactions.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60369
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25073,
+    "name" : "Electric Apathy (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's reactions.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25072,
+    "grant" : [
+      60370
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25074,
+    "name" : "Electric Dissipation (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's max aura.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60371
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25075,
+    "name" : "Electric Dissipation (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's max aura.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25074,
+    "grant" : [
+      60372
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25076,
+    "name" : "Electric Blunting (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's base damage.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60373
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25077,
+    "name" : "Electric Blunting (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Reduce an enemy's base damage.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25076,
+    "grant" : [
+      60374
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25078,
+    "name" : "Electric Step (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Instantly reposition yourself without provoking attacks of opportunity.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60375
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25079,
+    "name" : "Electric Step (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Instantly reposition yourself without provoking attacks of opportunity.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25078,
+    "grant" : [
+      60376
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25080,
+    "name" : "Electric Shock (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Afflict Shock (curse). Apply Shock tokens (FORT save).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60377
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25081,
+    "name" : "Electric Shock (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Afflict Shock (curse). Apply Shock tokens (FORT save).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25080,
+    "grant" : [
+      60378
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25082,
+    "name" : "Electric Boom (Weak)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Afflict Deafen (curse). Apply Deafen tokens (FORT save).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      60379
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 25083,
+    "name" : "Electric Boom (Strong)",
+    "type" : "Active",
+    "affinity" : "Electricity",
+    "description" : "Afflict Deafen (curse). Apply Deafen tokens (FORT save).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 25082,
+    "grant" : [
+      60380
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 26213,
+    "name" : "Voltaic Duration",
+    "type" : "Maintained",
+    "affinity" : "Electricity",
+    "description" : "+0.025 DUR per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 25000,
+    "grant" : [
+      725
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 26303,
+    "name" : "Voltaic Flight",
+    "type" : "Maintained",
+    "affinity" : "Electricity",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 25000,
+    "grant" : [
+      732,
+      501
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 27207,
+    "name" : "Electric Duration",
+    "type" : "Passive",
+    "affinity" : "Electricity",
+    "description" : "+0.05 DUR per rank",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 26213,
+    "grant" : [
+      726
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22040,
+    "name" : "Fire Burst (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Cone AoE Fire damage (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60288
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22041,
+    "name" : "Fire Burst (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Cone AoE Fire damage (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22040,
+    "grant" : [
+      60289
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22042,
+    "name" : "Fire Beam (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Line AoE Fire damage (Will).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60290
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22043,
+    "name" : "Fire Beam (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Line AoE Fire damage (Will).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22042,
+    "grant" : [
+      60291
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22044,
+    "name" : "Fire Ball (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Location AoE Fire damage (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60292
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22045,
+    "name" : "Fire Ball (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Location AoE Fire damage (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22044,
+    "grant" : [
+      60293
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22046,
+    "name" : "Fire Rupture (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Lingering Fire rupture (Fortitude).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60294
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22047,
+    "name" : "Fire Rupture (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Lingering Fire rupture (Fortitude).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22046,
+    "grant" : [
+      60295
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22048,
+    "name" : "Fire Regrowth (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Aura HoT. Healmulti (0.1/0.3 x AL)-1.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60296
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22049,
+    "name" : "Fire Regrowth (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Aura HoT. Healmulti (0.1/0.3 x AL)-1.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22048,
+    "grant" : [
+      60297
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22050,
+    "name" : "Fire Renew (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Heal with lingering HoT percent.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60298
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22051,
+    "name" : "Fire Renew (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Heal with lingering HoT percent.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22050,
+    "grant" : [
+      60299
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22052,
+    "name" : "Fire Bloom (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Trigger HoTs for remaining healing now.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60300
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22053,
+    "name" : "Fire Bloom (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Trigger HoTs for remaining healing now.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22052,
+    "grant" : [
+      60301
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22054,
+    "name" : "Fire Cascade (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Cone heal.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60302
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22055,
+    "name" : "Fire Cascade (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Cone heal.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22054,
+    "grant" : [
+      60303
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22056,
+    "name" : "Fire Leech (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Heal ally for % of damage you deal.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60304
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22057,
+    "name" : "Fire Leech (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Heal ally for % of damage you deal.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22056,
+    "grant" : [
+      60305
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22058,
+    "name" : "Fire Replicate (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Replicate direct healing to designated ally.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60306
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22059,
+    "name" : "Fire Replicate (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Replicate direct healing to designated ally.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22058,
+    "grant" : [
+      60307
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22060,
+    "name" : "Fire Continuation (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally DUR.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60308
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22061,
+    "name" : "Fire Continuation (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally DUR.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22060,
+    "grant" : [
+      60309
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22062,
+    "name" : "Fire Aim (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally ATK.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60310
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22063,
+    "name" : "Fire Aim (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally ATK.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22062,
+    "grant" : [
+      60311
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22064,
+    "name" : "Fire Shredding (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally TDMG.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60312
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22065,
+    "name" : "Fire Shredding (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally TDMG.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22064,
+    "grant" : [
+      60313
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22066,
+    "name" : "Fire Comforting (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally THEAL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60314
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22067,
+    "name" : "Fire Comforting (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Increase ally THEAL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22066,
+    "grant" : [
+      60315
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22068,
+    "name" : "Fire Obfuscate (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce/purge enemy Clarity effects.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60316
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22069,
+    "name" : "Fire Obfuscate (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce/purge enemy Clarity effects.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22068,
+    "grant" : [
+      60317
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22070,
+    "name" : "Fire Expiration (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy DUR.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60318
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22071,
+    "name" : "Fire Expiration (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy DUR.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22070,
+    "grant" : [
+      60319
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22072,
+    "name" : "Fire Diversion (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy ATK.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60320
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22073,
+    "name" : "Fire Diversion (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy ATK.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22072,
+    "grant" : [
+      60321
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22074,
+    "name" : "Fire Weaken (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy TDMG.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60322
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22075,
+    "name" : "Fire Weaken (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy TDMG.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22074,
+    "grant" : [
+      60323
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22076,
+    "name" : "Fire Unrest (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy THEAL.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60324
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22077,
+    "name" : "Fire Unrest (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Reduce enemy THEAL.",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22076,
+    "grant" : [
+      60325
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22078,
+    "name" : "Fire Daze (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Afflict Daze (curse).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60326
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22079,
+    "name" : "Fire Daze (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Afflict Daze (curse).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22078,
+    "grant" : [
+      60327
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22080,
+    "name" : "Fire Fear (Weak)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Afflict Fear (psychosis).",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      60328
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 22081,
+    "name" : "Fire Fear (Strong)",
+    "type" : "Active",
+    "affinity" : "Fire",
+    "description" : "Afflict Fear (psychosis).",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 22080,
+    "grant" : [
+      60329
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 23230,
+    "name" : "Thermal Duration",
+    "type" : "Maintained",
+    "affinity" : "Fire",
+    "description" : "+0.05 DUR per AL",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      733
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 23302,
+    "name" : "Flame Corona",
+    "type" : "Maintained",
+    "affinity" : "Fire",
+    "description" : "Occupied cost 2 Aura per AL. End of turn FORT save; (0.1 x BASEHP x AL) fire damage. Radius AREA x sqrt(RANGE) (min 5ft). Grants Adjust Corona.",
+    "levelCoef" : 1.0,
+    "levelMod" : 0.0,
+    "prereq" : 22000,
+    "grant" : [
+      729,
+      60330,
+      60331
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 23303,
+    "name" : "Thermal Flight",
+    "type" : "Maintained",
+    "affinity" : "Fire",
+    "description" : "Allows the user to fly. Gain FLY equal to 5ft x AL. Occupied cost 10 Aura per AL.",
+    "levelCoef" : 1.0,
+    "levelMod" : -7.0,
+    "prereq" : 22000,
+    "grant" : [
+      732,
+      501
+    ],
+    "rank" : -1,
+    "exp" : 0.0,
+    "permStatus" : []
+  },
+  {
+    "id" : 24302,
+    "name" : "Fire Duration",
+    "type" : "Passive",
+    "affinity" : "Fire",
+    "description" : "+0.05 DUR per rank",
+    "levelCoef" : 0.75,
+    "levelMod" : 0.0,
+    "prereq" : 23230,
+    "grant" : [
+      726
     ],
     "rank" : -1,
     "exp" : 0.0,
