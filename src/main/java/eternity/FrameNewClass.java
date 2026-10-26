@@ -28,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 public class FrameNewClass extends JFrame {
 
     // References
-    private final FrameSheet sheetFrame;
+    //private final FrameSheet sheetFrame; // Not Used
     private final StoreRuleManager ruleManager;
     private final StoreCharData character;
     private final FrameNew parent;
@@ -56,7 +56,7 @@ public class FrameNewClass extends JFrame {
     private static final String[] CLASSOPTIONS = { "Warrior", "Paladin", "Rogue", "Monk", "Archer", "Leader", "Cleric", "Caster", "Shifter", "Pilot" };
 
     // UI Tracker
-    private int nextInfoIndex = 0;
+    //private int nextInfoIndex = 0; // Not Needed
     private int selectedIndex = -1;
     private final boolean gmMode;
     private static boolean iconsLoaded = false;
@@ -73,7 +73,7 @@ public class FrameNewClass extends JFrame {
     private JButton[] classButtons;
     private JLabel[] classLabels;
     private JScrollPane leftPane;
-    private final JPanel[] titlePanel, infoPanel;
+    private final JPanel[] titlePanel;//, infoPanel; //Not needed
     private final JLabel[] titleLabel, infoLabel;
     private JButton nextButton;
     private JButton cancelButton;
@@ -86,7 +86,7 @@ public class FrameNewClass extends JFrame {
     // ---------------------------------------------------
     public FrameNewClass(FrameSheet sheetFrame, StoreRuleManager ruleManager, StoreCharData character, FrameNew parent, boolean gmMode) {
         super(WINDOW_TITLE);
-        this.sheetFrame = sheetFrame;
+        //this.sheetFrame = sheetFrame; not used
         this.ruleManager = ruleManager;
         this.character = character;
         this.parent = parent;
@@ -94,7 +94,7 @@ public class FrameNewClass extends JFrame {
 
         titlePanel = new JPanel[INFO_TITLE_COUNT];
         titleLabel = new JLabel[INFO_TITLE_COUNT];
-        infoPanel = new JPanel[INFO_TITLE_COUNT];
+        //infoPanel = new JPanel[INFO_TITLE_COUNT]; Not used
         infoLabel = new JLabel[INFO_TITLE_COUNT];
         //ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);      
         SwingUtilities.invokeLater(this::loadIconsAsync);
@@ -344,26 +344,26 @@ public class FrameNewClass extends JFrame {
         // Generate title subpanel
         JPanel tPanel = new JPanel();
         root.add(tPanel);
-        titlePanel[nextInfoIndex] = tPanel;
+        titlePanel[i] = tPanel;
 
         // Generate title label
         JLabel tLabel = new JLabel(FIELD_NAMES[i], SwingConstants.CENTER);
         tLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         tPanel.add(tLabel);
-        titleLabel[nextInfoIndex] = tLabel;
+        titleLabel[i] = tLabel;
 
         // Generate info subpanel
         JPanel iPanel = new JPanel();
         root.add(iPanel);
-        infoPanel[nextInfoIndex] = iPanel;
+        //infoPanel[i] = iPanel; Does nothing, never used or set anywhere else.
 
         // Generate info JLabel
         JLabel iLabel = buildLabel("-");
         iPanel.add(iLabel);
-        infoLabel[nextInfoIndex] = iLabel;
+        infoLabel[i] = iLabel;
 
         // Increment info
-        nextInfoIndex++;
+        //nextInfoIndex++; //Never needs to reset, only ever run once. Probably not needed, can use i
 
         return root;
     }
