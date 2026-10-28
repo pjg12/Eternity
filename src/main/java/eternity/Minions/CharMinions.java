@@ -1,4 +1,4 @@
-package eternity;
+package eternity.Minions;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -9,6 +9,15 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+
+import eternity.CharAttributes;
+import eternity.CharCombat;
+import eternity.DataAction;
+import eternity.DataClass;
+import eternity.DataLevel;
+import eternity.DataStatus;
+import eternity.StoreCharData;
+import eternity.StoreRuleManager;
 
 /**
  * Leader minion slots and runtime combat actors.

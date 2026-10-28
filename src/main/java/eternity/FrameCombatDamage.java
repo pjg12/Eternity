@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+
+import eternity.Minions.CharMinions;
+import eternity.Minions.MinionCombatState;
+import eternity.Minions.MinionSlotState;
+
 import javax.swing.JOptionPane;
 
 public class FrameCombatDamage extends JFrame {

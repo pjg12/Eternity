@@ -54,7 +54,7 @@ public class DataAction {
 		this.modifierKey = new ArrayList<>();
 	}
 
-	DataAction (DataAction newAction) {
+	public DataAction (DataAction newAction) {
 		this.character = newAction.getCharacter();
 		this.id = newAction.getId();
 		this.name = newAction.getName();

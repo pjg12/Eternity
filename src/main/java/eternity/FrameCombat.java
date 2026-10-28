@@ -43,6 +43,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import eternity.DataItemWeapon;
+import eternity.Minions.MinionCombatState;
+import eternity.Minions.MinionSlotState;
 import websocket.Roll20WebSocketServer;
 
 /*

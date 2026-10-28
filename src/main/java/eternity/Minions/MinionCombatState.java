@@ -1,10 +1,14 @@
-package eternity;
+package eternity.Minions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import eternity.CharCombat;
+import eternity.DataAction;
+import eternity.DataStatus;
 
 /**
  * Independent combat state for one summoned minion actor.

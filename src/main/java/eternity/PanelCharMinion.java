@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.text.JTextComponent;
 
+import eternity.Minions.CharMinions;
+import eternity.Minions.MinionSlotState;
+
 public class PanelCharMinion extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
 	private static final int MINION_TAB_HEIGHT = 560;
