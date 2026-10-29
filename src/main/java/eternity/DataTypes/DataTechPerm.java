@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 public class DataTechPerm {
     private int id;

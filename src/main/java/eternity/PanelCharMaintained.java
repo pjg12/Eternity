@@ -21,6 +21,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechPerm;
+import eternity.DataTypes.DataTraining;
+
 public class PanelCharMaintained extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
 	private static final String DEFAULT_LOADOUT_NAME = "Default";

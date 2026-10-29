@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import eternity.DataTypes.DataList;
+
 public class PanelCharList extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
 	

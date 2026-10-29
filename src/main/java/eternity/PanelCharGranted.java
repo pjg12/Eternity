@@ -18,6 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataTechPerm;
+import eternity.DataTypes.DataTraining;
+
 public class PanelCharGranted extends PanelCharBase {
 	private static final long serialVersionUID = 1L;
 	private static final String DEFAULT_LOADOUT_NAME = "Default";

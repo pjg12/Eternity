@@ -16,7 +16,7 @@
     "level" : 1,
     "exp" : 0.0,
     "gender" : "",
-    "size" : "?",
+    "size" : "Medium",
     "height" : "",
     "weight" : "",
     "eyes" : "",
@@ -24,7 +24,7 @@
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-05-23T04:51:49.727+0000",
+    "updated" : "2026-05-23T06:03:51.220+0000",
     "createdAt" : "2026-05-23T04:50:29.449+0000",
     "lastLevelUp" : "2026-05-23T04:50:29.449+0000",
     "timeSinceLastLevel" : "PT0S"
@@ -45,7 +45,15 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 0.0,
+      "severity" : 70.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Specialty Passive: Tough (S301)",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BASEHP",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -78,7 +86,7 @@
       "affinity" : "None",
       "description" : "Derived from Constitution",
       "attribute" : "MULTIHP",
-      "severity" : 0.7,
+      "severity" : 0.6,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -103,7 +111,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 0.0,
+      "severity" : 12.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -414,6 +422,14 @@
       "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Base Racial",
+      "affinity" : "None",
+      "description" : "Racial base status",
+      "attribute" : "BCON",
+      "severity" : -1.0,
+      "durationType" : "Passive",
+      "duration" : -1
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -1019,9 +1035,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Fortitude base",
       "attribute" : "BFORT",
-      "severity" : 0.0,
+      "severity" : 13.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1029,7 +1045,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 6.75,
+      "severity" : 6.25,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1051,9 +1067,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Reflex base",
       "attribute" : "BREF",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1083,9 +1099,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Will base",
       "attribute" : "BWILL",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1093,7 +1109,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 3.5,
+      "severity" : 6.25,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1610,6 +1626,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 331 [DARK] (T37000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BDARK",
+      "severity" : 4.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2087,9 +2111,9 @@
     "bCombat" : [ [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Attack base",
       "attribute" : "BATK",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2127,9 +2151,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Application base",
       "attribute" : "BAPP",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -2215,9 +2239,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "None",
+      "description" : "Class-based Range base",
       "attribute" : "BRANGE",
-      "severity" : 0.0,
+      "severity" : 10.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2864,6 +2888,14 @@
       "severity" : 2.8,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base damage",
+      "attribute" : "BBDMG",
+      "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -2942,6 +2974,14 @@
       "description" : "Derived from Control",
       "attribute" : "BBHEAL",
       "severity" : 2.8,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "LevelBaseDamage",
+      "affinity" : "None",
+      "description" : "Level-based base healing",
+      "attribute" : "BBHEAL",
+      "severity" : 2.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3188,7 +3228,17 @@
     } ] ] ]
   },
   "specials" : {
-    "racialSpecialty" : null,
+    "racialSpecialty" : {
+      "id" : 101,
+      "name" : "Shapeshifting (Alteri)",
+      "refName" : "",
+      "category" : "Racial",
+      "description" : "Alteri can mimic the general physical characteristics of any race. An Alteri maintains a list of Shifts they can perform (up to 2 times Racial level). Additional Shifts are learned using 'list' rules and require extended contact with a member of that race.",
+      "type" : "reminder",
+      "prereq" : -1,
+      "pick" : true,
+      "permStatus" : [ ]
+    },
     "skills" : [ {
       "id" : 309,
       "name" : "Climb",
@@ -3214,7 +3264,35 @@
       "chosenAttributes" : [ "CTL" ],
       "chosenSubtype" : ""
     } ],
-    "classSpecialties" : [ ],
+    "classSpecialties" : [ {
+      "id" : 301,
+      "name" : "Tough",
+      "refName" : "",
+      "category" : "Martial",
+      "description" : "",
+      "type" : "passive",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ {
+        "name" : "Tough",
+        "affinity" : "None",
+        "description" : "None",
+        "attribute" : "BASEHPM",
+        "severity" : 0.1,
+        "durationType" : "Permanent",
+        "duration" : 0
+      } ]
+    }, {
+      "id" : 1012,
+      "name" : "War Charge",
+      "refName" : "",
+      "category" : "Class",
+      "description" : "When performing a charge, increase your move speed by (5 x 1/2 char level)ft. (round up to nearest 5ft)",
+      "type" : "F",
+      "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    } ],
     "trainedSpecialties" : [ {
       "id" : 8012,
       "name" : "Advanced Affinity",
@@ -3233,6 +3311,16 @@
       "description" : "Stuff",
       "type" : "F",
       "prereq" : 0,
+      "pick" : false,
+      "permStatus" : [ ]
+    }, {
+      "id" : 1,
+      "name" : "Level 1",
+      "refName" : "",
+      "category" : "Level",
+      "description" : "Level 1",
+      "type" : "level",
+      "prereq" : -1,
       "pick" : false,
       "permStatus" : [ ]
     } ]
@@ -3257,15 +3345,13 @@
       "bonusAmount" : 1.0,
       "levelReq" : 1,
       "value" : 0,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "SLASH",
-      "attack" : "AC"
+      "aug" : 0
     }, {
       "did" : 8007,
       "iid" : -1,
@@ -3282,15 +3368,13 @@
       "bonusAmount" : 1.0,
       "levelReq" : 1,
       "value" : 0,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "PIERCE",
-      "attack" : "AC"
+      "aug" : 0
     }, {
       "did" : 3001,
       "iid" : -1,
@@ -3307,7 +3391,7 @@
       "bonusAmount" : 3.0,
       "levelReq" : 1,
       "value" : 600,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
@@ -3330,7 +3414,7 @@
       "bonusAmount" : 3.0,
       "levelReq" : 1,
       "value" : 600,
-      "equipped" : true,
+      "equipped" : false,
       "ench" : 0,
       "gem" : 0,
       "store" : 0,
@@ -3948,6 +4032,36 @@
           "durationType" : "Permanent",
           "duration" : 0
         } ]
+      }, {
+        "id" : 38045,
+        "name" : "Shadow Weapon (Lesser)",
+        "type" : "Maintained",
+        "affinity" : "Darkness",
+        "description" : "-",
+        "levelCoef" : 1.0,
+        "levelMod" : 0.0,
+        "prereq" : 37000,
+        "grant" : [ 570, 600 ],
+        "rank" : 2,
+        "al" : 0,
+        "exp" : 0.0,
+        "permStatus" : [ {
+          "name" : "TechPerm 570",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "BDMG",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        }, {
+          "name" : "TechPerm 600",
+          "affinity" : "None",
+          "description" : "Tech permission grant",
+          "attribute" : "BHEAL",
+          "severity" : 1.0,
+          "durationType" : "Permanent",
+          "duration" : 0
+        } ]
       } ],
       "misc" : [ {
         "id" : 21,
@@ -4011,9 +4125,9 @@
       "source" : "Standard",
       "affinity" : "None",
       "atkType" : "SPELL",
-      "atk" : 0,
-      "bdmg" : 0,
-      "tdmg" : 0,
+      "atk" : 16,
+      "bdmg" : 8,
+      "tdmg" : 10,
       "dmgMulti" : 0.0,
       "al" : 0,
       "ranged" : 0,
@@ -4026,8 +4140,10 @@
       "modifierKey" : [ ]
     }
   },
-  "reminderSelections" : { },
-  "panelReminder" : "",
+  "reminderSelections" : {
+    "Shapeshifting (Alteri)" : ""
+  },
+  "panelReminder" : "Shapeshifting (Alteri)::Empty",
   "lists" : [ [ {
     "list" : "Shapeshifts",
     "name" : "Alteri",

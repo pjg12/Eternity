@@ -21,6 +21,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataDeity;
+import eternity.DataTypes.DataDomain;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTraining;
+import eternity.DataTypes.DataVow;
+
 /*
  * 		MAIN PLAY PANEL
  */

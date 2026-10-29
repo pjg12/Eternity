@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import eternity.StoreCharData;
 
 /**
  * Stores Aura Tech Training Information

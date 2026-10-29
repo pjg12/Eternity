@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataItemWeapon;
+
 /**
  * Affinity and starter weapon selection.
  */

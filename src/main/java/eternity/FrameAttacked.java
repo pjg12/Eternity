@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import eternity.DataTypes.DataAction;
 import websocket.events.IncomingAttackEvent;
 
 /**

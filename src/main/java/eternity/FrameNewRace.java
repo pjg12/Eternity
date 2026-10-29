@@ -22,6 +22,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataRace;
+
 public class FrameNewRace extends JFrame {
 
     // References

@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 /**
  * A DataItemMisc represents a miscellaneous inventory item.

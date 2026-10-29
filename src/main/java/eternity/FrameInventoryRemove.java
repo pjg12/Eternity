@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+
 /**
  * Inventory remove helper frame. Lets the user remove item quantities from a character inventory.
  */

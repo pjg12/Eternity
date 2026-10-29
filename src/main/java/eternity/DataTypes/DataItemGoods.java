@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 /**
  * A DataItemGoods represents a goods/trade-material inventory item.

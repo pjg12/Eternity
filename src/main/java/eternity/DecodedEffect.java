@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import eternity.DataTypes.DataStatus;
+
 /**
  * Parsed shorthand effect definition prior to application.
  */

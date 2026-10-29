@@ -14,6 +14,24 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataDeity;
+import eternity.DataTypes.DataDomain;
+import eternity.DataTypes.DataExo;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechPerm;
+import eternity.DataTypes.DataTechnical;
+import eternity.DataTypes.DataTraining;
+import eternity.DataTypes.DataVow;
+
 public class StoreRuleData {
     private static final String CLASSPATH_DATA_DIR = "Data/";
     private static final Path DATA_PATH = AppPaths.dataDir();

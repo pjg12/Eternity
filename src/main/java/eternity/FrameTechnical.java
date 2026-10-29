@@ -23,6 +23,9 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechnical;
 import eternity.Minions.CharMinions;
 import eternity.Minions.MinionSlotState;
 

@@ -10,6 +10,8 @@
     "birthdayManual" : true,
     "race" : "Ardian",
     "charRacePick" : [ ],
+    "gaianTrainingAttributes" : [ ],
+    "gaianTrainingSpecialties" : [ ],
     "charClass" : "Paladin",
     "charSubclass" : "Zealot",
     "charClassPick" : [ "Grace", "Courage", "Peace" ],
@@ -24,7 +26,7 @@
     "physical" : "",
     "personality" : "",
     "notes" : "",
-    "updated" : "2026-06-23T00:29:18.330+0000",
+    "updated" : "2026-10-29T23:23:14.597+0000",
     "createdAt" : "2026-06-23T00:29:02.165+0000",
     "lastLevelUp" : "2026-06-23T00:29:02.165+0000",
     "timeSinceLastLevel" : "PT0S"
@@ -35,8 +37,12 @@
     "spentR1" : 0.0,
     "spentR2" : 0.0,
     "spentR3" : 0.0,
+    "spentAggressiveTactics" : 0.0,
+    "spentDefensiveTactics" : 0.0,
+    "spentStrategicTactics" : 0.0,
     "spentAngelPoints" : 0.0,
     "spentReactions" : 0.0,
+    "occupiedR1" : 0.0,
     "mainOccupiedAura" : 0.0,
     "grantOccupiedAura" : 0.0,
     "shield" : 0.0,
@@ -54,7 +60,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEHP",
-      "severity" : 2.0,
+      "severity" : 0.6,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -87,7 +93,7 @@
       "affinity" : "None",
       "description" : "Derived from Constitution",
       "attribute" : "MULTIHP",
-      "severity" : 0.5,
+      "severity" : 0.2,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -112,7 +118,7 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BASEAURA",
-      "severity" : 16.0,
+      "severity" : 18.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -145,7 +151,7 @@
       "affinity" : "None",
       "description" : "Derived from Capacity",
       "attribute" : "MULTIAURA",
-      "severity" : 0.7,
+      "severity" : 1.3,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -231,6 +237,14 @@
       "severity" : 0.0,
       "durationType" : "Passive",
       "duration" : 0
+    }, {
+      "name" : "ClassLevelR2",
+      "affinity" : "None",
+      "description" : "Level-based base value for Resource 2",
+      "attribute" : "BASER2",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
     } ], [ {
       "name" : "Base",
       "affinity" : "None",
@@ -277,6 +291,14 @@
       "name" : "Base",
       "affinity" : "None",
       "description" : "None",
+      "attribute" : "BASER3",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "ClassLevelR3",
+      "affinity" : "None",
+      "description" : "Level-based base value for centered Class Resource 3 (Temperance/Entropy)",
       "attribute" : "BASER3",
       "severity" : 0.0,
       "durationType" : "Passive",
@@ -1136,7 +1158,7 @@
       "affinity" : "None",
       "description" : "Derived from Strength / Constitution",
       "attribute" : "BFORT",
-      "severity" : 5.75,
+      "severity" : 11.5,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1174,9 +1196,9 @@
     }, {
       "name" : "Attribute",
       "affinity" : "None",
-      "description" : "Derived from Control / Capacity",
+      "description" : "Derived from Dexterity / Focus",
       "attribute" : "BREF",
-      "severity" : 6.3,
+      "severity" : 11.5,
       "durationType" : "Passive",
       "duration" : 0
     }, {
@@ -1216,7 +1238,7 @@
       "affinity" : "None",
       "description" : "Derived from Control / Capacity",
       "attribute" : "BWILL",
-      "severity" : 6.25,
+      "severity" : 12.5,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -1611,6 +1633,14 @@
       "description" : "None",
       "attribute" : "BELEC",
       "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Training Passive: TechPerm 261 [ELEC] (T25000)",
+      "affinity" : "None",
+      "description" : "Tech permission grant",
+      "attribute" : "BELEC",
+      "severity" : 2.004,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2232,6 +2262,14 @@
       "durationType" : "Passive",
       "duration" : 0
     }, {
+      "name" : "Class Resource 3",
+      "affinity" : "None",
+      "description" : "Class Resource 3 modifies Attack by its current value",
+      "attribute" : "BATK",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
       "name" : "Equip Passive: Warhammer #1",
       "affinity" : "None",
       "description" : "Equipment passive bonus",
@@ -2346,9 +2384,9 @@
     } ] ], [ [ {
       "name" : "Base",
       "affinity" : "None",
-      "description" : "Class-based Range base",
+      "description" : "Generalized Range base",
       "attribute" : "BRANGE",
-      "severity" : 8.0,
+      "severity" : 20.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -2436,6 +2474,30 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "BMAXATK",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BRESDISP",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BRESDISP",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BRESDISP",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -2629,6 +2691,30 @@
       "affinity" : "None",
       "description" : "None",
       "attribute" : "MMAXATK",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MRESDISP",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MRESDISP",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MRESDISP",
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
@@ -2857,6 +2943,54 @@
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDUR",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDUR",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BDUR",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSHD",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSHD",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "BSHD",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
     } ] ] ],
     "mSecondary" : [ [ [ {
       "name" : "Base",
@@ -3074,6 +3208,54 @@
       "severity" : 0.0,
       "durationType" : "Temporary",
       "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MDUR",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MDUR",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MDUR",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
+    } ] ], [ [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSHD",
+      "severity" : 0.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSHD",
+      "severity" : 0.0,
+      "durationType" : "Maintained",
+      "duration" : 0
+    } ], [ {
+      "name" : "Base",
+      "affinity" : "None",
+      "description" : "None",
+      "attribute" : "MSHD",
+      "severity" : 0.0,
+      "durationType" : "Temporary",
+      "duration" : 0
     } ] ] ],
     "bDamage" : [ [ [ {
       "name" : "Base",
@@ -3105,6 +3287,14 @@
       "description" : "Level-based base damage",
       "attribute" : "BBDMG",
       "severity" : 2.0,
+      "durationType" : "Passive",
+      "duration" : 0
+    }, {
+      "name" : "Class Resource 3",
+      "affinity" : "None",
+      "description" : "Class Resource 3 modifies Base Damage by 2 x its current value",
+      "attribute" : "BBDMG",
+      "severity" : -0.0,
       "durationType" : "Passive",
       "duration" : 0
     } ], [ {
@@ -3591,9 +3781,7 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "PIERCE",
-      "attack" : "AC"
+      "aug" : 0
     }, {
       "did" : 8003,
       "iid" : -1,
@@ -3616,9 +3804,7 @@
       "store" : 0,
       "oil" : 0,
       "mod" : 0,
-      "aug" : 0,
-      "damage" : "BLUNT",
-      "attack" : "AC"
+      "aug" : 0
     }, {
       "did" : 3001,
       "iid" : -1,
@@ -3683,85 +3869,111 @@
     "trainingByCategory" : {
       "standard" : [ {
         "id" : 61,
+        "name" : "Boost",
         "rank" : 1
       }, {
         "id" : 62,
+        "name" : "Harden",
         "rank" : 1
       }, {
         "id" : 63,
+        "name" : "Prism",
         "rank" : 1
       }, {
         "id" : 64,
+        "name" : "Shape",
         "rank" : 1
       }, {
         "id" : 65,
+        "name" : "Zone",
         "rank" : 1
       } ],
       "fundamental" : [ {
         "id" : 51,
+        "name" : "Benefaction",
         "rank" : 0
       }, {
         "id" : 52,
+        "name" : "Emission",
         "rank" : 0
       }, {
         "id" : 53,
+        "name" : "Manifestation",
         "rank" : 0
       }, {
         "id" : 54,
+        "name" : "Potency",
         "rank" : 0
       }, {
         "id" : 55,
+        "name" : "Transmutation",
         "rank" : 0
       } ],
       "electricity" : [ {
         "id" : 25000,
+        "name" : "Aura Affinity (Electricity)",
         "rank" : 2
       } ],
       "attribute" : [ {
         "id" : 1,
+        "name" : "Strength Training",
         "rank" : 0
       }, {
         "id" : 2,
+        "name" : "Dexterity Training",
         "rank" : 0
       }, {
         "id" : 3,
+        "name" : "Constitution Training",
         "rank" : 0
       }, {
         "id" : 4,
+        "name" : "Focus Training",
         "rank" : 0
       }, {
         "id" : 5,
+        "name" : "Control Training",
         "rank" : 0
       }, {
         "id" : 6,
+        "name" : "Capacity Training",
         "rank" : 0
       }, {
         "id" : 7,
+        "name" : "Knowledge Training",
         "rank" : 0
       }, {
         "id" : 8,
+        "name" : "Mechanical Training",
         "rank" : 0
       }, {
         "id" : 9,
+        "name" : "Perception Training",
         "rank" : 0
       }, {
         "id" : 10,
+        "name" : "Intuition Training",
         "rank" : 0
       }, {
         "id" : 11,
+        "name" : "Charisma Training",
         "rank" : 0
       }, {
         "id" : 12,
+        "name" : "Subtlety Training",
         "rank" : 0
       } ],
       "misc" : [ {
         "id" : 21,
+        "name" : "Skill Training",
         "rank" : 0
       }, {
         "id" : 22,
+        "name" : "Specialty Training",
         "rank" : 0
       }, {
         "id" : 24,
+        "name" : "Race Training",
         "rank" : 1
       } ]
     }
@@ -3781,6 +3993,15 @@
     "rootTokens" : 0,
     "damageDealtThisTurn" : 0.0,
     "shufflePool" : 0.0,
+    "streamValue" : 0.0,
+    "auraSpentThisTurn" : 0.0,
+    "breakerComboAttacksThisTurn" : 0,
+    "adaptiveTechniqueBonuses" : { },
+    "overchargeActiveThisTurn" : false,
+    "temperanceAbilityUsedThisTurn" : false,
+    "tacticsAbilityUsedThisTurn" : false,
+    "flashMobPendingRefund" : false,
+    "classResource3Overflow" : 0,
     "combatStatus" : [ ],
     "standardSpellAction" : {
       "id" : 102,
@@ -3805,10 +4026,28 @@
     }
   },
   "reminderSelections" : {
-    "Domain Emanation" : "Off"
+    "Domain Emanation" : "Off",
+    "class.specialty.choice.2011" : "Courage",
+    "class.specialty.choice.2012" : "Peace"
   },
   "domainEmanationEnabled" : false,
-  "panelReminder" : "Domain Emanation::On|Off",
+  "panelReminder" : "Domain Emanation: 9.5ft",
   "enhancedEngineeringRankGranted" : false,
-  "lists" : [ [ ] ]
+  "divineAttunementGrantedAffinities" : [ ],
+  "divineAttunementGrantedWeaponProficiency" : "",
+  "gaianAvailableTrainingAttributes" : [ "STR", "DEX", "CON", "FOC", "CTL", "CAP", "KNOW", "MECH", "PERC", "INT", "CHA", "SUB" ],
+  "lists" : [ [ ], [ ], [ ], [ ] ],
+  "displacementResistance" : 0.0,
+  "recoverableTacticTypes" : [ ],
+  "gaianChosenAttributeKeys" : [ ],
+  "gaianTrainingSpecialtyNames" : [ ],
+  "unlockedMinionSlotTitles" : [ ],
+  "baseSize" : "Medium",
+  "sizeShift" : 0,
+  "effectiveSize" : "Medium",
+  "inherentUnderstandingMaxRankBonus" : 0,
+  "minions" : {
+    "minionSlots" : [ ]
+  },
+  "drones" : [ ]
 }

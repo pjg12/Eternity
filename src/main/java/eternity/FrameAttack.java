@@ -38,6 +38,16 @@ import javax.swing.UIManager;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataDomain;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechnical;
+import eternity.DataTypes.DataTraining;
 import websocket.Roll20WebSocketServer;
 import websocket.events.Roll20Token;
 

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import eternity.DataTypes.DataAction;
+
 /**
  * Builds ScriptCard effect summaries and pasteable status codes for
  * Mitigation / Support / Apply aura techniques from action modifierKey data.

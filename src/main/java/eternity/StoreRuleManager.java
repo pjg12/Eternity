@@ -11,6 +11,23 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataDeity;
+import eternity.DataTypes.DataDomain;
+import eternity.DataTypes.DataExo;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataTechPerm;
+import eternity.DataTypes.DataTechnical;
+import eternity.DataTypes.DataTraining;
+import eternity.DataTypes.DataVow;
+
 public class StoreRuleManager {
     private static final StoreRuleData RULE_DATA = new StoreRuleData();
     private static final QueryIndex QUERY_INDEX = new QueryIndex(RULE_DATA);

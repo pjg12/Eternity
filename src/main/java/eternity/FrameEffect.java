@@ -21,6 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataTraining;
+
 /**
  * Helper for Mitigation / Support / Apply techniques: shows resolved effects
  * and copies a ScriptCard with summary + pasteable status code.

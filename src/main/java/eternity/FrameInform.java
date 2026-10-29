@@ -26,6 +26,10 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTraining;
 import eternity.Minions.MinionCombatState;
 
 /**

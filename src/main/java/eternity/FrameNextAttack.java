@@ -29,6 +29,12 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechnical;
+import eternity.DataTypes.DataTraining;
 import websocket.Roll20WebSocketServer;
 import websocket.events.Roll20Token;
 

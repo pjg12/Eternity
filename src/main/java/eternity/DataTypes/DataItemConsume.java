@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 /**
  * A DataItemConsume represents a consumable inventory item.

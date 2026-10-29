@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import eternity.DataTypes.DataStatus;
+
 /**
  * Strict parser for shorthand effect codes.
  *

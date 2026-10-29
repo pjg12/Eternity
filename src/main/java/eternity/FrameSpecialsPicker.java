@@ -26,6 +26,12 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataVow;
+
 /**
  * Prompts for any additional choice text a specialty requires before it is granted.
  */

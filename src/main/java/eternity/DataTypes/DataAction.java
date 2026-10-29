@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import eternity.CharAttributes;
+import eternity.StoreCharData;
+import eternity.StoreRuleManager;
 import websocket.Roll20WebSocketServer;
 import websocket.events.Roll20Token;
 

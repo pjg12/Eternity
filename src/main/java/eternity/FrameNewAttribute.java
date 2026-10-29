@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataStatus;
+
 public class FrameNewAttribute extends JFrame {
 
     // References

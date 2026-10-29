@@ -26,6 +26,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+
 public class FrameExp extends JFrame {
     private static final long serialVersionUID = 1L;
 

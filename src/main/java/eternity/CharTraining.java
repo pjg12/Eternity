@@ -15,6 +15,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTraining;
+
 /**
  * Tracks character affinities, domains, and all learned / trainable Aura Techniques.
  */

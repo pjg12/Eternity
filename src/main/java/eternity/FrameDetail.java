@@ -25,6 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import eternity.DataTypes.DataClass;
+
 /**
  * Lightweight details editor for a character's identity.
  * Replaces the legacy FrameHelper-based implementation.

@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 import eternity.CharAttributes;
 import eternity.CharCombat;
-import eternity.DataAction;
-import eternity.DataClass;
-import eternity.DataLevel;
-import eternity.DataStatus;
 import eternity.StoreCharData;
 import eternity.StoreRuleManager;
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataStatus;
 
 /**
  * Leader minion slots and runtime combat actors.

@@ -34,6 +34,7 @@ import javax.swing.KeyStroke;
 
 import javax.swing.SwingUtilities;
 
+import eternity.DataTypes.DataColor;
 import websocket.Roll20WebSocketServer;
 import websocket.events.IncomingAttackEvent;
 

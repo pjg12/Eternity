@@ -28,6 +28,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataDeity;
+import eternity.DataTypes.DataSpecialty;
+
 /**
  * Allows the user to make class-based choices during character creation
  */

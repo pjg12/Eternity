@@ -35,6 +35,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import eternity.DataTypes.DataStatus;
+
 public class FrameStatus extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("0.##");

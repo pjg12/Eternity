@@ -33,6 +33,12 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import java.awt.Font;
 import javax.swing.text.NumberFormatter;
+
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+
 import javax.swing.text.DefaultFormatterFactory;
 
 /*

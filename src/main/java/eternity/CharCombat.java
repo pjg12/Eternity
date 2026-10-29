@@ -12,6 +12,11 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTraining;
+
 /**
  * Lightweight combat subsystem for a character.
  * Tracks encounter state and temporary combat statuses (round/turn scoped).

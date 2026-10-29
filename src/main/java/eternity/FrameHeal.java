@@ -23,6 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataTraining;
+
 public class FrameHeal extends JFrame {
 	private static final long serialVersionUID = 1L;
 

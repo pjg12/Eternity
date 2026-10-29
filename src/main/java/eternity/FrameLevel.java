@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
+import eternity.DataTypes.DataSpecialty;
+
 public class FrameLevel extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String SHIFTER_COMPLEXITY_SPECIALTY = "Complexity I";

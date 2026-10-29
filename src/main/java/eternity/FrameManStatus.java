@@ -26,6 +26,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import eternity.DataTypes.DataSkill;
+
 public class FrameManStatus extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final String[] RESOURCE_KEYS = {

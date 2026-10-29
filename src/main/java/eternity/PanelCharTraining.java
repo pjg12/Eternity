@@ -20,6 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataTraining;
+
 /*
  * 		TRAINING PANEL
  */

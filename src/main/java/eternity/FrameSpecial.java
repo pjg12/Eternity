@@ -14,6 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+
 /**
  * Handles specialty selection controls and applying the selected specialty.
  */

@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.text.JTextComponent;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataList;
 import eternity.Minions.CharMinions;
 import eternity.Minions.MinionSlotState;
 

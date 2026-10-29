@@ -1,6 +1,8 @@
-package eternity;
+package eternity.DataTypes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import eternity.StoreRuleManager;
 
 /**
  * A DataItemWeapon represents a weapon item.

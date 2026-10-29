@@ -7,6 +7,10 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+
 /**
  * Manages a character's inventory, currency, equipment, and proficiencies.
  */

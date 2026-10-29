@@ -43,6 +43,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+
 /*
  * 		INVENTORY PANEL
  */

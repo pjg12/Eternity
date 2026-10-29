@@ -24,6 +24,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataTraining;
+
 /**
  * Character Creation Wizard
  */

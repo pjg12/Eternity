@@ -9,6 +9,8 @@ import java.util.function.Predicate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import eternity.DataTypes.DataStatus;
+
 public class StatBlock {
 
     /*private final TrackedStatusList status = new TrackedStatusList();

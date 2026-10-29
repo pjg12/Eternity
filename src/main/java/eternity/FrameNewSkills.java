@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataSkill;
+
 /**
  * Skill selection window: pick 3 skills, each tied to an attribute.
  */

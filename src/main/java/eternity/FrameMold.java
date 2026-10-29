@@ -19,6 +19,12 @@ import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataTraining;
+
 /**
  * Helper frame for selecting molds to activate from a character's Molds list.
  */

@@ -19,6 +19,9 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import eternity.DataTypes.DataItem;
+import eternity.DataTypes.DataItemEquipment;
+
 /**
  * Inventory add helper frame. Lets the user search item templates and add one to a character inventory.
  */

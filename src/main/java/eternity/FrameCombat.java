@@ -42,7 +42,15 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import eternity.DataItemWeapon;
+
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataColor;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataStatus;
+import eternity.DataTypes.DataTechnical;
+import eternity.DataTypes.DataTraining;
 import eternity.Minions.MinionCombatState;
 import eternity.Minions.MinionSlotState;
 import websocket.Roll20WebSocketServer;

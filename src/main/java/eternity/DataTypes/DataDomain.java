@@ -1,4 +1,4 @@
-package eternity;
+package eternity.DataTypes;
 
 import java.util.Arrays;
 

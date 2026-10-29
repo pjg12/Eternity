@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import eternity.DataTypes.DataClass;
+import eternity.DataTypes.DataStatus;
+
 /**
  * Basic attribute data for a character.
  */

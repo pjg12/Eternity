@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import eternity.DataTypes.DataSpecialty;
+
 public class SpecCheck {
     private List<DataSpecialty> characterSpecialties;
     private CharInventory inventory;

@@ -28,6 +28,15 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataItemEquipment;
+import eternity.DataTypes.DataItemWeapon;
+import eternity.DataTypes.DataLevel;
+import eternity.DataTypes.DataList;
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSkill;
+import eternity.DataTypes.DataSpecialty;
+import eternity.DataTypes.DataTraining;
+
 
 
 public class FrameTraining extends JFrame {

@@ -24,6 +24,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import eternity.DataTypes.DataRace;
+import eternity.DataTypes.DataSpecialty;
+
 /**
  * Data-driven race picker with String keys, modeled after FrameNewClassPicker.
  */

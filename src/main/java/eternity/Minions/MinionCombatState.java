@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import eternity.CharCombat;
-import eternity.DataAction;
-import eternity.DataStatus;
+import eternity.DataTypes.DataAction;
+import eternity.DataTypes.DataStatus;
 
 /**
  * Independent combat state for one summoned minion actor.
